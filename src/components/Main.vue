@@ -4,16 +4,16 @@
       <el-container class="nav">
         <el-row>
           <nav class="navbar" >
-              <el-col :span="10">
+              <el-col :span="11">
                 <div class="grid-content" >
                   <div class="navbar-brand" >
                     <a class="navbar-item pointer" @click="goMain">
                       <icon-base
                         fill="none"
                         class="icon logo"
-                        width="44"
+                        width="30"
                         height="30"
-                        viewBox="0 0 13 30"
+                        viewBox="0 0 30 30"
                         icon-name="logo"><icon-logo />
                       </icon-base>
                       <icon-base
@@ -43,7 +43,7 @@
               </div>
 
               </el-col>
-              <el-col :span="13">
+              <el-col :span="14">
                 <nav-bar-menu :user="main_user"></nav-bar-menu>
               </el-col>
             </nav>

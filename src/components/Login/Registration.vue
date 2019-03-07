@@ -130,88 +130,110 @@
 </script>
 
 <style lang="scss">
-    #sign {
-
-    }
-    .el-main {
-
-    }
-
-    .login-box {
-        .el-button, h3 {
-            color: #4B97B4;
-        }
-    }
-    .errorFields {
-      border-width: 0.9px;
-      border-color: #ff000d;
-      border-style: solid;
-      border-radius: 5px;
-    }
-    html {
-        background: #ffffff;
-    }
-
     #registration {
-      .errors-block {
-            padding-left: 25px;
-      }
-      .el-form-item {
-        margin-bottom: 0px !important;
-        padding-bottom: 10px;
-          .el-form-item__content {
-              line-height: 25px;
-              position: relative;
-              font-size: 14px;
-          }
-      }
-      .error {
-        color: #f50217;
-        font-size: 12px;
-        line-height: 1;
-      }
-        display: flex;
-        align-items: center;
-        background: #ffffff;
+
+
+        .el-main {
+            margin: 0 !important;
+        }
+
+        .el-row {
+
+            background: #FFFFFF;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+
+        }
+
         .login-box {
-          display: flex;
-          justify-content: center;
-          align-items: center;
+            .el-button, h3 {
+                color: #4B97B4;
+            }
         }
-        .login, .registration {
-            width: 366px;
-            margin: 10px;
 
+        .errorFields {
+            border-width: 0.9px;
+            border-color: #ff000d;
+            border-style: solid;
+            border-radius: 5px;
         }
-    }
 
-    .navbar-brand {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        align-content: center;
-        .navbar-item {
-            text-decoration: none;
+        html {
+            background: #ffffff;
+        }
+
+        #registration {
+            .errors-block {
+                padding-left: 25px;
+            }
+
+            .el-form-item {
+                margin-bottom: 0px !important;
+                padding-bottom: 10px;
+
+                .el-form-item__content {
+                    line-height: 25px;
+                    position: relative;
+                    font-size: 14px;
+                }
+            }
+
+            .error {
+                color: #f50217;
+                font-size: 12px;
+                line-height: 1;
+            }
+
             display: flex;
             align-items: center;
+            background: #ffffff;
+
+            .login-box {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
+
+            .login, .registration {
+                width: 366px;
+                margin: 10px;
+
+            }
+        }
+
+        .navbar-brand {
+            display: flex;
+            justify-content: center;
+            align-items: center;
             align-content: center;
-            flex-direction: row;
-            g {
-              fill:none;
-            }
-            img {
-                width: 41.67px;
-                height: 30px;
-            }
-            span {
-                font-family: ABeeZee;
-                font-style: normal;
-                font-weight: normal;
-                line-height: 18px;
-                font-size: 18px;
-                letter-spacing: -0.3px;
-                color: #4B97B4;
-                margin-left: 6.33px;
+
+            .navbar-item {
+                text-decoration: none;
+                display: flex;
+                align-items: center;
+                align-content: center;
+                flex-direction: row;
+
+                g {
+                    fill: none;
+                }
+
+                img {
+                    width: 41.67px;
+                    height: 30px;
+                }
+
+                span {
+                    font-family: ABeeZee;
+                    font-style: normal;
+                    font-weight: normal;
+                    line-height: 18px;
+                    font-size: 18px;
+                    letter-spacing: -0.3px;
+                    color: #4B97B4;
+                    margin-left: 6.33px;
+                }
             }
         }
     }

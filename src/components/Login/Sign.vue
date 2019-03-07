@@ -125,6 +125,23 @@
         display: flex;
         align-items: center;
         background: #ffffff;
+        .el-main {
+
+            background: #FFFFFF;
+
+        }
+        .el-row {
+
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        .el-button {
+
+            margin-right: 5px;
+
+        }
         .login-box {
           display: flex;
           justify-content: center;

@@ -21,7 +21,7 @@ export default {
   },
   methods : {
     update(selected) {
-      this.$store.dispatch('user/getUserLocale', selected).then(() => {
+      axios.post(`/api/rest/locale/change/${selected}`).then(() => {
         this.$store.dispatch('lang/getLocaleString')
       });
     }

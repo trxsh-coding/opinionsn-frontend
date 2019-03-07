@@ -228,7 +228,7 @@ export default {
       background-color: #ffffff !important;
     }
     .plus {
-      margin-right: 10px;
+      margin-right: 22px;
     }
     a {
         text-decoration: none;
@@ -257,14 +257,16 @@ export default {
     margin-right: 5px;
     background-position: top;
   }
+
+.is-fixed {
+  position: absolute;
+  top: 15px !important;
+  right: 5px !important;
+}
   .el-badge{
-    margin-right: 15px;
+    margin-right: 22px;
     display: inline-flex;
-      margin-bottom: 5px;
-    .is-fixed {
-      top: 2px;
-      right: 7px;
-    }
+    margin-top: 5px;
     .el-badge__content {
       background-color: #FF5454;
       border-radius: 10px;

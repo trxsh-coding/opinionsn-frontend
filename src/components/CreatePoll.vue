@@ -20,7 +20,7 @@
 
             <div class="subject-header">
 
-                <el-form-item label="Напишите заголовок" prop="subject" class="subject-form-item" :rules="[{ required: true, message: lstr('enter_subject_name') , trigger: 'blur' }, { min: 2 , max: 255, message: lstr('length_should_be_3_to_255'), trigger: 'blur' }]" >
+                <el-form-item label="Напишите заголовок" prop="subject" class="subject-form-item" :rules="[{ required: true, message: lstr('enter_subject_name') , trigger: 'blur' }, { min: 2 , max: 1000, message: lstr('length_should_be_3_to_255'), trigger: 'blur' }]" >
 
                     <el-input type="textarea" autosize size="small" class="second-option width-90" v-model="pollForm.subject" ></el-input>
 
