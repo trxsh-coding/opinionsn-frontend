@@ -1,0 +1,253 @@
+<template>
+    <div class="options-block " @click="vote(option.id, option.poll_id)" :class="{cursor : item.voted, opacity  : poll.votingOver, normalOpacity : correct_option}">
+        <div class="option-picture" :style="{ 'background-image': 'url(' + option.picture + ')' }"></div>
+        <div class="option-container  relative"  >
+            <div class="option-id">
+                <span class="span-id">{{option_index + 1}}</span>
+            </div>
+            <div class="description-right-section">
+                <div class="option-description" >
+                    <span>{{option.description}}</span>
+                </div>
+                <div class="progress-bar">
+                    <el-progress  v-if="item.voted" :stroke-width="3" :percentage="option.voted_percentage" color="#152D3A" v-bind:class="{ selected: selected_option, correct: correct_option }"></el-progress>
+                </div>
+            </div>
+        </div>
+        <div class="option-bows-pictures" >
+            <poll-option-heads :limit="3" :option="option"/>
+        </div>
+    </div>
+</template>
+
+<script>
+    import { mapState } from 'vuex';
+    import langString from '../../../../langString.vue'
+    import PollOptionHeads from '../../../../PollOptionHeads.vue'
+
+    export default {
+        data: () => ({
+
+
+        }),
+
+        name: "optionsWithPictures",
+        props: ['option', 'item','option_index', 'poll', 'correctOption'],
+        computed: {
+            /**
+             * Defines whether poll can expand (or even needs to)
+             */
+
+            ...mapState('user',{
+                user : state => state.User
+            }),
+
+            // author: function(){
+            //     return this.poll.author;
+            // },
+
+            selected_option: function () {
+
+                let {item, option} = this;
+
+                let selected_option;
+
+
+                if (item.selectedOption == option.id) {
+
+
+                 return selected_option = true;
+
+                }
+
+
+            },
+
+            correct_option: function () {
+
+                let {correctOption, option} = this;
+
+                let correct_option;
+
+
+                if (option.id === correctOption) {
+
+
+                    return correct_option = true;
+
+                }
+
+
+            }
+
+
+        },
+
+        methods: {
+
+            vote(selected_variable, poll_id){
+
+                if (!this.item.voted && !this.poll.votingOver) {
+
+                    if(this.$route.name === 'pollFeed') {
+
+                        this.$store.dispatch(`pollFeed/createVote`, {data: {selected_variable, poll_id}});
+
+
+                    } else if(this.$route.name === 'bookmarkFeed') {
+
+                        this.$store.dispatch(`bookmarkFeed/createVote`, {data: {selected_variable, poll_id}});
+
+
+                    } else {
+
+                        this.$store.dispatch(`singlePoll/createVote`, {data: {selected_variable, poll_id}});
+
+
+                    }
+
+                }
+
+
+            },
+
+        },
+
+        components: {
+            langString,
+            PollOptionHeads
+
+        },
+
+    }
+
+</script>
+
+<style lang="scss">
+    .options-block {
+        cursor: pointer;
+        .cursor {
+
+            cursor: auto;
+
+        }
+
+        .selected {
+
+            .el-progress-bar__inner {
+
+                background-color: #4B97B4 !important;
+
+            }
+            .el-progress__text {
+
+                color: #4B97B4;
+
+            }
+        }
+
+
+
+        .correct {
+
+            .el-progress-bar__inner {
+
+                background-color: #4FAC40 !important;
+
+            }
+            .el-progress__text {
+
+                color:#4FAC40 !important;
+
+            }
+
+        }
+
+        .option-bows-pictures {
+            position: absolute;
+            top: -2px;
+            right: 8px;
+        }
+        .option-picture {
+            height: 168px;
+            width: 232px;
+            background-repeat: no-repeat;
+            background-size: cover;
+            background-position: center;
+            border-radius: 6px 6px 0px 0px;
+        }
+
+        .option-container {
+
+            background: #FFFFFF;
+            box-shadow: 0px 0px 9px rgba(0, 0, 0, 0.05);
+            border-radius: 0 0 6px 6px;
+            display: flex;
+            height: 48px;
+            width: 232px;
+
+            .option-description {
+
+                padding-top: 11px;
+                word-break: break-word;
+                height: 25px;
+                margin-right: 41px;
+                display: flex;
+                align-items: center;
+                padding-right: 7px;
+                span {
+                    font-family: Roboto;
+                    font-style: normal;
+                    font-weight: normal;
+                    line-height: 14px;
+                    font-size: 12px;
+                    letter-spacing: -0.1px;
+                    color: #152D3A;
+                }
+
+            }
+
+            .option-id {
+                display: flex;
+                align-items: center;
+                background: #FFFFFF;
+                box-shadow: 3px 0px 12px rgba(56, 56, 56, 0.06);
+                border-radius: 6px 0px 0px 6px;
+
+            }
+
+            .description-right-section {
+
+                width: 100%;
+                .el-progress-bar {
+                    width: 120%;
+                }
+                .el-progress__text {
+
+                    position: absolute;
+                    right: 11px;
+                    bottom: 21px;
+
+                }
+                .progress-bar {
+
+                    position:absolute;
+                    width: 198px;
+                    bottom: -2px;
+                }
+            }
+
+
+            .option-id, .description-right-section {
+
+                padding: 0 8.5px;
+                line-height: 14px;
+
+            }
+
+        }
+
+    }
+
+
+</style>

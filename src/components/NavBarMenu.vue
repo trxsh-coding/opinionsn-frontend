@@ -1,0 +1,291 @@
+<template lang="html">
+  <div id="navbar-profile-menu">
+    <div class="profile-menu" >
+      <router-link to="/add">
+        <icon-base
+          class="plus"
+          width="15"
+          height="15"
+          viewBox="0 0 15 15"
+          icon-name="plus"><icon-plus />
+        </icon-base>
+      </router-link>
+        <el-badge :value="0"  class="item">
+          <icon-base
+                  width="17"
+                  height="22"
+                  viewBox="0 0 17 23"
+                  icon-name="bell"><icon-bell />
+          </icon-base>
+        </el-badge>
+        <el-badge :value="0"  class="item">
+          <icon-base
+                  width="21"
+                  height="21"
+                  viewBox="0 0 21 21"
+                  icon-name="pocket"><icon-pocket />
+          </icon-base>
+        </el-badge>
+        <div class="pocket-money">
+          <icon-base
+            fill="#162D3A"
+            width="8"
+            height="10"
+            viewBox="0 0 8 10"
+            icon-name="union"><icon-union />
+          </icon-base>
+          <span >0 000 000</span>
+          <icon-base
+            class="icon-eye"
+            fill="#162D3A"
+            width="14"
+            height="10"
+            viewBox="0 0 14 8"
+            icon-name="eye"><icon-eye />
+          </icon-base>
+        </div>
+
+      <div class="profileAvatar pointer" @click="userLink(user.id)" :style="{ 'background-image': 'url('+ user.path_to_avatar + ')' }"> </div>
+     <el-dropdown trigger="click">
+       <span class="el-dropdown-link">
+         <icon-base
+                 class="dropdown-icon"
+                 fill="none"
+                 width="8"
+                 height="6"
+                 viewBox="0 0 8 6"
+                 icon-dropdown="icon-dropdown"><icon-dropdown />
+          </icon-base>
+       </span>
+       <el-dropdown-menu slot="dropdown" :hide-timeout="1000">
+         <el-dropdown-item class="clearfix">
+           <a >
+             <div class="to-followers" @click="followersLink(user.id)">
+               <lang-string :title="'followings'"/>
+             </div>
+           </a>
+         </el-dropdown-item>
+         <el-dropdown-item class="clearfix">
+           <router-link to="/catalogList">
+             <div class="to-followers">
+               <lang-string :title="'topics'"/>
+             </div>
+           </router-link>
+         </el-dropdown-item>
+         <el-dropdown-item class="clearfix">
+           <router-link to="/login">
+              <div  @click="userLogout">
+                <lang-string :title="'exit'"/>
+              </div>
+           </router-link>
+         </el-dropdown-item>
+       </el-dropdown-menu>
+     </el-dropdown>
+
+    </div>
+</div>
+</template>
+
+<script>
+import { mapActions } from 'vuex';
+import { mapState } from 'vuex';
+import axios from 'axios';
+import IconBase from './icons/IconBase.vue'
+import IconPlus from './icons/IconPlus.vue'
+import IconBell from './icons/IconBell.vue'
+import IconPocket from './icons/IconPocket.vue'
+import IconUnion from './icons/IconUnion.vue'
+import IconEye from './icons/IconEye.vue'
+import IconTextLogo from './icons/IconTextLogo.vue'
+import langString from './langString.vue'
+import IconDropdown from './icons/IconDropdown.vue'
+
+export default {
+  props:['user'],
+  data(){
+    return {
+
+    }
+  },
+  computed: {
+
+    ...mapState('userPage',{
+      main_user_id : state => state.main_user_id
+    }),
+
+  },
+  methods: {
+
+    userLogout() {
+
+      axios.get('/api/auth/logout')
+              .then(function(response){
+                if (response.status === 200) {
+                  this.$store.commit("authentication/setAuthenticated", false)
+                  this.$store.commit("userPage/removeUser");
+                  this.$store.commit("pollFeed/clearFeed");
+                  this.$store.commit("globalStore/clearStores")
+                  this.$router.push('/login/sign');
+                }
+              }.bind(this))
+
+    },
+
+    userLink(userId) {
+      this.$router.push({name:'user',params:{id:userId}})
+    },
+
+    followersLink(userId){
+
+      this.$router.push({name:'follows',params:{id:userId}})
+
+    }
+
+  },
+  components: {
+
+    IconUnion,
+    IconBase,
+    IconPlus,
+    IconBell,
+    IconPocket,
+    IconEye,
+    IconTextLogo,
+    langString,
+    IconDropdown
+
+  }
+}
+
+</script>
+
+<style lang="scss">
+.profile-menu {
+
+}
+
+
+.icon-eye {
+
+       margin-left: 10px;
+
+}
+.pocket-money {
+  display: flex;
+  align-items: center;
+  background: #FFFFFF;
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: 300;
+  line-height: 11px;
+  font-size: 11px;
+  letter-spacing: -0.2px;
+  color: #383838;
+  border: 0.5px solid #D0D5D9;
+  border-radius: 30px;
+  margin-right: 12px;
+  padding-left: 10px;
+  height: 18px;
+  width: 91px;
+    span {
+        padding-left: 5px;
+    }
+  svg {
+    margin-bottom: 0px;
+  }
+}
+.exit-button {
+  border: none;
+  span {
+    color:#000000;
+  }
+}
+
+.dropdown-icon {
+
+  g {
+    fill:none;
+  }
+
+}
+.el-dropdown-menu__item {
+  a {
+    text-decoration: none;
+    color: #000000;
+  }
+}
+  #navbar-profile-menu {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-left: 140px;
+
+    .profile-menu {
+      display: flex;
+      align-items: center;
+    }
+    .el-button:hover {
+      background-color: #ffffff !important;
+    }
+    .plus {
+      margin-right: 10px;
+    }
+    a {
+        text-decoration: none;
+    }
+  }
+  .add-quiz {
+          font-family: Roboto;
+          font-style: normal;
+          font-weight: normal;
+          line-height: 18px;
+          font-size: 13px;
+          font-variant: small-caps;
+          color: #152D3A;
+          padding-right: 21px;
+          text-transform: uppercase;
+  }
+  .profileAvatar {
+    width: 30px;
+    height: 30px;
+    border-radius: 1000px;
+    vertical-align: middle;
+    display: inline-flex;
+    background-repeat: no-repeat;
+    background-size: cover;
+    margin-left: 5px;
+    margin-right: 5px;
+    background-position: top;
+  }
+  .el-badge{
+    margin-right: 15px;
+    display: inline-flex;
+      margin-bottom: 5px;
+    .is-fixed {
+      top: 2px;
+      right: 7px;
+    }
+    .el-badge__content {
+      background-color: #FF5454;
+      border-radius: 10px;
+      color: #fff;
+      display: inline-block;
+      font-size: 8px;
+      height: 13px;
+      line-height: 13px;
+      padding: 0px 4px;
+      text-align: center;
+      white-space: nowrap;
+      border: 1px solid #fff;
+
+    }
+    img {
+      width: 15px;
+      height: 15px;
+      margin-left: 12px;
+    }
+  }
+  .el-icon--right {
+    margin: 0;
+  }
+</style>

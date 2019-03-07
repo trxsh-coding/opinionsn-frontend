@@ -1,0 +1,194 @@
+<template>
+<div class="avatar-uploader" @click="openDialog" >
+    <el-dialog
+            class="avatar-dialog"
+            title="Размер и позиция фотографии"
+            :visible.sync="avatarDialog"
+            :close-on-click-modal="false"
+            width="280px"
+            border-radius="12px"
+            :append-to-body="true"
+            :modal-append-to-body="false"
+            accept=".jpeg,.png"
+            :before-close="closeDialog"	>
+        <div class="cropp-wrapper">
+            <croppa v-model="croppa"
+                    class="cropp-component"
+                    @click="croppa.chooseFile()"
+                    @file-choose="handleImage(args)"
+                    disable-click-to-choose
+                    placeholder=" "
+                    :placeholder-font-size="14"
+                    :prevent-white-space="true"
+                    :width="120"
+                    :height="120"
+                    :zoom-speed="10"
+                    :show-remove-button="false"
+                    :quality="2">
+            </croppa>
+          <div class="icons-block">
+              <div class="zoom-in" @click="croppa.zoomIn()">
+                  <icon-base
+                          fill="none"
+                          width="15"
+                          height="15"
+                          viewBox="0 0 15 15"
+                          icon-name="icon-zoom-in">
+                      <icon-zoom-in />
+                  </icon-base>
+              </div>
+              <div class="zoom-out" @click="croppa.zoomOut()">
+                  <icon-base
+                          fill="none"
+                          width="15"
+                          height="15"
+                          viewBox="0 0 15 15"
+                          icon-name="icon-zoom-out">
+                      <icon-zoom-out />
+                  </icon-base>
+              </div>
+          </div>
+        </div>
+        <span slot="footer" class="dialog-footer">
+                    <el-button class="cancel-button" @click="closeDialog">Отменить</el-button>
+                    <el-button class="save-button"  v-loading.fullscreen.lock="fullscreenLoading" type="primary" @click="uploadAvatar">Сохранить</el-button>
+                  </span>
+    </el-dialog>
+</div>
+</template>
+
+<script>
+    import {mapState} from 'vuex'
+    import IconBase from '../../../icons/IconBase'
+    import IconZoomIn from '../../../icons/IconZoomIn'
+    import IconZoomOut from '../../../icons/IconZoomOut'
+
+    export default {
+        name: "avatarUploader",
+        data(){
+            return {
+                avatarDialog:false,
+                croppa:{},
+            }
+        },
+        computed: {
+
+
+        },
+        methods: {
+
+            closeDialog(){
+
+                this.avatarDialog = false;
+            },
+
+            openDialog() {
+
+                this.avatarDialog = true;
+
+            },
+            handleImage(args){
+
+                console.log(args)
+
+            },
+
+            uploadAvatar(){
+                if (!this.croppa.hasImage()) {
+                    alert('no image to upload')
+                    return
+                }
+                this.croppa.generateBlob((blob) => {
+
+                    var fd = new FormData()
+                    fd.append('file', blob, 'filename.png');
+                    this.$store.dispatch(`userPage/uploadAvatar`, {data: fd});
+                    this.avatarDialog = false;
+                })
+
+
+            },
+
+        },
+
+        components: {
+
+            IconBase,
+            IconZoomIn,
+            IconZoomOut
+
+        }
+    }
+</script>
+
+<style lang="scss" >
+
+    .el-dialog {
+
+        border-radius: 12px;
+
+    }
+
+
+    .avatar-dialog {
+        .croppa-container {
+
+            border-radius: 100px;
+
+        }
+
+        .croppa--has-target {
+
+            border-radius: 100px;
+
+            canvas {
+
+                border-radius: 100px;
+
+            }
+        }
+
+        .cancel-button {
+
+            padding: 10px 20px;
+            border-radius: 100px;
+            background: #4b97b4;
+            color: #ffffff;
+
+        }
+        .save-button {
+
+            padding: 10px 20px;
+            border-radius: 100px;
+            background: #4b97b4;
+            color: #ffffff;
+
+        }
+        .cropp-wrapper {
+
+            display: flex;
+            .icons-block {
+
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+
+                .zoom-out, .zoom-in {
+
+                    padding: 5px;
+
+                }
+            }
+        }
+
+    }
+    .avatar-uploader {
+
+        width: 100%;
+        height: 100%;
+
+
+
+
+    }
+</style>
