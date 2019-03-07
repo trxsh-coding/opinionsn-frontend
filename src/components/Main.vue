@@ -283,6 +283,7 @@ body {
     }
 
     .el-main {
+        background: #f4f4f4;
         display: flex;
         justify-content: center;
         padding: 0;

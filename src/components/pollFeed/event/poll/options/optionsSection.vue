@@ -185,7 +185,7 @@
 
         .option-container {
             display: flex;
-            width: 371px;
+            width: 370px;
             margin-bottom: 6px;
             box-shadow: 0px 0px 9px rgba(0, 0, 0, 0.05);
             border-radius: 6px;
