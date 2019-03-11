@@ -114,7 +114,7 @@ export default {
     margin: 0px !important;
     display: flex;
     position: relative;
-    width: 84%;
+    width: 100%;
     height: 21px;
     justify-content: center;
     align-items: center;
@@ -122,11 +122,11 @@ export default {
     background-color: #ffffff;
     margin-right: 0px;
     border-radius: 0 0 12px 12px;
-    padding: 25px 19px 15px 20px;
+    height: 60px;
     .profile-avatar {
       position: absolute;
       top: -25px;
-      left: 40%;
+      left: 44%;
       width: 42px;
       height: 42px;
       border-radius: 1000px;
@@ -135,6 +135,13 @@ export default {
       background-size: cover;
       background-position: center;
     }
+
+    .main-content {
+
+        margin-top: 16px;
+
+    }
+
     .nickname-header {
       font-family: Roboto;
       font-style: normal;

@@ -1,6 +1,9 @@
 <template lang="html">
   <div id="app">
-    <el-header style=" height:48px ">
+    <el-header class="mobile-nav hidden-sm-and-up">
+        <mobile-nav />
+    </el-header>
+    <el-header class="nav-header hidden-xs-only" style=" height:48px ">
       <el-container class="nav">
         <el-row>
           <nav class="navbar" >
@@ -77,13 +80,14 @@ import { mapState } from 'vuex';
 import langString from './langString.vue'
 import {localString} from '../utils/localString.js'
 import axios from 'axios'
-
+import mobileNav from './mobileNav'
 export default {
   data(){
     return {
     links: [],
     keywords:'',
-    timeout:  null
+    timeout:  null,
+    mobile_hide: true
     }
   },
   watch: {
@@ -173,7 +177,8 @@ export default {
     IconLogo,
     IconTextLogo,
     langString,
-    IconDropdown
+    IconDropdown,
+    mobileNav
   },
 }
 </script>
@@ -196,7 +201,7 @@ body {
 
 
   }
-  .el-header {
+  .nav-header {
     background-color: #ffffff;
     line-height: 48px;
     margin-bottom: 12px;
@@ -297,6 +302,37 @@ body {
     .el-main:first-of-type {
       margin-top: 65px;
     }
+
+    @media only screen and (min-device-width : 320px) and (max-device-width : 767px) {
+
+        .el-header {
+
+            padding: 0 10px;
+
+        }
+
+        .el-main {
+
+            margin-top: 0px !important;
+
+            .el-row {
+
+                max-width: 756px !important;
+
+            }
+
+        }
+
+
+
+        .el-aside {
+
+            width: 359px !important;
+            margin-right: 0px !important;
+        }
+
+    }
+
 }
 
 </style>

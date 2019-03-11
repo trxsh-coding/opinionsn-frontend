@@ -1,11 +1,11 @@
 <template lang="html">
     <div id="left-aside">
       <profile-card></profile-card>
-      <user-statistic :id="main_user.id" :limit="1">
+      <user-statistic :id="main_user.id" :limit="1" class="hidden-xs-only">
 
       </user-statistic>
       <side-bar></side-bar>
-      <language-change />
+      <language-change class="hidden-xs-only" />
     </div>
 </template>
 
