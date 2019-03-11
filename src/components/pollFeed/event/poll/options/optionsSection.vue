@@ -179,7 +179,7 @@
             box-shadow: 0px 0px 9px rgba(0, 0, 0, 0.05);
             border-radius: 6px;
             margin-left: 3px;
-            min-width: 96px;
+            width: 96px;
             height: 48px;
         }
 
@@ -242,6 +242,22 @@
                     }
                 }
             }
+
+        }
+        @media only screen and (max-device-width : 380px)  {
+
+            .option-container {
+
+                width: 249px;
+
+            }
+
+            .option-bows {
+
+                width: 75px !important;
+
+            }
+
 
         }
     }

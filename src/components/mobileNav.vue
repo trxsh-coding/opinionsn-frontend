@@ -37,8 +37,17 @@
                     </icon-base>
                 </el-badge>
             </li>
-            <li class="nav__item"></li>
-            <li class="nav__item"></li>
+            <li class="nav__item" >
+                <avatar class="avatar-25x25" ></avatar>
+            </li>
+            <li class="nav__item" @click="$emit('hide')">
+                <icon-base
+                        width="25"
+                        height="22"
+                        viewBox="0 0 25 22"
+                        icon-name="menu"><icon-menu />
+                </icon-base>
+            </li>
         </ul>
     </div>
 </template>
@@ -49,13 +58,30 @@
     import IconOpinion from './icons/IconOpinion'
     import IconSearch from './icons/IconSearch'
     import IconBell from './icons/IconBell'
-
+    import IconMenu from './icons/IconMenu'
+    import avatar from './user/Event/modules/mainUserAvatar'
     export default {
         name: "mobileNav",
+        props:['mobile_hide'],
         data(){
             return {
+                hide: this.mobile_hide
+            }
+        },
+        computed: {
+
+
+        },
+        methods: {
+
+            changeLink: function () {
+                console.log(this.mobile_hide)
+                this.mobile_hide = !this.mobile_hide
+                console.log(this.mobile_hide)
+                this.$emit('hide', {hide: this.mobile_hide})
 
             }
+
         },
         components: {
 
@@ -63,7 +89,9 @@
             IconMain,
             IconOpinion,
             IconSearch,
-            IconBell
+            IconBell,
+            avatar,
+            IconMenu
 
         }
     }

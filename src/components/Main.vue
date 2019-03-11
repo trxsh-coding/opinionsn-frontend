@@ -1,7 +1,7 @@
 <template lang="html">
   <div id="app">
     <el-header class="mobile-nav hidden-sm-and-up">
-        <mobile-nav />
+        <mobile-nav :mobile_hide="mobile_hide" @hide="mobile_hide = !mobile_hide"/>
     </el-header>
     <el-header class="nav-header hidden-xs-only" style=" height:48px ">
       <el-container class="nav">
@@ -56,12 +56,16 @@
     <el-container class="main-container">
       <el-main>
         <el-row>
-            <el-aside width="240px">
+            <el-aside width="240px" v-if="!mobile || mobile_hide">
                 <left-bar-side :id="main_user_id"></left-bar-side>
             </el-aside>
-          <el-col class="quiz-section" :span="16">
+          <el-col class="quiz-section" :span="16" v-if="!mobile || !mobile_hide" >
             <router-view></router-view>
           </el-col>
+            <!--<el-col class="quiz-section hidden-sm-and-down" :span="16">-->
+                <!--<router-view></router-view>-->
+            <!--</el-col>-->
+
         </el-row>
       </el-main>
     </el-container>
@@ -87,7 +91,8 @@ export default {
     links: [],
     keywords:'',
     timeout:  null,
-    mobile_hide: true
+    mobile_hide: false,
+    mobile:window.innerWidth <= 767
     }
   },
   watch: {
@@ -96,6 +101,7 @@ export default {
        }
   },
   computed: {
+
     lstr(){
       return (str)=>localString(this.lang, str);
     },
@@ -120,6 +126,7 @@ export default {
       }),
       //Main user getter
 
+
       main_user:function () {
 
          let {state,userMap} = this;
@@ -132,6 +139,14 @@ export default {
 
   },
   methods: {
+
+      onHide(value){
+
+          return  this.mobile_hide = value
+          console.log(this.mobile_hide)
+
+      },
+
     goMain(){
       this.$router.push({path: '/pollFeed'})
     },
@@ -160,8 +175,14 @@ export default {
   },
 
 
+  created(){
+
+      addEventListener('resize', () => {
+          this.mobile = innerWidth <= 700
+      })
+
+  },
   beforeCreate(){
-      console.log(this)
 
       this.$store.dispatch('userPage/getMainUser');
 
@@ -303,11 +324,12 @@ body {
       margin-top: 65px;
     }
 
-    @media only screen and (min-device-width : 320px) and (max-device-width : 767px) {
+    @media only screen and (min-device-width : 320px) and (max-device-width : 765px) {
 
         .el-header {
 
             padding: 0 10px;
+            height: 44px !important;
 
         }
 
@@ -316,17 +338,20 @@ body {
             margin-top: 0px !important;
 
             .el-row {
-
-                max-width: 756px !important;
+                flex-direction: column;
+                max-width: 357px !important;
 
             }
 
         }
 
+        .quiz-section {
 
+            width: 100%;
+
+        }
 
         .el-aside {
-
             width: 359px !important;
             margin-right: 0px !important;
         }

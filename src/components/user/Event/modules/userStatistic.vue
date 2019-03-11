@@ -28,10 +28,14 @@
         <div class="user-statistic border-t" v-if="hide">
             <div v-for="(item, key, index) in items" :key="key" v-if="index <= limit" class="progress-chart flex-column">
                 <span class="header-span">{{key}}</span>
-                <el-progress class="circle-chart"  type="circle" :class="{empty : item[2] == 0}" color="#4B97B4" :percentage="item[0]"  width="60" :stroke-width="3"></el-progress>
-                <div class="border-bottom">
+                <div class="progress-border">
+                    <el-progress class="circle-chart"  type="circle" :class="{empty : item[2] == 0}" color="#4B97B4" :percentage="item[0]"  width="60" :stroke-width="3"></el-progress>
+                    <div class="border-right">
 
+                    </div>
                 </div>
+
+                <div class="border-bottom" > </div>
                 <div class="text-block">
                     <span class="black" :class="{empty : item[2] == 0}">{{item[1]}}</span> <span class="grey"> из {{item[2]}}</span>
                 </div>
@@ -173,7 +177,7 @@
             padding-top: 13px;
             .progress-chart:last-of-type {
 
-                .circle-chart {
+                .progress-border {
 
                     border:none;
 
@@ -190,6 +194,27 @@
                     border-style: solid;
                     width: 13%;
                     margin-bottom: 4px;
+
+                }
+
+                .progress-border {
+
+                    border-right-color: #D0D5D9;
+                    border-right-width: 0.5px;
+                    border-right-style: solid;
+                    padding: 0 24px;
+
+                }
+
+                .progress-border:last-of-type {
+
+                    border-right-color: #FFFFFF !important;
+
+                }
+
+                .border-right {
+
+
 
                 }
 
@@ -243,10 +268,6 @@
 
 
                 .circle-chart {
-                    padding: 0 30px;
-                    border-right-color: #D0D5D9;
-                    border-right-width: 0.5px;
-                    border-right-style: solid;
                     padding-top: 13px;
                     padding-bottom: 11px;
                     .el-progress__text {
