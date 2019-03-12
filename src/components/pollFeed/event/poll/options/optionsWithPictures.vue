@@ -1,6 +1,12 @@
 <template>
     <div class="options-block " @click="vote(option.id, option.poll_id)" :class="{cursor : item.voted, opacity  : poll.votingOver, normalOpacity : correct_option}">
-        <div class="option-picture" :style="{ 'background-image': 'url(' + option.picture + ')' }"></div>
+        <div class="option-picture" :style="{ 'background-image': 'url(' + option.picture + ')' }">
+
+            <div class="percentage-block" >
+                <span v-bind:class="{ selected: selected_option, correct: correct_option }" v-if="mobile">{{option.voted_percentage}}%</span>
+            </div>
+
+        </div>
         <div class="option-container  relative"  >
             <div class="option-id">
                 <span class="span-id">{{option_index + 1}}</span>
@@ -26,10 +32,15 @@
     import PollOptionHeads from '../../../../PollOptionHeads.vue'
 
     export default {
-        data: () => ({
+        data(){
 
+          return {
 
-        }),
+              mobile: this.$root.mobile
+
+          }
+
+        },
 
         name: "optionsWithPictures",
         props: ['option', 'item','option_index', 'poll', 'correctOption'],
@@ -113,6 +124,12 @@
 
         },
 
+        created() {
+
+         let mobile = this.$root.mobile
+
+        },
+
         components: {
             langString,
             PollOptionHeads
@@ -126,6 +143,12 @@
 <style lang="scss">
     .options-block {
         cursor: pointer;
+        .display {
+
+            display: none;
+
+
+        }
         .cursor {
 
             cursor: auto;
@@ -133,6 +156,8 @@
         }
 
         .selected {
+
+            color: #4B97B4 !important;
 
             .el-progress-bar__inner {
 
@@ -244,6 +269,74 @@
                 line-height: 14px;
 
             }
+
+        }
+        @media only screen and (max-device-width : 380px)  {
+
+
+                .option-id {
+
+                    padding: 9px !important;
+
+                }
+
+                .option-picture {
+
+                    width: 160px !important;
+                    height: 116px;
+                    display: flex;
+                    justify-content: flex-end;
+                    align-items: flex-end;
+                    .percentage-block {
+                        text-align: center;
+                        line-height: 27px;
+                        margin-right: 9px;
+                        width: 41px;
+                        height: 27px;
+                        background: #FFFFFF;
+                        border-radius: 6px 6px 0 0;
+
+                        span {
+                            font-family: Roboto;
+                            font-style: normal;
+                            font-weight: 500;
+                            line-height: 13px;
+                            font-size: 13px;
+                            text-align: center;
+                            letter-spacing: -0.2px;
+                            color: #152D3A;
+                            border-radius: 6px;
+                        }
+
+                    }
+
+                }
+
+
+
+                .option-container {
+
+                    width: 160px;
+
+                }
+
+                .progress-bar {
+
+                    width: 135px !important;
+
+                }
+
+                .el-progress__text {
+
+                    display: none;
+
+                }
+
+            .option-bows {
+
+
+            }
+
 
         }
 

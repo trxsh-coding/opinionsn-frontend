@@ -1,28 +1,28 @@
 <template>
 
-    <div class="input-explain-section "  v-if="!item.haveExplain">
+    <div class="input-explain-section relative"  v-if="!item.haveExplain">
         <el-input :disabled="!item.voted"
+                  type="textarea" autosize
                   :placeholder="item.voted ? lstr('you_can_comment_your_vote') : lstr('you_can_leave_opinion_after_voting') "
                   size="small"
                   v-model="explain_description"
                   @keyup.enter.native="saveExplain(item.id)">
         </el-input>
-
-        <div class="emoji-wrapper relative" >
-            <div class="emoji-block" @click="toogleDialogEmoji">
-                <icon-base
-                        class="emoji-icon"
-                        fill="none"
-                        width="15"
-                        height="15"
-                        viewBox="0 0 15 15"
-                        icon-name="emoji"><icon-emoji v-if="item.voted"/>
+        <span class="send__button" @click="saveExplain(item.id)">отправить</span>
+                <span class="emoji-span" @click="toogleDialogEmoji">
+                    <icon-base
+                            class="emoji-icon"
+                            fill="none"
+                            width="13"
+                            height="13"
+                            viewBox="0 0 15 15"
+                            icon-name="emoji"><icon-emoji v-if="item.voted"/>
                 </icon-base>
-            </div>
+                </span>
             <div class="emoji-block" :hidden="dialogHidden">
                 <VEmojiPicker :pack="emojisNative" @select="onSelectEmoji" :labelSearch="hide" />
             </div>
-        </div>
+
     </div>
 
 </template>
@@ -47,7 +47,7 @@
         },
         data: () => ({
             dialogHidden: true,
-            explain_description:' ',
+            explain_description:' '
         }),
         methods: {
             toogleDialogEmoji() {
@@ -96,14 +96,46 @@
 <style lang="scss">
     .input-explain-section {
 
+        .send__button {
+
+             position: absolute;
+             right: 10px;
+             bottom: 10px;
+
+             font-family: Roboto;
+             font-style: normal;
+             font-weight: normal;
+             line-height: 14px;
+             font-size: 15px;
+             text-align: right;
+             letter-spacing: -0.2px;
+             font-variant: small-caps;
+             color: #B9C0C4;
+
+
+         }
+
+        .el-textarea__inner{
+
+            overflow-y: hidden;
+            resize: none;
+            border-radius: 12px;
+            padding-right: 100px;
+        }
+
         .emoji-icon {
             position: absolute;
-            right: 10px;
-            top: 8px;
+            right: 80px;
+            bottom: 12px;
         }
         .emoji-block {
             position: absolute;
             z-index: 100000000;
+        }
+        @media only screen and (max-device-width : 380px) {
+
+
+
         }
 
     }

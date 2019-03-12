@@ -74,7 +74,6 @@ export default {
 
           .circle-chart {
 
-              padding: 12px 22px !important;
 
           }
 

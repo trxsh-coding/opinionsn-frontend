@@ -1,7 +1,7 @@
 <template>
     <div class="user-section">
         <user-header :user="user"/>
-        <user-statistic :id="id" class="hidden-sm-and-down" :limit="3"/>
+        <user-statistic :id="id"  :limit="circlesLimit"/>
         <!--<user-statistic :id="id" class="hidden-sm-and-up"  :limit="2"/>-->
         <user-feed :userId='user.id'/>
     </div>
@@ -18,7 +18,7 @@
         props:['item'],
         data(){
             return {
-
+                limit:3
             }
         },
         computed:{
@@ -28,6 +28,16 @@
                 userMap: ({users}) => users
 
             }),
+
+            circlesLimit: function() {
+
+                if (this.$root.mobile) this.limit = 2;
+
+                return this.limit
+
+
+            },
+
 
             id:function () {
 
@@ -62,7 +72,7 @@
 
         },
 
-        mounted(){
+        created(){
 
 
         }

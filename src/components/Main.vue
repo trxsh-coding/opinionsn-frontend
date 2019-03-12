@@ -92,7 +92,7 @@ export default {
     keywords:'',
     timeout:  null,
     mobile_hide: false,
-    mobile:window.innerWidth <= 767
+    mobile: this.$root.mobile
     }
   },
   watch: {
@@ -177,9 +177,7 @@ export default {
 
   created(){
 
-      addEventListener('resize', () => {
-          this.mobile = innerWidth <= 700
-      })
+
 
   },
   beforeCreate(){

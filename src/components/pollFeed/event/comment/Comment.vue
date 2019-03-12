@@ -29,7 +29,7 @@
             </div>
             <div class="comment-time">
                 <el-tooltip class="item" effect="dark" :content="moment(comment.create_time).format('LL')" placement="top">
-                    <span class="time">{{moment(comment.create_time).format('HH:mm')}}</span>
+                    <span class="time pl-9">{{moment(comment.create_time).format('HH:mm')}}</span>
                 </el-tooltip>
                 <i class="el-icon-delete" @click="deleteComment(comment.id)" v-if="user.authorities === 'ADMIN' "></i>
             </div>
@@ -184,7 +184,7 @@
             }
         }
         .text-block {
-            width: 86%;
+            width: 80%;
             margin-left: 9px;
         }
         .comment-time {
@@ -192,6 +192,18 @@
             i {
                 color: #69777F;
             }
+
+        }
+
+        @media only screen and (max-device-width : 380px) {
+
+
+                .text-block {
+
+                    width: 70%;
+
+                }
+
 
         }
     }

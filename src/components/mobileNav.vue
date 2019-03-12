@@ -121,11 +121,27 @@
 
             margin: 0px !important;
 
+
+            .el-badge__content {
+
+                border-radius: 30px;
+                color: #FFF;
+                display: inline-block;
+                font-size: 8px;
+                height: 12px;
+                line-height: 12px;
+                padding: 0px 4px;
+                text-align: center;
+                white-space: nowrap;
+                border: 1px solid #FFF;
+
+            }
+
             .el-badge__content {
 
                 position: absolute;
-                top: 0px !important;
-
+                top: 3px !important;
+                right: 7px;
             }
 
         }

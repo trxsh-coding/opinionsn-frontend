@@ -71,7 +71,8 @@
         data(){
             return{
                 currentTime:null,
-                procid:null
+                procid:null,
+                mobile: this.$root.mobile
             }
         },
         computed:{
@@ -189,6 +190,15 @@
         .main-block {
             display: flex;
             align-items: flex-end;
+        }
+        @media only screen and (max-device-width : 380px) {
+
+            span {
+
+                font-size: 11px;
+
+            }
+
         }
     }
 

@@ -1,9 +1,11 @@
 <template>
-    <div class="input-section flex-between  mt-15" v-if="hide">
-        <el-input   size="small" v-model="comment_description" @keyup.enter.native="saveComment(item.id, vote.id)" >
-            <el-button slot="append" >
+    <div class="input-section flex-between  mt-15 relative" v-if="hide">
+        <el-input  type="textarea" autosize  size="small" v-model="comment_description" @keyup.enter.native="saveComment(item.id, vote.id)" >
 
-                <span class="emoji-span" @click="toogleDialogEmoji">
+        </el-input>
+        <span class="send__button" @click="saveComment(item.id, vote.id)">отправить</span>
+
+        <span class="emoji-span" @click="toogleDialogEmoji">
                     <icon-base
 
                             class="emoji-icon"
@@ -13,15 +15,10 @@
                             viewBox="0 0 15 15"
                             icon-name="emoji"><icon-emoji />
                         </icon-base>
-                </span>
-
-                <div class="emoji-block" :hidden="dialogHidden">
-                    <VEmojiPicker :pack="emojisNative" @select="onSelectEmoji" :labelSearch="hide" />
-                </div>
-
-                <span class="span__item" @click="saveComment(item.id, vote.id)">Пояснить</span>
-          </el-button>
-        </el-input>
+        </span>
+        <div class="emoji-block" :hidden="dialogHidden">
+            <VEmojiPicker :pack="emojisNative" @select="onSelectEmoji" :labelSearch="hide" />
+        </div>
 
     </div>
 
@@ -81,21 +78,114 @@
 
 <style lang="scss">
     .input-section {
-        .emoji-icon {
+        .el-input.is-disabled .el-input__inner {
 
+            background: #ffffff;
+            border-right-color: #fff;
+            border-radius: 12px 0 0 12px
         }
 
-        #EmojiPicker {
+        .el-input-group {
 
-
+            width: 100%;
         }
 
-        .emoji-block {
-            z-index: 100000000;
+        .el-input-group__append {
+
+            background: #FFFFFF;
+            border-radius: 0 12px 12px 0;
+            border-color: #D0D5D9;
+
+            .emoji-span {
+
+                position: absolute;
+
+            }
+
+            .el-button {
+
+                padding: 10px 12px;
+                span {
+
+                    vertical-align: initial;
+
+                }
+
+                .span__item {
+
+                    font-family: Roboto;
+                    font-style: normal;
+                    font-weight: normal;
+                    line-height: 12px;
+                    font-size: 11px;
+                    text-align: right;
+                    text-transform: uppercase;
+                    letter-spacing: 0px;
+                    font-variant: small-caps;
+                    color: #B9C0C4;
+
+                }
+
+            }
+        }
+
+        .el-input__inner, .el-input__inner:hover, .el-input__inner:active {
+            border-right-color: #D0D5D9!important;
+            border-radius: 12px ;
+            border-left-color:#D0D5D9;
+            border-top-color: #D0D5D9;
+            border-bottom-color: #D0D5D9;
+            padding-right: 30px;
+            height: 30px !important;
+            input {
+                margin-right: 0px !important;
+
+            }
+        }
+
+        .send__button {
+
             position: absolute;
-            top: 31px;
-            right: -229px;
+            right: 10px;
+            bottom: 10px;
+
+            font-family: Roboto;
+            font-style: normal;
+            font-weight: normal;
+            line-height: 14px;
+            font-size: 15px;
+            text-align: right;
+            letter-spacing: -0.2px;
+            font-variant: small-caps;
+            color: #B9C0C4;
+
+
         }
+
+        .el-textarea__inner{
+
+            overflow-y: hidden;
+            resize: none;
+            border-radius: 12px;
+            padding-right: 100px;
+            font-family: Roboto;
+        }
+
+        .emoji-icon {
+            position: absolute;
+            right: 80px;
+            bottom: 12px;
+        }
+        .emoji-block {
+            position: absolute;
+            z-index: 100000000;
+        }
+        @media only screen and (max-device-width : 380px) {
+
+
+
+        }
+
 
     }
 </style>

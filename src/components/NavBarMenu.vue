@@ -1,31 +1,37 @@
 <template lang="html">
   <div id="navbar-profile-menu">
-    <div class="profile-menu" >
+
       <router-link to="/add">
         <icon-base
-          class="plus"
+          class="main-icon"
           width="15"
           height="15"
           viewBox="0 0 15 15"
           icon-name="plus"><icon-plus />
         </icon-base>
       </router-link>
-        <el-badge :value="0"  class="item">
-          <icon-base
-                  width="17"
-                  height="22"
-                  viewBox="0 0 17 23"
-                  icon-name="bell"><icon-bell />
-          </icon-base>
-        </el-badge>
-        <el-badge :value="0"  class="item">
-          <icon-base
-                  width="21"
-                  height="21"
-                  viewBox="0 0 21 21"
-                  icon-name="pocket"><icon-pocket />
-          </icon-base>
-        </el-badge>
+    <li class="main-icon">
+      <el-badge :value="0"  class="item">
+        <icon-base
+                width="17"
+                height="22"
+                viewBox="0 0 17 22"
+                icon-name="bell"><icon-bell />
+        </icon-base>
+      </el-badge>
+    </li>
+    <li class="main-icon">
+      <el-badge :value="0"  class="item">
+        <icon-base
+                class="main-icon"
+                width="22"
+                height="22"
+                viewBox="0 0 22 22"
+                icon-name="pocket"><icon-pocket />
+        </icon-base>
+      </el-badge>
+    </li>
+
         <div class="pocket-money">
           <icon-base
             fill="#162D3A"
@@ -81,9 +87,7 @@
          </el-dropdown-item>
        </el-dropdown-menu>
      </el-dropdown>
-
     </div>
-</div>
 </template>
 
 <script>
@@ -160,134 +164,148 @@ export default {
 </script>
 
 <style lang="scss">
-.profile-menu {
 
-}
+ #navbar-profile-menu {
+   display: flex;
+   justify-content: flex-end;
+   align-items: center;
 
 
-.icon-eye {
+   .icon-eye {
 
-       margin-left: 10px;
+     margin-left: 10px;
 
-}
-.pocket-money {
-  display: flex;
-  align-items: center;
-  background: #FFFFFF;
-  font-family: Roboto;
-  font-style: normal;
-  font-weight: 300;
-  line-height: 11px;
-  font-size: 11px;
-  letter-spacing: -0.2px;
-  color: #383838;
-  border: 0.5px solid #D0D5D9;
-  border-radius: 30px;
-  margin-right: 12px;
-  padding-left: 10px;
-  height: 18px;
-  width: 91px;
-    span {
-        padding-left: 5px;
-    }
-  svg {
-    margin-bottom: 0px;
-  }
-}
-.exit-button {
-  border: none;
-  span {
-    color:#000000;
-  }
-}
+   }
+   .pocket-money {
+     display: flex;
+     align-items: center;
+     background: #FFFFFF;
+     font-family: Roboto;
+     font-style: normal;
+     font-weight: 300;
+     line-height: 11px;
+     font-size: 11px;
+     letter-spacing: -0.2px;
+     color: #383838;
+     border: 0.5px solid #D0D5D9;
+     border-radius: 30px;
+     margin-right: 12px;
+     padding-left: 10px;
+     height: 18px;
+     width: 91px;
+     span {
+       padding-left: 5px;
+     }
+     svg {
+       margin-bottom: 0px;
+     }
+   }
+   .exit-button {
+     border: none;
+     span {
+       color:#000000;
+     }
+   }
 
-.dropdown-icon {
+   .dropdown-icon {
 
-  g {
-    fill:none;
-  }
+     g {
+       fill:none;
+     }
 
-}
-.el-dropdown-menu__item {
-  a {
-    text-decoration: none;
-    color: #000000;
-  }
-}
-  #navbar-profile-menu {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-left: 140px;
+   }
+   .el-dropdown-menu__item {
+     a {
+       text-decoration: none;
+       color: #000000;
+     }
+   }
+   #navbar-profile-menu {
+     display: flex;
+     justify-content: center;
+     align-items: center;
+     margin-left: 140px;
 
-    .profile-menu {
-      display: flex;
-      align-items: center;
-    }
-    .el-button:hover {
-      background-color: #ffffff !important;
-    }
-    .plus {
-      margin-right: 22px;
-    }
-    a {
-        text-decoration: none;
-    }
-  }
-  .add-quiz {
-          font-family: Roboto;
-          font-style: normal;
-          font-weight: normal;
-          line-height: 18px;
-          font-size: 13px;
-          font-variant: small-caps;
-          color: #152D3A;
-          padding-right: 21px;
-          text-transform: uppercase;
-  }
-  .profileAvatar {
-    width: 30px;
-    height: 30px;
-    border-radius: 1000px;
-    vertical-align: middle;
-    display: inline-flex;
-    background-repeat: no-repeat;
-    background-size: cover;
-    margin-left: 5px;
-    margin-right: 5px;
-    background-position: top;
-  }
+     .profile-menu {
+       display: flex;
+       align-items: center;
+     }
+     .el-button:hover {
+       background-color: #ffffff !important;
+     }
+     .plus {
+       margin-right: 22px;
+     }
+     a {
+       text-decoration: none;
+     }
+   }
+   .add-quiz {
+     font-family: Roboto;
+     font-style: normal;
+     font-weight: normal;
+     line-height: 18px;
+     font-size: 13px;
+     font-variant: small-caps;
+     color: #152D3A;
+     padding-right: 21px;
+     text-transform: uppercase;
+   }
+   .profileAvatar {
+     width: 30px;
+     height: 30px;
+     border-radius: 1000px;
+     vertical-align: middle;
+     display: inline-flex;
+     background-repeat: no-repeat;
+     background-size: cover;
+     margin-left: 5px;
+     margin-right: 5px;
+     background-position: top;
+   }
+   li, a {
 
-.is-fixed {
-  position: absolute;
-  top: 15px !important;
-  right: 5px !important;
-}
-  .el-badge{
-    margin-right: 22px;
-    display: inline-flex;
-    margin-top: 5px;
-    .el-badge__content {
-      background-color: #FF5454;
-      border-radius: 10px;
-      color: #fff;
-      display: inline-block;
-      font-size: 8px;
-      height: 13px;
-      line-height: 13px;
-      padding: 0px 4px;
-      text-align: center;
-      white-space: nowrap;
-      border: 1px solid #fff;
+     list-style: none;
+     margin-right: 22px;
+     margin-bottom: 5px;
 
-    }
-    img {
-      width: 15px;
-      height: 15px;
-      margin-left: 12px;
-    }
-  }
-  .el-icon--right {
-    margin: 0;
-  }
+   }
+   li:last-of-type {
+
+     margin-right: 12px !important;
+
+   }
+   .el-badge{
+     display: inline-flex;
+     .is-fixed {
+
+       top: 5px;
+       right: 7px;
+
+     }
+     .el-badge__content {
+       background-color: #FF5454;
+       border-radius: 10px;
+       color: #fff;
+       display: inline-block;
+       font-size: 8px;
+       height: 13px;
+       line-height: 15px;
+       padding: 0px 4px;
+       text-align: center;
+       white-space: nowrap;
+       border: 1px solid #fff;
+
+     }
+     img {
+       width: 15px;
+       height: 15px;
+       margin-left: 12px;
+     }
+   }
+   .el-icon--right {
+     margin: 0;
+   }
+
+ }
 </style>

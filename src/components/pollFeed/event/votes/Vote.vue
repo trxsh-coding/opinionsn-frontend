@@ -24,7 +24,7 @@
             </div>
             <div class="explain-time">
                 <el-tooltip class="item" effect="dark" :content="moment(item.timestamp).format('LL')" placement="top">
-                    <span class="time">{{moment(item.timestamp).format('HH:mm')}}</span>
+                    <span class="time pl-9">{{moment(item.timestamp).format('HH:mm')}}</span>
                 </el-tooltip>
             </div>
         </div>
@@ -188,7 +188,7 @@
             display: flex;
             margin-bottom: 12px;
             .text-block {
-                width: 86%;
+                width: 84%;
                 overflow-x: hidden;
             }
             .info-block {
@@ -239,73 +239,22 @@
         .comments {
             margin-left: 42px;
         }
-        .input-section {
-            .el-input.is-disabled .el-input__inner {
 
-                background: #ffffff;
-                border-right-color: #fff;
-                border-radius: 12px 0 0 12px
-            }
+        @media only screen and (max-device-width : 380px) {
 
-            .el-input-group {
 
-                width: 100%;
-            }
+            .explain-block {
 
-            .el-input-group__append {
+                .text-block {
 
-                background: #FFFFFF;
-                border-radius: 0 12px 12px 0;
-                border-color: #D0D5D9;
-
-                .emoji-span {
-
-                    padding-right: 6px;
+                    width: 81% !important;
 
                 }
 
-                .el-button {
 
-                    padding: 10px 12px;
-                    span {
-
-                        vertical-align: initial;
-
-                    }
-
-                    .span__item {
-
-                        font-family: Roboto;
-                        font-style: normal;
-                        font-weight: normal;
-                        line-height: 12px;
-                        font-size: 11px;
-                        text-align: right;
-                        text-transform: uppercase;
-                        letter-spacing: 0px;
-                        font-variant: small-caps;
-                        color: #B9C0C4;
-
-                    }
-
-                }
-            }
-
-            .el-input__inner, .el-input__inner:hover, .el-input__inner:active {
-                border-right-color: #D0D5D9!important;
-                border-radius: 12px 0 0 12px;
-                border-left-color:#D0D5D9;
-                border-top-color: #D0D5D9;
-                border-bottom-color: #D0D5D9;
-                border-right:none;
-                padding-right: 30px;
-                height: 30px !important;
-                input {
-                    margin-right: 0px !important;
-
-                }
             }
 
         }
+
     }
 </style>

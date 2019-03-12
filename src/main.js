@@ -59,5 +59,16 @@ export const vueApp = new Vue({
   store,
   i18n,
   moment,
+  data(){
+    return {
+      mobile:window.innerWidth <= 500
+    }
+  },
+  created(){
+    addEventListener('resize', () => {
+      this.mobile = innerWidth <= 500
+      console.log(this.mobile)
+    })
+  },
   render: h => h(App)
 });

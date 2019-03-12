@@ -1,8 +1,9 @@
 <template lang="html">
   <aside class="aside-menu">
     <ul>
-      <router-link class-active="active" tag="li" to="/pollFeed">
+      <router-link class-active="active" class="hidden-xs-only" tag="li" to="/pollFeed">
         <icon-base
+             class="hidden-xs-only"
              :class="{primary : $route.path==='/pollFeed'} "
              width="20"
              height="20"
@@ -12,10 +13,11 @@
           <a><lang-string :title="'feed'"/></a>
         </router-link>
 
-      <router-link class-active="active" tag="li" to="/voteFeed">
+      <router-link class-active="active" class="hidden-xs-only" tag="li" to="/voteFeed">
            <icon-base
+
                :class="{primary : $route.path==='/voteFeed'} "
-                class="opinion"
+                class="opinion "
                 fill="none"
                 width="20"
                 height="21"
@@ -24,28 +26,84 @@
           </icon-base>
         <a><lang-string :title="'opinions_feed'"/></a>
       </router-link>
-      <router-link class-active="active" tag="li" to="/bookmarkFeed">
-              <icon-base
-              :class="{secondary : $route.path==='/bookmarkFeed'} "
-              class="bookmark"
-              fill="#152D3A"
-              width="16"
-              height="18"
-              viewBox="0 0 14 19"
-              icon-name="bookmark"><icon-bookmark/>
+      <router-link class-active="active" class="hidden-xs-only" tag="li" to="/bookmarkFeed">
+            <icon-base
+                    :class="{secondary : $route.path==='/bookmarkFeed'} "
+                    class="bookmark"
+                    fill="#152D3A"
+                    width="18"
+                    height="24"
+                    viewBox="0 0 18 24"
+                    icon-name="bookmark"><icon-bookmark/>
             </icon-base>
-          <a><lang-string :title="'bookmarked'"/></a>
+            <a><lang-string :title="'bookmarked'"/></a>
       </router-link>
-      <li>
+        <li class="hidden-xs-only">
+            <icon-base
+                    fill="none"
+                    width="16"
+                    height="21"
+                    viewBox="0 0 17 21"
+                    icon-name="bell"><icon-bell/>
+            </icon-base>
+            <a><lang-string :title="'notifications'"/></a>
+        </li>
+        <router-link class-active="active" class="hidden-sm-and-up mobile" tag="li" to="/add">
+            <icon-base
+                    :class="{secondary : $route.path==='/add'} "
+                    class="add-poll"
+                    fill="#152D3A"
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    icon-name="add-poll"><icon-add-poll/>
+            </icon-base>
+            <a><lang-string :title="'add_poll'"/></a>
+        </router-link>
+        <router-link class-active="active" class="hidden-sm-and-up" tag="li" to="/bookmarkFeed">
+            <icon-base
+                    :class="{secondary : $route.path==='/bookmarkFeed'} "
+                    class="bookmark"
+                    fill="#152D3A"
+                    width="24"
+                    height="24"
+                    viewBox="0 0 14 20"
+                    icon-name="bookmark"><icon-bookmark/>
+            </icon-base>
+            <a><lang-string :title="'bookmarked'"/></a>
+        </router-link>
+      <li class="hidden-sm-and-up">
+          <el-badge :value="0"  class="item">
+              <icon-base
+                      fill="none"
+                      width="24"
+                      height="22"
+                      viewBox="0 0 24 20"
+                      icon-name="pocket"><icon-pocket/>
+              </icon-base>
+          </el-badge>
+          <a><lang-string :title="'pocket'"/></a>
+      </li>
+      <li class="hidden-sm-and-up">
         <icon-base
           fill="none"
-          width="18"
-          height="19"
-          viewBox="0 0 18 19"
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
           icon-name="settings"><icon-settings/>
         </icon-base>
         <a><lang-string :title="'settings'"/></a>
       </li>
+        <li class="hidden-sm-and-up">
+            <icon-base
+                    fill="none"
+                    width="24"
+                    height="25"
+                    viewBox="0 0 24 25"
+                    icon-name="settings"><icon-exit/>
+            </icon-base>
+            <a><lang-string :title="'exit'"/></a>
+        </li>
     </ul>
   </aside>
 </template>
@@ -56,7 +114,11 @@ import IconSettings from './icons/IconSettings.vue'
 import IconMain from './icons/IconMain.vue'
 import IconOpinion from './icons/IconOpinion.vue'
 import IconBookmark from './icons/IconBookmark.vue'
+import IconExit from './icons/IconExit.vue'
+import IconAddPoll from './icons/IconAddPoll.vue'
 import langString from './langString.vue'
+import IconBell from './icons/IconBell.vue'
+import IconPocket from './icons/IconPocket.vue'
 
 export default {
   data(){
@@ -70,7 +132,11 @@ export default {
     IconMain,
     IconOpinion,
     IconBookmark,
-    langString
+    langString,
+    IconExit,
+    IconAddPoll,
+    IconBell,
+    IconPocket
 
   },
 
@@ -119,6 +185,26 @@ export default {
 
             }
     }
+    .is-fixed {
+
+        top:4px !important;
+        right: 9px !important;
+    }
+
+    .el-badge__content {
+
+        border-radius: 30px;
+        color: #FFF;
+        display: inline-block;
+        font-size: 8px;
+        height: 11px;
+        line-height: 10px;
+        padding: 0px 3px;
+        text-align: center;
+        white-space: nowrap;
+        border: 1px solid #FFF;
+
+    }
 
 
     .secondary {
@@ -159,12 +245,7 @@ export default {
         align-items: center;
       }
     }
-    img {
-      margin-left: 5px;
-      position: absolute;
-      top: 12px;
 
-    }
 
     li:last-of-type {
       border-bottom: none;
@@ -185,11 +266,17 @@ export default {
       vertical-align:middle;
     }
 
-    span {
-      line-height: 18px;
-      position: absolute;
-      top:9px;
-      left: 28px;
+    .hidden-sm-and-up {
+
+        padding: 10px 0 11px 0;
+
+
     }
+
+    .mobile {
+
+
+    }
+
   }
 </style>
