@@ -48,62 +48,6 @@
             </icon-base>
             <a><lang-string :title="'notifications'"/></a>
         </li>
-        <router-link class-active="active" class="hidden-sm-and-up mobile" tag="li" to="/add">
-            <icon-base
-                    :class="{secondary : $route.path==='/add'} "
-                    class="add-poll"
-                    fill="#152D3A"
-                    width="24"
-                    height="24"
-                    viewBox="0 0 24 24"
-                    icon-name="add-poll"><icon-add-poll/>
-            </icon-base>
-            <a><lang-string :title="'add_poll'"/></a>
-        </router-link>
-        <router-link class-active="active" class="hidden-sm-and-up" tag="li" to="/bookmarkFeed">
-            <icon-base
-                    :class="{secondary : $route.path==='/bookmarkFeed'} "
-                    class="bookmark"
-                    fill="#152D3A"
-                    width="24"
-                    height="24"
-                    viewBox="0 0 14 20"
-                    icon-name="bookmark"><icon-bookmark/>
-            </icon-base>
-            <a><lang-string :title="'bookmarked'"/></a>
-        </router-link>
-      <li class="hidden-sm-and-up">
-          <el-badge :value="0"  class="item">
-              <icon-base
-                      fill="none"
-                      width="24"
-                      height="22"
-                      viewBox="0 0 24 20"
-                      icon-name="pocket"><icon-pocket/>
-              </icon-base>
-          </el-badge>
-          <a><lang-string :title="'pocket'"/></a>
-      </li>
-      <li class="hidden-sm-and-up">
-        <icon-base
-          fill="none"
-          width="24"
-          height="24"
-          viewBox="0 0 24 24"
-          icon-name="settings"><icon-settings/>
-        </icon-base>
-        <a><lang-string :title="'settings'"/></a>
-      </li>
-        <li class="hidden-sm-and-up">
-            <icon-base
-                    fill="none"
-                    width="24"
-                    height="25"
-                    viewBox="0 0 24 25"
-                    icon-name="settings"><icon-exit/>
-            </icon-base>
-            <a><lang-string :title="'exit'"/></a>
-        </li>
     </ul>
   </aside>
 </template>

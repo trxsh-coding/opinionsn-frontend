@@ -1,100 +1,144 @@
 <template lang="html">
-    <div id="sign">
-        <el-main>
-            <div class="login-box">
-
-              <transition name="fade" mode="out-in">
-                <el-row>
-                    <div class="navbar-brand">
-                          <icon-base
+    <div id="sign" class="sign">
+        <div class="sign-section">
+            <div class="navbar-brand">
+                <div class="navbar__item">
+                    <icon-base
                             fill="none"
                             class="icon"
-                            width="44"
-                            height="30"
-                            viewBox="0 0 10 30"
+                            width="75"
+                            height="64"
+                            viewBox="0 0 23 24"
                             icon-name="logo"><icon-logo />
-                          </icon-base>
-                          <icon-base
+                    </icon-base>
+                </div>
+                <div class="navbar__item">
+                    <icon-base
                             fill="none"
-                            class="icon"
+                            class="icon-text"
                             width="66"
                             height="15"
-                            viewBox="0 0 66 15"
+                            viewBox="0 0 64 15"
                             icon-name="text-logo"><icon-text-logo />
-                          </icon-base>
-                    </div>
-                      <el-form :model="Login">
-                        <div class="login">
-                            <el-form-item prop="input_login">
-                              <el-input placeholder="E-mail / Username" @keyup.enter.native="userLogin" :value="Login.input_mail"  @input="inputUpdate_input_mail"></el-input>
-                                <span class="error"><lang-string :title="errors.field_login"/></span>
-                            </el-form-item>
-                            <el-form-item prop="input_password">
-                              <el-input :placeholder="lstr('Password')" type="password" @keyup.enter.native="userLogin" :value="Login.input_password" @input="inputUpdate_input_password"></el-input>
-                                <span class="error"><lang-string :title="errors.field_password"/></span>
-                            </el-form-item>
-                            <el-button class="primary" @click="userLogin('Login')"><lang-string :title="'enter'"/></el-button>
-                            <router-link to="registration">
-                                <el-button class="primary"><lang-string :title="'register'"/></el-button>
-                                <langString />
-                            </router-link>
-                        </div>
-                      </el-form>
-                </el-row>
-              </transition>
+                    </icon-base>
+                </div>
+            </div>
+            <div class="form-block">
+
+                <el-form :model="signForm" ref="signForm">
+
+                    <el-form-item :label="lstr('username')">
+
+                        <el-input v-model="signForm.email" autocomplete="on" />
+                        <lang-string class="error" :title="errors.field_email"/>
+                    </el-form-item>
+                    <el-form-item :label="lstr('password')">
+
+                        <el-input type="password" v-model="signForm.password" />
+
+                    </el-form-item>
+                </el-form>
 
             </div>
+            <div class="buttons-block">
+                <el-button class="secondary-btn" @click="submitSign(signForm)">
+                    <lang-string class="lowercase" :title="'sign'"/>
+                </el-button>
+                <div class="registration__item">
 
-        </el-main>
+                    <lang-string :title="'dont_have_account?'" /> <router-link to="/registration"> <lang-string :title="'registration'" /></router-link>
+
+                </div>
+            </div>
+        </div>
     </div>
 
 </template>
 
 <script>
+    import langMixin from '../mixins/langMixin'
     import IconBase from '../icons/IconBase.vue'
     import IconLogo from '../icons/IconLogo.vue'
     import IconTextLogo from '../icons/IconTextLogo.vue'
     import langString from '../langString.vue'
     import {localString} from '../../utils/localString'
-    import { mapState } from 'vuex'
-    import { mapActions } from 'vuex';
-    import { mapMutations } from 'vuex';
-    import {UserModel} from '../../store/modules/Login'
+    import {mapState} from 'vuex'
+    import axios from 'axios'
+
     export default {
         data() {
             return {
+                signForm: {
+
+                    email:null,
+                    password:null
+
+                },
+
+                errors:{}
 
             }
         },
-        computed: {
-          ...mapState('Login',{
-            Login : state => state.account
-          }),
-            ...mapState('Login',{
-                errors : state => state.errors
-            }),
 
-            lstr(){
-                return (str)=>localString(this.lang, str);
-            },
-
-        },
 
         methods: {
 
-          ...mapMutations('Login',[
-            //'onFormChange'
-          ]),
-          ...mapActions('Login',[
-            ...(()=>{
-                        return Object.keys(UserModel).map(x=>{
-                          return `inputUpdate_${x}`;
-                        })
-            })(),
-            'userLogin',
-            'userRegistration'
-          ])
+            submitSign(form){
+                let loginFormData = new FormData();
+                console.log(form)
+                loginFormData.append('field_email', form.email);
+                loginFormData.append('field_password', form.password);
+                axios.post('/api/auth/login', loginFormData)
+                    .then(response => {
+                        if (response.status === 200) {
+                            this.$store.commit("authentication/setAuthenticated", true)
+                            this.$router.push({ name: 'pollFeed'})
+                        }
+
+                    })
+
+                    .catch((error) => {
+
+
+                         console.log(error.response.data);
+
+                        let er = this.errors;
+                        for (let {field: f, errorCode: v} of error.response.data){
+                            er[f] = v
+                        }
+                        this.$forceUpdate();
+                    });
+
+
+            }
+
+
         },
+
+        computed: {
+
+
+
+
+
+        },
+        watch: {
+
+            errorFields(){
+
+                let fields = [['field_login', ''],['field_password', ''],['passConfirm', ''],['email', '']];
+
+                let map = this.errors;
+                for (let [i,v] of fields){
+                    map[i] = v;
+                }
+                return map ;
+
+
+            }
+
+        },
+        mixins:[langMixin],
         components: {
           IconBase,
           IconLogo,
@@ -105,15 +149,6 @@
 </script>
 
 <style lang="scss">
-    .el-main {
-
-    }
-
-    .login-box {
-        .el-button, h3 {
-            color: #4B97B4;
-        }
-    }
 
     html {
         background: #ffffff;
@@ -122,30 +157,87 @@
 
 
     #sign {
+
+
+
+        justify-content: center;
+        height: 100%;
         display: flex;
         align-items: center;
         background: #ffffff;
+        flex-direction: column;
+
+        input {
+            outline: none;
+
+        }
+
+        .sign-section {
+            text-align: center;
+            width: 359px;
+            display: flex;
+            flex-direction: column;
+            .form-block {
+                width: 100%;
+                margin-top: 28px;
+                input {
+
+                    border-radius: 12px !important;
+
+                }
+
+            }
+
+            .buttons-block {
+                margin-top: 35.65px;
+                    .registration__item {
+                        text-align: center !important;
+                        margin-top: 28px;
+                        @extend  .el-form-item__label;
+                        a {
+
+                            color: #8A9499;
+
+                        }
+                    }
+                    .el-button {
+
+                        width: 271px;
+                        background: #4B97B4;
+                        color: #FFFFFF;
+
+                    }
+
+            }
+
+        }
+
+
+
+
+        .navbar-brand {
+
+            .icon-text {
+
+                margin-top: 12.64px;
+
+            }
+
+        }
         .el-main {
 
             background: #FFFFFF;
 
         }
-        .el-row {
 
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-        }
-        .el-button {
 
-            margin-right: 5px;
-
-        }
         .login-box {
+          width: 359px;
           display: flex;
           justify-content: center;
           align-items: center;
+          flex-direction: column;
+          height: 50%;
         }
         .errorFields {
             border-width: 0.9px;
@@ -153,50 +245,101 @@
             border-style: solid;
             border-radius: 5px;
         }
-        .login, .registration {
-            width: 366px;
-            margin: 10px;
+
+
+        .el-form-item__label {
+            font-family: Roboto;
+            font-style: normal;
+            font-weight: normal;
+            font-size: 12px;
+            line-height: 12px;
+            text-align: justify;
+            letter-spacing: -0.2px;
+            color: #8A9499;
+            line-height: 30px !important;
+            padding-left: 15px;
         }
+
         .el-form-item {
             margin-bottom: 0px !important;
             padding-bottom: 10px;
+            text-align: left;
         }
         .el-form-item__content {
             line-height: 28px;
         }
         .error {
-            color: #f50217;
-            font-size: 12px;
-            line-height: 1;
+            font-family: Roboto;
+            font-style: normal;
+            font-weight: 300;
+            font-size: 11px;
+            line-height: 12px;
+            text-align: justify;
+            letter-spacing: -0.2px;
+            color: #FF5454;
+            padding-left: 15px;
+
+
         }
-        .navbar-brand {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            align-content: center;
-            margin-top: 9px;
-            margin-bottom: 20px;
-            .navbar-item {
-                text-decoration: none;
-                display: flex;
-                align-items: center;
-                align-content: center;
-                flex-direction: row;
-                img {
-                    width: 41.67px;
-                    height: 30px;
-                }
-                span {
-                    font-family: ABeeZee;
-                    font-style: normal;
-                    font-weight: normal;
-                    line-height: 18px;
-                    font-size: 18px;
-                    letter-spacing: -0.3px;
-                    color: #4B97B4;
-                    margin-left: 6.33px;
-                }
+        @media only screen and (max-device-width : 380px) {
+
+            .sign-section {
+
+                height: 100%;
+
             }
+
+            .navbar-brand {
+
+                margin-top: 60px;
+
+            }
+
+            .buttons-block{
+
+                margin-top: 18px !important;
+
+                height: 50%;
+                display: flex;
+                flex-direction: column;
+                justify-content: space-between;
+                align-items: center;
+                .registration__item {
+
+                    padding-left: 0px !important;
+                    padding-bottom: 10px;
+                }
+
+
+
+            }
+                .form-block {
+                    .el-form {
+                        background: #FFFFFF;
+                        box-shadow: 0px 0px 18px rgba(0, 0, 0, 0.1);
+                        border-radius: 12px;
+                        padding: 18px 15px;
+                        text-align: center;
+                        display: flex;
+                        justify-content: center;
+                        flex-direction: column;
+                        align-items: center;
+
+                        .el-input {
+
+                            width: 329px;
+
+                        }
+
+                    }
+
+
+
+
+
+            }
+
+
         }
     }
 </style>

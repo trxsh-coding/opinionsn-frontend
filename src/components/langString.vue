@@ -6,7 +6,7 @@
 <script>
 import axios from 'axios';
 import { mapState } from 'vuex';
-
+import {localString} from "../utils/localString";
 
 export default {
   data(){
@@ -24,7 +24,11 @@ export default {
     transformedKey: function(){
       let noUnderscoreString = this.title.replace(new RegExp('_', 'g'), ' ');
       return noUnderscoreString.charAt(0).toUpperCase() + noUnderscoreString.slice(1);
-    }
+    },
+
+    lstr(){
+      return (str)=>localString(this.lang, str);
+    },
 
   },
   methods: {

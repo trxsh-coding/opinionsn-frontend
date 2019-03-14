@@ -20,6 +20,7 @@ import CatalogList from '../components/CatalogFeed/Catalog';
 import bookmarkFeed from '../components/bookmarkFeed/Feed';
 import CatalogFeed from '../components/CatalogFeed/Feed';
 import user from '../components/user/Page';
+import sidebar from '../components/mobile/sidebar';
 import {nprogress} from '../main.js'
 
 Vue.use(Router);
@@ -27,6 +28,22 @@ Vue.use(Router);
 export const index = new Router({
   base: './',
   routes: [
+
+    {
+      path: '/login',
+      component: Login,
+      name:'login',
+    },
+    {
+          path: '/registration',
+          name: 'registration',
+          component: Registration,
+    },
+    {
+          path: '/sign',
+          name: 'sign',
+          component: Sign,
+    },
     {
       path: '/',
       name: 'opinion',
@@ -60,6 +77,7 @@ export const index = new Router({
 
           ]
         },
+
         {
           path: 'admin',
           name: 'admin',
@@ -77,6 +95,11 @@ export const index = new Router({
           path: 'voteFeed',
           name: 'voteFeed',
           component: VoteFeed,
+        },
+        {
+          path: 'menu',
+          name: 'menu',
+          component: sidebar,
         },
         {
           path: 'follows',
@@ -132,30 +155,6 @@ export const index = new Router({
         },
       ]
     },
-    {
-      path: '/login',
-      component: Login,
-      name:'login',
-      meta: { transitionName: 'slide' },
-      redirect:
-          {
-            name: "sign"
-          },
-      children:[
-        {
-          path: 'sign',
-          name: 'sign',
-          component: Sign,
-          meta: { transitionName: 'slide' }
-        },
-        {
-          path: 'registration',
-          name: 'registration',
-          component: Registration,
-          meta: { transitionName: 'slide' }
-        },
-      ]
-    }
   ]
 })
 
@@ -176,7 +175,7 @@ index.beforeEach((to, from, next) => {
 });
 
 index.beforeEach((to, from, next) =>  {
-  if (to.path === '/login/sign' || to.path === '/login/registration') {
+  if (to.path === '/sign' || to.path === '/registration' || to.path === '/login') {
     next();
   } else {
     axios.get('/api/rest/getUserStatus')

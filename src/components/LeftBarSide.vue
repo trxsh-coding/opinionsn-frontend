@@ -1,9 +1,9 @@
 <template lang="html">
     <div id="left-aside">
-      <profile-card></profile-card>
+      <profile-card class="hidden-xs-only" />
       <user-statistic :id="main_user.id" :limit="1" class="hidden-xs-only">
 
-      </user-statistic>
+      </user-statistic >
       <side-bar></side-bar>
       <language-change class="hidden-xs-only" />
     </div>

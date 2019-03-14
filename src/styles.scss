@@ -5,7 +5,6 @@ html {
 
 }
 html, body, #app, section.section {
-  background: #f4f4f4f4;
   height: 100%;
 }
 
@@ -62,6 +61,14 @@ body {
   display: flex;
   align-items: center;
   justify-content: space-between;
+
+}
+
+.flex-column-center {
+
+  display: flex;
+  align-items: center;
+  flex-direction: column;
 
 }
 
@@ -201,6 +208,11 @@ body {
 
 .uppercase {
   text-transform: uppercase;
+}
+.lowercase {
+
+  text-transform: lowercase;
+
 }
 //Avatars
 
@@ -427,3 +439,73 @@ color: #69777F;
 .wb {
   word-break: break-word;
 }
+
+
+//Icons
+
+
+
+//Buttons
+
+.primary-btn {
+
+
+
+
+  width: 271px;
+  height: 42px;
+  background: #4B97B4;
+  border-radius: 21px;
+
+
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: normal;
+  line-height: 16px;
+  font-size: 17px;
+  font-variant: small-caps;
+
+  color: #FFFFFF;
+
+
+
+}
+
+.primary-btn {
+
+  background: #D0D5D8;
+  border-radius: 21px;
+
+
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: normal;
+  line-height: 16px;
+  font-size: 17px;
+  font-variant: small-caps;
+
+  color: #FFFFFF;
+
+
+
+}
+
+.secondary-btn {
+
+  background: #4B97B4;
+  border-radius: 21px;
+
+
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: normal;
+  line-height: 16px;
+  font-size: 17px;
+  font-variant: small-caps;
+
+  color: #FFFFFF;
+
+
+
+}
+

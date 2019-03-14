@@ -1,7 +1,7 @@
 <template lang="html">
   <div id="app">
     <el-header class="mobile-nav hidden-sm-and-up">
-        <mobile-nav :mobile_hide="mobile_hide" @hide="mobile_hide = !mobile_hide"/>
+        <mobile-nav />
     </el-header>
     <el-header class="nav-header hidden-xs-only" style=" height:48px ">
       <el-container class="nav">
@@ -56,10 +56,10 @@
     <el-container class="main-container">
       <el-main>
         <el-row>
-            <el-aside width="240px" v-if="!mobile || mobile_hide">
+            <el-aside width="240px" v-if="!mobile ">
                 <left-bar-side :id="main_user_id"></left-bar-side>
             </el-aside>
-          <el-col class="quiz-section" :span="16" v-if="!mobile || !mobile_hide" >
+          <el-col class="quiz-section" :span="16" >
             <router-view></router-view>
           </el-col>
             <!--<el-col class="quiz-section hidden-sm-and-down" :span="16">-->

@@ -1,15 +1,16 @@
 <template>
     <div class="mobile-nav">
         <ul>
-            <li class="nav__item">
+            <li class="nav__item" @click="link('pollFeed')">
                 <icon-base
+                        :class="{primary : $route.path==='/pollFeed'} "
                         width="27"
                         height="27"
                         viewBox="0 0 18 22"
                         icon-name="main"><icon-main/>
                 </icon-base>
             </li>
-            <li class="nav__item">
+            <li class="nav__item" @click="link('voteFeed')">
                 <icon-base
                         :class="icon-opinion"
                         class="opinion"
@@ -19,7 +20,7 @@
                         icon-name="opinion"><icon-opinion/>
                 </icon-base>
             </li>
-            <li class="nav__item">
+            <li class="nav__item" >
                 <icon-base
                         width="21"
                         height="21"
@@ -40,7 +41,7 @@
             <li class="nav__item" >
                 <avatar class="avatar-25x25" ></avatar>
             </li>
-            <li class="nav__item" @click="$emit('hide')">
+            <li class="nav__item" @click="link('menu')">
                 <icon-base
                         width="25"
                         height="22"
@@ -65,7 +66,7 @@
         props:['mobile_hide'],
         data(){
             return {
-                hide: this.mobile_hide
+
             }
         },
         computed: {
@@ -74,13 +75,12 @@
         },
         methods: {
 
-            changeLink: function () {
-                console.log(this.mobile_hide)
-                this.mobile_hide = !this.mobile_hide
-                console.log(this.mobile_hide)
-                this.$emit('hide', {hide: this.mobile_hide})
+            link(pathName){
 
-            }
+                this.$router.push({name: pathName})
+
+            },
+
 
         },
         components: {
@@ -115,6 +115,16 @@
                     fill: #f4f4f4f4;
 
                 }
+
+        }
+
+        .primary {
+
+            path {
+
+                stroke: #4B97B4 ;
+
+            }
 
         }
         .el-badge {

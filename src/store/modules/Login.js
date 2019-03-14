@@ -110,7 +110,8 @@ export default  {
                 }
           }.bind(this))
             .catch((error) => {
-                let er = store.state.Login.errors;
+                console.log(this.state)
+                let er = this.state.Login.errors;
                 for (let {field: f, errorCode: v} of error.response.data){
                     er[f] = v
                 }
@@ -131,7 +132,7 @@ export default  {
                 }
             }.bind(this))
             .catch((error) => {
-              let er = store.state.Login.errors;
+              let er = this.state.Login.errors;
               for (let {field: f, errorCode: v} of error.response.data){
                 er[f] = v
               }
