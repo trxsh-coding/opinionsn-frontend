@@ -325,8 +325,8 @@ body {
     @media only screen and (min-device-width : 320px) and (max-device-width : 765px) {
 
         .el-header {
-
-            padding: 0 10px;
+            margin-bottom: 5px;
+            padding: 0 15px;
             height: 44px !important;
 
         }

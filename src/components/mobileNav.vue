@@ -101,7 +101,8 @@
     .mobile-nav {
 
         ul {
-
+            margin-top: 0px;
+            padding: 10px;
             display: inline-flex;
             list-style: none;
             width: 100%;
