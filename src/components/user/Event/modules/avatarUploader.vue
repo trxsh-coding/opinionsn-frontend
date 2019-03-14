@@ -14,9 +14,8 @@
         <div class="cropp-wrapper">
             <croppa v-model="croppa"
                     class="cropp-component"
-                    @click="croppa.chooseFile()"
+                    :disable-click-choose="true"
                     @file-choose="handleImage(args)"
-                    disable-click-to-choose
                     placeholder=" "
                     :placeholder-font-size="14"
                     :prevent-white-space="true"
