@@ -1,6 +1,7 @@
 <template>
     <div class="user-section">
         <user-header :user="user"/>
+        <user-form />
         <user-statistic :id="id"  :limit="circlesLimit"/>
         <!--<user-statistic :id="id" class="hidden-sm-and-up"  :limit="2"/>-->
         <user-feed :userId='user.id'/>
@@ -12,7 +13,7 @@
     import userHeader from './userHeader'
     import userStatistic from './modules/userStatistic'
     import userFeed from '../Feed.vue'
-
+    import userForm from './userForm'
     export default {
         name: "userSection",
         props:['item'],
@@ -67,7 +68,8 @@
 
             userHeader,
             userStatistic,
-            userFeed
+            userFeed,
+            userForm
 
 
         },

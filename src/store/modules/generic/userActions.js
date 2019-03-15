@@ -42,6 +42,8 @@ export const userActions = sc => class extends sc {
 
     updateUser({commit, dispatch}, payload={}){
 
+        console.log(payload)
+
         let {customUrl = `/api/rest/updateUser`, data={}, method='post', } = payload;
 
         sc.apiRequest(customUrl, data,{commit, dispatch, onSuccess: null, successType: 'action'}, method);
@@ -108,8 +110,11 @@ export const userActions = sc => class extends sc {
 
 setMainUser(state, payload){
 
-        state.main_user_id = payload[0].id;
-    // this.commit(`globalStore/updateUserInfo`, {user_id: id} , {root: true})
+    state.main_user_id = payload[0].id;
+
+    let {id} = payload[0]
+
+    this.commit(`globalStore/setMainUser`, {user_id: id} , {root: true})
 
     }
 

@@ -92,7 +92,7 @@ export const globalStore  =  {
             }
         },
 
-        updateUserInfo(state, {user_id}) {
+        setMainUser(state, {user_id}) {
 
             let map = state.users[user_id];
 
@@ -100,6 +100,16 @@ export const globalStore  =  {
 
 
         },
+
+        updateUserInfo(state, payload){
+            console.log(payload);
+            let item = payload.item;
+            let value = payload.value;
+            state.mainUser[item] = value
+
+        },
+
+
 
         changeStateItem(state, {mapName, parentId, item, payload}) {
 
@@ -167,6 +177,8 @@ export const globalStore  =  {
 
     },
     actions: {
+
+
 
         /**
          * If you need a dispatch for some reason

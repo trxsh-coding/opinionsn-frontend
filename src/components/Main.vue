@@ -183,9 +183,8 @@ export default {
   beforeCreate(){
 
       this.$store.dispatch('userPage/getMainUser');
-
-
       this.$store.dispatch('lang/getLocaleString');
+
 
   },
   components: {

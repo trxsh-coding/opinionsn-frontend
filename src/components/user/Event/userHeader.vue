@@ -43,24 +43,16 @@
                 <div class="name-block">
 
                     <div class="firstname-block">
-                        <span class="p" v-if="!hide_edit && user.first_name != null">{{user.first_name + ' ' + user.last_name}}</span>
-                        <el-input v-if="hide_edit" class="edit-username" :placeholder="user.first_name===null ? 'Firstname'  :  user.first_name"  v-model="first_name"></el-input>
+                        <span class="p">{{user.first_name + ' ' + user.last_name}}</span>
                     </div>
-                    <div class="lastname-block">
-                        <el-input v-if="hide_edit" class="edit-username" :placeholder="user.last_name===null ? 'Lastname'  :  user.last_name"  v-model="last_name"></el-input>
-                    </div>
-
                 </div>
                 <div class="nickname-block">
-                    <span v-if="!hide_edit" class="username">{{user.username}}</span>
-                    <el-input v-if="hide_edit" class="edit-username" :placeholder="user.username"  v-model="username"></el-input>
+                    <span  class="username">{{user.username}}</span>
                 </div>
                 <div class="description-block">
-                    <span v-if="!hide_edit">{{user.aboutMe}}</span>
-                    <el-input v-if="hide_edit" class="edit-aboutMe" :placeholder="user.aboutMe" v-model="aboutMe"></el-input>
-
+                    <span>{{user.aboutMe}}</span>
                 </div>
-                <div class="location-block" v-if="!hide_edit">
+                <div class="location-block" >
                     <icon-base
                             fill="none"
                             width="9"
@@ -70,7 +62,6 @@
                         <icon-location /></icon-base>
                     <span class="location">{{user.location}}</span>
                 </div>
-                <el-input v-if="hide_edit" class="edit-location" :placeholder="user.location" v-model="location"></el-input>
             </div>
         </div>
     </div>
@@ -108,9 +99,11 @@
 
             ...mapState('globalStore', {
 
-                userMap: ({users}) => users
+                userMap: ({users}) => users,
+                mainUser: ({mainUser}) => mainUser
 
             }),
+
 
             route:  function () {
 
@@ -142,24 +135,13 @@
 
             updateUserInfo(){
 
-                let aboutMe = this.aboutMe;
-
-                let username = this.username;
-
-                let first_name = this.first_name;
-
-                let last_name = this.last_name;
-
-                let location = this.location;
-
-                this.$store.dispatch(`userPage/updateUser`,  {data: {aboutMe, username, location, first_name, last_name} });
+                this.$store.dispatch(`userPage/updateUser`, {data: this.mainUser});
 
                 this.hide_edit = false
             },
 
             updateUsername(username) {
 
-                let id = this.main_user_id;
 
                 this.$store.commit('userPage/updateUsername', {username, id})
 
