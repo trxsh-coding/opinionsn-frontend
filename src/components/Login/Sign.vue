@@ -281,7 +281,7 @@
 
 
         }
-        @media only screen and (max-device-width : 380px) {
+        @media only screen and (max-device-width : 700px) {
 
             .sign-section {
 

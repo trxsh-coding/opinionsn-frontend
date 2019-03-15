@@ -16,8 +16,10 @@ import Croppa from 'vue-croppa'
 import 'nprogress/nprogress.css'
 import 'vue-croppa/dist/vue-croppa.css'
 import moment from 'moment'
+import VueTheMask from 'vue-the-mask'
 
 
+Vue.use(VueTheMask)
 Vue.use(Croppa);
 Vue.use(NProgress);
 locale.use(langRu);

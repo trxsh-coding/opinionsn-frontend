@@ -244,7 +244,7 @@
             }
 
         }
-        @media only screen and (max-device-width : 450px)  {
+        @media only screen and (max-device-width : 700px)  {
 
             .option-container {
 

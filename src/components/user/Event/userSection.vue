@@ -1,10 +1,18 @@
 <template>
     <div class="user-section">
-        <user-header :user="user"/>
-        <user-form />
-        <user-statistic :id="id"  :limit="circlesLimit"/>
+        <user-header :user="user" @hide="hideForm" :hide_form="hide_form"/>
+
+        <transition name="fade">
+            <user-form  @hide="hideForm" :hide_form="hide_form" v-if="!hide_form"/>
+        </transition>
+        <transition name="fade">
+        <user-statistic :id="id"  :limit="circlesLimit" v-if="hide_form"/>
+        </transition>
+
         <!--<user-statistic :id="id" class="hidden-sm-and-up"  :limit="2"/>-->
-        <user-feed :userId='user.id'/>
+
+
+        <user-feed :userId='user.id' v-if="hide_form"/>
     </div>
 </template>
 
@@ -19,7 +27,8 @@
         props:['item'],
         data(){
             return {
-                limit:3
+                limit:3,
+                hide_form:true,
             }
         },
         computed:{
@@ -62,6 +71,12 @@
 
         methods: {
 
+            hideForm(event){
+
+                this.hide_form = !this.hide_form
+
+            }
+
         },
 
         components: {
@@ -84,5 +99,10 @@
 </script>
 
 <style lang="scss">
-
+    .fade-enter-active, .fade-leave-active {
+        transition: opacity .5s;
+    }
+    .fade-enter, .fade-leave-to /* .fade-leave-active до версии 2.1.8 */ {
+        opacity: 0;
+    }
 </style>

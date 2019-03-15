@@ -77,10 +77,10 @@
     import IconLocation from '../../icons/IconLocation'
     export default {
         name: "userHeader",
-        props:['user'],
+        props:['user', 'hide_form'],
         data(){
             return {
-                hide_edit:false,
+                hide_form:false,
                 avatarDialog:false,
                 location:null,
                 aboutMe:null,
@@ -133,12 +133,7 @@
 
             },
 
-            updateUserInfo(){
 
-                this.$store.dispatch(`userPage/updateUser`, {data: this.mainUser});
-
-                this.hide_edit = false
-            },
 
             updateUsername(username) {
 
@@ -164,7 +159,9 @@
 
             editInfo(){
 
-                this.hide_edit = !this.hide_edit
+
+                this.$emit('hide', !this.hide_form);
+
 
             }
 

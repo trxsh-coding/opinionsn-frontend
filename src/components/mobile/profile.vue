@@ -103,7 +103,7 @@
         }
         .profile-background {
             width: 100%;
-            height: 60px;
+            height: 90px;
             background-repeat: no-repeat;
             background-size: cover !important;
             background-position: center;
@@ -115,7 +115,8 @@
             display: flex;
             position: relative;
             width: 100%;
-            height: 21px;
+            height: 106px !important;
+            max-height: 300px;
             justify-content: center;
             align-items: center;
             flex-direction: column;
@@ -125,10 +126,10 @@
             height: 60px;
             .profile-avatar {
                 position: absolute;
-                top: -25px;
-                left: 44%;
-                width: 42px;
-                height: 42px;
+                top: -45px;
+                left: 41%;
+                width: 63px;
+                height: 63px;
                 border-radius: 1000px;
                 background-size: 50% 50%;
                 background-repeat: no-repeat;
