@@ -17,8 +17,13 @@
                         </div>
                     </div>
                 </div>
+                <!--<div class="avatar-block">-->
 
-                <div class="avatar-block"  :style="{ 'background-image': 'url(' + user.path_to_avatar + ')' } ">
+                    <!--<mobile-avatar :user="user" />-->
+
+
+                <!--</div>-->
+                <div class="avatar-block" :style="{ 'background-image': 'url(' + user.path_to_avatar + ')' } ">
                     <div class="uploader-wrapper" v-if="user.id === main_user_id">
                         <avatar-uploader   />
                     </div>
@@ -70,6 +75,7 @@
 <script>
     import {localString} from './../../../utils/localString'
     import avatarUploader from './modules/avatarUploader.vue'
+    import mobileAvatar from './modules/mobileAvatar.vue'
     import backgroundUploader from './modules/backgroundUploader.vue'
     import langString from './../../langString.vue'
     import {mapState} from 'vuex'
@@ -80,6 +86,7 @@
         props:['user', 'hide_form'],
         data(){
             return {
+                mobile: this.$root.mobile,
                 hide_form:false,
                 avatarDialog:false,
                 location:null,
@@ -177,7 +184,8 @@
             avatarUploader,
             backgroundUploader,
             IconBase,
-            IconLocation
+            IconLocation,
+            mobileAvatar
 
         }
     }

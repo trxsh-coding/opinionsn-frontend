@@ -6,7 +6,6 @@ import store from './store/store'
 import Element from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css';
 import 'element-ui/lib/theme-chalk/display.css';
-
 import locale from 'element-ui/lib/locale'
 import langRu from 'element-ui/lib/locale/lang/ru-RU'
 import langEng from 'element-ui/lib/locale/lang/en'

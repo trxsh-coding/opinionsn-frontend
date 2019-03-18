@@ -9,7 +9,6 @@
             border-radius="12px"
             :append-to-body="true"
             :modal-append-to-body="false"
-            accept=".jpeg,.png"
             :before-close="closeDialog"	>
         <div class="cropp-wrapper">
             <croppa v-model="croppa"
@@ -19,13 +18,13 @@
                     placeholder=" "
                     :placeholder-font-size="14"
                     :prevent-white-space="true"
-                    :width="120"
-                    :height="120"
+                    :width="mobile ? 350 : 120"
+                    :height="mobile ? 350 : 120"
                     :zoom-speed="10"
                     :show-remove-button="false"
                     :quality="2">
             </croppa>
-          <div class="icons-block">
+          <div class="icons-block" v-if="!mobile">
               <div class="zoom-in" @click="croppa.zoomIn()">
                   <icon-base
                           fill="none"
@@ -68,6 +67,7 @@
             return {
                 avatarDialog:false,
                 croppa:{},
+                mobile:this.$root.mobile
             }
         },
         computed: {
@@ -188,6 +188,35 @@
 
 
 
+
+    }
+
+    @media only screen and (max-device-width : 700px) {
+
+        .el-dialog {
+
+            width: 100% !important;
+
+        }
+
+        .el-dialog__body {
+
+            padding: 0 !important;
+            display: flex;
+            justify-content: center;
+
+        }
+
+        .croppa-container {
+
+            border-radius: 1000px !important;
+
+        }
+        .avatar-dialog .croppa--has-target canvas{
+
+            border-radius: 1000px !important;
+
+        }
 
     }
 </style>
