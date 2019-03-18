@@ -16,6 +16,9 @@ import 'nprogress/nprogress.css'
 import 'vue-croppa/dist/vue-croppa.css'
 import moment from 'moment'
 import VueTheMask from 'vue-the-mask'
+import { Swipe, SwipeItem } from 'vue-swipe';
+
+require('vue-swipe/dist/vue-swipe.css');
 
 
 Vue.use(VueTheMask)
@@ -23,7 +26,8 @@ Vue.use(Croppa);
 Vue.use(NProgress);
 locale.use(langRu);
 Vue.use(VueI18n);
-
+Vue.component('swipe', Swipe);
+Vue.component('swipe-item', SwipeItem);
 Vue.use(moment)
 //*****************
 

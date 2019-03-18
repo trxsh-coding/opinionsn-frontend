@@ -4,7 +4,7 @@
       <div class="main-block">
 
 
-          <div  class="options-block">
+          <div  class="options-block" v-if="!mobile">
             <div class="options" v-for="{option, isSelected} in sanitizedOptions[0].option.picture != null ? sanitizedOptions.slice(0, 2) : sanitizedOptions">
 
               <div class="option" >
@@ -30,7 +30,6 @@
               </div>
             </div>
 
-
             <!---->
 
             <div class="extra" v-if="canExpand"  :class="{'extra-long' : sanitizedOptions[0].option.picture} " >
@@ -39,6 +38,35 @@
               +{{extraOptionsCount}}
               </span>
             </div>
+          </div>
+
+          <div  class="options-block">
+              <div class="options" v-for="{option, isSelected} in unsanitizedOptions" v-if="mobile">
+
+                  <div class="option" >
+                      <div class="picture-with-options" :class="{'is-voted' : isSelected}" :style="{ 'background-image': 'url(' + option.picture + ')' } " v-if="option.picture">
+                      </div>
+                      <div class="text-block flex-align-center" :class="{'picture-option' : option.picture, 'main-option' : isSelected} " >
+                          <div class="span-block">
+
+                              <div class="icon-accept" :class="{'display' : isSelected} ">
+                                  <icon-base
+                                          fill="#ffffff"
+                                          width="15"
+                                          height="15"
+                                          viewBox="0 0 17 17"
+                                          icon-name="accept">
+                                      <icon-accept />
+                                  </icon-base>
+                              </div>
+                              <span :class="{'is-voted' : isSelected} ">{{option.description}}</span>
+
+                          </div>
+                      </div>
+                  </div>
+              </div>
+
+              <!---->
           </div>
 
           <div class="description-section" v-if="type.indexOf('EXPLAINED') > -1">
@@ -67,9 +95,16 @@ import PollBlock from './PollBlock'
 import {globalStoreMixin} from "../../../store/modules/globalStore";
 const optionsLimit = 2;
     export default {
-        data: () => ({
-          expanded: false,
-        }),
+        data(){
+
+            return {
+
+                expanded: false,
+                mobile:this.$root.mobile
+
+            }
+
+        },
         mixins: [globalStoreMixin({'poll': true, 'vote': true, 'option': true})],
         name: "PollPreview",
         props: ['vote', 'poll', 'options', 'item', 'type'],
@@ -134,6 +169,15 @@ const optionsLimit = 2;
                 sanOptions.sort(({isSelected: a}, {isSelected: b})=>b-a);
                 // Limit them either by 3 or the length of the whole things
                 sanOptions.splice(expanded ? options.length : optionsLimit, options.length);
+                return sanOptions;
+            },
+
+            unsanitizedOptions: function(){
+                let {options, expanded} = this;
+                let sanOptions = [...options];
+                // Sort them by selected (in future it will allow to use multiple-selection)
+                sanOptions.sort(({isSelected: a}, {isSelected: b})=>b-a);
+                // Limit them either by 3 or the length of the whole things
                 return sanOptions;
             },
 
@@ -384,5 +428,18 @@ const optionsLimit = 2;
         }
       }
     }
+      @media only screen and (max-device-width : 700px) {
+
+          .options-block {
+
+              overflow: auto;
+
+          }
+
+          .options-block::-webkit-scrollbar {
+              width: 0;
+          }
+
+      }
   }
 </style>
