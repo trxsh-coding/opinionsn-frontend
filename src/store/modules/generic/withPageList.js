@@ -28,17 +28,19 @@ export const StoreWithPageList = (sc, listUrl) => {
 
             let  {page = 0} = payload;
             commit('setPageNumber', page);
-            super.listItemsAction({commit}, {customUrl: `${listUrl}/${page}`, onSuccess: 'appendElements'})
+            super.listItemsAction({commit}, {...payload,  customUrl: `${listUrl}/${page}`, onSuccess: 'appendElements'})
 
         };
 
-        loadNextPage(context, payload) {
-                if(context.state.items.length) {
+        loadNextPage(context, payload={}) {
 
-                    let page = context.state.page + 1;
-                    context.dispatch('list', {...payload, page});
+            if(context.state.items.length) {
 
-                }
+                let page = context.state.page + 1;
+                context.dispatch('list', {...payload, page});
+
+            }
+
 
         };
 
@@ -46,7 +48,8 @@ export const StoreWithPageList = (sc, listUrl) => {
             return {
                 ...super.state,
                 page: 1,
-                is_finished:false
+                is_finished:false,
+                filter_id:null
             }
         }
 

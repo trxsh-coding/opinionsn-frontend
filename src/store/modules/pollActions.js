@@ -13,6 +13,15 @@ export const pollActions = sc => class extends sc {
 
 
 
+    // getFilteredFeed({commit, dispatch}, payload={}){
+    //
+    //     let {customUrl = '/api/rest/feed/', data={}, method='post'} = payload;
+    //
+    //     sc.apiRequest(customUrl, {},{commit, params: data, dispatch, onSuccess: null, successType: 'action'}, method);
+    //
+    // };
+
+
     setRightOption({commit, dispatch}, payload={}){
 
         let {customUrl = '/api/rest/admin/poll/choiceAnswer/', data={}, method='post'} = payload;
@@ -116,7 +125,14 @@ export const pollActions = sc => class extends sc {
     /* MUTATIONS */
 
 
+    listItemsAction(vueStuff, args={}){
 
+        let {state} = vueStuff;
+
+        args.params = {...args.params || {}, categories_id: state.filter_id};
+
+        super.listItemsAction(vueStuff, args);
+    };
 
 
     onVoteCreated({commit, dispatch}, args){
@@ -257,6 +273,13 @@ export const pollActions = sc => class extends sc {
     }
 
 
+    setFilterId(state, id){
+
+        state.items = [];
+        state.filter_id = id
+
+    }
+
 
 
 
@@ -341,8 +364,8 @@ export const pollActions = sc => class extends sc {
         return {
             ...super.mutations,
             onListReceived: this.onListReceived,
-            clearFeed: this.clearFeed
-
+            clearFeed: this.clearFeed,
+            setFilterId: this.setFilterId
         }
     }
 

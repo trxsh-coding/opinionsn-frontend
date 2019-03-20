@@ -3,6 +3,7 @@
         <ul>
             <li class="nav__item" @click="link('pollFeed')">
                 <icon-base
+                        class="main-icon"
                         :class="{primary : $route.path==='/pollFeed'} "
                         width="27"
                         height="27"
@@ -12,8 +13,8 @@
             </li>
             <li class="nav__item" @click="link('voteFeed')">
                 <icon-base
-                        :class="icon-opinion"
-                        class="opinion"
+                        :class="{primary : $route.path==='/voteFeed'} "
+                        class="main-icon"
                         width="27"
                         height="27"
                         viewBox="0 0 18 22"
@@ -119,11 +120,48 @@
 
         }
 
-        .primary {
+        .main-icon {
+
+
+            .question {
+
+                fill: #000000 ;
+                stroke: none;
+
+            }
+            rect {
+
+                stroke: #000000;
+
+            }
 
             path {
 
-                stroke: #4B97B4 ;
+                stroke: #000000;
+
+            }
+
+        }
+
+
+
+        .primary {
+
+            .question {
+
+                fill: #4B97B4 ;
+                stroke: none;
+
+            }
+            rect {
+
+                stroke: #4B97B4;
+
+            }
+
+            path {
+
+                stroke: #4B97B4;
 
             }
 

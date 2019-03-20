@@ -14,13 +14,6 @@
           </span>
         </div>
         <div class="bottom-content">
-          <icon-base
-          fill="none"
-          width="9"
-          height="13"
-          viewBox="0 0 9 13"
-          icon-name="location">
-          <icon-location /></icon-base>
           <span class="location">{{user.location}}</span>
       </div>
     </div>
@@ -125,8 +118,8 @@ export default {
     height: 60px;
     .profile-avatar {
       position: absolute;
-      top: -25px;
-      left: 44%;
+      top: -30px;
+      left: 42%;
       width: 42px;
       height: 42px;
       border-radius: 1000px;
@@ -138,18 +131,22 @@ export default {
 
     .main-content {
 
-        margin-top: 16px;
+        margin-top: 7px;
 
     }
 
     .nickname-header {
-      font-family: Roboto;
-      font-style: normal;
-      font-weight: 500;
-      line-height: 15px;
-      font-size: 14px;
-      letter-spacing: -0.3px;
-      color: #383838;
+
+        font-family: Roboto;
+        font-style: normal;
+        font-weight: 500;
+        font-size: 14px;
+        line-height: 18px;
+        text-align: center;
+        letter-spacing: -0.1px;
+        color: #152B3A;
+
+
     }
     .nickname-id {
       font-family: Roboto;
@@ -162,12 +159,11 @@ export default {
       color: #152B3A;
     }
     .bottom-content {
-      .location {
+        .location {
         font-family: Roboto;
         font-style: normal;
         font-weight: normal;
-        line-height: 11px;
-        font-size: 11px;
+        font-size: 13px;
         letter-spacing: -0.3px;
         color: rgba(56, 56, 56, 0.7);
       }

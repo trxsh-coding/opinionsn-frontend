@@ -430,6 +430,14 @@ const optionsLimit = 2;
     }
       @media only screen and (max-device-width : 700px) {
 
+
+          .picture-block {
+
+              width: 111px !important;
+              height: 111px !important;
+
+          }
+
           .options-block {
 
               overflow: auto;

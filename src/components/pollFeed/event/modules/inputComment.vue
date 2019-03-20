@@ -5,7 +5,7 @@
         </el-input>
         <span class="send__button" @click="saveComment(item.id, vote.id)">отправить</span>
 
-        <span class="emoji-span" @click="toogleDialogEmoji">
+        <span class="emoji-span" @click="toogleDialogEmoji" v-if="!mobile">
                     <icon-base
 
                             class="emoji-icon"
@@ -42,10 +42,17 @@
             IconEmoji,
             IconBase
         },
-        data: () => ({
-            dialogHidden: true,
-            comment_description:'',
-        }),
+        data(){
+
+            return {
+
+                dialogHidden: true,
+                comment_description:'',
+                mobile:this.$root.mobile
+
+            }
+
+        },
         methods: {
             toogleDialogEmoji() {
                 this.dialogHidden = !this.dialogHidden;

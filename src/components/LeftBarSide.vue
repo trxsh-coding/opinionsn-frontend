@@ -1,11 +1,9 @@
 <template lang="html">
     <div id="left-aside">
       <profile-card class="hidden-xs-only" />
-      <user-statistic :id="main_user.id" :limit="1" class="hidden-xs-only">
-
-      </user-statistic >
-      <side-bar></side-bar>
-      <language-change class="hidden-xs-only" />
+        <side-bar />
+        <user-statistic :id="main_user.id" :limit="1" class="hidden-xs-only"/>
+        <language-change class="hidden-xs-only" />
     </div>
 </template>
 
@@ -69,6 +67,8 @@ export default {
 <style lang="scss">
 
   #left-aside {
+      width: 240px !important;
+      position: fixed;
 
       .user-statistic {
 

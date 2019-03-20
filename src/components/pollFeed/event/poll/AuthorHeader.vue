@@ -6,7 +6,7 @@
         <div class="information-block">
             <div class="author-section flex-align-center flex-between">
                 <div class="author-block">
-                    <span class="username">{{author.username}}</span>
+                    <span @click="userLink(author.id)" class="username pointer">{{author.username}}</span>
                     <lang-string class="created" :title="'created'"/>  <lang-string v-if="!poll.end_date" class="created-poll" :title="'poll'"/> <lang-string  v-if="poll.end_date" class="created-poll" :title="'prediction'"/>
                 </div>
                 <div class="icon-more" v-if="user.authorities === 'USER' ">

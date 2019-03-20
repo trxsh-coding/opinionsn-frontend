@@ -2,24 +2,24 @@
     <div class="statistic-wrapper mb-10">
         <div class="statistic-header  flex-between " :class="{padding : hide}">
 
-            <span class="uppercase">статистика</span>
+            <span >статистика</span>
             <div class="dropdown" @click="hide = !hide">
                 <icon-base
                         v-if="!hide"
                         class="dropdown-icon"
                         fill="none"
-                        width="14"
-                        height="17"
-                        viewBox="0 0 13 5"
+                        width="8"
+                        height="5"
+                        viewBox="0 0 8 5"
                         icon-name="dropdown"><icon-dropdown/>
                 </icon-base>
                 <icon-base
                         v-if="hide"
                         class="dropdown-icon"
                         fill="none"
-                        width="14"
-                        height="17"
-                        viewBox="0 0 13 5"
+                        width="8"
+                        height="5"
+                        viewBox="0 0 8 5"
                         icon-name="dropdown"><icon-dropdown-top/>
                 </icon-base>
             </div>
@@ -115,7 +115,7 @@
 
         mounted(){
 
-            axios.get(`api/rest/getStatisticsOnCategories/${this.id}`)
+            axios.get(`/api/rest/getStatisticsOnCategories/${this.id}`)
                 .then((response) => {
                     if (response.status === 200) {
                         this.$store.commit('globalStore/updateStores', response.data, {root: true});
@@ -141,7 +141,15 @@
         background: #fff;
         border-radius: 12px;
         padding: 10px 15px 10px 16px;
+        .dropdown  {
 
+            path {
+
+                fill: none !important;
+
+            }
+
+        }
         .empty {
 
            opacity: 0.5 !important;
@@ -161,8 +169,8 @@
                font-family: Roboto;
                font-style: normal;
                font-weight: 500;
-               line-height: 18px;
                font-size: 14px;
+               line-height: 18px;
                font-variant: small-caps;
                color: #152D3A;
 

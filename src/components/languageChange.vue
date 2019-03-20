@@ -42,7 +42,7 @@ export default {
 
 <style lang="scss">
   .lang-field {
-    margin-top: -9px;
+    margin-top: 9px;
     .el-select {
       width: 100%;
       overflow: hidden;

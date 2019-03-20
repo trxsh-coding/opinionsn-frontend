@@ -9,7 +9,7 @@
                   @keyup.enter.native="saveExplain(item.id)">
         </el-input>
         <span class="send__button" @click="saveExplain(item.id)">отправить</span>
-                <span class="emoji-span" @click="toogleDialogEmoji">
+                <span class="emoji-span" @click="toogleDialogEmoji" v-if="!mobile">
                     <icon-base
                             class="emoji-icon"
                             fill="none"
@@ -45,10 +45,17 @@
             IconEmoji,
             IconBase
         },
-        data: () => ({
-            dialogHidden: true,
-            explain_description:' '
-        }),
+        data (){
+
+            return {
+
+                dialogHidden: true,
+                explain_description:'',
+                mobile:this.$root.mobile
+
+            }
+
+        },
         methods: {
             toogleDialogEmoji() {
                 this.dialogHidden = !this.dialogHidden;
@@ -96,6 +103,9 @@
 <style lang="scss">
     .input-explain-section {
 
+
+
+
         .send__button {
 
              position: absolute;
@@ -121,6 +131,12 @@
             resize: none;
             border-radius: 12px;
             padding-right: 100px;
+            font-family: Roboto;
+            font-style: normal;
+            font-weight: 300;
+            font-size: 13px;
+            letter-spacing: -0.2px;
+            color: #B9C0C4;
         }
 
         .emoji-icon {

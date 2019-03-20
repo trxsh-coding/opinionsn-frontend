@@ -1,7 +1,7 @@
 <template lang="html">
   <aside class="aside-menu">
     <ul>
-      <router-link class-active="active" class="hidden-xs-only" tag="li" to="/pollFeed">
+      <router-link class-active="active" class="hidden-xs-only main-li" tag="li" to="/pollFeed">
         <icon-base
              class="hidden-xs-only"
              :class="{primary : $route.path==='/pollFeed'} "
@@ -26,18 +26,6 @@
           </icon-base>
         <a><lang-string :title="'opinions_feed'"/></a>
       </router-link>
-      <router-link class-active="active" class="hidden-xs-only" tag="li" to="/bookmarkFeed">
-            <icon-base
-                    :class="{secondary : $route.path==='/bookmarkFeed'} "
-                    class="bookmark"
-                    fill="#152D3A"
-                    width="18"
-                    height="24"
-                    viewBox="0 0 18 24"
-                    icon-name="bookmark"><icon-bookmark/>
-            </icon-base>
-            <a><lang-string :title="'bookmarked'"/></a>
-      </router-link>
         <li class="hidden-xs-only">
             <icon-base
                     fill="none"
@@ -48,6 +36,19 @@
             </icon-base>
             <a><lang-string :title="'notifications'"/></a>
         </li>
+
+      <router-link class-active="active" class="hidden-xs-only main-li" tag="li" to="/bookmarkFeed">
+            <icon-base
+                    :class="{secondary : $route.path==='/bookmarkFeed'} "
+                    class="bookmark"
+                    fill="#152D3A"
+                    width="15"
+                    height="19"
+                    viewBox="0 0 15 19"
+                    icon-name="bookmark"><icon-bookmark/>
+            </icon-base>
+            <a><lang-string :title="'bookmarked'"/></a>
+      </router-link>
     </ul>
   </aside>
 </template>
@@ -95,16 +96,28 @@ export default {
   .aside-menu {
 
     background-color: #ffffff;
-    padding-left: 15px;
-    padding-right: 16px;
+    padding: 0 9px;
     border-radius: 12px;
     g {
       fill:#ffffff;
     }
     svg {
+        top: 5px;
+        position: absolute;
+        left: 3px;
 
     }
 
+    .main-li {
+
+       padding: 13.5px 0;
+       svg {
+           position: absolute;
+           top: 10px !important;
+
+       }
+
+    }
     .primary {
 
 
@@ -161,7 +174,8 @@ export default {
 
     }
     .bookmark {
-
+        top: 12px;
+        left: 4px;
         path {
 
             fill:#152D3A;
@@ -181,9 +195,8 @@ export default {
         border-bottom-width: 0.5px;
         border-bottom-color: #DADADA;
         border-bottom-style: solid;
-        padding-bottom: 9px;
-        padding-top: 6px;
-        position: relative;
+          padding: 10.5px 0;
+          position: relative;
         list-style: none;
         display: flex;
         align-items: center;
@@ -197,9 +210,9 @@ export default {
 
     a {
       color: #383838;
-      font-size: 12px;
+      font-size: 14px;
       line-height: 12px;
-      margin-left: 10px;
+      margin-left: 33px;
       text-decoration: none;
       padding-top: 3px;
     }

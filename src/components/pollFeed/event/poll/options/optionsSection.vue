@@ -8,7 +8,7 @@
                 <div class="option-description" >
                     <span >{{option.description}} </span>
                 </div>
-                <div class="progress-bar">
+                <div class="progress-bar" v-if="item.voted">
                     <el-progress :stroke-width="3" :percentage="option.voted_percentage" color="#152D3A" v-bind:class="{selected:  selected_option, correct: correct_option }"></el-progress>
                 </div>
             </div>
@@ -25,11 +25,17 @@
     import PollOptionHeads from '../../../../PollOptionHeads.vue'
     import i18n from '../../../../i18n.vue';
     export default {
-        data: () => ({
+        data(){
 
-            radio: '1'
+            return {
+                radio: '1',
+                mobile:this.$root.mobile
 
-        }),
+            }
+
+        },
+
+
 
         name: "optionsSection",
         props: ['option', 'item','option_index', 'correctOption', 'poll', 'feed'],
@@ -81,6 +87,12 @@
         },
 
         methods: {
+
+            onExpandAction(){
+
+                this.expanded = !this.expanded
+
+            },
 
             vote(selected_variable, poll_id){
 

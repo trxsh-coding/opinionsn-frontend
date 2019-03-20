@@ -312,7 +312,11 @@
 
                 }
 
+                .option-description {
 
+                    margin-right: 0px !important;
+
+                }
 
                 .option-container {
 

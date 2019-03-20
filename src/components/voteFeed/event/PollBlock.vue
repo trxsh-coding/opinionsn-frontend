@@ -120,8 +120,7 @@
             }
 
             .picture-block {
-                height: 143px !important;
-                width: 214px !important;
+                flex-shrink: 0;
                 background-repeat: no-repeat;
                 background-size: cover !important;
                 background-position: center;
@@ -276,6 +275,7 @@
                     fill: #ffffff;
                 }
                 .text-block {
+                    flex-shrink: 1;
                     overflow: hidden;
                     text-overflow: ellipsis;
                     white-space: nowrap;
@@ -317,6 +317,17 @@
                 color: #ffffff;
                 filter: none;
             }
+        }
+
+        @media only screen and (max-device-width : 700px) {
+
+            .picture-block {
+
+                height: 111px !important;
+                width: 111px !important;
+
+            }
+
         }
 
     }

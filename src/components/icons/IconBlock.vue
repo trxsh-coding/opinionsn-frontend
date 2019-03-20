@@ -1,7 +1,7 @@
 <template>
     <div class="icons-block">
        <div class="main-block">
-           <slot name="icon-time">
+           <slot name="icon-time" v-if="end_date">
                <icon-base
                        fill="none"
                        width="17"
@@ -9,7 +9,7 @@
                        viewBox="0 0 17 16"
                        icon-name="time">
                    <icon-time /></icon-base>
-               <span v-if="poll.end_date || poll.votingOver"> {{currentTime}}</span> <lang-string v-if="!poll.end_date" :title="'no_time_limit'"/>
+               <span v-if="poll.end_date || poll.votingOver"> {{currentTime}}</span>
            </slot>
            <slot name="icon-money">
                <icon-base

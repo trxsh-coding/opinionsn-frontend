@@ -45,7 +45,7 @@
 
                     <el-form-item :label="lstr('password')" :class="{padding : error }">
 
-                        <el-input v-model="registrationForm.password" />
+                        <el-input  type="password" v-model="registrationForm.password" />
 
                         <lang-string class="error" :title="errors.pass"/>
 

@@ -4,6 +4,9 @@ import {pollActions} from "./pollActions";
 
 class pollFeedStore extends pollActions(StoreWithPageList (VuexStore, '/api/rest/feed')) {
 
+
+
+
 }
 
 

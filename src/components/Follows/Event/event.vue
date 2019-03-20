@@ -107,7 +107,7 @@
 
             let urlPart = this.isFollowing ? 'getFollowing' : 'getFollowers'
 
-            axios.get(`api/rest/${urlPart}/${this.id}`)
+            axios.get(`/api/rest/${urlPart}/${this.id}`)
                 .then((response) => {
                     if (response.status === 200) {
                         this.$store.commit('globalStore/updateStores', response.data, {root: true});

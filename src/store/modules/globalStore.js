@@ -102,7 +102,6 @@ export const globalStore  =  {
         },
 
         updateUserInfo(state, payload){
-            console.log(payload);
             let item = payload.item;
             let value = payload.value;
             state.mainUser[item] = value

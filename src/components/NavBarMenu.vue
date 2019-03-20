@@ -66,19 +66,19 @@
        <el-dropdown-menu slot="dropdown" :hide-timeout="1000">
          <el-dropdown-item class="clearfix">
            <a >
-             <div class="to-followers" @click="followersLink(user.id)">
-               <lang-string :title="'followings'"/>
+             <div class="link" @click="followersLink(user.id)">
+               <lang-string  :title="'followings'"/>
              </div>
            </a>
          </el-dropdown-item>
          <el-dropdown-item class="clearfix">
            <router-link to="/catalogList">
-             <div class="to-followers">
+             <div class="link">
                <lang-string :title="'topics'"/>
              </div>
            </router-link>
          </el-dropdown-item>
-         <el-dropdown-item class="clearfix">
+         <el-dropdown-item class="link">
            <router-link to="/login">
               <div  @click="userLogout">
                 <lang-string :title="'exit'"/>
@@ -170,6 +170,11 @@ export default {
    justify-content: flex-end;
    align-items: center;
 
+   .link {
+
+     color: black !important;
+
+   }
 
    .icon-eye {
 
@@ -200,6 +205,7 @@ export default {
        margin-bottom: 0px;
      }
    }
+
    .exit-button {
      border: none;
      span {
@@ -214,12 +220,7 @@ export default {
      }
 
    }
-   .el-dropdown-menu__item {
-     a {
-       text-decoration: none;
-       color: #000000;
-     }
-   }
+
    #navbar-profile-menu {
      display: flex;
      justify-content: center;
@@ -239,6 +240,12 @@ export default {
      a {
        text-decoration: none;
      }
+   }
+
+   .el-dropdown-menu {
+
+     color: #000 !important;
+
    }
    .add-quiz {
      font-family: Roboto;

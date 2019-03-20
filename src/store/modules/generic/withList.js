@@ -15,9 +15,12 @@ export const StoreWithList = (sc, listUrl) => class extends sc {
 
     listItemsAction({commit}, payload={}){
 
-        let {customUrl, data={}, method='get', onSuccess = 'onListReceived'} = payload;
+        console.log("HERE:::");
+        console.log(payload);
 
-        sc.apiRequest(customUrl || listUrl, data, {commit, onSuccess, method});
+        let {customUrl, data={}, method='get', onSuccess = 'onListReceived', params} = payload;
+
+        sc.apiRequest(customUrl || listUrl, data, {commit, onSuccess, method, params});
     }
 
 

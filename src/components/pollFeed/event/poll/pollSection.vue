@@ -17,14 +17,17 @@
                 <span class="poll-subject">{{poll.subject}}</span>
             </div>
 
-            <div class="description-block wb">
+            <div class="description-block wb" v-if="!hiddenText">
+                <span class="poll-description">{{normDescription}}</span> <span @click="expandText" v-if="!showMore">more</span>
+            </div>
+            <div class="description-block wb" v-if="hiddenText">
                 <span class="poll-description">{{poll.description}}</span>
             </div>
             <div class="picture-block" v-if="poll.picture" :style="{ 'background-image': 'url(' + poll.picture + ')' } "></div>
         </div>
         <div class="options">
 
-            <div class="options-section" v-for="(option, option_index) in options" :key="option_index">
+            <div class="options-section" v-for="(option, option_index) in senitizedOptions" :key="option_index">
 
                 <el-button v-if="user.authorities === 'ADMIN' "  @click="setRightOption(option.id, item.id)">✔</el-button>
 
@@ -33,7 +36,9 @@
                 <options-with-pictures v-if="option.picture" :feed="feed" :item="item" :option="option" :option_index="option_index" :correctOption="correctOption" :poll="poll"/>
 
             </div>
-
+            <el-button @click="onExpandAction" v-if="options.length != senitizedOptions.length">
+                Expand Button
+            </el-button>
         </div>
         <icon-block :poll="poll" :item="item" >
             <div slot="bookmark">
@@ -46,6 +51,7 @@
 </template>
 
 <script>
+    import langMixin from '../../../mixins/langMixin'
     import optionsSection from './options/optionsSection'
     import optionsWithPictures from './options/optionsWithPictures'
     import { mapState } from 'vuex'
@@ -54,13 +60,17 @@
     import IconBlock from "../../../icons/IconBlock"
     import bookmark from "../../../icons/bookmark"
     import inputExplain from '../modules/inputExplain'
+    import langString from '../../../langString'
 
     export default {
         data: () => ({
 
-
+            expanded:false,
+            optionsLimit:3,
+            hiddenText:false,
+            showMore:false
         }),
-
+        mixins:[langMixin],
         name: "PollPreview",
         props: ['poll', 'options', 'item', 'user', 'feed'],
         computed: {
@@ -102,7 +112,39 @@
             },
 
 
+            normDescription:function(){
 
+                let {poll} = this;
+
+                let text = poll.description
+
+                if(text.indexOf(' ') != -1){
+
+
+                   return text.substring(0, text.substring(0, 200).lastIndexOf(' '))
+
+                } else {
+
+                    this.showMore = true
+                   return text
+
+                }
+
+
+            },
+
+
+
+
+
+            senitizedOptions:function () {
+
+                let {options, expanded, optionsLimit} = this;
+                let sanOptions = [...options];
+                sanOptions.splice(expanded ? options.length : optionsLimit, options.length);
+                return sanOptions;
+
+            }
 
 
             // author: function(){
@@ -126,7 +168,18 @@
             },
 
 
+            onExpandAction(){
 
+                this.expanded = !this.expanded
+
+            },
+
+
+            expandText(){
+
+                this.hiddenText = !this.hiddenText
+
+            },
 
 
 
@@ -160,7 +213,8 @@
             optionsSection,
             optionsWithPictures,
             bookmark,
-            inputExplain
+            inputExplain,
+            langString
         },
 
     }
