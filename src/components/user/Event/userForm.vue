@@ -15,7 +15,7 @@
                        :label="lstr('username')"
                        prop="username"
                        :rules="[ { required: true, message: 'Please input Activity name', trigger: 'blur' },
-                        { min: 3, max: 5, message: 'Length should be 3 to 5', trigger: 'blur' }]" >
+                        { min: 3, max: 20, message: 'Length should be 3 to 20', trigger: 'blur' }]" >
              <el-input :value="user.username" @input="updateInfo(arguments[0], 'username')" />
          </el-form-item>
 
@@ -194,7 +194,7 @@
 
             .el-input__inner {
 
-                padding-left: 25px;
+
 
             }
 
@@ -219,6 +219,17 @@
 
             height: 30px;
             border-radius: 12px;
+            border-color: #B6C1C6 !important;
+            font-family: Roboto;
+            font-style: normal;
+            font-weight: normal;
+            font-size: 13px;
+            line-height: 16px;
+            letter-spacing: -0.1px;
+            color: #152D3A;
+
+
+
 
         }
         .el-radio__inner {

@@ -2,7 +2,9 @@
     <div class="statistic-wrapper mb-10">
         <div class="statistic-header  flex-between " :class="{padding : hide}">
 
-            <span >статистика</span>
+            <div class="header-text">
+                <span >статистика</span> <span class="details">Подробнее</span>
+            </div>
             <div class="dropdown" @click="hide = !hide">
                 <icon-base
                         v-if="!hide"
@@ -27,7 +29,9 @@
         </div>
         <div class="user-statistic border-t" v-if="hide">
             <div v-for="(item, key, index) in items" :key="key" v-if="index <= limit" class="progress-chart flex-column">
-                <span class="header-span">{{key}}</span>
+                <div class="header-text">
+                    <span class="header-span">{{key}}</span>
+                </div>
                 <div class="progress-border">
                     <el-progress class="circle-chart"  type="circle" :class="{empty : item[2] == 0}" color="#4B97B4" :percentage="item[0]"  width="60" :stroke-width="3"></el-progress>
                     <div class="border-right">
@@ -140,7 +144,8 @@
     .statistic-wrapper {
         background: #fff;
         border-radius: 12px;
-        padding: 10px 15px 10px 16px;
+        padding: 0px 9px 15px 9px;
+
         .dropdown  {
 
             path {
@@ -159,19 +164,26 @@
 
         .padding {
 
-            padding-bottom: 13px;
+            padding-bottom: 9px;
 
         }
         .statistic-header {
-
+            padding-top: 9px;
+           .details {
+               font-family: Roboto;
+               font-style: normal;
+               font-weight: 300;
+               font-size: 11px;
+               line-height: 11px;
+               color: #828D92;
+               padding-left: 6px;
+           }
            span {
-
+               padding-left: 3px;
                font-family: Roboto;
                font-style: normal;
                font-weight: 500;
                font-size: 14px;
-               line-height: 18px;
-               font-variant: small-caps;
                color: #152D3A;
 
            }
@@ -182,7 +194,7 @@
         .user-statistic {
             display: flex;
             justify-content: space-between;
-            padding-top: 13px;
+            padding-top: 9px;
             .progress-chart:last-of-type {
 
                 .progress-border {
@@ -226,18 +238,17 @@
 
                 }
 
-                .header-span {
-                    font-family: Roboto;
-                    font-style: normal;
-                    font-weight: normal;
-                    line-height: 16px;
-                    font-size: 13px;
-                    text-align: center;
-                    letter-spacing: -0.1px;
-                    color: #152D3A;
+                .header-text {
+                    .header-span {
+                        font-family: Roboto;
+                        font-style: normal;
+                        font-weight: normal;
+                        font-size: 13px;
+                        text-align: center;
+                        letter-spacing: -0.1px;
+                        color: #152D3A;
 
-
-
+                    }
                 }
 
                 .black {
@@ -266,7 +277,7 @@
                     text-align: center;
                     letter-spacing: -0.2px;
 
-                    color: #D0D5D9;
+                    color: #69777F;
 
 
 
@@ -276,17 +287,23 @@
 
 
                 .circle-chart {
-                    padding-top: 13px;
-                    padding-bottom: 11px;
+                    padding-top: 8px;
+                    padding-bottom: 12px;
+
                     .el-progress__text {
+
                         font-family: Roboto;
                         font-style: normal;
-                        font-weight: normal;
+                        font-weight: 500;
+                        font-size: 15px !important;
                         line-height: 21px;
-                        font-size: 18px !important;
                         text-align: center;
-                        letter-spacing: -0.5px;
+                        letter-spacing: -0.9px;
                         color: #4B97B4;
+                        padding-bottom: 1px;
+                        padding-left: 3px;
+
+
                     }
 
                 }

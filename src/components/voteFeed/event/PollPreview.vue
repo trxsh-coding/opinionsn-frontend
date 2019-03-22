@@ -40,7 +40,7 @@
             </div>
           </div>
 
-          <div  class="options-block">
+          <div  class="options-block " :class="{mobile : !mobile}">
               <div class="options" v-for="{option, isSelected} in unsanitizedOptions" v-if="mobile">
 
                   <div class="option" >
@@ -320,7 +320,7 @@ const optionsLimit = 2;
 
       .display {
         display: inline !important;
-        margin-right: 5px;
+        margin-right: 9px;
       }
       .icon-accept {
         display: none;
@@ -336,8 +336,14 @@ const optionsLimit = 2;
         }
       }
 
+       .mobile {
+
+           padding: 0 !important;
+
+       }
+
       .options-block {
-        padding: 12px 46px 9px 12px;
+        padding: 12px 46px 12px 6px;
         border-radius: 0 0 6px 6px;
         display: flex;
         align-items: flex-end;
@@ -412,7 +418,7 @@ const optionsLimit = 2;
           font-style: normal;
           font-weight: normal;
           line-height: 15px;
-          font-size: 14px;
+          font-size: 13px;
           letter-spacing: -0.1px;
           color: #ffffff;
         }
@@ -421,7 +427,7 @@ const optionsLimit = 2;
           font-style: normal;
           font-weight: 500;
           line-height: 18px;
-          font-size: 14px;
+          font-size: 13px;
           letter-spacing: -0.1px;
           color: #ffffff;
           filter: none;

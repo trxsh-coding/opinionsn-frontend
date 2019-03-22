@@ -1,6 +1,6 @@
 <template>
     <div id="options-block">
-        <div class="option-container relative pointer" v-bind:class="{ opacity  : poll.votingOver, normalOpacity : correct_option, cursor : item.voted }" @click="vote(option.id, option.poll_id)" >
+        <div class="option-container relative pointer" v-bind:class="{ opacity  : poll.votingOver, rightAnswer : correct_option, cursor : item.voted }" @click="vote(option.id, option.poll_id)" >
             <div class="option-id">
                 <span class="span-id">{{option_index + 1}}</span> <span v-if="option.id === correctOption"></span>
             </div>
@@ -13,7 +13,7 @@
                 </div>
             </div>
         </div>
-        <div class="option-bows" >
+        <div class="option-bows "  v-bind:class="{ opacity  : poll.votingOver, rightAnswer : correct_option, cursor : item.voted }" >
             <poll-option-heads :limit="3" :option="option"/>
         </div>
     </div>
@@ -146,6 +146,7 @@
         .opacity {
 
             opacity: 0.4;
+            box-shadow: 0px 0px 12px rgba(0, 0, 0, 0.06) !important;
 
         }
 
@@ -188,20 +189,33 @@
 
         .option-bows {
             background: #FFFFFF;
-            box-shadow: 0px 0px 9px rgba(0, 0, 0, 0.05);
+            box-shadow: 0px 0px 7px rgba(21, 45, 58, 0.24);
             border-radius: 6px;
             margin-left: 3px;
             width: 96px;
             height: 48px;
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+        }
+        .rightAnswer {
+
+            box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.12) !important;
+            opacity: 1;
+
         }
 
         .option-container {
             display: flex;
             width: 370px;
             margin-bottom: 6px;
-            box-shadow: 0px 0px 9px rgba(0, 0, 0, 0.05);
             border-radius: 6px;
             height: 48px;
+            background: #FFFFFF;
+            border-radius: 6px;
+            box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.12);
+
+
             .option-id {
                 position: relative;
                 width: 25px;
@@ -220,12 +234,12 @@
                 width: 93%;
                 .option-description {
                     background: #FFFFFF;
-                    margin-right: 45px;
                     word-break: break-word;
                     display: flex;
                     align-items: center;
                     height: 100%;
                     padding-left: 7px;
+                    border-radius: 0 6px 6px 0;
                     span {
                         font-family: Roboto;
                         font-style: normal;
@@ -234,6 +248,7 @@
                         font-size: 12px;
                         letter-spacing: -0.1px;
                         color: #152D3A;
+                        padding-right: 50px;
                     }
                 }
 

@@ -10,6 +10,7 @@ export const userActions = sc => class extends sc {
 
     };
 
+
     followUser({commit, dispatch}, payload={}){
 
         let id = payload;
@@ -118,6 +119,23 @@ setMainUser(state, payload){
 
     }
 
+    // setMyFollowings(state, payload){
+    //
+    //     let map = [];
+    //
+    //
+    //     for (let item of payload) {
+    //
+    //        map.push(item.id)
+    //
+    //     }
+    //
+    //
+    //     state.followings = map;
+    //
+    //
+    // }
+
 
     removeUser(state){
 
@@ -134,6 +152,7 @@ setMainUser(state, payload){
     get state(){
         return {
             ...super.state,
+            followings:null,
             main_user_id:null,
             user_authorities:''
         }
@@ -151,7 +170,7 @@ setMainUser(state, payload){
             uploadBackground: this.uploadBackground,
             updateUser: this.updateUser,
             getFollowings: this.getFollowings,
-            getFollowers: this.getFollowers
+            getFollowers: this.getFollowers,
 
         }
     }
@@ -161,8 +180,6 @@ setMainUser(state, payload){
             ...super.mutations,
             setMainUser:this.setMainUser,
             removeUser: this.removeUser
-
-
 
         }
     }

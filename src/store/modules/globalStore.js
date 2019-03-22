@@ -7,6 +7,7 @@ export const globalStorages = [
     {name: 'vote'},
     {name: 'option'},
     {name: 'comment'},
+    {name: 'following'},
     {name: 'mainUser', multiple:'mainUser'},
     {name: 'category', multiple: 'categories'},
 
@@ -100,6 +101,24 @@ export const globalStore  =  {
 
 
         },
+
+        // setMyFollowings(state, {followings_ids}) {
+        //     console.log('Это айди по которым я вытаскиваю объекты из мапы users')
+        //     console.log(followings_ids)
+        //
+        //     let followings = {};
+        //
+        //     return followings_ids.map(following_id => {
+        //
+        //         let followings = state.users[following_id];
+        //
+        //         console.log('Это объект, который я хочу засунуть в мапу followings')
+        //         console.log(followings)
+        //
+        //     });
+        //
+        //
+        // },
 
         updateUserInfo(state, payload){
             let item = payload.item;

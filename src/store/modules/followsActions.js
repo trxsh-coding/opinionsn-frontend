@@ -45,7 +45,13 @@ export const followsActions = sc => class extends sc {
 
 
 
+    getMyFollowings({commit, dispatch}, payload={}){
 
+        let {customUrl = `/api/rest/vote/feed/leaders`, data={}, method='get', } = payload;
+
+        sc.apiRequest(customUrl, data,{commit, dispatch, onSuccess: 'onListReceived', successType: 'mutation'}, method);
+
+    };
 
 
 
@@ -74,7 +80,8 @@ export const followsActions = sc => class extends sc {
             followUser:this.followUser,
             unFollowUser:this.unFollowUser,
             getFollowings: this.getFollowings,
-            getFollowers: this.getFollowers
+            getFollowers: this.getFollowers,
+            getMyFollowings: this.getMyFollowings
 
         }
     }

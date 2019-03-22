@@ -2,7 +2,7 @@
     <div class="poll-block pb-10">
         <div class="middle-block">
             <div class="subject-header-block flex-between">
-                <div class="subject__item pointer wb" @click="categoryLink(poll.categories)">
+                <div class="subject__item pointer wb " @click="categoryLink(poll.categories)">
                     <span>{{poll.subject_header}}</span>
                 </div>
                 <div class="subject__icon">
@@ -18,7 +18,7 @@
             </div>
 
             <div class="description-block wb" v-if="!hiddenText">
-                <span class="poll-description">{{normDescription}}</span> <span @click="expandText" v-if="!showMore">more</span>
+                <span class="poll-description">{{normDescription}}</span> <span class="more" @click="expandText" v-if="!showMore">ещё</span>
             </div>
             <div class="description-block wb" v-if="hiddenText">
                 <span class="poll-description">{{poll.description}}</span>
@@ -36,9 +36,9 @@
                 <options-with-pictures v-if="option.picture" :feed="feed" :item="item" :option="option" :option_index="option_index" :correctOption="correctOption" :poll="poll"/>
 
             </div>
-            <el-button @click="onExpandAction" v-if="options.length != senitizedOptions.length">
-                Expand Button
-            </el-button>
+            <div class="expand-block" @click="onExpandAction" v-if="options.length != senitizedOptions.length">
+               <span>+{{options.length - senitizedOptions.length }}</span>
+            </div>
         </div>
         <icon-block :poll="poll" :item="item" >
             <div slot="bookmark">
@@ -66,7 +66,7 @@
         data: () => ({
 
             expanded:false,
-            optionsLimit:3,
+            optionsLimit:4,
             hiddenText:false,
             showMore:false
         }),
@@ -118,10 +118,10 @@
 
                 let text = poll.description
 
-                if(text.indexOf(' ') != -1){
+                if(text.length >= 300){
 
 
-                   return text.substring(0, text.substring(0, 200).lastIndexOf(' '))
+                   return text.substring(0, text.substring(0, 200).lastIndexOf(' ')) + '... '
 
                 } else {
 
@@ -234,8 +234,29 @@
             justify-content: space-between;
             margin-top: 3px;
             margin-bottom: 12px;
+            .expand-block {
+                margin-top: 6px;
+                height: 48px;
+                text-align: center;
+                width: 100%;
+                background: #FFFFFF;
+                box-shadow: 0px 0px 12px rgba(0, 0, 0, 0.06);
+                border-radius: 6px;
+                font-family: Roboto;
+                font-style: normal;
+                font-weight: 300;
+                font-size: 13px;
+                line-height: 14px;
+                letter-spacing: -0.1px;
+                color: #445761;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+
 
             .options-section  {
+
                 position: relative;
                 display: flex;
                 flex-direction: row;
@@ -268,28 +289,59 @@
                 border-radius: 12px;
                 margin-top: 13px;
             }
-            .subject-header-block {
-                border-radius: 9px;
-                padding-top: 15px;
-                padding-bottom: 7px;
+
+            .description-block {
                 span {
-                    padding: 2px 9px;
-                    background: #B9C0C4;
-                    border-radius: 9px;
+
                     font-family: Roboto;
                     font-style: normal;
                     font-weight: normal;
-                    line-height: 14px;
                     font-size: 13px;
+                    line-height: 16px;
+                    letter-spacing: -0.1px;
+
+                    color: #445761;
+
+
+
+                }
+                .more {
+
+                    font-family: Roboto;
+                    font-style: normal;
+                    font-weight: 300;
+                    font-size: 13px;
+                    line-height: 16px;
+                    letter-spacing: -0.1px;
+                    color: #6D7D85;
+
+                }
+
+            }
+            .subject-header-block {
+                border-radius: 9px;
+                padding-top: 11px;
+                padding-bottom: 7px;
+                span {
+
+
+                    padding: 2px 9px;
+                    background: #A1ABB0;
+                    border-radius: 9px;
+                    font-family: Roboto;
+                    font-style: normal;
+                    font-weight: 300;
+                    font-size: 12px;
+                    line-height: 14px;
                     letter-spacing: -0.1px;
                     color: #FFFFFF;
                 }
             }
             .tags-block {
-                margin-bottom: 5px;
+                margin-bottom: 4px;
             }
             .subject-block {
-                margin-bottom: 9px;
+                margin-bottom: 4px;
             }
         }
         .input-explain-section {

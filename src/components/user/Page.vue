@@ -172,9 +172,6 @@
                     background: #4b97b4;
                     border-radius: 6px 6px 0px 6px;
                     text-transform: uppercase;
-                    position: absolute;
-                    left: 94px;
-                    top: -35px;
                     border-color: #4b97b4;
                     span {
                         font-family: Roboto;

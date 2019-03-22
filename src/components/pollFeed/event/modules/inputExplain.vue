@@ -102,9 +102,22 @@
 
 <style lang="scss">
     .input-explain-section {
+        #Categories {
 
+            background: #FFFFFF;
 
+        }
+        #EmojiPicker {
 
+            background: #FFFFFF;
+
+        }
+
+        .container-search {
+
+            display: none;
+
+        }
 
         .send__button {
 
@@ -115,12 +128,14 @@
              font-family: Roboto;
              font-style: normal;
              font-weight: normal;
-             line-height: 14px;
+             line-height: 13px;
              font-size: 15px;
              text-align: right;
              letter-spacing: -0.2px;
              font-variant: small-caps;
              color: #B9C0C4;
+            padding-right: 5px;
+
 
 
          }
@@ -131,17 +146,22 @@
             resize: none;
             border-radius: 12px;
             padding-right: 100px;
+
+        }
+
+        .el-textarea__inner::placeholder {
+
             font-family: Roboto;
             font-style: normal;
             font-weight: 300;
             font-size: 13px;
-            letter-spacing: -0.2px;
-            color: #B9C0C4;
+            color: #828D92 !important;
+
         }
 
         .emoji-icon {
             position: absolute;
-            right: 80px;
+            right: 84px;
             bottom: 12px;
         }
         .emoji-block {

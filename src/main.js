@@ -18,14 +18,17 @@ import moment from 'moment'
 import VueTheMask from 'vue-the-mask'
 import PerfectScrollbar from 'vue2-perfect-scrollbar'
 import 'vue2-perfect-scrollbar/dist/vue2-perfect-scrollbar.css'
+import VueAwesomeSwiper from 'vue-awesome-swiper'
+import 'swiper/dist/css/swiper.css'
 
-Vue.use(PerfectScrollbar)
-Vue.use(VueTheMask)
+Vue.use(VueAwesomeSwiper);
+Vue.use(PerfectScrollbar);
+Vue.use(VueTheMask);
 Vue.use(Croppa);
 Vue.use(NProgress);
 locale.use(langRu);
 Vue.use(VueI18n);
-Vue.use(moment)
+Vue.use(moment);
 //*****************
 
 const i18n = new VueI18n({

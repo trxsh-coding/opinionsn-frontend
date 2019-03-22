@@ -129,7 +129,7 @@ export default {
                   this.$store.commit("userPage/removeUser");
                   this.$store.commit("pollFeed/clearFeed");
                   this.$store.commit("globalStore/clearStores")
-                  this.$router.push('/login/sign');
+                  this.$router.push('/login/');
                 }
               }.bind(this))
 

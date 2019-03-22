@@ -1,5 +1,5 @@
 <template>
-    <div class="options-block " @click="vote(option.id, option.poll_id)" :class="{cursor : item.voted, opacity  : poll.votingOver, normalOpacity : correct_option}">
+    <div class="options-block " @click="vote(option.id, option.poll_id)" :class="{cursor : item.voted, opacity  : poll.votingOver, rightAnswer : correct_option}">
         <div class="option-picture" :style="{ 'background-image': 'url(' + option.picture + ')' }">
 
             <div class="percentage-block" >
@@ -171,7 +171,13 @@
             }
         }
 
+        .rightAnswer {
 
+            opacity: 1;
+            box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.12);
+
+
+        }
 
         .correct {
 

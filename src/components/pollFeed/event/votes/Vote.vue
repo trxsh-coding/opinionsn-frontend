@@ -220,7 +220,7 @@
                     font-size: 12px;
                     letter-spacing: -0.1px;
                     color: #69777F;
-                    padding-left: 10px;
+                    padding-left: 24px;
                 }
                 path {
                     fill: #4B97B4;

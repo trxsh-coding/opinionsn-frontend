@@ -107,7 +107,7 @@
     /* That's what I call CSS master*/
     .opninonFeed {
         border-radius: 10px;
-        padding: 15px 9px 12px 9px;
+        padding: 15px 15px 12px 9px;
         background: #FFFFFF;
         margin-bottom: 10px;
 

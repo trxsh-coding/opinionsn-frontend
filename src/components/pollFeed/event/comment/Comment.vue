@@ -184,8 +184,7 @@
             }
         }
         .text-block {
-            width: 80%;
-            margin-left: 9px;
+            width: 83%;
         }
         .comment-time {
 

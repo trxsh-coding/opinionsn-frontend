@@ -15,22 +15,22 @@
         <icon-more /></icon-base>
       </div>
       <div class="information-block">
-        <span class="username">{{author.username}}</span>
-        <span class="subject">{{header}}<span v-if="showPostfix"> <b>{{lstr('in_the_poll')}}</b></span></span>
-        <div class="location-block">
-          <icon-base
-          fill="none"
-          width="9"
-          height="13"
-          viewBox="0 0 9 13"
-          icon-name="location">
-          <icon-location /></icon-base>
-          <span> <slot name="author_loc">{{author.location}}</slot></span>
+        <div class="user-block">
+          <span class="username">{{author.username}}</span>
+          <span class="subject">{{header}} </span>
+          <div class="location-block">
+            <span> <slot name="author_loc">{{author.location}}</slot></span>
+
+          </div>
+        </div>
+
+        <div class="time-block">
           <el-tooltip class="item" effect="dark" :content="moment(item.timestamp).format('LL')" placement="top">
             <span class="time">{{moment(item.timestamp).format('HH:mm')}}</span>
           </el-tooltip>
         </div>
       </div>
+
     </div>
 </template>
 
@@ -106,14 +106,14 @@ import moment from 'moment'
   .author-header {
       display: flex;
       position: relative;
-     align-items: center;
+     align-items: flex-start;
       .time {
         padding-left: 5px;
         font-family: Roboto;
         font-style: normal;
         font-weight: 300;
         line-height: 12px;
-        font-size: 12px;
+        font-size: 13px;
         text-align: right;
         letter-spacing: -0.2px;
         color: #828D92;
@@ -132,16 +132,19 @@ import moment from 'moment'
         background-size: cover;
       }
       .information-block {
-        margin-top: 3px;
+        display: flex;
+        justify-content: space-between;
+        width: 100%;
+        align-items: flex-end;
         .location-block {
           font-family: Roboto;
           font-style: normal;
           font-weight: 300;
           line-height: 11px;
-          font-size: 12px;
+          font-size: 13px;
           letter-spacing: -0.2px;
           color: #828D92;
-          margin-top: 4px;
+          margin-top: 6px;
         }
         .username {
           font-family: Roboto;
@@ -150,6 +153,11 @@ import moment from 'moment'
           line-height: 18px;
           font-size: 14px;
           color: #152D3A;
+        }
+        .time-block {
+          display: flex;
+          margin-top: 6px;
+
         }
         .subject {
           font-family: Roboto;

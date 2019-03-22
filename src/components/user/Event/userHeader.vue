@@ -24,6 +24,15 @@
 
                 <!--</div>-->
                 <div class="avatar-block" :style="{ 'background-image': 'url(' + user.path_to_avatar + ')' } ">
+                    <icon-base
+                            v-if="user.id === main_user_id"
+                            class="icon-photo"
+                            fill="#152D3A"
+                            width="20"
+                            height="16"
+                            viewBox="0 0 20 16"
+                            icon-name="icon-photo"><icon-photo/>
+                    </icon-base>
                     <div class="uploader-wrapper" v-if="user.id === main_user_id">
                         <avatar-uploader   />
                     </div>
@@ -45,28 +54,22 @@
                 <el-button size="small" v-if="hide_edit" class="edit-save" @click="updateUserInfo" >
                     <lang-string :title="'save'"/>
                 </el-button>
-                <div class="name-block">
+                <div class="name-block mb-3">
 
-                    <div class="firstname-block">
+                    <div class="firstname-block" v-if="user.first_name != null ">
                         <span class="p">{{user.first_name + ' ' + user.last_name}}</span>
                     </div>
                 </div>
-                <div class="nickname-block">
+                <div class="nickname-block mb-3">
                     <span  class="username">{{user.username}}</span>
                 </div>
-                <div class="description-block">
-                    <span>{{user.aboutMe}}</span>
-                </div>
-                <div class="location-block" >
-                    <icon-base
-                            fill="none"
-                            width="9"
-                            height="13"
-                            viewBox="0 0 9 13"
-                            icon-name="location">
-                        <icon-location /></icon-base>
+                <div class="location-block mb-3" >
                     <span class="location">{{user.location}}</span>
                 </div>
+                <div class="description-block mb-3">
+                    <span>{{user.aboutMe}}</span>
+                </div>
+
             </div>
         </div>
     </div>
@@ -80,6 +83,7 @@
     import langString from './../../langString.vue'
     import {mapState} from 'vuex'
     import IconBase from '../../icons/IconBase'
+    import IconPhoto from '../../icons/IconPhoto'
     import IconLocation from '../../icons/IconLocation'
     export default {
         name: "userHeader",
@@ -185,7 +189,8 @@
             backgroundUploader,
             IconBase,
             IconLocation,
-            mobileAvatar
+            mobileAvatar,
+            IconPhoto
 
         }
     }
@@ -231,7 +236,6 @@
                             margin: 0px 27px;
                             padding: 5px;
                             span {
-                                text-transform: uppercase;
 
                             }
                         }
@@ -254,7 +258,6 @@
                             font-family: Roboto;
                             font-style: normal;
                             font-weight: 500;
-                            line-height: 18px;
                             font-size: 15px;
                             letter-spacing: -0.1px;
                             color: #152D3A;
@@ -278,12 +281,15 @@
                     position: absolute;
                     bottom: -25px;
                     left: 12px;
-                    box-shadow: 0px 0px 24px rgba(0, 0, 0, 0.24);
                     border-radius: 45px;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
                 }
                 .avatar {
                     width: 178px;
                     height: 178px;
+
                 }
             }
 
@@ -308,20 +314,30 @@
                 justify-content: space-evenly;
                 flex-direction: column;
                 display: flex;
-                padding: 36px 19px 15px 15px;
+                padding: 36px 19px 15px 12px;
                 %input-styles {
                     height: 18px;
                     border-radius: 30px;
                     width: 100%;
                 }
                 .edit {
-                    background: #4b97b4;
-                    border-radius: 6px 6px 0px 6px;
-                    text-transform: uppercase;
+                    background: #A1ABB0;
+
+                    text-transform: lowercase;
+                    font-family: Roboto;
+                    font-style: normal;
+                    font-weight: normal;
+                    font-size: 15px;
+                    line-height: 13px;
+                    letter-spacing: -0.1px;
+
+                    color: #FFFFFF;
+
+                    border-radius: 0px 6px 0px 0px !important;
                     position: absolute;
                     left: 94px;
-                    top: -35px;
-                    border-color: #4b97b4;
+                    top: -33px;
+                    border-color: #A1ABB0;
                     span {
                         font-family: Roboto;
                         font-style: normal;

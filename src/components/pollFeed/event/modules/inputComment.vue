@@ -85,6 +85,12 @@
 
 <style lang="scss">
     .input-section {
+
+        .container-search {
+
+            display: none;
+
+        }
         .el-input.is-disabled .el-input__inner {
 
             background: #ffffff;

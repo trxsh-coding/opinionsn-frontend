@@ -7,7 +7,7 @@
             <div class="author-section flex-align-center flex-between">
                 <div class="author-block">
                     <span @click="userLink(author.id)" class="username pointer">{{author.username}}</span>
-                    <lang-string class="created" :title="'created'"/>  <lang-string v-if="!poll.end_date" class="created-poll" :title="'poll'"/> <lang-string  v-if="poll.end_date" class="created-poll" :title="'prediction'"/>
+                    <lang-string class="created" :title="'created'"/>  <lang-string v-if="!poll.end_date" class="created-poll font-14" :title="'poll'"/> <lang-string  v-if="poll.end_date" class="created-poll" :title="'prediction'"/>
                 </div>
                 <div class="icon-more" v-if="user.authorities === 'USER' ">
                     <icon-base
@@ -35,13 +35,6 @@
             </div>
             <div class="location-block flex-between">
                 <div class="loc">
-                    <icon-base
-                            fill="none"
-                            width="9"
-                            height="13"
-                            viewBox="0 0 9 13"
-                            icon-name="location">
-                        <icon-location /></icon-base>
                     <span>{{author.location}}</span>
                 </div>
                 <div class="time-block">
@@ -156,6 +149,8 @@
         .information-block {
             margin-left: 9px;
             width: 90%;
+            display: flex;
+            flex-direction: column;
             .location-block {
                 font-family: Roboto;
                 font-style: normal;

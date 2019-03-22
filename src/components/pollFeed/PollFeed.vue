@@ -23,13 +23,13 @@
     <div  class="feed relative" >
 
 
-        <perfect-scrollbar class="category-section" >
-          <div class="category-block" v-for="category in categories">
+        <swiper :options="swiperOption" class="category-section" >
+          <swiper-slide class="category-block" v-for="category in categories">
 
-            <filter-component :filtered="filtered" :category="category" @getFeed="getFeed" />
+            <filter-component :filtered="filtered" :category="category"  />
 
-          </div>
-        </perfect-scrollbar>
+          </swiper-slide>
+        </swiper>
       <div v-for="item in items" >
         <event :item="item" :feed="feed"/>
       </div>
@@ -60,7 +60,15 @@
     data(){
       return {
         page: 1,
-        filtered: false
+        filtered: false,
+        swiperOption: {
+          slidesPerView: 1,
+          spaceBetween: 30,
+          pagination: {
+            el: '.swiper-pagination',
+            clickable: true
+          }
+        }
       }
     },
     props:['feed'],
@@ -142,7 +150,11 @@
         .feed {
 
             overflow:hidden;
+            .swiper-slide {
+              width: 93px !important;
+              margin-right: 12px !important;
 
+            }
         }
 
     }

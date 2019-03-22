@@ -69,7 +69,6 @@
 <style scoped>
 
     .poll-option-head-wrap {
-        margin-top: 17px;
     }
 
 

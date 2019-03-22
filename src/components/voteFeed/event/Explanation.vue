@@ -33,7 +33,7 @@ import IconBase from '../../icons/IconBase.vue'
       display: flex;
       margin-right: 20px;
       position: relative;
-      padding: 0px 0px 9px 20px;
+      padding: 0px 0px 9px 13px;
       align-items: center;
         .time {
         position: absolute;

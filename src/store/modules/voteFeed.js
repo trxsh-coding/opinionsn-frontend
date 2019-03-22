@@ -1,46 +1,38 @@
 import {VuexStore} from "./generic/proto";
+import {StoreWithPageList} from "./generic/withPageList";
+import {pollActions} from "./pollActions";
 
+class VoteFeedStore extends StoreWithPageList (VuexStore, '/api/rest/vote/feed') {
 
-class VoteFeedStore extends VuexStore {
+    setFilterId(state, id){
 
+        state.items = [];
+        state.filter_id = id
 
-    onFeedItemsReceived(state, items){
-        state.feedItems = items;
-    };
-
-
-    listItemsAction({commit}){
-
-        VuexStore.apiRequest('/api/rest/vote/feed', null, {commit, onSuccess: 'onFeedItemsReceived'});
-    };
-
-
-    get state(){
-        return {
-            ...super.state,
-            feedItems: [],
-        }
     }
 
+    listItemsAction(vueStuff, args={}){
 
-    get mutations(){
+        let {state} = vueStuff;
+
+        args.params = {...args.params || {}, subscribe_id: state.filter_id};
+
+        super.listItemsAction(vueStuff, args);
+    };
+
+    get mutations() {
         return {
             ...super.mutations,
-            onFeedItemsReceived: this.onFeedItemsReceived,
+            setFilterId: this.setFilterId
         }
     }
 
-    get vuexStore(){
-        return {
-            ...super.vuexStore,
-            actions: {
-                list: this.listItemsAction.bind(this),
-            }
-        }
-    }
+
 }
+
 
 let store = new VoteFeedStore();
 
 export const voteFeed = store.vuexStore;
+
 

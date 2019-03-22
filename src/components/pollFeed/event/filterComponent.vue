@@ -52,10 +52,22 @@
 
     }
     .filter-category {
+        align-items: center;
+        span {
 
+            font-family: Roboto;
+            font-style: normal;
+            font-weight: normal;
+            font-size: 12px;
+            line-height: 14px;
+            text-align: center;
+            letter-spacing: 0.115547px;
+            color: #152D3A;
+
+        }
         .category-picture {
             border-radius: 12px;
-            width: 92px;
+            width: 93px;
             height: 60px;
             background-repeat: no-repeat;
             background-size: cover;
