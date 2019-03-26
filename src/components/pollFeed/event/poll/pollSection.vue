@@ -66,7 +66,7 @@
         data: () => ({
 
             expanded:false,
-            optionsLimit:4,
+            optionsLimit:2,
             hiddenText:false,
             showMore:false
         }),
@@ -223,7 +223,17 @@
 
 <style lang="scss">
     .poll-block {
+        .subject__icon {
 
+            .bookmark-icon {
+
+                position: absolute;
+                top: -15px !important;
+                right: -17px !important;
+
+            }
+
+        }
 
         .options {
 
@@ -276,6 +286,8 @@
             }
 
         }
+
+
 
         .middle-block {
 

@@ -1,6 +1,7 @@
 <template>
     <div class="user-header">
         <div class="main-content mb-10">
+
             <div class="pictures-block">
                 <div class="background-block" :style="{ 'background-image': 'url(' + user.background_image + ')' }">
                     <div class="uploader-wrapper" v-if="user.id === main_user_id">

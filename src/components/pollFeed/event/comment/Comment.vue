@@ -29,7 +29,7 @@
             </div>
             <div class="comment-time">
                 <el-tooltip class="item" effect="dark" :content="moment(comment.create_time).format('LL')" placement="top">
-                    <span class="time pl-9">{{moment(comment.create_time).format('HH:mm')}}</span>
+                    <span class="time pl-9"><time-trans :time="comment.create_time"/></span>
                 </el-tooltip>
                 <i class="el-icon-delete" @click="deleteComment(comment.id)" v-if="user.authorities === 'ADMIN' "></i>
             </div>
@@ -38,6 +38,7 @@
 </template>
 
 <script>
+    import timeTrans from '../../../timeTrans'
     import {mapState} from 'vuex'
     import IconBase from '../../../icons/IconBase.vue'
     import IconPrice from '../../../icons/IconPrice.vue'
@@ -47,6 +48,7 @@
     import IconComments from '../../../icons/IconComments.vue'
     import IconReplied from '../../../icons/IconReplied.vue'
     import moment from 'moment'
+    import langMixin from '../../../mixins/langMixin'
     export default {
         data() {
             return {
@@ -77,6 +79,7 @@
                 return option;
 
             },
+
 
             comment: function () {
 
@@ -137,7 +140,8 @@
             IconAccept,
             IconPrice,
             IconComments,
-            IconReplied
+            IconReplied,
+            timeTrans
         },
 
     }

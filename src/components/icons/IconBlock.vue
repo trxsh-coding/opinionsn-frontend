@@ -187,6 +187,23 @@
 
         }
 
+        .bookmarked {
+
+            position: absolute;
+            right: -1px;
+            bottom: 5px !important;
+
+        }
+        .bookmark-icon {
+
+            svg {
+                position: absolute;
+                top: -36px !important;
+                right: -19px;
+            }
+
+        }
+
         .main-block {
             display: flex;
             align-items: flex-end;

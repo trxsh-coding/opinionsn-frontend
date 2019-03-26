@@ -10,17 +10,10 @@
             </div>
             <div class="description-block">
           <span class="description" >
-            {{user.about_me}}
+            {{user.aboutMe}}
           </span>
             </div>
             <div class="bottom-content">
-                <icon-base
-                        fill="none"
-                        width="9"
-                        height="13"
-                        viewBox="0 0 9 13"
-                        icon-name="location">
-                    <icon-location /></icon-base>
                 <span class="location">{{user.location}}</span>
             </div>
         </div>

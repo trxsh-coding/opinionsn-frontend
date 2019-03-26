@@ -5,7 +5,7 @@
             <div class="header-text">
                 <span >статистика</span> <span class="details">Подробнее</span>
             </div>
-            <div class="dropdown" @click="hide = !hide">
+            <div class="dropdown flex-align-center" @click="hide = !hide">
                 <icon-base
                         v-if="!hide"
                         class="dropdown-icon"
@@ -32,7 +32,7 @@
                 <div class="header-text">
                     <span class="header-span">{{key}}</span>
                 </div>
-                <div class="progress-border">
+                <div class="progress-border" :class="{full: item[0] == 100}">
                     <el-progress class="circle-chart"  type="circle" :class="{empty : item[2] == 0}" color="#4B97B4" :percentage="item[0]"  width="60" :stroke-width="3"></el-progress>
                     <div class="border-right">
 
@@ -205,6 +205,18 @@
 
             }
 
+            .full {
+
+                .el-progress__text {
+
+                    padding-left:0 !important;
+
+                }
+
+            }
+
+
+
             .progress-chart {
 
 
@@ -222,7 +234,6 @@
                     border-right-color: #D0D5D9;
                     border-right-width: 0.5px;
                     border-right-style: solid;
-                    padding: 0 24px;
 
                 }
 

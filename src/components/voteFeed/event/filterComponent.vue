@@ -1,8 +1,9 @@
 <template>
     <div class="filter-wrapper " @click="setFilter(author.id)" >
 
-        <bordered-avatar :user="author"/>
+        <div class="author-picture" :style="{ 'background-image': 'url(' + author.background_image + ')' }">
 
+        </div>
 
         <span>
             {{author.username}}
@@ -17,7 +18,6 @@
     export default {
         props:['following'],
         name: "filterComponent",
-        components: {borderedAvatar},
         computed: {
             ...mapState('globalStore', {
                 users: ({users}) =>users,
@@ -51,18 +51,17 @@
 
 <style lang="scss">
     .filter-wrapper {
-        margin-right: 28px;
+        margin-right: 21px;
         text-align: center;
 
 
         .author-picture {
-            margin-left: 5px;
+            margin-bottom: 5px;
             width: 60px;
             height: 60px;
             background-repeat: no-repeat;
             background-size: cover;
             border-radius: 100px;
-            margin-bottom: 5px;
 
         }
 

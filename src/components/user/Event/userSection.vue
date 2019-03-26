@@ -105,4 +105,44 @@
     .fade-enter, .fade-leave-to /* .fade-leave-active до версии 2.1.8 */ {
         opacity: 0;
     }
+
+    .user-section {
+
+        .user-statistic {
+            justify-content: center;
+
+            .progress-border {
+
+                padding: 0 33px ;
+
+            }
+        }
+
+    }
+
+    @media only screen and (max-device-width : 500px) {
+
+        .user-statistic {
+            justify-content: space-evenly !important;
+            .progress-border {
+
+                padding: 0 24px !important;
+
+            }
+
+            .el-progress-circle {
+
+                width: 75px !important;
+                height: 75px !important;
+
+            }
+            .statistic-wrapper {
+
+
+
+            }
+
+        }
+
+    }
 </style>

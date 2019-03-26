@@ -176,12 +176,12 @@
 
             .el-progress-bar__inner {
 
-                background-color: #4FAC40 !important;
+                background-color: #9CD68E !important;
 
             }
             .el-progress__text {
 
-                color:#4FAC40 !important;
+                color:#9CD68E !important;
 
             }
 

@@ -92,4 +92,10 @@
         color: red;
         margin-left: 12px;
     }
+
+    @media only screen and (max-device-width : 500px) {
+
+
+
+    }
 </style>

@@ -3,7 +3,7 @@
         <div class="option-picture" :style="{ 'background-image': 'url(' + option.picture + ')' }">
 
             <div class="percentage-block" >
-                <span v-bind:class="{ selected: selected_option, correct: correct_option }" v-if="mobile">{{option.voted_percentage}}%</span>
+                <span v-bind:class="{ selected: selected_option, correct: correct_option }" >{{option.voted_percentage}}%</span>
             </div>
 
         </div>
@@ -199,6 +199,12 @@
             top: -2px;
             right: 8px;
         }
+
+        .poll-option-head {
+
+            margin-top: 9px;
+
+        }
         .option-picture {
             height: 168px;
             width: 232px;
@@ -206,6 +212,31 @@
             background-size: cover;
             background-position: center;
             border-radius: 6px 6px 0px 0px;
+            display: flex;
+            justify-content: flex-end;
+            align-items: flex-end;
+            .percentage-block {
+                text-align: center;
+                line-height: 27px;
+                margin-right: 9px;
+                width: 41px;
+                height: 27px;
+                background: #FFFFFF;
+                border-radius: 6px 6px 0 0;
+
+                span {
+                    font-family: Roboto;
+                    font-style: normal;
+                    font-weight: 500;
+                    line-height: 13px;
+                    font-size: 13px;
+                    text-align: center;
+                    letter-spacing: -0.2px;
+                    color: #152D3A;
+                    border-radius: 6px;
+                }
+
+            }
         }
 
         .option-container {
@@ -222,7 +253,6 @@
                 padding-top: 11px;
                 word-break: break-word;
                 height: 25px;
-                margin-right: 41px;
                 display: flex;
                 align-items: center;
                 padding-right: 7px;
@@ -237,6 +267,7 @@
                 }
 
             }
+
 
             .option-id {
                 display: flex;
@@ -255,9 +286,7 @@
                 }
                 .el-progress__text {
 
-                    position: absolute;
-                    right: 11px;
-                    bottom: 21px;
+                    display: none;
 
                 }
                 .progress-bar {
@@ -293,28 +322,7 @@
                     display: flex;
                     justify-content: flex-end;
                     align-items: flex-end;
-                    .percentage-block {
-                        text-align: center;
-                        line-height: 27px;
-                        margin-right: 9px;
-                        width: 41px;
-                        height: 27px;
-                        background: #FFFFFF;
-                        border-radius: 6px 6px 0 0;
 
-                        span {
-                            font-family: Roboto;
-                            font-style: normal;
-                            font-weight: 500;
-                            line-height: 13px;
-                            font-size: 13px;
-                            text-align: center;
-                            letter-spacing: -0.2px;
-                            color: #152D3A;
-                            border-radius: 6px;
-                        }
-
-                    }
 
                 }
 

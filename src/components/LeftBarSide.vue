@@ -72,8 +72,10 @@ export default {
 
       .user-statistic {
 
+          justify-content: center;
           .circle-chart {
 
+          padding: 12px 30px;
 
           }
 
