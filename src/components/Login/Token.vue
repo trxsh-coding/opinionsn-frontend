@@ -29,12 +29,12 @@
 
                     <el-form-item :label="lstr('password')">
 
-                        <el-input v-model="passwordForm.password" autocomplete="on" />
+                        <el-input type="password" v-model="passwordForm.password" autocomplete="on" />
                         <lang-string class="error" :title="errors.field_email"/>
                     </el-form-item>
                     <el-form-item :label="lstr('confirm_password')">
 
-                        <el-input  v-model="passwordForm.password_confirm" />
+                        <el-input  type="password" v-model="passwordForm.password_confirm" />
 
                     </el-form-item>
                 </el-form>
