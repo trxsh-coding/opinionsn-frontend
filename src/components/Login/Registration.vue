@@ -207,7 +207,6 @@
             flex-direction: column;
             .form-block {
                 width: 100%;
-                margin-top: 28px;
                 input {
 
                     border-radius: 12px !important;

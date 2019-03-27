@@ -102,7 +102,7 @@ body {
 
         }
         .buttons-block {
-            margin-top: 60px;
+            margin-top: 35px;
             text-align: center;
             .el-button {
                 margin: 0px;
