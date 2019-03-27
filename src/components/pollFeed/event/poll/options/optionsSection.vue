@@ -26,7 +26,6 @@
     import i18n from '../../../../i18n.vue';
     export default {
         data(){
-
             return {
                 radio: '1',
                 mobile:this.$root.mobile
@@ -36,9 +35,8 @@
         },
 
 
-
         name: "optionsSection",
-        props: ['option', 'item','option_index', 'correctOption', 'poll', 'feed'],
+        props: ['option', 'item','option_index', 'correctOption', 'poll', 'feed', 'expanded'],
         computed: {
             /**
              * Defines whether poll can expand (or even needs to)
@@ -96,7 +94,9 @@
 
             vote(selected_variable, poll_id){
 
-                if (!this.item.voted && !this.poll.votingOver) {
+                if(this.expanded){
+
+                    if (!this.item.voted && !this.poll.votingOver) {
 
                         if(this.$route.name === 'pollFeed') {
 
@@ -116,7 +116,12 @@
                         }
 
 
+                    }
+
                 }
+
+                this.$emit('expand', this.expanded = true);
+
             },
 
         },

@@ -25,13 +25,13 @@
             </div>
             <div class="picture-block" v-if="poll.picture" :style="{ 'background-image': 'url(' + poll.picture + ')' } "></div>
         </div>
-        <div class="options" @click="expanded = true">
+        <div class="options" >
 
             <div class="options-section" v-for="(option, option_index) in senitizedOptions" :key="option_index">
 
                 <el-button v-if="user && user.authorities === 'ADMIN'  "  @click="setRightOption(option.id, item.id)">✔</el-button>
 
-                <options-section v-if="!option.picture" :item="item" :feed="feed" :option="option" :option_index="option_index" :correctOption="correctOption" :poll="poll" />
+                <options-section v-if="!option.picture" :item="item" :feed="feed" :option="option" :option_index="option_index" :correctOption="correctOption" :poll="poll" :expanded="expanded" @expand="expandFunc"/>
 
                 <options-with-pictures v-if="option.picture" :feed="feed" :item="item" :option="option" :option_index="option_index" :correctOption="correctOption" :poll="poll"/>
 
@@ -66,6 +66,7 @@
         data: () => ({
 
             expanded:false,
+            voteAccess:false,
             optionsLimit:2,
             hiddenText:false,
             showMore:false
@@ -156,6 +157,12 @@
 
         methods: {
 
+            expandFunc(expand) {
+
+                this.expanded = true;
+
+            },
+
             categoryLink(category_id){
 
                 this.$router.push({name:'catalogFeed',params:{id:category_id}})
@@ -191,8 +198,9 @@
 
             vote(selected_variable, poll_id){
 
-                if(expanded){
-
+                console.log(this.expanded)
+                if(this.expanded){
+                    console.log('there')
                     if (!this.item.voted) {
                         if(this.$route.name === 'pollFeed') {
 
@@ -207,6 +215,9 @@
                     }
 
                 }
+                this.expanded = true;
+                console.log('hi')
+
             },
 
             mounted(){
