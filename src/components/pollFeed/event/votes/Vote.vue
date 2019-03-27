@@ -23,7 +23,7 @@
                 </div>
             </div>
             <div class="explain-time">
-                    <span class="time pl-9"><time-trans :time="comment.create_time"/></span>
+                    <span class="time pl-9"><time-trans :time="vote.create_time"/></span>
             </div>
         </div>
         <div class="comments" v-for="comment_id in vote.comments_id">
@@ -186,9 +186,20 @@
             align-items: end;
             display: flex;
             margin-bottom: 12px;
+            .explain-time {
+                width: 13%;
+                text-align: right;
+
+            }
             .text-block {
-                width: 84%;
+                width:79%;
                 overflow-x: hidden;
+                .explain-time {
+
+                    width: 15%;
+                    text-align: right;
+
+                }
             }
             .info-block {
                 padding-top: 5px;

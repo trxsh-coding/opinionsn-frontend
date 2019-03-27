@@ -60,7 +60,7 @@
         page: 1,
         filtered: false,
         swiperOption: {
-          slidesPerView: 1,
+          slidesPerView: 5,
           spaceBetween: 30,
           pagination: {
             el: '.swiper-pagination',

@@ -13,7 +13,7 @@
                 <div class="category-block " @click="categoryLink(category.id)" v-for="category in categories">
                     <div class="category-image relative"  :style="{ 'background-image': 'url(' + category.path_to_image + ')' } " >
                         <div class="category-subject">
-                            <h1 class="lowercase"><lang-string :title="category.name" /></h1>
+                            <h1><lang-string :title="category.name" /></h1>
                         </div>
                         <div class="overlay">
 
@@ -116,6 +116,8 @@
                 width: 100%;
                 height: 100%;
                 background: #000;
+                border-radius: 12px;
+
             }
 
 

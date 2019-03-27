@@ -10,6 +10,12 @@ export default  {
 
   },
   mutations: {
+
+    guestLocale(state, payload){
+
+        console.log(payload)
+
+    },
     setLocale(state, payload){
       let {langSelector: lang} = payload;
       // console.log(`Moment's lang (before): ${moment.locale()}`);
@@ -28,6 +34,13 @@ export default  {
           .then(function(response){
             commit('setLocale', response.data)
         }.bind(this))
+      },
+
+      getGuestsLocaleString({dispatch, commit}, payload){
+        axios.get('/api/locale/get')
+            .then(function(response){
+              commit('setLocale', response.data)
+            }.bind(this))
       }
     }
   }

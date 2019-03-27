@@ -165,6 +165,20 @@
             border-bottom-width: 0.5px;
             border-bottom-style: solid;
             align-items: center;
+            .left-block {
+
+                span {
+
+                    font-family: Roboto;
+                    font-style: normal;
+                    font-weight: 500;
+                    font-size: 15px;
+                    line-height: 18px;
+                    color: #152D3A;
+
+                }
+
+            }
             .unfollow-button {
 
                 padding: 5px 22px;

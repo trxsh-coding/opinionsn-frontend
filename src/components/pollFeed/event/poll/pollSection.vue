@@ -25,7 +25,7 @@
             </div>
             <div class="picture-block" v-if="poll.picture" :style="{ 'background-image': 'url(' + poll.picture + ')' } "></div>
         </div>
-        <div class="options">
+        <div class="options" @click="expanded = true">
 
             <div class="options-section" v-for="(option, option_index) in senitizedOptions" :key="option_index">
 
@@ -191,17 +191,21 @@
 
             vote(selected_variable, poll_id){
 
-                if (!this.item.voted) {
-                    if(this.$route.name === 'pollFeed') {
+                if(expanded){
 
-                        this.$store.dispatch(`pollFeed/createVote`, {data: {selected_variable, poll_id}});
+                    if (!this.item.voted) {
+                        if(this.$route.name === 'pollFeed') {
 
-                    } else {
+                            this.$store.dispatch(`pollFeed/createVote`, {data: {selected_variable, poll_id}});
 
-                        this.$store.dispatch(`singlePoll/createVote`, {data: {selected_variable, poll_id}});
+                        } else {
+
+                            this.$store.dispatch(`singlePoll/createVote`, {data: {selected_variable, poll_id}});
 
 
+                        }
                     }
+
                 }
             },
 

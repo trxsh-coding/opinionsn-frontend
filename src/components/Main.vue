@@ -326,6 +326,11 @@ body {
           flex-direction: column;
           justify-content: space-between;
           position: relative;
+          a {
+
+              text-decoration: none;
+
+          }
           .icon-exit {
 
               position: absolute;

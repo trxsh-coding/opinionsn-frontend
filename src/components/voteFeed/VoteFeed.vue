@@ -1,7 +1,7 @@
 <template lang="html">
 
 
-    <div>
+    <div class="vote-feed">
         <!-- Ошибка -->
         <!--<div v-if="state.error">-->
             <!--Что-то сломалось:-->
@@ -21,12 +21,14 @@
 
         <!-- Всё ок -->
         <div class="feed relative">
-            <div class="filter-section flex mb-10">
-                <div class="followings-block " v-for="following in followings">
+            <div class="filter-section flex mb-10" >
+                <swiper :options="swiperOption" class="category-section">
+                    <swiper-slide class="followings-block " v-for="following in followings">
 
-                    <filter-component  :following="following"  />
+                        <filter-component  :following="following"  />
 
-                </div>
+                    </swiper-slide>
+                </swiper>
             </div>
             <div v-for="item in items">
                 <event :item="item"/>
@@ -52,6 +54,23 @@
 
     import { mapState } from 'vuex';
     export default {
+
+        data(){
+
+            return {
+
+                swiperOption: {
+                    slidesPerView: 7,
+                    spaceBetween: 30,
+                    pagination: {
+                        el: '.swiper-pagination',
+                        clickable: true
+                    }
+                }
+
+            }
+
+        },
 
         computed: {
 
@@ -95,3 +114,39 @@
         }
     }
 </script>
+
+<style lang="scss">
+    .vote-feed {
+
+        .swiper-container {
+
+            margin-left: 0px;
+
+        }
+
+        .followings-block {
+
+            width: 75px !important;
+            margin-right: 12px !important;
+
+            .filter-wrapper {
+
+                span {
+
+                    font-family: Roboto;
+                    font-style: normal;
+                    font-weight: normal;
+                    font-size: 12px;
+                    line-height: 18px;
+                    text-align: center;
+                    color: #152D3A;
+
+
+                }
+
+            }
+
+        }
+
+    }
+</style>
