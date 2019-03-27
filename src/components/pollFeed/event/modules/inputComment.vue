@@ -3,7 +3,7 @@
         <el-input  type="textarea" autosize  size="small" v-model="comment_description" @keyup.enter.native="saveComment(item.id, vote.id)" >
 
         </el-input>
-        <span class="send__button" @click="saveComment(item.id, vote.id)">отправить</span>
+        <span class="send__button pointer lowercase" @click="saveComment(item.id, vote.id)"><lang-string :title="'send'" /></span>
 
         <span class="emoji-span" @click="toogleDialogEmoji" v-if="!mobile">
                     <icon-base

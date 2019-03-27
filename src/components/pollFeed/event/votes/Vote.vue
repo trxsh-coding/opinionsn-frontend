@@ -23,9 +23,7 @@
                 </div>
             </div>
             <div class="explain-time">
-                <el-tooltip class="item" effect="dark" :content="moment(item.timestamp).format('LL')" placement="top">
-                    <span class="time pl-9">{{moment(item.timestamp).format('HH:mm')}}</span>
-                </el-tooltip>
+                    <span class="time pl-9"><time-trans :time="comment.create_time"/></span>
             </div>
         </div>
         <div class="comments" v-for="comment_id in vote.comments_id">
@@ -40,6 +38,7 @@
 
     import {mapState} from 'vuex'
     import avatar from '../../../user/Event/modules/mainUserAvatar'
+    import timeTrans from '../../../timeTrans'
     import Comment from '../comment/Comment'
     import IconBase from '../../../icons/IconBase.vue'
     import IconPrice from '../../../icons/IconPrice.vue'
@@ -157,7 +156,7 @@
         },
 
         components: {
-
+            timeTrans,
             Comment,
             IconBase,
             IconTime,

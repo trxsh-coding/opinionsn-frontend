@@ -24,7 +24,7 @@
 
 
         <swiper :options="swiperOption" class="category-section" >
-          <swiper-slide class="category-block" v-for="category in categories">
+          <swiper-slide class="category-block " v-for="category in categories">
 
             <filter-component :filtered="filtered" :category="category"  />
 
@@ -37,9 +37,7 @@
         <div class="loading" v-if="!loading"><span>Loading</span></div>
       </mugen-scroll>
 
-
     </div>
-
 
   </div>
 
@@ -156,6 +154,7 @@
 
             }
         }
+
 
     }
   .loading {

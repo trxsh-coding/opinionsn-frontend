@@ -4,6 +4,9 @@ import axios from 'axios'
 import Main from '../components/Main'
 import Login from '../components/Login/Login'
 import Sign from '../components/Login/Sign'
+import Token from '../components/Login/Token'
+import Password from '../components/Login/Password'
+import Restore from '../components/Login/Restore'
 import Registration from '../components/Login/Registration'
 import CreateQuiz from '../components/CreateQuiz'
 import PollCreate from '../components/PollCreate'
@@ -26,18 +29,13 @@ import {nprogress} from '../main.js'
 Vue.use(Router);
 
 export const index = new Router({
-  base: './',
+  base: '/',
   mode: 'history',
-  scrollBehavior: (to, from, savedPosition) => {
-    if (to.hash) {
-      return {
-        selector: to.hash
-      }
-    }
+  scrollBehavior (to, from, savedPosition) {
     if (savedPosition) {
       return savedPosition
     } else {
-      return {x: 0, y: 0}
+      return { x: 0, y: 0 }
     }
   },
   routes: [
@@ -56,6 +54,23 @@ export const index = new Router({
           path: '/sign',
           name: 'sign',
           component: Sign,
+    },
+    {
+      path: '/restore',
+      name: 'restore',
+      component: Restore,
+    },
+    {
+      path: '/token/*',
+      name: 'token',
+      component: Token,
+      children: [
+        {
+          path: 'password',
+          name: 'password',
+          component: Password
+        },
+      ]
     },
     {
       path: '/',
@@ -188,8 +203,10 @@ index.beforeEach((to, from, next) => {
 });
 
 index.beforeEach((to, from, next) =>  {
-  if (to.path === '/sign' || to.path === '/registration' || to.path === '/login') {
-    next();
+  if (to.path === '/sign' || to.path === '/registration' || to.path === '/login' || to.path === '/restore' || to.name === `token` || to.path === '/pollFeed') {
+    next({
+      query: { redirect: to.fullPath }
+    });
   } else {
     axios.get('/api/rest/getUserStatus')
 

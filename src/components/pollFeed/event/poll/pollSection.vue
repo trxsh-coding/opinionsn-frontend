@@ -14,7 +14,7 @@
             </div>
 
             <div class="subject-block wb">
-                <span class="poll-subject">{{poll.subject}}</span>
+                <span class="poll-subject pointer" @click="pollLink(poll.id)">{{poll.subject}}</span>
             </div>
 
             <div class="description-block wb" v-if="!hiddenText">
@@ -29,7 +29,7 @@
 
             <div class="options-section" v-for="(option, option_index) in senitizedOptions" :key="option_index">
 
-                <el-button v-if="user.authorities === 'ADMIN' "  @click="setRightOption(option.id, item.id)">✔</el-button>
+                <el-button v-if="user && user.authorities === 'ADMIN'  "  @click="setRightOption(option.id, item.id)">✔</el-button>
 
                 <options-section v-if="!option.picture" :item="item" :feed="feed" :option="option" :option_index="option_index" :correctOption="correctOption" :poll="poll" />
 
@@ -159,6 +159,12 @@
             categoryLink(category_id){
 
                 this.$router.push({name:'catalogFeed',params:{id:category_id}})
+
+            },
+
+            pollLink(poll_id){
+
+                this.$router.push({name:'Poll',params:{id:poll_id}})
 
             },
 

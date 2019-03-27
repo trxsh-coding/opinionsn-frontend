@@ -8,12 +8,15 @@
             {{state.error}}
         </div>
         <div v-else class="category-wrapper">
-            <h1 class="catalog-header">Каталог тем</h1>
+            <h1 class="catalog-header"><lang-string :title="'Topics'"/></h1>
             <div class="category-section">
                 <div class="category-block " @click="categoryLink(category.id)" v-for="category in categories">
                     <div class="category-image relative"  :style="{ 'background-image': 'url(' + category.path_to_image + ')' } " >
                         <div class="category-subject">
                             <h1 class="lowercase"><lang-string :title="category.name" /></h1>
+                        </div>
+                        <div class="overlay">
+
                         </div>
                     </div>
                 </div>
@@ -98,12 +101,8 @@
 
             .category-subject {
 
-                width: 100%;
-                height: 100%;
-                background: #000;
-                opacity: 0.7;
+
                 border-radius: 12px;
-                z-index: 0;
                 display: flex;
                 justify-content: center;
                 align-items: center;
@@ -111,17 +110,27 @@
 
             }
 
+            .overlay {
+
+                opacity: 0.4;
+                width: 100%;
+                height: 100%;
+                background: #000;
+            }
+
 
             .category-block {
 
                 margin: 0 0px 6px 0;
                 margin-right: 6px !important;
+                width: 160px;
+                height: 112px;
             }
 
             .category-image {
-
                 width: 160px;
                 height: 112px;
+
                 border-radius: 12px;
                 background-size: 50% 50%;
                 background-repeat: no-repeat;

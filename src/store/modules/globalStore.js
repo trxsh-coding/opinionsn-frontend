@@ -93,7 +93,7 @@ export const globalStore  =  {
             }
         },
 
-        setMainUser(state, {user_id}) {
+        setSessionUser(state, {user_id}) {
 
             let map = state.users[user_id];
 

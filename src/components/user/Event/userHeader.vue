@@ -4,15 +4,15 @@
 
             <div class="pictures-block">
                 <div class="background-block" :style="{ 'background-image': 'url(' + user.background_image + ')' }">
-                    <div class="uploader-wrapper" v-if="user.id === main_user_id">
+                    <div class="uploader-wrapper pointer" v-if="user.id === main_user_id">
                         <background-uploader  />
                     </div>
-                    <div class="followers-block" @click="followsLink(user.id)">
-                        <div class="followings">
+                    <div class="followers-block pointer">
+                        <div class="followings " @click="followersLink(link.id)" >
                             <span class="number-span">{{user.amount_of_followers}}</span>
                             <lang-string class="bottom-span" :title="'followers'"/>
                         </div>
-                        <div class="followers">
+                        <div class="followers" @click="followingsLink(link.id)">
                             <span class="number-span">{{user.amount_of_leaders}}</span>
                             <lang-string class="bottom-span" :title="'followings'"/>
                         </div>
@@ -24,16 +24,7 @@
 
 
                 <!--</div>-->
-                <div class="avatar-block" :style="{ 'background-image': 'url(' + user.path_to_avatar + ')' } ">
-                    <icon-base
-                            v-if="user.id === main_user_id"
-                            class="icon-photo"
-                            fill="#152D3A"
-                            width="20"
-                            height="16"
-                            viewBox="0 0 20 16"
-                            icon-name="icon-photo"><icon-photo/>
-                    </icon-base>
+                <div class="avatar-block pointer" :style="{ 'background-image': 'url(' + user.path_to_avatar + ')' } ">
                     <div class="uploader-wrapper" v-if="user.id === main_user_id">
                         <avatar-uploader   />
                     </div>
@@ -91,6 +82,7 @@
         props:['user', 'hide_form'],
         data(){
             return {
+                link:this.$route.params,
                 mobile: this.$root.mobile,
                 hide_form:false,
                 avatarDialog:false,
@@ -139,12 +131,17 @@
         },
         methods: {
 
-            followsLink(userId) {
+            followersLink(userId) {
 
-                this.$router.push({name:'follows', params:{id:userId}})
+                this.$router.push({path:`/follows/followers/${userId}`})
 
             },
 
+            followingsLink(userId) {
+
+                this.$router.push({path:`/follows/followings/${userId}`})
+
+            },
 
 
             updateUsername(username) {
@@ -181,6 +178,7 @@
 
         created(){
 
+            console.log(this.$route.params.id)
 
         },
         components:{
@@ -207,7 +205,7 @@
                 .avatarDialog {
                     width: 145px;
                     height: 146px;
-                    background: cover;
+                    background-size: cover;
                     border-radius: 5px;
                     object-fit: cover;
                     background-position: center;

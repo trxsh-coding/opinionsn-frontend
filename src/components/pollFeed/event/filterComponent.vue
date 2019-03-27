@@ -4,9 +4,7 @@
 
             <div class="category-picture "  :style="{ 'background-image': 'url('+ category.path_to_image + ')' }"> </div>
 
-            <span>
-                {{category.name}}
-            </span>
+            <lang-string class="lowercase name" :title="category.name" />
 
 
 
@@ -15,10 +13,12 @@
 </template>
 
 <script>
+    import langString from '../../langString'
     export default {
 
         name: "filterComponent",
         props: ["category", "filtered"],
+        components:{langString},
         data(){
 
             return {
@@ -47,21 +47,20 @@
 
 <style lang="scss">
     .filter-category::selection {
-
         background: transparent;
 
     }
     .filter-category {
         align-items: center;
-        span {
+        .name {
 
             font-family: Roboto;
             font-style: normal;
-            font-weight: normal;
+            font-weight: 500;
             font-size: 12px;
-            line-height: 14px;
+            line-height: 18px;
             text-align: center;
-            letter-spacing: 0.115547px;
+            font-variant: small-caps;
             color: #152D3A;
 
         }

@@ -25,9 +25,7 @@
         </div>
 
         <div class="time-block">
-          <el-tooltip class="item" effect="dark" :content="moment(item.timestamp).format('LL')" placement="top">
-            <span class="time">{{moment(item.timestamp).format('HH:mm')}}</span>
-          </el-tooltip>
+          <span class="time"><time-trans :time="item.timestamp"/></span>
         </div>
       </div>
 
@@ -36,6 +34,7 @@
 
 <script>
 import { mapState } from 'vuex';
+import timeTrans from '../../timeTrans'
 import IconBase from '../../icons/IconBase.vue'
 import IconLocation from './../../icons/IconLocation.vue'
 import IconMore from './../../icons/IconMore.vue'
@@ -95,7 +94,8 @@ import moment from 'moment'
               IconBase,
               IconLocation,
               IconMore,
-              langString
+              langString,
+              timeTrans
         },
         props: ['author', 'type', 'poll', 'item']
     }

@@ -35,7 +35,7 @@
 
                     </el-form-item>
 
-                    <el-form-item :label="lstr('email_or_username')" :class="{padding : error }">
+                    <el-form-item :label="lstr('email')" :class="{padding : error }">
 
                         <el-input v-model="registrationForm.email"  />
 
@@ -54,7 +54,7 @@
 
                     </el-form-item>
 
-                    <el-form-item :label="lstr('confirm password')" :class="{padding : error }">
+                    <el-form-item :label="lstr('confirm_password')" :class="{padding : error }">
 
                         <el-input type="password" v-model="registrationForm.conf_pass" />
 

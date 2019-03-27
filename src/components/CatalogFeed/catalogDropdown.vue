@@ -3,13 +3,13 @@
         <el-select
                 class="max-width"
                 :value="selected"
-                placeholder="Выберите тему"
+                :placeholder="lstr('choose_poll_topic')"
                 @change="onSelect">
             <el-option
 
                     v-for="category in categories"
                     :key="category.id"
-                    :label="category.name"
+                    :label="lstr(category.name)"
                     :value="category.id">
             </el-option>
         </el-select>
@@ -19,8 +19,9 @@
 <script>
 
     import { mapState } from 'vuex'
-
+    import langMixin from '../mixins/langMixin'
     export default {
+        mixins:[langMixin],
         name: "catalogDropdown",
         props:['model', 'field'],
         data() {

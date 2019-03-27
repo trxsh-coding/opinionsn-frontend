@@ -8,7 +8,7 @@
                   v-model="explain_description"
                   @keyup.enter.native="saveExplain(item.id)">
         </el-input>
-        <span class="send__button" @click="saveExplain(item.id)">отправить</span>
+        <span class="send__button pointer lowercase" @click="saveExplain(item.id)"><lang-string :title="'send'"/></span>
                 <span class="emoji-span" @click="toogleDialogEmoji" v-if="!mobile">
                     <icon-base
                             class="emoji-icon"
@@ -30,12 +30,13 @@
 <script>
     import VEmojiPicker from "v-emoji-picker";
     import packData from "v-emoji-picker/data/emojis.json";
-    import {localString} from './../../../../utils/localString.js'
     import langString from '../../../langString.vue'
     import avatar from '../../../user/Event/modules/mainUserAvatar'
     import IconBase from '../../../icons/IconBase.vue'
     import IconEmoji from '../../../icons/IconEmoji.vue'
+    import langMixin from '../../../mixins/langMixin'
     export default {
+        mixins:[langMixin],
         name: "inputExplain",
         props: ['item', 'feed'],
         components: {
@@ -92,10 +93,6 @@
                 return packData;
             },
 
-
-            lstr(){
-                return (str)=>localString(this.lang, str);
-            },
         },
     };
 </script>
@@ -167,6 +164,8 @@
         .emoji-block {
             position: absolute;
             z-index: 100000000;
+            bottom: 100%;
+            right: 0px;
         }
         @media only screen and (max-device-width : 380px) {
 

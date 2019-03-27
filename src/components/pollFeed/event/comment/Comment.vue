@@ -28,10 +28,8 @@
                 </div>
             </div>
             <div class="comment-time">
-                <el-tooltip class="item" effect="dark" :content="moment(comment.create_time).format('LL')" placement="top">
                     <span class="time pl-9"><time-trans :time="comment.create_time"/></span>
-                </el-tooltip>
-                <i class="el-icon-delete" @click="deleteComment(comment.id)" v-if="user.authorities === 'ADMIN' "></i>
+                <i class="el-icon-delete" @click="deleteComment(comment.id)" v-if="user.authorities === 'ADMIN' && user.length "></i>
             </div>
         </div>
     </div>
@@ -188,10 +186,11 @@
             }
         }
         .text-block {
-            width: 83%;
+            width: 76%;
         }
         .comment-time {
-
+            text-align: right;
+            width: 15%;
             i {
                 color: #69777F;
             }

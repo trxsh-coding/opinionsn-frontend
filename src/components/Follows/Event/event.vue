@@ -5,10 +5,10 @@
 
        <div  class="subscribers-template">
            <el-button type="primary" class="follows-button" size="small" round @click="followersLink(id)" v-bind:class="{backgroundNone : isFollowing}">
-               Подписчики
+               <lang-string :title="'followers'"/>
            </el-button>
            <el-button size="small" class="follows-button" round @click="followingsLink(id)" v-bind:class="{backgroundNone : !isFollowing}">
-               Подписки
+               <lang-string :title="'followings'"/>
            </el-button>
            <div class="subs-section mt-10" v-if="items.length">
 
@@ -36,11 +36,13 @@
 <script>
     import {globalStoreMixin} from "../../../store/modules/globalStore";
     import {mapState} from 'vuex'
+    import langString from '../../langString'
     import axios from 'axios'
     export default {
         name: "event",
         props:['id', 'isFollowing'],
         mixins:[globalStoreMixin()],
+        components:{langString},
         data(){
             return {
 
@@ -146,7 +148,7 @@
 
             background: #ffffff;
             border-radius: 12px;
-            padding: 0px 12px 12px 12px;
+            padding: 0px 12px 0px 12px;
 
         }
 
@@ -165,7 +167,7 @@
             align-items: center;
             .unfollow-button {
 
-                padding: 3px 22px;
+                padding: 5px 22px;
                 background: #B9C0C4;
                 border-radius: 15px;
                 width: 107px;

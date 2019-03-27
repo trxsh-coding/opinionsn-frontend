@@ -1,11 +1,11 @@
 <template>
-    <div class="statistic-wrapper mb-10">
-        <div class="statistic-header  flex-between " :class="{padding : hide}">
+    <div class="statistic-wrapper mb-10" :class="{padding : !hide}">
+        <div class="statistic-header  flex-between " :class="{unpadding : !hide}">
 
             <div class="header-text">
-                <span >статистика</span> <span class="details">Подробнее</span>
+                <lang-string class="lowercase" :title="'statistics'" /> <lang-string class="details" :title="'more_details'" />
             </div>
-            <div class="dropdown flex-align-center" @click="hide = !hide">
+            <div class="dropdown flex-align-center pointer" @click="hide = !hide">
                 <icon-base
                         v-if="!hide"
                         class="dropdown-icon"
@@ -30,7 +30,7 @@
         <div class="user-statistic border-t" v-if="hide">
             <div v-for="(item, key, index) in items" :key="key" v-if="index <= limit" class="progress-chart flex-column">
                 <div class="header-text">
-                    <span class="header-span">{{key}}</span>
+                    <lang-string class="header-span" :title="key"/>
                 </div>
                 <div class="progress-border" :class="{full: item[0] == 100}">
                     <el-progress class="circle-chart"  type="circle" :class="{empty : item[2] == 0}" color="#4B97B4" :percentage="item[0]"  width="60" :stroke-width="3"></el-progress>
@@ -54,7 +54,7 @@
     import axios from 'axios'
     import IconDropdown from './../../../icons/IconDropdown'
     import IconDropdownTop from './../../../icons/IconDropdownTop'
-
+    import langString from '../../../langString'
     import IconBase from '../../../icons/IconBase'
     export default {
         name: "userStatistic",
@@ -113,7 +113,8 @@
 
             IconDropdown,
             IconBase,
-            IconDropdownTop
+            IconDropdownTop,
+            langString
 
         },
 
@@ -140,7 +141,16 @@
 </script>
 
 <style lang="scss">
+    .unpadding {
 
+        padding-bottom: 0px !important;
+
+    }
+    .padding {
+
+        padding: 0px 9px 9px 9px !important;
+
+    }
     .statistic-wrapper {
         background: #fff;
         border-radius: 12px;
@@ -162,12 +172,9 @@
 
         }
 
-        .padding {
 
-            padding-bottom: 9px;
-
-        }
         .statistic-header {
+            padding-bottom: 9px;
             padding-top: 9px;
            .details {
                font-family: Roboto;

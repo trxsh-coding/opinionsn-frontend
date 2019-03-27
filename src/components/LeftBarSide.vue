@@ -2,7 +2,7 @@
     <div id="left-aside">
       <profile-card class="hidden-xs-only" />
         <side-bar />
-        <user-statistic :id="main_user.id" :limit="1" class="hidden-xs-only"/>
+        <user-statistic  v-if="user" :id="main_user.id" :limit="1" class="hidden-xs-only"/>
         <language-change class="hidden-xs-only" />
     </div>
 </template>

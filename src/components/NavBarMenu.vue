@@ -66,24 +66,24 @@
        <el-dropdown-menu slot="dropdown" :hide-timeout="1000">
          <el-dropdown-item class="clearfix">
            <a >
-             <div class="link" @click="followersLink(user.id)">
-               <lang-string  :title="'followings'"/>
+             <div class="link" @click="followersLink(user.id)" >
+               <lang-string class="link-span" :title="'followings'"/>
              </div>
            </a>
          </el-dropdown-item>
          <el-dropdown-item class="clearfix">
-           <router-link to="/catalogList">
-             <div class="link">
-               <lang-string :title="'topics'"/>
+           <a>
+
+             <div class="link" @click="catalogLink">
+               <lang-string class="link-span" :title="'topics'"/>
              </div>
-           </router-link>
+
+           </a>
          </el-dropdown-item>
          <el-dropdown-item class="link">
-           <router-link to="/login">
               <div  @click="userLogout">
-                <lang-string :title="'exit'"/>
+                <lang-string class="link-span" :title="'exit'"/>
               </div>
-           </router-link>
          </el-dropdown-item>
        </el-dropdown-menu>
      </el-dropdown>
@@ -129,7 +129,7 @@ export default {
                   this.$store.commit("userPage/removeUser");
                   this.$store.commit("pollFeed/clearFeed");
                   this.$store.commit("globalStore/clearStores")
-                  this.$router.push('/login/');
+                  this.$router.push('/login');
                 }
               }.bind(this))
 
@@ -142,6 +142,13 @@ export default {
     followersLink(userId){
 
       this.$router.push({name:'follows',params:{id:userId}})
+
+    },
+
+    catalogLink(){
+
+      this.$router.push({name:'catalogList'})
+
 
     }
 
@@ -170,11 +177,14 @@ export default {
    justify-content: flex-end;
    align-items: center;
 
-   .link {
 
-     color: black !important;
 
-   }
+  .link-span {
+
+    color: #152D3A !important;
+
+  }
+
 
    .icon-eye {
 

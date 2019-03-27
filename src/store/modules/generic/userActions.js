@@ -1,12 +1,13 @@
 import axios from "axios";
-
+let counter = 0;
 export const userActions = sc => class extends sc {
 
     getMainUser({commit, dispatch}, payload={}){
 
         let {customUrl = `/api/rest/getUser`, data={}, method='get', } = payload;
 
-        sc.apiRequest(customUrl, data,{commit, dispatch, onSuccess: 'setMainUser', successType: 'mutation'}, method);
+
+        sc.apiRequest(customUrl, data,{commit, dispatch, onSuccess: 'setMainUser', successType: 'action'}, method);
 
     };
 
@@ -105,19 +106,26 @@ export const userActions = sc => class extends sc {
 
     }
 
+    setMainUser({commit, dispatch,state, context}, args){
 
+        let {responseData: data} = args;
+
+        console.log('hi')
+        console.log(data)
+
+        state.main_user_id = data.payload[0].id;
+
+        let {id} = data.payload[0]
+
+        commit(`globalStore/setSessionUser`, {user_id: id} , {root: true})
+
+
+    }
     /* MUTATIONS */
 
 
-setMainUser(state, payload){
 
-    state.main_user_id = payload[0].id;
 
-    let {id} = payload[0]
-
-    this.commit(`globalStore/setMainUser`, {user_id: id} , {root: true})
-
-    }
 
     // setMyFollowings(state, payload){
     //
@@ -171,6 +179,7 @@ setMainUser(state, payload){
             updateUser: this.updateUser,
             getFollowings: this.getFollowings,
             getFollowers: this.getFollowers,
+            setMainUser:this.setMainUser
 
         }
     }
@@ -178,7 +187,6 @@ setMainUser(state, payload){
     get mutations() {
         return {
             ...super.mutations,
-            setMainUser:this.setMainUser,
             removeUser: this.removeUser
 
         }

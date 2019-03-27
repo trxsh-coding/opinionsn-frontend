@@ -25,35 +25,35 @@
             </div>
             <div class="form-block">
 
-                <el-form :model="signForm" ref="signForm">
+                <el-form :model="resetForm" ref="signForm">
 
-                    <el-form-item :label="lstr('username')">
+                    <el-form-item :label="lstr('email')">
 
-                        <el-input v-model="signForm.email" autocomplete="on" @keyup.enter.native="submitSign(signForm)"/>
+                        <el-input v-model="resetForm.email" autocomplete="on" />
                         <lang-string class="error" :title="errors.field_email"/>
                     </el-form-item>
-                    <el-form-item :label="lstr('password')">
+                    <el-form-item :label="lstr('confirm_email')">
 
-                        <el-input type="password" v-model="signForm.password" @keyup.enter.native="submitSign(signForm)"/>
-                        <lang-string class="error" :title="errors.field_password"/>
+                        <el-input  v-model="resetForm.email_confirm" />
+
                     </el-form-item>
                 </el-form>
 
             </div>
             <div class="buttons-block">
-                <el-button class="secondary-btn"  @click="submitSign(signForm)">
-                    <lang-string class="lowercase" :title="'sign'"/>
+                <el-button class="secondary-btn" @click="submitSign(resetForm)">
+                    <lang-string class="lowercase" :title="'reset'"/>
                 </el-button>
-                <div class="registration__item">
+                <!--<div class="registration__item">-->
 
-                    <lang-string :title="'dont_have_account'" /> <router-link to="/registration"> <lang-string :title="'registration'" /></router-link>
+                <!--<lang-string :title="'dont_have_account?'" /> <router-link to="/registration"> <lang-string :title="'registration'" /></router-link>-->
 
-                </div>
-                <div class="reset__item">
+                <!--</div>-->
+                <!--<div class="reset__item">-->
 
-                    <lang-string :title="'forgot_your_password?'" /> <router-link to="/restore"> <lang-string :title="'login_reset'" /></router-link>
+                <!--<lang-string :title="'forgot_your_password?'" /> <router-link to="/restore"> <lang-string :title="'login_reset'" /></router-link>-->
 
-                </div>
+                <!--</div>-->
             </div>
         </div>
     </div>
@@ -73,10 +73,10 @@
     export default {
         data() {
             return {
-                signForm: {
+                resetForm: {
 
-                    email:null,
-                    password:null
+                    password:null,
+                    password_confirm:null
 
                 },
 
@@ -91,9 +91,10 @@
             submitSign(form){
                 let loginFormData = new FormData();
                 console.log(form)
-                loginFormData.append('field_email', form.email);
-                loginFormData.append('field_password', form.password);
-                axios.post('/api/auth/login', loginFormData)
+
+                loginFormData.append('email', form.password);
+                loginFormData.append('emailConfirm', form.password_confirm);
+                axios.post(`/api/auth/sendResetPasswordCode`, loginFormData)
                     .then(response => {
                         if (response.status === 200) {
                             this.$store.commit("authentication/setAuthenticated", true)
@@ -105,7 +106,7 @@
                     .catch((error) => {
 
 
-                         console.log(error.response.data);
+                        console.log(error.response.data);
 
                         let er = this.errors;
                         for (let {field: f, errorCode: v} of error.response.data){
@@ -129,6 +130,8 @@
         },
         watch: {
 
+
+
             errorFields(){
 
                 let fields = [['field_login', ''],['field_password', ''],['passConfirm', ''],['email', '']];
@@ -142,13 +145,19 @@
 
             }
 
+
+        },
+        mounted(){
+
+            console.log(this.$route)
+
         },
         mixins:[langMixin],
         components: {
-          IconBase,
-          IconLogo,
-          IconTextLogo,
-          langString
+            IconBase,
+            IconLogo,
+            IconTextLogo,
+            langString
         },
     }
 </script>
@@ -195,28 +204,28 @@
 
             .buttons-block {
                 margin-top: 35.65px;
-                    .registration__item {
-                        text-align: center !important;
-                        margin-top: 28px;
-                        @extend  .el-form-item__label;
-                        a {
+                .registration__item {
+                    text-align: center !important;
+                    margin-top: 28px;
+                    @extend  .el-form-item__label;
+                    a {
 
-                            color: #8A9499;
-
-                        }
-                    }
-                    .reset__item {
-                        @extend .registration__item;
-                        margin-top: 0px;
+                        color: #8A9499;
 
                     }
-                    .el-button {
+                }
+                .reset__item {
+                    @extend .registration__item;
+                    margin-top: 0px;
 
-                        width: 271px;
-                        background: #4B97B4;
-                        color: #FFFFFF;
+                }
+                .el-button {
 
-                    }
+                    width: 271px;
+                    background: #4B97B4;
+                    color: #FFFFFF;
+
+                }
 
             }
 
@@ -242,12 +251,12 @@
 
 
         .login-box {
-          width: 359px;
-          display: flex;
-          justify-content: center;
-          align-items: center;
-          flex-direction: column;
-          height: 50%;
+            width: 359px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            height: 50%;
         }
         .errorFields {
             border-width: 0.9px;
@@ -323,25 +332,25 @@
 
 
             }
-                .form-block {
-                    .el-form {
-                        background: #FFFFFF;
-                        box-shadow: 0px 0px 18px rgba(0, 0, 0, 0.1);
-                        border-radius: 12px;
-                        padding: 18px 15px;
-                        text-align: center;
-                        display: flex;
-                        justify-content: center;
-                        flex-direction: column;
-                        align-items: center;
+            .form-block {
+                .el-form {
+                    background: #FFFFFF;
+                    box-shadow: 0px 0px 18px rgba(0, 0, 0, 0.1);
+                    border-radius: 12px;
+                    padding: 18px 15px;
+                    text-align: center;
+                    display: flex;
+                    justify-content: center;
+                    flex-direction: column;
+                    align-items: center;
 
-                        .el-input {
+                    .el-input {
 
-                            width: 329px;
-
-                        }
+                        width: 329px;
 
                     }
+
+                }
 
 
 

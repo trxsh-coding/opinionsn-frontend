@@ -9,7 +9,7 @@
                     <span @click="userLink(author.id)" class="username pointer">{{author.username}}</span>
                     <lang-string class="created" :title="'created'"/>  <lang-string v-if="!poll.end_date" class="created-poll font-14" :title="'poll'"/> <lang-string  v-if="poll.end_date" class="created-poll" :title="'prediction'"/>
                 </div>
-                <div class="icon-more" v-if="user.authorities === 'USER' ">
+                <div class="icon-more" v-if="user && user.authorities === 'USER' && user.length ">
                     <icon-base
                             fill="none"
                             width="14"
@@ -18,7 +18,7 @@
                             icon-name="more">
                         <icon-more /></icon-base>
                 </div>
-                <el-dropdown v-if="user.authorities === 'ADMIN' ">
+                <el-dropdown v-if=" user && user.authorities === 'ADMIN' && user.length">
                     <div class="icon-more">
                         <icon-base
                                 fill="none"
@@ -38,9 +38,7 @@
                     <span>{{author.location}}</span>
                 </div>
                 <div class="time-block">
-                    <el-tooltip class="item" effect="dark" :content="moment(item.timestamp).format('LL')" placement="top">
-                        <span class="time">{{item.timestamp | moment}}</span>
-                    </el-tooltip>
+                    <span class="time"><time-trans :time="item.timestamp"/></span>
                 </div>
             </div>
         </div>
@@ -48,6 +46,7 @@
 </template>
 
 <script>
+    import timeTrans from '../../../timeTrans'
     import IconBase from '../../../icons/IconBase.vue'
     import IconLocation from '../../../icons/IconLocation.vue'
     import IconMore from '../../../icons/IconMore.vue'
@@ -92,7 +91,8 @@
             IconBase,
             IconLocation,
             IconMore,
-            langString
+            langString,
+            timeTrans
         },
         props: ['author', 'type', 'poll', 'item', 'user']
     }

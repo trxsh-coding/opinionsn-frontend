@@ -20,11 +20,11 @@
 
       <div class="subject-header">
 
-        <el-form-item label="Напишите заголовок" prop="subject" class="subject-form-item" :rules="[{ required: true, message: lstr('enter_subject_name') , trigger: 'blur' }, { min: 2 , max: 1000, message: lstr('length_should_be_3_to_1000'), trigger: 'blur' }]" >
+        <el-form-item :label="lstr('enter_subject_name')" prop="subject" class="subject-form-item" :rules="[{ required: true, message: lstr('enter_subject_name') , trigger: 'blur' }, { min: 2 , max: 1000, message: lstr('length_should_be_3_to_1000'), trigger: 'blur' }]" >
 
           <el-input type="textarea" autosize size="small" class="second-option width-90" v-model="pollForm.subject" ></el-input>
 
-          <span class="label label-daw-padding">Фото</span>
+          <span class="label label-daw-padding"><lang-string :title="'photo'"/></span>
 
           <div class="icon-daw flex" @click="addMainPhoto">
             <icon-base
@@ -53,14 +53,14 @@
         </el-upload>
       </div>
 
-      <el-form-item label="Хэштеги"  >
+      <el-form-item :label="lstr('poll_tags')"  >
 
         <el-input type="textarea" autosize v-model="pollForm.tags"></el-input>
 
       </el-form-item>
 
 
-      <el-form-item label="Описание" prop="description" :rules="[{ required: true, message: lstr('enter_description_text') , trigger: 'blur' }, { min: 0 , max: 1000, message: lstr('length_should_be_0_to_1000'), trigger: 'blur' }]" >
+      <el-form-item :label="lstr('description')" prop="description" :rules="[{ required: true, message: lstr('enter_description_text') , trigger: 'blur' }, { min: 0 , max: 1000, message: lstr('length_should_be_0_to_1000'), trigger: 'blur' }]" >
 
         <el-input type="textarea" autosize class="description-input" v-model="pollForm.description"></el-input>
 
@@ -70,12 +70,12 @@
       <div class="options-header mb-10 flex-space-center">
 
         <div class="text-block label-subject">
-          Предложите вариант ответа
+          <lang-string :title="'offer_answer_text'"/>
         </div>
 
 
         <div class="flex-end" @click="addOptionPicture">
-          <span class="label label-daw-padding">Фото</span>
+          <span class="label label-daw-padding"><lang-string :title="'photo'" /></span>
 
           <icon-base
                   v-bind:class="{ primary : optionPicture}"
@@ -92,12 +92,12 @@
         <div class="option-block flex-column" v-for="(option, option_id) in pollForm.options" :key="option_id">
           <div class="option-row">
             <div class="option-input max-width relative">
-              <el-form-item class="max-width" label="Вариант ответа" :prop="'options.' + option_id + '.description'" :rules="[{ required: true, message: lstr('enter_answer_text') , trigger: 'blur' }, { min: 2 , max: 50, message: 'Длина должна быть от 2 до 50 символов', trigger: 'blur' }]">
+              <el-form-item class="max-width" :label="lstr('answer_text')" :prop="'options.' + option_id + '.description'" :rules="[{ required: true, message: lstr('enter_answer_text') , trigger: 'blur' }, { min: 2 , max: 50, message: 'Длина должна быть от 2 до 50 символов', trigger: 'blur' }]">
                 <el-input type="textarea" autosize v-model="option.description"></el-input>
               </el-form-item>
             </div>
             <div class="delete-option" v-if="pollForm.options.length > 2 && option_id > 1 " @click="deleteOption(option_id)">
-              <span class="label pl-9">Удалить</span>
+              <span class="label pl-9"><lang-string :title="'remove'"/></span>
             </div>
           </div>
 

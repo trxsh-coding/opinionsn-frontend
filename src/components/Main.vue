@@ -2,6 +2,7 @@
   <div id="app">
     <el-header class="mobile-nav hidden-sm-and-up">
         <mobile-nav />
+
     </el-header>
     <el-header class="nav-header hidden-xs-only" style=" height:48px ">
       <el-container class="nav">
@@ -49,6 +50,13 @@
               <el-col :span="14">
                 <nav-bar-menu :user="main_user"></nav-bar-menu>
               </el-col>
+              <div class="btn-block" v-if="!main_user_id">
+                  <router-link to="/sign">
+                      <el-button class="login-btn">
+                          <lang-string :title="'login'"/>
+                      </el-button>
+                  </router-link>
+              </div>
             </nav>
           </el-row>
       </el-container>
@@ -61,6 +69,47 @@
             </el-aside>
           <el-col class="quiz-section" :span="16" >
             <router-view></router-view>
+            <div class="auth-block" v-if="!main_user_id && !hide">
+                <div class="logo-block">
+                    <icon-base
+                            fill="none"
+                            class="icon logo"
+                            width="30"
+                            height="30"
+                            viewBox="0 0 30 30"
+                            icon-name="logo"><icon-logo />
+                    </icon-base>
+                    <icon-base
+                            fill="none"
+                            class="text-logo"
+                            width="66"
+                            height="15"
+                            viewBox="0 0 66 15"
+                            icon-name="text-logo"><icon-text-logo />
+                    </icon-base>
+                </div>
+                <div class="buttons-block">
+                    <span class="icon-exit" @click="hide = !hide">
+                    <icon-base
+                            fill="none"
+                            class="icon-close"
+                            width="17"
+                            height="17"
+                            viewBox="0 0 17 17"
+                            icon-name="close"><icon-close/>
+                    </icon-base>
+                    </span>
+                    <router-link to="/sign">
+                        <el-button class="login-btn">
+                            <lang-string :title="'login'"/>
+                        </el-button>
+                    </router-link>
+
+                    <router-link to="/registration">
+                        <lang-string class="registration-span" :title="'registration'"/>
+                    </router-link>
+                </div>
+            </div>
           </el-col>
             <!--<el-col class="quiz-section hidden-sm-and-down" :span="16">-->
                 <!--<router-view></router-view>-->
@@ -69,6 +118,9 @@
         </el-row>
       </el-main>
     </el-container>
+      <footer v-if="!main_user_id && !hide">
+
+      </footer>
   </div>
 </template>
 
@@ -77,6 +129,7 @@ import NavBarMenu from './NavBarMenu.vue'
 import LeftBarSide from './LeftBarSide.vue'
 import IconBase from './icons/IconBase.vue'
 import IconLogo from './icons/IconLogo.vue'
+import IconClose from './icons/IconClose.vue'
 import IconPrice from './icons/IconPrice.vue'
 import IconTextLogo from './icons/IconTextLogo.vue'
 import IconDropdown from './icons/IconDropdown.vue'
@@ -92,7 +145,8 @@ export default {
     keywords:'',
     timeout:  null,
     mobile_hide: false,
-    mobile: this.$root.mobile
+    mobile: this.$root.mobile,
+    hide: false,
     }
   },
   watch: {
@@ -109,6 +163,12 @@ export default {
     //   user : state => state.User[0]
     // }),
 
+      ...mapState('globalStore', {
+
+          mainUser: ({mainUser}) => mainUser
+
+      }),
+
     ...mapState('lang',{
       lang : state => state.locale
     }),
@@ -116,6 +176,12 @@ export default {
           state: s => s,
           items: s => s.items,
           main_user_id: s => s.main_user_id
+
+      }),
+
+      ...mapState('authentication', {
+
+          isAuthenticated: s => s.isAuthenticated
 
       }),
 
@@ -174,6 +240,12 @@ export default {
       }
   },
 
+  mounted(){
+
+      this.$store.dispatch('userPage/getMainUser');
+
+
+  },
 
   created(){
 
@@ -182,7 +254,6 @@ export default {
   },
   beforeCreate(){
 
-      this.$store.dispatch('userPage/getMainUser');
       this.$store.dispatch('lang/getLocaleString');
 
 
@@ -196,7 +267,8 @@ export default {
     IconTextLogo,
     langString,
     IconDropdown,
-    mobileNav
+    mobileNav,
+    IconClose
   },
 }
 </script>
@@ -207,6 +279,102 @@ body {
 }
 #app {
   background: #f4f4f4;
+    .login-btn {
+
+        background: #4B97B4 !important;
+        box-shadow: 0px 0px 7px rgba(21, 45, 58, 0.24);
+        border-radius: 50px;
+        border-color: #4B97B4;
+        min-width: 127px;
+        padding: 6px 0;
+        margin-bottom: 10px;
+
+        span {
+
+            font-family: Roboto;
+            font-style: normal;
+            font-weight: 500;
+            font-size: 13px;
+            text-transform: capitalize;
+            color: #FFFFFF;
+
+        }
+
+    }
+  footer {
+
+      width: 100%;
+      height: 92px;
+      background: rgba(21, 45, 58, 0.9);
+      box-shadow: 0px 0px 12px rgba(0, 0, 0, 0.06);
+      position: fixed;
+      bottom: 0;
+      z-index: 20;
+
+  }
+  .auth-block {
+      display: flex;
+      align-items: center;
+      width: 500px;
+      position: fixed;
+      bottom: 0;
+      z-index: 50;
+      height: 92px;
+      justify-content: space-between;
+      .buttons-block {
+          display: flex;
+          flex-direction: column;
+          justify-content: space-between;
+          position: relative;
+          .icon-exit {
+
+              position: absolute;
+              right: -36px;
+              top: -14px;
+
+          }
+          a {
+              text-align: center;
+          }
+
+          a:active {
+
+              text-decoration: none;
+
+          }
+          .registration-span {
+              font-family: Roboto;
+              font-style: normal;
+              font-weight: 500;
+              font-size: 13px;
+              line-height: 17px;
+              text-align: center;
+              text-transform: capitalize;
+
+              color: #D6DADD;
+
+
+
+          }
+
+
+
+      }
+      .logo-block {
+
+          display: flex;
+          align-items: center;
+          .text-logo {
+
+              path {
+
+                  fill:#FFFFFF;
+
+              }
+
+          }
+      }
+  }
   .icon{
         fill:none !important;
   }
@@ -228,6 +396,7 @@ body {
     position: fixed;
     width: 100%;
     margin: 0 auto;
+    box-shadow: 0px 0px 12px rgba(0, 0, 0, 0.06);
     .el-container {
       height: 100%;
       display: inherit;
@@ -267,6 +436,8 @@ body {
         }
       }
     }
+
+
     .el-input {
       margin-left: 14px;
       .el-input__inner {

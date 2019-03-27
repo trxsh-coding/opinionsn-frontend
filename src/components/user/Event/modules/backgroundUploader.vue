@@ -122,7 +122,7 @@
 
     .uploader-wrapper {
         position: absolute;
-        width: 100%;
+        width: 80%;
         height: 100%;
 
     }
