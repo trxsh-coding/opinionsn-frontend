@@ -16,7 +16,7 @@
       </div>
       <div class="information-block">
         <div class="user-block">
-          <span class="username">{{author.username}}</span>
+          <span class="username pointer" @click="userLink(author.id)" >{{author.username}}</span>
           <span class="subject">{{header}} </span>
           <div class="location-block">
             <span> <slot name="author_loc">{{author.location}}</slot></span>

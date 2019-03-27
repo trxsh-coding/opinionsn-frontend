@@ -76,6 +76,15 @@
 </script>
 
 <style lang="scss">
+    .category-list-wrapper {
+
+        .content-block {
+
+            border:none !important;
+
+        }
+
+    }
     .category-background {
 
         width: 100%;

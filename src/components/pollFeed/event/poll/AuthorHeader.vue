@@ -9,7 +9,7 @@
                     <span @click="userLink(author.id)" class="username pointer">{{author.username}}</span>
                     <lang-string class="created" :title="'created'"/>  <lang-string v-if="!poll.end_date" class="created-poll font-14" :title="'poll'"/> <lang-string  v-if="poll.end_date" class="created-poll" :title="'prediction'"/>
                 </div>
-                <div class="icon-more" v-if="user && user.authorities === 'USER' && user.length ">
+                <div class="icon-more" v-if="user && user.authorities === 'USER' ">
                     <icon-base
                             fill="none"
                             width="14"
