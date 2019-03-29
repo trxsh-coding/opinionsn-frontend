@@ -231,7 +231,7 @@
                     border-color: #D0D5D9;
                     border-width: 0.5px;
                     border-style: solid;
-                    width: 13%;
+                    width: 14%;
                     margin-bottom: 4px;
 
                 }

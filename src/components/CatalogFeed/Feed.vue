@@ -22,7 +22,7 @@
         <!-- Всё ок -->
 
         <div class="catalog-main-wrapper">
-            <div class="category-background mb-6" :style="{ 'background-image': 'url(' + category.path_to_image + ')' } ">
+            <div class="category-background mb-10" :style="{ 'background-image': 'url(' + category.path_to_image + ')' } ">
 
                 <div class="category-subject">
                     <span>{{category.name}}</span>

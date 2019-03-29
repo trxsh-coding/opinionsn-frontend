@@ -22,19 +22,17 @@
 
         <el-form-item :label="lstr('enter_subject_name')" prop="subject" class="subject-form-item" :rules="[{ required: true, message: lstr('enter_subject_name') , trigger: 'blur' }, { min: 2 , max: 1000, message: lstr('length_should_be_3_to_1000'), trigger: 'blur' }]" >
 
-          <el-input type="textarea" autosize size="small" class="second-option width-90" v-model="pollForm.subject" ></el-input>
+          <el-input type="textarea" autosize size="small" class="second-option picture" v-model="pollForm.subject" ></el-input>
 
-          <span class="label label-daw-padding"><lang-string :title="'photo'"/></span>
 
-          <div class="icon-daw flex" @click="addMainPhoto">
+
+          <div class="icon-picture flex" @click="addMainPhoto">
             <icon-base
-                    v-bind:class="{ primary : mainPicture}"
-                    class="icon-daw"
                     fill="none"
-                    width="16"
-                    height="16"
-                    viewBox="0 0 16 16"
-                    icon-dropdown="icon-daw"><icon-daw />
+                    width="18"
+                    height="14"
+                    viewBox="0 0 18 14"
+                    icon-name="picture"><icon-picture/>
             </icon-base>
           </div>
 
@@ -74,17 +72,13 @@
         </div>
 
 
-        <div class="flex-end" @click="addOptionPicture">
-          <span class="label label-daw-padding"><lang-string :title="'photo'" /></span>
-
+        <div class="icon-picture flex" @click="addOptionPicture">
           <icon-base
-                  v-bind:class="{ primary : optionPicture}"
-                  class="icon-daw"
                   fill="none"
-                  width="16"
-                  height="16"
-                  viewBox="0 0 16 16"
-                  icon-dropdown="icon-daw"><icon-daw />
+                  width="18"
+                  height="14"
+                  viewBox="0 0 18 14"
+                  icon-name="picture"><icon-picture/>
           </icon-base>
         </div>
       </div>
@@ -97,7 +91,15 @@
               </el-form-item>
             </div>
             <div class="delete-option" v-if="pollForm.options.length > 2 && option_id > 1 " @click="deleteOption(option_id)">
-              <span class="label pl-9"><lang-string :title="'remove'"/></span>
+              <div class="icon-picture flex" >
+                <icon-base
+                        fill="none"
+                        width="12"
+                        height="2"
+                        viewBox="0 0 12 2"
+                        icon-name="picture"><icon-minus/>
+                </icon-base>
+              </div>
             </div>
           </div>
 
@@ -128,7 +130,9 @@
 <script>
   import IconBase from './icons/IconBase'
   import IconDaw from './icons/IconDaw'
+  import IconPicture from './icons/IconPicture'
   import IconImage from './icons/IconImage'
+  import IconMinus from './icons/IconMinus'
   import IconRequired from './icons/IconRequired'
   import langString from './langString.vue'
   import {localString} from './../utils/localString'
@@ -136,6 +140,7 @@
   import CatalogDropdown from './CatalogFeed/catalogDropdown';
   import axios from 'axios'
   import {mapState} from 'vuex'
+
   export default {
     name: "CreatePoll",
     data(){
@@ -328,7 +333,9 @@
       IconDaw,
       IconImage,
       IconRequired,
-      langString
+      langString,
+      IconPicture,
+      IconMinus
     }
 
   }
@@ -367,8 +374,15 @@
     .el-input__inner {
       border-radius: 12px;
       height: 30px;
+      border-color: #B6C1C6 !important;
+    }
+
+    .el-input__inner:active,   .el-input__inner:hover {
+
+      border-color: #B6C1C6 !important;
 
     }
+
 
     .icon-required {
 
@@ -396,6 +410,18 @@
 
       }
 
+    }
+
+    .icon-picture {
+
+      width: 30px;
+      height: 30px;
+      border: 1px solid #B6C1C6;
+      border-radius: 12px;
+      justify-content: center;
+      align-items: center;
+      flex-shrink: 0;
+      margin-left: 6px;
     }
 
     .avatar-uploader {

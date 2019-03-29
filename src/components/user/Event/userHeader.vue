@@ -34,7 +34,7 @@
                 <el-button size="small" v-if="!hide_edit && user.id === main_user_id"class="edit" @click="editInfo" >
                     <lang-string :title="'edit'"/>
                 </el-button>
-                <el-button size="small" v-if="!hide_edit && !user.leader  && user.id != main_user_id"class="edit"  @click="follow(user.id)" >
+                <el-button size="small" v-if="!hide_edit && !user.leader  && user.id != main_user_id"class="edit follow"  @click="follow(user.id)"  >
                     <lang-string :title="'follow'"/>
                 </el-button>
                 <el-button size="small" v-if="!hide_edit && user.leader && user.id != main_user_id"class="edit"  @click="unfollow(user.id)" >
@@ -318,6 +318,11 @@
                     height: 18px;
                     border-radius: 30px;
                     width: 100%;
+                }
+                .follow {
+
+                    background: #4B97B4 !important;
+
                 }
                 .edit {
                     background: #A1ABB0;

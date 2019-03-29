@@ -1,6 +1,5 @@
 <template>
     <div class="category-list-wrapper ">
-
         <poll-block :poll="poll"  :item="item" :author="author" >
 
             <div slot="subject_header">
@@ -81,6 +80,12 @@
         .content-block {
 
             border:none !important;
+
+        }
+
+        .picture-block {
+           width: 102px;
+            height: 102px;
 
         }
 

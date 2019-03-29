@@ -242,8 +242,8 @@ const optionsLimit = 2;
         }
 
         .picture-block {
-          height: 143px;
-          width: 143px;
+          height: 143px !important;
+          width: 143px !important;
           background-repeat: no-repeat;
           background-size: cover !important;
           background-position: center;
