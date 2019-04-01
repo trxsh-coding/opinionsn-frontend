@@ -2,6 +2,7 @@
     <div class="icons-block">
        <div class="main-block">
            <slot name="icon-time" v-if="end_date">
+
                <icon-base
                        fill="none"
                        width="17"
@@ -14,20 +15,21 @@
            <slot name="icon-money">
                <icon-base
                        fill="none"
-                       width="15"
-                       height="18"
-                       viewBox="0 0 15 18"
+                       :width="mobile ? 13 : 15"
+                       :height="mobile ? 15 : 18"
+                       :viewBox="mobile ? '0 0 13 15' : '0 0 15 18'"
                        icon-name="money">
                    <icon-money /></icon-base>
                <span>0</span>
            </slot>
 
            <slot name="icon-accept">
+
                <icon-base
                        fill="none"
-                       width="17"
-                       height="17"
-                       viewBox="0 0 17 17"
+                       :width="mobile ? 13 : 17"
+                       :height="mobile ? 13 : 17"
+                       :viewBox="mobile ? '0 0 13 13' : '0 0 17 17'"
                        icon-name="accept">
                    <icon-accept /></icon-base>
                <span>{{item.amountOfVoted}}</span>

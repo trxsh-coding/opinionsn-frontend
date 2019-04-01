@@ -321,6 +321,39 @@
 
         @media only screen and (max-device-width : 700px) {
 
+            .content-block {
+
+
+            }
+
+            .author-block {
+
+                .author-avatar {
+
+                    height: 15px;
+                    width: 15px;
+
+                }
+                .span__item {
+
+                    font-size: 11px;
+
+                }
+
+            }
+
+            .description-block {
+
+                font-size: 13px;
+
+            }
+
+            .description-block, .author-block, .topic {
+
+                margin-bottom: 5px !important;
+
+            }
+
             .picture-block {
 
                 height: 111px !important;

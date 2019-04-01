@@ -45,6 +45,16 @@
                       <icon-zoom-out />
                   </icon-base>
               </div>
+              <div class="remove" @click="croppa.remove()">
+                  <icon-base
+                          fill="none"
+                          width="15"
+                          height="15"
+                          viewBox="0 0 15 15"
+                          icon-name="icon-zoom-in">
+                      <icon-zoom-in />
+                  </icon-base>
+              </div>
           </div>
         </div>
         <span slot="footer" class="dialog-footer">
@@ -164,7 +174,15 @@
 
         }
         .cropp-wrapper {
+            .remove {
+                padding: 5px;
+                svg {
 
+                    transform: rotate(45deg);
+
+                }
+
+            }
             display: flex;
             .icons-block {
 
