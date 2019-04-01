@@ -2,12 +2,7 @@
 
 
     <div id="poll-wrapper">
-        <!-- Ошибка -->
-        <div v-if="state.error">
-            Что-то сломалось:
-            {{state.error}}
-        </div>
-        <div v-else class="category-wrapper">
+        <div class="category-wrapper">
             <h1 class="catalog-header"><lang-string :title="'Topics'"/></h1>
             <div class="category-section">
                 <div class="category-block " @click="categoryLink(category.id)" v-for="category in categories">

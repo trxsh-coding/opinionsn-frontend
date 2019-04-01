@@ -82,7 +82,7 @@
           </icon-base>
         </div>
       </div>
-      <div class="options-wrapper mb-15">
+      <div class="options-wrapper">
         <div class="option-block flex-column" v-for="(option, option_id) in pollForm.options" :key="option_id">
           <div class="option-row">
             <div class="option-input max-width relative">
@@ -113,9 +113,17 @@
             </el-upload>
           </div>
         </div>
-        <el-button class="max-width br-12" @click="addOption">
-          <lang-string :title="'more'"/>
-        </el-button>
+        <el-form-item class="more-item" :label="lstr('more')">
+          <div class="more-btn br-12 grey" @click="addOption">
+            <icon-base
+                    fill="none"
+                    width="12"
+                    height="12"
+                    viewBox="0 0 12 12"
+                    icon-name="picture"><icon-plus/>
+            </icon-base>
+          </div>
+        </el-form-item>
       </div>
       <el-button class="save-button" @click="submitForm('pollForm')">
 
@@ -133,6 +141,7 @@
   import IconPicture from './icons/IconPicture'
   import IconImage from './icons/IconImage'
   import IconMinus from './icons/IconMinus'
+  import IconPlus from './icons/IconPlusOptions'
   import IconRequired from './icons/IconRequired'
   import langString from './langString.vue'
   import {localString} from './../utils/localString'
@@ -335,7 +344,8 @@
       IconRequired,
       langString,
       IconPicture,
-      IconMinus
+      IconMinus,
+      IconPlus
     }
 
   }
@@ -346,11 +356,20 @@
 
     .save-button {
 
-      padding: 9px 30px;
-      border-radius: 24px;
-      background: #D0D5D8;
+      padding: 9px 9px;      border-radius: 12px;
+      background: #4B97B4 !important;
       color: #ffffff;
+      span {
 
+        font-family: Roboto;
+        font-style: normal;
+        font-weight: normal;
+        font-size: 12px;
+        line-height: 12px;
+        color: #FFFFFF;
+        mix-blend-mode: normal;
+        text-transform: uppercase;
+      }
     }
 
     padding: 5px 18px 15px 12px;
@@ -539,8 +558,33 @@
       }
 
     }
+    .more-btn {
+      background: #A1ABB0;
+      height: 30px;
+      width: 30px;
+      color:#FFFFFF;
+      display: flex;
+      justify-content: center;
+      align-items: center;
 
+    }
 
+    .more-item {
+      margin-bottom: 12px;
+      .el-form-item__label {
+
+        padding-left: 9px;
+
+      }
+
+      .el-form-item__content {
+
+        justify-content: left;
+        padding-left: 9px;
+
+      }
+
+    }
 
 
   }

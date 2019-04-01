@@ -2,11 +2,6 @@
 
 
     <div id="poll-wrapper">
-        <!-- Ошибка -->
-        <div v-if="state.error">
-            Что-то сломалось:
-            {{state.error}}
-        </div>
 
         <!-- Загрузка -->
         <!--<div v-else-if="state.loading">-->
@@ -14,7 +9,7 @@
         <!--</div>-->
 
         <!-- Нет данных -->
-        <div v-else-if="!items.length">
+        <div v-if="!items.length">
             <p align="center" style="font-size:10px;margin-top: 5px;color: darkgray">Нет событий</p>
         </div>
 

@@ -187,7 +187,7 @@
             display: flex;
             margin-bottom: 12px;
             .explain-time {
-                width: 14%;
+                width: 17%;
                 text-align: right;
 
             }

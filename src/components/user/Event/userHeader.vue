@@ -346,8 +346,7 @@
                         font-family: Roboto;
                         font-style: normal;
                         font-weight: normal;
-                        line-height: 13px;
-                        font-size: 13px;
+                        font-size: 15px;
                         letter-spacing: -0.1px;
                         font-variant: small-caps;
                         color: #FFFFFF;

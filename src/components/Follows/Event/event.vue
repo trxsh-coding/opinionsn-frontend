@@ -128,9 +128,10 @@
     .subscribers-template {
 
         .follows-button {
+
             padding: 4px 12px;
             background: #B9C0C4;
-            color: #152D3A;
+            color: #FFFFFF;
             border: none;
         }
 

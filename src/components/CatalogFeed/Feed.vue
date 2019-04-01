@@ -25,7 +25,7 @@
             <div class="category-background mb-10" :style="{ 'background-image': 'url(' + category.path_to_image + ')' } ">
 
                 <div class="category-subject">
-                    <span>{{category.name}}</span>
+                    <span><lang-string :title="category.name"/></span>
                 </div>
 
             </div>
@@ -49,7 +49,10 @@
 <script>
     import { mapState } from 'vuex';
     import event from './Event/Event'
+    import langMixin from '../mixins/langMixin'
+    import langString from '../langString'
     export default {
+        mixins:[langMixin],
         data(){
             return {
                 id: this.$route.params.id
@@ -114,6 +117,7 @@
 
         components: {
             event,
+            langString
         }
     }
 </script>

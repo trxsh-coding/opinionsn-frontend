@@ -98,27 +98,33 @@
 
             vote(selected_variable, poll_id){
 
-                if (!this.item.voted && !this.poll.votingOver) {
+                if(this.expanded){
 
-                    if(this.$route.name === 'pollFeed') {
+                    if (!this.item.voted && !this.poll.votingOver) {
 
-                        this.$store.dispatch(`pollFeed/createVote`, {data: {selected_variable, poll_id}});
+                        if(this.$route.name === 'pollFeed') {
 
-
-                    } else if(this.$route.name === 'bookmarkFeed') {
-
-                        this.$store.dispatch(`bookmarkFeed/createVote`, {data: {selected_variable, poll_id}});
+                            this.$store.dispatch(`pollFeed/createVote`, {data: {selected_variable, poll_id}});
 
 
-                    } else {
+                        } else if(this.$route.name === 'bookmarkFeed') {
 
-                        this.$store.dispatch(`singlePoll/createVote`, {data: {selected_variable, poll_id}});
+                            this.$store.dispatch(`bookmarkFeed/createVote`, {data: {selected_variable, poll_id}});
+
+
+                        } else {
+
+                            this.$store.dispatch(`singlePoll/createVote`, {data: {selected_variable, poll_id}});
+
+
+                        }
 
 
                     }
 
                 }
 
+                this.$emit('expand', this.expanded = true);
 
             },
 

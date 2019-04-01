@@ -33,7 +33,7 @@
 
                 <options-section v-if="!option.picture" :item="item" :feed="feed" :option="option" :option_index="option_index" :correctOption="correctOption" :poll="poll" :expanded="expanded" @expand="expandFunc"/>
 
-                <options-with-pictures v-if="option.picture" :feed="feed" :item="item" :option="option" :option_index="option_index" :correctOption="correctOption" :poll="poll"/>
+                <options-with-pictures v-if="option.picture" :feed="feed" :item="item" :option="option" :option_index="option_index" :correctOption="correctOption" :poll="poll" :expanded="expanded" @expand="expandFunc"/>
 
             </div>
             <div class="expand-block" @click="onExpandAction" v-if="options.length != senitizedOptions.length">
@@ -63,14 +63,19 @@
     import langString from '../../../langString'
 
     export default {
-        data: () => ({
+        data(){
 
-            expanded:false,
-            voteAccess:false,
-            optionsLimit:2,
-            hiddenText:false,
-            showMore:false
-        }),
+            return {
+
+                expanded: this.options.length <= 2,
+                voteAccess:false,
+                optionsLimit:2,
+                hiddenText:false,
+                showMore:false
+
+            }
+
+        },
         mixins:[langMixin],
         name: "PollPreview",
         props: ['poll', 'options', 'item', 'user', 'feed'],
@@ -220,10 +225,6 @@
 
             },
 
-            mounted(){
-
-
-            }
 
 
         },
