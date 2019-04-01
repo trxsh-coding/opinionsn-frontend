@@ -18,7 +18,7 @@
                             icon-name="more">
                         <icon-more /></icon-base>
                 </div>
-                <el-dropdown v-if=" user && user.authorities === 'ADMIN' && user.length">
+                <el-dropdown v-if=" user && user.authorities === 'ADMIN'">
                     <div class="icon-more">
                         <icon-base
                                 fill="none"

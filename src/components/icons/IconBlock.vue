@@ -17,7 +17,7 @@
                        fill="none"
                        :width="mobile ? 13 : 15"
                        :height="mobile ? 15 : 18"
-                       :viewBox="mobile ? '0 0 13 15' : '0 0 15 18'"
+                       :viewBox="mobile ? '0 0 16 18' : '0 0 15 18'"
                        icon-name="money">
                    <icon-money /></icon-base>
                <span>0</span>
@@ -29,7 +29,7 @@
                        fill="none"
                        :width="mobile ? 13 : 17"
                        :height="mobile ? 13 : 17"
-                       :viewBox="mobile ? '0 0 13 13' : '0 0 17 17'"
+                       :viewBox="mobile ? '0 0 15 18' : '0 0 17 17'"
                        icon-name="accept">
                    <icon-accept /></icon-base>
                <span>{{item.amountOfVoted}}</span>

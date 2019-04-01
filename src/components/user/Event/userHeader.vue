@@ -4,6 +4,21 @@
 
             <div class="pictures-block">
                 <div class="background-block" :style="{ 'background-image': 'url(' + user.background_image + ')' }">
+                    <el-button size="small" v-if="!hide_edit && user.id === main_user_id"class="edit" @click="editInfo" >
+                        <lang-string :title="'edit'"/>
+                    </el-button>
+                    <el-button size="small" v-if="!hide_edit && !user.leader  && user.id != main_user_id"class="edit follow"  @click="follow(user.id)"  >
+                        <lang-string :title="'follow'"/>
+                    </el-button>
+                    <el-button size="small" v-if="!hide_edit && user.leader && user.id != main_user_id"class="edit"  @click="unfollow(user.id)" >
+                        <lang-string :title="'unfollow'"/>
+                    </el-button>
+                    <el-button size="small" v-if="hide_edit" class="edit-cancel" @click="hide_edit = false" >
+                        <lang-string :title="'cancel'"/>
+                    </el-button>
+                    <el-button size="small" v-if="hide_edit" class="edit-save" @click="updateUserInfo" >
+                        <lang-string :title="'save'"/>
+                    </el-button>
                     <div class="uploader-wrapper pointer" v-if="user.id === main_user_id">
                         <background-uploader  />
                     </div>
@@ -31,21 +46,6 @@
                 </div>
             </div>
             <div class="info-block">
-                <el-button size="small" v-if="!hide_edit && user.id === main_user_id"class="edit" @click="editInfo" >
-                    <lang-string :title="'edit'"/>
-                </el-button>
-                <el-button size="small" v-if="!hide_edit && !user.leader  && user.id != main_user_id"class="edit follow"  @click="follow(user.id)"  >
-                    <lang-string :title="'follow'"/>
-                </el-button>
-                <el-button size="small" v-if="!hide_edit && user.leader && user.id != main_user_id"class="edit"  @click="unfollow(user.id)" >
-                    <lang-string :title="'unfollow'"/>
-                </el-button>
-                <el-button size="small" v-if="hide_edit" class="edit-cancel" @click="hide_edit = false" >
-                    <lang-string :title="'cancel'"/>
-                </el-button>
-                <el-button size="small" v-if="hide_edit" class="edit-save" @click="updateUserInfo" >
-                    <lang-string :title="'save'"/>
-                </el-button>
                 <div class="name-block mb-3">
 
                     <div class="firstname-block" v-if="user.first_name != null ">
@@ -217,6 +217,35 @@
                     background-position: center;
                     border-radius: 6px 6px 0 0;
                     position: relative;
+                    display: flex;
+                    flex-direction: column-reverse;
+                    align-items: baseline;
+                    justify-content: space-between;
+                    .edit {
+                        padding-left: 15px;
+                        z-index: 5;
+                        background: #A1ABB0;
+                        margin-left: 98px;
+                        text-transform: lowercase;
+                        font-family: Roboto;
+                        font-style: normal;
+                        font-weight: normal;
+                        font-size: 15px;
+                        line-height: 13px;
+                        letter-spacing: -0.1px;
+                        color: #FFFFFF;
+                        border-radius: 0px 6px 0px 0px !important;
+                        border-color: #A1ABB0;
+                        span {
+                            font-family: Roboto;
+                            font-style: normal;
+                            font-weight: normal;
+                            font-size: 15px;
+                            letter-spacing: -0.1px;
+                            font-variant: small-caps;
+                            color: #FFFFFF;
+                        }
+                    }
                     .followers-block {
                         display: flex;
                         flex-direction: column;
@@ -227,6 +256,7 @@
                         margin-right: 15px;
                         justify-content: space-evenly;
                         border-radius: 0px 0px 6px 6px;
+                        align-self: flex-end;
 
                         .followings, .followers {
                             display: flex;
@@ -323,34 +353,6 @@
 
                     background: #4B97B4 !important;
 
-                }
-                .edit {
-                    background: #A1ABB0;
-
-                    text-transform: lowercase;
-                    font-family: Roboto;
-                    font-style: normal;
-                    font-weight: normal;
-                    font-size: 15px;
-                    line-height: 13px;
-                    letter-spacing: -0.1px;
-
-                    color: #FFFFFF;
-
-                    border-radius: 0px 6px 0px 0px !important;
-                    position: absolute;
-                    left: 94px;
-                    top: -33px;
-                    border-color: #A1ABB0;
-                    span {
-                        font-family: Roboto;
-                        font-style: normal;
-                        font-weight: normal;
-                        font-size: 15px;
-                        letter-spacing: -0.1px;
-                        font-variant: small-caps;
-                        color: #FFFFFF;
-                    }
                 }
                 // .edit {
                 //   position: absolute;

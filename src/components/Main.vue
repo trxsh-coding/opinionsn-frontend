@@ -1,8 +1,7 @@
 <template lang="html">
   <div id="app">
-    <el-header class="mobile-nav hidden-sm-and-up">
+    <el-header class="mobile-nav hidden-sm-and-up"   :class="{ 'navbar--hidden': !showNavbar }">
         <mobile-nav />
-
     </el-header>
     <el-header class="nav-header hidden-xs-only" style=" height:48px ">
       <el-container class="nav">
@@ -147,6 +146,8 @@ export default {
     mobile_hide: false,
     mobile: this.$root.mobile,
     hide: false,
+    showNavbar: true,
+    lastScrollPosition: 0
     }
   },
   watch: {
@@ -206,6 +207,19 @@ export default {
   },
   methods: {
 
+  onScroll () {
+      const currentScrollPosition = window.pageYOffset || document.documentElement.scrollTop
+      if (currentScrollPosition < 0) {
+          return
+      }
+      // Stop executing this function if the difference between
+      // current scroll position and last scroll position is less than some offset
+      if (Math.abs(currentScrollPosition - this.lastScrollPosition) < 60) {
+          return
+      }
+      this.showNavbar = currentScrollPosition < this.lastScrollPosition;
+      this.lastScrollPosition = currentScrollPosition
+  },
       onHide(value){
 
           return  this.mobile_hide = value
@@ -244,7 +258,12 @@ export default {
 
       this.$store.dispatch('userPage/getMainUser');
 
+      window.addEventListener('scroll', this.onScroll)
+  },
 
+  beforeDestroy () {
+
+      window.removeEventListener('scroll', this.onScroll)
   },
 
   created(){
@@ -252,6 +271,7 @@ export default {
 
 
   },
+
   beforeCreate(){
 
       this.$store.dispatch('lang/getLocaleString');
@@ -279,6 +299,16 @@ body {
 }
 #app {
   background: #f4f4f4;
+
+    .navbar--hidden {
+        box-shadow: none;
+        transform: translate3d(0, -100%, 0);
+        .el-main {
+
+            margin-top: 45px !important;
+
+        }
+    }
     .login-btn {
 
         background: #4B97B4 !important;
@@ -502,13 +532,23 @@ body {
         .el-header {
             margin-bottom: 5px;
             padding: 0 15px;
+            position: fixed;
+            z-index: 100000;
+            width: 100%;
             height: 44px !important;
+            background: #F5F5F5;
+            transition: 0.1s all ease-out;
+        }
+
+        .auth-block {
+
+            width: 88%;
 
         }
 
         .el-main {
 
-            margin-top: 0px !important;
+            margin-top: 45px !important;
 
             .el-row {
                 flex-direction: column;
