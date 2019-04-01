@@ -5,7 +5,7 @@
         <div class="category-wrapper">
             <h1 class="catalog-header"><lang-string :title="'Topics'"/></h1>
             <div class="category-section">
-                <div class="category-block " @click="categoryLink(category.id)" v-for="category in categories">
+                <div class="category-block pointer" @click="categoryLink(category.id)" v-for="category in categories">
                     <div class="category-image relative"  :style="{ 'background-image': 'url(' + category.path_to_image + ')' } " >
                         <div class="category-subject">
                             <h1><lang-string :title="category.name" /></h1>

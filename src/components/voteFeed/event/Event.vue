@@ -7,7 +7,7 @@
             <author-header :author="user" :type="type" :poll="poll" :item="item" />
         </div>
         <div class="box">
-            <poll-preview :poll="poll" :options="sanitizedOptions" :item="item" :vote="vote" :type="type">
+            <poll-preview :poll="poll" :options="sanitizedOptions" :item="item" :vote="vote" :type="type" >
             </poll-preview>
         </div>
         <!-- If there is an explanation, print one -->
@@ -90,6 +90,11 @@
 
             // Сокращение для типа
             type: function() { return this.item.eventType},
+
+
+        },
+
+        methods: {
 
 
         },

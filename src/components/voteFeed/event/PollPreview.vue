@@ -4,7 +4,7 @@
       <div class="main-block">
 
 
-          <div  class="options-block" v-if="!mobile">
+          <div  class="options-block" v-if="!mobile" @click="pollLink(poll.id)">
             <div class="options" v-for="{option, isSelected} in sanitizedOptions[0].option.picture != null ? sanitizedOptions.slice(0, 2) : sanitizedOptions">
 
               <div class="option" >
