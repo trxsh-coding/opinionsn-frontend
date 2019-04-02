@@ -14,9 +14,9 @@
            <slot name="icon-money">
                <icon-base
                        fill="none"
-                       :width="mobile ? 13 : 15"
-                       :height="mobile ? 15 : 18"
-                       :viewBox="mobile ? '0 0 16 18' : '0 0 15 18'"
+                       :width="mobile && $route.name === 'voteFeed' ? 12 : 15"
+                       :height="mobile && $route.name === 'voteFeed' ? 15 : 18"
+                       :viewBox="mobile && $route.name === 'voteFeed' ? '0 0 14 18' : '0 0 15 18'"
                        icon-name="money">
                    <icon-money /></icon-base>
                <span>0</span>
@@ -26,9 +26,10 @@
 
                <icon-base
                        fill="none"
-                       :width="mobile ? 13 : 17"
-                       :height="mobile ? 13 : 17"
-                       :viewBox="mobile ? '0 0 15 18' : '0 0 17 17'"
+
+                       :width="mobile && $route.name === 'voteFeed' ? 13 : 17"
+                       :height="mobile && $route.name === 'voteFeed' ? 13 : 17"
+                       :viewBox="mobile && $route.name === 'voteFeed' ? '0 0 18 18' : '0 0 17 17'"
                        icon-name="accept">
                    <icon-accept /></icon-base>
                <span>{{item.amountOfVoted}}</span>
@@ -165,7 +166,6 @@
 <style lang="scss">
 
     .icons-block {
-        display: flex;
         font-family: Roboto;
         font-style: normal;
         font-weight: normal;
@@ -173,8 +173,6 @@
         font-size: 12px;
         letter-spacing: -0.2px;
         color: #6D7D85;
-        align-items: center;
-        justify-content: space-between;
         svg {
             margin-right: 6px;
             margin-left: 16px;
@@ -191,20 +189,30 @@
             margin-right: 0px;
 
         }
+        .icon-bookmarked {
+
+
+
+
+        }
         .bookmark-icon {
 
 
         }
 
-        .main-block {
-            display: flex;
-            align-items: flex-end;
-        }
         @media only screen and (max-device-width : 380px) {
+
+            .bookmark-block {
+
+                right: -4px;
+                bottom: -4px;
+                position: absolute;
+
+            }
 
             span {
 
-                font-size: 11px;
+                font-size: 12px;
 
             }
 

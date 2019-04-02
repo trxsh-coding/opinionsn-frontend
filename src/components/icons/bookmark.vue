@@ -1,5 +1,5 @@
 <template>
-    <div class="bookmark-block pointer relative" >
+    <div class="bookmark-block pointer " >
         <div class="ok" @click="addToBookmark(poll.id, poll.type_of_poll, poll.bookmark_id)">
 
             <div class="icon-bookmark" v-if="!bookmarked">
@@ -14,6 +14,7 @@
             </div>
             <div class="icon-bookmarked" v-if="bookmarked">
                 <icon-base
+                        class="bookmarked"
                         fill="none"
                         width="11"
                         height="15"
@@ -102,7 +103,9 @@
         border-radius: 50px;
         height: 25px;
         width: 25px;
-
+        position: absolute;
+        right: 0px;
+        bottom: 0px;
         path {
 
             fill:#C4CCD0 ;
@@ -120,7 +123,9 @@
         border-radius: 50px;
         height: 25px;
         width: 25px;
-
+        position: absolute;
+        right: 0px;
+        bottom: 0px;
     }
 
     .bookmark-block{

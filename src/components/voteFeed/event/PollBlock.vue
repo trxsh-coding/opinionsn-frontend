@@ -19,7 +19,7 @@
                     </slot>
 
                 </div>
-                <icon-block :poll="poll" :item="item">
+                <icon-block class="relative" :poll="poll" :item="item">
                     <div slot="icon-comments">
                     </div>
                 </icon-block>
@@ -198,7 +198,6 @@
             font-family: Roboto;
             font-style: normal;
             font-weight: 500;
-            line-height: 18px;
             font-size: 15px;
             letter-spacing: -0.1px;
             color: #152D3A;
@@ -281,7 +280,6 @@
                     white-space: nowrap;
 
                     min-height: 30px;
-
                 }
 
             }
@@ -326,6 +324,8 @@
 
             }
 
+
+
             .author-block {
 
                 .author-avatar {
@@ -345,6 +345,7 @@
             .description-block {
 
                 font-size: 13px;
+                max-height: 45px;
 
             }
 

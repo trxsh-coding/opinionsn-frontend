@@ -60,7 +60,7 @@
             return {
 
                 swiperOption: {
-                    slidesPerView: 7,
+                    slidesPerView: 4,
                     spaceBetween: 30,
                     pagination: {
                         el: '.swiper-pagination',
