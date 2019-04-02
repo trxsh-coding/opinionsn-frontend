@@ -1,7 +1,7 @@
 <template>
     <div class="filter-wrapper " @click="setFilter(author.id)" >
 
-        <div class="author-picture" :style="{ 'background-image': 'url(' + author.background_image + ')' }">
+        <div class="author-picture" :style="{ 'background-image': 'url(' + author.path_to_avatar + ')' }">
 
         </div>
 
