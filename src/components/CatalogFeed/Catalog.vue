@@ -80,7 +80,7 @@
         .category-section {
             display: flex;
             flex-wrap: wrap;
-
+            justify-content: center;
             .catalog-header {
 
                 font-family: Roboto;

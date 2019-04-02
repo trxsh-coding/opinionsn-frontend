@@ -37,7 +37,7 @@
                 </el-badge>
                 <a><lang-string :title="'pocket'"/></a>
             </li>
-            <li class="hidden-sm-and-up relative">
+            <router-link class-active="active" class="hidden-sm-and-up relative" tag="li" to="/catalogList">
                 <icon-base
                         fill="none"
                         width="22"
@@ -45,8 +45,8 @@
                         viewBox="0 0 22 25"
                         icon-name="catalog"><icon-catalog/>
                 </icon-base>
-                <a><lang-string :title="'statistics'"/></a>
-            </li>
+                <a><lang-string :title="'topics'"/></a>
+            </router-link>
             <li class="hidden-sm-and-up relative">
                 <icon-base
                         fill="none"
