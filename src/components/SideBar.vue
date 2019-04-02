@@ -44,7 +44,7 @@
                     fill="#152D3A"
                     width="15"
                     height="19"
-                    viewBox="0 0 15 19"
+                    viewBox="0 0 12 15"
                     icon-name="bookmark"><icon-bookmark/>
             </icon-base>
             <a><lang-string :title="'bookmarked'"/></a>
@@ -178,7 +178,7 @@ export default {
         left: 4px;
         path {
 
-            fill:#152D3A;
+            stroke:#152D3A;
 
         }
 

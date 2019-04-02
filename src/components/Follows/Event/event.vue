@@ -92,7 +92,7 @@
 
             follow(id){
 
-                axios.post(`api/rest/follow/${id}`)
+                axios.post(`/api/rest/follow/${id}`)
                     .then((response) => {
                         if (response.status === 200) {
                             this.$store.commit('globalStore/updateStores', response.data, {root: true});

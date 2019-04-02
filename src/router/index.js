@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import axios from 'axios'
+import search from '../components/Search/search'
 import Main from '../components/Main'
 import Login from '../components/Login/Login'
 import Sign from '../components/Login/Sign'
@@ -123,6 +124,11 @@ export const index = new Router({
           path: 'voteFeed',
           name: 'voteFeed',
           component: VoteFeed,
+        },
+        {
+          path: 'search',
+          name: 'search',
+          component: search,
         },
         {
           path: 'menu',

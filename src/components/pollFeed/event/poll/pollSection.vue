@@ -356,6 +356,7 @@
                 border-radius: 9px;
                 padding-top: 11px;
                 padding-bottom: 7px;
+                align-items: center;
                 span {
 
 

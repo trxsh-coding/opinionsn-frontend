@@ -190,7 +190,7 @@
         }
         .comment-time {
             text-align: right;
-            width: 15%;
+            width: 21%;
             i {
                 color: #69777F;
             }

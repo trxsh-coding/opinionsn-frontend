@@ -1,7 +1,7 @@
 <template lang="html">
     <aside class="routebar">
         <ul>
-            <router-link class-active="active" class="hidden-sm-and-up mobile" tag="li" to="/add">
+            <router-link class-active="active" class="hidden-sm-and-up mobile relative" tag="li" to="/add">
                 <icon-base
                         :class="{secondary : $route.path==='/add'} "
                         class="add-poll"
@@ -13,19 +13,19 @@
                 </icon-base>
                 <a><lang-string :title="'add_poll'"/></a>
             </router-link>
-            <router-link class-active="active" class="hidden-sm-and-up" tag="li" to="/bookmarkFeed">
+            <router-link class-active="active" class="hidden-sm-and-up relative" tag="li" to="/bookmarkFeed">
                 <icon-base
                         :class="{secondary : $route.path==='/bookmarkFeed'} "
                         class="bookmark"
                         fill="#152D3A"
-                        width="24"
+                        width="18"
                         height="24"
-                        viewBox="0 0 14 20"
+                        viewBox="0 0 12 15"
                         icon-name="bookmark"><icon-bookmark/>
                 </icon-base>
                 <a><lang-string :title="'bookmarked'"/></a>
             </router-link>
-            <li class="hidden-sm-and-up">
+            <li class="hidden-sm-and-up relative">
                 <el-badge :value="0"  class="item">
                     <icon-base
                             fill="none"
@@ -37,7 +37,17 @@
                 </el-badge>
                 <a><lang-string :title="'pocket'"/></a>
             </li>
-            <li class="hidden-sm-and-up">
+            <li class="hidden-sm-and-up relative">
+                <icon-base
+                        fill="none"
+                        width="22"
+                        height="25"
+                        viewBox="0 0 22 25"
+                        icon-name="catalog"><icon-catalog/>
+                </icon-base>
+                <a><lang-string :title="'statistics'"/></a>
+            </li>
+            <li class="hidden-sm-and-up relative">
                 <icon-base
                         fill="none"
                         width="24"
@@ -47,7 +57,7 @@
                 </icon-base>
                 <a><lang-string :title="'settings'"/></a>
             </li>
-            <li class="hidden-sm-and-up" @click="userLogout">
+            <li class="hidden-sm-and-up relative" @click="userLogout">
                 <icon-base
                         fill="none"
                         width="24"
@@ -73,6 +83,7 @@
     import langString from '../langString.vue'
     import IconBell from '../icons/IconBell.vue'
     import IconPocket from '../icons/IconPocket.vue'
+    import IconCatalog from '../icons/IconCatalog.vue'
 
     export default {
         data(){
@@ -108,7 +119,8 @@
             IconExit,
             IconAddPoll,
             IconBell,
-            IconPocket
+            IconPocket,
+            IconCatalog
 
         },
 
@@ -192,7 +204,7 @@
 
             path {
 
-                fill:#152D3A;
+                stroke:#152D3A;
 
             }
 
@@ -242,6 +254,13 @@
 
             padding: 10px 0 11px 0;
 
+            span {
+
+                position: absolute;
+                top: 17px;
+                left: 35px;
+
+            }
 
         }
 

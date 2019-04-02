@@ -21,8 +21,9 @@
                         icon-name="opinion"><icon-opinion/>
                 </icon-base>
             </li>
-            <li class="nav__item" >
+            <li class="nav__item" @click="link('search')">
                 <icon-base
+                        :class="{search : $route.path==='/search'} "
                         width="21"
                         height="21"
                         viewBox="0 0 21 21"
@@ -100,7 +101,6 @@
 
 <style lang="scss">
     .mobile-nav {
-
         ul {
             margin-top: 0px;
             padding: 10px;
@@ -114,7 +114,7 @@
 
                 g {
 
-                    fill: #f4f4f4f4;
+                    fill: #FFFFFF;
 
                 }
 
@@ -144,7 +144,15 @@
         }
 
 
+        .search {
 
+            path {
+
+                fill: #4B97B4;
+
+            }
+
+        }
         .primary {
 
             .question {

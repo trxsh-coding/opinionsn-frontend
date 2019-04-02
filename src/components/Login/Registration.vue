@@ -247,6 +247,7 @@
             .icon-text {
 
                 margin-top: 12.64px;
+                margin-bottom: 36px;
 
             }
 
@@ -318,7 +319,11 @@
                 .buttons-block {
 
                     margin-top: 18px !important;
-
+                    height: 30%;
+                    display: flex;
+                    justify-content: space-between;
+                    flex-direction: column;
+                    align-items: center;
                 }
 
                 .navbar-brand {

@@ -44,15 +44,17 @@
                 <el-button class="secondary-btn"  @click="submitSign(signForm)">
                     <lang-string class="lowercase" :title="'sign'"/>
                 </el-button>
-                <div class="registration__item">
+                <div class="footer-items">
+                    <div class="registration__item">
 
-                    <lang-string :title="'dont_have_account'" /> <router-link to="/registration"> <lang-string :title="'registration'" /></router-link>
+                        <lang-string :title="'dont_have_account'" /> <router-link to="/registration"> <lang-string :title="'registration'" /></router-link>
 
-                </div>
-                <div class="reset__item">
+                    </div>
+                    <div class="reset__item">
 
-                    <lang-string :title="'forgot_your_password?'" /> <router-link to="/restore"> <lang-string :title="'login_reset'" /></router-link>
+                        <lang-string :title="'forgot_your_password?'" /> <router-link to="/restore"> <lang-string :title="'login_reset'" /></router-link>
 
+                    </div>
                 </div>
             </div>
         </div>
@@ -301,7 +303,7 @@
             .navbar-brand {
 
                 margin-top: 60px;
-
+                margin-bottom: 36px;
             }
 
             .buttons-block{

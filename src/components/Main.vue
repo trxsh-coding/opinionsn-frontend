@@ -1,6 +1,6 @@
 <template lang="html">
   <div id="app">
-    <el-header class="mobile-nav hidden-sm-and-up"   :class="{ 'navbar--hidden': !showNavbar }">
+    <el-header id="mobile-header" class="mobile-nav hidden-sm-and-up"   :class="{ 'navbar--hidden': !showNavbar }">
         <mobile-nav />
     </el-header>
     <el-header class="nav-header hidden-xs-only" style=" height:48px ">
@@ -137,6 +137,7 @@ import langString from './langString.vue'
 import {localString} from '../utils/localString.js'
 import axios from 'axios'
 import mobileNav from './mobileNav'
+import Search from "./Search/search";
 export default {
   data(){
     return {
@@ -279,6 +280,7 @@ export default {
 
   },
   components: {
+      Search,
     NavBarMenu,
     LeftBarSide,
     IconBase,
@@ -530,14 +532,16 @@ body {
     @media only screen and (min-device-width : 320px) and (max-device-width : 765px) {
 
         .el-header {
-            margin-bottom: 5px;
+            margin-bottom: 12px;
             padding: 0 15px;
             position: fixed;
             z-index: 100000;
             width: 100%;
             height: 44px !important;
-            background: #F5F5F5;
+            background: #FFFFFF;
             transition: 0.1s all ease-out;
+            box-shadow: 0px 0px 12px rgba(0, 0, 0, 0.06);
+
         }
 
         .auth-block {
@@ -548,7 +552,7 @@ body {
 
         .el-main {
 
-            margin-top: 45px !important;
+            margin-top: 60px !important;
 
             .el-row {
                 flex-direction: column;

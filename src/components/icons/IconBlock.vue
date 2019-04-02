@@ -173,7 +173,7 @@
         font-size: 12px;
         letter-spacing: -0.2px;
         color: #6D7D85;
-        align-items: baseline;
+        align-items: center;
         justify-content: space-between;
         svg {
             margin-right: 6px;
@@ -188,18 +188,11 @@
 
         .bookmarked {
 
-            position: absolute;
-            right: -1px;
-            bottom: 5px !important;
+            margin-right: 0px;
 
         }
         .bookmark-icon {
 
-            svg {
-                position: absolute;
-                top: -36px !important;
-                right: -19px;
-            }
 
         }
 
