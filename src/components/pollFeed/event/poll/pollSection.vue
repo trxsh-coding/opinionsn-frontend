@@ -357,9 +357,9 @@
                 padding-top: 11px;
                 padding-bottom: 7px;
                 align-items: center;
-                .icon-bookmark {
+                .icon-bookmark .icon-bookmarked {
 
-                    position: relative;
+                    position: inherit !important;
 
                 }
                 span {

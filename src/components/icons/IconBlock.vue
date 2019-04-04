@@ -47,7 +47,6 @@
            </slot>
        </div>
         <slot name="bookmark">
-            <bookmark :poll="poll" :item="item"></bookmark>
         </slot>
     </div>
 </template>

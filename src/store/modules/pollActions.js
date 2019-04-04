@@ -280,7 +280,11 @@ export const pollActions = sc => class extends sc {
 
     }
 
+    clearFilter( state){
 
+        state.items= [];
+        state.filter_id = null;
+    }
 
 
 
@@ -365,7 +369,8 @@ export const pollActions = sc => class extends sc {
             ...super.mutations,
             onListReceived: this.onListReceived,
             clearFeed: this.clearFeed,
-            setFilterId: this.setFilterId
+            setFilterId: this.setFilterId,
+            clearFilter : this.clearFilter
         }
     }
 

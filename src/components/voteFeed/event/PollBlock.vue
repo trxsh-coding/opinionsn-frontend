@@ -1,6 +1,6 @@
 <template>
     <div class="content-wrapper" id="poll-block">
-        <div class="content-block" :class="{padding : poll.picture}">
+        <div class="content-block relative" :class="{padding : poll.picture}">
             <div class="picture-block" :style="{ 'background-image': 'url(' + poll.picture + ')' } " v-if="poll.picture">
             </div>
             <div class="text-block">
@@ -20,9 +20,12 @@
 
                 </div>
                 <icon-block class="relative" :poll="poll" :item="item">
-                    <div slot="icon-comments">
-                    </div>
-                </icon-block>
+                <div slot="icon-comments">
+                </div>
+                <div slot="bookmark">
+                </div>
+            </icon-block>
+                <bookmark :poll="poll" :item="item"></bookmark>
             </div>
         </div>
     </div>
@@ -32,6 +35,7 @@
     import moment from 'moment';
     import { mapState } from 'vuex';
     import IconBlock from '../../icons/IconBlock'
+    import bookmark from '../../icons/bookmark'
     import langString from './../../langString.vue'
 
     export default {
@@ -65,7 +69,8 @@
         },
         components: {
             langString,
-            IconBlock
+            IconBlock,
+            bookmark
 
         },
         methods: {
@@ -94,6 +99,13 @@
             border-style: solid;
             border-width: 0.5px;
             border-color: #C4CCD0;
+            .bookmark-block {
+
+                position: absolute;
+                bottom: 12px;
+                right: 10px;
+
+            }
             .topic {
                 margin-bottom: 12px;
                 span {
@@ -212,6 +224,8 @@
             }
         }
 
+
+
         .display {
             display: inline !important;
             margin-right: 5px;
@@ -239,6 +253,8 @@
             .main-option {
                 background:#4B97B4 !important ;
             }
+
+
 
             .options {
                 margin: 0;
@@ -273,6 +289,8 @@
                 path {
                     fill: #ffffff;
                 }
+
+
                 .text-block {
                     flex-shrink: 1;
                     overflow: hidden;
@@ -321,6 +339,13 @@
 
             .content-block {
 
+                .bookmark-block {
+
+                    position: absolute;
+                    bottom: 6px;
+                    right: 6px;
+
+                }
 
             }
 
@@ -354,6 +379,7 @@
                 margin-bottom: 5px !important;
 
             }
+
 
             .picture-block {
 

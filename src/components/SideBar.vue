@@ -1,7 +1,7 @@
 <template lang="html">
   <aside class="aside-menu">
     <ul>
-      <router-link class-active="active" class="hidden-xs-only main-li" tag="li" to="/pollFeed">
+      <li  class="hidden-xs-only main-li"  @click="resetFilter('pollFeed')">
         <icon-base
              class="hidden-xs-only"
              :class="{primary : $route.path==='/pollFeed'} "
@@ -10,10 +10,11 @@
              viewBox="0 0 20 20"
              icon-name="main"><icon-main/>
        </icon-base>
-          <a><lang-string :title="'feed'"/></a>
-        </router-link>
+          <a :class="{primary : $route.path==='/pollFeed'}"><lang-string :title="'feed'"/></a>
+        </li>
 
-      <router-link class-active="active" class="hidden-xs-only" tag="li" to="/voteFeed">
+      <li  class="hidden-xs-only" @click="resetFilter('voteFeed')" >
+
            <icon-base
 
                :class="{primary : $route.path==='/voteFeed'} "
@@ -24,8 +25,8 @@
                 viewBox="0 0 20 21"
                 icon-name="opinion"><icon-opinion/>
           </icon-base>
-        <a><lang-string :title="'opinions_feed'"/></a>
-      </router-link>
+        <a :class="{primary : $route.path==='/voteFeed'}"><lang-string :title="'opinions_feed'"/></a>
+      </li>
         <li class="hidden-xs-only">
             <icon-base
                     fill="none"
@@ -85,6 +86,17 @@ export default {
 
   },
 
+    methods: {
+
+        resetFilter(name){
+            this.$router.push({path:name})
+            this.$store.commit(`${name}/clearFilter`)
+            this.$store.dispatch(`${name}/list`);
+
+        }
+
+    },
+
     mounted() {
 
 
@@ -120,7 +132,7 @@ export default {
     }
     .primary {
 
-
+            color: #4B97B4;
 
             rect {
 
@@ -168,7 +180,7 @@ export default {
 
         path {
 
-            fill: #4B97B4 !important;
+            stroke: #4B97B4 !important;
 
         }
 

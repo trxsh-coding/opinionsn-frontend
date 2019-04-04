@@ -20,10 +20,17 @@ class VoteFeedStore extends StoreWithPageList (VuexStore, '/api/rest/vote/feed')
         super.listItemsAction(vueStuff, args);
     };
 
+    clearFilter(state){
+
+        state.items= [];
+        state.filter_id = null;
+    }
+
     get mutations() {
         return {
             ...super.mutations,
-            setFilterId: this.setFilterId
+            setFilterId: this.setFilterId,
+            clearFilter: this.clearFilter
         }
     }
 

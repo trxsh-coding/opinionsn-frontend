@@ -61,10 +61,9 @@ export default {
       padding-left: 12px;
     }
 
-    .el-input__inner::placeholder {
+    .el-select::placeholder {
 
-      font-size: 11px;
-      line-height: 14px;
+      font-size: 14px;
       color: #828D92;
     }
     .el-select {

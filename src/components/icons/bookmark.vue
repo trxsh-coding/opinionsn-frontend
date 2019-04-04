@@ -103,9 +103,7 @@
         border-radius: 50px;
         height: 25px;
         width: 25px;
-        position: absolute;
-        right: 0px;
-        bottom: 0px;
+
         path {
 
             fill:#C4CCD0 ;
@@ -123,9 +121,6 @@
         border-radius: 50px;
         height: 25px;
         width: 25px;
-        position: absolute;
-        right: 0px;
-        bottom: 0px;
     }
 
     .bookmark-block{

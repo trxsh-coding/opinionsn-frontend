@@ -1,7 +1,7 @@
 <template>
     <div class="mobile-nav">
         <ul>
-            <li class="nav__item" @click="link('pollFeed')">
+            <li class="nav__item" @click="resetFilter('pollFeed')">
                 <icon-base
                         class="main-icon"
                         :class="{primary : $route.path==='/pollFeed'} "
@@ -11,7 +11,7 @@
                         icon-name="main"><icon-main/>
                 </icon-base>
             </li>
-            <li class="nav__item" @click="link('voteFeed')">
+            <li class="nav__item" @click="resetFilter('voteFeed')">
                 <icon-base
                         :class="{primary : $route.path==='/voteFeed'} "
                         class="main-icon"
@@ -76,6 +76,13 @@
 
         },
         methods: {
+
+            resetFilter(name){
+                this.$router.push({path:name})
+                this.$store.commit(`${name}/clearFilter`)
+                this.$store.dispatch(`${name}/list`);
+
+            },
 
             link(pathName){
 
