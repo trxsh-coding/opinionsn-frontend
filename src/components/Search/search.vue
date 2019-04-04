@@ -1,7 +1,7 @@
 <template>
     <div class="search-wrapper">
         <div class="search-panel flex-align-center">
-            <el-input class="br-12" :placeholder="lstr('search')" v-model="keywords" @change="searchUsers">
+            <el-input class="br-12" :placeholder="lstr('search')" v-model="keywords" @change="searchUsers" @keyup.enter.native="searchUsers">
 
             </el-input>
             <span class="cancel" @click="clearForm" >
