@@ -380,8 +380,7 @@
             .description-block {
 
                 font-size: 13px;
-                max-height: 45px;
-
+                max-height: 48px;
             }
 
             .description-block, .author-block, .topic {
