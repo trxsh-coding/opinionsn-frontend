@@ -232,12 +232,18 @@ export default {
       this.$router.push({path: '/pollFeed'})
     },
       fetch() {
-          axios.get('/api/rest/findAllByContaining', { params: { containing: this.keywords } })
-              .then(response => this.links = response.data)
+          axios.get(`/api/rest/findAllContaining/${this.keywords}`)
+              .then(function(response){
+                  if (response.status === 200) {
+                      this.links = Object.values(response.data.users);
+                      console.log(this.links)
+                  }
+              }.bind(this))
               .catch(error => {});
       },
 
       querySearchAsync(queryString, cb) {
+          console.log(this.links)
           var links = this.links;
           var results = queryString ? links.filter(this.createFilter(queryString)) : links;
           clearTimeout(this.timeout);
