@@ -84,7 +84,6 @@
     import IconBell from '../icons/IconBell.vue'
     import IconPocket from '../icons/IconPocket.vue'
     import IconCatalog from '../icons/IconCatalog.vue'
-
     export default {
         data(){
             return {

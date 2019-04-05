@@ -30,6 +30,19 @@
 
             </div>
 
+            <div class="category-subject category-mobile mb-15">
+                <span @click="backLink">
+                    <icon-base
+                            class="icon-back"
+                            fill="#152D3A"
+                            width="12"
+                            height="20"
+                            viewBox="0 0 12 20"
+                            icon-name="add-poll"><icon-back/>
+                </icon-base>
+                </span>
+                <span><lang-string class="catalog__name" :title="category.name"/></span>
+            </div>
 
             <div v-for="item in items" class="mb-6" v-if="items.length">
                 <event :item="item"/>
@@ -51,6 +64,8 @@
     import event from './Event/Event'
     import langMixin from '../mixins/langMixin'
     import langString from '../langString'
+    import IconBase from '../icons/IconBase'
+    import IconBack from '../icons/IconBack'
     export default {
         mixins:[langMixin],
         data(){
@@ -101,6 +116,11 @@
         methods: {
 
 
+            backLink(){
+
+                this.$router.push({path: '/catalogList'})
+
+            }
 
 
         },
@@ -117,7 +137,50 @@
 
         components: {
             event,
-            langString
+            langString,
+            IconBase,
+            IconBack
         }
     }
 </script>
+
+<style lang="scss">
+
+    .catalog__name {
+
+
+        font-family: Roboto;
+        font-style: normal;
+        font-weight: 500;
+        font-size: 22px;
+        line-height: 18px;
+        text-align: center;
+        color: #152D3A;
+        font-variant-caps: all-small-caps;
+
+
+
+    }
+    .icon-back {
+        float: left;
+        g {
+
+            fill:none;
+
+        }
+
+    }
+
+        .category-mobile {
+            margin-top: 6px;
+            text-align: center;
+
+        }
+        .category-background {
+
+            display: none;
+
+        }
+
+
+</style>
