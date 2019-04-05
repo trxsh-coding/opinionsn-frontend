@@ -19,10 +19,10 @@
                    </div>
                    <div class="right-block">
                        <el-button class="unfollow-button" v-if="user.leader && user.id != main_user_id" @click="userLink(user.id)">
-                           <span class="uppercase subscribition">подписки</span>
+                           <span class="uppercase subscribition"><lang-string :title="'followings'" /></span>
                        </el-button>
                        <el-button  class="follow-button subscribition" v-if="!user.leader && user.id != main_user_id" @click="follow(user.id)">
-                           <span class=" uppercase">подписаться</span>
+                           <span class=" uppercase"><lang-string :title="'follow'"/></span>
                        </el-button>
                    </div>
                </div>
@@ -182,9 +182,10 @@
             }
             .unfollow-button {
 
-                padding: 5px 22px;
+                padding: 0px 22px;
                 background: #B9C0C4;
                 border-radius: 15px;
+                height: 24px;
                 width: 107px;
                 color: #ffffff;
                 display: flex;

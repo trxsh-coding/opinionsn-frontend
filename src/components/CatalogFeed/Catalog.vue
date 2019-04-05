@@ -101,18 +101,25 @@
                 justify-content: center;
                 align-items: center;
                 position: absolute;
+                font-variant-caps: all-small-caps;
+
+                span {
+
+                    font-family: Roboto;
+                    font-style: normal;
+                    font-weight: 500;
+                    font-size: 15px;
+                    line-height: normal;
+                    text-align: center;
+                    color: #152D3A;
+                    text-transform: uppercase;
+
+
+                }
 
             }
 
-            .overlay {
 
-                opacity: 0.4;
-                width: 100%;
-                height: 100%;
-                background: #000;
-                border-radius: 12px;
-
-            }
 
 
             .category-block {
@@ -126,14 +133,14 @@
             .category-image {
                 width: 160px;
                 height: 112px;
-
+                background-color: #FFFFFF;
                 border-radius: 12px;
-                background-size: 50% 50%;
+                background-size: 20%;
                 background-repeat: no-repeat;
-                background-size: cover;
+                background-position: center;
                 display: flex;
                 justify-content: center;
-                align-items: center;
+                align-items: flex-end;
                 h1 {
                     font-family: Roboto;
                     font-style: normal;
@@ -143,7 +150,7 @@
                     z-index: 1000 ;
                     letter-spacing: 0.01em;
                     color: #FFFFFF;
-                    text-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
+                    margin-bottom: 22px;
                 }
             }
 

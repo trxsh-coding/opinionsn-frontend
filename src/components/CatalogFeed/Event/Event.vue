@@ -103,7 +103,6 @@
         align-items: center;
 
         .category-subject {
-
             margin-left: 17.5px;
 
         }

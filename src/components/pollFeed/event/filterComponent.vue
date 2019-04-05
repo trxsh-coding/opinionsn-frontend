@@ -53,23 +53,27 @@
     .filter-category {
         align-items: center;
         .name {
-
             font-family: Roboto;
             font-style: normal;
             font-weight: 500;
             font-size: 12px;
-            line-height: 18px;
+            line-height: normal;
             text-align: center;
             font-variant: small-caps;
             color: #152D3A;
 
+
+
         }
         .category-picture {
+            background: #FFFFFF;
             border-radius: 12px;
-            width: 93px;
+            width: 90px;
             height: 60px;
             background-repeat: no-repeat;
-            background-size: cover;
+            background-size: 30%;
+            background-position: center;
+            margin-bottom: 6px;
 
         }
 

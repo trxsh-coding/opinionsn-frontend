@@ -7,6 +7,7 @@
                   size="small"
                   v-model="explain_description"
                   @keyup.enter.native="saveExplain(item.id)">
+            <i slot="suffix" class="el-input__icon el-icon-date">вфывфы</i>
         </el-input>
         <span class="send__button pointer lowercase" @click="saveExplain(item.id)"><lang-string :title="'send'"/></span>
                 <span class="emoji-span" @click="toogleDialogEmoji" v-if="!mobile">

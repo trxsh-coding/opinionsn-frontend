@@ -212,13 +212,12 @@
 
         .option-container {
             display: flex;
-            width: 370px;
-            margin-bottom: 6px;
+            width: 375px;
             border-radius: 6px;
             height: 48px;
             background: #FFFFFF;
             border-radius: 6px;
-            box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.12);
+            box-shadow: 0px 0px 7px rgba(21, 45, 58, 0.24);
 
 
             .option-id {
