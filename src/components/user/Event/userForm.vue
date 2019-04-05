@@ -19,7 +19,11 @@
              <el-input :value="user.username" @input="updateInfo(arguments[0], 'username')" />
          </el-form-item>
 
-         <el-form-item class="info_label" :label="lstr('about_me')">
+         <el-form-item class="info_label"
+                       prop="aboutMe"
+                       :label="lstr('about_me')"
+                       :rules="[ { required: true, message: lstr('input_'), trigger: 'blur' },
+                        { min: 0, max: 100, message: lstr('length_should_be_0_to_100'), trigger: 'blur' }]">
              <el-input :value="user.aboutMe" @input="updateInfo(arguments[0], 'aboutMe')" />
 
          </el-form-item>
@@ -172,6 +176,11 @@
             line-height: 14px;
 
         }
+        .el-form-item__error {
+            padding: 0;
+
+        }
+
 
         .phone {
             .the-mask {

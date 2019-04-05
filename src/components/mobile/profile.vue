@@ -108,7 +108,7 @@
             display: flex;
             position: relative;
             width: 100%;
-            height: 106px !important;
+            height: 90px !important;
             max-height: 300px;
             justify-content: center;
             align-items: center;
