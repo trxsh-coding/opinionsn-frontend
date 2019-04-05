@@ -199,6 +199,11 @@
 
         @media only screen and (max-device-width : 380px) {
 
+                .comment-block {
+
+                    margin-bottom: 0px !important;
+
+                }
 
                 .text-block {
 

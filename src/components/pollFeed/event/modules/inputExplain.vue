@@ -3,7 +3,7 @@
     <div class="input-explain-section relative"  v-if="!item.haveExplain">
         <el-input :disabled="!item.voted"
                   type="textarea" autosize
-                  :placeholder="item.voted ? lstr('you_can_comment_your_vote') : lstr('available_after_voting') "
+                  :placeholder="item.voted ? lstr('explain_your_opinion') : lstr('available_after_voting') "
                   size="small"
                   v-model="explain_description"
                   @keyup.enter.native="saveExplain(item.id)">

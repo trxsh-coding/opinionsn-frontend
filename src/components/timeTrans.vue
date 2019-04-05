@@ -9,6 +9,7 @@
     import langMixin from './mixins/langMixin'
     export default {
         name: "timeTrans",
+        mixins:[langMixin],
         props:['time'],
         computed: {
 
@@ -23,7 +24,7 @@
 
                 if(diff.asHours() > 24) {
 
-                    return moment(transformed_time).fromNow()
+                    return moment(transformed_time).fromNow(true)
 
 
                 } else {

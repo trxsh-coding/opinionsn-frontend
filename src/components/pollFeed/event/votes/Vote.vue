@@ -250,10 +250,12 @@
             margin-left: 42px;
         }
 
-        @media only screen and (max-device-width : 380px) {
+        @media only screen and (max-device-width : 700px) {
 
 
             .explain-block {
+
+                margin-bottom: 3px !important;
 
                 .text-block {
 

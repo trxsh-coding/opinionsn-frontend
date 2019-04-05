@@ -252,7 +252,7 @@
                         font-size: 12px;
                         letter-spacing: -0.1px;
                         color: #152D3A;
-                        padding-right: 50px;
+                        padding-right: 55px;
                     }
                 }
 

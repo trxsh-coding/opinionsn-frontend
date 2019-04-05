@@ -124,16 +124,13 @@ export default {
 
       axios.get('/api/auth/logout')
               .then(function(response){
-                if (response.status === 200) {
-                  this.$store.commit("authentication/setAuthenticated", false)
-                  this.$store.commit("userPage/removeUser");
-                  this.$store.commit("pollFeed/clearFeed");
-                  this.$store.commit("globalStore/clearStores")
-                  this.$router.push('/login');
-                  //TODO доделать логаут
-                  location.reload();
-                }
+                this.$store.commit("authentication/setAuthenticated", false)
+                this.$store.commit("userPage/removeUser");
+                this.$store.commit("pollFeed/clearFeed");
+                this.$store.commit("globalStore/clearStores")
+                //TODO доделать логаут
               }.bind(this))
+      this.$router.push('/login');
 
     },
 

@@ -4,15 +4,14 @@
         <div  class="profile-content">
             <div class="profile-avatar pointer" :style="{ 'background-image': 'url(' + user.path_to_avatar + ')' }  " @click="userLink(user.id)"> </div>
             <div class="main-content">
+                <div class="description-block">
+                    {{user.first_name}} {{ user.last_name}}
+                </div>
           <span class="nickname-id">
             {{user.username}}
           </span>
             </div>
-            <div class="description-block">
-          <span class="description" >
-            {{user.aboutMe}}
-          </span>
-            </div>
+
             <div class="bottom-content">
                 <span class="location">{{user.location}}</span>
             </div>
@@ -78,6 +77,7 @@
     #profile-section {
         min-width: 240px;
         min-height: 115px;
+        text-align: center;
         .el-upload {
             display: block;
         }

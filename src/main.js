@@ -32,7 +32,7 @@ Vue.use(moment);
 //*****************
 
 const i18n = new VueI18n({
-  locale: 'ru',
+  locale: 'en',
   messages: {
     ru: {
       ...langRu

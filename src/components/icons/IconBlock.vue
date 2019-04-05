@@ -125,7 +125,7 @@
 
                 } else {
 
-                    this.currentTime = this.lstr('prediction_is_over')
+                    this.currentTime = this.lstr('end')
                 }
 
                 return this.currentTime;
