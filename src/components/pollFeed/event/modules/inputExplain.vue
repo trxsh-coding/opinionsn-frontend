@@ -36,6 +36,7 @@
     import IconBase from '../../../icons/IconBase.vue'
     import IconEmoji from '../../../icons/IconEmoji.vue'
     import langMixin from '../../../mixins/langMixin'
+    import {mapState} from 'vuex'
     export default {
         mixins:[langMixin],
         name: "inputExplain",
@@ -87,6 +88,7 @@
                 }
 
                 this.explain_description = '';
+
             },
         },
         computed: {
@@ -94,6 +96,11 @@
                 return packData;
             },
 
+
+            ...mapState('pollFeed', {
+                state: s => s,
+                error: s => s.error
+            }),
         },
     };
 </script>
