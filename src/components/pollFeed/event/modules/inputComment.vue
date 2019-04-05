@@ -103,6 +103,12 @@
             width: 100%;
         }
 
+        .el-textarea__inner::placeholder {
+
+            overflow: hidden;
+
+        }
+
         .el-input-group__append {
 
             background: #FFFFFF;

@@ -1,7 +1,7 @@
 <template lang="html">
   <aside class="aside-menu">
     <ul>
-      <li  class="hidden-xs-only main-li"  @click="resetFilter('pollFeed')">
+      <li  class="hidden-xs-only main-li pointer"  @click="resetFilter('pollFeed')">
         <icon-base
              class="hidden-xs-only"
              :class="{primary : $route.path==='/pollFeed'} "
@@ -13,7 +13,7 @@
           <a :class="{primary : $route.path==='/pollFeed'}"><lang-string :title="'feed'"/></a>
         </li>
 
-      <li  class="hidden-xs-only" @click="resetFilter('voteFeed')" >
+      <li  class="hidden-xs-only pointer" @click="resetFilter('voteFeed')" >
 
            <icon-base
 
@@ -27,7 +27,7 @@
           </icon-base>
         <a :class="{primary : $route.path==='/voteFeed'}"><lang-string :title="'opinions_feed'"/></a>
       </li>
-        <li class="hidden-xs-only">
+        <li class="hidden-xs-only pointer">
             <icon-base
                     fill="none"
                     width="16"
@@ -38,7 +38,7 @@
             <a><lang-string :title="'notifications'"/></a>
         </li>
 
-      <router-link class-active="active" class="hidden-xs-only main-li" tag="li" to="/bookmarkFeed">
+      <router-link class-active="active" class="hidden-xs-only main-li pointer" tag="li" to="/bookmarkFeed">
             <icon-base
                     :class="{secondary : $route.path==='/bookmarkFeed'} "
                     class="bookmark"
@@ -89,7 +89,7 @@ export default {
     methods: {
 
         resetFilter(name){
-            this.$router.push({path:name})
+            this.$router.push({path:`/${name}`})
             this.$store.commit(`${name}/clearFilter`)
             this.$store.dispatch(`${name}/list`);
 

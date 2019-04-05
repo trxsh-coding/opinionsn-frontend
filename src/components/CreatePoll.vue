@@ -59,7 +59,7 @@
 
             </el-form-item>
 
-            <el-form-item label="Описание" prop="description" :rules="[{ required: true, message: lstr('enter_description_text') , trigger: 'blur' }, { min: 2 , max: 255, message: lstr('length_should_be_3_to_255'), trigger: 'blur' }]" >
+            <el-form-item label="Описание" prop="description" :rules="[{ required: true, message: lstr('enter_description_text') , trigger: 'blur' }, { min: 2 , max: 255, message: lstr('length_should_be_0_to_600'), trigger: 'blur' }]" >
 
                 <el-input type="textarea" autosize class="description-input" v-model="pollForm.description"></el-input>
 

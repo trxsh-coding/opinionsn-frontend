@@ -78,7 +78,7 @@
         methods: {
 
             resetFilter(name){
-                this.$router.push({path:name})
+                this.$router.push({path:`/${name}`})
                 this.$store.commit(`${name}/clearFilter`)
                 this.$store.dispatch(`${name}/list`);
 
