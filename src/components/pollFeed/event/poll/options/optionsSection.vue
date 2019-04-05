@@ -1,6 +1,6 @@
 <template>
     <div id="options-block">
-        <div class="option-container relative pointer" v-bind:class="{ opacity  : poll.votingOver, rightAnswer : correct_option, cursor : item.voted }" @click="vote(option.id, option.poll_id)" >
+        <div class="option-container relative pointer" v-bind:class="{ opacity  : poll.votingOver, rightAnswer : correct_option, cursor : option.voted }" @click="vote(option.id, option.poll_id)" >
             <div class="option-id">
                 <span class="span-id">{{option_index + 1}}</span> <span v-if="option.id === correctOption"></span>
             </div>

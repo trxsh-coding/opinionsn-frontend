@@ -130,6 +130,8 @@ export default {
                   this.$store.commit("pollFeed/clearFeed");
                   this.$store.commit("globalStore/clearStores")
                   this.$router.push('/login');
+                  //TODO доделать логаут
+                  location.reload();
                 }
               }.bind(this))
 

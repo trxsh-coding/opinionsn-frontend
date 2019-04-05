@@ -62,9 +62,10 @@
     import IconBase from '../../../icons/IconBase'
     import IconZoomIn from '../../../icons/IconZoomIn'
     import IconZoomOut from '../../../icons/IconZoomOut'
-
+    import langMixin from '../../../mixins/langMixin'
     export default {
         name: "backgroundUploader",
+        mixins:[langMixin],
         props:[ 'user'],
         data(){
             return {
@@ -92,7 +93,11 @@
 
             uploadAvatar(){
                 if (!this.croppa.hasImage()) {
-                    alert('no image to upload')
+                    this.$message({
+                        showClose: true,
+                        message: this.lstr('image_not_uploaded'),
+                        type: 'warning'
+                    });
                     return
                 }
                 this.croppa.generateBlob((blob) => {
