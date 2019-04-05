@@ -8,7 +8,7 @@
                 <div class="option-description" >
                     <span >{{option.description}} </span>
                 </div>
-                <div class="progress-bar" v-if="item.voted">
+                <div class="progress-bar" v-if="item.voted || poll.votingOver">
                     <el-progress :stroke-width="3" :percentage="option.voted_percentage" color="#152D3A" v-bind:class="{selected:  selected_option, correct: correct_option }"></el-progress>
                 </div>
             </div>

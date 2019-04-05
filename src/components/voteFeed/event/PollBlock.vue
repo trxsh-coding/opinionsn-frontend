@@ -4,7 +4,7 @@
             <div class="picture-block" :style="{ 'background-image': 'url(' + poll.picture + ')' } " v-if="poll.picture">
             </div>
             <div class="text-block">
-                <div class="link-div  pointer" @click="pollLink(poll.id)">
+                <div class="link-div flex  pointer" @click="pollLink(poll.id)">
                     <div class="description-block wb">
                         {{poll.subject}}
                     </div>
@@ -129,6 +129,14 @@
                 flex-direction: column;
                 justify-content: space-between;
                 width: 100%;
+
+                .link-div {
+
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: space-between;
+
+                }
             }
 
             .picture-block {
@@ -299,6 +307,8 @@
 
                     min-height: 30px;
                 }
+
+
 
             }
             .picture-with-options {

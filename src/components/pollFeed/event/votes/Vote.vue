@@ -194,6 +194,8 @@
             .text-block {
                 width:79%;
                 overflow-x: hidden;
+
+
                 .explain-time {
 
                     width: 15%;
