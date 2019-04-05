@@ -80,7 +80,6 @@
         .category-section {
             display: flex;
             flex-wrap: wrap;
-            justify-content: center;
             .catalog-header {
 
                 font-family: Roboto;
@@ -147,6 +146,16 @@
                     text-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
                 }
             }
+
+        }
+
+    }
+
+    @media only screen and (max-device-width : 700px) {
+
+        .category-section {
+
+            justify-content: center;
 
         }
 

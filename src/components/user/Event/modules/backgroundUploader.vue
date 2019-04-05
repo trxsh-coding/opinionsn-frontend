@@ -11,7 +11,8 @@
                 accept=".jpeg,.png"
                 :before-close="closeDialog"	>
             <div class="cropp-wrapper">
-                <croppa v-model="croppa"
+                <croppa id="background-croppa"
+                        v-model="croppa"
                         :show-remove-button="false"
                         :disable-click-choose="true"
                         @file-choose="handleImage(args)"
@@ -177,6 +178,26 @@
         height: 100%;
         position: absolute;
 
+
+    }
+
+    @media only screen and (max-device-width : 700px) {
+        #background-croppa {
+            border-radius: none !important;
+            canvas {
+
+                width: 100% !important;
+                height: 50% !important;
+                border-radius: 0 !important;
+
+            }
+
+        }
+        .zoom-block {
+
+            display: none !important;
+
+        }
 
     }
 </style>

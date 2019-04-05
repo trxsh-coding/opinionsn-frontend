@@ -12,6 +12,7 @@
             :before-close="closeDialog"	>
         <div class="cropp-wrapper">
             <croppa v-model="croppa"
+                    id="cropp-avatar"
                     class="cropp-component"
                     :disable-click-choose="true"
                     @file-choose="handleImage(args)"
@@ -225,7 +226,7 @@
 
         }
 
-        .croppa-container {
+        #cropp-avatar {
 
             border-radius: 1000px !important;
 
