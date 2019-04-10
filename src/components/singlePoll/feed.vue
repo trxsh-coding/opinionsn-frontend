@@ -55,3 +55,15 @@
         }
     }
 </script>
+
+<style lang="scss">
+    #poll-wrapper {
+
+        .el-aside {
+
+            margin-right: 12px ;
+
+        }
+
+    }
+</style>

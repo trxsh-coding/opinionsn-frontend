@@ -10,7 +10,7 @@
           icon-name="plus"><icon-plus />
         </icon-base>
       </router-link>
-    <li class="main-icon">
+    <el-dropdown class="main-icon notification_dropdown"  trigger="click">
       <el-badge :value="0"  class="item">
         <icon-base
                 width="17"
@@ -19,7 +19,14 @@
                 icon-name="bell"><icon-bell />
         </icon-base>
       </el-badge>
-    </li>
+      <el-dropdown-menu slot="dropdown" >
+        <el-col :span="14">
+
+          @tomhardi подписался (-ась) на ваши обновления 15:43
+
+        </el-col>
+      </el-dropdown-menu>
+    </el-dropdown>
     <li class="main-icon">
       <el-badge :value="0"  class="item">
         <icon-base
@@ -184,6 +191,12 @@ export default {
 
   }
 
+    .notification_dropdown {
+
+      margin-right: 21px;
+      margin-bottom: 6px;
+
+    }
 
    .icon-eye {
 

@@ -208,6 +208,25 @@ export default {
   },
   methods: {
 
+  getNotifications(){
+
+      axios.get('/static/notification')
+          .then(function(response){
+              if (response.status) {
+                  this.notification(response.data)
+                  this.getNotifications()
+              }
+          }.bind(this));
+
+  },
+      notification(response) {
+
+          this.$notify({
+              title: 'Уведомление',
+              message: response[0].message,
+              position: 'bottom-right'
+          });
+      },
   onScroll () {
       const currentScrollPosition = window.pageYOffset || document.documentElement.scrollTop
       if (currentScrollPosition < 0) {
@@ -265,6 +284,8 @@ export default {
 
       this.$store.dispatch('userPage/getMainUser');
 
+      this.getNotifications();
+
       window.addEventListener('scroll', this.onScroll)
   },
 
@@ -275,13 +296,12 @@ export default {
 
   created(){
 
+      this.$store.dispatch('lang/getLocaleString');
 
 
   },
 
   beforeCreate(){
-
-      this.$store.dispatch('lang/getLocaleString');
 
 
   },
@@ -516,7 +536,7 @@ body {
     .el-aside {
       overflow-x: hidden !important;
       overflow-y: hidden !important;
-      margin-right: 16px;
+      margin-right: 12px;
     }
 
     .el-main {

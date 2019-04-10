@@ -3,8 +3,8 @@
       <profile-card class="hidden-xs-only" />
         <side-bar />
         <user-statistic  v-if="user" :id="main_user.id" :limit="1" class="hidden-xs-only"/>
-        <language-change v-if="user" class="hidden-xs-only" />
-        <guest-locale  class="hidden-xs-only" />
+        <language-change  class="hidden-xs-only" />
+        <!--<guest-locale  class="hidden-xs-only" />-->
     </div>
 </template>
 

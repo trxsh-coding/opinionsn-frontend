@@ -18,6 +18,8 @@ export default  {
     },
     setLocale(state, payload){
       let {langSelector: lang} = payload;
+
+      console.log(lang)
       // console.log(`Moment's lang (before): ${moment.locale()}`);
       // console.log(`Selecting lang: ${lang}`)
       moment.locale(lang);
@@ -26,6 +28,8 @@ export default  {
 
       state.locale = payload
       vueApp.$i18n.locale = state.locale.langSelector
+
+      console.log(vueApp.$i18n.locale)
     },
   },
     actions: {

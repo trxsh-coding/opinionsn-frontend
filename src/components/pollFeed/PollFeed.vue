@@ -59,9 +59,10 @@
       return {
         page: 1,
         filtered: false,
+        mobile: this.$root.mobile,
         swiperOption: {
-          slidesPerView: 4,
-          spaceBetween: 90,
+          slidesPerView: null,
+          spaceBetween: null,
           pagination: {
             el: '.swiper-pagination',
             clickable: true
@@ -97,7 +98,23 @@
 
     },
 
+    watch: {
 
+      swiperOption: function (newVal, oldVal) {
+
+          if(this.mobile === true){
+
+            this.swiperOption.slidesPerView = 4;
+            this.swiperOption.spaceBetween = 30;
+          } else {
+
+            this.swiperOption.slidesPerView = 10;
+
+          }
+
+      }
+
+    },
 
 
 

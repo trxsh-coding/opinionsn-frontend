@@ -10,7 +10,17 @@
       <!--<el-option label="Опрос" value="0"></el-option>-->
       <!--</el-select>-->
       <!--</el-form-item>-->
-
+      <el-form-item class="flex ">
+        <el-switch
+                class="mr-10"
+                v-model="pollForm.type_of_poll"
+                active-value="2"
+                inactive-value="0"
+                active-color="#A1ABB0"
+                inactive-color="#4B97B4">
+        </el-switch>
+        <span>OFF-Chain</span>
+      </el-form-item>
 
       <el-form-item :label="Категории" prop="subject_header" :rules="[ { required: true, message: lstr('select_topic_name'), trigger: 'change' }]">
 
@@ -37,6 +47,8 @@
           </div>
 
         </el-form-item >
+
+
 
       </div>
 
@@ -65,6 +77,56 @@
       </el-form-item>
 
 
+      <div class="date-picker flex-space-center">
+
+        <el-form-item label="Укажите дату" prop="end_date" >
+          <el-col :span="24">
+            <el-date-picker
+                    suffix-icon="el-icon-date"
+                    format="yyyy/MM/dd"
+                    value-format="yyyy-MM-dd"
+                    type="date"
+                    placeholder="Pick a date"
+                    v-model="pollForm.end_date"
+                    style="width: 100%;">
+            </el-date-picker>
+          </el-col>
+          <icon-base
+                  class="icon-required"
+                  fill="none"
+                  width="5"
+                  height="6"
+                  viewBox="0 0 5 6"
+                  icon-dropdown="icon-daw"><icon-required />
+          </icon-base>
+
+        </el-form-item>
+        <el-form-item label="Укажите время" prop="end_time" >
+          <el-col :span="24">
+            <el-time-select
+                    :picker-options="{
+                                            start: '00:00',
+                                            step: '00:15',
+                                            end: '24:00'
+                                          }"
+                    placeholder="Pick a time"
+                    v-model="pollForm.end_time"
+                    style="width: 100%;">
+            </el-time-select>
+          </el-col>
+          <icon-base
+                  class="icon-required"
+                  fill="none"
+                  width="5"
+                  height="6"
+                  viewBox="0 0 5 6"
+                  icon-dropdown="icon-daw"><icon-required />
+          </icon-base>
+        </el-form-item>
+      </div>
+
+
+
       <div class="options-header mb-10 flex-space-center">
 
         <div class="text-block label-subject">
@@ -86,7 +148,7 @@
         <div class="option-block flex-column" v-for="(option, option_id) in pollForm.options" :key="option_id">
           <div class="option-row">
             <div class="option-input max-width relative">
-              <el-form-item class="max-width" :label="lstr('answer_text')" :prop="'options.' + option_id + '.description'" :rules="[{ required: true, message: lstr('enter_answer_text') , trigger: 'blur' }, { min: 2 , max: 50, message: 'Длина должна быть от 2 до 50 символов', trigger: 'blur' }]">
+              <el-form-item class="max-width" :label="lstr('answer_text')" :prop="'options.' + option_id + '.description'" :rules="[{ required: true, message: lstr('enter_answer_text') , trigger: 'blur' }, { min: 2 , max: 25, message: 'Длина должна быть от 2 до 25 символов', trigger: 'blur' }]">
                 <el-input type="textarea" autosize v-model="option.description"></el-input>
               </el-form-item>
             </div>
@@ -149,7 +211,6 @@
   import CatalogDropdown from './CatalogFeed/catalogDropdown';
   import axios from 'axios'
   import {mapState} from 'vuex'
-
   export default {
     name: "CreatePoll",
     data(){
@@ -167,6 +228,10 @@
           tags:'',
           description:'',
           type_of_poll:'0',
+          end_date:'',
+          end_time:'',
+          fund:'100',
+          judges:[],
           options:[
             {
               optionImageUrl:'',
@@ -192,6 +257,11 @@
         lang : state => state.locale
       }),
 
+      ...mapState('globalStore', {
+
+        mainUser: ({mainUser}) => mainUser
+
+      }),
 
       lstr(){
         return (str)=>localString(this.lang, str);
@@ -293,17 +363,16 @@
               } else {
 
                 pictures.push(option.picture);
-                console.log('я это все таки сделал')
                 delete option.picture
 
               }
 
             }
             if(!exception) {
-              console.log('hi')
               let {end_date, end_time} = pollForm;
               let mDate = moment(`${end_date} ${end_time}`, 'YYYY-MM-DD HH:mm');
               pollForm.end_date = mDate.toISOString(true);
+              pollForm.judges = [this.mainUser.id];
               delete pollForm.end_time;
               var bodyFormData = new FormData();
               const form = new Blob([JSON.stringify(pollForm)], { type: "application/json"})
@@ -317,15 +386,33 @@
                   'content-type': 'multipart/mixed'
                 }
               }
-              axios.post('/api/rest/quiz/create', bodyFormData, config)
-                      .then(function(response){
-                        if (response.status === 200) {
-                          this.$router.push({ name: 'pollFeed'})
-                        }
-                      }.bind(this))
+              if(pollForm.type_of_poll === 0) {
+
+                axios.post('/api/rest/quiz/create', bodyFormData, config)
+                        .then(function(response){
+                          if (response.status === 200) {
+                            this.$router.push({ name: 'pollFeed'})
+                          }
+                        }.bind(this))
 
 
-            } else alert('bor')
+              } else {
+
+                axios.post('/api/rest/admin/blockchainPoll/create', bodyFormData, config)
+                        .then(function(response){
+                          if (response.status === 200) {
+                            this.$router.push({ name: 'pollFeed'})
+                          }
+                        }.bind(this))
+
+              }
+
+
+
+            } else {
+
+
+            }
           } else {
             console.log('error submit!!');
             return false;
