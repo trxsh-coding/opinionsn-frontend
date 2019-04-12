@@ -486,67 +486,35 @@ color: #69777F;
 
 //Buttons
 
-.primary-btn {
-
-
-
-
-  width: 271px;
-  height: 42px;
-  background: #4B97B4;
-  border-radius: 21px;
-
-
-  font-family: Roboto;
-  font-style: normal;
-  font-weight: normal;
-  line-height: 16px;
-  font-size: 17px;
-  font-variant: small-caps;
-
-  color: #FFFFFF;
-
-
-
-}
-
-.primary-btn {
-
-  background: #D0D5D8;
-  border-radius: 21px;
-
-
-  font-family: Roboto;
-  font-style: normal;
-  font-weight: normal;
-  line-height: 16px;
-  font-size: 17px;
-  font-variant: small-caps;
-
-  color: #FFFFFF;
-
-
-
-}
-
-.secondary-btn {
+.primary-btn, .primary-btn:active, .primary-btn:focus, .primary-btn:hover  {
 
   background: #4B97B4;
-  border-radius: 21px;
-
-
+  border-radius: 24px;
   font-family: Roboto;
   font-style: normal;
   font-weight: normal;
-  line-height: 16px;
-  font-size: 17px;
+  font-size: 11px;
   font-variant: small-caps;
-
   color: #FFFFFF;
+  mix-blend-mode: normal;
+  font-variant-caps: normal;
+  color: #FFFFFF;
+  text-transform: uppercase;
+  border: none;
+
+}
+
+
+.secondary-btn, .secondary-btn:active, .secondary-btn:focus, .secondary-btn:hover {
+
+@extend .primary-btn;
+
+background: #C4C4C4;
 
 
 
 }
+
 
 //Colors
 

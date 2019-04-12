@@ -10,7 +10,17 @@
             <!--<el-option label="Опрос" value="0"></el-option>-->
             <!--</el-select>-->
             <!--</el-form-item>-->
-
+            <el-form-item class="flex " v-if="mainUser.authorities === 'ADMIN'">
+                <el-switch
+                        class="mr-10"
+                        v-model="pollForm.type_of_poll"
+                        active-value="0"
+                        inactive-value="2"
+                        active-color="#A1ABB0"
+                        inactive-color="#4B97B4">
+                </el-switch>
+                <span>OFF-Chain</span>
+            </el-form-item>
 
             <el-form-item :label="Категории" prop="subject_header" :rules="[ { required: true, message: lstr('select_topic_name'), trigger: 'change' }]">
 
@@ -20,25 +30,25 @@
 
             <div class="subject-header">
 
-                <el-form-item :label="lstr('enter_subject_name')" prop="subject" class="subject-form-item" :rules="[{ required: true, message: lstr('enter_subject_name') , trigger: 'blur' }, { min: 2 , max: 1000, message: lstr('length_should_be_3_to_255'), trigger: 'blur' }]" >
+                <el-form-item :label="lstr('enter_subject_name')" prop="subject" class="subject-form-item" :rules="[{ required: true, message: lstr('enter_subject_name') , trigger: 'blur' }, { min: 2 , max: 1000, message: lstr('length_should_be_3_to_1000'), trigger: 'blur' }]" >
 
-                    <el-input type="textarea" autosize size="small" class="second-option width-90" v-model="pollForm.subject" ></el-input>
+                    <el-input type="textarea" autosize size="small" class="second-option picture" v-model="pollForm.subject" ></el-input>
 
-                    <span class="label label-daw-padding"><lang-string :title="'photo'"/></span>
 
-                    <div class="icon-daw flex" @click="addMainPhoto">
+
+                    <div class="icon-picture flex" @click="addMainPhoto">
                         <icon-base
-                                v-bind:class="{ primary : mainPicture}"
-                                class="icon-daw"
                                 fill="none"
-                                width="16"
-                                height="16"
-                                viewBox="0 0 16 16"
-                                icon-dropdown="icon-daw"><icon-daw />
+                                width="18"
+                                height="14"
+                                viewBox="0 0 18 14"
+                                icon-name="picture"><icon-picture/>
                         </icon-base>
                     </div>
 
                 </el-form-item >
+
+
 
             </div>
 
@@ -53,17 +63,19 @@
                 </el-upload>
             </div>
 
-            <el-form-item label="Хэштеги"  >
+            <el-form-item :label="lstr('poll_tags')"  >
 
                 <el-input type="textarea" autosize v-model="pollForm.tags"></el-input>
 
             </el-form-item>
 
-            <el-form-item label="Описание" prop="description" :rules="[{ required: true, message: lstr('enter_description_text') , trigger: 'blur' }, { min: 0 , max: 600, message: lstr('length_should_be_0_to_600'), trigger: 'blur' }]" >
+
+            <el-form-item :label="lstr('description')" prop="description" :rules="[{ required: true, message: lstr('enter_description_text') , trigger: 'blur' }, { min: 0 , max: 1000, message: lstr('length_should_be_0_to_1000'), trigger: 'blur' }]" >
 
                 <el-input type="textarea" autosize class="description-input" v-model="pollForm.description"></el-input>
 
             </el-form-item>
+
 
             <div class="date-picker flex-space-center">
 
@@ -113,37 +125,43 @@
                 </el-form-item>
             </div>
 
+
+
             <div class="options-header mb-10 flex-space-center">
 
                 <div class="text-block label-subject">
-                    Предложите вариант ответа
+                    <lang-string :title="'offer_answer_text'"/>
                 </div>
 
 
-                <div class="flex-end" @click="addOptionPicture">
-                    <span class="label label-daw-padding"><lang-string :title="'photo'"/></span>
-
+                <div class="icon-picture flex" @click="addOptionPicture">
                     <icon-base
-                            v-bind:class="{ primary : optionPicture}"
-                            class="icon-daw"
                             fill="none"
-                            width="16"
-                            height="16"
-                            viewBox="0 0 16 16"
-                            icon-dropdown="icon-daw"><icon-daw />
+                            width="18"
+                            height="14"
+                            viewBox="0 0 18 14"
+                            icon-name="picture"><icon-picture/>
                     </icon-base>
                 </div>
             </div>
-            <div class="options-wrapper mb-15">
+            <div class="options-wrapper">
                 <div class="option-block flex-column" v-for="(option, option_id) in pollForm.options" :key="option_id">
                     <div class="option-row">
                         <div class="option-input max-width relative">
-                            <el-form-item class="max-width" label="Вариант ответа" :prop="'options.' + option_id + '.description'" :rules="[{ required: true, message: lstr('enter_answer_text') , trigger: 'blur' }, { min: 2 , max: 50, message: 'Длина должна быть от 2 до 50 символов', trigger: 'blur' }]">
+                            <el-form-item class="max-width" :label="lstr('answer_text')" :prop="'options.' + option_id + '.description'" :rules="[{ required: true, message: lstr('enter_answer_text') , trigger: 'blur' }, { min: 2 , max: 25, message: 'Длина должна быть от 2 до 25 символов', trigger: 'blur' }]">
                                 <el-input type="textarea" autosize v-model="option.description"></el-input>
                             </el-form-item>
                         </div>
                         <div class="delete-option" v-if="pollForm.options.length > 2 && option_id > 1 " @click="deleteOption(option_id)">
-                            <span class="label pl-9">Удалить</span>
+                            <div class="icon-picture flex" >
+                                <icon-base
+                                        fill="none"
+                                        width="12"
+                                        height="2"
+                                        viewBox="0 0 12 2"
+                                        icon-name="picture"><icon-minus/>
+                                </icon-base>
+                            </div>
                         </div>
                     </div>
 
@@ -157,9 +175,17 @@
                         </el-upload>
                     </div>
                 </div>
-                <el-button class="max-width br-12" @click="addOption">
-                    <lang-string :title="'more'"/>
-                </el-button>
+                <el-form-item class="more-item" :label="lstr('more')">
+                    <div class="more-btn br-12 grey" @click="addOption">
+                        <icon-base
+                                fill="none"
+                                width="12"
+                                height="12"
+                                viewBox="0 0 12 12"
+                                icon-name="picture"><icon-plus/>
+                        </icon-base>
+                    </div>
+                </el-form-item>
             </div>
             <el-button class="save-button" @click="submitForm('pollForm')">
 
@@ -174,7 +200,10 @@
 <script>
     import IconBase from './icons/IconBase'
     import IconDaw from './icons/IconDaw'
+    import IconPicture from './icons/IconPicture'
     import IconImage from './icons/IconImage'
+    import IconMinus from './icons/IconMinus'
+    import IconPlus from './icons/IconPlusOptions'
     import IconRequired from './icons/IconRequired'
     import langString from './langString.vue'
     import {localString} from './../utils/localString'
@@ -198,9 +227,11 @@
                     subject:'',
                     tags:'',
                     description:'',
+                    type_of_poll:'0',
                     end_date:'',
                     end_time:'',
-                    type_of_poll:'1',
+                    fund:'100',
+                    judges:[],
                     options:[
                         {
                             optionImageUrl:'',
@@ -226,6 +257,11 @@
                 lang : state => state.locale
             }),
 
+            ...mapState('globalStore', {
+
+                mainUser: ({mainUser}) => mainUser
+
+            }),
 
             lstr(){
                 return (str)=>localString(this.lang, str);
@@ -327,17 +363,16 @@
                             } else {
 
                                 pictures.push(option.picture);
-                                console.log('я это все таки сделал')
                                 delete option.picture
 
                             }
 
                         }
                         if(!exception) {
-                            console.log('hi')
                             let {end_date, end_time} = pollForm;
                             let mDate = moment(`${end_date} ${end_time}`, 'YYYY-MM-DD HH:mm');
                             pollForm.end_date = mDate.toISOString(true);
+                            pollForm.judges = [this.mainUser.id];
                             delete pollForm.end_time;
                             var bodyFormData = new FormData();
                             const form = new Blob([JSON.stringify(pollForm)], { type: "application/json"})
@@ -351,15 +386,33 @@
                                     'content-type': 'multipart/mixed'
                                 }
                             }
-                            axios.post('/api/rest/quiz/create', bodyFormData, config)
-                                .then(function(response){
-                                    if (response.status === 200) {
-                                        this.$router.push({ name: 'pollFeed'})
-                                    }
-                                }.bind(this))
+                            if(pollForm.type_of_poll === 0) {
+
+                                axios.post('/api/rest/quiz/create', bodyFormData, config)
+                                    .then(function(response){
+                                        if (response.status === 200) {
+                                            this.$router.push({ name: 'pollFeed'})
+                                        }
+                                    }.bind(this))
 
 
-                        } else alert('bor')
+                            } else {
+
+                                axios.post('/api/rest/admin/blockchainPoll/create', bodyFormData, config)
+                                    .then(function(response){
+                                        if (response.status === 200) {
+                                            this.$router.push({ name: 'pollFeed'})
+                                        }
+                                    }.bind(this))
+
+                            }
+
+
+
+                        } else {
+
+
+                        }
                     } else {
                         console.log('error submit!!');
                         return false;
@@ -376,11 +429,250 @@
             IconDaw,
             IconImage,
             IconRequired,
-            langString
+            langString,
+            IconPicture,
+            IconMinus,
+            IconPlus
         }
 
     }
 </script>
 
 <style lang="scss" >
+    .poll-create-wrapper {
+
+        .save-button {
+
+            padding: 9px 9px;      border-radius: 12px;
+            background: #4B97B4 !important;
+            color: #ffffff;
+            span {
+
+                font-family: Roboto;
+                font-style: normal;
+                font-weight: normal;
+                font-size: 12px;
+                line-height: 12px;
+                color: #FFFFFF;
+                mix-blend-mode: normal;
+                text-transform: uppercase;
+            }
+        }
+
+        padding: 5px 18px 15px 12px;
+        background: #ffffff;
+
+        .el-textarea__inner{
+
+            border-radius: 24px;
+            overflow-y: hidden;
+            resize: none;
+
+        }
+
+        .el-form-item__content {
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+        }
+        .el-input__inner {
+            border-radius: 12px;
+            height: 30px;
+            border-color: #B6C1C6 !important;
+        }
+
+        .el-input__inner:active,   .el-input__inner:hover {
+
+            border-color: #B6C1C6 !important;
+
+        }
+
+
+        .icon-required {
+
+            position: absolute;
+            right: 9px;
+
+        }
+
+        .primary {
+
+            path {
+
+                fill: #4B97B4;
+
+            }
+
+        }
+
+        .subject-form-item {
+
+            .icon-required {
+
+                position: absolute;
+                right: 70px !important;
+
+            }
+
+        }
+
+        .icon-picture {
+
+            width: 30px;
+            height: 30px;
+            border: 1px solid #B6C1C6;
+            border-radius: 12px;
+            justify-content: center;
+            align-items: center;
+            flex-shrink: 0;
+            margin-left: 6px;
+        }
+
+        .avatar-uploader {
+
+            height: 265px;
+            background: rgba(68, 93, 115, 0.1);
+            border-radius: 12px;
+
+            .avatar {
+                height: 265px;
+                border-radius: 12px;
+                width: 100%;
+                object-fit: cover;
+            }
+            .el-upload {
+
+                width: 100%;
+                height: 100%;
+
+            }
+
+        }
+
+        .date-picker {
+
+            .el-form-item {
+                width: 48%;
+            }
+            .el-input__inner {
+                height: 30px;
+            }
+
+            .el-input__prefix {
+
+                display: none;
+
+            }
+
+            input {
+                padding: 0 10px;
+            }
+        }
+
+
+
+        .description-input {
+
+            textarea {
+
+                min-height: 90px !important;
+                border-radius: 12px;
+            }
+
+        }
+
+        .delete-option:first-of-type {
+
+            display: none;
+
+        }
+
+        .label {
+
+            font-family: Roboto;
+            font-style: normal;
+            font-weight: 300;
+            line-height: 12px;
+            font-size: 12px;
+            text-align: justify;
+            letter-spacing: -0.2px;
+            color: #8A9499;
+
+        }
+
+        .image-block {
+
+            margin-bottom: 9px;
+
+        }
+
+        .option-row {
+
+            display: flex;
+            align-items: center;
+
+        }
+
+        .el-form-item__label {
+
+            @extend .label
+
+        }
+        .option-picture {
+
+            height: 117px;
+            background: rgba(68, 93, 115, 0.1);
+            border-radius: 12px;
+            width: 201px;
+            margin-bottom: 7px;
+
+            .option-picture-uploader, .el-upload {
+
+                width: 100%;
+                height: 100%;
+                .picture {
+
+                    height: 117px;
+                    background: rgba(68, 93, 115, 0.1);
+                    border-radius: 12px;
+                    width: 201px;
+                    margin-bottom: 7px;
+                    object-fit: cover;
+
+                }
+            }
+
+        }
+        .more-btn {
+            background: #A1ABB0;
+            height: 30px;
+            width: 30px;
+            color:#FFFFFF;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+        }
+
+        .more-item {
+            margin-bottom: 12px;
+            .el-form-item__label {
+
+                padding-left: 9px;
+
+            }
+
+            .el-form-item__content {
+
+                justify-content: left;
+                padding-left: 9px;
+
+            }
+
+        }
+
+
+    }
 </style>

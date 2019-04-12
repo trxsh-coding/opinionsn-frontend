@@ -66,7 +66,7 @@
             </div>
             <div class="buttons-block">
                 <el-button class="secondary-btn" @click="submitRegistration(registrationForm)">
-                    <lang-string class="lowercase" :title="'registration'"/>
+                    <lang-string  :title="'registration'"/>
                 </el-button>
                 <div class="registration__item">
 
@@ -324,6 +324,18 @@
                     justify-content: space-between;
                     flex-direction: column;
                     align-items: center;
+                    .el-button {
+
+
+                        font-family: Roboto;
+                        font-style: normal;
+                        font-weight: normal;
+                        font-size: 16px;
+                        color: #FFFFFF;
+                        text-transform: uppercase;
+
+
+                    }
                 }
 
                 .navbar-brand {

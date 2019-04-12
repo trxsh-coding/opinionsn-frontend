@@ -26,11 +26,11 @@
           </div>
           <div class="buttons-block flex-column-center">
 
-              <el-button class="primary-btn" @click="routeFn('sign')">
+              <el-button class="primary-btn uppercase" @click="routeFn('sign')">
                   <lang-string class="lowercase" :title="'sign'" />
               </el-button>
 
-              <el-button class="primary-btn" @click="routeFn('registration')">
+              <el-button class="secondary-btn" @click="routeFn('registration')">
                   <lang-string class="lowercase" :title="'registration'" />
               </el-button>
 
@@ -104,9 +104,18 @@ body {
         .buttons-block {
             margin-top: 35px;
             text-align: center;
+
             .el-button {
                 margin: 0px;
                 margin-bottom: 9px;
+                width: 271px ;
+                font-family: Roboto;
+                font-style: normal;
+                font-weight: normal;
+                font-size: 17px;
+                line-height: 16px;
+                font-variant: small-caps;
+                color: #FFFFFF;
             }
 
             .el-button:hover {

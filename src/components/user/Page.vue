@@ -37,6 +37,14 @@
         },
         methods: {
 
+            beforeRouteUpdate (to, from, next) {
+
+                this.$store.dispatch(`userPage/list`, {customUrl: `/api/rest/getUserById/${this.$route.params.id}`}).then(next)
+
+
+            },
+
+
         },
 
         components: {

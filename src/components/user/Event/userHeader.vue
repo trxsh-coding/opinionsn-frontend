@@ -131,6 +131,7 @@
         },
         methods: {
 
+
             followersLink(userId) {
 
                 this.$router.push({path:`/follows/followers/${userId}`})
@@ -178,7 +179,6 @@
 
         created(){
 
-            console.log(this.$route.params.id)
 
         },
         components:{

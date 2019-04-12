@@ -31,7 +31,18 @@
                 hide_form:true,
             }
         },
+
+        beforeRouteEnter(to, from, next) {
+            console.log("before enter");
+            next(vm => {
+                console.log("before enter next function");
+                vm.count++;
+            });
+        },
         computed:{
+
+
+
 
             ...mapState('globalStore', {
 
@@ -71,6 +82,8 @@
 
         methods: {
 
+
+
             hideForm(event){
 
                 this.hide_form = !this.hide_form
@@ -88,6 +101,7 @@
 
 
         },
+
 
         created(){
 

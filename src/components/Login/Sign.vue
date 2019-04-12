@@ -42,7 +42,7 @@
             </div>
             <div class="buttons-block">
                 <el-button class="secondary-btn"  @click="submitSign(signForm)">
-                    <lang-string class="lowercase" :title="'sign'"/>
+                    <lang-string  :title="'sign'"/>
                 </el-button>
                 <div class="footer-items">
                     <div class="registration__item">

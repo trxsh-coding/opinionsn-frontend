@@ -287,6 +287,9 @@ export default {
       this.getNotifications();
 
       window.addEventListener('scroll', this.onScroll)
+
+      this.$store.dispatch('lang/getLocaleString');
+
   },
 
   beforeDestroy () {
@@ -296,7 +299,6 @@ export default {
 
   created(){
 
-      this.$store.dispatch('lang/getLocaleString');
 
 
   },
