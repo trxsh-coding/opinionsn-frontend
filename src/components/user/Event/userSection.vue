@@ -1,9 +1,9 @@
 <template>
     <div class="user-section">
-        <user-header :user="user" @hide="hideForm" :hide_form="hide_form"/>
+        <user-header :user="user"  />
 
         <transition name="fade">
-            <user-form  @hide="hideForm" :hide_form="hide_form" v-if="!hide_form"/>
+            <user-form   v-if="!hide_form"/>
         </transition>
         <transition name="fade">
         <user-statistic :id="id"  :limit="circlesLimit" v-if="hide_form"/>
@@ -28,20 +28,17 @@
         data(){
             return {
                 limit:3,
-                hide_form:true,
             }
         },
 
-        beforeRouteEnter(to, from, next) {
-            console.log("before enter");
-            next(vm => {
-                console.log("before enter next function");
-                vm.count++;
-            });
-        },
+
         computed:{
 
+            ...mapState('userPage', {
 
+                hide_form: s => s.hide_form,
+
+            }),
 
 
             ...mapState('globalStore', {
@@ -83,12 +80,6 @@
         methods: {
 
 
-
-            hideForm(event){
-
-                this.hide_form = !this.hide_form
-
-            }
 
         },
 

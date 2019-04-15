@@ -94,6 +94,15 @@ export class VuexStore {
 
         }
     }
+
+    get getters(){
+
+        return {
+
+
+        }
+
+    }
     /**
      * Returns that built JSON for Vuex to use
      */

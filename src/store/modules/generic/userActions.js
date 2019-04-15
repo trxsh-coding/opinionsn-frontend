@@ -143,7 +143,11 @@ export const userActions = sc => class extends sc {
     //
     //
     // }
+    hideForm(state, payload) {
 
+        state.hide_form = payload
+
+    }
 
     removeUser(state){
 
@@ -162,7 +166,7 @@ export const userActions = sc => class extends sc {
             ...super.state,
             followings:null,
             main_user_id:null,
-            user_authorities:''
+            hide_form:true
         }
     }
 
@@ -187,7 +191,8 @@ export const userActions = sc => class extends sc {
     get mutations() {
         return {
             ...super.mutations,
-            removeUser: this.removeUser
+            removeUser: this.removeUser,
+            hideForm: this.hideForm
 
         }
     }

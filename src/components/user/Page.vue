@@ -24,25 +24,33 @@
     export default {
         name: "userPage",
         props:['user_id'],
+        data(){
+
+            return {
+
+
+            }
+
+        },
         computed: {
             ...mapState('userPage', {
                 state: s => s,
                 items: s => s.items,
             }),
 
+            beforeRouteUpdate(to, from, next) {
 
+                this.$store.commit('userPage/hideForm', true).then(next)
+
+
+            },
 
 
 
         },
         methods: {
 
-            beforeRouteUpdate (to, from, next) {
 
-                this.$store.dispatch(`userPage/list`, {customUrl: `/api/rest/getUserById/${this.$route.params.id}`}).then(next)
-
-
-            },
 
 
         },

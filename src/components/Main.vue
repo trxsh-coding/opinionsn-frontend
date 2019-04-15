@@ -138,6 +138,7 @@ import {localString} from '../utils/localString.js'
 import axios from 'axios'
 import mobileNav from './mobileNav'
 import Search from "./Search/search";
+import notificationBlock from './notifications/notificationBlock'
 export default {
   data(){
     return {
@@ -213,14 +214,18 @@ export default {
       axios.get('/static/notification')
           .then(function(response){
               if (response.status) {
-                  this.notification(response.data)
+                  this.notification(response.data);
                   this.getNotifications()
               }
-          }.bind(this));
+          }.bind(this))
+
+          .catch((error) => {
+              this.getNotifications()
+
+          });
 
   },
       notification(response) {
-
           this.$notify({
               title: 'Уведомление',
               message: response[0].message,
@@ -281,7 +286,6 @@ export default {
   },
 
   mounted(){
-
       this.$store.dispatch('userPage/getMainUser');
 
       this.getNotifications();
@@ -318,7 +322,8 @@ export default {
     langString,
     IconDropdown,
     mobileNav,
-    IconClose
+    IconClose,
+    notificationBlock
   },
 }
 </script>
@@ -575,7 +580,6 @@ body {
         .auth-block {
 
             width: 88%;
-
         }
 
         .el-main {

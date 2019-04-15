@@ -52,7 +52,6 @@
   import MugenScroll from 'vue-mugen-scroll'
   import event from './event/Event.vue'
   import filterComponent from './event/filterComponent.vue'
-
   import { mapState } from 'vuex';
   export default {
     data(){
@@ -81,6 +80,22 @@
       ...mapState('globalStore', {
         categories: ({categories}) =>categories,
       }),
+
+
+      beforeRouteLeave (to, from, next) {
+
+        let {page} = this;
+
+        page = 0;
+
+        this.$store.commit('pollFeed/resetFeedPage', page).then(() => {
+
+          next();
+
+        })
+
+
+      },
 
 
     },
@@ -126,6 +141,8 @@
 
 
     },
+
+
 
     components: {
       event,

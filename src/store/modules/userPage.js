@@ -4,6 +4,8 @@ import {userActions} from "./generic/userActions";
 
 class userPageStore extends userActions(StoreWithList (VuexStore, '/api/rest/getUserById/:id')) {
 
+
+
 }
 
 let store = new userPageStore();

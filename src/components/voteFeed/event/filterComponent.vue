@@ -53,8 +53,6 @@
     .filter-wrapper {
         margin-right: 21px;
         text-align: center;
-
-
         .author-picture {
             margin-bottom: 5px;
             width: 60px;

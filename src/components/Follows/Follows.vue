@@ -23,7 +23,6 @@
         <div class="routes-path-wrapper">
             <div class="follows-section" >
                 <router-view :id="id"></router-view>
-
             </div>
         </div>
     </div>

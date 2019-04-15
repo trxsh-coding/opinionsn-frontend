@@ -114,7 +114,6 @@
                     if (response.status === 200) {
                         this.$store.commit('globalStore/updateStores', response.data, {root: true});
                         this.items = response.data.payload;
-
                     }
 
                 })

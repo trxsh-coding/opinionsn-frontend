@@ -1,5 +1,6 @@
 <template lang="html">
-    <div class="poll-feed">
+    <div class="poll-feed relative">
+        <block-chain-animation class="absolute " v-if="poll.type_of_poll >= 2"/>
         <div class="header-block">
             <author-header :author="author" :user="user" :poll="poll" :item="item"> </author-header>
 
@@ -18,7 +19,7 @@
 <script>
 
     import { mapState } from 'vuex';
-
+    import blockChainAnimation from './modules/blockChainAnimation'
     import AuthorHeader from './poll/AuthorHeader';
     import PollSection from './poll/pollSection';
     import vote from './votes/Vote';
@@ -152,7 +153,8 @@
             PollSection,
             AuthorHeader,
             vote,
-            langString
+            langString,
+            blockChainAnimation
         }
 
     }
@@ -166,9 +168,16 @@
         padding: 15px 15px 12px 15px;
         background: #FFFFFF;
         margin-bottom: 10px;
+
+        overflow: hidden;
+
         .header-block {
             padding-top: 7px;
         }
+
+
+
+
     }
 
 
@@ -177,4 +186,5 @@
 
 
     }
+
 </style>

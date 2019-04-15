@@ -287,6 +287,16 @@ export const pollActions = sc => class extends sc {
     }
 
 
+    resetFeedPage(state, payload) {
+
+
+        console.log(state)
+
+        state.page = payload
+
+
+    }
+
 
     onCommentSaved({commit}, args){
         let {responseData: data, requestData: payload} = args;
@@ -370,7 +380,8 @@ export const pollActions = sc => class extends sc {
             onListReceived: this.onListReceived,
             clearFeed: this.clearFeed,
             setFilterId: this.setFilterId,
-            clearFilter : this.clearFilter
+            clearFilter : this.clearFilter,
+            resetFeedPage: this.resetFeedPage
         }
     }
 

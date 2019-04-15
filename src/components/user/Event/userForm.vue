@@ -70,7 +70,6 @@
     import iconLocation from '../../icons/IconLocation'
 
     export default {
-        props:['hide_form'],
         data() {
 
             return {
@@ -85,6 +84,11 @@
             ...mapState('globalStore', {
 
                 user: ({mainUser}) => mainUser
+
+            }),
+            ...mapState('userPage', {
+
+                hide_form: s => s.hide_form,
 
             }),
 
@@ -120,7 +124,8 @@
 
             cancelEdit(){
 
-                this.$emit('hide', this.hide_form);
+                this.$store.commit('userPage/hideForm', true)
+
 
             },
 
@@ -128,7 +133,7 @@
                 this.$refs[formName].validate((valid) => {
                     if (valid) {
                         this.$store.dispatch(`userPage/updateUser`, {data: this.user});
-                        this.$emit('hide', this.hide_form);
+                        this.$store.commit('userPage/hideForm', true)
                     } else {
                         console.log('error submit!!');
                         return false;

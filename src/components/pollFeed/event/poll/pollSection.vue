@@ -202,8 +202,7 @@
 
 
             vote(selected_variable, poll_id){
-
-                console.log(this.expanded)
+                alert('hi')
                 if(this.expanded){
                     console.log('there')
                     if (!this.item.voted) {
@@ -221,7 +220,6 @@
 
                 }
                 this.expanded = true;
-                console.log('hi')
 
             },
 

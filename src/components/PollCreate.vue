@@ -435,7 +435,7 @@
 
               } else {
 
-                axios.post('/api/rest/admin/blockchainPrediction/create', bodyFormData, config)
+                axios.post('/api/rest/admin/blockchain/create', bodyFormData, config)
                         .then(function(response){
                           if (response.status === 200) {
                             this.$router.push({ name: 'pollFeed'})

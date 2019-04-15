@@ -79,12 +79,11 @@
     import IconLocation from '../../icons/IconLocation'
     export default {
         name: "userHeader",
-        props:['user', 'hide_form'],
+        props:['user'],
         data(){
             return {
                 link:this.$route.params,
                 mobile: this.$root.mobile,
-                hide_form:false,
                 avatarDialog:false,
                 location:null,
                 aboutMe:null,
@@ -98,6 +97,7 @@
                 state: s => s,
                 items: s => s.items,
                 main_user_id: s => s.main_user_id,
+                hide_form: s => s.hide_form,
 
             }),
 
@@ -116,6 +116,8 @@
                 return this.$route.params
 
             }
+
+            //TODO Сделать нормальный хайд формы
 
             //Main user getter
 
@@ -169,9 +171,7 @@
 
             editInfo(){
 
-
-                this.$emit('hide', !this.hide_form);
-
+                this.$store.commit('userPage/hideForm', false)
 
             }
 
