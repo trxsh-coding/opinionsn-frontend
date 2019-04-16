@@ -211,7 +211,7 @@ export default {
 
   getNotifications(){
 
-      axios.get('/static/notification')
+      axios.get('/messages/notification')
           .then(function(response){
               if (response.status) {
                   this.notification(response.data);
