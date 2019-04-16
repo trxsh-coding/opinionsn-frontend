@@ -220,7 +220,8 @@ export default {
           }.bind(this))
 
           .catch((error) => {
-              this.getNotifications()
+              setTimeout(()=> this.getNotifications(), 15000
+              )
 
           });
 
