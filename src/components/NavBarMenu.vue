@@ -47,7 +47,8 @@
             viewBox="0 0 8 10"
             icon-name="union"><icon-union />
           </icon-base>
-          <span >0 000 000</span>
+          <span v-if="user.balance == 0" >0 000 000</span>
+          <span v-if="user.balance > 0">{{user.balance}}</span>
           <icon-base
             class="icon-eye"
             fill="#162D3A"

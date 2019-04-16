@@ -31,6 +31,16 @@ export const pollActions = sc => class extends sc {
     };
 
 
+
+    setBlockchainRightOption({commit, dispatch}, payload={}){
+
+        let {customUrl = '/api/rest/blockchain/judge/create', data={}, method='post'} = payload;
+
+        sc.apiRequest(customUrl, data, {commit, dispatch, onSuccess: null, successType: 'action'}, method);
+
+    };
+
+
     saveExplain({commit, dispatch}, payload={}){
 
 
@@ -370,7 +380,8 @@ export const pollActions = sc => class extends sc {
             deleteBookmark: this.deleteBookmark,
             deletePoll: this.deletePoll,
             deleteComment: this.deleteComment,
-            onExplainSaved: this.onExplainSaved
+            onExplainSaved: this.onExplainSaved,
+            setBlockchainRightOption: this.setBlockchainRightOption
         }
     }
 

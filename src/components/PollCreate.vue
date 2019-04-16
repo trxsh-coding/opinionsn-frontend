@@ -140,8 +140,8 @@
       <div class="participants-poll" v-if="mainUser.authorities === 'ADMIN'">
 
         <div class="amount-of-participants">
-          <el-form-item :label="lstr('enter_amount_of_the_participants')">
-            <el-input>
+          <el-form-item :label="lstr('fund')">
+            <el-input v-model="pollForm.fund">
 
             </el-input>
           </el-form-item>

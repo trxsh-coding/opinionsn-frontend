@@ -101,22 +101,22 @@
 
                     if (!this.item.voted && !this.poll.votingOver) {
 
-                        if(this.$route.name === 'pollFeed') {
 
-                            this.$store.dispatch(`pollFeed/createVote`, {data: {selected_variable, poll_id}});
+                        if(this.poll.type_of_poll >= 2) {
 
+                            this.$store.dispatch(`${this.$route.name}/createVote`, {customUrl: `api/rest/blockchain/vote/save` ,data: {selected_variable, poll_id}});
 
-                        } else if(this.$route.name === 'bookmarkFeed') {
-
-                            this.$store.dispatch(`bookmarkFeed/createVote`, {data: {selected_variable, poll_id}});
 
 
                         } else {
 
-                            this.$store.dispatch(`singlePoll/createVote`, {data: {selected_variable, poll_id}});
+
+                                this.$store.dispatch(`${this.$route.name}/createVote`, {data: {selected_variable, poll_id}});
+
 
 
                         }
+
 
 
                     }

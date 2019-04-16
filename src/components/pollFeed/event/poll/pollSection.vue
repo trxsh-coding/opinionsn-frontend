@@ -181,8 +181,16 @@
             },
 
 
-            setRightOption(option_id, poll_id){
-                this.$store.dispatch(`pollFeed/setRightOption`, {data: {option_id, poll_id }});
+            setRightOption(selected_variable, poll_id){
+                if(this.poll.type_of_poll >= 2){
+
+                    this.$store.dispatch(`pollFeed/setBlockchainRightOption`, {data: {selected_variable, poll_id }});
+
+                }else {
+
+                    this.$store.dispatch(`pollFeed/setRightOption`, {data: {selected_variable, poll_id }});
+
+                }
             },
 
 
