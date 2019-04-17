@@ -8,9 +8,9 @@ export const globalStorages = [
     {name: 'option'},
     {name: 'comment'},
     {name: 'following'},
+    {name: 'notification'},
     {name: 'mainUser', multiple:'mainUser'},
     {name: 'category', multiple: 'categories'},
-
 ];
 
 globalStorages.forEach(meta=> {
@@ -84,7 +84,6 @@ export const globalStore  =  {
                 // If we don't have that map, just skip it
                 if (!state[name]) continue;
                 if (!payload[name]) continue;
-
                 let map = payload[name];
                 if (Object.keys(map).length){
                     state[name] = {...state[name], ...map};

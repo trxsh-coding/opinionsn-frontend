@@ -23,8 +23,16 @@ export class VuexStore {
             let {status, data} = resp;
 
             if (status === 200){
-                commit('globalStore/updateStores', data, {root: true});
 
+                if (resp.config.url.includes('messages')) {
+
+                    alert('wow')
+
+                } else {
+
+                    commit('globalStore/updateStores', data, {root: true});
+
+                }
                 if (onSuccess){
                    switch(successType){
                        case 'mutation':

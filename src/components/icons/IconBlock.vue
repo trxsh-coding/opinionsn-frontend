@@ -98,7 +98,6 @@
 
                 // let relTime = moment(end_date).fromNow();
                 // var now = moment(new Date());
-                console.log(end_date)
                 var end = moment.utc(end_date);
                 // var duration = end.diff(now);
 

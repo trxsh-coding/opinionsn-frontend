@@ -89,8 +89,6 @@ export const pollActions = sc => class extends sc {
 
     deleteBookmark({commit, dispatch}, payload={}){
 
-        console.log(payload)
-
         let id = payload
 
         let {customUrl = `/api/rest/bookmarks/delete/${id}`, data={}, method='post', } = payload;

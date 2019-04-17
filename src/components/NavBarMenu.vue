@@ -20,11 +20,9 @@
         </icon-base>
       </el-badge>
       <el-dropdown-menu slot="dropdown" >
-        <el-col :span="14">
-
-          @tomhardi подписался (-ась) на ваши обновления 15:43
-
-        </el-col>
+        <div class="notification-dropdown">
+          <notification-feed />
+        </div>
       </el-dropdown-menu>
     </el-dropdown>
     <li class="main-icon">
@@ -111,7 +109,7 @@ import IconEye from './icons/IconEye.vue'
 import IconTextLogo from './icons/IconTextLogo.vue'
 import langString from './langString.vue'
 import IconDropdown from './icons/IconDropdown.vue'
-
+import notificationFeed from './notifications/feed'
 export default {
   props:['user'],
   data(){
@@ -170,7 +168,8 @@ export default {
     IconEye,
     IconTextLogo,
     langString,
-    IconDropdown
+    IconDropdown,
+    notificationFeed
 
   }
 }
@@ -178,6 +177,12 @@ export default {
 </script>
 
 <style lang="scss">
+
+  .notification-dropdown {
+
+    width: 488px;
+
+  }
 
  #navbar-profile-menu {
    display: flex;

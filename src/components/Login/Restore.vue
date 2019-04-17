@@ -90,7 +90,6 @@
 
             submitSign(form){
                 let loginFormData = new FormData();
-                console.log(form)
                 loginFormData.append('email', form.email);
                 loginFormData.append('emailConfirm', form.email_confirm);
                 axios.post(`/api/auth/sendResetPasswordCode`, loginFormData)
@@ -104,7 +103,6 @@
                     .catch((error) => {
 
 
-                        console.log(error.response.data);
 
                         let er = this.errors;
                         for (let {field: f, errorCode: v} of error.response.data){

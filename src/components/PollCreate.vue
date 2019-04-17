@@ -339,7 +339,6 @@
 
           this.mainPicture = !this.mainPicture;
 
-          console.log(imageUrl)
 
         } else  {
 

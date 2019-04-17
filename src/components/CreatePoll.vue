@@ -302,7 +302,6 @@
 
                     this.mainPicture = !this.mainPicture;
 
-                    console.log(imageUrl)
 
                 } else  {
 
@@ -319,7 +318,6 @@
                 if(this.optionImageUrl == ''){
 
                     this.optionPicture = !this.optionPicture;
-                    console.log('start')
 
                 } else  {
 
@@ -327,7 +325,6 @@
 
                     this.optionPicture = false;
 
-                    console.log('over')
 
                 }
 
@@ -348,8 +345,6 @@
 
 
             submitForm(formName) {
-                console.log(this.optionPicture)
-
                 this.$refs[formName].validate((valid) => {
                     if (valid) {
                         let {pollForm, pictures, optionPicture, exception} = this;
@@ -414,7 +409,6 @@
 
                         }
                     } else {
-                        console.log('error submit!!');
                         return false;
                     }
                 });

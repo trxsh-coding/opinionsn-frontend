@@ -90,7 +90,6 @@
         methods: {
 
             submitSign(form){
-                console.log(this.$route.query)
                 let resetFormData = new FormData();
                 console.log(form)
                 resetFormData.append('code', form.code);

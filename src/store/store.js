@@ -14,6 +14,7 @@ import {searchUser} from "./modules/searchUser";
 import {userPage} from "./modules/userPage";
 import {followsPage} from "./modules/Follows"
 import {globalStore} from "./modules/globalStore";
+import {notificationPage} from "./modules/notifications";
 
 
 Vue.use(Vuex)
@@ -36,7 +37,8 @@ Vue.use(axios)
     catalogList,
     bookmarkFeed,
     userPage,
-    followsPage
+    followsPage,
+    notificationPage
   },
   state: {
   },

@@ -92,7 +92,6 @@
 
             submitSign(form){
                 let loginFormData = new FormData();
-                console.log(form)
                 loginFormData.append('field_email', form.email);
                 loginFormData.append('field_password', form.password);
                 axios.post('/api/auth/login', loginFormData)
@@ -107,7 +106,6 @@
                     .catch((error) => {
 
 
-                         console.log(error.response.data);
 
                         let er = this.errors;
                         for (let {field: f, errorCode: v} of error.response.data){

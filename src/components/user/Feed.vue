@@ -60,7 +60,6 @@
                 return;
             }
             //console.log(user);
-            console.log('hi')
             this.$store.dispatch(`userFeed/list`, {customUrl: `/api/rest/getFeedByUserId/${userId}`});
         },
 

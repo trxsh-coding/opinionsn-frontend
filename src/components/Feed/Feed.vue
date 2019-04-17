@@ -344,7 +344,6 @@ export default {
       methods: {
         showMore(index){
 
-          console.log(this.quizFeed[index].explain.length)
         },
         showMoreExplains(quizID, index){
           this.$store.dispatch('quizFeed/showExplains', {quizID, index})

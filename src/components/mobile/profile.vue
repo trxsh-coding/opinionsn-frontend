@@ -60,7 +60,6 @@
 
                 let {state,userMap} = this;
 
-                console.log(state)
 
                 return userMap[state.main_user_id]
 

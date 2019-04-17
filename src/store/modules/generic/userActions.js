@@ -11,6 +11,13 @@ export const userActions = sc => class extends sc {
 
     };
 
+    getNotificationInitiator({commit, dispatch}, payload={}){
+
+        let {customUrl = `/api/rest/getUserById/${payload}`, data={}, method='get', } = payload;
+
+        sc.apiRequest(customUrl, data,{commit, dispatch, onSuccess: null, successType: 'action'}, method);
+
+    };
 
     followUser({commit, dispatch}, payload={}){
 
@@ -82,7 +89,6 @@ export const userActions = sc => class extends sc {
 
     onFollowUser({commit, dispatch,state, context}, args){
 
-        console.log(args)
 
         let {responseData: data, requestData: payload} = args;
 
@@ -110,22 +116,14 @@ export const userActions = sc => class extends sc {
 
         let {responseData: data} = args;
 
-        console.log('hi')
-        console.log(data)
-
         state.main_user_id = data.payload[0].id;
 
         let {id} = data.payload[0]
 
         commit(`globalStore/setSessionUser`, {user_id: id} , {root: true})
 
-
     }
     /* MUTATIONS */
-
-
-
-
 
     // setMyFollowings(state, payload){
     //
@@ -183,7 +181,8 @@ export const userActions = sc => class extends sc {
             updateUser: this.updateUser,
             getFollowings: this.getFollowings,
             getFollowers: this.getFollowers,
-            setMainUser:this.setMainUser
+            setMainUser:this.setMainUser,
+            getNotificationInitiator: this.getNotificationInitiator
 
         }
     }

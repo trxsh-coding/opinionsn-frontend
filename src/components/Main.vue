@@ -117,6 +117,9 @@
         </el-row>
       </el-main>
     </el-container>
+      <div class="notification-container relative" v-for="notification in notifications" >
+          <notification-block :notification="notification"   />
+      </div>
       <footer v-if="!main_user_id && !hide">
 
       </footer>
@@ -149,7 +152,8 @@ export default {
     mobile: this.$root.mobile,
     hide: false,
     showNavbar: true,
-    lastScrollPosition: 0
+    lastScrollPosition: 0,
+    notifications:[]
     }
   },
   watch: {
@@ -209,20 +213,27 @@ export default {
   },
   methods: {
 
+
+
+
   getNotifications(){
 
       axios.get('/messages/notification')
           .then(function(response){
-              if (response.status) {
-                  this.notification(response.data);
+              if (response.status === 200) {
                   this.getNotifications()
+                  // this.notification(response)
+                  this.notifications.push(response.data[0])
+                  // if(response.status === 200) {
+                  //
+                  //
+                  //
+                  // }
               }
           }.bind(this))
 
           .catch((error) => {
-              setTimeout(()=> this.getNotifications(), 15000
-              )
-
+              setTimeout(()=> this.getNotifications(), 15000)
           });
 
   },
@@ -230,10 +241,17 @@ export default {
           this.$notify({
               title: 'Уведомление',
               message: response[0].message,
-              position: 'bottom-right'
+              position: 'bottom-right',
+              duration:0
           });
       },
-  onScroll () {
+
+        link(response) {
+
+            console.log(response)
+
+        },
+      onScroll () {
       const currentScrollPosition = window.pageYOffset || document.documentElement.scrollTop
       if (currentScrollPosition < 0) {
           return
@@ -305,7 +323,6 @@ export default {
   created(){
 
 
-
   },
 
   beforeCreate(){
@@ -335,6 +352,14 @@ body {
 }
 #app {
   background: #f4f4f4;
+
+  .notification-container {
+
+      position: fixed;
+      bottom: 15%;
+      right: 15%;
+
+  }
 
     .navbar--hidden {
         box-shadow: none;

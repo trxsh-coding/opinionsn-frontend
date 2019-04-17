@@ -29,6 +29,7 @@
             <filter-component :filtered="filtered" :category="category"  />
 
           </swiper-slide>
+          <div class="swiper-pagination" slot="pagination"></div>
         </swiper>
       <div v-for="item in items" >
         <event :item="item" :feed="feed"/>
@@ -60,13 +61,27 @@
         filtered: false,
         mobile: this.$root.mobile,
         swiperOption: {
-          slidesPerView: null,
-          spaceBetween: null,
-          pagination: {
-            el: '.swiper-pagination',
-            clickable: true
+          slidesPerView: 5,
+          spaceBetween: 90,
+          freeMode: true,
+          loop:true,
+          breakpoints: {
+            768: {
+              slidesPerView: 3,
+              spaceBetween: 50
+            },
+            640: {
+              slidesPerView: 4,
+              spaceBetween: 80
+            },
+            320: {
+              slidesPerView: 1,
+              spaceBetween: 10
+            }
           }
-        }
+
+        },
+
       }
     },
     props:['feed'],
@@ -80,6 +95,23 @@
       ...mapState('globalStore', {
         categories: ({categories}) =>categories,
       }),
+
+      slidesPerView:function(){
+
+        if(this.mobile) {
+
+          this.swiperOption.slidesPerView = 5;
+          this.swiperOption.spaceBetween = 12;
+
+
+        } else {
+
+          this.swiperOption.slidesPerView = 8;
+          this.swiperOption.spaceBetween = 90;
+
+        }
+
+      },
 
 
       beforeRouteLeave (to, from, next) {
@@ -115,25 +147,20 @@
 
     watch: {
 
-      swiperOption: function (newVal, oldVal) {
 
-          if(this.mobile === true){
 
-            this.swiperOption.slidesPerView = 4;
-            this.swiperOption.spaceBetween = 30;
-          } else {
+    },
 
-            this.swiperOption.slidesPerView = 10;
+    created(){
 
-          }
-
-      }
 
     },
 
 
-
     mounted(){
+
+
+
 
       this.$store.dispatch(`catalogList/list`);
 

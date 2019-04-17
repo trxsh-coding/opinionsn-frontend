@@ -97,7 +97,6 @@
                     return this.$store.state.globalStore.mainUser.phone_number
                 },
                 set (value) {
-                    console.log(value)
                     let item = 'phone_number';
                     this.$store.commit('globalStore/updateUserInfo',{value, item})
                 }
@@ -135,7 +134,6 @@
                         this.$store.dispatch(`userPage/updateUser`, {data: this.user});
                         this.$store.commit('userPage/hideForm', true)
                     } else {
-                        console.log('error submit!!');
                         return false;
                     }
                 });

@@ -90,7 +90,6 @@
 
             submitSign(form){
                 let loginFormData = new FormData();
-                console.log(form)
 
                 loginFormData.append('email', form.password);
                 loginFormData.append('emailConfirm', form.password_confirm);
@@ -106,7 +105,6 @@
                     .catch((error) => {
 
 
-                        console.log(error.response.data);
 
                         let er = this.errors;
                         for (let {field: f, errorCode: v} of error.response.data){
@@ -149,7 +147,6 @@
         },
         mounted(){
 
-            console.log(this.$route)
 
         },
         mixins:[langMixin],
