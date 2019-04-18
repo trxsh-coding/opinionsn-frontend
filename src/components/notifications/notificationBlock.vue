@@ -1,7 +1,6 @@
 <template>
     <div class="notification-block">
         <div class="notification">
-
         </div>
     </div>
 </template>

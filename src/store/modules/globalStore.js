@@ -8,7 +8,6 @@ export const globalStorages = [
     {name: 'option'},
     {name: 'comment'},
     {name: 'following'},
-    {name: 'notification'},
     {name: 'mainUser', multiple:'mainUser'},
     {name: 'category', multiple: 'categories'},
 ];

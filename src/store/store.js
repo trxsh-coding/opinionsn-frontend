@@ -15,11 +15,9 @@ import {userPage} from "./modules/userPage";
 import {followsPage} from "./modules/Follows"
 import {globalStore} from "./modules/globalStore";
 import {notificationPage} from "./modules/notifications";
-
+import {notificationStore} from "./modules/notificationStore"
 
 Vue.use(Vuex)
-
-
 Vue.use(axios)
 
   export const store = new Vuex.Store ({
@@ -38,7 +36,8 @@ Vue.use(axios)
     bookmarkFeed,
     userPage,
     followsPage,
-    notificationPage
+    notificationPage,
+    notificationStore
   },
   state: {
   },
