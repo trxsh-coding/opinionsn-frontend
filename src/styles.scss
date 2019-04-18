@@ -461,11 +461,13 @@ body {
   letter-spacing: -0.1px;
   color: #152D3A;
 }
+
 .statistic-border-left {
   border-left-width: 0.5px;
   border-left-style: solid;
   border-left-color: #E4E7E9;
 }
+
 .time {
 font-family: Roboto;
 font-style: normal;
@@ -475,10 +477,10 @@ font-size: 12px;
 letter-spacing: -0.2px;
 color: #69777F;
 }
+
 .wb {
   word-break: break-word;
 }
-
 
 //Icons
 
@@ -515,6 +517,12 @@ background: #C4C4C4;
 
 }
 
+.btn-animated:hover {
+  transform: scale(1.02);
+  border: none;
+  box-shadow: 0 0 6px rgba(0, 0, 0, 0.5);
+  transition: 150ms;
+}
 
 //Colors
 

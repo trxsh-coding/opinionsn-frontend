@@ -1,20 +1,20 @@
 <template lang="html">
-<div id="profile-card" class="mb-10">
-        <div class="profile-background " :style="{ 'background-image': 'url(' + user.background_image + ')' }" > </div>
-      <div  class="profile-content">
-        <div class="profile-avatar pointer" :style="{ 'background-image': 'url(' + user.path_to_avatar + ')' }  " @click="userLink(user.id)"> </div>
-        <div class="main-content">
-          <span class="nickname-id">
-            {{user.username}}
-          </span>
-        </div>
-        <div class="description-block">
-          <span class="description" >
-            {{user.about_me}}
-          </span>
-        </div>
-        <div class="bottom-content">
-          <span class="location">{{user.location}}</span>
+  <div id="profile-card" class="mb-10">
+    <div class="profile-background " :style="{ 'background-image': 'url(' + user.background_image + ')' }" />
+    <div class="profile-content">
+      <div class="profile-avatar pointer" :style="{ 'background-image': 'url(' + user.path_to_avatar + ')' }  " @click="userLink(user.id)"> </div>
+      <div class="main-content">
+        <span class="nickname-id">
+          {{user.username}}
+        </span>
+      </div>
+      <div class="description-block">
+        <span class="description">
+          {{user.about_me}}
+        </span>
+      </div>
+      <div class="bottom-content">
+        <span class="location">{{user.location}}</span>
       </div>
     </div>
   </div>

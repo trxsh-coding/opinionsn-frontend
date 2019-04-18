@@ -26,7 +26,7 @@ export class VuexStore {
 
                 if (resp.config.url.includes('messages')) {
 
-                    alert('wow')
+                    // alert('wow')
 
                 } else {
 
