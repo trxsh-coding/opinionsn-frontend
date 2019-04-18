@@ -15,30 +15,35 @@ export class VuexStore {
 
         };
 
+        const instance = axios.create({
+
+            timeout:24000
+
+        });
 
 
         commit('setLoading', true);
-        return (isGet ? axios[method](url, axiosParams) : axios[method](url, requestData, axiosParams)).then(resp => {
+        return (isGet ? instance[method](url, axiosParams) : instance[method](url, requestData, axiosParams)).then(resp => {
 
             let {status, data} = resp;
 
             if (status === 200){
 
-                    commit('globalStore/updateStores', data, {root: true});
+                commit('notificationStore/updateStores', data, {root:true});
 
                 if (onSuccess){
-                   switch(successType){
-                       case 'mutation':
-                           commit(onSuccess, data.payload);
-                           break;
-
-                       case 'action':
-                           return dispatch(onSuccess, {requestData, requestPayload, url, method, responseData: data});
-                       case 'method':
-                           return onSuccess({url, requestData, requestPayload, method: 'get', data});
-                       default:
+                    switch(successType){
+                        case 'mutation':
+                            commit(onSuccess, data.payload);
                             break;
-                   }
+
+                        case 'action':
+                            return dispatch(onSuccess, {requestData, requestPayload, url, method, responseData: data});
+                        case 'method':
+                            return onSuccess({url, requestData, requestPayload, method: 'get', data});
+                        default:
+                            break;
+                    }
                 }
 
             } else {
@@ -48,9 +53,11 @@ export class VuexStore {
             commit('setLoading', false);
 
         }).catch(ex=> {
-            console.error(`Caught an exception`);
-            console.error(ex);
-            commit('onError', ex);
+
+            setTimeout(()=>
+                dispatch('notificationPage/list', {},{root: true}),
+                15000)
+
         });
 
 
@@ -71,7 +78,7 @@ export class VuexStore {
 
 
 
-/* Vuex Part Builder */
+    /* Vuex Part Builder */
 
     get state(){
 

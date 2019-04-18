@@ -5,14 +5,16 @@
 </template>
 
 <script>
-import { mapState } from "vuex";
-import notificationBlock from "./notificationBlock";
-export default {
-  name: "feed",
-  mounted() {
-    this.$store.dispatch("notificationPage/list");
-  }
-};
+    import {mapState} from 'vuex';
+    export default {
+        name: "feed",
+        mounted() {
+
+
+        }
+    }
+
+
 </script>
 
 <style lang="scss">

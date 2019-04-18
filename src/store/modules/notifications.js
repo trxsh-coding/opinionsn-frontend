@@ -1,8 +1,26 @@
-import {VuexStore} from "./generic/proto";
-import {StoreWithPageList} from "./generic/withPageList";
-import {userActions} from "./generic/userActions";
+import {VuexStore} from "./generic/notificationProto";
+import {notificationPageList} from "./generic/notificationPageList";
 
-class notificationStore extends userActions(StoreWithPageList (VuexStore, '/messages/notification')) {
+
+
+class notificationStore extends notificationPageList(VuexStore, '/messages/notification/0') {
+
+
+    /** MUTATIONS **/
+
+    closeNotification(state){
+
+
+    }
+
+    get mutations(){
+        return {
+            ...super.mutations,
+            closeNotification: this.closeNotification
+        }
+    }
+
+
 
 }
 
