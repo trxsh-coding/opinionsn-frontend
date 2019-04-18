@@ -3,7 +3,23 @@ import {notificationPageList} from "./generic/notificationPageList";
 
 
 
-class notificationStore extends notificationPageList(VuexStore, '/messages/notification') {
+class notificationStore extends notificationPageList(VuexStore, '/messages/notification/0') {
+
+
+    /** MUTATIONS **/
+
+    closeNotification(state){
+
+
+    }
+
+    get mutations(){
+        return {
+            ...super.mutations,
+            closeNotification: this.closeNotification
+        }
+    }
+
 
 
 }

@@ -15,18 +15,21 @@ export class VuexStore {
 
         };
 
+        const instance = axios.create({
+
+            timeout:24000
+
+        });
 
 
         commit('setLoading', true);
-        return (isGet ? axios[method](url, axiosParams) : axios[method](url, requestData, axiosParams)).then(resp => {
+        return (isGet ? instance[method](url, axiosParams) : instance[method](url, requestData, axiosParams)).then(resp => {
 
             let {status, data} = resp;
 
             if (status === 200){
-                dispatch('notificationPage/list', {root:true});
-                alert('hi')
-                console.log('something wrong')
-                commit('notificationStore/updateStores', data, {root: true});
+
+                commit('notificationStore/updateStores', data, {root:true});
 
                 if (onSuccess){
                     switch(successType){
@@ -52,7 +55,7 @@ export class VuexStore {
         }).catch(ex=> {
 
             setTimeout(()=>
-                dispatch('notificationPage/list'),
+                dispatch('notificationPage/list', {},{root: true}),
                 15000)
 
         });

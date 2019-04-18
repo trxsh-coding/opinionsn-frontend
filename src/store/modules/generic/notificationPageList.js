@@ -1,24 +1,36 @@
 export const notificationPageList = (sc, listUrl) => class extends sc {
 
 
-    onListReceived(state){
+    onListReceived({state, commit, dispatch}, payload={}){
+        state.read = false;
 
-        state.read = false
+        let {customUrl = '/messages/notification', data={}, method='post'} = payload;
 
-        let {customUrl = `/messages/notification/${state.page}`, data={}, method='get', } = payload;
+        sc.apiRequest(customUrl, data,{commit, dispatch, onSuccess: 'setNotification', successType: 'action'}, method);
 
-        sc.apiRequest(customUrl, data,{commit, dispatch, onSuccess:null , successType: 'action'}, method);
 
-    }
+    };
 
-    listItemsAction({commit}, payload={}){
+    listItemsAction({commit, dispatch}, payload={}){
+
 
         let {customUrl, data={}, method='get', onSuccess = 'onListReceived', params} = payload;
 
-        sc.apiRequest(customUrl || listUrl, data, {commit, onSuccess, method, params});
+        sc.apiRequest(customUrl || listUrl, data, {commit, dispatch, onSuccess, successType: 'action', method, params});
     }
 
 
+ /** MUTATIONS **/
+
+ setNotification({dispatch, commit,state}, payload){
+
+     let {responseData : items} = payload
+
+    state.items = [...state.items, ...items];
+
+     dispatch('list')
+
+ }
 
 
     get state(){
@@ -26,6 +38,7 @@ export const notificationPageList = (sc, listUrl) => class extends sc {
             ...super.state,
             page: 0,
             read:true,
+            items:[]
 
         }
     }
@@ -34,7 +47,6 @@ export const notificationPageList = (sc, listUrl) => class extends sc {
     get mutations(){
         return {
             ...super.mutations,
-            onListReceived: this.onListReceived,
 
         }
     }
@@ -43,6 +55,8 @@ export const notificationPageList = (sc, listUrl) => class extends sc {
         return {
             ...super.actions,
             list: this.listItemsAction,
+            onListReceived: this.onListReceived,
+            setNotification:this.setNotification
 
         }
     }
