@@ -36,18 +36,24 @@ export const notificationStore  =  {
          */
 
         updateStores: function(state, payload){
+            console.log('state')
+            console.log(state)
 
-            for (let name of notificationStorageNames){
+            console.log(state.messages)
 
-                // If we don't have that map, just skip it
-                if (!state[name]) continue;
-                if (!payload[name]) continue;
-                let map = payload[name];
-                if (Object.keys(map).length){
-                    state[name] = {...state[name], ...map};
-                }
+            state.messages = payload
 
-            }
+            // for (let name of notificationStorageNames){
+            //
+            //     // If we don't have that map, just skip it
+            //     if (!state[name]) continue;
+            //     if (!payload[name]) continue;
+            //     let map = payload[name];
+            //     if (Object.keys(map).length){
+            //         state[name] = {...state[name], ...map};
+            //     }
+            //
+            // }
         },
 
 
