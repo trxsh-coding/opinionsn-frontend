@@ -218,33 +218,27 @@ export default {
 
   getNotifications(){
 
-      axios.get('/messages/notification')
-          .then(function(response){
-              if (response.status === 200) {
-                  this.getNotifications()
-                  // this.notification(response)
-                  this.notifications.push(response.data[0])
-                  // if(response.status === 200) {
-                  //
-                  //
-                  //
-                  // }
-              }
-          }.bind(this))
+      this.$store.dispatch('notificationPage/list')
 
-          .catch((error) => {
-              setTimeout(()=> this.getNotifications(), 15000)
-          });
+      // axios.get('/messages/notification')
+      //     .then(function(response){
+      //         if (response.status === 200) {
+      //             this.getNotifications()
+      //             // this.notification(response)
+      //             this.notifications.push(response.data[0])
+      //             // if(response.status === 200) {
+      //             //
+      //             //
+      //             //
+      //             // }
+      //         }
+      //     }.bind(this))
+      //
+      //     .catch((error) => {
+      //         setTimeout(()=> this.getNotifications(), 15000)
+      //     });
 
   },
-      notification(response) {
-          this.$notify({
-              title: 'Уведомление',
-              message: response[0].message,
-              position: 'bottom-right',
-              duration:0
-          });
-      },
 
         link(response) {
 

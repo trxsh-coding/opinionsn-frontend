@@ -10,7 +10,6 @@
         name: "feed",
         mounted() {
 
-            this.$store.dispatch('notificationPage/list')
 
         }
     }
