@@ -12,7 +12,7 @@
       </router-link>
     <notification-feed class="main-icon notification_feed"/>
     <li class="main-icon">
-      <el-badge :value="0"  class="item">
+      <el-badge :value="0"  class="item pointer">
         <icon-base
                 class="main-icon"
                 width="22"
@@ -45,7 +45,7 @@
 
       <div class="profileAvatar pointer" @click="userLink(user.id)" :style="{ 'background-image': 'url('+ user.path_to_avatar + ')' }"> </div>
      <el-dropdown trigger="click">
-       <span class="el-dropdown-link">
+       <span class="el-dropdown-link pointer">
          <icon-base
                  class="dropdown-icon"
                  fill="none"

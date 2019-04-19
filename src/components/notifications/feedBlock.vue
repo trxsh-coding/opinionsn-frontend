@@ -1,5 +1,5 @@
 <template>
-  <div class="notification-block flex-wrap">
+  <span class="notification-feed-block flex-wrap">
     <div class="notification-header">
       <div
         class="avatar avatar-30x30 pointer"
@@ -14,8 +14,8 @@
       <!-- <span class="poll pointer" @click="notificationLink"> Lorem, ipsum dolor. </span> -->
       <time-trans class="timestamp" :time="notification.date"/>
     </div>
-    <hr>
-  </div>
+    <hr/>
+  </span>
 </template>
 
 <script>
@@ -42,15 +42,15 @@ export default {
       let author = userMap[userID];
 
       return author;
-    },
+    }
     // pollName: function() {
     //   let { targetId } = this.notification;
     //   let poll_name = this.pollMap[targetId].subject;
 
     //   return poll_name;
     // }
-	},
-	
+  },
+
   methods: {
     dismissNotification() {
       console.log("dismissNotification() FIRED");
@@ -101,25 +101,30 @@ export default {
       }
     }
   },
-  mounted(){
-
+  mounted() {
     let userID = this.notification.initiatorId;
 
     if (this.userMap[userID] === undefined) {
-
-      this.$store.dispatch(
-              "userPage/getNotificationInitiator",
-              userID
-      );
-
+      this.$store.dispatch("userPage/getNotificationInitiator", userID);
     }
-
   }
 };
 </script>
 
-<style lang="scss" scoped>
-.notification-block {
+<style lang="scss">
+.notification-dropdown {
+
+  .notification-feed-block:last-of-type {
+
+    hr {
+			display: none;
+		}
+
+	}
+	
+}
+
+.notification-feed-block {
   background: #ffffff;
   width: 100%;
 
@@ -130,8 +135,8 @@ export default {
   }
 
   .notification-body {
-		flex: 0 0 427px;
-		margin-top: 8px;
+    flex: 0 0 427px;
+    margin-top: 8px;
 
     font-family: Roboto;
     font-style: normal;
@@ -158,8 +163,8 @@ export default {
   }
 
   hr {
-		margin: 6px 0;
-		border: 0.5px solid #D0D5D9;
+    margin: 6px 0;
+    border: 0.5px solid #d0d5d9;
     flex: 0 0 100%;
   }
 }
