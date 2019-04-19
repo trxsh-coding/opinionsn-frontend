@@ -7,7 +7,7 @@ import axios from 'axios'
 import {voteFeed} from "./modules/voteFeed";
 import {userFeed} from "./modules/userFeed";
 import {pollFeed} from "./modules/pollFeed";
-import {singlePoll} from "./modules/singlePoll";
+import {offChainPoll} from "./modules/offChainPoll]";
 import {bookmarkFeed} from "./modules/bookmarkFeed";
 import {catalogList} from "./modules/catalogList";
 import {searchUser} from "./modules/searchUser";
@@ -31,7 +31,7 @@ Vue.use(axios)
     searchUser,
     globalStore,
     lang,
-    singlePoll,
+    singlePoll: offChainPoll,
     catalogList,
     bookmarkFeed,
     userPage,

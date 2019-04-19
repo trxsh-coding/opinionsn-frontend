@@ -31,14 +31,15 @@
                 </icon-base>
             </li>
             <li class="nav__item">
-                <el-badge :value="0">
+                <!-- <el-badge :value="0">
                     <icon-base
                             width="17"
                             height="22"
                             viewBox="0 0 17 23"
                             icon-name="bell"><icon-bell />
                     </icon-base>
-                </el-badge>
+                </el-badge> -->
+                <notification-feed class="main-icon notification_feed"/>
             </li>
             <li class="nav__item" >
                 <avatar class="avatar-25x25" ></avatar>
@@ -63,6 +64,7 @@
     import IconBell from './icons/IconBell'
     import IconMenu from './icons/IconMenu'
     import avatar from './user/Event/modules/mainUserAvatar'
+    import notificationFeed from './notifications/feed'
     export default {
         name: "mobileNav",
         props:['mobile_hide'],
@@ -100,7 +102,8 @@
             IconSearch,
             IconBell,
             avatar,
-            IconMenu
+            IconMenu,
+            notificationFeed
 
         }
     }
