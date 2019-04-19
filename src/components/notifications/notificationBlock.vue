@@ -34,7 +34,7 @@ export default {
   props: ["notification"],
   data: function() {
     return {
-      
+
     };
   },
   computed: {
@@ -47,14 +47,6 @@ export default {
 
       let userID = notification.initiatorId;
 
-      if (userMap[userID] === undefined) {
-        this.$store.dispatch(
-          "notificationPage/getNotificationInitiator",
-          userID
-        );
-      }
-
-      // let author = userMap[2];
       let author = userMap[userID];
 
       return author;
@@ -62,15 +54,9 @@ export default {
   },
 
   methods: {
-		dismissNotification() {
-			console.log("dismissNotification() FIRED");
-			
-			// let { initiatorId } = this.notification;
 
-			// this.$store.dispatch(
-      //     "",
-      //     initiatorId
-      //   );
+		dismissNotification() {
+          this.$store.commit('notificationPage/closeNotification', this.$vnode.key)
 		},
     userLink() {
       this.$router.push({ name: "user", params: { id: author.id } });
@@ -85,32 +71,45 @@ export default {
 				case "SUBSCRIBE":
 					userLink();
 					break;
-			
+
 				case "UNSUBSCRIBE":
 					userLink();
 					break;
-			
+
 				case "CREATE_BLOCKCHAIN_PREDICTION":
 					this.$router.push({ name: "poll", params: { id } })
 					break;
-			
+
 				case "APPOINTMENT_OF_JUDGES":
 					this.$router.push({ name: "poll", params: { id } })
 					break;
-			
+
 				case "BLOCKCHAIN_PREDICTION_FINISHED":
 					this.$router.push({ name: "poll", params: { id } })
 					break;
-			
+
 				case "BLOCKCHAIN_PREDICTION_WINNER":
 					this.$router.push({ name: "poll", params: { id } })
 					break;
-			
+
 				default:
 					break;
 			};
 
 		}
+  },
+  mounted(){
+
+    let userID = this.notification.initiatorId;
+
+    if (this.userMap[userID] === undefined) {
+
+      this.$store.dispatch(
+              "userPage/getNotificationInitiator",
+              userID
+      );
+
+    }
   }
 };
 </script>

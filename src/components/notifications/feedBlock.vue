@@ -39,10 +39,6 @@ export default {
 
       let userID = notification.initiatorId;
 
-      if (userMap[userID] === undefined) {
-        this.$store.dispatch("userPage/getNotificationInitiator", userID);
-      }
-
       let author = userMap[userID];
 
       return author;
@@ -104,6 +100,20 @@ export default {
           break;
       }
     }
+  },
+  mounted(){
+
+    let userID = this.notification.initiatorId;
+
+    if (this.userMap[userID] === undefined) {
+
+      this.$store.dispatch(
+              "userPage/getNotificationInitiator",
+              userID
+      );
+
+    }
+
   }
 };
 </script>

@@ -45,7 +45,7 @@
             </div>
         </icon-block>
         <div class="border mt-13"></div>
-        <input-explain :item="item" :feed="feed" />
+        <input-explain :item="item" :feed="feed" :poll="poll" />
 
     </div>
 </template>

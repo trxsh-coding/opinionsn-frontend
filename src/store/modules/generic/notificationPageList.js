@@ -2,9 +2,10 @@ export const notificationPageList = (sc, listUrl) => class extends sc {
 
 
     onListReceived({state, commit, dispatch}, payload={}){
-        state.read = false;
 
-        let {customUrl = '/messages/notification', data={}, method='post'} = payload;
+        commit('notificationStore/updateStores', payload.responseData,{root: true})
+
+        let {customUrl = '/messages/notification', data={}, method='get'} = payload;
 
         sc.apiRequest(customUrl, data,{commit, dispatch, onSuccess: 'setNotification', successType: 'action'}, method);
 
@@ -20,24 +21,32 @@ export const notificationPageList = (sc, listUrl) => class extends sc {
     }
 
 
+    longPollingAction({state, commit, dispatch}, payload={}){
+
+
+        let {customUrl = '/messages/notification', data={}, method='get'} = payload;
+
+        sc.apiRequest(customUrl, data,{commit, dispatch, onSuccess: 'setNotification', successType: 'action'}, method);
+
+
+    };
  /** MUTATIONS **/
 
  setNotification({dispatch, commit,state}, payload){
-     console.log('payload')
-     console.log(payload)
 
-     let {responseData : items} = payload
+     let {responseData : items} = payload;
 
 
-     if (payload) {
 
-         dispatch('onListReceived')
+     if (payload.length) {
+
+         dispatch('longPollingAction')
 
      } else {
 
          state.items = [...state.items, ...items];
-
-         dispatch('list')
+         commit('notificationStore/appendToStores', items, {root: true})
+         dispatch('longPollingAction')
 
      }
 
@@ -69,8 +78,8 @@ export const notificationPageList = (sc, listUrl) => class extends sc {
             ...super.actions,
             list: this.listItemsAction,
             onListReceived: this.onListReceived,
-            setNotification:this.setNotification
-
+            setNotification:this.setNotification,
+            longPollingAction: this.longPollingAction
         }
     }
 

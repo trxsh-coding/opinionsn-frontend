@@ -2,8 +2,8 @@
   <transition-group name="list" tag="div" class="notification-container flex-column">
     <notification-block
       :notification="notification"
-      v-for="(notification, index) in items"
-      :key="index"
+      v-for="(notification, notification_index) in items"
+      :key="notification_index"
     />
   </transition-group>
 </template>
