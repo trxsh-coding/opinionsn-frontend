@@ -7,7 +7,7 @@
         </div>
         <poll-section :feed="feed" :item="item" :user="user" :poll="poll" :options="sanitizedOptions" ></poll-section>
         <div class="vote-section" v-for="vote_id in poll.explains_id">
-            <vote :explains="votes" :vote_id="vote_id" :item="item" :options="sanitizedOptions" :user="user"></vote>
+            <vote :explains="votes" :vote_id="vote_id" :item="item" :options="sanitizedOptions" :user="user" :poll="poll"></vote>
         </div>
         <div class="load-explains" v-if="!poll.loaded && poll.explains_id.length > 4" @click="loadExplains(item.id)">
             <lang-string class="load-span uppercase" :title="'load_more'"/>

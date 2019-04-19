@@ -36,7 +36,6 @@ export const notificationStore  =  {
          */
 
         updateStores: function(state, payload){
-            console.log(state.messages)
             state.messages = payload;
 
             // for (let name of notificationStorageNames){

@@ -40,7 +40,7 @@
     export default {
         mixins:[langMixin],
         name: "inputExplain",
-        props: ['item', 'feed'],
+        props: ['item', 'feed', 'poll'],
         components: {
             VEmojiPicker,
             langString,
@@ -72,20 +72,21 @@
 
                 let description = this.explain_description;
 
-                if (this.$route.name === 'pollFeed') {
 
-                    this.$store.dispatch(`pollFeed/saveExplain`, {data: {poll_id, description} });
+                if(this.poll.type_of_poll == 2) {
 
-                } else if (this.$route.name === 'bookmarkFeed'){
-
-                    this.$store.dispatch(`bookmarkFeed/saveExplain`, {data: {poll_id, description} });
+                    this.$store.dispatch(`${this.$route.name}/saveExplain`, {customUrl: `api/rest/blockchain/explain/save` , data: {poll_id, description} });
 
 
                 } else {
 
-                    this.$store.dispatch(`singlePoll/saveExplain`, {data: {poll_id, description} });
+                    this.$store.dispatch(`${this.$route.name}/saveExplain`, {data: {poll_id, description} });
+
 
                 }
+
+
+
 
                 this.explain_description = '';
 

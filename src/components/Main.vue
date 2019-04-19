@@ -118,7 +118,7 @@
       </el-main>
     </el-container>
 
-    
+
       <notification-side-feed/>
 
       <!-- <div class="notification-container flex-column">
@@ -213,28 +213,6 @@ export default {
     },
     getNotifications() {
       this.$store.dispatch("notificationPage/list");
-
-      // axios.get('/messages/notification')
-      //     .then(function(response){
-      //         if (response.status === 200) {
-      //             this.getNotifications()
-      //             // this.notification(response)
-      //             this.notifications.push(response.data[0])
-      //             // if(response.status === 200) {
-      //             //
-      //             //
-      //             //
-      //             // }
-      //         }
-      //     }.bind(this))
-      //
-      //     .catch((error) => {
-      //         setTimeout(()=> this.getNotifications(), 15000)
-      //     });
-    },
-
-    link(response) {
-      console.log(response);
     },
     onScroll() {
       const currentScrollPosition =

@@ -309,12 +309,14 @@ export const pollActions = sc => class extends sc {
     onCommentSaved({commit}, args){
         let {responseData: data, requestData: payload} = args;
 
+        console.log(data)
 
         let poll_id = payload.poll_id
-        console.log(poll_id)
 
         let {id} = data.payload;
         let item = data.comments[id];
+        console.log(item)
+
         let {explain_id} = item;
 
         commit(`globalStore/addChildTo`, {

@@ -30,7 +30,7 @@
             <comment  :comment_id="comment_id" :vote="vote" :user="user" :options="options"></comment>
         </div>
         <span class="load-span uppercase" v-if="!vote.loaded && vote.comments_id.length > 4" @click="loadComments(vote.id)"><lang-string :title="'load_more'"/></span>
-        <input-comment :hide="hide" :vote="vote" :item="item"></input-comment>
+        <input-comment :hide="hide" :vote="vote" :item="item" :poll="poll"></input-comment>
     </div>
 </template>
 
@@ -65,7 +65,7 @@
         },
 
         name: "voteSection",
-        props: ['explains', 'item', 'vote_id', 'options', 'user'],
+        props: ['explains', 'item', 'vote_id', 'options', 'user', 'poll'],
         computed: {
 
             ...mapState('globalStore', {
@@ -141,7 +141,17 @@
 
                 let comment_page = this.comment_page;
 
-                this.$store.dispatch(`pollFeed/loadComments`,  {vm: this, explain_id, comment_page});
+                if(this.poll.type_of_poll == 2) {
+
+                    this.$store.dispatch(`pollFeed/loadComments`, {customUrl: `/rest/blockchain/comment` ,params: {explain_id, comment_page}});
+
+
+                } else {
+
+                    this.$store.dispatch(`pollFeed/loadComments`,  {vm: this, explain_id, comment_page});
+
+
+                }
 
                 this.comment_page += 1;
             },

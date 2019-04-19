@@ -6,10 +6,13 @@ import {notificationPageList} from "./generic/notificationPageList";
 class notificationStore extends notificationPageList(VuexStore, '/messages/notification/0') {
 
 
+
+
     /** MUTATIONS **/
 
-    closeNotification(state){
+    closeNotification(state, payload){
 
+       state.items.splice(0, payload)
 
     }
 
@@ -17,6 +20,12 @@ class notificationStore extends notificationPageList(VuexStore, '/messages/notif
         return {
             ...super.mutations,
             closeNotification: this.closeNotification
+        }
+    }
+
+    get actions(){
+        return {
+            ...super.actions,
         }
     }
 

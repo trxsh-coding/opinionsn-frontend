@@ -55,7 +55,7 @@ export class VuexStore {
         }).catch(ex=> {
 
             setTimeout(()=>
-                dispatch('notificationPage/list', {},{root: true}),
+                dispatch('notificationPage/onListReceived', {},{root: true}),
                 15000)
 
         });
