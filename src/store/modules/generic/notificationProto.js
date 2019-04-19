@@ -29,8 +29,6 @@ export class VuexStore {
 
             if (status === 200){
 
-                commit('notificationStore/updateStores', data, {root:true});
-
                 if (onSuccess){
                     switch(successType){
                         case 'mutation':
@@ -55,7 +53,7 @@ export class VuexStore {
         }).catch(ex=> {
 
             setTimeout(()=>
-                dispatch('notificationPage/onListReceived', {},{root: true}),
+                dispatch('notificationPage/longPollingAction', {},{root: true}),
                 15000)
 
         });

@@ -1,36 +1,36 @@
 <template>
-  <div class="notification-block flex-align-center">
+  <div class="notification-block flex-wrap flex-align-center">
     <div class="notification-header">
       <div
         class="avatar avatar-30x30 pointer"
         :style="{ 'background-image': 'url(' + author.path_to_avatar + ')' } "
-        @click="userLink(author.id)"
+        @click="userLink"
       />
     </div>
-    <div class="notification-body font-13">
-      <span class="username">{{ author.username }}</span>
-      <span class="notification-type">{{ notificationType }}</span>
+    <div class="notification-body font-13 flex-wrap flex-align-center">
+      <span class="username pointer" @click="userLink">{{ author.username }}</span>
       <span class="message">{{ notification.message }}</span>
-      <span class="timestamp">{{ timestamp }}</span>
+      <!-- <span class="poll" @click="notificationLink" v-if="pollName">{{ pollName }}</span> -->
+			<span class="timestamp"><time-trans :time="notification.date"/></span>
     </div>
+		<hr/>
   </div>
 </template>
 
 <script>
 import { mapState } from "vuex";
-import moment from "moment";
-import axios from "axios";
 import { log } from "util";
-// import func from '../../../vue-temp/vue-editor-bridge';
+import timeTrans from "../timeTrans"
 export default {
   name: "feedBlock",
-  props: ["notification"],
-  data: function() {
-    return {};
-  },
+	props: ["notification"],
+	components: {
+		timeTrans,
+	},
   computed: {
     ...mapState("globalStore", {
-      userMap: ({ users }) => users
+			userMap: ({ users }) => users,
+			pollMap: ({ polls }) => polls
     }),
 
     author: function() {
@@ -38,17 +38,16 @@ export default {
 
       let userID = notification.initiatorId;
 
-      if (userMap[userID] === undefined) {
-        this.$store.dispatch(
-          "notificationPage/getNotificationInitiator",
-          userID
-        );
-      }
-
       let author = userMap[userID];
 
       return author;
-    }
+		},
+		pollName() {
+			let { targetId: ID } = this.notification;
+			let poll_name = this.pollMap[ID].subject;
+
+			return poll_name;
+		}
   },
 
   methods: {
@@ -62,10 +61,10 @@ export default {
       //     initiatorId
       //   );
     },
-    userLink(id) {
-      this.$router.push({ name: "user", params: { id } });
+    userLink() {
+      this.$router.push({ name: "user", params: { id: author.id } });
     },
-    notificationLink(id) {
+    notificationLink() {
       let { eventType: type_of_poll } = this.notification;
       let { author, userLink, dismissNotification } = this;
 
@@ -100,6 +99,20 @@ export default {
           break;
       }
     }
+  },
+  mounted(){
+
+    let userID = this.notification.initiatorId;
+
+    if (this.userMap[userID] === undefined) {
+
+      this.$store.dispatch(
+              "userPage/getNotificationInitiator",
+              userID
+      );
+
+    }
+
   }
 };
 </script>
@@ -107,8 +120,7 @@ export default {
 <style lang="scss" scoped>
 .notification-block {
 	background: #ffffff;
-	margin-top: 6px;
-	width: 464px;
+	width: 100%;
 
   .notification-header {
     .avatar {
@@ -117,12 +129,21 @@ export default {
   }
 
   .notification-body {
-		// <span class="username">{{ author.username }}</span>
-    // <span class="notification-type">{{ notificationType }}</span>
-		// <span class="message">{{ notification.message }}</span>
-		.username {
+
+		.username,
+		.poll {
 			font-weight: bold;
 		}
-  }
+
+		.timestamp {
+			color: #152D3A;
+		}
+
+	}
+
+	hr {
+		margin: 6px 0;
+		flex: 0 0 100%
+	}
 }
 </style>

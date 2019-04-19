@@ -35,22 +35,17 @@ export const notificationStore  =  {
          * @param payload
          */
 
-        updateStores: function(state, payload){
-            state.messages = payload;
-
-            // for (let name of notificationStorageNames){
-            //
-            //     // If we don't have that map, just skip it
-            //     if (!state[name]) continue;
-            //     if (!payload[name]) continue;
-            //     let map = payload[name];
-            //     if (Object.keys(map).length){
-            //         state[name] = {...state[name], ...map};
-            //     }
-            //
-            // }
+        appendToStores: function(state, payload){
+            state.messages = [...payload, ...state.messages ];
         },
 
+        updateStores: function (state, payload) {
+
+            state.messages = payload;
+
+            console.log(payload)
+
+        }
 
 
     },

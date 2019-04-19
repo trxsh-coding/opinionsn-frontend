@@ -12,7 +12,7 @@ class notificationStore extends notificationPageList(VuexStore, '/messages/notif
 
     closeNotification(state, payload){
 
-       state.items.splice(0, payload)
+       state.items.splice(payload, 1)
 
     }
 
