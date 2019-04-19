@@ -23,12 +23,25 @@ export const notificationPageList = (sc, listUrl) => class extends sc {
  /** MUTATIONS **/
 
  setNotification({dispatch, commit,state}, payload){
+     console.log('payload')
+     console.log(payload)
 
      let {responseData : items} = payload
 
-    state.items = [...state.items, ...items];
 
-     dispatch('list')
+     if (payload) {
+
+         dispatch('onListReceived')
+
+     } else {
+
+         state.items = [...state.items, ...items];
+
+         dispatch('list')
+
+     }
+
+
 
  }
 
