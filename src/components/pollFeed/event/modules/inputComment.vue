@@ -65,16 +65,7 @@
 
                 let description = this.comment_description;
 
-                if(this.poll.type_of_poll == 2){
-
-                    this.$store.dispatch(`pollFeed/saveComment`, {customUrl: `/api/rest/blockchain/comment/save`, data: {poll_id, explain_id, description} });
-
-                } else {
-
-                    this.$store.dispatch(`pollFeed/saveComment`, {data: {poll_id, explain_id, description} });
-
-
-                }
+                this.$store.dispatch(`pollFeed/saveComment`, {data: {poll_id, explain_id, description} });
 
                 this.comment_description = ''
             },

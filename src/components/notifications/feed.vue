@@ -1,5 +1,5 @@
 <template>
-  <el-dropdown trigger="click">
+  <el-dropdown trigger="click" @click="clearCounter">
     <el-badge :value="0" class="item pointer">
       <icon-base class="" width="17" height="22" viewBox="0 0 17 22" icon-name="bell">
         <icon-bell/>
@@ -45,10 +45,22 @@ export default {
       }
     };
   },
+  methods: {
+
+    clearCounter(){
+
+      this.$store.commit('notificationPage/clearCounter')
+
+    }
+
+  },
   computed: {
     ...mapState("notificationStore", {
       messages: s => s.messages
-    })
+    }),
+    ...mapState('notificationPage',{
+      counter : state => state.counter
+    }),
   }
 };
 </script>

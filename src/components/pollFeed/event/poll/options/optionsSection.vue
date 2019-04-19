@@ -97,18 +97,7 @@
 
                     if (!this.item.voted && !this.poll.votingOver) {
 
-                        if(this.poll.type_of_poll >= 2) {
-
-                            this.$store.dispatch(`pollFeed/createVote`, {customUrl: `api/rest/blockchain/vote/save` ,data: {selected_variable, poll_id}});
-
-
-
-                        } else {
-
-                            this.$store.dispatch(`${this.$route.name}/createVote`, {data: {selected_variable, poll_id}});
-
-                        }
-
+                         this.$store.dispatch(`${this.$route.name}/createVote`, {data: {selected_variable, poll_id}});
 
                     }
 

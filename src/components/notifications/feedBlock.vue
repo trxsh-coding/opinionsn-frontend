@@ -10,8 +10,8 @@
     <div class="notification-body font-13">
       <span class="username pointer" @click="userLink"> {{ author.username }} </span>
       <span class="message"> {{ notification.message }} </span>
-      <!-- <span class="poll pointer" @click="notificationLink" v-if="true"> {{ pollName }} </span> -->
-      <!-- <span class="poll pointer" @click="notificationLink"> Lorem, ipsum dolor. </span> -->
+       <span class="poll pointer" @click="notificationLink" v-if="true"> {{ pollName }} </span>
+       <!--<span class="poll pointer" @click="notificationLink"> Lorem, ipsum dolor. </span> -->
       <time-trans class="timestamp" :time="notification.date"/>
     </div>
     <hr/>
@@ -42,13 +42,13 @@ export default {
       let author = userMap[userID];
 
       return author;
-    }
-    // pollName: function() {
-    //   let { targetId } = this.notification;
-    //   let poll_name = this.pollMap[targetId].subject;
+    },
+    pollName: function() {
+      let { targetId } = this.notification;
+      let poll_name = this.pollMap[targetId].subject;
 
-    //   return poll_name;
-    // }
+      return poll_name;
+    }
   },
 
   methods: {
@@ -63,42 +63,23 @@ export default {
       //   );
     },
     userLink() {
-      this.$router.push({ name: "user", params: { id: author.id } });
+      this.$router.push({ name: "user", params: { id: this.author.id } });
     },
     notificationLink() {
-      let { eventType: type_of_poll } = this.notification;
-      let { author, userLink, dismissNotification } = this;
+      let { eventType: type_of_poll, targetId: id } = this.notification;
+      let { author, userLink} = this;
 
-      dismissNotification();
+      if(type_of_poll === 'EXPLAIN_CREATED') {
 
-      switch (type_of_poll) {
-        case "SUBSCRIBE":
-          userLink(author.id);
-          break;
+            this.$router.push({ name: "singlePoll", params: { id } });
 
-        case "UNSUBSCRIBE":
-          userLink(author.id);
-          break;
 
-        case "CREATE_BLOCKCHAIN_PREDICTION":
-          this.$router.push({ name: "poll", params: { id } });
-          break;
+      } else {
 
-        case "APPOINTMENT_OF_JUDGES":
-          this.$router.push({ name: "poll", params: { id } });
-          break;
+        userLink(author.id);
 
-        case "BLOCKCHAIN_PREDICTION_FINISHED":
-          this.$router.push({ name: "poll", params: { id } });
-          break;
-
-        case "BLOCKCHAIN_PREDICTION_WINNER":
-          this.$router.push({ name: "poll", params: { id } });
-          break;
-
-        default:
-          break;
       }
+
     }
   },
   mounted() {
@@ -107,7 +88,15 @@ export default {
     if (this.userMap[userID] === undefined) {
       this.$store.dispatch("userPage/getNotificationInitiator", userID);
     }
+
+    let pollID = this.notification.targetId;
+
+    if (this.pollMap[pollID] === undefined) {
+      this.$store.dispatch("singlePoll/getNotificationPoll", pollID);
+    }
   }
+
+
 };
 </script>
 
@@ -121,7 +110,7 @@ export default {
 		}
 
 	}
-	
+
 }
 
 .notification-feed-block {

@@ -43,7 +43,7 @@ export const notificationPageList = (sc, listUrl) => class extends sc {
          dispatch('longPollingAction')
 
      } else {
-
+         state.counter++ ;
          state.items = [...state.items, ...items];
          commit('notificationStore/appendToStores', items, {root: true})
          dispatch('longPollingAction')
@@ -60,6 +60,7 @@ export const notificationPageList = (sc, listUrl) => class extends sc {
             ...super.state,
             page: 0,
             read:true,
+            counter:0,
             items:[]
 
         }

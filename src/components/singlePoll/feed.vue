@@ -43,7 +43,7 @@
 
         mounted(){
 
-            this.$store.dispatch(`singlePoll/list`, {customUrl: `/api/rest/quiz/${this.id}`});
+            this.$store.dispatch(`singlePoll/list`, {customUrl: `/api/rest/quiz/getOne/${this.id}`});
 
         },
 

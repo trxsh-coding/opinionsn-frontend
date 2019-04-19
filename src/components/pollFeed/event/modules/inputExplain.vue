@@ -72,21 +72,7 @@
 
                 let description = this.explain_description;
 
-
-                if(this.poll.type_of_poll == 2) {
-
-                    this.$store.dispatch(`${this.$route.name}/saveExplain`, {customUrl: `api/rest/blockchain/explain/save` , data: {poll_id, description} });
-
-
-                } else {
-
-                    this.$store.dispatch(`${this.$route.name}/saveExplain`, {data: {poll_id, description} });
-
-
-                }
-
-
-
+                this.$store.dispatch(`${this.$route.name}/saveExplain`, {data: {poll_id, description} });
 
                 this.explain_description = '';
 

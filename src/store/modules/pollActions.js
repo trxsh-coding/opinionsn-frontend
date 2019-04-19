@@ -5,12 +5,22 @@ export const pollActions = sc => class extends sc {
     /* ACTIONS */
     createVote({commit, dispatch}, payload={}){
 
-        let {customUrl = '/api/rest/vote/create/', data={}, method='post'} = payload;
+        let {customUrl = `/api/rest/quiz/getOne/${poll_id}`, data={}, method='post'} = payload;
 
         sc.apiRequest(customUrl, data,{commit, dispatch, onSuccess: 'onVoteCreated', successType: 'action'}, method);
 
     }
 
+
+    getNotificationPoll({commit, dispatch}, payload={}){
+
+        console.log(payload)
+
+        let {customUrl = '/api/rest/vote/create/', data={}, method='post'} = payload;
+
+        sc.apiRequest(customUrl, data,{commit, dispatch, onSuccess: 'onVoteCreated', successType: 'action'}, method);
+
+    }
 
 
     // getFilteredFeed({commit, dispatch}, payload={}){
@@ -163,7 +173,7 @@ export const pollActions = sc => class extends sc {
 
         );
 
-        sc.apiRequest(`/api/rest/quiz/${poll_id}`, {},{commit, onSuccess: 'updatePayloadItem'}, 'get');
+        sc.apiRequest(`/api/rest/quiz/getOne/${poll_id}`, {},{commit, onSuccess: 'updatePayloadItem'}, 'get');
 
     }
 
@@ -381,7 +391,8 @@ export const pollActions = sc => class extends sc {
             deletePoll: this.deletePoll,
             deleteComment: this.deleteComment,
             onExplainSaved: this.onExplainSaved,
-            setBlockchainRightOption: this.setBlockchainRightOption
+            setBlockchainRightOption: this.setBlockchainRightOption,
+            getNotificationPoll: this.getNotificationPoll
         }
     }
 

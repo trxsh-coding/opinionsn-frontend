@@ -182,8 +182,8 @@ export const index = new Router({
           component: CatalogFeed,
         },
         {
-          path: 'Poll/:id',
-          name: 'Poll',
+          path: 'singlePoll/:id',
+          name: 'singlePoll',
           component: Poll,
           props:{feed: false}
         },

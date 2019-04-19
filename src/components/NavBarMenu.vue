@@ -108,7 +108,9 @@ export default {
     ...mapState('userPage',{
       main_user_id : state => state.main_user_id
     }),
-
+    ...mapState('notificationPage',{
+      counter : state => state.counter
+    }),
   },
   methods: {
 
