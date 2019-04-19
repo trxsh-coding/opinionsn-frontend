@@ -1,61 +1,51 @@
 <template>
-  <transition-group name="feed" tag="div" class="notification-feed">
-    <!-- <notification-block
-      :notification="notification"
-      v-for="notification in items"
-      :key="notification.initiatorId"
-    />-->
-    <!-- <div class="notification-block">
-      <div class="notification-header">
-        <div
-          class="avatar avatar-30x30 pointer"
-          :style="{ 'background-image': 'url(' + author.path_to_avatar + ')' } "
-          @click="userLink(author.id)"
-        />
-      </div>
-      <div class="notification-body">
-        <span class="username">{{ author.username }}</span>
-        <span class="notification-type">{{ notificationType }}</span>
-        <span class="message">{{ notification.message }}</span>
-      </div>
-    </div> -->
-  </transition-group>
+  <el-dropdown trigger="click">
+    <el-badge :value="0" class="item">
+      <icon-base class="pointer" width="17" height="22" viewBox="0 0 17 22" icon-name="bell">
+        <icon-bell/>
+      </icon-base>
+    </el-badge>
+    <!-- <el-dropdown-menu slot="dropdown">
+			<feed-block :notification="notification" v-for="(notification, index) in messages" :key="index + 'qweqweqwe'"/>
+    </el-dropdown-menu> -->
+    <!-- <el-dropdown-menu class="notification-dropdown flex-column" slot="dropdown" :class="{ hidden: messages.length <= 0 }">
+			<feed-block :notification="notification" v-for="(notification, index) in messages" :key="index + 'qweqweqwe'"/>
+    </el-dropdown-menu> -->
+    <el-dropdown-menu class="notification-dropdown flex-column" slot="dropdown">
+			<feed-block :notification="notification" v-for="(notification, index) in messages" :key="index + 'qweqweqwe'"/>
+    </el-dropdown-menu>
+  </el-dropdown>
 </template>
 
 <script>
-import notificationBlock from "./notificationBlock";
+import feedBlock from "./feedBlock";
+import IconBase from '../icons/IconBase.vue'
+import IconBell from '../icons/IconBell.vue'
 import { mapState } from "vuex";
 
 export default {
-  name: "feed",
+	name: "feed",
   components: {
-    notificationBlock
+		feedBlock,
+		IconBase,
+    IconBell,
   },
   computed: {
-    ...mapState("notificationPage", {
-      items: s => s.items
+    ...mapState("notificationStore", {
+      messages: s => s.messages
     })
-  }
+	}
 };
 </script>
 
-<style lang="scss">
-.notification-feed {
-  width: 100%;
+<style lang="scss" scoped>
+.hidden {
+	display: none;
 }
 
-.feed-enter-active,
-.feed-leave-active {
-  transition: all 0.5s;
-}
-
-.feed-enter,
-.feed-leave-to {
-  opacity: 0;
-  transform: translateY(-50%);
-}
-
-.feed-move {
-  transition: transform 0.5s;
+.notification-dropdown {
+	width: 488px;
+	padding: 12px;
+	overflow: hidden;
 }
 </style>

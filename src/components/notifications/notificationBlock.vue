@@ -4,7 +4,7 @@
       <div
         class="avatar avatar-30x30 pointer"
         :style="{ 'background-image': 'url(' + author.path_to_avatar + ')' } "
-        @click="userLink(author.id)"
+        @click="userLink"
       />
       <span class="username">{{ author.username }}</span>
       <el-button
@@ -17,7 +17,7 @@
       />
     </div>
 
-    <div class="notification-body v-center pointer" @click="notificationLink()">
+    <div class="notification-body v-center pointer" @click="notificationLink">
 			{{ notification.message }}
 		</div>
 
@@ -54,8 +54,8 @@ export default {
         );
       }
 
-      let author = userMap[2];
-      // let author = userMap[userID];
+      // let author = userMap[2];
+      let author = userMap[userID];
 
       return author;
     }
@@ -72,10 +72,10 @@ export default {
       //     initiatorId
       //   );
 		},
-    userLink(id) {
-      this.$router.push({ name: "user", params: { id } });
+    userLink() {
+      this.$router.push({ name: "user", params: { id: author.id } });
 		},
-		notificationLink(id) {
+		notificationLink() {
 			let { eventType: type_of_poll } = this.notification;
 			let { author, userLink, dismissNotification } = this;
 
@@ -83,11 +83,11 @@ export default {
 
 			switch (type_of_poll) {
 				case "SUBSCRIBE":
-					userLink(author.id);
+					userLink();
 					break;
 			
 				case "UNSUBSCRIBE":
-					userLink(author.id);
+					userLink();
 					break;
 			
 				case "CREATE_BLOCKCHAIN_PREDICTION":
