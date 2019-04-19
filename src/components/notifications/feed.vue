@@ -5,14 +5,10 @@
         <icon-bell/>
       </icon-base>
     </el-badge>
-    <!-- <el-dropdown-menu slot="dropdown">
-			<feed-block :notification="notification" v-for="(notification, index) in messages" :key="index + 'qweqweqwe'"/>
-    </el-dropdown-menu> -->
-    <!-- <el-dropdown-menu class="notification-dropdown flex-column" slot="dropdown" :class="{ hidden: messages.length <= 0 }">
-			<feed-block :notification="notification" v-for="(notification, index) in messages" :key="index + 'qweqweqwe'"/>
-    </el-dropdown-menu> -->
     <el-dropdown-menu class="notification-dropdown flex-column" slot="dropdown">
-			<feed-block :notification="notification" v-for="(notification, index) in messages" :key="index + 'qweqweqwe'"/>
+      <feed-block :notification="notification" v-for="(notification, index) in messages" :key="index"/>
+      <!-- <feed-block :notification="notification"/> -->
+      <!-- <feed-block :notification="notification"/> -->
     </el-dropdown-menu>
   </el-dropdown>
 </template>
@@ -29,7 +25,22 @@ export default {
 		feedBlock,
 		IconBase,
     IconBell,
-  },
+	},
+	data() {
+		return {
+			notification: {
+				date: "2019-04-19T11:17:12.478+0000",
+				eventType: "UNSUBSCRIBE",
+				id: 0,
+				initiatorId: 3,
+				message: "От вас отписался",
+				read: false,
+				received: false,
+				targetId: 0,
+				userId: 2
+			}
+		}
+	},
   computed: {
     ...mapState("notificationStore", {
       messages: s => s.messages
@@ -40,12 +51,12 @@ export default {
 
 <style lang="scss" scoped>
 .hidden {
-	display: none;
+  display: none;
 }
 
 .notification-dropdown {
-	width: 488px;
-	padding: 12px;
-	overflow: hidden;
+  width: 488px;
+  padding: 12px;
+  overflow: hidden;
 }
 </style>
