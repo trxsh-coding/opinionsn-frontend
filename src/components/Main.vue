@@ -119,11 +119,7 @@
     </el-container>
 
 
-      <notification-side-feed/>
-
-      <!-- <div class="notification-container flex-column">
-        <notification-block :notification="notification"  v-for="notification in notifications" />
-      </div> -->
+      <notification-side-feed v-show="!mobile"/>
 
       <footer v-if="!main_user_id && !hide">
 

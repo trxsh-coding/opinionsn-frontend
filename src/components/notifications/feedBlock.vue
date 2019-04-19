@@ -1,5 +1,5 @@
 <template>
-  <div class="notification-block flex-wrap flex-align-center">
+  <span class="notification-feed-block flex-wrap">
     <div class="notification-header">
       <div
         class="avatar avatar-30x30 pointer"
@@ -7,30 +7,31 @@
         @click="userLink"
       />
     </div>
-    <div class="notification-body font-13 flex-wrap flex-align-center">
-      <span class="username pointer" @click="userLink">{{ author.username }}</span>
-      <span class="message">{{ notification.message }}</span>
-      <!-- <span class="poll" @click="notificationLink" v-if="pollName">{{ pollName }}</span> -->
-			<span class="timestamp"><time-trans :time="notification.date"/></span>
+    <div class="notification-body font-13">
+      <span class="username pointer" @click="userLink"> {{ author.username }} </span>
+      <span class="message"> {{ notification.message }} </span>
+      <!-- <span class="poll pointer" @click="notificationLink" v-if="true"> {{ pollName }} </span> -->
+      <!-- <span class="poll pointer" @click="notificationLink"> Lorem, ipsum dolor. </span> -->
+      <time-trans class="timestamp" :time="notification.date"/>
     </div>
-		<hr/>
-  </div>
+    <hr/>
+  </span>
 </template>
 
 <script>
 import { mapState } from "vuex";
 import { log } from "util";
-import timeTrans from "../timeTrans"
+import timeTrans from "../timeTrans";
 export default {
   name: "feedBlock",
-	props: ["notification"],
-	components: {
-		timeTrans,
-	},
+  props: ["notification"],
+  components: {
+    timeTrans
+  },
   computed: {
     ...mapState("globalStore", {
-			userMap: ({ users }) => users,
-			pollMap: ({ polls }) => polls
+      userMap: ({ users }) => users,
+      pollMap: ({ polls }) => polls
     }),
 
     author: function() {
@@ -41,13 +42,13 @@ export default {
       let author = userMap[userID];
 
       return author;
-		},
-		pollName() {
-			let { targetId: ID } = this.notification;
-			let poll_name = this.pollMap[ID].subject;
+    }
+    // pollName: function() {
+    //   let { targetId } = this.notification;
+    //   let poll_name = this.pollMap[targetId].subject;
 
-			return poll_name;
-		}
+    //   return poll_name;
+    // }
   },
 
   methods: {
@@ -100,50 +101,71 @@ export default {
       }
     }
   },
-  mounted(){
-
+  mounted() {
     let userID = this.notification.initiatorId;
 
     if (this.userMap[userID] === undefined) {
-
-      this.$store.dispatch(
-              "userPage/getNotificationInitiator",
-              userID
-      );
-
+      this.$store.dispatch("userPage/getNotificationInitiator", userID);
     }
-
   }
 };
 </script>
 
-<style lang="scss" scoped>
-.notification-block {
-	background: #ffffff;
-	width: 100%;
+<style lang="scss">
+.notification-dropdown {
+
+  .notification-feed-block:last-of-type {
+
+    hr {
+			display: none;
+		}
+
+	}
+	
+}
+
+.notification-feed-block {
+  background: #ffffff;
+  width: 100%;
 
   .notification-header {
     .avatar {
-			background-color: gray;
+      background-color: gray;
     }
   }
 
   .notification-body {
+    flex: 1;
+    margin-top: 8px;
 
-		.username,
-		.poll {
-			font-weight: bold;
-		}
+    font-family: Roboto;
+    font-style: normal;
+    line-height: 16px;
+    font-size: 13px;
 
-		.timestamp {
-			color: #152D3A;
-		}
+    .username,
+    .poll {
+      font-weight: 700;
+      color: #152d3a;
+    }
 
-	}
+    .timestamp {
+      display: inline-block;
 
-	hr {
-		margin: 6px 0;
-		flex: 0 0 100%
-	}
+      font-family: Roboto;
+      font-weight: 300;
+      letter-spacing: -0.2px;
+
+      color: #152d3a;
+
+      opacity: 0.6;
+    }
+  }
+
+  hr {
+    margin: 6px 0;
+    border: 0.5px solid #d0d5d9;
+    flex: 0 0 100%;
+  }
 }
 </style>

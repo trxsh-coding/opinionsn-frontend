@@ -114,7 +114,7 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 .notification-block {
   background: #ffffff;
   box-shadow: 0px 0px 20px rgba(21, 45, 58, 0.3);
