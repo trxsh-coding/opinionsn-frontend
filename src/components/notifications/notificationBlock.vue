@@ -1,5 +1,5 @@
 <template>
-  <div class="notification-block flex-column" v-if="!isHidden">
+  <div class="notification-block flex-column">
     <div class="notification-header flex-align-center mb-6">
       <div
         class="avatar avatar-30x30 pointer"
@@ -9,7 +9,7 @@
       <span class="username">{{ author.username }}</span>
       <el-button
         class="close-btn"
-        @click="isHidden = !isHidden"
+        @click="dismissNotification"
         icon="el-icon-close"
         type="info"
         circle
@@ -34,7 +34,7 @@ export default {
   props: ["notification"],
   data: function() {
     return {
-      isHidden: false
+      
     };
   },
   computed: {
@@ -54,7 +54,8 @@ export default {
         );
       }
 
-      let author = userMap[userID];
+      let author = userMap[2];
+      // let author = userMap[userID];
 
       return author;
     }
@@ -62,7 +63,7 @@ export default {
 
   methods: {
 		dismissNotification() {
-			alert("dismissNotification() FIRED");
+			console.log("dismissNotification() FIRED");
 			
 			// let { initiatorId } = this.notification;
 
@@ -114,7 +115,7 @@ export default {
 };
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .notification-block {
   background: #ffffff;
   box-shadow: 0px 0px 20px rgba(21, 45, 58, 0.3);

@@ -89,7 +89,7 @@
       </el-form-item>
 
 
-      <div class="date-picker flex-space-center" v-if="date_poll && mainUser.authorities === 'ADMIN'"">
+      <div class="date-picker flex-space-center" v-if="date_poll && mainUser.authorities === 'ADMIN'">
 
         <el-form-item label="Укажите дату"  prop="end_date">
           <el-col :span="24">

@@ -117,12 +117,9 @@
         </el-row>
       </el-main>
     </el-container>
+
     
-      <transition-group name="list" tag="div" class="notification-container flex-column">
-
-        <notification-block :notification="notification" v-for="notification in notifications" :key="notification.initiatorId" />
-
-      </transition-group>
+      <notification-side-feed/>
 
       <!-- <div class="notification-container flex-column">
         <notification-block :notification="notification"  v-for="notification in notifications" />
@@ -149,7 +146,7 @@ import { localString } from "../utils/localString.js";
 import axios from "axios";
 import mobileNav from "./mobileNav";
 import Search from "./Search/search";
-import notificationBlock from "./notifications/notificationBlock";
+import notificationSideFeed from "./notifications/notificationSideFeed";
 import { log } from "util";
 export default {
   data() {
@@ -161,8 +158,7 @@ export default {
       mobile: this.$root.mobile,
       hide: false,
       showNavbar: true,
-      lastScrollPosition: 0,
-      notifications: []
+      lastScrollPosition: 0
     };
   },
   watch: {
@@ -207,28 +203,6 @@ export default {
     }
   },
   methods: {
-    getNotifications() {
-      axios
-        .get("/messages/notification")
-        .then(
-          function(response) {
-            if (response.status === 200) {
-              this.getNotifications();
-              // this.notification(response)
-              this.notifications.push(response.data[0]);
-              // if(response.status === 200) {
-              //
-              //
-              //
-              // }
-            }
-          }.bind(this)
-        )
-
-        .catch(error => {
-          setTimeout(() => this.getNotifications(), 15000);
-        });
-    },
     notification(response) {
       this.$notify({
         title: "Уведомление",
@@ -237,12 +211,8 @@ export default {
         duration: 0
       });
     },
-
-
-
-  getNotifications(){
-
-      this.$store.dispatch('notificationPage/list')
+    getNotifications() {
+      this.$store.dispatch("notificationPage/list");
 
       // axios.get('/messages/notification')
       //     .then(function(response){
@@ -261,16 +231,14 @@ export default {
       //     .catch((error) => {
       //         setTimeout(()=> this.getNotifications(), 15000)
       //     });
+    },
 
-  },
-
-        link(response) {
-
-            console.log(response)
-
-        },
-      onScroll () {
-      const currentScrollPosition = window.pageYOffset || document.documentElement.scrollTop
+    link(response) {
+      console.log(response);
+    },
+    onScroll() {
+      const currentScrollPosition =
+        window.pageYOffset || document.documentElement.scrollTop;
       if (currentScrollPosition < 0) {
         return;
       }
@@ -356,7 +324,7 @@ export default {
     IconDropdown,
     mobileNav,
     IconClose,
-    notificationBlock
+    notificationSideFeed
   }
 };
 </script>
@@ -367,16 +335,6 @@ body {
 }
 #app {
   background: #f4f4f4;
-
-  .notification-container {
-    position: fixed;
-    top: 5%;
-    right: 2%;
-    justify-content: flex-end;
-    z-index: 20000;
-    height: 90%;
-    width: 220px;
-  }
 
   .navbar--hidden {
     box-shadow: none;
@@ -608,22 +566,4 @@ body {
   }
 }
 
-.list-enter-active, .list-leave-active {
-
-  transition: all 0.5s;
-
-}
-
-.list-enter, .list-leave-to {
-
-  opacity: 0;
-  transform: translateX(-100%)
-  
-}
-
-.list-move {
-
-  transition: transform 0.5s;
-
-}
 </style>
