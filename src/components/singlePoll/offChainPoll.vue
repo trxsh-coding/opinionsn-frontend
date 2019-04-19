@@ -26,7 +26,7 @@
         },
         props:['feed'],
         computed: {
-            ...mapState('singlePoll', {
+            ...mapState('offChainPoll', {
                 state: s => s,
                 items: s => s.items
             }),
@@ -43,7 +43,7 @@
 
         mounted(){
 
-            this.$store.dispatch(`singlePoll/list`, {customUrl: `/api/rest/quiz/${this.id}`});
+            this.$store.dispatch(`offChainPoll/list`, {customUrl: `/api/rest/quiz/getOne/${this.id}`});
 
         },
 

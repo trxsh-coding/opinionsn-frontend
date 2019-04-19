@@ -17,7 +17,8 @@ import followings from '../components/Follows/Event/Followings'
 import follows from '../components/Follows/Follows'
 import VoteFeed from '../components/voteFeed/VoteFeed';
 import PollFeed from '../components/pollFeed/PollFeed';
-import Poll from '../components/singlePoll/feed';
+import offChainPoll from '../components/singlePoll/offChainPoll';
+import blockChainPoll from '../components/singlePoll/blockChainPoll';
 import Admin from '../components/Admin/Admin';
 import Catalog from '../components/Admin/Catalog';
 import CatalogList from '../components/CatalogFeed/Catalog';
@@ -182,9 +183,15 @@ export const index = new Router({
           component: CatalogFeed,
         },
         {
-          path: 'Poll/:id',
-          name: 'Poll',
-          component: Poll,
+          path: 'offChainPoll/:id',
+          name: 'offChainPoll',
+          component: offChainPoll,
+          props:{feed: false}
+        },
+        {
+          path: 'blockChainPoll/:id',
+          name: 'blockChainPoll',
+          component: blockChainPoll,
           props:{feed: false}
         },
       ]
