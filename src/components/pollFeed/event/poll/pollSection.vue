@@ -176,7 +176,7 @@
 
             pollLink(poll_id){
 
-                this.$router.push({name:'Poll',params:{id:poll_id}})
+                this.$router.push({name:'singlePoll',params:{id:poll_id}})
 
             },
 
@@ -210,7 +210,6 @@
 
 
             vote(selected_variable, poll_id){
-                alert('hi')
                 if(this.expanded){
                     console.log('there')
                     if (!this.item.voted) {

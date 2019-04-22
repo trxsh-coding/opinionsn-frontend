@@ -164,7 +164,7 @@ export const index = new Router({
           name: 'pollFeed',
           component: PollFeed,
           props:{feed: true}
- 
+
         },
         {
           path: 'catalogList',
