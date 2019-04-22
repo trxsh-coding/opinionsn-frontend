@@ -17,7 +17,7 @@ export class VuexStore {
 
         const instance = axios.create({
 
-            timeout:24000
+            timeout:110000
 
         });
 

@@ -9,4 +9,4 @@ class pollFeedStore extends pollActions(StoreWithList (VuexStore, '/rest/quiz/:i
 
 let store = new pollFeedStore();
 
-export const blockChainPoll = store.vuexStore;
+export const singlePoll = store.vuexStore;

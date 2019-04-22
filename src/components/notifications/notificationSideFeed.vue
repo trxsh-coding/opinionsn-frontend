@@ -2,7 +2,7 @@
   <transition-group name="list" tag="div" class="notification-container flex-column">
     <notification-block
       :notification="notification"
-      v-for="(notification, notification_index) in items"
+      v-for="(notification, notification_index) in items.slice(0, 3)"
       :key="notification_index"
     />
   </transition-group>

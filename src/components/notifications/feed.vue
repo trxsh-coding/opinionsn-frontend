@@ -77,15 +77,12 @@ export default {
 }
 
 .notification-dropdown {
-  @media only screen and (max-device-width : 700px) {
-    width: 90%;  
-  }
   width: 488px;
   padding: 12px;
   border-radius: 12px;
-  max-height: 497px;
   overflow: hidden;
-  margin-bottom: 0;
+	max-height: 505px;
+	margin-bottom: 0;
   &::-webkit-scrollbar {
     display: none;
   }

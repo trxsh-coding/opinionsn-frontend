@@ -43,7 +43,6 @@ export const notificationStore  =  {
 
             state.messages = payload;
 
-            console.log(payload)
 
         }
 
