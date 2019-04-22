@@ -116,6 +116,7 @@ export default {
 .notification-feed-block {
   background: #ffffff;
   width: 100%;
+  flex: 0;
 
   .notification-header {
     .avatar {

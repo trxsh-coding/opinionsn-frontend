@@ -5,14 +5,20 @@
         <icon-bell/>
       </icon-base>
     </el-badge>
-    <el-dropdown-menu class="notification-dropdown flex-column" slot="dropdown">
+    <el-dropdown-menu class="notification-dropdown flex-column" slot="dropdown" v-if="messages.length > 0">
+    <!-- <el-dropdown-menu class="notification-dropdown flex-column" slot="dropdown" v-if="false"> -->
       <feed-block
         :notification="notification"
         v-for="(notification, index) in messages"
         :key="index"
       />
-      <!-- <feed-block :notification="notification"/> -->
-      <!-- <feed-block :notification="notification"/> -->
+    </el-dropdown-menu>
+    <el-dropdown-menu class="notification-dropdown flex-column noMessages" slot="dropdown"  v-else>
+      <div class="notification-feed-placeholder v-center">
+        <span>
+          Новые уведомления отсуствуют
+        </span>
+      </div>
     </el-dropdown-menu>
   </el-dropdown>
 </template>
@@ -32,17 +38,17 @@ export default {
   },
   data() {
     return {
-      notification: {
-        date: "2019-04-19T11:17:12.478+0000",
-        eventType: "UNSUBSCRIBE",
-        id: 0,
-        initiatorId: 3,
-        message: "От вас отписался",
-        read: false,
-        received: false,
-        targetId: 0,
-        userId: 2
-      }
+      // notification: {
+      //   date: "2019-04-19T11:17:12.478+0000",
+      //   eventType: "UNSUBSCRIBE",
+      //   id: 0,
+      //   initiatorId: 3,
+      //   message: "От вас отписался",
+      //   read: false,
+      //   received: false,
+      //   targetId: 0,
+      //   userId: 2
+      // }
     };
   },
   methods: {
@@ -77,10 +83,21 @@ export default {
   width: 488px;
   padding: 12px;
   border-radius: 12px;
-	max-height: 505px;
-	margin-bottom: 0;
+  max-height: 497px;
+  overflow: hidden;
+  margin-bottom: 0;
   &::-webkit-scrollbar {
     display: none;
+  }
+
+  &.noMessages {
+    border-color: #e2e2e2;
+    background-color: #f3f3f3;
+  }
+
+  .notification-feed-placeholder {
+    width: 100%;
+    background-color: transparent;
   }
 }
 
