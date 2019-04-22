@@ -219,7 +219,7 @@
 
                         } else {
 
-                            this.$store.dispatch(`offChainPoll/createVote`, {data: {selected_variable, poll_id}});
+                            this.$store.dispatch(`singlePoll/createVote`, {data: {selected_variable, poll_id}});
 
 
                         }

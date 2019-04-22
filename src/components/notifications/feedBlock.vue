@@ -127,7 +127,7 @@ export default {
   }
 
   .notification-body {
-    flex: 1;
+    flex: 0 0 427px;
     margin-top: 8px;
 
     font-family: Roboto;
