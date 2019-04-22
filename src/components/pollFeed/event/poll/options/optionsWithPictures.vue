@@ -1,5 +1,5 @@
 <template>
-    <div class="options-block " @click="vote(option.id, option.poll_id)" :class="{cursor : item.voted, opacity  : poll.votingOver, rightAnswer : correct_option}">
+    <div class="options-block " @click="vote(option.id, option.poll_id, poll.type_of_poll)" :class="{cursor : item.voted, opacity  : poll.votingOver, rightAnswer : correct_option}">
         <div class="option-picture" :style="{ 'background-image': 'url(' + option.picture + ')' }">
 
             <div class="percentage-block" >
@@ -96,12 +96,12 @@
 
         methods: {
 
-            vote(selected_variable, poll_id){
+            vote(selected_variable, poll_id, type_of_poll){
                 if(this.expanded){
 
                     if (!this.item.voted && !this.poll.votingOver) {
 
-                          this.$store.dispatch(`${this.$route.name}/createVote`, {data: {selected_variable, poll_id}});
+                        this.$store.dispatch(`${this.$route.name}/createVote`, {data: {selected_variable, poll_id,  type_of_poll}});
 
                     }
 
