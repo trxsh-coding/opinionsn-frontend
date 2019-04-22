@@ -220,6 +220,11 @@ export default {
      svg {
        margin-bottom: 0px;
      }
+
+     .icon-eye {
+       margin-left: auto;
+       margin-right: 9px;
+     }
    }
 
    .exit-button {
