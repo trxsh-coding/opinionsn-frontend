@@ -198,6 +198,8 @@
         .emoji-block {
             position: absolute;
             z-index: 100000000;
+            bottom: 30px;
+            right: 10px;
         }
         @media only screen and (max-device-width : 380px) {
 

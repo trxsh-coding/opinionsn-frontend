@@ -314,7 +314,7 @@ export default {
      .el-badge__content {
        background-color: #FF5454;
        border-radius: 10px;
-       color: #fff;
+       color: #FF5454;
        display: inline-block;
        font-size: 8px;
        height: 13px;

@@ -33,11 +33,11 @@
          </el-form-item>
 
 
-         <el-form-item class="info_label phone" :label="lstr('phone_number')">
+         <!--<el-form-item class="info_label phone" :label="lstr('phone_number')">-->
 
-             <the-mask type="tel" :masked="false"  :mask="'#(###)###-##-##'" v-model="phone" />
+             <!--<the-mask type="tel" :masked="false"  :mask="'#(###)###-##-##'" v-model="phone" />-->
 
-         </el-form-item>
+         <!--</el-form-item>-->
 
          <el-form-item class="info_label" :label="lstr('Пол')">
 

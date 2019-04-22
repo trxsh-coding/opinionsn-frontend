@@ -10,29 +10,6 @@
       <!--<el-option label="Опрос" value="0"></el-option>-->
       <!--</el-select>-->
       <!--</el-form-item>-->
-      <el-form-item class="flex " v-if="mainUser.authorities === 'ADMIN'">
-        <el-switch
-                class="mr-10"
-                v-model="pollForm.type_of_poll"
-                active-value="2"
-                inactive-value="0"
-                active-color="#4B97B4"
-                inactive-color="#A1ABB0">
-        </el-switch>
-        <span class="uppercase offchn__span" v-if="pollForm.type_of_poll == 0">OFF-CHAIN</span>
-        <span class="uppercase bchn__span" v-if="pollForm.type_of_poll == 2">blockchain</span>
-      </el-form-item>
-
-      <el-form-item class="flex" v-if="mainUser.authorities === 'ADMIN'">
-
-        <el-button class="primary-btn">
-          Ограничение по времени
-        </el-button >
-
-        <el-button class="secondary-btn">
-          Ограничение по количеству участников
-        </el-button>
-      </el-form-item>
 
       <el-form-item :label="Категории" prop="subject_header" :rules="[ { required: true, message: lstr('select_topic_name'), trigger: 'change' }]">
 
@@ -89,78 +66,6 @@
       </el-form-item>
 
 
-      <div class="date-picker flex-space-center" v-if="date_poll && mainUser.authorities === 'ADMIN'">
-
-        <el-form-item label="Укажите дату"  prop="end_date">
-          <el-col :span="24">
-            <el-date-picker
-                    suffix-icon="el-icon-date"
-                    format="yyyy/MM/dd"
-                    value-format="yyyy-MM-dd"
-                    type="date"
-                    placeholder="Pick a date"
-                    v-model="pollForm.end_date"
-                    style="width: 100%;">
-            </el-date-picker>
-          </el-col>
-          <icon-base
-                  class="icon-required"
-                  fill="none"
-                  width="5"
-                  height="6"
-                  viewBox="0 0 5 6"
-                  icon-dropdown="icon-daw"><icon-required />
-          </icon-base>
-
-        </el-form-item>
-        <el-form-item label="Укажите время" prop="end_time" >
-          <el-col :span="24">
-            <el-time-select
-                    :picker-options="{
-                                            start: '00:00',
-                                            step: '00:15',
-                                            end: '24:00'
-                                          }"
-                    placeholder="Pick a time"
-                    v-model="pollForm.end_time"
-                    style="width: 100%;">
-            </el-time-select>
-          </el-col>
-          <icon-base
-                  class="icon-required"
-                  fill="none"
-                  width="5"
-                  height="6"
-                  viewBox="0 0 5 6"
-                  icon-dropdown="icon-daw"><icon-required />
-          </icon-base>
-        </el-form-item>
-      </div>
-
-      <div class="participants-poll" v-if="mainUser.authorities === 'ADMIN'">
-
-        <div class="amount-of-participants">
-          <el-form-item :label="lstr('fund')">
-            <el-input v-model="pollForm.fund">
-
-            </el-input>
-          </el-form-item>
-        </div>
-
-        <div class="price-of-poll flex-space-center">
-          <el-form-item  :label="lstr('enter_amount_of_the_participants')">
-          <el-input>
-
-          </el-input>
-          </el-form-item>
-          <el-form-item  :label="lstr('enter_amount_of_the_participants')">
-            <el-input>
-
-            </el-input>
-          </el-form-item>
-        </div>
-
-      </div>
 
 
       <div class="options-header mb-10 flex-space-center">

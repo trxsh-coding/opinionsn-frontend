@@ -76,7 +76,7 @@
         methods: {
 
             pollLink(id){
-                this.$router.push({name:'Poll',params:{id:id}})
+                this.$router.push({name:'singlePoll',params:{id:id}})
 
             },
 

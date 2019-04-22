@@ -104,7 +104,11 @@
             background: #FFFFFF;
 
         }
+        .container-emoji {
 
+            height: 300px;
+
+        }
         .container-search {
 
             display: none;

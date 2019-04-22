@@ -14,12 +14,24 @@
                 <el-switch
                         class="mr-10"
                         v-model="pollForm.type_of_poll"
-                        active-value="0"
-                        inactive-value="2"
-                        active-color="#A1ABB0"
-                        inactive-color="#4B97B4">
+                        active-value="2"
+                        inactive-value="0"
+                        active-color="#4B97B4"
+                        inactive-color="#A1ABB0">
                 </el-switch>
-                <span>OFF-Chain</span>
+                <span class="uppercase offchn__span" v-if="pollForm.type_of_poll == 0">OFF-CHAIN</span>
+                <span class="uppercase bchn__span" v-if="pollForm.type_of_poll == 2">blockchain</span>
+            </el-form-item>
+
+            <el-form-item class="flex" v-if="mainUser.authorities === 'ADMIN'">
+
+                <el-button class="primary-btn">
+                    Ограничение по времени
+                </el-button >
+
+                <!--<el-button class="secondary-btn">-->
+                    <!--Ограничение по количеству участников-->
+                <!--</el-button>-->
             </el-form-item>
 
             <el-form-item :label="Категории" prop="subject_header" :rules="[ { required: true, message: lstr('select_topic_name'), trigger: 'change' }]">
@@ -77,9 +89,9 @@
             </el-form-item>
 
 
-            <div class="date-picker flex-space-center">
+            <div class="date-picker flex-space-center" v-if="date_poll && mainUser.authorities === 'ADMIN'">
 
-                <el-form-item label="Укажите дату" prop="end_date" >
+                <el-form-item label="Укажите дату"  prop="end_date">
                     <el-col :span="24">
                         <el-date-picker
                                 suffix-icon="el-icon-date"
@@ -125,6 +137,30 @@
                 </el-form-item>
             </div>
 
+            <div class="participants-poll" v-if="mainUser.authorities === 'ADMIN'">
+
+                <div class="amount-of-participants">
+                    <el-form-item :label="lstr('fund')">
+                        <el-input v-model="pollForm.fund">
+
+                        </el-input>
+                    </el-form-item>
+                </div>
+
+                <div class="price-of-poll flex-space-center">
+                    <el-form-item  :label="lstr('enter_amount_of_the_participants')">
+                        <el-input>
+
+                        </el-input>
+                    </el-form-item>
+                    <el-form-item  :label="lstr('enter_amount_of_the_participants')">
+                        <el-input>
+
+                        </el-input>
+                    </el-form-item>
+                </div>
+
+            </div>
 
 
             <div class="options-header mb-10 flex-space-center">
@@ -221,6 +257,7 @@
                 imageUrl: '',
                 picture:'',
                 pictures:[],
+                date_poll:true,
                 pollForm: {
                     picture:'',
                     subject_header:'',
@@ -318,6 +355,7 @@
                 if(this.optionImageUrl == ''){
 
                     this.optionPicture = !this.optionPicture;
+                    console.log('start')
 
                 } else  {
 
@@ -325,6 +363,7 @@
 
                     this.optionPicture = false;
 
+                    console.log('over')
 
                 }
 
@@ -345,6 +384,8 @@
 
 
             submitForm(formName) {
+                console.log(this.optionPicture)
+
                 this.$refs[formName].validate((valid) => {
                     if (valid) {
                         let {pollForm, pictures, optionPicture, exception} = this;
@@ -381,7 +422,7 @@
                                     'content-type': 'multipart/mixed'
                                 }
                             }
-                            if(pollForm.type_of_poll === 0) {
+                            if(pollForm.type_of_poll == 0) {
 
                                 axios.post('/api/rest/quiz/create', bodyFormData, config)
                                     .then(function(response){
@@ -393,7 +434,7 @@
 
                             } else {
 
-                                axios.post('/api/rest/admin/blockchainPoll/create', bodyFormData, config)
+                                axios.post('/api/rest/admin/blockchain/create', bodyFormData, config)
                                     .then(function(response){
                                         if (response.status === 200) {
                                             this.$router.push({ name: 'pollFeed'})
@@ -409,6 +450,7 @@
 
                         }
                     } else {
+                        console.log('error submit!!');
                         return false;
                     }
                 });
@@ -434,7 +476,30 @@
 
 <style lang="scss" >
     .poll-create-wrapper {
+        .offchn__span {
 
+            font-family: Roboto;
+            font-style: normal;
+            font-weight: normal;
+            font-size: 13px;
+            line-height: 12px;
+            font-variant: small-caps;
+            color: #A1ABB0;
+
+        }
+
+        .bchn__span {
+
+
+            font-family: Roboto;
+            font-style: normal;
+            font-weight: normal;
+            font-size: 13px;
+            line-height: 12px;
+            font-variant: small-caps;
+            color: #4B97B4;
+
+        }
         .save-button {
 
             padding: 9px 9px;      border-radius: 12px;

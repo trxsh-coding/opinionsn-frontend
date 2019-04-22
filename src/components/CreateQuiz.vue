@@ -9,12 +9,12 @@
     <lang-string   :title="'what_do_you_want_to_create_?'"/>
   <div class="buttons-section">
     <router-link to="/add/poll">
-      <el-button type="primary" size="small" round>
+      <el-button  size="small" round class="mr-10" :class="{ primary__btn : $route.name === 'poll'}">
         <lang-string   :title="'poll'"/>
       </el-button>
     </router-link>
      <router-link to="/add/prediction">
-      <el-button size="small" round v-if="user.authorities === 'ADMIN'" >
+      <el-button size="small" round v-if="user.authorities === 'ADMIN'"  :class="{ primary__btn : $route.name === 'prediction'}">
         <lang-string   :title="'prediction'"/>
       </el-button>
      </router-link>
@@ -66,6 +66,14 @@ export default {
 </script>
 
 <style lang="scss">
+    .primary__btn {
+
+        background: #4B97B4 !important;
+        span {
+            color: #FFFFFF;
+
+        }
+    }
 #add-section {
   border-radius: 6px 6px 0px 0px !important;
   max-width: 620px;
@@ -98,11 +106,12 @@ export default {
   .buttons-section {
     margin-top: 10px;
     .el-button--primary {
-    background:#4B97B4;
     border-color: inherit;
       }
     .el-button {
     padding: 10px 20px;
+        background: #8A9499;
+        color: #FFFFFF;
     }
   }
   .create {
