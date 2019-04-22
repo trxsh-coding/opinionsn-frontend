@@ -90,8 +90,11 @@ export default {
   }
 
   &.noMessages {
-    border-color: #e2e2e2;
-    background-color: #f3f3f3;
+    // border-color: #e2e2e2;
+    // background-color: #f3f3f3;
+    color: #69777F;
+    font-family: Roboto;
+    font-style: normal;
   }
 
   .notification-feed-placeholder {
