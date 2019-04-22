@@ -78,6 +78,7 @@ export const globalStore  =  {
 
         updateStores: function(state, payload){
 
+
             for (let name of globalStorageNames){
 
                 // If we don't have that map, just skip it

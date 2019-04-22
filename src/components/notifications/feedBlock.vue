@@ -46,7 +46,7 @@ export default {
     pollName: function() {
       let { targetId } = this.notification;
       let poll_name = this.pollMap[targetId].subject;
-
+      console.log(poll_name)
       return poll_name;
     }
   },
@@ -90,9 +90,12 @@ export default {
     }
 
     let pollID = this.notification.targetId;
+    if(this.notification.targetId != 0) {
 
-    if (this.pollMap[pollID] === undefined) {
-      this.$store.dispatch("singlePoll/getNotificationPoll", pollID);
+      if (this.pollMap[pollID] === undefined) {
+        this.$store.dispatch("singlePoll/getNotificationPoll", pollID);
+      }
+
     }
   }
 

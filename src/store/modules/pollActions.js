@@ -5,7 +5,8 @@ export const pollActions = sc => class extends sc {
     /* ACTIONS */
     createVote({commit, dispatch}, payload={}){
 
-        let {customUrl = `/api/rest/quiz/getOne/${poll_id}`, data={}, method='post'} = payload;
+
+        let {customUrl = `/api/rest/vote/create/`, data={}, method='post'} = payload;
 
         sc.apiRequest(customUrl, data,{commit, dispatch, onSuccess: 'onVoteCreated', successType: 'action'}, method);
 
@@ -16,7 +17,7 @@ export const pollActions = sc => class extends sc {
 
         console.log(payload)
 
-        let {customUrl = '/api/rest/vote/create/', data={}, method='post'} = payload;
+        let {customUrl = '/api/rest/quiz/getOne/', data={}, method='post'} = payload;
 
         sc.apiRequest(customUrl, data,{commit, dispatch, onSuccess: 'onVoteCreated', successType: 'action'}, method);
 
@@ -62,10 +63,9 @@ export const pollActions = sc => class extends sc {
 
     saveComment({commit, dispatch}, payload={}){
 
-
         let {customUrl = '/api/rest/comment/save/', data={}, method='post', } = payload;
 
-        sc.apiRequest(customUrl, data,{commit, dispatch, onSuccess: 'onCommentSaved', successType: 'action'}, method);
+        sc.apiRequest(customUrl, data ,{commit, dispatch, onSuccess: 'onCommentSaved', successType: 'action'}, method);
 
     };
 
@@ -177,32 +177,7 @@ export const pollActions = sc => class extends sc {
 
     }
 
-    onExplainSaved({commit, dispatch}, args){
-        let {responseData: data} = args;
 
-
-        let {id} = data.payload;
-
-        let item = data.votes[id];
-
-        let {poll_id} = item;
-
-        commit(`globalStore/addChildTo`, {
-                mapName: 'polls',
-                parentId: poll_id,
-                groupName: `votes_id`,
-                item: id,
-            },
-            {root: true}
-
-        );
-
-        commit(`globalStore/changeStateItem`, {mapName : 'polls', parentId: poll_id, item: 'isVoted', payload:true} , {root: true})
-
-        commit(`updatePayloadItem`, [{id: poll_id, haveExplain: true}])
-
-
-    }
 
 
 
@@ -315,6 +290,34 @@ export const pollActions = sc => class extends sc {
 
     }
 
+    onExplainSaved({commit, dispatch}, args){
+        let {responseData: data} = args;
+
+        console.log(data)
+
+        let {id} = data.payload[0];
+
+        let item = data.votes[id];
+
+        let {poll_id} = item;
+
+        commit(`globalStore/addChildTo`, {
+                mapName: 'polls',
+                parentId: poll_id,
+                groupName: `votes_id`,
+                item: id,
+            },
+            {root: true}
+
+        );
+
+        commit(`globalStore/changeStateItem`, {mapName : 'polls', parentId: poll_id, item: 'isVoted', payload:true} , {root: true})
+
+        commit(`updatePayloadItem`, [{id: poll_id, haveExplain: true}])
+
+
+    }
+
 
     onCommentSaved({commit}, args){
         let {responseData: data, requestData: payload} = args;
@@ -322,11 +325,8 @@ export const pollActions = sc => class extends sc {
         console.log(data)
 
         let poll_id = payload.poll_id
-
-        let {id} = data.payload;
+        let {id} = data.payload[0];
         let item = data.comments[id];
-        console.log(item)
-
         let {explain_id} = item;
 
         commit(`globalStore/addChildTo`, {

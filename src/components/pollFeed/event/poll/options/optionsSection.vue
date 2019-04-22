@@ -93,6 +93,7 @@
             },
 
             vote(selected_variable, poll_id){
+
                 if(this.expanded){
 
                     if (!this.item.voted && !this.poll.votingOver) {
