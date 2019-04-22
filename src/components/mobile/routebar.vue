@@ -25,8 +25,13 @@
                 </icon-base>
                 <a><lang-string :title="'bookmarked'"/></a>
             </router-link>
-            <li class="hidden-sm-and-up relative">
-                <el-badge :value="0"  class="item">
+            <el-popover
+                    placement="bottom"
+                    :title="lstr('balance')"
+                    width="200"
+                    trigger="click"
+                    :content="mainUser.balance  ">
+                <li class="hidden-sm-and-up relative" slot="reference">
                     <icon-base
                             fill="none"
                             width="24"
@@ -34,9 +39,10 @@
                             viewBox="0 0 24 20"
                             icon-name="pocket"><icon-pocket/>
                     </icon-base>
-                </el-badge>
-                <a><lang-string :title="'pocket'"/></a>
-            </li>
+                    <a><lang-string :title="'pocket'"/></a>
+                </li>
+            </el-popover>
+
             <router-link class-active="active" class="hidden-sm-and-up relative" tag="li" to="/catalogList">
                 <icon-base
                         fill="none"
@@ -57,7 +63,7 @@
                 </icon-base>
                 <a><lang-string :title="'settings'"/></a>
             </li>
-            <li class="hidden-sm-and-up relative" @click="userLogout">
+            <li class="hidden-sm-and-up relative unbordered" @click="userLogout">
                 <icon-base
                         fill="none"
                         width="24"
@@ -84,11 +90,23 @@
     import IconBell from '../icons/IconBell.vue'
     import IconPocket from '../icons/IconPocket.vue'
     import IconCatalog from '../icons/IconCatalog.vue'
+    import langMixin from '../mixins/langMixin'
+    import {mapState} from 'vuex'
     export default {
         data(){
             return {
 
             }
+        },
+        mixins:[langMixin],
+        computed: {
+
+            ...mapState('globalStore', {
+
+                mainUser: ({mainUser}) => mainUser
+
+            }),
+
         },
         methods:{
 
@@ -141,7 +159,11 @@
         svg {
 
         }
+        .unbordered {
 
+            border-bottom: none;
+
+        }
         .primary {
 
 
@@ -228,9 +250,7 @@
         }
 
 
-        li:last-of-type {
-            border-bottom: none;
-        }
+
 
         a {
             color: #383838;

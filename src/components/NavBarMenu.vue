@@ -11,37 +11,45 @@
         </icon-base>
       </router-link>
     <notification-feed class="main-icon notification_feed"/>
-    <li class="main-icon">
-      <el-badge :value="0"  class="item pointer">
-        <icon-base
-                class="main-icon"
-                width="22"
-                height="22"
-                viewBox="0 0 22 22"
-                icon-name="pocket"><icon-pocket />
-        </icon-base>
-      </el-badge>
-    </li>
+    <div class="flex-align-center mr-10 ">
 
-        <div class="pocket-money">
+      <el-popover
+              placement="top-start"
+              title="Balance:"
+              width="50"
+              trigger="hover"
+              :content=" user.balance">
           <icon-base
-            fill="#162D3A"
-            width="8"
-            height="10"
-            viewBox="0 0 8 10"
-            icon-name="union"><icon-union />
+                  slot="reference"
+                  class="main-icon"
+                  width="22"
+                  height="36"
+                  viewBox="0 0 22 8"
+                  icon-name="pocket"><icon-pocket />
           </icon-base>
-          <span v-if="user.balance == 0" >0 000 000</span>
-          <span v-if="user.balance > 0">{{user.balance}}</span>
-          <icon-base
-            class="icon-eye"
-            fill="#162D3A"
-            width="14"
-            height="10"
-            viewBox="0 0 14 8"
-            icon-name="eye"><icon-eye />
-          </icon-base>
-        </div>
+      </el-popover>
+
+    </div>
+
+        <!--<div class="pocket-money">-->
+          <!--<icon-base-->
+            <!--fill="#162D3A"-->
+            <!--width="8"-->
+            <!--height="10"-->
+            <!--viewBox="0 0 8 10"-->
+            <!--icon-name="union"><icon-union />-->
+          <!--</icon-base>-->
+          <!--<span v-if="user.balance == 0" >0 000 000</span>-->
+          <!--<span v-if="user.balance > 0">{{user.balance}}</span>-->
+          <!--<icon-base-->
+            <!--class="icon-eye"-->
+            <!--fill="#162D3A"-->
+            <!--width="14"-->
+            <!--height="10"-->
+            <!--viewBox="0 0 14 8"-->
+            <!--icon-name="eye"><icon-eye />-->
+          <!--</icon-base>-->
+        <!--</div>-->
 
       <div class="profileAvatar pointer" @click="userLink(user.id)" :style="{ 'background-image': 'url('+ user.path_to_avatar + ')' }"> </div>
      <el-dropdown trigger="click">
