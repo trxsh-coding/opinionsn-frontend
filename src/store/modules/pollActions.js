@@ -5,8 +5,21 @@ export const pollActions = sc => class extends sc {
     /* ACTIONS */
     createVote({commit, dispatch}, payload={}){
 
+        console.log(payload)
 
-        let {customUrl = `/api/rest/vote/create/`, data={}, method='post'} = payload;
+        let typeOfVote;
+
+        if (payload.data.type_of_poll >= 2) {
+
+            typeOfVote = "/api/rest/blockchain/vote/create/"
+
+        } else {
+
+            typeOfVote = "/api/rest/vote/create/"
+
+        }
+
+        let {customUrl = `${typeOfVote}`, data={}, method='post'} = payload;
 
         sc.apiRequest(customUrl, data,{commit, dispatch, onSuccess: 'onVoteCreated', successType: 'action'}, method);
 
@@ -17,7 +30,7 @@ export const pollActions = sc => class extends sc {
 
         console.log(payload)
 
-        let {customUrl = '/api/rest/quiz/getOne/', data={}, method='post'} = payload;
+        let {customUrl = `/api/rest/quiz/getOne/${payload}`, data={}, method='get'} = payload;
 
         sc.apiRequest(customUrl, data,{commit, dispatch, onSuccess: 'onVoteCreated', successType: 'action'}, method);
 

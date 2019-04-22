@@ -42,7 +42,6 @@
 
 
         mounted(){
-
             this.$store.dispatch(`singlePoll/list`, {customUrl: `/api/rest/quiz/getOne/${this.id}`});
 
         },

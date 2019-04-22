@@ -26,7 +26,7 @@ import CatalogFeed from '../components/CatalogFeed/Feed';
 import user from '../components/user/Page';
 import sidebar from '../components/mobile/sidebar';
 import {nprogress} from '../main.js'
- 
+
 Vue.use(Router);
 
 export const index = new Router({

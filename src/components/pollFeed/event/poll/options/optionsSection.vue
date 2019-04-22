@@ -1,6 +1,6 @@
 <template>
     <div id="options-block">
-        <div class="option-container relative pointer" v-bind:class="{ opacity  : poll.votingOver, rightAnswer : correct_option, cursor : option.voted }" @click="vote(option.id, option.poll_id)" >
+        <div class="option-container relative pointer" v-bind:class="{ opacity  : poll.votingOver, rightAnswer : correct_option, cursor : option.voted }" @click="vote(option.id, option.poll_id, poll.type_of_poll)" >
             <div class="option-id">
                 <span class="span-id">{{option_index + 1}}</span> <span v-if="option.id === correctOption"></span>
             </div>
@@ -92,13 +92,13 @@
 
             },
 
-            vote(selected_variable, poll_id){
+            vote(selected_variable, poll_id, type_of_poll){
 
                 if(this.expanded){
 
                     if (!this.item.voted && !this.poll.votingOver) {
 
-                         this.$store.dispatch(`${this.$route.name}/createVote`, {data: {selected_variable, poll_id}});
+                        this.$store.dispatch(`${this.$route.name}/createVote`, {data: {selected_variable, poll_id,  type_of_poll}});
 
                     }
 

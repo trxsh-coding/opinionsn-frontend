@@ -10,8 +10,7 @@
     <div class="notification-body font-13">
       <span class="username pointer" @click="userLink"> {{ author.username }} </span>
       <span class="message"> {{ notification.message }} </span>
-       <span class="poll pointer" @click="notificationLink" v-if="true"> {{ pollName }} </span>
-       <!--<span class="poll pointer" @click="notificationLink"> Lorem, ipsum dolor. </span> -->
+       <span class="poll pointer" @click="pollLink(notification.targetId)" v-if="notification.targetId != 0"> {{ pollName }} </span>
       <time-trans class="timestamp" :time="notification.date"/>
     </div>
     <hr/>
@@ -53,32 +52,12 @@ export default {
 
   methods: {
     dismissNotification() {
-      console.log("dismissNotification() FIRED");
-
-      // let { initiatorId } = this.notification;
-
-      // this.$store.dispatch(
-      //     "",
-      //     initiatorId
-      //   );
     },
     userLink() {
       this.$router.push({ name: "user", params: { id: this.author.id } });
     },
-    notificationLink() {
-      let { eventType: type_of_poll, targetId: id } = this.notification;
-      let { author, userLink} = this;
-
-      if(type_of_poll === 'EXPLAIN_CREATED') {
-
-            this.$router.push({ name: "singlePoll", params: { id } });
-
-
-      } else {
-
-        userLink(author.id);
-
-      }
+      pollLink(targetId) {
+        this.$router.push({name: 'singlePoll', params: {id: targetId}})
 
     }
   },
@@ -90,13 +69,11 @@ export default {
     }
 
     let pollID = this.notification.targetId;
-    if(this.notification.targetId != 0) {
 
-      if (this.pollMap[pollID] === undefined) {
+      if (!this.pollMap[pollID] && this.notification.targetId != 0) {
         this.$store.dispatch("singlePoll/getNotificationPoll", pollID);
       }
 
-    }
   }
 
 

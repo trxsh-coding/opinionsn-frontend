@@ -65,8 +65,6 @@ export default {
 			let { eventType: type_of_poll } = this.notification;
 			let { author, userLink, dismissNotification } = this;
 
-			dismissNotification();
-
 			switch (type_of_poll) {
 				case "SUBSCRIBE":
 					userLink();
