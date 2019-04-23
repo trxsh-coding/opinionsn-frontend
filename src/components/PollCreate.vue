@@ -89,7 +89,7 @@
         <div class="option-block flex-column" v-for="(option, option_id) in pollForm.options" :key="option_id">
           <div class="option-row">
             <div class="option-input max-width relative">
-              <el-form-item class="max-width" :label="lstr('answer_text')" :prop="'options.' + option_id + '.description'" :rules="[{ required: true, message: lstr('enter_answer_text') , trigger: 'blur' }, { min: 2 , max: 25, message: 'Длина должна быть от 2 до 25 символов', trigger: 'blur' }]">
+              <el-form-item class="max-width" :label="lstr('answer_text')" :prop="'options.' + option_id + '.description'" :rules="[{ required: true, message: lstr('enter_answer_text') , trigger: 'blur' }, { min: 2 , max: 40, message: 'Длина должна быть от 2 до 40 символов', trigger: 'blur' }]">
                 <el-input type="textarea" autosize v-model="option.description"></el-input>
               </el-form-item>
             </div>
@@ -128,7 +128,7 @@
           </div>
         </el-form-item>
       </div>
-      <el-button class="save-button" @click="submitForm('pollForm')">
+      <el-button class="save-button"  :loading="loading" @click="submitForm('pollForm')">
 
         <lang-string :title="'publish'"/>
 
@@ -156,6 +156,7 @@
     name: "CreatePoll",
     data(){
       return{
+        loading:false,
         mainPicture:false,
         optionPicture:false,
         exception:false,
@@ -293,6 +294,7 @@
 
         this.$refs[formName].validate((valid) => {
           if (valid) {
+            this.loading = true;
             let {pollForm, pictures, optionPicture, exception} = this;
             let options = this.pollForm.options;
             for (let option of options) {
@@ -332,6 +334,7 @@
                 axios.post('/api/rest/quiz/create', bodyFormData, config)
                         .then(function(response){
                           if (response.status === 200) {
+                            this.loading = false;
                             this.$router.push({ name: 'pollFeed'})
                           }
                         }.bind(this))
@@ -342,6 +345,7 @@
                 axios.post('/api/rest/admin/blockchain/create', bodyFormData, config)
                         .then(function(response){
                           if (response.status === 200) {
+                            this.loading = false;
                             this.$router.push({ name: 'pollFeed'})
                           }
                         }.bind(this))

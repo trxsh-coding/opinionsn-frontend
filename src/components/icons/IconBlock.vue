@@ -13,13 +13,14 @@
            </slot>
            <slot name="icon-money">
                <icon-base
+                       v-if="poll.fund != 0"
                        fill="none"
                        :width="mobile && $route.name === 'voteFeed' ? 12 : 15"
                        :height="mobile && $route.name === 'voteFeed' ? 15 : 18"
                        :viewBox="mobile && $route.name === 'voteFeed' ? '0 0 14 18' : '0 0 15 18'"
                        icon-name="money">
-                   <icon-money /></icon-base>
-               <span>0</span>
+                   <icon-money /> </icon-base>
+               <span v-if="poll.fund != 0"> {{poll.fund}}</span>
            </slot>
 
            <slot name="icon-accept">

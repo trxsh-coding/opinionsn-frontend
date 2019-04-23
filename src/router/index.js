@@ -26,7 +26,7 @@ import CatalogFeed from '../components/CatalogFeed/Feed';
 import user from '../components/user/Page';
 import sidebar from '../components/mobile/sidebar';
 import {nprogress} from '../main.js'
-
+import notificationPage from '../components/notifications/notificationPage'
 Vue.use(Router);
 
 export const index = new Router({
@@ -124,6 +124,11 @@ export const index = new Router({
           path: 'voteFeed',
           name: 'voteFeed',
           component: VoteFeed,
+        },
+        {
+          path: 'notifications',
+          name: 'notifications',
+          component: notificationPage,
         },
         {
           path: 'search',

@@ -30,8 +30,15 @@
                         icon-name="search"><icon-search/>
                 </icon-base>
             </li>
-            <li class="nav__item">
-                <notification-feed class="main-icon notification_feed"/>
+            <li class="nav__item" @click="link('notifications')">
+                <el-badge :value="0">
+                <icon-base
+                        width="17"
+                        height="22"
+                        viewBox="0 0 17 23"
+                        icon-name="bell"><icon-bell />
+                </icon-base>
+            </el-badge>
             </li>
             <li class="nav__item" >
                 <avatar class="avatar-25x25" ></avatar>
@@ -180,9 +187,8 @@
 
             margin: 0px !important;
 
-
             .el-badge__content {
-
+                background-color: #FF5454;
                 border-radius: 30px;
                 color: #FFF;
                 display: inline-block;
@@ -197,7 +203,7 @@
             }
 
             .el-badge__content {
-
+                color: #FF5454;
                 position: absolute;
                 top: 3px !important;
                 right: 7px;

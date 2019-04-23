@@ -71,8 +71,8 @@
             width: 90px;
             height: 60px;
             background-repeat: no-repeat;
-            background-size: 30%;
             background-position: center;
+            background-size: cover;
             margin-bottom: 6px;
 
         }

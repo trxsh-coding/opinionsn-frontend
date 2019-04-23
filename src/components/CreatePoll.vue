@@ -137,30 +137,30 @@
                 </el-form-item>
             </div>
 
-            <div class="participants-poll" v-if="mainUser.authorities === 'ADMIN'">
+            <!--<div class="participants-poll" v-if="mainUser.authorities === 'ADMIN'">-->
 
-                <div class="amount-of-participants">
-                    <el-form-item :label="lstr('fund')">
-                        <el-input v-model="pollForm.fund">
+                <!--<div class="amount-of-participants">-->
+                    <!--<el-form-item :label="lstr('fund')">-->
+                        <!--<el-input v-model="pollForm.fund">-->
 
-                        </el-input>
-                    </el-form-item>
-                </div>
+                        <!--</el-input>-->
+                    <!--</el-form-item>-->
+                <!--</div>-->
 
-                <div class="price-of-poll flex-space-center">
-                    <el-form-item  :label="lstr('enter_amount_of_the_participants')">
-                        <el-input>
+                <!--<div class="price-of-poll flex-space-center">-->
+                    <!--<el-form-item  :label="lstr('enter_amount_of_the_participants')">-->
+                        <!--<el-input>-->
 
-                        </el-input>
-                    </el-form-item>
-                    <el-form-item  :label="lstr('enter_amount_of_the_participants')">
-                        <el-input>
+                        <!--</el-input>-->
+                    <!--</el-form-item>-->
+                    <!--<el-form-item  :label="lstr('enter_amount_of_the_participants')">-->
+                        <!--<el-input>-->
 
-                        </el-input>
-                    </el-form-item>
-                </div>
+                        <!--</el-input>-->
+                    <!--</el-form-item>-->
+                <!--</div>-->
 
-            </div>
+            <!--</div>-->
 
 
             <div class="options-header mb-10 flex-space-center">
@@ -184,7 +184,7 @@
                 <div class="option-block flex-column" v-for="(option, option_id) in pollForm.options" :key="option_id">
                     <div class="option-row">
                         <div class="option-input max-width relative">
-                            <el-form-item class="max-width" :label="lstr('answer_text')" :prop="'options.' + option_id + '.description'" :rules="[{ required: true, message: lstr('enter_answer_text') , trigger: 'blur' }, { min: 2 , max: 25, message: 'Длина должна быть от 2 до 25 символов', trigger: 'blur' }]">
+                            <el-form-item class="max-width" :label="lstr('answer_text')" :prop="'options.' + option_id + '.description'" :rules="[{ required: true, message: lstr('enter_answer_text') , trigger: 'blur' }, { min: 2 , max: 40, message: 'Длина должна быть от 2 до 40 символов', trigger: 'blur' }]">
                                 <el-input type="textarea" autosize v-model="option.description"></el-input>
                             </el-form-item>
                         </div>
@@ -223,8 +223,9 @@
                     </div>
                 </el-form-item>
             </div>
-            <el-button class="save-button" @click="submitForm('pollForm')">
-
+            <el-button class="save-button"
+                       @click="submitForm('pollForm')"
+                       :loading="loading">
                 <lang-string :title="'publish'"/>
 
             </el-button>
@@ -258,6 +259,8 @@
                 picture:'',
                 pictures:[],
                 date_poll:true,
+                fullscreenLoading: false,
+                loading:false,
                 pollForm: {
                     picture:'',
                     subject_header:'',
@@ -384,10 +387,10 @@
 
 
             submitForm(formName) {
-                console.log(this.optionPicture)
 
                 this.$refs[formName].validate((valid) => {
                     if (valid) {
+                        this.loading = true;
                         let {pollForm, pictures, optionPicture, exception} = this;
                         let options = this.pollForm.options;
                         for (let option of options) {
@@ -427,6 +430,7 @@
                                 axios.post('/api/rest/quiz/create', bodyFormData, config)
                                     .then(function(response){
                                         if (response.status === 200) {
+                                            this.loading = false;
                                             this.$router.push({ name: 'pollFeed'})
                                         }
                                     }.bind(this))
@@ -437,6 +441,7 @@
                                 axios.post('/api/rest/admin/blockchain/create', bodyFormData, config)
                                     .then(function(response){
                                         if (response.status === 200) {
+                                            this.loading = false;
                                             this.$router.push({ name: 'pollFeed'})
                                         }
                                     }.bind(this))
@@ -475,6 +480,12 @@
 </script>
 
 <style lang="scss" >
+
+    .el-loading-spinner .path {
+
+        stroke: #4B97B4;
+
+    }
     .poll-create-wrapper {
         .offchn__span {
 
@@ -500,6 +511,8 @@
             color: #4B97B4;
 
         }
+
+
         .save-button {
 
             padding: 9px 9px;      border-radius: 12px;

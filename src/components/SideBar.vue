@@ -27,8 +27,9 @@
           </icon-base>
         <a :class="{primary : $route.path==='/voteFeed'}"><lang-string :title="'opinions_feed'"/></a>
       </li>
-        <li class="hidden-xs-only pointer">
+        <router-link class-active="active" class="hidden-xs-only main-li pointer" tag="li" to="/notifications" >
             <icon-base
+                    :class="{secondary_path_only : $route.name==='notifications'} "
                     fill="none"
                     width="16"
                     height="21"
@@ -36,7 +37,7 @@
                     icon-name="bell"><icon-bell/>
             </icon-base>
             <a><lang-string :title="'notifications'"/></a>
-        </li>
+        </router-link>
 
       <router-link class-active="active" class="hidden-xs-only main-li pointer" tag="li" to="/bookmarkFeed">
             <icon-base
@@ -153,6 +154,16 @@ export default {
                 fill: #4B97B4;
 
             }
+    }
+
+    .secondary_path_only {
+        path {
+
+            fill: #4B97B4;
+
+        }
+
+
     }
     .is-fixed {
 
