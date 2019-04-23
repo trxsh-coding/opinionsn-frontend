@@ -137,15 +137,15 @@
                 </el-form-item>
             </div>
 
-            <!--<div class="participants-poll" v-if="mainUser.authorities === 'ADMIN'">-->
+            <div class="participants-poll" v-if="mainUser.authorities === 'ADMIN'">
 
-                <!--<div class="amount-of-participants">-->
-                    <!--<el-form-item :label="lstr('fund')">-->
-                        <!--<el-input v-model="pollForm.fund">-->
+                <div class="amount-of-participants">
+                    <el-form-item :label="lstr('fund')">
+                        <el-input v-model="pollForm.fund">
 
-                        <!--</el-input>-->
-                    <!--</el-form-item>-->
-                <!--</div>-->
+                        </el-input>
+                    </el-form-item>
+                </div>
 
                 <!--<div class="price-of-poll flex-space-center">-->
                     <!--<el-form-item  :label="lstr('enter_amount_of_the_participants')">-->
@@ -160,7 +160,7 @@
                     <!--</el-form-item>-->
                 <!--</div>-->
 
-            <!--</div>-->
+            </div>
 
 
             <div class="options-header mb-10 flex-space-center">
@@ -270,7 +270,7 @@
                     type_of_poll:'1',
                     end_date:'',
                     end_time:'',
-                    fund:'100',
+                    fund:'',
                     judges:[],
                     options:[
                         {
