@@ -31,6 +31,7 @@
 
 <script>
 import { mapState } from "vuex";
+import MugenScroll from 'vue-mugen-scroll'
 import { log } from "util";
 import timeTrans from "../timeTrans";
 import IconJudge from "../icons/IconJudge"
@@ -42,7 +43,8 @@ export default {
   components: {
     timeTrans,
     IconJudge,
-    IconBase
+    IconBase,
+    MugenScroll
   },
   computed: {
     ...mapState("globalStore", {
@@ -82,7 +84,7 @@ export default {
         this.$router.push({name: 'singlePoll', params: {id: targetId}})
     }
   },
-  created() {
+  mounted() {
     let userID = this.notification.initiatorId;
 
     if (!this.userMap[userID]) {

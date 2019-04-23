@@ -15,11 +15,11 @@
                         class="mr-10"
                         v-model="pollForm.type_of_poll"
                         active-value="2"
-                        inactive-value="0"
+                        inactive-value="1"
                         active-color="#4B97B4"
                         inactive-color="#A1ABB0">
                 </el-switch>
-                <span class="uppercase offchn__span" v-if="pollForm.type_of_poll == 0">OFF-CHAIN</span>
+                <span class="uppercase offchn__span" v-if="pollForm.type_of_poll == 1">OFF-CHAIN</span>
                 <span class="uppercase bchn__span" v-if="pollForm.type_of_poll == 2">blockchain</span>
             </el-form-item>
 
@@ -267,7 +267,7 @@
                     subject:'',
                     tags:'',
                     description:'',
-                    type_of_poll:'0',
+                    type_of_poll:'1',
                     end_date:'',
                     end_time:'',
                     fund:'100',
@@ -425,7 +425,7 @@
                                     'content-type': 'multipart/mixed'
                                 }
                             }
-                            if(pollForm.type_of_poll == 0) {
+                            if(pollForm.type_of_poll == 1) {
 
                                 axios.post('/api/rest/quiz/create', bodyFormData, config)
                                     .then(function(response){

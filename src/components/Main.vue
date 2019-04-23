@@ -276,8 +276,12 @@ export default {
   mounted() {
     this.$store.dispatch("userPage/getMainUser");
 
-    this.getNotifications();
+      if(Object.keys(this.mainUser).length != 0) {
 
+          this.getNotifications();
+
+
+      }
     window.addEventListener("scroll", this.onScroll);
 
     this.$store.dispatch("lang/getLocaleString");
@@ -287,7 +291,7 @@ export default {
     window.removeEventListener("scroll", this.onScroll);
   },
 
-  created() {},
+
 
   beforeCreate() {},
   components: {
