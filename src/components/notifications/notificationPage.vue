@@ -1,10 +1,13 @@
 <template>
     <div>
-        <div class="notification-section">
+        <div class="notification-section" v-if="messages.length">
             <feed-block :notification="notification"
                         v-for="(notification, index) in messages"
                         :key="index"/>
 
+        </div>
+        <div class="nope" v-else>
+            <span>Уведомлений нет</span>
         </div>
         <mugen-scroll :handler="load" :should-handle="!loaded">
             <div class="loading" ><span>Loading</span></div>
@@ -59,5 +62,16 @@
         background: #FFFFFF;
         border-radius: 12px;
 
+    }
+    .nope {
+
+        text-align: center;
+        span {
+
+            color: #69777F;
+            font-family: Roboto;
+            font-style: normal;
+
+        }
     }
 </style>
