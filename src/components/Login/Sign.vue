@@ -47,12 +47,12 @@
                 <div class="footer-items">
                     <div class="registration__item">
 
-                        <lang-string :title="'dont_have_account'" /> <router-link to="/registration"> <lang-string :title="'registration'" /></router-link>
+                        <lang-string :title="'dont_have_account'" /> <router-link :to="getPath('registration')"> <lang-string :title="'registration'" /></router-link>
 
                     </div>
                     <div class="reset__item">
 
-                        <lang-string :title="'forgot_your_password?'" /> <router-link to="/restore"> <lang-string :title="'login_reset'" /></router-link>
+                        <lang-string :title="'forgot_your_password?'" /> <router-link :to="'restore'"> <lang-string :title="'login_reset'" /></router-link>
 
                     </div>
                 </div>
@@ -90,6 +90,15 @@
 
         methods: {
 
+
+            pollNotify() {
+                this.$message('Чтобы поучаствовать в опросе, необходимо зарегистрироваться');
+            },
+
+            getPath(name){
+              return {name, query: this.$route.query}
+            },
+
             submitSign(form){
                 let loginFormData = new FormData();
                 loginFormData.append('field_email', form.email);
@@ -98,7 +107,16 @@
                     .then(response => {
                         if (response.status === 200) {
                             this.$store.commit("authentication/setAuthenticated", true)
-                            this.$router.push({ name: 'pollFeed'})
+                            if(this.$route.query.redirectToPoll){
+
+                                this.$router.push({ name: 'singlePoll',params:{id:this.$route.query.redirectToPoll}})
+
+                            } else {
+
+                                this.$router.push({ path: '/'})
+
+
+                            }
                         }
 
                     })
@@ -141,6 +159,15 @@
 
 
             }
+
+        },
+        mounted(){
+
+          if(this.$route.query.redirectToPoll){
+
+              this.pollNotify()
+
+          }
 
         },
         mixins:[langMixin],

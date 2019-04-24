@@ -117,7 +117,7 @@
                 axios.post('/api/auth/register', registerFormData)
                     .then(response => {
                         if (response.status === 200) {
-                            this.$router.push({ name: 'sign'})
+                            this.$router.push({ name: 'sign', query: this.$route.query})
                         }
 
                     })

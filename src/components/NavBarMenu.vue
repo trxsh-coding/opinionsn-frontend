@@ -10,7 +10,7 @@
           icon-name="plus"><icon-plus />
         </icon-base>
       </router-link>
-    <notification-feed class="main-icon notification_feed"/>
+    <notification-feed class="main-icon notification_feed" />
     <div class="flex-align-center mr-10 ">
 
       <el-popover
@@ -121,7 +121,6 @@ export default {
     }),
   },
   methods: {
-
     userLogout() {
 
       axios.get('/api/auth/logout')
@@ -322,7 +321,6 @@ export default {
      .el-badge__content {
        background-color: #FF5454;
        border-radius: 10px;
-       color: #FF5454;
        display: inline-block;
        font-size: 8px;
        height: 13px;

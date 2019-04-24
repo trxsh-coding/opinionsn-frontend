@@ -19,19 +19,28 @@
 
                 let now = moment(new Date())
 
-                let diff = moment.duration(now.diff(transformed_time))
+                let isToday = now.format("YYYYMMdd") === moment(transformed_time).format("YYYYMMdd");
 
 
-                if(diff.asHours() > 24) {
+                console.log(transformed_time)
+                console.log(now)
+                // let diff = moment.duration(now.diff(transformed_time))
 
-                    return moment(transformed_time).fromNow(true)
 
+                // if(diff.asHours() > 24) {
+                //     return `${moment(transformed_time).fromNow(true)} : ${diff.asHours()}`
+                //
+                //
+                // } else {
+                //
+                //     return `${moment(transformed_time).format('HH:mm')} : ${diff.asHours()}`
+                //
+                //     //return moment(transformed_time).format('HH:mm')
+                //
+                // }
 
-                } else {
+                return isToday ? moment(transformed_time).format('HH:mm') : moment(transformed_time).fromNow();
 
-                    return moment(transformed_time).format('HH:mm')
-
-                }
 
             }
 

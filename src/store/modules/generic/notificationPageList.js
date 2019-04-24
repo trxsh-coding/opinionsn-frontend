@@ -3,8 +3,30 @@ export const notificationPageList = (sc, listUrl) => class extends sc {
 
     onListReceived({state, commit, dispatch}, payload={}){
 
-        console.log(payload);
-        commit('notificationStore/updateStores', payload.responseData,{root: true})
+            if(state.page != 0) {
+
+
+                commit('notificationStore/prependToStores', payload.responseData,{root: true})
+
+
+            } else {
+
+                commit('notificationStore/updateStores', payload.responseData,{root: true})
+
+
+            }
+
+        commit('setNextPage');
+
+        if(!payload.responseData.length) {
+
+            commit('setLoadedTrigger')
+
+        }
+
+        console.log(payload.responseData)
+
+
 
         let usersToVerify = {};
         let pollsToVerify = {}
@@ -29,9 +51,19 @@ export const notificationPageList = (sc, listUrl) => class extends sc {
 
     };
 
+    setNextPage(state){
 
+        state.page += 1;
 
-    listItemsAction({commit, dispatch}, payload={}){
+    }
+
+    setLoadedTrigger(state){
+
+        state.loaded = true;
+
+    }
+
+    listItemsAction({state, commit, dispatch}, payload={}){
 
 
         let {customUrl, data={}, method='get', onSuccess = 'onListReceived', params} = payload;
@@ -55,14 +87,12 @@ export const notificationPageList = (sc, listUrl) => class extends sc {
 
      let {responseData : items} = payload;
 
+     if (!items.length) {
 
-
-     if (payload.length) {
-
-         dispatch('longPollingAction')
+         dispatch('longPollingAction');
 
      } else {
-         state.counter++ ;
+         state.counter+= 1 ;
          state.items = [...state.items, ...items];
          commit('notificationStore/appendToStores', items, {root: true})
          dispatch('longPollingAction')
@@ -79,6 +109,7 @@ export const notificationPageList = (sc, listUrl) => class extends sc {
             ...super.state,
             page: 0,
             read:true,
+            loaded:false,
             counter:0,
             items:[]
 
@@ -89,7 +120,8 @@ export const notificationPageList = (sc, listUrl) => class extends sc {
     get mutations(){
         return {
             ...super.mutations,
-
+            setNextPage: this.setNextPage,
+            setLoadedTrigger: this.setLoadedTrigger
         }
     }
 

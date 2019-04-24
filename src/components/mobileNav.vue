@@ -31,8 +31,9 @@
                 </icon-base>
             </li>
             <li class="nav__item" @click="link('notifications')">
-                <el-badge :value="0">
+                <el-badge :value="counter" :hidden="hidden_badge">
                 <icon-base
+                        :class="{secondary_path_only : $route.name==='notifications'} "
                         width="17"
                         height="22"
                         viewBox="0 0 17 23"
@@ -64,16 +65,32 @@
     import IconMenu from './icons/IconMenu'
     import avatar from './user/Event/modules/mainUserAvatar'
     import notificationFeed from './notifications/feed'
+    import {mapState} from 'vuex'
     export default {
         name: "mobileNav",
         props:['mobile_hide'],
         data(){
             return {
 
+                hidden:false
+
             }
         },
         computed: {
 
+            ...mapState("notificationPage", {
+                counter: s => s.counter
+            }),
+
+            hidden_badge:function () {
+
+                if(this.counter == 0) {
+
+                    return this.hidden = true;
+
+                }
+
+            }
 
         },
         methods: {
@@ -126,6 +143,16 @@
                     fill: #FFFFFF;
 
                 }
+
+        }
+
+        .secondary_path_only {
+            path {
+
+                fill: #4B97B4;
+
+            }
+
 
         }
 
@@ -203,7 +230,6 @@
             }
 
             .el-badge__content {
-                color: #FF5454;
                 position: absolute;
                 top: 3px !important;
                 right: 7px;

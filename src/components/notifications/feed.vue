@@ -1,7 +1,7 @@
 <template>
-  <el-dropdown trigger="click" @click="clearCounter">
-    <el-badge :value="0" class="item pointer">
-      <icon-base class="" width="17" height="22" viewBox="0 0 17 22" icon-name="bell">
+  <el-dropdown trigger="click" @click.native="clearCounter" >
+    <el-badge :value=" counter > 9 ? '9+': counter " :hidden="hidden_badge" class="item pointer" >
+      <icon-base class="" width="17" height="22" viewBox="0 0 17 22" icon-name="bell" >
         <icon-bell/>
       </icon-base>
     </el-badge>
@@ -28,7 +28,7 @@ import feedBlock from "./feedBlock";
 import IconBase from "../icons/IconBase.vue";
 import IconBell from "../icons/IconBell.vue";
 import { mapState } from "vuex";
-
+import axios from 'axios'
 export default {
   name: "feed",
   components: {
@@ -38,24 +38,15 @@ export default {
   },
   data() {
     return {
-      // notification: {
-      //   date: "2019-04-19T11:17:12.478+0000",
-      //   eventType: "UNSUBSCRIBE",
-      //   id: 0,
-      //   initiatorId: 3,
-      //   message: "От вас отписался",
-      //   read: false,
-      //   received: false,
-      //   targetId: 0,
-      //   userId: 2
-      // }
+
+      hidden:false
+
     };
   },
   methods: {
 
     clearCounter(){
-
-      this.$store.commit('notificationPage/clearCounter')
+      this.$store.dispatch('notificationPage/readInitialNotifications')
 
     }
 
@@ -64,9 +55,30 @@ export default {
     ...mapState("notificationStore", {
       messages: s => s.messages
     }),
-    ...mapState('notificationPage',{
-      counter : state => state.counter
+
+    ...mapState("notificationPage", {
+      counter: s => s.counter
     }),
+
+    hidden_badge:function () {
+
+      if(this.counter == 0) {
+
+        return this.hidden = true;
+
+      }
+
+    }
+
+  },
+  created(){
+    axios.get(`/messages/notification/unReadCount`)
+            .then(response => {
+                this.$store.commit('notificationPage/setNotificationsCount', response.data)
+
+            })
+
+
   }
 };
 </script>
@@ -78,7 +90,7 @@ export default {
 
 .notification-dropdown {
   @media only screen and (max-device-width : 700px) {
-    width: 90%;  
+    width: 90%;
   }
   width: 488px;
   padding: 12px;

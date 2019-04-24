@@ -67,6 +67,18 @@
     import langString from '../langString.vue'
     import {localString} from '../../utils/localString.js'
     import moment from 'moment'
+
+    const pad = (num, len=2, char='0') => {
+      let init = `${num}`;
+
+      while (init.length < (len*char.length)){
+          init = `${char}${init}`
+      }
+
+      return init;
+    };
+
+
     export default {
         name: "IconBlock",
         props:['item', 'poll'],
@@ -120,7 +132,7 @@
                     let output = `${Math.floor(duration.asDays())} ${this.lstr('days')}`;
                     this.currentTime = output;
                 } else if (duration > 1 && duration.asHours()<24  ){
-                    let output = `${duration.hours()}:${duration.minutes()}:${duration.seconds()}`
+                    let output = `${pad(duration.hours())}:${pad(duration.minutes())}:${pad(duration.seconds())}`
                     this.currentTime = output;
 
                 } else {

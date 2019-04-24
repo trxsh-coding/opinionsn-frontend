@@ -6,7 +6,7 @@
                         :key="index"/>
 
         </div>
-        <mugen-scroll :handler="load" >
+        <mugen-scroll :handler="load" :should-handle="!loaded">
             <div class="loading" ><span>Loading</span></div>
         </mugen-scroll>
     </div>
@@ -16,7 +16,7 @@
     import feedBlock from './feedBlock'
     import {mapState} from  'vuex'
     import MugenScroll from 'vue-mugen-scroll'
-
+    import axios from 'axios'
     export default {
         name: "notificationPage",
         components:{feedBlock, MugenScroll},
@@ -25,21 +25,28 @@
                 messages: s => s.messages
             }),
             ...mapState('notificationPage',{
-                counter : state => state.counter
+                counter : state => state.counter,
+                page : state => state.page,
+                loaded : state => state.loaded
+
             }),
         },
         methods: {
 
             load(){
+                if(this.page) {
 
-                this.$store.dispatch('notificationPage/loadNextPage')
+                    this.$store.dispatch('notificationPage/list', {customUrl : `/messages/notification/${this.page}`});
 
+
+                }
             },
 
         },
 
         mounted(){
 
+            this.$store.dispatch('notificationPage/readInitialNotifications')
 
         }
     }

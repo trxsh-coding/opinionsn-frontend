@@ -59,7 +59,7 @@ mixins:[langMixin],
 
       routeFn(pathName){
 
-          this.$router.push({name: pathName})
+          this.$router.push({name: pathName, query: {...this.$route.query}})
 
       },
 

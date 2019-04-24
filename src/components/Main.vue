@@ -50,7 +50,7 @@
                 <nav-bar-menu :user="main_user"></nav-bar-menu>
               </el-col>
               <div class="btn-block" v-if="!main_user_id">
-                  <router-link to="/sign">
+                  <router-link :to="getPathWithPoll('sign')">
                       <el-button class="login-btn">
                           <lang-string :title="'login'"/>
                       </el-button>
@@ -98,13 +98,13 @@
                             icon-name="close"><icon-close/>
                     </icon-base>
                     </span>
-                    <router-link to="/sign">
+                    <router-link :to="getPathWithPoll('sign')">
                         <el-button class="login-btn">
                             <lang-string :title="'login'"/>
                         </el-button>
                     </router-link>
 
-                    <router-link to="/registration">
+                    <router-link :to="getPathWithPoll('registration')">
                         <lang-string class="registration-span" :title="'registration'"/>
                     </router-link>
                 </div>
@@ -119,7 +119,7 @@
     </el-container>
 
 
-      <notification-side-feed/>
+      <notification-side-feed v-if="!mobile"/>
 
       <!-- <div class="notification-container flex-column">
         <notification-block :notification="notification"  v-for="notification in notifications" />
@@ -191,6 +191,10 @@ export default {
       isAuthenticated: s => s.isAuthenticated
     }),
 
+      ...mapState("notificationPage", {
+          page: s => s.page
+      }),
+
     ...mapState("globalStore", {
       userMap: ({ users }) => users
     }),
@@ -211,8 +215,21 @@ export default {
     //     duration: 0
     //   });
     // },
+  getPathWithPoll(name){
+
+      let [,pageName,pollId] = this.$route.path.split('/');
+
+      if (pageName === 'singlePoll'){
+          return {name, query: {redirectToPoll: pollId}}
+      } else {
+          return {name}
+      }
+
+  },
+
+
     getNotifications() {
-      this.$store.dispatch("notificationPage/list");
+      this.$store.dispatch("notificationPage/list", {customUrl : `/messages/notification/${this.page}`});
     },
     onScroll() {
       const currentScrollPosition =

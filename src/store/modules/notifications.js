@@ -3,10 +3,34 @@ import {notificationPageList} from "./generic/notificationPageList";
 
 
 
-class notificationStore extends notificationPageList(VuexStore, '/messages/notification/0') {
+class notificationStore extends notificationPageList(VuexStore, '/messages/notification/') {
 
 
 
+    readInitialNotifications({state, commit, dispatch}, payload={}){
+
+
+        let {customUrl = '/messages/notification/read', data={}, method='post'} = payload;
+
+        VuexStore.apiRequest(customUrl, data,{commit, dispatch, onSuccess: 'setReadNotifications', successType: 'mutation'}, method);
+
+
+    };
+
+
+
+    setReadNotifications(state){
+
+        state.read = true;
+        state.counter = 0;
+
+    }
+
+    setNotificationsCount(state, payload){
+
+        state.counter = payload;
+
+    }
 
     /** MUTATIONS **/
 
@@ -26,13 +50,16 @@ class notificationStore extends notificationPageList(VuexStore, '/messages/notif
         return {
             ...super.mutations,
             closeNotification: this.closeNotification,
-            clearCounter: this.clearCounter
+            clearCounter: this.clearCounter,
+            setReadNotifications: this.setReadNotifications,
+            setNotificationsCount: this.setNotificationsCount
         }
     }
 
     get actions(){
         return {
             ...super.actions,
+            readInitialNotifications: this.readInitialNotifications
         }
     }
 

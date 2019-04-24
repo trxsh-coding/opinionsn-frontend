@@ -39,6 +39,10 @@ export const notificationStore  =  {
             state.messages = [...payload, ...state.messages ];
         },
 
+        prependToStores: function(state, payload){
+            state.messages = [...state.messages, ...payload ];
+        },
+
         updateStores: function (state, payload) {
 
             state.messages = payload;
