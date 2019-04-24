@@ -32,7 +32,7 @@ export const pollActions = sc => class extends sc {
 
         let {customUrl = `/api/rest/quiz/getOne/${payload}`, data={}, method='get'} = payload;
 
-        sc.apiRequest(customUrl, data,{commit, dispatch, onSuccess: 'onVoteCreated', successType: 'action'}, method);
+        sc.apiRequest(customUrl, data,{commit, dispatch, onSuccess:null, successType: 'action'}, method);
 
     }
 

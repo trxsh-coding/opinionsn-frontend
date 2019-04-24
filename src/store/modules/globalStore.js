@@ -205,7 +205,25 @@ export const globalStore  =  {
          */
         processStores: function({commit, state}, payload)  {
             commit('updateStore', payload);
+        },
+
+
+
+        verifyStore: function({state, dispatch}, payload){
+
+            let {entries, storeName} = payload;
+
+            let store = state[storeName];
+
+            for (let [id, {action, payload}] of Object.entries(entries)){
+                if (!store[id]){
+                    dispatch(action, payload, {root: true});
+                }
+            }
+
         }
+
+
     },
 
 };

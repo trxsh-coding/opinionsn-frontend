@@ -3,13 +3,15 @@
     <div class="notification-header flex-space-center">
       <div
         v-if="notification.initiatorId != mainUser.id"
+
         class="avatar avatar-30x30 pointer"
         :style="{ 'background-image': 'url(' + author.path_to_avatar + ')' } "
         @click="userLink">
       </div>
+
       <icon-base
               class="mr-10"
-              v-if="notification.initiatorId == mainUser.id"
+              v-if="notification.initiatorId == notification.userId"
               fill="#152D3A"
               width="24"
               height="24"
@@ -69,7 +71,9 @@ export default {
     },
     pollName: function() {
       let { targetId } = this.notification;
-      let poll_name = this.pollMap[targetId].subject;
+      let poll =  this.pollMap[targetId] || {};
+      let poll_name = poll.subject;
+
       return poll_name;
     }
   },
@@ -87,27 +91,6 @@ export default {
   mounted() {
     let userID = this.notification.initiatorId;
 
-    if (!this.userMap[userID]) {
-
-      axios.get(`/api/rest/getUserById/${userID}`)
-              .then(response => {
-                if (response.status === 200) {
-                  this.$store.commit('globalStore/updateStores', response.data)
-                }
-              })
-    }
-
-    let pollID = this.notification.targetId;
-
-      if (!this.pollMap[pollID] && this.notification.targetId != 0) {
-        axios.get(`/api/rest/quiz/getOne/${pollID}`)
-                .then(response => {
-                  if (response.status === 200) {
-                    this.$store.commit('globalStore/updateStores', response.data)
-                  }
-
-                })
-      }
 
   }
 

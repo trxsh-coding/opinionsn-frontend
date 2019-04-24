@@ -3,7 +3,24 @@ export const notificationPageList = (sc, listUrl) => class extends sc {
 
     onListReceived({state, commit, dispatch}, payload={}){
 
+        console.log(payload);
         commit('notificationStore/updateStores', payload.responseData,{root: true})
+
+        let usersToVerify = {};
+        let pollsToVerify = {}
+        payload.responseData.forEach(({userId, initiatorId, targetId})=>{
+            usersToVerify[userId] = {action: 'userPage/getNotificationInitiator',payload: userId};
+            usersToVerify[initiatorId] =  {action: 'userPage/getNotificationInitiator',payload: initiatorId};
+            if (targetId){
+                pollsToVerify[targetId] =  {action: 'singlePoll/getNotificationPoll',payload: targetId};
+            }
+         });
+
+
+        dispatch('globalStore/verifyStore', {entries: usersToVerify, storeName: 'users'}, {root: true});
+
+        dispatch('globalStore/verifyStore', {entries: pollsToVerify, storeName: 'polls'}, {root: true});
+
 
         let {customUrl = '/messages/notification', data={}, method='get'} = payload;
 
@@ -11,6 +28,8 @@ export const notificationPageList = (sc, listUrl) => class extends sc {
 
 
     };
+
+
 
     listItemsAction({commit, dispatch}, payload={}){
 

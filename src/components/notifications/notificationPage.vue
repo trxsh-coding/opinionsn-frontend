@@ -32,10 +32,14 @@
 
             load(){
 
-                alert('hi')
-
+                this.$store.dispatch('notificationPage/loadNextPage')
 
             },
+
+        },
+
+        mounted(){
+
 
         }
     }

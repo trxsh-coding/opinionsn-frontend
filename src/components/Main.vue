@@ -203,14 +203,14 @@ export default {
     }
   },
   methods: {
-    notification(response) {
-      this.$notify({
-        title: "Уведомление",
-        message: response[0].message,
-        position: "bottom-right",
-        duration: 0
-      });
-    },
+    // notification(response) {
+    //   this.$notify({
+    //     title: "Уведомление",
+    //     message: response[0].message,
+    //     position: "bottom-right",
+    //     duration: 0
+    //   });
+    // },
     getNotifications() {
       this.$store.dispatch("notificationPage/list");
     },
@@ -276,7 +276,7 @@ export default {
   mounted() {
     this.$store.dispatch("userPage/getMainUser");
 
-      if(Object.keys(this.mainUser).length != 0) {
+      if(Object.keys(this.mainUser).length == 0) {
 
           this.getNotifications();
 
