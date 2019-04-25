@@ -185,8 +185,8 @@ export const pollActions = sc => class extends sc {
             {root: true}
 
         );
-
         commit('onVoteLoading', false)
+
         sc.apiRequest(`/api/rest/quiz/getOne/${poll_id}`, {},{commit, onSuccess: 'updatePayloadItem'}, 'get');
 
 

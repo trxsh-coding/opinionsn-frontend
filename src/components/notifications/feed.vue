@@ -88,6 +88,12 @@ export default {
   display: none;
 }
 
+.notification-feed-block:nth-last-child {
+
+  border: none !important;
+
+}
+
 .notification-dropdown {
   @media only screen and (max-device-width : 700px) {
     width: 90%;

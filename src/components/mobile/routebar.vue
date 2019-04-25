@@ -1,7 +1,7 @@
 <template lang="html">
     <aside class="routebar">
         <ul>
-            <router-link class-active="active" class="hidden-sm-and-up mobile relative" tag="li" to="/add">
+            <router-link class-active="active" class="hidden-sm-and-up mobile relative" tag="li" to="/add" v-if="mainUser.authorities === 'ADMIN'">
                 <icon-base
                         :class="{secondary : $route.path==='/add'} "
                         class="add-poll"

@@ -1,5 +1,5 @@
 <template>
-    <div id="options-block" >
+    <div id="options-block" v-loading="blockchain_loading">
         <div class="option-container relative pointer" v-bind:class="{ opacity  : poll.votingOver, rightAnswer : correct_option, cursor : option.voted }" @click="vote(option.id, option.poll_id, poll.type_of_poll)" >
             <div class="option-id">
                 <span class="span-id">{{option_index + 1}}</span> <span v-if="option.id === correctOption"></span>
@@ -27,7 +27,6 @@
     export default {
         data(){
             return {
-                loading:false,
                 radio: '1',
                 mobile:this.$root.mobile
 
@@ -67,9 +66,10 @@
 
             },
 
-            loadingSpinner: function () {
+            loading: function(){
 
-               return  this.blockChainLoading;
+                let loading;
+                return loading = this.option.loading
 
             },
 
@@ -103,10 +103,16 @@
             },
 
 
-           async vote(selected_variable, poll_id, type_of_poll){
+           vote(selected_variable, poll_id, type_of_poll){
                 if(this.expanded){
+                    this.loading = true;
                     if (!this.item.voted && !this.poll.votingOver) {
-                        this.$store.dispatch(`${this.$route.name}/createVote`, {data: {selected_variable, poll_id,  type_of_poll}})
+
+                        this.$store.dispatch(`${this.$route.name}/createVote`, {data: {selected_variable, poll_id,  type_of_poll}}).then(() => {
+
+                            this.loading = false;
+
+                        })
 
 
                     }
@@ -115,7 +121,7 @@
 
                 this.$emit('expand', this.expanded = true);
 
-            },
+           },
 
         },
 
