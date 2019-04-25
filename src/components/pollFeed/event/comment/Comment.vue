@@ -161,8 +161,11 @@
             padding-top: 5px;
             display: flex;
             align-items: center;
-            justify-content: end;
+            svg {
 
+                flex-shrink: 0;
+
+            }
             .span__item {
 
                 max-width: 330px;

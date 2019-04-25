@@ -218,6 +218,11 @@
                 display: flex;
                 align-items: center;
                 justify-content: end;
+                svg {
+
+                    flex-shrink: 0;
+
+                }
                 .info__item {
 
 
@@ -227,6 +232,7 @@
                     overflow-x: hidden;
                     text-overflow: ellipsis;
                     padding-left: 6px;
+                    line-height: 18px;
 
                 }
                 .hide {

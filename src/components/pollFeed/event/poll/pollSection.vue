@@ -25,7 +25,7 @@
             </div>
             <div class="picture-block" v-if="poll.picture" :style="{ 'background-image': 'url(' + poll.picture + ')' } "></div>
         </div>
-        <div class="options" >
+        <div class="options " >
 
             <div class="options-section" v-for="(option, option_index) in senitizedOptions" :key="option_index">
 
@@ -211,7 +211,6 @@
 
             vote(selected_variable, poll_id){
                 if(this.expanded){
-                    console.log('there')
                     if (!this.item.voted) {
                         if(this.$route.name === 'pollFeed') {
 

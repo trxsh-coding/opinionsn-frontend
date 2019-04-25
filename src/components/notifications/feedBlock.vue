@@ -2,23 +2,33 @@
   <div class="notification-feed-block  flex-between">
     <div class="notification-header flex-space-center">
       <div
-        v-if="notification.initiatorId != mainUser.id"
-
+        v-if="notification.eventType === 'SUBSCRIBE' || notification.eventType === 'UNSUBSCRIBE' || notification.eventType === 'NEW_COMMENT' || notification.eventType === 'NEW_PREDICTION' || notification.eventType === 'EXPLAIN_CREATED'"
         class="avatar avatar-30x30 pointer"
         :style="{ 'background-image': 'url(' + author.path_to_avatar + ')' } "
         @click="userLink">
       </div>
+      <div class="judgement">
+        <icon-base
+                class="mr-10"
+                v-if="notification.initiatorId == notification.userId"
+                fill="#152D3A"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                icon-name="judge"><icon-judge/>
+        </icon-base>
+      </div>
 
       <icon-base
-              class="mr-10"
-              v-if="notification.initiatorId == notification.userId"
-              fill="#152D3A"
-              width="24"
-              height="24"
-              viewBox="0 0 24 24"
-              icon-name="judge"><icon-judge/>
+              v-if="notification.eventType === 'NEW_USER'"
+              fill="none"
+              class="icon logo"
+              width="35"
+              height="35"
+              viewBox="0 0 40 30"
+              icon-name="logo"><icon-logo />
       </icon-base>
-      <span class="username pointer" @click="userLink"  v-if="notification.initiatorId != mainUser.id"> {{ author.username }} </span>
+      <span class="username pointer" @click="userLink"  v-if="notification.eventType === 'SUBSCRIBE' || notification.eventType === 'UNSUBSCRIBE' || notification.eventType === 'NEW_COMMENT' || notification.eventType === 'NEW_PREDICTION' || notification.eventType === 'EXPLAIN_CREATED' "> {{ author.username }} </span>
       <div class="notification-body font-13">
         <span class="message"> {{ notification.message }} </span>
         <span class="poll pointer" @click="pollLink(notification.targetId)" v-if="notification.targetId != 0"> {{ pollName }} </span>
@@ -37,6 +47,8 @@ import MugenScroll from 'vue-mugen-scroll'
 import { log } from "util";
 import timeTrans from "../timeTrans";
 import IconJudge from "../icons/IconJudge"
+import IconLogo from "../icons/IconLogo"
+
 import IconBase from "../icons/IconBase"
 import axios from 'axios'
 export default {
@@ -46,6 +58,7 @@ export default {
     timeTrans,
     IconJudge,
     IconBase,
+    IconLogo,
     MugenScroll
   },
   computed: {
@@ -106,7 +119,7 @@ export default {
 }
 .notification-feed-block:last-of-type {
 
-  border-bottom: none;
+  border-bottom: none !important;
 
 }
 .notification-feed-block {
@@ -132,11 +145,15 @@ export default {
   }
   .notification-header {
 
-    svg {
-      flex-shrink: 0;
-      padding: 5px;
-      background: #dbdbdb;
-      border-radius: 50px;
+    .judjment {
+
+      svg {
+        flex-shrink: 0;
+        padding: 5px;
+        background: #dbdbdb;
+        border-radius: 50px;
+
+      }
 
     }
 

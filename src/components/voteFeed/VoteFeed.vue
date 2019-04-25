@@ -3,6 +3,9 @@
 
     <div class="vote-feed">
         <!-- Ошибка -->
+        <div class="have-no-subscribers mt-10" v-if="!items.length">
+            <span>Лента мнений будет доступна после появления подписок</span>
+        </div>
         <!--<div v-if="state.error">-->
             <!--Что-то сломалось:-->
             <!--{{state.error}}-->
@@ -20,7 +23,7 @@
 
 
         <!-- Всё ок -->
-        <div class="feed relative">
+        <div class="feed relative" v-else>
             <div class="filter-section flex mb-10" >
                 <swiper :options="swiperOption" class="category-section">
                     <swiper-slide class="followings-block " v-for="following in followings">
@@ -123,7 +126,18 @@
             margin-left: 0px;
 
         }
+        .have-no-subscribers {
 
+            text-align: center;
+            span {
+
+                color: #69777F;
+                font-family: Roboto;
+                font-style: normal;
+
+            }
+
+        }
         .followings-block {
 
             width: 75px !important;

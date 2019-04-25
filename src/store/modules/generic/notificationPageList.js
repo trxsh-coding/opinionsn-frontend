@@ -38,9 +38,9 @@ export const notificationPageList = (sc, listUrl) => class extends sc {
             }
          });
 
+        console.log(usersToVerify)
 
         dispatch('globalStore/verifyStore', {entries: usersToVerify, storeName: 'users'}, {root: true});
-
         dispatch('globalStore/verifyStore', {entries: pollsToVerify, storeName: 'polls'}, {root: true});
 
 

@@ -3,7 +3,7 @@
 
     <div id="poll-wrapper">
         <div class="category-wrapper">
-            <h1 class="catalog-header"><lang-string :title="'Topics'"/></h1>
+            <h1 class="catalog-header"><lang-string :title="'topics'"/></h1>
             <div class="category-section">
                 <div class="category-block pointer" @click="categoryLink(category.id)" v-for="category in categories">
                     <div class="category-image relative"  :style="{ 'background-image': 'url(' + category.path_to_image + ')' } " >
@@ -94,7 +94,7 @@
             }
 
             .category-subject {
-
+                padding: 3px;
 
                 border-radius: 12px;
                 display: flex;
@@ -108,10 +108,10 @@
                     font-family: Roboto;
                     font-style: normal;
                     font-weight: 500;
-                    font-size: 15px;
+                    font-size: 20px;
                     line-height: normal;
                     text-align: center;
-                    color: #152D3A;
+                    color: #FFFFFF;
                     text-transform: uppercase;
 
 
@@ -120,7 +120,15 @@
             }
 
 
+            .overlay {
 
+                width: 100%;
+                height: 100%;
+                background: #000;
+                opacity: 0.3;
+                border-radius: 12px;
+
+            }
 
             .category-block {
 
@@ -135,12 +143,12 @@
                 height: 112px;
                 background-color: #FFFFFF;
                 border-radius: 12px;
-                background-size: 20%;
+                background-size: cover;
                 background-repeat: no-repeat;
                 background-position: center;
                 display: flex;
                 justify-content: center;
-                align-items: flex-end;
+                align-items: center;
                 h1 {
                     font-family: Roboto;
                     font-style: normal;

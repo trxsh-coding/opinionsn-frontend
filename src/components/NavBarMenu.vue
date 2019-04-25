@@ -128,8 +128,10 @@ export default {
                 this.$store.commit("authentication/setAuthenticated", false)
                 this.$store.commit("userPage/removeUser");
                 this.$store.commit("pollFeed/clearFeed");
-                this.$store.commit("globalStore/clearStores")
-                //TODO доделать логаут
+                this.$store.commit("globalStore/clearStores");
+                this.$store.commit("notificationStore/clearStores");
+
+                  //TODO доделать логаут
               }.bind(this))
       this.$router.push('/login');
 

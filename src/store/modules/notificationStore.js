@@ -48,8 +48,14 @@ export const notificationStore  =  {
             state.messages = payload;
 
 
-        }
+        },
 
+
+        clearStores:function (state) {
+
+            state.messages = []
+
+        }
 
     },
     actions: {
