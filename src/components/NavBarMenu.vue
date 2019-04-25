@@ -1,7 +1,7 @@
 <template lang="html">
   <div id="navbar-profile-menu">
 
-      <router-link to="/add">
+      <router-link to="/add" v-if="mainUser.authorities === 'ADMIN'">
         <icon-base
           class="main-icon"
           width="15"
@@ -116,7 +116,13 @@ export default {
     ...mapState('userPage',{
       main_user_id : state => state.main_user_id
     }),
-    ...mapState('notificationPage',{
+      ...mapState('globalStore', {
+
+          mainUser: ({mainUser}) => mainUser
+
+      }),
+
+      ...mapState('notificationPage',{
       counter : state => state.counter
     }),
   },

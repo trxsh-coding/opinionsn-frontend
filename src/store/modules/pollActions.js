@@ -5,7 +5,7 @@ export const pollActions = sc => class extends sc {
     /* ACTIONS */
     createVote({commit, dispatch}, payload={}){
 
-        console.log(payload)
+        commit('onVoteLoading', true)
 
         let typeOfVote;
 
@@ -186,7 +186,9 @@ export const pollActions = sc => class extends sc {
 
         );
 
+        commit('onVoteLoading', false)
         sc.apiRequest(`/api/rest/quiz/getOne/${poll_id}`, {},{commit, onSuccess: 'updatePayloadItem'}, 'get');
+
 
     }
 
@@ -278,6 +280,11 @@ export const pollActions = sc => class extends sc {
 
     }
 
+    onVoteLoading(state, payload) {
+
+        state.blockchain_loading = payload
+
+    }
 
     setFilterId(state, id){
 
@@ -386,6 +393,16 @@ export const pollActions = sc => class extends sc {
 
 
     /* CONSTRUCTORS */
+
+    get state(){
+        return {
+            ...super.state,
+
+            blockchain_loading:false
+
+        }
+    }
+
     get actions(){
         return {
             ...super.actions,
@@ -416,7 +433,8 @@ export const pollActions = sc => class extends sc {
             clearFeed: this.clearFeed,
             setFilterId: this.setFilterId,
             clearFilter : this.clearFilter,
-            resetFeedPage: this.resetFeedPage
+            resetFeedPage: this.resetFeedPage,
+            onVoteLoading: this.onVoteLoading
         }
     }
 

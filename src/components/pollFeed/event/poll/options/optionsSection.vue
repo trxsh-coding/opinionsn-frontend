@@ -1,5 +1,5 @@
 <template>
-    <div id="options-block" v-loading="loading">
+    <div id="options-block" >
         <div class="option-container relative pointer" v-bind:class="{ opacity  : poll.votingOver, rightAnswer : correct_option, cursor : option.voted }" @click="vote(option.id, option.poll_id, poll.type_of_poll)" >
             <div class="option-id">
                 <span class="span-id">{{option_index + 1}}</span> <span v-if="option.id === correctOption"></span>
@@ -47,6 +47,9 @@
                 user : state => state.User
             }),
 
+            ...mapState('pollFeed',{
+                blockChainLoading : state => state.blockchain_loading
+            }),
             selected_option: function () {
 
                 let {item, option} = this;
@@ -61,6 +64,12 @@
 
                 }
 
+
+            },
+
+            loadingSpinner: function () {
+
+               return  this.blockChainLoading;
 
             },
 
@@ -93,14 +102,11 @@
 
             },
 
-            vote(selected_variable, poll_id, type_of_poll){
 
+           async vote(selected_variable, poll_id, type_of_poll){
                 if(this.expanded){
-
                     if (!this.item.voted && !this.poll.votingOver) {
-                        this.loading = true;
-                        this.$store.dispatch(`${this.$route.name}/createVote`, {data: {selected_variable, poll_id,  type_of_poll}});
-                        this.loading = false;
+                        this.$store.dispatch(`${this.$route.name}/createVote`, {data: {selected_variable, poll_id,  type_of_poll}})
 
 
                     }
@@ -112,6 +118,7 @@
             },
 
         },
+
 
         mounted(){
 
