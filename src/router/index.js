@@ -62,7 +62,7 @@ export const index = new Router({
       component: Restore,
     },
     {
-      path: '/token/*',
+      path: '/token',
       name: 'token',
       component: Token,
       children: [
