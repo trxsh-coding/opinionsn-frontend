@@ -46,6 +46,12 @@
             },
 
 
+            id:function () {
+
+                return this.$route.params.id
+
+            }
+
 
         },
         methods: {
@@ -63,7 +69,7 @@
 
         mounted(){
 
-            this.$store.dispatch(`userPage/list`, {customUrl: `/api/rest/getUserById/${this.$route.params.id}`});
+            this.$store.dispatch(`userPage/list`, {customUrl: `/api/rest/getUserById/${this.id}`});
 
         }
     }

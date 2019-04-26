@@ -6,7 +6,7 @@
         :style="{ 'background-image': 'url(' + author.path_to_avatar + ')' } "
         @click="userLink"
       />
-      <span class="username">{{ author.username }}</span>
+      <span class="username pointer">{{ author.username }}</span>
       <el-button
         class="close-btn"
         @click="dismissNotification"
@@ -17,21 +17,72 @@
       />
     </div>
 
-    <div class="notification-body v-center pointer" @click="notificationLink">
-			{{ notification.message }}
-		</div>
-
+    <div class="notification-body v-center pointer" >
+      <div class="flex-align-center"  v-if="notification.eventType == 'BLOCKCHAIN_PREDICTION_FINISHED'">
+        <span class="message" @click="pollLink(notification.targetId)">
+          Блокчейн прогноз завершен
+        </span>
+      </div>
+      <div class="flex-align-center"  v-if="notification.eventType == 'BLOCKCHAIN_PREDICTION_WINNER'">
+          <span class="message" @click="pollLink(notification.targetId)">
+            Вы победили в блокчейн прогнозе
+          </span>
+      </div>
+      <div  class="flex-align-center"   v-if="notification.eventType == 'CREATE_BLOCKCHAIN_PREDICTION'">
+        <span class="message" @click="pollLink(notification.targetId)"> Создал блокчейн прогноз</span>
+      </div>
+      <div class="flex-align-center"  v-if="notification.eventType == 'APPOINTMENT_OF_JUDGES'">
+        <span class="message" @click="pollLink(notification.targetId)"> Вы назначены судьёй</span>
+      </div>
+      <div  class="flex-align-center" v-if="notification.eventType == 'SUBSCRIBE'">
+        <span class="message" >
+          Подписался на вас
+        </span>
+      </div>
+      <div  class="flex-align-center" v-if="notification.eventType == 'UNSUBSCRIBE'">
+        <span class="message" >
+        Отписался от вас
+        </span>
+      </div>
+      <div   :targetId="notification.targetId" class="flex-align-center"  v-if="notification.eventType == 'EXPLAIN_CREATED'">
+        <span class="message" @click="pollLink(notification.targetId)">
+          Пояснил в вашем опросе
+        </span>
+      </div>
+      <div class="flex-align-center"   v-if="notification.eventType == 'NEW_POLL'">
+        <span class="message" @click="pollLink(notification.targetId)">
+          Создал новый опрос
+        </span>
+        <div>
+          <div class="flex-align-center" v-if="notification.eventType == 'NEW_USER'">
+        <span class="message" >
+          Добро пожаловать в Opinion!
+        </span>
+          </div>
+          <div  class="flex-align-center" :message="notification.message"  v-if="notification.eventType == 'NEW_COMMENT'">
+        <span class="message" @click="pollLink(notification.targetId)">
+          Ответил под Вашим пояснением
+        </span>
+          </div>
+          <div class="flex-align-center"  v-if="notification.eventType == 'NEW_PREDICTION'">
+        <span class="message" @click="pollLink(notification.targetId)">
+          Создал новый прогноз
+        </span>
+          </div>
+      </div>
+	  </div>
+    </div>
   </div>
 </template>
 
 <script>
 import { mapState } from "vuex";
-import axios from "axios";
-import { log } from "util";
-// import func from '../../../vue-temp/vue-editor-bridge';
 export default {
   name: "notificationBlock",
   props: ["notification"],
+  components: {
+
+  },
   data: function() {
     return {
 
@@ -39,77 +90,52 @@ export default {
   },
   computed: {
     ...mapState("globalStore", {
-      userMap: ({ users }) => users
+      userMap: ({ users }) => users,
+      pollMap: ({ polls }) => polls
+
     }),
+
 
     author: function() {
       let { notification, userMap } = this;
 
       let userID = notification.initiatorId;
 
-      let author = userMap[userID];
+      let author = userMap[userID] || {};
 
       return author;
+    },
+
+    pollName: function() {
+      let { targetId } = this.notification;
+      let poll =  this.pollMap[targetId] || {};
+      let poll_name = poll.subject || {};
+      if(poll_name.length < 30) {
+        return `«${poll_name}»`
+      } else {
+        return `«${poll_name.slice(0, 30)}...»`
+
+      }
+
     }
   },
 
   methods: {
 
-		dismissNotification() {
-          this.$store.commit('notificationPage/closeNotification', this.$vnode.key)
-		},
+    dismissNotification() {
+      this.$store.commit('notificationPage/closeNotification', this.$vnode.key)
+    },
     userLink() {
-      this.$router.push({ name: "user", params: { id: author.id } });
-		},
-		notificationLink() {
-			let { eventType: type_of_poll } = this.notification;
-			let { author, userLink, dismissNotification } = this;
+      this.$router.push({name: "user", params: {id: this.author.id}});
+    },
 
-			switch (type_of_poll) {
-				case "SUBSCRIBE":
-					userLink();
-					break;
-
-				case "UNSUBSCRIBE":
-					userLink();
-					break;
-
-				case "CREATE_BLOCKCHAIN_PREDICTION":
-					this.$router.push({ name: "poll", params: { id } })
-					break;
-
-				case "APPOINTMENT_OF_JUDGES":
-					this.$router.push({ name: "poll", params: { id } })
-					break;
-
-				case "BLOCKCHAIN_PREDICTION_FINISHED":
-					this.$router.push({ name: "poll", params: { id } })
-					break;
-
-				case "BLOCKCHAIN_PREDICTION_WINNER":
-					this.$router.push({ name: "poll", params: { id } })
-					break;
-
-				default:
-					break;
-			};
-
-		}
-  },
-  mounted(){
-
-    let userID = this.notification.initiatorId;
-
-    if (this.userMap[userID] === undefined) {
-
-      this.$store.dispatch(
-              "userPage/getNotificationInitiator",
-              userID
-      );
-
+    pollLink(targetId) {
+      this.$router.push({name: 'singlePoll', params: {id: targetId}})
     }
+
+
   }
-};
+}
 </script>
 
 <style lang="scss">
@@ -137,8 +163,17 @@ export default {
   }
 
   .notification-body {
-    flex: 0 0 54px;
     overflow: hidden;
+    span {
+
+      font-family: Roboto;
+      font-style: normal;
+      font-weight: 500;
+      line-height: 20px;
+      font-size: 15px;
+      color: #152D3A;
+
+    }
   }
 }
 </style>

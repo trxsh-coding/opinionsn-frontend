@@ -1,4 +1,4 @@
-<template lang="html">
+ш<template lang="html">
     <div id="sign" class="sign">
         <div class="sign-section">
             <div class="navbar-brand">
@@ -104,10 +104,8 @@
 
 
 
-                        let er = this.errors;
-                        for (let {field: f, errorCode: v} of error.response.data){
-                            er[f] = v
-                        }
+                         this.errors = error.response.data.errorCode
+
                         this.$forceUpdate();
                     });
 

@@ -21,7 +21,7 @@
     export default {
         data(){
             return {
-                id: this.$route.params.id
+
             }
         },
         props:['feed'],
@@ -31,6 +31,11 @@
                 items: s => s.items
             }),
 
+            id:function () {
+
+                return this.$route.params.id
+
+            }
 
         },
         methods: {
@@ -40,13 +45,14 @@
 
         },
 
+        beforeRouteUpdate(to, from, next) {
+            this.$store.dispatch(`singlePoll/list`, {customUrl: `/api/rest/quiz/getOne/${this.id}`});
+            next()
+        },
 
         mounted(){
             this.$store.dispatch(`singlePoll/list`, {customUrl: `/api/rest/quiz/getOne/${this.id}`});
-
         },
-
-
 
 
         components: {

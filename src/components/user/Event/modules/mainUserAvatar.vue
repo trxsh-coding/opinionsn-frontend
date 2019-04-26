@@ -1,5 +1,6 @@
 <template>
     <div class="main-user-avatar" :style="{ 'background-image': 'url('+ user.path_to_avatar + ')' }" @click="userLink(user.id)"></div>
+
 </template>
 
 <script>

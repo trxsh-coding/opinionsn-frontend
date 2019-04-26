@@ -1,40 +1,19 @@
 <template>
   <div class="notification-feed-block  flex-between">
-    <div class="notification-header flex-space-center">
-      <div
-        v-if="notification.eventType === 'SUBSCRIBE' || notification.eventType === 'UNSUBSCRIBE' || notification.eventType === 'NEW_COMMENT' || notification.eventType === 'NEW_PREDICTION' || notification.eventType === 'EXPLAIN_CREATED'"
-        class="avatar avatar-30x30 pointer"
-        :style="{ 'background-image': 'url(' + author.path_to_avatar + ')' } "
-        @click="userLink">
-      </div>
-      <div class="judgement">
-        <icon-base
-                class="mr-10"
-                v-if="notification.initiatorId == notification.userId"
-                fill="#152D3A"
-                width="24"
-                height="24"
-                viewBox="0 0 24 24"
-                icon-name="judge"><icon-judge/>
-        </icon-base>
-      </div>
-
-      <icon-base
-              v-if="notification.eventType === 'NEW_USER'"
-              fill="none"
-              class="icon logo"
-              width="35"
-              height="35"
-              viewBox="0 0 40 30"
-              icon-name="logo"><icon-logo />
-      </icon-base>
-      <span class="username pointer" @click="userLink"  v-if="notification.eventType === 'SUBSCRIBE' || notification.eventType === 'UNSUBSCRIBE' || notification.eventType === 'NEW_COMMENT' || notification.eventType === 'NEW_PREDICTION' || notification.eventType === 'EXPLAIN_CREATED' "> {{ author.username }} </span>
-      <div class="notification-body font-13">
-        <span class="message"> {{ notification.message }} </span>
-        <span class="poll pointer" @click="pollLink(notification.targetId)" v-if="notification.targetId != 0"> {{ pollName }} </span>
-      </div>
+    <div class="notification-body">
+      <blockchain-prediction-finished class="flex-align-center" :pollName="pollName" v-if="notification.eventType == 'BLOCKCHAIN_PREDICTION_FINISHED'"/>
+      <blockchain-prediction-winner class="flex-align-center" :pollName="pollName" v-if="notification.eventType == 'BLOCKCHAIN_PREDICTION_WINNER'"/>
+      <create-blockhain-prediction class="flex-align-center" :pollName="pollName" v-if="notification.eventType == 'BLOCKCHAIN_PREDICTION_FINISHED'"/>
+      <new-blockchain-prediction  class="flex-align-center" :pollName="pollName" :author="author" v-if="notification.eventType == 'CREATE_BLOCKCHAIN_PREDICTION'"/>
+      <appointment-of-judges class="flex-align-center" :pollName="pollName" v-if="notification.eventType == 'APPOINTMENT_OF_JUDGES'"/>
+      <subscribe :author="author" class="flex-align-center" v-if="notification.eventType == 'SUBSCRIBE'"/>
+      <unsubscribe :author="author" class="flex-align-center" v-if="notification.eventType == 'UNSUBSCRIBE'"/>
+      <explain-created :pollName="pollName" :message="notification.message" :author="author" :targetId="notification.targetId" class="flex-align-center"  v-if="notification.eventType == 'EXPLAIN_CREATED'"/>
+      <new-poll :pollName="pollName" class="flex-align-center" :targetId="notification.targetId" :author="author" v-if="notification.eventType == 'NEW_POLL'"/>
+      <new-user class="flex-align-center" v-if="notification.eventType == 'NEW_USER'"/>
+      <new-comment  class="flex-align-center" :message="notification.message" :pollName="pollName" :author="author" v-if="notification.eventType == 'NEW_COMMENT'"/>
+      <new-prediction class="flex-align-center" :pollName="pollName" :author="author" v-if="notification.eventType == 'NEW_PREDICTION'"/>
     </div>
-
     <div class="event-time">
       <time-trans class="timestamp" :time="notification.date"/>
     </div>
@@ -42,24 +21,41 @@
 </template>
 
 <script>
+import BlockchainPredictionFinished from "./typeOfEvent/BLOCKCHAIN_PREDICTION_FINISHED"
+import BlockchainPredictionWinner from "./typeOfEvent/BLOCKCHAIN_PREDICTION_WINNER"
+import CreateBlockhainPrediction from "./typeOfEvent/CREATE_BLOCKCHAIN_PREDICTION"
+import AppointmentOfJudges from "./typeOfEvent/APPOINTMENT_OF_JUDGES"
+import Subscribe from "./typeOfEvent/SUBSCRIBE"
+import Unsubscribe from "./typeOfEvent/UNSUBSCRIBE"
+import ExplainCreated from "./typeOfEvent/EXPLAIN_CREATED"
+import NewBlockchainPrediction from "./typeOfEvent/NEW_BLOCKCHAIN_PREDICTION"
+import NewPoll from "./typeOfEvent/NEW_POLL"
+import NewUser from "./typeOfEvent/NEW_USER"
+import NewComment from "./typeOfEvent/NEW_COMMENT"
+import NewPrediction from "./typeOfEvent/NEW_PREDICTION"
 import { mapState } from "vuex";
 import MugenScroll from 'vue-mugen-scroll'
-import { log } from "util";
 import timeTrans from "../timeTrans";
-import IconJudge from "../icons/IconJudge"
-import IconLogo from "../icons/IconLogo"
 
-import IconBase from "../icons/IconBase"
-import axios from 'axios'
 export default {
   name: "feedBlock",
   props: ["notification"],
   components: {
     timeTrans,
-    IconJudge,
-    IconBase,
-    IconLogo,
-    MugenScroll
+    MugenScroll,
+    BlockchainPredictionFinished,
+    BlockchainPredictionWinner,
+    CreateBlockhainPrediction,
+    AppointmentOfJudges,
+    Subscribe,
+    Unsubscribe,
+    ExplainCreated,
+    NewBlockchainPrediction,
+    NewPoll,
+    NewUser,
+    NewComment,
+    NewPrediction
+
   },
   computed: {
     ...mapState("globalStore", {
@@ -85,9 +81,13 @@ export default {
     pollName: function() {
       let { targetId } = this.notification;
       let poll =  this.pollMap[targetId] || {};
-      let poll_name = poll.subject;
+      let poll_name = poll.subject || [];
+      if(poll_name.length > 30) {
+        return `«${poll_name.slice(0, 30)}...»`
+      } else {
+        return `«${poll_name}»`;
+      }
 
-      return poll_name;
     }
   },
 
@@ -97,9 +97,7 @@ export default {
     userLink() {
       this.$router.push({ name: "user", params: { id: this.author.id } });
     },
-      pollLink(targetId) {
-        this.$router.push({name: 'singlePoll', params: {id: targetId}})
-    }
+
   },
   mounted() {
     let userID = this.notification.initiatorId;
@@ -168,6 +166,14 @@ export default {
     font-weight: 700;
     color: #152d3a;
     padding-right: 6px;
+  }
+  .poll {
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 13px;
+    line-height: 15px;
+    color: #152D3A;
   }
 
   .notification-body {

@@ -96,7 +96,7 @@ export const globalStore  =  {
 
             let map = state.users[user_id];
 
-            state.mainUser = map;h
+            state.mainUser = map;
 
 
         },
