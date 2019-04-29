@@ -226,8 +226,6 @@ export const globalStore  =  {
 
             commit('notificationPage/setLoading', false, {root: true})
 
-            commit('setMetrikaUserID',)
-
         }
 
 
