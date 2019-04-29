@@ -57,7 +57,7 @@ Vue.use(Element, {
 // Яндекс метрика
 
 Vue.use(VueYandexMetrika, {
-  id: "53480629",
+  id: 53480629,
   router: router,
   env: process.env.NODE_ENV,
   debug: true
