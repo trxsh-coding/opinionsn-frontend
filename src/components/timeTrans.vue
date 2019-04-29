@@ -22,8 +22,6 @@
                 let isToday = now.format("YYYYMMdd") === moment(transformed_time).format("YYYYMMdd");
 
 
-                console.log(transformed_time)
-                console.log(now)
                 // let diff = moment.duration(now.diff(transformed_time))
 
 
