@@ -98,9 +98,6 @@ export const globalStore  =  {
 
             state.mainUser = map;
 
-            this.$metrika.setUserID(user_id);
-
-
         },
 
 
