@@ -74,6 +74,14 @@ body {
 
 }
 
+.flex-space-start {
+
+  display: flex;
+  align-items: start;
+  justify-content: space-between;
+
+}
+
 .flex-column-center {
 
   display: flex;
@@ -234,6 +242,24 @@ body {
   text-transform: lowercase;
 
 }
+// Pictures
+
+.picture-30x30 {
+  width: 30px;
+  height: 30px;
+  background-size: 50% 50%;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.picture-42x42 {
+  width: 42px;
+  height: 42px;
+  background-size: 50% 50%;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
 //Avatars
 
 .avatar-42x42 {
@@ -403,6 +429,10 @@ body {
   padding-bottom: 10px;
 }
 
+.mt-40 {
+  margin-top: 40px;
+}
+
 .mt-15 {
   margin-top: 15px;
 }
@@ -423,6 +453,10 @@ body {
 
 .mt-10 {
   margin-top: 10px;
+}
+
+.mb-40 {
+  margin-bottom: 40px;
 }
 
 .mb-15 {
