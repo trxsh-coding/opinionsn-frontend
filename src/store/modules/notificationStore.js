@@ -53,7 +53,7 @@ export const notificationStore  =  {
 
         clearStores:function (state) {
 
-            state.messages = []
+            state.messages = [];
 
         }
 

@@ -22,7 +22,6 @@ export class VuexStore {
         });
 
 
-        commit('setLoading', true);
         return (isGet ? instance[method](url, axiosParams) : instance[method](url, requestData, axiosParams)).then(resp => {
 
             let {status, data} = resp;
@@ -48,8 +47,6 @@ export class VuexStore {
                 commit('onError', data);
             }
 
-            commit('setLoading', false);
-
         }).catch(ex=> {
 
             setTimeout(()=>
@@ -70,9 +67,6 @@ export class VuexStore {
     };
 
 
-    setLoading(state, payload=true){
-        state.loading = payload;
-    };
 
 
 

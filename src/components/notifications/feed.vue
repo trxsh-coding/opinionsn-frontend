@@ -5,7 +5,7 @@
         <icon-bell/>
       </icon-base>
     </el-badge>
-    <el-dropdown-menu class="notification-dropdown flex-column" slot="dropdown" v-if="messages.length > 0">
+    <el-dropdown-menu class="notification-dropdown flex-column" slot="dropdown" v-if="messages" v-loading="!loading">
     <!-- <el-dropdown-menu class="notification-dropdown flex-column" slot="dropdown" v-if="false"> -->
       <feed-block
         :notification="notification"
@@ -57,7 +57,9 @@ export default {
     }),
 
     ...mapState("notificationPage", {
-      counter: s => s.counter
+      counter: s => s.counter,
+      loading: s => s.loading
+
     }),
 
     hidden_badge:function () {

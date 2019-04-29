@@ -1,11 +1,24 @@
 <template>
   <div class="notification-block flex-column">
     <div class="notification-header flex-align-center mb-6">
+      <div class="notification-new-user flex-align-center"  v-if="notification.eventType === 'NEW_USER'">
+        <icon-base
+                fill="none"
+                class="icon logo"
+                width="35"
+                height="35"
+                viewBox="0 0 40 30"
+                icon-name="logo"><icon-logo />
+        </icon-base>
+        <span class="username">Opiniosn</span>
+      </div>
       <div
+         v-if="notification.eventType != 'NEW_USER'"
         class="avatar avatar-30x30 pointer"
         :style="{ 'background-image': 'url(' + author.path_to_avatar + ')' } "
         @click="userLink"
-      />
+      >
+      </div>
       <span class="username pointer">{{ author.username }}</span>
       <el-button
         class="close-btn"
@@ -18,70 +31,71 @@
     </div>
 
     <div class="notification-body v-center pointer" >
-      <div class="flex-align-center"  v-if="notification.eventType == 'BLOCKCHAIN_PREDICTION_FINISHED'">
+      <div class="flex-align-center"  v-if="notification.eventType === 'BLOCKCHAIN_PREDICTION_FINISHED'">
         <span class="message" @click="pollLink(notification.targetId)">
           Блокчейн прогноз завершен
         </span>
       </div>
-      <div class="flex-align-center"  v-if="notification.eventType == 'BLOCKCHAIN_PREDICTION_WINNER'">
+      <div class="flex-align-center"  v-if="notification.eventType === 'BLOCKCHAIN_PREDICTION_WINNER'">
           <span class="message" @click="pollLink(notification.targetId)">
             Вы победили в блокчейн прогнозе
           </span>
       </div>
-      <div  class="flex-align-center"   v-if="notification.eventType == 'CREATE_BLOCKCHAIN_PREDICTION'">
+      <div  class="flex-align-center"   v-if="notification.eventType === 'CREATE_BLOCKCHAIN_PREDICTION'">
         <span class="message" @click="pollLink(notification.targetId)"> Создал блокчейн прогноз</span>
       </div>
-      <div class="flex-align-center"  v-if="notification.eventType == 'APPOINTMENT_OF_JUDGES'">
+      <div class="flex-align-center"  v-if="notification.eventType === 'APPOINTMENT_OF_JUDGES'">
         <span class="message" @click="pollLink(notification.targetId)"> Вы назначены судьёй</span>
       </div>
-      <div  class="flex-align-center" v-if="notification.eventType == 'SUBSCRIBE'">
+      <div  class="flex-align-center" v-if="notification.eventType === 'SUBSCRIBE'">
         <span class="message" >
           Подписался на вас
         </span>
       </div>
-      <div  class="flex-align-center" v-if="notification.eventType == 'UNSUBSCRIBE'">
+      <div  class="flex-align-center"  v-if="notification.eventType ==='NEW_COMMENT'">
+            <span class="message" @click="pollLink(notification.targetId)">
+              Ответил под Вашим пояснением
+            </span>
+      </div>
+      <div  class="flex-align-center" v-if="notification.eventType === 'UNSUBSCRIBE'">
         <span class="message" >
         Отписался от вас
         </span>
       </div>
-      <div   :targetId="notification.targetId" class="flex-align-center"  v-if="notification.eventType == 'EXPLAIN_CREATED'">
+      <div    class="flex-align-center"  v-if="notification.eventType === 'EXPLAIN_CREATED'">
         <span class="message" @click="pollLink(notification.targetId)">
           Пояснил в вашем опросе
         </span>
       </div>
-      <div class="flex-align-center"   v-if="notification.eventType == 'NEW_POLL'">
+      <div class="flex-align-center"  v-if="notification.eventType === 'NEW_PREDICTION'">
+            <span class="message" @click="pollLink(notification.targetId)">
+              Создал новый прогноз
+            </span>
+      </div>
+      <div class="flex-align-center"   v-if="notification.eventType === 'NEW_POLL'">
         <span class="message" @click="pollLink(notification.targetId)">
           Создал новый опрос
         </span>
-        <div>
-          <div class="flex-align-center" v-if="notification.eventType == 'NEW_USER'">
-        <span class="message" >
-          Добро пожаловать в Opinion!
-        </span>
-          </div>
-          <div  class="flex-align-center" :message="notification.message"  v-if="notification.eventType == 'NEW_COMMENT'">
-        <span class="message" @click="pollLink(notification.targetId)">
-          Ответил под Вашим пояснением
-        </span>
-          </div>
-          <div class="flex-align-center"  v-if="notification.eventType == 'NEW_PREDICTION'">
-        <span class="message" @click="pollLink(notification.targetId)">
-          Создал новый прогноз
-        </span>
-          </div>
       </div>
-	  </div>
+          <div class="flex-align-center" v-if="notification.eventType === 'NEW_USER'">
+            <span class="message" >
+              {{notification.message}}
+            </span>
+          </div>
     </div>
   </div>
 </template>
 
 <script>
 import { mapState } from "vuex";
+import IconBase from '../icons/IconBase'
+import IconLogo from '../icons/IconLogo'
 export default {
   name: "notificationBlock",
   props: ["notification"],
   components: {
-
+  IconBase,
+  IconLogo
   },
   data: function() {
     return {

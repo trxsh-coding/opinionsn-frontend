@@ -3,6 +3,8 @@ export const notificationPageList = (sc, listUrl) => class extends sc {
 
     onListReceived({state, commit, dispatch}, payload={}){
 
+            commit('setLoading', true);
+
             if(state.page != 0) {
 
 
@@ -24,8 +26,6 @@ export const notificationPageList = (sc, listUrl) => class extends sc {
 
         }
 
-        console.log(payload.responseData)
-
 
 
         let usersToVerify = {};
@@ -37,8 +37,6 @@ export const notificationPageList = (sc, listUrl) => class extends sc {
                 pollsToVerify[targetId] =  {action: 'singlePoll/getNotificationPoll',payload: targetId};
             }
          });
-
-        console.log(usersToVerify)
 
         dispatch('globalStore/verifyStore', {entries: usersToVerify, storeName: 'users'}, {root: true});
         dispatch('globalStore/verifyStore', {entries: pollsToVerify, storeName: 'polls'}, {root: true});
@@ -57,9 +55,21 @@ export const notificationPageList = (sc, listUrl) => class extends sc {
 
     }
 
+    setDefaultPage(state){
+
+        state.page = 0;
+
+    }
+
     setLoadedTrigger(state){
 
         state.loaded = true;
+
+    }
+
+    setLoading(state, payload) {
+
+        state.loading = payload;
 
     }
 
@@ -92,9 +102,11 @@ export const notificationPageList = (sc, listUrl) => class extends sc {
          dispatch('longPollingAction');
 
      } else {
-         state.counter+= 1 ;
          state.items = [...state.items, ...items];
-         commit('notificationStore/appendToStores', items, {root: true})
+         if(items[0].eventType != 'NEW_USER'){
+             state.counter+= 1 ;
+             commit('notificationStore/appendToStores', items, {root: true})
+         }
          dispatch('longPollingAction')
 
      }
@@ -111,7 +123,9 @@ export const notificationPageList = (sc, listUrl) => class extends sc {
             read:true,
             loaded:false,
             counter:0,
-            items:[]
+            items:[],
+            loading:false
+
 
         }
     }
@@ -121,7 +135,9 @@ export const notificationPageList = (sc, listUrl) => class extends sc {
         return {
             ...super.mutations,
             setNextPage: this.setNextPage,
-            setLoadedTrigger: this.setLoadedTrigger
+            setLoadedTrigger: this.setLoadedTrigger,
+            setLoading: this.setLoading,
+            setDefaultPage: this.setDefaultPage
         }
     }
 

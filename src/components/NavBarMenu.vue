@@ -136,9 +136,19 @@ export default {
                 this.$store.commit("pollFeed/clearFeed");
                 this.$store.commit("globalStore/clearStores");
                 this.$store.commit("notificationStore/clearStores");
+                this.$store.commit("notificationPage/setDefaultPage");
 
                   //TODO доделать логаут
-              }.bind(this))
+              })
+
+          .catch((error) => {
+              this.$store.commit("authentication/setAuthenticated", false)
+              this.$store.commit("userPage/removeUser");
+              this.$store.commit("pollFeed/clearFeed");
+              this.$store.commit("globalStore/clearStores");
+              this.$store.commit("notificationStore/clearStores");
+              this.$store.commit("notificationPage/setDefaultPage");
+          });
       this.$router.push('/login');
 
     },

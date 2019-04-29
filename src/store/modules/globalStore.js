@@ -209,7 +209,7 @@ export const globalStore  =  {
 
 
 
-        verifyStore: function({state, dispatch}, payload){
+        verifyStore: function({state, dispatch, commit}, payload){
 
             let {entries, storeName} = payload;
 
@@ -220,6 +220,8 @@ export const globalStore  =  {
                     dispatch(action, payload, {root: true});
                 }
             }
+
+            commit('notificationPage/setLoading', false, {root: true})
 
         }
 
