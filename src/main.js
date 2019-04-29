@@ -59,9 +59,22 @@ Vue.use(VueYandexMetrika, {
   id: 53480629,
   router: router,
   env: process.env.NODE_ENV,
-  debug: true
+  debug: true,
+  options: {
+    webvisor: true
+  }
   // other options
 })
+
+// Vue.use(VueYandexMetrika, {
+//   id: 53480629,
+//   router: router,
+//   env: 'production',
+//   options: {
+//     webvisor: true
+//   }
+//   // other options
+// })
 
 
 export const nprogress = new NProgress(  '.nprogress-container' );
