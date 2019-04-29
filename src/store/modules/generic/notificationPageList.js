@@ -102,11 +102,22 @@ export const notificationPageList = (sc, listUrl) => class extends sc {
          dispatch('longPollingAction');
 
      } else {
+         let usersToVerify = {};
+         let pollsToVerify = {}
+         payload.responseData.forEach(({userId, initiatorId, targetId})=>{
+             usersToVerify[userId] = {action: 'userPage/getNotificationInitiator',payload: userId};
+             usersToVerify[initiatorId] =  {action: 'userPage/getNotificationInitiator',payload: initiatorId};
+             if (targetId){
+                 pollsToVerify[targetId] =  {action: 'singlePoll/getNotificationPoll',payload: targetId};
+             }
+         });
+
+         dispatch('globalStore/verifyStore', {entries: usersToVerify, storeName: 'users'}, {root: true});
+         dispatch('globalStore/verifyStore', {entries: pollsToVerify, storeName: 'polls'}, {root: true});
+
          state.items = [...state.items, ...items];
-         if(items[0].eventType != 'NEW_USER'){
-             state.counter+= 1 ;
-             commit('notificationStore/appendToStores', items, {root: true})
-         }
+         state.counter+= 1 ;
+         commit('notificationStore/appendToStores', items, {root: true})
          dispatch('longPollingAction')
 
      }

@@ -4,7 +4,7 @@
             <avatar  :author="author" />
             <div class="notification-text">
                 <span class="username">{{author.username}}</span>
-                <span class="message">под вашим пояснением вопроса</span>
+                <span class="message">под вашим пояснением опроса</span>
                 <span class="poll">{{pollName}}</span>
                 <span class="message">оставил(а) комментарий: <i>{{message}}</i></span>
             </div>
