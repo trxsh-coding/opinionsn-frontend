@@ -297,7 +297,6 @@ export default {
 
   },
   mounted() {
-      console.log(this)
       if(Object.keys(this.mainUser).length == 0) {
 
           this.getNotifications();
