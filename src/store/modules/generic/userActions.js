@@ -112,7 +112,7 @@ export const userActions = sc => class extends sc {
 
     }
 
-    setMainUser({commit, dispatch,state, context}, args){
+    setMainUser({commit, dispatch, state, context}, args){
 
         let {responseData: data} = args;
 

@@ -98,8 +98,11 @@ export const globalStore  =  {
 
             state.mainUser = map;
 
+            this.$metrika.setUserID(user_id);
+
 
         },
+
 
         // setMyFollowings(state, {followings_ids}) {
         //     console.log('Это айди по которым я вытаскиваю объекты из мапы users')
@@ -222,6 +225,8 @@ export const globalStore  =  {
             }
 
             commit('notificationPage/setLoading', false, {root: true})
+
+            commit('setMetrikaUserID',)
 
         }
 

@@ -20,6 +20,8 @@ import PerfectScrollbar from 'vue2-perfect-scrollbar'
 import 'vue2-perfect-scrollbar/dist/vue2-perfect-scrollbar.css'
 import VueAwesomeSwiper from 'vue-awesome-swiper'
 import 'swiper/dist/css/swiper.css'
+import VueYandexMetrika from 'vue-yandex-metrika'
+import { debug } from 'util';
 
 Vue.use(VueAwesomeSwiper);
 Vue.use(PerfectScrollbar);
@@ -51,6 +53,16 @@ Vue.use(Element, {
 // moment.locale('ru');
 
 // console.log(`Moment locale: ${moment.locale()}`);
+
+// Яндекс метрика
+
+Vue.use(VueYandexMetrika, {
+  id: "53480629",
+  router: router,
+  env: process.env.NODE_ENV,
+  debug: true
+  // other options
+})
 
 
 export const nprogress = new NProgress(  '.nprogress-container' );
