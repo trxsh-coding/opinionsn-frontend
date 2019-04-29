@@ -292,15 +292,12 @@ export default {
 
   created(){
 
-      this.$store.dispatch("userPage/getMainUser").then(() =>{
-
-          this.$metrika.setUserID(this.main_user_id);
-
-      })
+      this.$store.dispatch("userPage/getMainUser")
 
 
   },
   mounted() {
+      console.log(this)
       if(Object.keys(this.mainUser).length == 0) {
 
           this.getNotifications();
