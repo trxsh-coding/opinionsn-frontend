@@ -77,7 +77,7 @@
 
                     password:null,
                     password_confirm:null,
-                    code:this.$route.query.token
+                    code:this.$route.query.code
 
                 },
 

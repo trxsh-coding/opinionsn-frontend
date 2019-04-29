@@ -290,8 +290,13 @@ export default {
     }
   },
 
+  created(){
+
+      this.$store.dispatch("userPage/getMainUser");
+
+
+  },
   mounted() {
-    this.$store.dispatch("userPage/getMainUser");
     this.$metrika.setUserID(this.main_user_id);
       if(Object.keys(this.mainUser).length == 0) {
 
