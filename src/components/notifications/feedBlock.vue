@@ -12,7 +12,7 @@
       <new-poll :pollName="pollName" class="flex-align-center" :targetId="notification.targetId" :author="author" v-if="notification.eventType == 'NEW_POLL'"/>
       <new-user class="flex-align-center" v-if="notification.eventType == 'NEW_USER'"/>
       <new-comment  class="flex-align-center" :message="notification.message" :pollName="pollName" :author="author" v-if="notification.eventType == 'NEW_COMMENT'"/>
-      <new-prediction class="flex-align-center" :pollName="pollName" :author="author" v-if="notification.eventType == 'NEW_PREDICTION'"/>
+      <new-prediction class="flex-align-center" :targetId="notification.targetId" :pollName="pollName" :author="author" v-if="notification.eventType == 'NEW_PREDICTION'"/>
     </div>
     <div class="event-time">
       <time-trans class="timestamp" :time="notification.date"/>

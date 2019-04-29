@@ -4,7 +4,7 @@
             <avatar :author="author" />
             <span class="username">{{author.username}}</span>
             <span class="message">Автор из ваших подписок создал новый Прогноз</span>
-            <span class="poll">{{pollName}}</span>
+            <span class="poll pointer" @click="pollLink(targetId)">{{pollName}}</span>
         </slot>
     </div>
 </template>
@@ -13,8 +13,16 @@
     import avatar from '../../modules/avatar'
     export default {
         name: "NEW_PREDICTION",
-        props:['author', 'pollName'],
-        components:{avatar}
+        props:['author', 'pollName', 'targerId'],
+
+        components:{avatar},
+        methods:{
+
+            pollLink(targetId) {
+                this.$router.push({name: 'singlePoll', params: {id: targetId}})
+            }
+
+        }
     }
 </script>
 

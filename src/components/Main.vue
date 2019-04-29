@@ -291,10 +291,8 @@ export default {
   },
 
   mounted() {
-    console.log("$metrika", this.$metrika);
-    
     this.$store.dispatch("userPage/getMainUser");
-
+    this.$metrika.setUserID(this.main_user_id);
       if(Object.keys(this.mainUser).length == 0) {
 
           this.getNotifications();
