@@ -21,7 +21,6 @@ import 'vue2-perfect-scrollbar/dist/vue2-perfect-scrollbar.css'
 import VueAwesomeSwiper from 'vue-awesome-swiper'
 import 'swiper/dist/css/swiper.css'
 import VueYandexMetrika from 'vue-yandex-metrika'
-import { debug } from 'util';
 
 Vue.use(VueAwesomeSwiper);
 Vue.use(PerfectScrollbar);
