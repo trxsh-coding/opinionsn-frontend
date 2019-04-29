@@ -23,6 +23,7 @@ import Catalog from '../components/Admin/Catalog';
 import CatalogList from '../components/CatalogFeed/Catalog';
 import bookmarkFeed from '../components/bookmarkFeed/Feed';
 import CatalogFeed from '../components/CatalogFeed/Feed';
+import feedBack from '../components/feedback/feedbackForm';
 import user from '../components/user/Page';
 import sidebar from '../components/mobile/sidebar';
 import {nprogress} from '../main.js'
@@ -124,6 +125,11 @@ export const index = new Router({
           path: 'voteFeed',
           name: 'voteFeed',
           component: VoteFeed,
+        },
+        {
+          path: 'feedBack',
+          name: 'feedBack',
+          component: feedBack,
         },
         {
           path: 'notifications',

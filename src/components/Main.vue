@@ -149,194 +149,188 @@ import Search from "./Search/search";
 import notificationSideFeed from "./notifications/notificationSideFeed";
 import { log } from "util";
 export default {
-	data() {
-		return {
-			links: [],
-			keywords: "",
-			timeout: null,
-			mobile_hide: false,
-			mobile: this.$root.mobile,
-			hide: false,
-			showNavbar: true,
-			lastScrollPosition: 0
-		};
-	},
-	watch: {
-		keywords(after, before) {
-			this.fetch();
-		}
-	},
-	computed: {
-		lstr() {
-			return str => localString(this.lang, str);
-		},
-		// ...mapState('user',{
-		//   user : state => state.User[0]
-		// }),
+  data() {
+    return {
+      links: [],
+      keywords: "",
+      timeout: null,
+      mobile_hide: false,
+      mobile: this.$root.mobile,
+      hide: false,
+      showNavbar: true,
+      lastScrollPosition: 0
+    };
+  },
+  watch: {
+    keywords(after, before) {
+      this.fetch();
+    }
+  },
+  computed: {
+    lstr() {
+      return str => localString(this.lang, str);
+    },
+    // ...mapState('user',{
+    //   user : state => state.User[0]
+    // }),
 
-		...mapState("globalStore", {
-			mainUser: ({ mainUser }) => mainUser
-		}),
+    ...mapState("globalStore", {
+      mainUser: ({ mainUser }) => mainUser
+    }),
 
-		...mapState("lang", {
-			lang: state => state.locale
-		}),
-		...mapState("userPage", {
-			state: s => s,
-			items: s => s.items,
-			main_user_id: s => s.main_user_id
-		}),
+    ...mapState("lang", {
+      lang: state => state.locale
+    }),
+    ...mapState("userPage", {
+      state: s => s,
+      items: s => s.items,
+      main_user_id: s => s.main_user_id
+    }),
 
-		...mapState("authentication", {
-			isAuthenticated: s => s.isAuthenticated
-		}),
+    ...mapState("authentication", {
+      isAuthenticated: s => s.isAuthenticated
+    }),
 
-			...mapState("notificationPage", {
-					page: s => s.page
-			}),
+      ...mapState("notificationPage", {
+          page: s => s.page
+      }),
 
-		...mapState("globalStore", {
-			userMap: ({ users }) => users
-		}),
-		//Main user getter
+    ...mapState("globalStore", {
+      userMap: ({ users }) => users
+    }),
+    //Main user getter
 
-		main_user: function() {
-			let { state, userMap } = this;
+    main_user: function() {
+      let { state, userMap } = this;
 
-			return userMap[state.main_user_id];
-		}
-	},
-	methods: {
-		// notification(response) {
-		//   this.$notify({
-		//     title: "Уведомление",
-		//     message: response[0].message,
-		//     position: "bottom-right",
-		//     duration: 0
-		//   });
-		// },
-	getPathWithPoll(name){
+      return userMap[state.main_user_id];
+    }
+  },
+  methods: {
+    // notification(response) {
+    //   this.$notify({
+    //     title: "Уведомление",
+    //     message: response[0].message,
+    //     position: "bottom-right",
+    //     duration: 0
+    //   });
+    // },
+  getPathWithPoll(name){
 
-			let [,pageName,pollId] = this.$route.path.split('/');
+      let [,pageName,pollId] = this.$route.path.split('/');
 
-			if (pageName === 'singlePoll'){
-					return {name, query: {redirectToPoll: pollId}}
-			} else {
-					return {name}
-			}
+      if (pageName === 'singlePoll'){
+          return {name, query: {redirectToPoll: pollId}}
+      } else {
+          return {name}
+      }
 
-	},
-
-
-		getNotifications() {
-			this.$store.dispatch("notificationPage/list", {customUrl : `/messages/notification/${this.page}`});
-		},
-		onScroll() {
-			const currentScrollPosition =
-				window.pageYOffset || document.documentElement.scrollTop;
-			if (currentScrollPosition < 0) {
-				return;
-			}
-			// Stop executing this function if the difference between
-			// current scroll position and last scroll position is less than some offset
-			if (Math.abs(currentScrollPosition - this.lastScrollPosition) < 60) {
-				return;
-			}
-			this.showNavbar = currentScrollPosition < this.lastScrollPosition;
-			this.lastScrollPosition = currentScrollPosition;
-		},
-		onHide(value) {
-			return (this.mobile_hide = value);
-			console.log(this.mobile_hide);
-		},
-
-		goMain() {
-			this.$router.push({ path: "/pollFeed" });
-		},
-		fetch() {
-			axios
-				.get(`/api/rest/findAllContaining/${this.keywords}`)
-				.then(
-					function(response) {
-						if (response.status === 200) {
-							this.links = Object.values(response.data.users);
-							console.log(this.links);
-						}
-					}.bind(this)
-				)
-				.catch(error => {});
-		},
-
-		querySearchAsync(queryString, cb) {
-			console.log(this.links);
-			var links = this.links;
-			var results = queryString
-				? links.filter(this.createFilter(queryString))
-				: links;
-			clearTimeout(this.timeout);
-			this.timeout = setTimeout(() => {
-				cb(results);
-			}, 500);
-		},
-		createFilter(queryString) {
-			return link => {
-				return (
-					link.username.toLowerCase().indexOf(queryString.toLowerCase()) === 0
-				);
-			};
-		},
-		handleSelect(userId) {
-			this.$router.push({ name: "user", params: { id: userId.id } });
-		}
-	},
-
-	created(){
-
-			this.$store.dispatch("userPage/getMainUser")
+  },
 
 
-	},
-	mounted() {
-			
-		// setTimeout(() => { console.log("metrika", this.$metrika) }, 1000);	
-		setTimeout(() => {
+    getNotifications() {
+      this.$store.dispatch("notificationPage/list", {customUrl : `/messages/notification/${this.page}`});
+    },
+    onScroll() {
+      const currentScrollPosition =
+        window.pageYOffset || document.documentElement.scrollTop;
+      if (currentScrollPosition < 0) {
+        return;
+      }
+      // Stop executing this function if the difference between
+      // current scroll position and last scroll position is less than some offset
+      if (Math.abs(currentScrollPosition - this.lastScrollPosition) < 60) {
+        return;
+      }
+      this.showNavbar = currentScrollPosition < this.lastScrollPosition;
+      this.lastScrollPosition = currentScrollPosition;
+    },
+    onHide(value) {
+      return (this.mobile_hide = value);
+      console.log(this.mobile_hide);
+    },
 
-			this.$metrika.setUserID(this.main_user_id);
-			
-		}, 1000);
+    goMain() {
+      this.$router.push({ path: "/pollFeed" });
+    },
+    fetch() {
+      axios
+        .get(`/api/rest/findAllContaining/${this.keywords}`)
+        .then(
+          function(response) {
+            if (response.status === 200) {
+              this.links = Object.values(response.data.users);
+              console.log(this.links);
+            }
+          }.bind(this)
+        )
+        .catch(error => {});
+    },
 
-		if(Object.keys(this.mainUser).length == 0) {
+    querySearchAsync(queryString, cb) {
+      console.log(this.links);
+      var links = this.links;
+      var results = queryString
+        ? links.filter(this.createFilter(queryString))
+        : links;
+      clearTimeout(this.timeout);
+      this.timeout = setTimeout(() => {
+        cb(results);
+      }, 500);
+    },
+    createFilter(queryString) {
+      return link => {
+        return (
+          link.username.toLowerCase().indexOf(queryString.toLowerCase()) === 0
+        );
+      };
+    },
+    handleSelect(userId) {
+      this.$router.push({ name: "user", params: { id: userId.id } });
+    }
+  },
 
-			this.getNotifications();
+  created(){
+
+      this.$store.dispatch("userPage/getMainUser")
 
 
-		}
-		window.addEventListener("scroll", this.onScroll);
+  },
+  mounted() {
+	  // setTimeout(() => { console.log("metrika", this.$metrika) }, 1000);	
+	  setTimeout(() => { this.$metrika.setUserID(this.main_user_id) }, 1000);
+      if(Object.keys(this.mainUser).length == 0) {
 
-		this.$store.dispatch("lang/getLocaleString");
-	},
+          this.getNotifications();
 
-	beforeDestroy() {
-		window.removeEventListener("scroll", this.onScroll);
-	},
+
+      }
+    window.addEventListener("scroll", this.onScroll);
+
+    this.$store.dispatch("lang/getLocaleString");
+  },
+
+  beforeDestroy() {
+    window.removeEventListener("scroll", this.onScroll);
+  },
 
 
 
-	beforeCreate() {},
-	components: {
-		Search,
-		NavBarMenu,
-		LeftBarSide,
-		IconBase,
-		IconPrice,
-		IconLogo,
-		IconTextLogo,
-		langString,
-		IconDropdown,
-		mobileNav,
-		IconClose,
-		notificationSideFeed
-	}
+  beforeCreate() {},
+  components: {
+    Search,
+    NavBarMenu,
+    LeftBarSide,
+    IconBase,
+    IconPrice,
+    IconLogo,
+    IconTextLogo,
+    langString,
+    IconDropdown,
+    mobileNav,
+    IconClose,
+    notificationSideFeed
+  }
 };
 </script>
 
