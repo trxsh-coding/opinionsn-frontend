@@ -18,12 +18,10 @@
       <!--<p align="center" style="font-size:10px;margin-top: 5px;color: darkgray">Нет событий</p>-->
     <!--</div>-->
 
-    <div class="loading"  v-loading.fullscreen.lock="state.loading"  v-if="state.loading">
-
-    </div>
+    <div class="loading"  v-loading.fullscreen.lock="state.loading"/>
 
     <!-- Всё ок -->
-    <div  class="feed relative" v-else>
+    <div  class="feed relative">
 
 
         <swiper :options="swiperOption" class="category-section" >
