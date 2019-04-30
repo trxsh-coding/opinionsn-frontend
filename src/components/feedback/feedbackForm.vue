@@ -180,7 +180,7 @@
 			font-family: Roboto;
 			font-style: normal;
 			font-weight: 300;
-			font-size: 16px;
+			font-size: 14px;
 			color: #152d3a;
 			padding-right: 6px;
 		}
@@ -240,7 +240,11 @@
 			padding: 0;
 			display: flex;
 			width: max-content;
+			div {
 
+				border-radius: 50px;
+
+			}
 			li {
 				list-style-type: none;
 				margin-right: 15px;

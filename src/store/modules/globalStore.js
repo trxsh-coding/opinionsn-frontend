@@ -1,6 +1,6 @@
 import axios from 'axios';
 import {mapState} from 'vuex';
-
+import Vue from 'vue'
 export const globalStorages = [
     {name: 'user'},
     {name: 'poll'},
@@ -90,6 +90,22 @@ export const globalStore  =  {
                 }
 
             }
+        },
+
+        currentLoadingOption(state, payload){
+            console.log(payload)
+            let {id, value} = payload;
+
+            if (state.options[id].loading === undefined) {
+
+                Vue.set(state.options[id], 'loading', value)
+
+            } else {
+
+                state.options[id].loading = value;
+
+            }
+
         },
 
         setSessionUser(state, {user_id}) {

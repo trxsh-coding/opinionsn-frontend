@@ -5,7 +5,8 @@ export const pollActions = sc => class extends sc {
     /* ACTIONS */
     createVote({commit, dispatch}, payload={}){
 
-        commit('onVoteLoading', true)
+
+        commit('globalStore/currentLoadingOption',  {id: payload.data.selected_variable, value: true}, {root: true});
 
         let typeOfVote;
 
@@ -167,7 +168,7 @@ export const pollActions = sc => class extends sc {
 
 
     onVoteCreated({commit, dispatch}, args){
-        let {responseData: data} = args;
+        let {responseData: data, requestData: payload} = args;
 
 
         let {id} = data.payload;
@@ -186,6 +187,9 @@ export const pollActions = sc => class extends sc {
 
         );
         commit('onVoteLoading', false)
+
+        commit('globalStore/currentLoadingOption', {id: payload.selected_variable, value: false}, {root: true});
+
 
         sc.apiRequest(`/api/rest/quiz/getOne/${poll_id}`, {},{commit, onSuccess: 'updatePayloadItem'}, 'get');
 

@@ -36,7 +36,7 @@
                 <options-with-pictures v-if="option.picture" :feed="feed" :item="item" :option="option" :option_index="option_index" :correctOption="correctOption" :poll="poll" :expanded="expanded" @expand="expandFunc"/>
 
             </div>
-            <div class="expand-block" @click="onExpandAction" v-if="options.length != senitizedOptions.length">
+            <div class="expand-block" @click="onExpandAction" v-if="canExpand">
                <span>+{{options.length - senitizedOptions.length }}</span>
             </div>
         </div>
@@ -140,6 +140,11 @@
             },
 
 
+            canExpand: function() {
+
+               return this.options.length != this.senitizedOptions.length
+
+            },
 
 
 

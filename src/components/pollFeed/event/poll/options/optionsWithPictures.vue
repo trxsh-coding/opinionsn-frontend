@@ -1,5 +1,5 @@
 <template>
-    <div class="options-block " @click="vote(option.id, option.poll_id, poll.type_of_poll)" :class="{cursor : item.voted, opacity  : poll.votingOver, rightAnswer : correct_option}">
+    <div class="options-block " @click="vote(option.id, option.poll_id, poll.type_of_poll)" :class="{cursor : item.voted, opacity  : poll.votingOver, rightAnswer : correct_option}" v-loading="loading_option">
         <div class="option-picture" :style="{ 'background-image': 'url(' + option.picture + ')' }">
 
             <div class="percentage-block" >
@@ -43,7 +43,7 @@
         },
 
         name: "optionsWithPictures",
-        props: ['option', 'item','option_index', 'poll', 'correctOption'],
+        props: ['option', 'item','option_index', 'poll', 'correctOption', 'expanded'],
         computed: {
             /**
              * Defines whether poll can expand (or even needs to)
@@ -74,6 +74,11 @@
 
             },
 
+            loading_option:function (){
+
+                return this.option.loading
+
+            },
             correct_option: function () {
 
                 let {correctOption, option} = this;
@@ -96,12 +101,22 @@
 
         methods: {
 
+            onExpandAction(){
+
+                this.expanded = !this.expanded
+
+            },
+
             vote(selected_variable, poll_id, type_of_poll){
                 if(this.expanded){
 
                     if (!this.item.voted && !this.poll.votingOver) {
 
-                        this.$store.dispatch(`${this.$route.name}/createVote`, {data: {selected_variable, poll_id,  type_of_poll}});
+                        this.$store.dispatch(`${this.$route.name}/createVote`, {data: {selected_variable, poll_id,  type_of_poll}}).then(() => {
+
+
+                        })
+
 
                     }
 

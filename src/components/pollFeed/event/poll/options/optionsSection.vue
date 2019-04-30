@@ -1,12 +1,12 @@
 <template>
-    <div id="options-block" v-loading="blockchain_loading">
+    <div id="options-block" v-loading="loading_option">
         <div class="option-container relative pointer" v-bind:class="{ opacity  : poll.votingOver, rightAnswer : correct_option, cursor : option.voted }" @click="vote(option.id, option.poll_id, poll.type_of_poll)" >
             <div class="option-id">
                 <span class="span-id">{{option_index + 1}}</span> <span v-if="option.id === correctOption"></span>
             </div>
             <div class="description-right-section relative">
                 <div class="option-description" >
-                    <span >{{option.description}} </span>
+                    <span > {{option.description}} </span>
                 </div>
                 <div class="progress-bar" v-if="item.voted || poll.votingOver">
                     <el-progress :stroke-width="3" :percentage="option.voted_percentage" color="#152D3A" v-bind:class="{selected:  selected_option, correct: correct_option }"></el-progress>
@@ -46,9 +46,7 @@
                 user : state => state.User
             }),
 
-            ...mapState('pollFeed',{
-                blockChainLoading : state => state.blockchain_loading
-            }),
+
             selected_option: function () {
 
                 let {item, option} = this;
@@ -66,12 +64,12 @@
 
             },
 
-            loading: function(){
+            loading_option:function (){
 
-                let loading;
-                return loading = this.option.loading
+                return this.option.loading
 
             },
+
 
             correct_option: function () {
 
@@ -105,12 +103,11 @@
 
            vote(selected_variable, poll_id, type_of_poll){
                 if(this.expanded){
-                    this.loading = true;
+
                     if (!this.item.voted && !this.poll.votingOver) {
 
                         this.$store.dispatch(`${this.$route.name}/createVote`, {data: {selected_variable, poll_id,  type_of_poll}}).then(() => {
 
-                            this.loading = false;
 
                         })
 
