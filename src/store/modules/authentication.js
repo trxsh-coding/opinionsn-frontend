@@ -12,6 +12,10 @@ export const authentication = {
     isAuthenticated (state, getters, rootState, rootGetters) {
       return state.isAuthenticated
 
+    },
+
+    testGetter(){
+      return "Ya"
     }
   },
 

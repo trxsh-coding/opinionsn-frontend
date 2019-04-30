@@ -18,7 +18,6 @@
       <!--<p align="center" style="font-size:10px;margin-top: 5px;color: darkgray">Нет событий</p>-->
     <!--</div>-->
 
-    <div class="loading"  v-loading.fullscreen.lock="state.loading"/>
 
     <!-- Всё ок -->
     <div  class="feed relative">

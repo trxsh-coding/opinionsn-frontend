@@ -4,10 +4,7 @@
     <div class="vote-feed">
         <!-- Ошибка -->
 
-        <div class="loading"  v-loading.fullscreen.lock="state.loading"  v-if="state.loading">
-
-        </div>
-        <div class="have-no-subscribers mt-10" v-else-if="!items.length">
+        <div class="have-no-subscribers mt-10" v-if="!items.length">
             <span>Лента мнений будет доступна после появления подписок</span>
         </div>
         <!--<div v-if="state.error">-->

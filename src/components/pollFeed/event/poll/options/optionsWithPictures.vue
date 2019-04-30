@@ -53,6 +53,11 @@
                 user : state => state.User
             }),
 
+            ...mapState('globalStore', {
+
+                mainUser: ({mainUser}) => mainUser
+
+            }),
             // author: function(){
             //     return this.poll.author;
             // },
@@ -110,13 +115,9 @@
             vote(selected_variable, poll_id, type_of_poll){
                 if(this.expanded){
 
-                    if (!this.item.voted && !this.poll.votingOver) {
+                    if (!this.item.voted && !this.poll.votingOver && this.mainUser && this.mainUser.id) {
 
-                        this.$store.dispatch(`${this.$route.name}/createVote`, {data: {selected_variable, poll_id,  type_of_poll}}).then(() => {
-
-
-                        })
-
+                        this.$store.dispatch(`${this.$route.name}/createVote`, {data: {selected_variable, poll_id,  type_of_poll}})
 
                     }
 

@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
+import store from '../store/store'
 import axios from 'axios'
 import search from '../components/Search/search'
 import Main from '../components/Main'
@@ -220,7 +221,7 @@ index.beforeEach((to, from, next) => {
 });
 
 index.beforeEach((to, from, next) =>  {
-  if (to.path === '/sign' || to.path === '/registration' || to.path === '/login' || to.path === '/restore' || to.name === `token` || to.path === '/pollFeed' || to.name === 'singlePoll') {
+  if (to.path === '/sign' || to.path === '/registration' || to.path === '/login' || to.path === '/restore' || to.name === `token` || to.path === '/pollFeed' || to.name === 'singlePoll' || to.name === 'feedBack') {
     next({
       query: { redirect: to.fullPath }
     });
@@ -230,6 +231,7 @@ index.beforeEach((to, from, next) =>  {
         .then(response => {
 
           if(response.status === 200)  {
+
 
             next();
 
