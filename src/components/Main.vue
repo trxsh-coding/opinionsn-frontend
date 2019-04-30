@@ -298,10 +298,6 @@ export default {
   },
   mounted() {
 
-	  setTimeout(() => {
-		console.log(this.$metrika)
-	  }, 2000)
-
       if(Object.keys(this.mainUser).length == 0) {
 
           this.getNotifications();
