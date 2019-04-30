@@ -3,7 +3,11 @@
 
     <div class="vote-feed">
         <!-- Ошибка -->
-        <div class="have-no-subscribers mt-10" v-if="!items.length">
+
+        <div class="loading"  v-loading.fullscreen.lock="state.loading"  v-if="state.loading">
+
+        </div>
+        <div class="have-no-subscribers mt-10" v-else-if="!items.length">
             <span>Лента мнений будет доступна после появления подписок</span>
         </div>
         <!--<div v-if="state.error">-->
@@ -12,9 +16,7 @@
         <!--</div>-->
 
         <!--&lt;!&ndash; Загрузка &ndash;&gt;-->
-        <!--<div v-else-if="state.loading">-->
-            <!--<p align="center" style="font-size:10px;margin-top: 5px;color: darkgray">Загружаю ленту мнений...</p>-->
-        <!--</div>-->
+
 
         <!--&lt;!&ndash; Нет данных &ndash;&gt;-->
         <!--<div v-else-if="!items.length">-->
@@ -120,7 +122,7 @@
 
 <style lang="scss">
     .vote-feed {
-
+        height: 100%;
         .swiper-container {
 
             margin-left: 0px;

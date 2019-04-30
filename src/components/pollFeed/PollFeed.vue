@@ -18,9 +18,12 @@
       <!--<p align="center" style="font-size:10px;margin-top: 5px;color: darkgray">Нет событий</p>-->
     <!--</div>-->
 
+    <div class="loading"  v-loading.fullscreen.lock="state.loading"  v-if="state.loading">
+
+    </div>
 
     <!-- Всё ок -->
-    <div  class="feed relative" >
+    <div  class="feed relative" v-else>
 
 
         <swiper :options="swiperOption" class="category-section" >
@@ -207,7 +210,7 @@
         }
 
         .feed {
-
+            height: 100%;
             overflow:hidden;
             .swiper-slide {
               width: 93px !important;
