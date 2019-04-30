@@ -297,8 +297,7 @@ export default {
 
   },
   mounted() {
-	  // setTimeout(() => { console.log("metrika", this.$metrika) }, 1000);	
-	  setTimeout(() => { this.$metrika.setUserID(this.main_user_id) }, 1000);
+
       if(Object.keys(this.mainUser).length == 0) {
 
           this.getNotifications();
