@@ -57,14 +57,17 @@ Vue.use(Element, {
 
 Vue.use(VueYandexMetrika, {
   id: 53480629,
-  router: router,
+  router,
   env: process.env.NODE_ENV,
   debug: true,
+  defer: true,
   options: {
     webvisor: true
   }
   // other options
 })
+
+console.log("NODE_ENV", process.env.NODE_ENV);
 
 // Vue.use(VueYandexMetrika, {
 //   id: 53480629,

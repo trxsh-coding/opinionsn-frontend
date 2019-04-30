@@ -51,18 +51,6 @@
             </icon-base>
             <a><lang-string :title="'bookmarked'"/></a>
       </router-link>
-      <router-link class-active="active" class="hidden-xs-only main-li pointer" tag="li" to="/feedback">
-            <icon-base
-                    :class="{secondary : $route.path==='/bookmarkFeed'} "
-                    class="bookmark"
-                    fill="#152D3A"
-                    width="15"
-                    height="19"
-                    viewBox="0 0 12 15"
-                    icon-name="bookmark"><icon-bookmark/>
-            </icon-base>
-            <a>Обратная связь</a>
-      </router-link>
     </ul>
   </aside>
 </template>
