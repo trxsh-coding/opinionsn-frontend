@@ -74,7 +74,7 @@ export default {
 
       let userID = notification.initiatorId;
 
-      let author = userMap[userID];
+      let author = userMap[userID] || {};
 
       return author;
     },
