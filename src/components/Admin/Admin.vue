@@ -14,7 +14,9 @@
 						<template slot="title">
 							<i class="el-icon-message"></i>API
 						</template>
-						<el-menu-item index="1-1">Добавить переводы</el-menu-item>
+						<router-link to="/admin/add_translations">
+							<el-menu-item index="1-1">Добавить переводы</el-menu-item>
+						</router-link>
 					</el-submenu>
 					<el-submenu index="2">
 						<template slot="title">
@@ -42,18 +44,14 @@
 						<el-dropdown-menu slot="dropdown">
 							<el-dropdown-item>View</el-dropdown-item>
 							<el-dropdown-item>Add</el-dropdown-item>
-							<el-dropdown-item>Delete</el-dropdown-item>
+							<el-dropdown-item>Выйти</el-dropdown-item>
 						</el-dropdown-menu>
 					</el-dropdown>
 					<span>Tom</span>
 				</el-header>
 
 				<el-main>
-					<el-table :data="tableData">
-						<el-table-column prop="date" label="Date" width="140"></el-table-column>
-						<el-table-column prop="name" label="Name" width="120"></el-table-column>
-						<el-table-column prop="address" label="Address"></el-table-column>
-					</el-table>
+					<router-view/>
 				</el-main>
 			</el-container>
 		</el-container>
@@ -62,11 +60,11 @@
 
 <script>
 	import Catalog from "./Catalog.vue";
+	import addTranslations from "./addTranslations.vue";
 	export default {
 		name: "Admin",
 		data() {
-			return {
-			};
+			return {};
 		},
 		components: {
 			Catalog
