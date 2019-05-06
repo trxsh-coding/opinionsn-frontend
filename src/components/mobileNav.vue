@@ -1,6 +1,19 @@
 <template>
     <div class="mobile-nav">
-        <ul>
+		<ul class="nav-section nav-section-1">
+			<li></li>
+			<li></li>
+			<li>
+				<icon-base
+					fill="none"
+					width="24"
+					height="22"
+					viewBox="0 0 24 20"
+					icon-name="pocket"><icon-pocket/>
+				</icon-base>
+			</li>
+		</ul>
+        <ul class="nav-section nav-section-2">
             <li class="nav__item" @click="resetFilter('pollFeed')">
                 <icon-base
                         class="main-icon"
@@ -62,7 +75,8 @@
     import IconOpinion from './icons/IconOpinion'
     import IconSearch from './icons/IconSearch'
     import IconBell from './icons/IconBell'
-    import IconMenu from './icons/IconMenu'
+	import IconMenu from './icons/IconMenu'
+	import IconPocket from './icons/IconPocket'
     import avatar from './user/Event/modules/mainUserAvatar'
     import notificationFeed from './notifications/feed'
     import {mapState} from 'vuex'
@@ -127,16 +141,18 @@
 
 <style lang="scss">
     .mobile-nav {
-        ul {
-            margin-top: 0px;
-            padding: 10px;
-            display: inline-flex;
+        .nav-section {
+			padding: 0;
+			margin: 0;
+            // display: inline-flex;
             list-style: none;
-            width: 100%;
             display: flex;
             justify-content: space-between;
-            padding-left: 0px;
-            align-items: center;
+			align-items: center;
+			padding: 12px 22px 10px;
+			
+			li {
+			}
 
                 g {
 
@@ -144,7 +160,11 @@
 
                 }
 
-        }
+		}
+		
+		.nav-section-1 {
+			padding: 10px 11px 11px;
+		}
 
         .secondary_path_only {
             path {

@@ -24,6 +24,7 @@
 
 
           </div>
+		  <span class="logo-caption">Социальная сеть слоган</span>
           <div class="buttons-block flex-column-center">
 
               <el-button class="primary-btn uppercase" @click="routeFn('sign')">
@@ -40,93 +41,95 @@
 </template>
 
 <script>
-import langMixin from '../mixins/langMixin'
-import Sign from './Sign.vue'
-import Registration from './Registration.vue'
-import IconBase from '../icons/IconBase'
-import IconLogo from '../icons/IconLogo'
-import IconTextLogo from '../icons/IconTextLogo'
-import langString from '../langString'
-import {mapState} from 'vuex'
-export default {
-mixins:[langMixin],
-    data() {
-    return {
-
-    }
-  },
-  methods: {
-
-      routeFn(pathName){
-
-          this.$router.push({name: pathName, query: {...this.$route.query}})
-
-      },
-
-  },
-  components: {
-    Sign,
-    Registration,
-    IconBase,
-    IconLogo,
-    IconTextLogo,
-    langString
-
-  }
-}
+	import langMixin from "../mixins/langMixin";
+	import Sign from "./Sign.vue";
+	import Registration from "./Registration.vue";
+	import IconBase from "../icons/IconBase";
+	import IconLogo from "../icons/IconLogo";
+	import IconTextLogo from "../icons/IconTextLogo";
+	import langString from "../langString";
+	import { mapState } from "vuex";
+	export default {
+		mixins: [langMixin],
+		data() {
+			return {};
+		},
+		methods: {
+			routeFn(pathName) {
+				this.$router.push({
+					name: pathName,
+					query: { ...this.$route.query }
+				});
+			}
+		},
+		components: {
+			Sign,
+			Registration,
+			IconBase,
+			IconLogo,
+			IconTextLogo,
+			langString
+		}
+	};
 </script>
 
 <style scoped lang="scss">
-body {
-  margin: 0;
+	body {
+		margin: 0;
+	}
 
-}
+	#login {
+		background: #ffffff !important;
+		width: 100%;
+		display: flex;
+		height: 100%;
+		justify-content: center;
+		align-items: center;
 
-#login {
-  background: #ffffff !important;
-  width: 100%;
-    display: flex;
-    height: 100%;
-    justify-content: center;
-    align-items: center;
+		.login-section {
+			height: 50%;
+			display: flex;
+			align-items: center;
+			flex-direction: column;
+			justify-content: center;
+			.icon-text {
+				margin-top: 18.31px;
+			}
 
-    .login-section {
-        height: 50%;
-        display: flex;
-        align-items: center;
-        flex-direction: column;
-        justify-content: center;
-        .icon-text {
+			.logo-caption {
+				margin-top: 7px;
+				margin-bottom: 131px;
 
-            margin-top: 18.31px;
+				font-family: Roboto;
+				font-style: normal;
+				font-weight: normal;
+				font-size: 13px;
+				line-height: 18px; /* identical to box height, or 138% */
 
-        }
-        .buttons-block {
-            margin-top: 35px;
-            text-align: center;
+				color: rgba(21, 43, 58, 0.8);
+			}
 
-            .el-button {
-                margin: 0px;
-                margin-bottom: 9px;
-                width: 271px ;
-                font-family: Roboto;
-                font-style: normal;
-                font-weight: normal;
-                font-size: 17px;
-                line-height: 16px;
-                font-variant: small-caps;
-                color: #FFFFFF;
-            }
+			.buttons-block {
+				text-align: center;
 
-            .el-button:hover {
+				.el-button {
+					margin: 0px;
+					margin-bottom: 9px;
+					width: 271px;
+					font-family: Roboto;
+					font-style: normal;
+					font-weight: normal;
+					font-size: 17px;
+					line-height: 16px;
+					font-variant: small-caps;
+					color: #ffffff;
+				}
 
-                background: #4B97B4;
-                color: #FFFFFF;
-            }
-        }
-
-    }
-
-}
-
+				.el-button:hover {
+					background: #4b97b4;
+					color: #ffffff;
+				}
+			}
+		}
+	}
 </style>

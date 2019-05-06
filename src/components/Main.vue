@@ -1,7 +1,7 @@
 <template lang="html">
 	<div id="app">
 		<el-header id="mobile-header" class="mobile-nav hidden-sm-and-up"   :class="{ 'navbar--hidden': !showNavbar }">
-				<mobile-nav />
+			<mobile-nav />
 		</el-header>
 		<el-header class="nav-header hidden-xs-only" style=" height:48px ">
 			<el-container class="nav">
@@ -535,12 +535,12 @@ body {
 
 	@media only screen and (min-device-width: 320px) and (max-device-width: 765px) {
 		.el-header {
-			margin-bottom: 12px;
-			padding: 0 15px;
 			position: fixed;
 			z-index: 100000;
 			width: 100%;
-			height: 44px !important;
+			height: auto !important;
+			padding: 0;
+			margin: 0;
 			background: #ffffff;
 			transition: 0.1s all ease-out;
 			box-shadow: 0px 0px 12px rgba(0, 0, 0, 0.06);
