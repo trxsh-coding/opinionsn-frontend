@@ -14,11 +14,11 @@
     <div class="flex-align-center mr-10 ">
 
       <el-popover
-              placement="top-start"
-              title="Balance:"
-              width="50"
-              trigger="hover"
-              :content=" user.balance">
+			placement="top-start"
+			title="Balance:"
+			width="50"
+			trigger="hover"
+			:content="user.balance">
           <icon-base
                   slot="reference"
                   class="main-icon"

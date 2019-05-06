@@ -1,7 +1,7 @@
 <template lang="html">
 	<div id="app">
 		<el-header id="mobile-header" class="mobile-nav hidden-sm-and-up"   :class="{ 'navbar--hidden': !showNavbar }">
-			<mobile-nav />
+			<mobile-nav :user="main_user"/>
 		</el-header>
 		<el-header class="nav-header hidden-xs-only" style=" height:48px ">
 			<el-container class="nav">
@@ -340,6 +340,7 @@ body {
 #app {
 	background: #f4f4f4;
 
+
 	.navbar--hidden {
 		box-shadow: none;
 		transform: translate3d(0, -100%, 0);
@@ -551,7 +552,7 @@ body {
 		}
 
 		.el-main {
-			margin-top: 60px !important;
+			margin-top: 109px !important;
 
 			.el-row {
 				flex-direction: column;
