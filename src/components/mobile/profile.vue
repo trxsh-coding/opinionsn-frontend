@@ -119,7 +119,8 @@
             .profile-avatar {
                 position: absolute;
                 top: -45px;
-                left: 41%;
+				left: 50%;
+				transform: translateX(-50%);
                 width: 63px;
                 height: 63px;
                 border-radius: 1000px;

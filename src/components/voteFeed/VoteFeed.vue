@@ -119,7 +119,12 @@
 
 <style lang="scss">
     .vote-feed {
-        height: 100%;
+		height: 100%;
+		
+		.filter-section {
+			padding: 0 6px;
+		}
+
         .swiper-container {
 
             margin-left: 0px;

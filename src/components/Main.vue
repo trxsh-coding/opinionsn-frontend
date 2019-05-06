@@ -556,7 +556,8 @@ body {
 
 			.el-row {
 				flex-direction: column;
-				max-width: 357px !important;
+				width: 100%;
+				padding: 0 8px;
 			}
 		}
 
