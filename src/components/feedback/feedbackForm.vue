@@ -147,12 +147,21 @@
 
 							this.$message({
 								showClose: true,
-								message: "Сообщение отправлено!"
+								message: "Сообщение отправлено!",
+								type: "success"
 							});
 						}
 					})
 					.catch(() => {
-						this.$message({
+						this.loading = false;
+
+						this.pictures = [];
+						this.feedbackForm = {
+							email: "",
+							description: ""
+						};
+
+						this.$message.error({
 							showClose: true,
 							message: "Произошла ошибка при отправке!"
 						});
@@ -241,9 +250,7 @@
 			display: flex;
 			width: max-content;
 			div {
-
 				border-radius: 50px;
-
 			}
 			li {
 				list-style-type: none;

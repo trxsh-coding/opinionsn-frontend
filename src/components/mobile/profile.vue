@@ -5,7 +5,7 @@
             <div class="profile-avatar pointer" :style="{ 'background-image': 'url(' + user.path_to_avatar + ')' }  " @click="userLink(user.id)"> </div>
             <div class="main-content">
                 <div class="description-block">
-                    {{user.first_name}} {{ user.last_name}}
+                    {{ user.first_name }} {{ user.last_name }}
                 </div>
           <span class="nickname-id">
             {{user.username}}
@@ -13,7 +13,7 @@
             </div>
 
             <div class="bottom-content">
-                <span class="location">{{user.location}}</span>
+                <span class="location">{{ user.location }}</span>
             </div>
         </div>
     </div>

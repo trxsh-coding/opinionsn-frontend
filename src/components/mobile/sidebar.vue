@@ -3,34 +3,44 @@
         <profile v-if="hide"/>
         <routebar/>
         <language-change/>
+		<div class="copyright flex-space-center mt-13">
+            <span>© 2019 OPINION</span>
+			<router-link class="pointer" tag="span" to="/feedback">Обратная связь</router-link>
+        </div>
     </div>
 </template>
 
 <script>
-    import routebar from './routebar'
-    import profile from './profile'
-    import languageChange from '../languageChange'
+	import routebar from "./routebar";
+	import profile from "./profile";
+	import languageChange from "../languageChange";
 
-    export default {
-        data(){
-            return {
-                hide:this.$root.mobile
-            }
-        },
-        components: {
-            profile,
-            routebar,
-            languageChange
+	export default {
+		data() {
+			return {
+				hide: this.$root.mobile
+			};
+		},
+		components: {
+			profile,
+			routebar,
+			languageChange
+		},
 
-        },
-
-        mounted() {
-
-
-        }
-    }
+		mounted() {}
+	};
 </script>
 
 <style lang="scss">
-
+	.copyright {
+		// padding: 0 10px;
+		span {
+			font-family: Roboto;
+			font-style: normal;
+			font-weight: normal;
+			font-size: 11px;
+			letter-spacing: -0.3px;
+			color: rgba(56, 56, 56, 0.7);
+		}
+	}
 </style>
