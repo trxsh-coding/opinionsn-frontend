@@ -3,7 +3,7 @@
         <div class="middle-block">
             <div class="subject-header-block flex-between">
                 <div class="subject__item pointer wb " @click="categoryLink(poll.categories)">
-                    <span>{{poll.subject_header}}</span>
+					<lang-string class="lowercase" :title="poll.subject_header"/>
                 </div>
                 <div class="subject__icon">
                     <bookmark :poll="poll" :item="item" />

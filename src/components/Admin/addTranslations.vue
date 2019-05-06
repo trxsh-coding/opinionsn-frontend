@@ -1,13 +1,14 @@
 <template>
-	<el-form ref="form" :model="formInline" label-width="120px">
+	<el-form :model="form" size="medium">
+		<h1>Добавить переводы</h1>
+		<el-form-item label-width="60px" :label="switchLabel">
+			<el-switch v-model="form.lang"></el-switch>
+		</el-form-item>
 		<el-form-item label="Ключ">
 			<el-input v-model="form.key"></el-input>
 		</el-form-item>
-		<el-form-item label="Русский">
-			<el-input v-model="form.value_ru"></el-input>
-		</el-form-item>
-		<el-form-item label="Английский">
-			<el-input v-model="form.value_en"></el-input>
+		<el-form-item label="Значение">
+			<el-input v-model="form.value"></el-input>
 		</el-form-item>
 		<el-form-item>
 			<el-button type="primary" @click="onSubmit">Добавить</el-button>
@@ -17,23 +18,42 @@
 </template>
 
 <script>
+	import axios from "axios";
+
 	export default {
 		name: "addTranslations",
 		data() {
 			return {
 				form: {
 					key: "",
-					value_ru: "",
-					value_en: ""
+					value: "",
+					lang: false
 				}
 			};
 		},
+		computed: {
+			switchLabel() {
+				return this.form.lang ? "English" : "Русский";
+			}
+		},
 		methods: {
 			onSubmit() {
-				alert("submit!");
+				let { key, value } = this.form;
+				let lang = this.form.lang ? "en" : "ru";
+
+				axios
+					.post(`/api/rest/locale/add/${lang}`, null, {
+						params: { key, value }
+					})
+					.then(response => console.log(response.status))
+					.catch(err => console.warn(err));
 			},
 			onCancel() {
-				alert("cancel!");
+				this.form = {
+					key: "",
+					value_ru: "",
+					value_en: ""
+				};
 			}
 		}
 	};
@@ -41,6 +61,6 @@
 
 <style lang="scss" scoped>
 	.el-form {
-		width: 90%;
+		width: 50%;
 	}
 </style>

@@ -97,7 +97,8 @@
         margin-top: 10px;
         padding: 15px;
         background: #fff;
-        border-radius: 6px;
+		border-radius: 6px;
+		width: 50%;
         .avatar-uploader .el-upload {
             border: 1px dashed #d9d9d9;
             border-radius: 6px;

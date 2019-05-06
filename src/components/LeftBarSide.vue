@@ -6,7 +6,7 @@
     	<language-change  class="hidden-xs-only" />
         <div class="copyright flex-space-center mt-13 hidden-xs-only">
             <span>© 2019 OPINION</span>
-			<router-link class="pointer" tag="span" to="/feedback">Обратная связь</router-link>
+			<router-link class="pointer" tag="span" to="/feedback"><lang-string :title="'feedback'"/></router-link>
         </div>
       	<!--<guest-locale  class="hidden-xs-only" />-->
     </div>

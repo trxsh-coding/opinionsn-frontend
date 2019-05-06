@@ -1,12 +1,5 @@
 <template>
 	<div class="admin-wrapper relative height-100">
-		<!-- <router-link to="/admin/catalog">
-            <el-button type="primary" size="small" round>
-                Каталог
-            </el-button>
-        </router-link>
-		<router-view/>-->
-
 		<el-container style="height: 100%; border: 1px solid #eee">
 			<el-aside width="250px" style="background-color: rgb(238, 241, 246)">
 				<el-menu>
@@ -16,6 +9,9 @@
 						</template>
 						<router-link to="/admin/add_translations">
 							<el-menu-item index="1-1">Добавить переводы</el-menu-item>
+						</router-link>
+						<router-link to="/admin/catalog">
+							<el-menu-item index="1-2">Каталог</el-menu-item>
 						</router-link>
 					</el-submenu>
 					<el-submenu index="2">
@@ -44,10 +40,10 @@
 						<el-dropdown-menu slot="dropdown">
 							<el-dropdown-item>View</el-dropdown-item>
 							<el-dropdown-item>Add</el-dropdown-item>
-							<el-dropdown-item>Выйти</el-dropdown-item>
+							<el-dropdown-item @click="userLogout">Выйти</el-dropdown-item>
 						</el-dropdown-menu>
 					</el-dropdown>
-					<span>Tom</span>
+					<span>{{ mainUser.username }}</span>
 				</el-header>
 
 				<el-main>
@@ -61,13 +57,55 @@
 <script>
 	import Catalog from "./Catalog.vue";
 	import addTranslations from "./addTranslations.vue";
+	import { mapState } from "vuex";
 	export default {
 		name: "Admin",
 		data() {
 			return {};
 		},
+		methods: {
+			userLogout() {
+				axios
+					.get("/api/auth/logout")
+					.then(function(response) {
+						this.$store.commit(
+							"authentication/setAuthenticated",
+							false
+						);
+						this.$store.commit("userPage/removeUser");
+						this.$store.commit("pollFeed/clearFeed");
+						this.$store.commit("globalStore/clearStores");
+						this.$store.commit("notificationStore/clearStores");
+						this.$store.commit("notificationPage/setDefaultPage");
+
+						//TODO доделать логаут
+					})
+
+					.catch(error => {
+						this.$store.commit(
+							"authentication/setAuthenticated",
+							false
+						);
+						this.$store.commit("userPage/removeUser");
+						this.$store.commit("pollFeed/clearFeed");
+						this.$store.commit("globalStore/clearStores");
+						this.$store.commit("notificationStore/clearStores");
+						this.$store.commit("notificationPage/setDefaultPage");
+					});
+				this.$router.push("/login");
+			}
+		},
+		computed: {
+			...mapState("globalStore", {
+				mainUser: state => state.mainUser
+			})
+		},
 		components: {
-			Catalog
+			Catalog,
+			addTranslations
+		},
+		created() {
+			this.$store.dispatch("userPage/getMainUser");
 		}
 	};
 </script>
@@ -89,5 +127,9 @@
 
 	.el-aside {
 		color: #333;
+	}
+
+	a {
+		text-decoration: none;
 	}
 </style>
