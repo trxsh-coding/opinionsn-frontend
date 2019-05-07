@@ -3,9 +3,12 @@
 
     <div id="poll-wrapper">
         <div class="category-wrapper">
-            <h1 class="catalog-header"><lang-string :title="'topics'"/></h1>
+			<div class="category-search">
+				<input :placeholder="'Поиск'" v-model="keyword" @change="searchCategory" @keyup.enter.native="searchCategory"/>
+				<i class="el-icon-circle-close" @click="keyword = ''"></i>
+			</div>
             <div class="category-section">
-                <div class="category-block pointer" @click="categoryLink(category.id)" v-for="category in categories">
+                <div class="category-block pointer" @click="categoryLink(category.id)" v-for="category in filteredCategories || categories">
                     <div class="category-image relative"  :style="{ 'background-image': 'url(' + category.path_to_image + ')' } " >
                         <div class="category-subject">
                             <h1><lang-string :title="category.name" /></h1>
@@ -30,7 +33,8 @@
     export default {
         data(){
             return {
-
+				keyword: "",
+				filteredCategories: null
             }
         },
         computed: {
@@ -56,7 +60,17 @@
 
             categoryLink(catalogId) {
                 this.$router.push({name:'catalogFeed',params:{id:catalogId}})
-            },
+			},
+
+			searchCategory() {
+				let { categories, keyword } = this;
+				
+				// Фильтрация юзеров через регекс
+				keyword === ""
+					? this.filteredCategories = categories
+					: this.filteredCategories = Object.values(categories).filter(({ name }) => name.search(new RegExp(keyword)) >= 0 );
+				
+			}
 
         },
 
@@ -76,6 +90,28 @@
 </script>
 <style lang="scss">
     .category-wrapper {
+
+		.category-search {
+			position: relative;
+			width: calc(100% - 17px);
+			margin: 0 auto;
+			margin-bottom: 15px;
+			input {
+				width: 100%;
+				height: 23px;
+				background-color: transparent;
+				border: none;
+				border-bottom: 1px solid #69777F;
+				outline: none;
+			}
+
+			.el-icon-circle-close {
+				position: absolute;
+				top: 4px;
+				right: 2px;
+			}
+			
+		}
 
         .category-section {
             display: flex;
@@ -134,12 +170,12 @@
 
                 margin: 0 0px 6px 0;
                 margin-right: 6px !important;
-                width: 160px;
+                width: 168px;
                 height: 112px;
             }
 
             .category-image {
-                width: 160px;
+                width: 168px;
                 height: 112px;
                 background-color: #FFFFFF;
                 border-radius: 12px;

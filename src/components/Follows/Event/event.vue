@@ -114,7 +114,7 @@
 				
 				// Фильтрация юзеров через регекс
 				keyword === ""
-					? this.filteredUsers = [...users]
+					? this.filteredUsers = users
 					: this.filteredUsers = users.filter(({ username }) => username.search(new RegExp(keyword)) >= 0 );
 				
 			}
