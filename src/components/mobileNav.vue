@@ -1,56 +1,65 @@
 <template>
 	<div class="mobile-nav">
-		<ul class="nav-section nav-section-1">
-			<li class="nav__item nav__item-1">
-				<router-link to="/add">
-					<icon-base 
+		<div class="section-wrapper" :class="{ swiped: secondNavCaption($route.name)}">
+			<ul class="nav-section nav-section-1">
+				<li class="nav__item nav__item-1">
+					<router-link to="/add">
+						<icon-base fill="none" width="24" height="24" viewBox="0 0 24 24" icon-name="plus">
+							<icon-add-poll/>
+						</icon-base>
+					</router-link>
+				</li>
+				<li class="nav__item nav__item-2">
+					<div v-if="!hide_form">редактировать профиль</div>
+					<div v-else-if="$route.name === 'user'">{{firstNavCaption($route.params.id)}}</div>
+					<router-link to="/pollFeed" v-else>
+						<icon-base
+							class="mr-6"
+							fill="none"
+							width="24"
+							height="24"
+							viewBox="0 0 24 24"
+							icon-name="logo"
+						>
+							<icon-logo/>
+						</icon-base>
+						<icon-base fill="none" width="66" height="15" viewBox="0 0 66 15" icon-name="text-logo">
+							<icon-text-logo/>
+						</icon-base>
+					</router-link>
+				</li>
+				<li class="nav__item nav__item-3">
+					<el-popover
+						class="popover"
+						placement="top-start"
+						title="Balance:"
+						width="50"
+						trigger="click"
+						:content="user.balance"
+					>
+						<icon-base slot="reference" width="23" height="23" viewBox="0 0 23 23" icon-name="pocket">
+							<icon-pocket/>
+						</icon-base>
+					</el-popover>
+				</li>
+			</ul>
+
+			<ul class="nav-section nav-section-2">
+				<li class="nav__item nav__item-1" @click="$router.go(-1)">
+					<icon-base
+						 
 						fill="none" 
-						width="24" 
-						height="24" 
-						viewBox="0 0 24 24" 
-						icon-name="plus"><icon-add-poll/>
+						width="8" 
+						height="18" 
+						viewBox="0 0 8 18" 
+						icon-name="plus"><icon-arrow-left/>
 					</icon-base>
-				</router-link>
-			</li>
-			<li class="nav__item nav__item-2">
-				<router-link to="/pollFeed">
-					<icon-base 
-						class="mr-6" 
-						fill="none" 
-						width="24" 
-						height="24" 
-						viewBox="0 0 24 24" 
-						icon-name="logo"><icon-logo/>
-					</icon-base>
-					<icon-base 
-						fill="none" 
-						width="66" 
-						height="15" 
-						viewBox="0 0 66 15" 
-						icon-name="text-logo"><icon-text-logo/>
-					</icon-base>
-				</router-link>
-			</li>
-			<li class="nav__item nav__item-3">
-				<el-popover
-					class="popover"
-					placement="top-start"
-					title="Balance:"
-					width="50"
-					trigger="click"
-					:content="user.balance">
-					<icon-base 
-						slot="reference"
-						width="23" 
-						height="23" 
-						viewBox="0 0 23 23" 
-						icon-name="pocket"><icon-pocket/>
-					</icon-base>
-				</el-popover>
-			</li>
-		</ul>
+				</li>
+				<li class="nav__item nav__item-2">{{secondNavCaption($route.name)}}</li>
+			</ul>
+		</div>
 		<hr>
-		<ul class="nav-section nav-section-2">
+		<ul class="nav-section nav-section-3">
 			<li class="nav__item" @click="resetFilter('pollFeed')">
 				<icon-base
 					class="main-icon"
@@ -122,6 +131,7 @@
 	import IconMenu from "./icons/IconMenu";
 	import IconPocket from "./icons/IconPocket";
 	import IconAddPoll from "./icons/IconAddPoll";
+	import IconArrowLeft from "./icons/IconArrowLeft";
 	import avatar from "./user/Event/modules/mainUserAvatar";
 	import notificationFeed from "./notifications/feed";
 	import { mapState } from "vuex";
@@ -138,10 +148,22 @@
 				counter: s => s.counter
 			}),
 
+			...mapState("globalStore", {
+				userMap: ({ users }) => users,
+				categories: ({ categories }) => categories
+			}),
+
+			...mapState("userPage", {
+				hide_form: s => s.hide_form
+			}),
+
 			hidden_badge: function() {
 				if (this.counter == 0) {
 					return (this.hidden = true);
 				}
+			},
+			category: function() {
+				return this.categories[this.$route.params.id].name;
 			}
 		},
 		methods: {
@@ -153,6 +175,35 @@
 
 			link(pathName) {
 				this.$router.push({ name: pathName });
+			},
+
+			firstNavCaption(ID) {
+				return this.userMap[ID].username;
+			},
+
+			secondNavCaption(route_name) {
+				switch (route_name) {
+					case "followers":
+						return "подписчики";
+
+					case "followings":
+						return "подписки";
+
+					case "add":
+						return "добавить опрос";
+
+					case "bookmarkFeed":
+						return "сохраненное";
+
+					case "catalogList":
+						return "каталог";
+
+					case "catalogFeed":
+						return this.category;
+
+					default:
+						return null;
+				}
 			}
 		},
 		components: {
@@ -165,6 +216,7 @@
 			IconTextLogo,
 			IconPocket,
 			IconAddPoll,
+			IconArrowLeft,
 			avatar,
 			IconMenu,
 			notificationFeed
@@ -174,17 +226,36 @@
 
 <style lang="scss">
 	.mobile-nav {
+		.section-wrapper {
+			position: relative;
+			display: flex;
+			width: 100%;
+			transition: 0.3s;
+
+			&.swiped {
+				transform: translateX(-100%);
+			}
+		}
+
 		.nav-section {
+			box-sizing: border-box;
+			flex: 0 0 100%;
 			padding: 0;
 			margin: 0;
-			// display: inline-flex;
 			list-style: none;
 			display: flex;
 			justify-content: space-between;
 			align-items: center;
 			padding: 12px 22px 10px;
 
-			li {
+			.nav__item {
+				font-family: Roboto;
+				font-style: normal;
+				font-weight: 500;
+				font-size: 18px;
+				line-height: 18px;
+				font-variant: small-caps;
+				color: #152d3a;
 			}
 
 			g {
@@ -209,9 +280,17 @@
 
 			.nav__item-3 {
 				margin-left: auto;
-
 			}
+		}
 
+		.nav-section-2 {
+			padding: 13px 12px;
+			display: flex;
+			justify-content: flex-start;
+
+			.nav__item-1 {
+				margin-right: 11px;
+			}
 		}
 
 		.secondary_path_only {

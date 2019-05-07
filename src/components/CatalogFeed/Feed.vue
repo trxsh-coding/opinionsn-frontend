@@ -30,7 +30,7 @@
 
             </div>
 
-            <div class="category-subject category-mobile mb-15">
+            <!-- <div class="category-subject category-mobile mb-15">
                 <span @click="backLink">
                     <icon-base
                             class="icon-back"
@@ -42,7 +42,7 @@
                 </icon-base>
                 </span>
                 <span><lang-string class="catalog__name" :title="category.name"/></span>
-            </div>
+            </div> -->
 
             <div v-for="item in items" class="mb-6" v-if="items.length">
                 <event :item="item"/>
