@@ -150,7 +150,8 @@
 
 			...mapState("globalStore", {
 				userMap: ({ users }) => users,
-				categories: ({ categories }) => categories
+				categories: ({ categories }) => categories,
+				polls: ({ polls }) => polls
 			}),
 
 			...mapState("userPage", {
@@ -162,8 +163,15 @@
 					return (this.hidden = true);
 				}
 			},
+
 			category: function() {
 				return this.categories[this.$route.params.id].name;
+			},
+
+			pollName: function() {
+				let pollName = this.polls[this.$route.params.id].subject;
+				// Если название опроса больше 28 символов, тогда обрезаем его.
+				return pollName.length > 28 ? pollName.slice(0, 28).trim() + "..." : pollName;
 			}
 		},
 		methods: {
@@ -200,6 +208,9 @@
 
 					case "catalogFeed":
 						return this.category;
+
+					case "singlePoll":
+						return this.pollName;
 
 					default:
 						return null;
