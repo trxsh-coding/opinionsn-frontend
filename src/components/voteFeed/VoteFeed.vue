@@ -1,7 +1,7 @@
 <template lang="html">
 
 
-    <div class="vote-feed">
+    <div class="vote-feed" v-loading="loading">
         <!-- Ошибка -->
 
         <div class="have-no-subscribers mt-10" v-if="!items.length">
