@@ -2,7 +2,7 @@
 	<div class="mobile-nav">
 		<div class="section-wrapper" :class="{ swiped: secondNavCaption($route.name)}">
 			<ul class="nav-section nav-section-1">
-				<li class="nav__item nav__item-1">
+				<li class="nav__item nav__item-1" v-if="mainUser.authorities === 'ADMIN'">
 					<router-link to="/add">
 						<icon-base fill="none" width="24" height="24" viewBox="0 0 24 24" icon-name="plus">
 							<icon-add-poll/>
@@ -151,7 +151,8 @@
 			...mapState("globalStore", {
 				userMap: ({ users }) => users,
 				categories: ({ categories }) => categories,
-				polls: ({ polls }) => polls
+				polls: ({ polls }) => polls,
+				mainUser: ({ mainUser }) => mainUser
 			}),
 
 			...mapState("userPage", {
@@ -287,6 +288,7 @@
 
 			.nav__item-1 {
 				margin-right: 22px;
+				width: 24px;
 			}
 
 			.nav__item-3 {
