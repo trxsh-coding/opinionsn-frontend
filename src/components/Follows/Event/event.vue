@@ -12,7 +12,7 @@
            </el-button> -->
 			<div class="subs-search">
 				<input :placeholder="'Поиск'" v-model="keyword" @change="searchUsers" @keyup.enter.native="searchUsers"/>
-				<i class="el-icon-circle-close" @click="keyword = ''"></i>
+				<i class="el-icon-circle-close" @click="clearSearchField"></i>
 			</div>
            <div class="subs-section mt-10" v-if="items.length">
 
@@ -117,6 +117,11 @@
 					? this.filteredUsers = users
 					: this.filteredUsers = users.filter(({ username }) => username.search(new RegExp(keyword)) >= 0 );
 				
+			},
+
+			clearSearchField() {
+				this.keyword = '';
+				this.searchUsers();
 			}
 
         },
