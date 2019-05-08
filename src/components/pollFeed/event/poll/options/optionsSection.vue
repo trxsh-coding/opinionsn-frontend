@@ -148,6 +148,7 @@
     #options-block {
         display: flex;
         flex-wrap: wrap;
+		width: 100%;
 
         .opacity {
 
@@ -280,13 +281,15 @@
 
             .option-container {
 
-                width: 249px;
+                // width: 249px;
+				flex: 1;
 
             }
 
             .option-bows {
 
-                width: 75px !important;
+                // width: 75px !important;
+				flex: 0 0 70px;
 
             }
 

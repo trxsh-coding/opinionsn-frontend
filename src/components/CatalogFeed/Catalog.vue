@@ -5,7 +5,7 @@
         <div class="category-wrapper">
 			<div class="category-search">
 				<input :placeholder="'Поиск'" v-model="keyword" @change="searchCategory" @keyup.enter.native="searchCategory"/>
-				<i class="el-icon-circle-close" @click="keyword = ''"></i>
+				<i class="el-icon-circle-close" @click="clearSearchField"></i>
 			</div>
             <div class="category-section">
                 <div class="category-block pointer" @click="categoryLink(category.id)" v-for="category in filteredCategories || categories">
@@ -100,6 +100,11 @@
 							name.search(new RegExp(`^(${keyName})$`, "im")) >= 0
 					);
 				}
+			},
+
+			clearSearchField() {
+				this.keyword = '';
+				this.searchCategory();
 			}
 		},
 
