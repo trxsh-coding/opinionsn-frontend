@@ -97,6 +97,7 @@
 			}
 
 			.logo-caption {
+				visibility: hidden;
 				margin-top: 7px;
 				margin-bottom: 131px;
 

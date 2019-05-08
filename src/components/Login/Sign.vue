@@ -208,6 +208,7 @@
 			}
 
 			.logo-caption {
+				visibility: hidden;
 				margin-top: 6px;
 
 				font-family: Roboto;
@@ -300,7 +301,8 @@
 		}
 		@media only screen and (max-device-width: 700px) {
 			.sign-section {
-				height: 100%;
+				// height: 100%;
+				height: max-content;
 			}
 
 			.navbar-brand {
