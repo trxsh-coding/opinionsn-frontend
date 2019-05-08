@@ -27,70 +27,65 @@
 
 
 <script>
-    import { mapState } from 'vuex';
-    import langMixin from '../mixins/langMixin'
-    import langString from '../langString'
-    export default {
-        data(){
-            return {
+	import { mapState } from "vuex";
+	import langMixin from "../mixins/langMixin";
+	import langString from "../langString";
+	import { localString } from "../../utils/localString";
+	export default {
+		data() {
+			return {
 				keyword: "",
 				filteredCategories: null
-            }
-        },
-        computed: {
-            ...mapState('catalogList', {
-                state: s => s,
-                items: s => s.items
-            }),
-            ...mapState('globalStore', {
-                categories: ({categories}) =>categories,
-            }),
+			};
+		},
+		computed: {
+			...mapState("catalogList", {
+				state: s => s,
+				items: s => s.items
+			}),
+			...mapState("globalStore", {
+				categories: ({ categories }) => categories
+			}),
 
-            /* HERE COME THE GETTERS */
+			/* HERE COME THE GETTERS */
 
-            category: function () {
-
-
-
-            }
-
-
-        },
-        methods: {
-
-            categoryLink(catalogId) {
-                this.$router.push({name:'catalogFeed',params:{id:catalogId}})
+			category: function() {},
+			lstr() {
+				return str => localString(this.lang, str);
+			}
+		},
+		methods: {
+			categoryLink(catalogId) {
+				this.$router.push({
+					name: "catalogFeed",
+					params: { id: catalogId }
+				});
 			},
 
 			searchCategory() {
 				let { categories, keyword } = this;
-				
+
 				// Фильтрация юзеров через регекс
 				keyword === ""
-					? this.filteredCategories = categories
-					: this.filteredCategories = Object.values(categories).filter(({ name }) => name.search(new RegExp(keyword)) >= 0 );
-				
+					? (this.filteredCategories = categories)
+					: (this.filteredCategories = Object.values(categories).filter(
+							({ name }) => name.search(new RegExp(keyword)) >= 0
+					  ));
 			}
+		},
 
-        },
+		mounted() {
+			this.$store.dispatch(`catalogList/list`);
+		},
 
-
-        mounted(){
-
-            this.$store.dispatch(`catalogList/list`);
-
-        },
-
-
-        components: {
-            langMixin,
-            langString
-        }
-    }
+		components: {
+			langMixin,
+			langString
+		}
+	};
 </script>
 <style lang="scss">
-    .category-wrapper {
-
+	.category-wrapper {
 		.category-search {
 			position: relative;
 			width: calc(100% - 17px);
@@ -101,7 +96,7 @@
 				height: 23px;
 				background-color: transparent;
 				border: none;
-				border-bottom: 1px solid #69777F;
+				border-bottom: 1px solid #69777f;
 				outline: none;
 			}
 
@@ -110,105 +105,88 @@
 				top: 4px;
 				right: 2px;
 			}
-			
 		}
 
-        .category-section {
-            display: flex;
-            flex-wrap: wrap;
-            .catalog-header {
+		.category-section {
+			display: flex;
+			flex-wrap: wrap;
+			.catalog-header {
+				font-family: Roboto;
+				font-style: normal;
+				font-weight: 500;
+				line-height: 32px;
+				font-size: 32px;
+				color: #152d3a;
+				margin: 0;
+				margin-bottom: 15px;
+			}
 
-                font-family: Roboto;
-                font-style: normal;
-                font-weight: 500;
-                line-height: 32px;
-                font-size: 32px;
-                color: #152D3A;
-                margin: 0;
-                margin-bottom: 15px;
+			.category-subject {
+				padding: 3px;
 
-            }
+				border-radius: 12px;
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				position: absolute;
+				font-variant-caps: all-small-caps;
 
-            .category-subject {
-                padding: 3px;
+				span {
+					font-family: Roboto;
+					font-style: normal;
+					font-weight: 500;
+					font-size: 20px;
+					line-height: normal;
+					text-align: center;
+					color: #ffffff;
+					text-transform: uppercase;
+				}
+			}
 
-                border-radius: 12px;
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                position: absolute;
-                font-variant-caps: all-small-caps;
+			.overlay {
+				width: 100%;
+				height: 100%;
+				background: #000;
+				opacity: 0.3;
+				border-radius: 12px;
+			}
 
-                span {
+			.category-block {
+				margin: 0 0px 6px 0;
+				margin-right: 6px !important;
+				width: 168px;
+				height: 112px;
+			}
 
-                    font-family: Roboto;
-                    font-style: normal;
-                    font-weight: 500;
-                    font-size: 20px;
-                    line-height: normal;
-                    text-align: center;
-                    color: #FFFFFF;
-                    text-transform: uppercase;
+			.category-image {
+				width: 168px;
+				height: 112px;
+				background-color: #ffffff;
+				border-radius: 12px;
+				background-size: cover;
+				background-repeat: no-repeat;
+				background-position: center;
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				h1 {
+					font-family: Roboto;
+					font-style: normal;
+					font-weight: 500;
+					font-size: 15px;
+					line-height: 16px;
+					z-index: 1000;
+					letter-spacing: 0.01em;
+					color: #ffffff;
+					margin-bottom: 22px;
+				}
+			}
+		}
+	}
 
-
-                }
-
-            }
-
-
-            .overlay {
-
-                width: 100%;
-                height: 100%;
-                background: #000;
-                opacity: 0.3;
-                border-radius: 12px;
-
-            }
-
-            .category-block {
-
-                margin: 0 0px 6px 0;
-                margin-right: 6px !important;
-                width: 168px;
-                height: 112px;
-            }
-
-            .category-image {
-                width: 168px;
-                height: 112px;
-                background-color: #FFFFFF;
-                border-radius: 12px;
-                background-size: cover;
-                background-repeat: no-repeat;
-                background-position: center;
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                h1 {
-                    font-family: Roboto;
-                    font-style: normal;
-                    font-weight: 500;
-                    font-size: 15px;
-                    line-height: 16px;
-                    z-index: 1000 ;
-                    letter-spacing: 0.01em;
-                    color: #FFFFFF;
-                    margin-bottom: 22px;
-                }
-            }
-
-        }
-
-    }
-
-    @media only screen and (max-device-width : 700px) {
-
-        .category-section {
-
-            justify-content: center;
-
-        }
-
-    }
+	@media only screen and (max-device-width: 700px) {
+		.category-section {
+			justify-content: center;
+		}
+	}
 </style>
