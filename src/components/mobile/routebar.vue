@@ -120,7 +120,13 @@
                             this.$store.commit("globalStore/clearStores")
                             this.$router.push('/login/sign');
                     }.bind(this))
-
+					.catch(()=> {
+						    this.$store.commit("authentication/setAuthenticated", false)
+                            this.$store.commit("userPage/removeUser");
+                            this.$store.commit("pollFeed/clearFeed");
+                            this.$store.commit("globalStore/clearStores")
+                            this.$router.push('/login/sign');
+					})
             },
 
         },
