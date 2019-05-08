@@ -2,8 +2,10 @@
     <div class="sub-notification">
        <slot>
        <avatar :author="author" />
-        <span class="username">{{author.username}}</span>
-        <span class="message">На вас подписался</span>
+	   <div class="notification-text">
+			<span class="username">{{author.username}}</span>
+			<span class="message">На вас подписался</span>
+	   </div>
        </slot>
     </div>
 </template>

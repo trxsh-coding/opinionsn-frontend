@@ -83,7 +83,7 @@ export default {
       let poll =  this.pollMap[targetId] || {};
       let poll_name = poll.subject || [];
       if(poll_name.length > 30) {
-        return `«${poll_name.slice(0, 30)}...»`
+        return `«${poll_name.slice(0, 22)}...»`
       } else {
         return `«${poll_name}»`;
       }
@@ -188,6 +188,10 @@ export default {
       padding-right: 6px;
 
     }
+  }
+
+  .event-time {
+	white-space: nowrap;
   }
 
   hr {
