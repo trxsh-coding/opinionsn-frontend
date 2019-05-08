@@ -47,6 +47,10 @@
 				categories: ({ categories }) => categories
 			}),
 
+			...mapState("lang", {
+				lang: ({ locale }) => locale
+			}),
+
 			/* HERE COME THE GETTERS */
 
 			category: function() {},
@@ -63,14 +67,39 @@
 			},
 
 			searchCategory() {
-				let { categories, keyword } = this;
+				let { categories, keyword, lang } = this;
 
 				// Фильтрация юзеров через регекс
-				keyword === ""
-					? (this.filteredCategories = categories)
-					: (this.filteredCategories = Object.values(categories).filter(
-							({ name }) => name.search(new RegExp(keyword)) >= 0
-					  ));
+				if (keyword === "") {
+					this.filteredCategories = categories;
+				} else {
+					// Отфильтрованные пары ключ+значение из this.lang
+					let langFilteredEntries = Object.entries(lang).filter(
+						arr => arr[1].search(new RegExp(keyword, "i")) >= 0
+					);
+
+					// Получаем ключевое слово || слова для поиска в this.categories
+					let keyName = "";
+					langFilteredEntries.forEach((arr, index) => {
+						let { length } = langFilteredEntries;
+
+						switch (length) {
+							case 1:
+							case index + 1:
+								keyName += arr[0];
+								break;
+						
+							default:
+								keyName += arr[0] + "|";
+								break;
+						}
+					});
+
+					this.filteredCategories = Object.values(categories).filter(
+						({ name }) =>
+							name.search(new RegExp(`^(${keyName})$`, "im")) >= 0
+					);
+				}
 			}
 		},
 
