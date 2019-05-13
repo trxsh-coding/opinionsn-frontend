@@ -229,7 +229,7 @@ export default {
 
 
     getNotifications() {
-      this.$store.dispatch("notificationPage/list", {customUrl : `/messages/notification/${this.page}`});
+      this.$store.dispatch("notificationPage/list", {customUrl : `${process.env.VUE_APP_NOTIFICATION_API}/notification/${this.page}`});
     },
     onScroll() {
       const currentScrollPosition =
