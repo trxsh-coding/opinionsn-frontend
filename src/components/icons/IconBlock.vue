@@ -114,7 +114,7 @@
                 var end = moment.utc(end_date);
                 // var duration = end.diff(now);
 
-                return this.lstr('end');
+                return end;
             },
         },
 
