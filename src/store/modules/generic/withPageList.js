@@ -1,12 +1,11 @@
 import {StoreWithList} from "./withList";
 
-export const StoreWithPageList = (sc, listUrl) => {
+export const StoreWithPageList = (sc, listUrl, additionalUrl) => {
     return class extends StoreWithList(sc, listUrl) {
 
         /// MUTATIONS
         appendElements(state, payload) {
 
-            console.log(payload)
             state.is_finished = !payload.length
 
             if (state.page) state.items = [...state.items, ...payload];
@@ -29,8 +28,11 @@ export const StoreWithPageList = (sc, listUrl) => {
         listItemsAction({commit, state}, payload={}){
 
             let  {page = 0} = payload;
+
             commit('setPageNumber', page);
-            super.listItemsAction({commit}, {...payload,  customUrl: `${listUrl}/${page}`, onSuccess: 'appendElements'})
+
+            super.listItemsAction({commit}, {...payload,  customUrl: `${state.filteredFeed ? additionalUrl : listUrl}/${page}`, onSuccess: 'appendElements'})
+
 
         };
 
@@ -51,7 +53,8 @@ export const StoreWithPageList = (sc, listUrl) => {
                 ...super.state,
                 page: 1,
                 is_finished:false,
-                filter_id:null
+                filter_id:null,
+                filteredFeed:false,
             }
         }
 

@@ -36,12 +36,13 @@ export const StoreWithList = (sc, listUrl) => class extends sc {
     };
 
 
+
     get state(){
         return {
             ...super.state,
             items: [],
             itemsMap: {},
-            explainsItem:[]
+            explainsItem:[],
         }
     }
 

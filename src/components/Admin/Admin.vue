@@ -16,7 +16,7 @@
 					</el-submenu>
 					<el-submenu index="2">
 						<template slot="title">
-							<i class="el-icon-menu"></i>Пользователи
+							<i class="el-icon-menu"></i>Опросы
 						</template>
 						<el-menu-item index="2-1">Добавить</el-menu-item>
 						<el-menu-item index="2-2">Удалить</el-menu-item>

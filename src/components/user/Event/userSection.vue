@@ -13,6 +13,7 @@
 
 
         <user-feed :userId='user.id' v-if="hide_form"/>
+
     </div>
 </template>
 

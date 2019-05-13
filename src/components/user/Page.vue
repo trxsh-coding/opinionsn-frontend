@@ -1,18 +1,16 @@
 <template>
     <div id="mypage">
-		<div class="loading"  v-loading.fullscreen.lock="state.loading"  v-if="state.loading"/>
+
         <!-- Загрузка -->
         <!--<div v-else-if="state.loading">-->
             <!--<p align="center" style="font-size:10px;margin-top: 5px;color: darkgray">Загружаю...</p>-->
         <!--</div>-->
 
         <!-- Выгрузка пользователя -->
-        <div v-if="!items.length">
-            <p align="center" style="font-size:10px;margin-top: 5px;color: darkgray">Нет событий</p>
-        </div>
+
 
         <!-- Всё ок -->
-        <div v-else v-for="item in items">
+        <div  v-for="item in items">
             <user-section :item="item"/>
         </div>
     </div>
