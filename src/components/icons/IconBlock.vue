@@ -9,7 +9,7 @@
                        viewBox="0 0 17 16"
                        icon-name="time">
                    <icon-time /></icon-base>
-               <span > {{currentTime}}</span>
+               <span > {{currentTime || relativeEndDate}}</span>
            </slot>
            <slot name="icon-money">
                <icon-base
@@ -114,7 +114,7 @@
                 var end = moment.utc(end_date);
                 // var duration = end.diff(now);
 
-                return end;
+                return this.lstr('end');
             },
         },
 
