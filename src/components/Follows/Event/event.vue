@@ -98,7 +98,7 @@
 
             follow(id){
 
-                axios.post(`/api/rest/follow/${id}`)
+                axios.post(`${process.env.VUE_APP_MAIN_API}/rest/follow/${id}`)
                     .then((response) => {
                         if (response.status === 200) {
                             this.$store.commit('globalStore/updateStores', response.data, {root: true});
@@ -130,7 +130,7 @@
 
             let urlPart = this.isFollowing ? 'getFollowing' : 'getFollowers'
 
-            axios.get(`/api/rest/${urlPart}/${this.id}`)
+            axios.get(`${process.env.VUE_APP_MAIN_API}/rest/${urlPart}/${this.id}`)
                 .then((response) => {
                     if (response.status === 200) {
                         this.$store.commit('globalStore/updateStores', response.data, {root: true});

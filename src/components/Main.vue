@@ -255,7 +255,7 @@ export default {
     },
     fetch() {
       axios
-        .get(`/api/rest/findAllContaining/${this.keywords}`)
+        .get(`${process.env.VUE_APP_MAIN_API}/rest/findAllContaining/${this.keywords}`)
         .then(
           function(response) {
             if (response.status === 200) {

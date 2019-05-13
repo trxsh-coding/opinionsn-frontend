@@ -48,7 +48,7 @@
 
         mounted(){
 
-            this.$store.dispatch(`userPage/list`, {customUrl: `/api/rest/getUserById/${this.$route.params.id}`});
+            this.$store.dispatch(`userPage/list`, {customUrl: `${process.env.VUE_APP_MAIN_API}/rest/getUserById/${this.$route.params.id}`});
 
         }
     }

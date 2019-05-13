@@ -12,11 +12,11 @@ export const pollActions = sc => class extends sc {
 
         if (payload.data.type_of_poll >= 2) {
 
-            typeOfVote = "/api/rest/blockchain/vote/create/"
+            typeOfVote = `${process.env.VUE_APP_MAIN_API}/rest/blockchain/vote/create/`
 
         } else {
 
-            typeOfVote = "/api/rest/vote/create/"
+            typeOfVote = `${process.env.VUE_APP_MAIN_API}/rest/vote/create/`
 
         }
 
@@ -31,7 +31,7 @@ export const pollActions = sc => class extends sc {
 
         console.log(payload)
 
-        let {customUrl = `/api/rest/quiz/getOne/${payload}`, data={}, method='get'} = payload;
+        let {customUrl = `${process.env.VUE_APP_MAIN_API}/rest/quiz/getOne/${payload}`, data={}, method='get'} = payload;
 
         sc.apiRequest(customUrl, data,{commit, dispatch, onSuccess:null, successType: 'action'}, method);
 
@@ -40,7 +40,7 @@ export const pollActions = sc => class extends sc {
 
     // getFilteredFeed({commit, dispatch}, payload={}){
     //
-    //     let {customUrl = '/api/rest/feed/', data={}, method='post'} = payload;
+    //     let {customUrl = '${process.env.VUE_APP_MAIN_API}/rest/feed/', data={}, method='post'} = payload;
     //
     //     sc.apiRequest(customUrl, {},{commit, params: data, dispatch, onSuccess: null, successType: 'action'}, method);
     //
@@ -49,7 +49,7 @@ export const pollActions = sc => class extends sc {
 
     setRightOption({commit, dispatch}, payload={}){
 
-        let {customUrl = '/api/rest/admin/poll/choiceAnswer/', data={}, method='post'} = payload;
+        let {customUrl = `${process.env.VUE_APP_MAIN_API}/rest/admin/poll/choiceAnswer/`, data={}, method='post'} = payload;
 
         sc.apiRequest(customUrl, {},{commit, params: data, dispatch, onSuccess: null, successType: 'action'}, method);
 
@@ -59,7 +59,7 @@ export const pollActions = sc => class extends sc {
 
     setBlockchainRightOption({commit, dispatch}, payload={}){
 
-        let {customUrl = '/api/rest/blockchain/judge/create', data={}, method='post'} = payload;
+        let {customUrl = `${process.env.VUE_APP_MAIN_API}/rest/blockchain/judge/create`, data={}, method='post'} = payload;
 
         sc.apiRequest(customUrl, data, {commit, dispatch, onSuccess: null, successType: 'action'}, method);
 
@@ -69,7 +69,7 @@ export const pollActions = sc => class extends sc {
     saveExplain({commit, dispatch}, payload={}){
 
 
-        let {customUrl = '/api/rest/explain/save/', data={}, method='post'} = payload;
+        let {customUrl = `${process.env.VUE_APP_MAIN_API}/rest/explain/save/`, data={}, method='post'} = payload;
 
         sc.apiRequest(customUrl, data,{commit,dispatch, onSuccess: 'onExplainSaved', successType: 'action'}, method);
 
@@ -77,7 +77,7 @@ export const pollActions = sc => class extends sc {
 
     saveComment({commit, dispatch}, payload={}){
 
-        let {customUrl = '/api/rest/comment/save/', data={}, method='post', } = payload;
+        let {customUrl = `${process.env.VUE_APP_MAIN_API}/rest/comment/save/`, data={}, method='post', } = payload;
 
         sc.apiRequest(customUrl, data ,{commit, dispatch, onSuccess: 'onCommentSaved', successType: 'action'}, method);
 
@@ -91,7 +91,7 @@ export const pollActions = sc => class extends sc {
 
         let poll_id = payload.poll_id
 
-        let {customUrl = `/api/rest/explain/${page}/?poll_id=${poll_id}`, data={poll_id, page}, method='get', } = payload;
+        let {customUrl = `${process.env.VUE_APP_MAIN_API}/rest/explain/${page}/?poll_id=${poll_id}`, data={poll_id, page}, method='get', } = payload;
 
         sc.apiRequest(customUrl, data,{commit, dispatch, onSuccess: 'onShowMoreExplains', successType: 'action'}, method);
 
@@ -104,7 +104,7 @@ export const pollActions = sc => class extends sc {
 
         let type_of_poll = payload.type_of_poll
 
-        let {customUrl = `/api/rest/bookmarks/add/${id}?type_of_poll=${type_of_poll}`, data={id}, method='post', } = payload;
+        let {customUrl = `${process.env.VUE_APP_MAIN_API}/rest/bookmarks/add/${id}?type_of_poll=${type_of_poll}`, data={id}, method='post', } = payload;
 
         sc.apiRequest(customUrl, data,{commit, dispatch, onSuccess: null, successType: 'mutation'}, method);
 
@@ -115,7 +115,7 @@ export const pollActions = sc => class extends sc {
 
         let id = payload
 
-        let {customUrl = `/api/rest/bookmarks/delete/${id}`, data={}, method='post', } = payload;
+        let {customUrl = `${process.env.VUE_APP_MAIN_API}/rest/bookmarks/delete/${id}`, data={}, method='post', } = payload;
 
         sc.apiRequest(customUrl, data,{commit, dispatch, onSuccess: null, successType: 'mutation'}, method);
 
@@ -125,7 +125,7 @@ export const pollActions = sc => class extends sc {
 
         let id = payload;
 
-        let {customUrl = `/api/rest/admin/poll/delete/${id}`, data={}, method='post', } = payload;
+        let {customUrl = `${process.env.VUE_APP_MAIN_API}/rest/admin/poll/delete/${id}`, data={}, method='post', } = payload;
 
         sc.apiRequest(customUrl, data,{commit, dispatch, onSuccess: null, successType: 'mutation'}, method);
 
@@ -136,7 +136,7 @@ export const pollActions = sc => class extends sc {
 
         let id = payload;
 
-        let {customUrl = `/api/rest/admin/comment/delete/${id}`, data={}, method='post', } = payload;
+        let {customUrl = `${process.env.VUE_APP_MAIN_API}/rest/admin/comment/delete/${id}`, data={}, method='post', } = payload;
 
         sc.apiRequest(customUrl, data,{commit, dispatch, onSuccess: null, successType: 'mutation'}, method);
 
@@ -148,7 +148,7 @@ export const pollActions = sc => class extends sc {
 
         let id = payload.explain_id;
 
-        let {customUrl = `/api/rest/comment/${comment_page}/?event_id=${id}`, data={id}, method='get', } = payload;
+        let {customUrl = `${process.env.VUE_APP_MAIN_API}/rest/comment/${comment_page}/?event_id=${id}`, data={id}, method='get', } = payload;
 
         sc.apiRequest(customUrl, data,{commit, dispatch, onSuccess:'onShowMoreComments' , successType: 'action'}, method);
 
@@ -191,7 +191,7 @@ export const pollActions = sc => class extends sc {
         commit('globalStore/currentLoadingOption', {id: payload.selected_variable, value: false}, {root: true});
 
 
-        sc.apiRequest(`/api/rest/quiz/getOne/${poll_id}`, {},{commit, onSuccess: 'updatePayloadItem'}, 'get');
+        sc.apiRequest(`${process.env.VUE_APP_MAIN_API}/rest/quiz/getOne/${poll_id}`, {},{commit, onSuccess: 'updatePayloadItem'}, 'get');
 
 
     }

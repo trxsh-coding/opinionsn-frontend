@@ -66,7 +66,7 @@
 		methods: {
 			userLogout() {
 				axios
-					.get("/api/auth/logout")
+					.get(`${process.env.VUE_APP_MAIN_API}/auth/logout`)
 					.then(function(response) {
 						this.$store.commit(
 							"authentication/setAuthenticated",

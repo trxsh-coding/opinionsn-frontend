@@ -154,7 +154,7 @@ export const quizCreate = {
           'content-type': 'multipart/mixed'
             }
           }
-          axios.post('/api/rest/quiz/create', bodyFormData, config)
+          axios.post(`${process.env.VUE_APP_MAIN_API}/rest/quiz/create`, bodyFormData, config)
               .then(function(response){
                   if (response.status === 200) {
                     store.commit('quizCreate/someMutation')

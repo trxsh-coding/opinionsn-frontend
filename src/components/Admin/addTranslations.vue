@@ -42,7 +42,7 @@
 				let lang = this.form.lang ? "en" : "ru";
 
 				axios
-					.post(`/api/rest/locale/add/${lang}`, null, {
+					.post(`${process.env.VUE_APP_MAIN_API}/rest/locale/add/${lang}`, null, {
 						params: { key, value }
 					})
 					.then(response => console.log(response.status))

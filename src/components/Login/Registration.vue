@@ -112,7 +112,7 @@
 				registerFormData.append("pass", form.password);
 				registerFormData.append("passConfirm", form.conf_pass);
 				axios
-					.post("/api/auth/register", registerFormData)
+					.post(`${process.env.VUE_APP_MAIN_API}/auth/register`, registerFormData)
 					.then(response => {
 						if (response.status === 200) {
 							this.$router.push({

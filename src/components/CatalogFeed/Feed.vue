@@ -127,7 +127,7 @@
 
 
         mounted(){
-            this.$store.dispatch(`catalogList/list`, {customUrl: `/api/rest/categories/${this.id}`});
+            this.$store.dispatch(`catalogList/list`, {customUrl: `${process.env.VUE_APP_MAIN_API}/rest/categories/${this.id}`});
 
         },
 

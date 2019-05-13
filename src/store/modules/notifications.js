@@ -10,7 +10,7 @@ class notificationStore extends notificationPageList(VuexStore, '/messages/notif
     readInitialNotifications({state, commit, dispatch}, payload={}){
 
 
-        let {customUrl = '/messages/notification/read', data={}, method='post'} = payload;
+        let {customUrl = `${process.env.VUE_APP_NOTIFICATION_API}/messages/notification/read`, data={}, method='post'} = payload;
 
         VuexStore.apiRequest(customUrl, data,{commit, dispatch, onSuccess: 'setReadNotifications', successType: 'mutation'}, method);
 
