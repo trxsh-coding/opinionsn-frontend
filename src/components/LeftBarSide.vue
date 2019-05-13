@@ -1,6 +1,5 @@
 <template lang="html">
     <div id="left-aside">
-<<<<<<< HEAD
     	<profile-card class="hidden-xs-only" />
     	<side-bar />
     	<user-statistic  v-if="user" :id="main_user.id" :limit="1" class="hidden-xs-only"/>
@@ -10,13 +9,6 @@
 			<router-link class="pointer" tag="span" to="/feedback"><lang-string :title="'feedback'"/></router-link>
         </div>
       	<!--<guest-locale  class="hidden-xs-only" />-->
-=======
-      <profile-card class="hidden-xs-only" />
-        <side-bar />
-        <user-statistic  v-if="user" :id="main_user.id" :limit="1" class="hidden-xs-only"/>
-        <language-change  class="hidden-xs-only" />
-        <!--<guest-locale  class="hidden-xs-only" />-->
->>>>>>> parent of c7467782... Изменил feedback форму
     </div>
 </template>
 

@@ -12,35 +12,36 @@
         </div>
 
         <!-- Всё ок -->
-        <div  v-else>
-            <div class="user-feed-filter" >
-                <ul>
-                    <li @click="changeTypeOfFeed(true)">
-                        <icon-base
-                            width="22"
-                            height="22"
-                            viewBox="0 0 22 22"
-                            icon-name="main"><icon-main/>
-                        </icon-base>
-                    </li>
-                    <li @click="changeTypeOfFeed(false)">
-                        <icon-base
-                                width="22"
-                                height="22"
-                                viewBox="0 0 22 22"
-                                icon-name="main"><icon-main/>
-                        </icon-base>
-                    </li>
-                </ul>
-            </div>
+		<div class="user-feed-filter" v-else>
+			<ul>
+				<li @click="changeTypeOfFeed(true)">
+					<icon-base
+						:class="{active: filteredFeed}"
+						width="22"
+						height="22"
+						viewBox="0 0 22 22"
+						icon-name="main"><icon-main/>
+					</icon-base>
+				</li>
+				<li @click="changeTypeOfFeed(false)">
+					<icon-base
+						:class="{active: !filteredFeed}"
+						width="22"
+						height="22"
+						viewBox="0 0 22 22"
+						icon-name="main"><icon-main/>
+					</icon-base>
+				</li>
+			</ul>
+		</div>
 
-            <div  v-for="item in sanitizedItems">
-                <event :item="item"/>
-            </div>
-            <mugen-scroll :handler="load" :should-handle="!loading">
-                <div class="loading" v-if="!loading"><span>Loading</span></div>
-            </mugen-scroll>
-        </div>
+		<div v-for="(item, index) in sanitizedItems" :key="index">
+			<event :item="item"/>
+		</div>
+
+		<mugen-scroll :handler="load" :should-handle="!loading">
+			<div class="loading" v-if="!loading"><span>Loading</span></div>
+		</mugen-scroll>
 
     </div>
 
@@ -58,7 +59,8 @@
         name: "userFeed",
         computed: {
             ...mapState('userFeed', {
-                state: s => s,
+				state: s => s,
+				filteredFeed: ({filteredFeed}) => filteredFeed,
                 items: s => s.items,
                 loading: s => s.is_finished,
 
@@ -93,7 +95,7 @@
             load(){
 
 
-                this.$store.dispatch(`userFeed/loadNextPage`, {params: { id :this.userId}});
+				this.$store.dispatch(`userFeed/loadNextPage`, {params: { id :this.userId}});
 
 
             },
@@ -144,7 +146,7 @@
         padding: 6px 16px 7.8px 16px;
         ul {
             list-style: none;
-            display: inline-flex;
+            // display: inline-flex;
             margin: 0;
             padding: 0;
             li {
@@ -159,6 +161,12 @@
                     fill:#FFFFFF;
                     stroke: #D0D5D9;
                 }
+
+				&.active {
+					g, path, rect {
+                    	stroke: #152D3A;
+                	}
+				}
 
             }
         }
