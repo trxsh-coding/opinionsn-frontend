@@ -52,33 +52,6 @@ Vue.use(Element, {
 
 // console.log(`Moment locale: ${moment.locale()}`);
 
-<<<<<<< HEAD
-=======
-// Яндекс метрика
-
-Vue.use(VueYandexMetrika, {
-  id: 53480629,
-  router: router,
-  env: process.env.NODE_ENV,
-  debug: true,
-  options: {
-    webvisor: true
-  }
-  // other options
-})
-
-// Vue.use(VueYandexMetrika, {
-//   id: 53480629,
-//   router: router,
-//   env: 'production',
-//   options: {
-//     webvisor: true
-//   }
-//   // other options
-// })
-
->>>>>>> parent of c7467782... Изменил feedback форму
-
 export const nprogress = new NProgress(  '.nprogress-container' );
 
 //////////////////////
