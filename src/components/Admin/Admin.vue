@@ -1,5 +1,5 @@
 <template>
-	<div class="admin-wrapper relative height-100">
+	<div class="admin-wrapper relative height-100" v-loading="mainUser.authorities === undefined">
 		<el-container style="height: 100%; border: 1px solid #eee">
 			<el-aside width="250px" style="background-color: rgb(238, 241, 246)">
 				<el-menu>
@@ -16,7 +16,7 @@
 					</el-submenu>
 					<el-submenu index="2">
 						<template slot="title">
-							<i class="el-icon-menu"></i>Опросы
+							<i class="el-icon-menu"></i>Пользователи
 						</template>
 						<el-menu-item index="2-1">Добавить</el-menu-item>
 						<el-menu-item index="2-2">Удалить</el-menu-item>
@@ -66,7 +66,7 @@
 		methods: {
 			userLogout() {
 				axios
-					.get("/api/auth/logout")
+					.get(`${process.env.VUE_APP_MAIN_API}/auth/logout`)
 					.then(function(response) {
 						this.$store.commit(
 							"authentication/setAuthenticated",
@@ -106,11 +106,20 @@
 		},
 		created() {
 			this.$store.dispatch("userPage/getMainUser");
+		},
+		updated() {
+			let { authorities } = this.mainUser;
+			if (authorities !== undefined) {
+				console.log(authorities);
+				if (authorities !== "ADMIN") {
+					this.$router.push('/');
+				}
+			}
 		}
 	};
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 	// .el-button--primary {
 	// 	background: #4b97b4;
 	// 	border-color: inherit;
