@@ -127,15 +127,17 @@
 
 <style lang="scss">
     .mobile-nav {
+		position: relative;
+		width: 100%;
+		line-height: 0;
         ul {
-            margin-top: 0px;
-            padding: 10px;
+			box-sizing: border-box;
+			margin: 0;
+            padding: 10px 0;
             display: inline-flex;
             list-style: none;
             width: 100%;
-            display: flex;
             justify-content: space-between;
-            padding-left: 0px;
             align-items: center;
 
                 g {
