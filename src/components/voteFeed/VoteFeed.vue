@@ -24,8 +24,8 @@
 
 
         <!-- Всё ок -->
-        <div class="feed relative" v-else>
-            <div class="filter-section flex mb-10" >
+        <div class="feed relative">
+            <div class="filter-section flex mb-10" v-if="items.length">
                 <swiper :options="swiperOption" class="category-section">
                     <swiper-slide class="followings-block " v-for="following in followings">
 
@@ -38,7 +38,7 @@
                 <event :item="item"/>
             </div>
             <mugen-scroll :handler="load" :should-handle="!postsEnded">
-                <div class="loading" v-if="!postsEnded"><span>Loading</span></div>
+				<div class="loading-spinner" v-loading="true" v-if="!loading"/>
             </mugen-scroll>
 
         </div>
