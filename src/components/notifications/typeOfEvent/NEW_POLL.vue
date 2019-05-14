@@ -4,7 +4,7 @@
             <avatar  :author="author" />
             <span class="username">{{author.username}}</span>
             <span class="message" >Создал новый опрос</span>
-            <span class="poll pointer" @click="pollLink(targetId)">{{pollName}}</span>
+            <span class="poll pointer" @click="pollLink(targetId)" v-if="pollName !== '«»'">{{pollName}}</span>
         </slot>
     </div>
 </template>
