@@ -101,7 +101,7 @@ export default  {
         const params = new URLSearchParams();
         params.append('field_email', formMeta.input_mail);
         params.append('field_password', formMeta.input_password);
-        axios.post(`${process.env.VUE_APP_MAIN_API}/api/auth/login`, params)
+        axios.post(`/api/auth/login`, params)
             .then(function(response){
                 if (response.status === 200) {
                     this.commit("authentication/setAuthenticated", true)
@@ -124,7 +124,7 @@ export default  {
         params.append('pass', formMeta.input_userpassword);
         params.append('passConfirm', formMeta.input_passwordconf);
         params.append('email', formMeta.input_mail);
-        axios.post(`${process.env.VUE_APP_MAIN_API}/api/auth/register`, params)
+        axios.post(`/api/auth/register`, params)
             .then(function(response){
                 if (response.status === 200) {
                   vueApp.$router.push('/login/sign');
