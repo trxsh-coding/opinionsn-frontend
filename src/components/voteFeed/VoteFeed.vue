@@ -6,7 +6,7 @@
 
 		<div class="loading-spinner" v-loading="true" v-if="loading"/>
 
-		<div class="have-no-subscribers mt-10" v-else-if="!items.length">
+		<div class="have-no-subscribers mt-10" v-else-if="!items.length && !loading">
 			<span>Лента мнений будет доступна после появления подписок</span>
 		</div>
         <!--<div v-if="state.error">-->
@@ -38,7 +38,7 @@
                 <event :item="item"/>
             </div>
             <mugen-scroll :handler="load" :should-handle="!postsEnded">
-        <div class="loading-spinner" v-loading="true" v-if="!loading"/>
+        		<div class="loading-spinner" v-loading="true" v-show="loading"/>
             </mugen-scroll>
 
         </div>
