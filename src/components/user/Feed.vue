@@ -41,7 +41,7 @@
 		</div>
 
 		<mugen-scroll :handler="load" :should-handle="!loading">
-			<div class="loading" v-if="!loading" v-loading="loading"/>
+			<div class="loading" v-if="!loading" v-loading="true"/>
 		</mugen-scroll>
 
     </div>
@@ -142,6 +142,9 @@
 	.loading {
 		width: 100%;
 		height: 90px;
+		* {
+			background-color: transparent !important;
+		}
 	}
 
     .user-feed-filter {
