@@ -4,9 +4,11 @@
     <div class="vote-feed">
         <!-- Ошибка -->
 
-        <div class="have-no-subscribers mt-10" v-if="!items.length">
-            <span>Лента мнений будет доступна после появления подписок</span>
-        </div>
+		<div class="loading-spinner" v-loading="true" v-if="loading"/>
+
+		<div class="have-no-subscribers mt-10" v-else-if="!items.length">
+			<span>Лента мнений будет доступна после появления подписок</span>
+		</div>
         <!--<div v-if="state.error">-->
             <!--Что-то сломалось:-->
             <!--{{state.error}}-->
@@ -22,8 +24,8 @@
 
 
         <!-- Всё ок -->
-        <div class="feed relative" v-else>
-            <div class="filter-section flex mb-10" >
+        <div class="feed relative">
+            <div class="filter-section flex mb-10" v-if="items.length">
                 <swiper :options="swiperOption" class="category-section">
                     <swiper-slide class="followings-block " v-for="following in followings">
 
@@ -35,8 +37,8 @@
             <div v-for="item in items">
                 <event :item="item"/>
             </div>
-            <mugen-scroll :handler="load" :should-handle="!loading">
-                <div class="loading" v-if="!loading"><span>Loading</span></div>
+            <mugen-scroll :handler="load" :should-handle="!postsEnded">
+        <div class="loading-spinner" v-loading="true" v-if="!loading"/>
             </mugen-scroll>
 
         </div>
@@ -50,116 +52,96 @@
 
 
 <script>
-    import MugenScroll from 'vue-mugen-scroll'
-    import event from './event/Event.vue'
-    import filterComponent from './event/filterComponent.vue'
+	import MugenScroll from "vue-mugen-scroll";
+	import event from "./event/Event.vue";
+	import filterComponent from "./event/filterComponent.vue";
 
-    import { mapState } from 'vuex';
-    export default {
+	import { mapState } from "vuex";
+	export default {
+		data() {
+			return {
+				swiperOption: {
+					slidesPerView: 4,
+					spaceBetween: 30,
+					pagination: {
+						el: ".swiper-pagination",
+						clickable: true
+					}
+				}
+			};
+		},
 
-        data(){
+		computed: {
+			...mapState("voteFeed", {
+				state: s => s,
+				items: s => s.items,
+				postsEnded: ({ is_finished }) => is_finished,
+				loading: ({ loading }) => loading
+			}),
 
-            return {
+			...mapState("followsPage", {
+				followings: s => s.items
+			})
+		},
 
-                swiperOption: {
-                    slidesPerView: 4,
-                    spaceBetween: 30,
-                    pagination: {
-                        el: '.swiper-pagination',
-                        clickable: true
-                    }
-                }
+		methods: {
+			load() {
+				this.$store.dispatch(voteFeed / loadNextPage);
+			}
+		},
 
-            }
+		mounted() {
+			this.$store.dispatch(followsPage / getMyFollowings);
+			this.$store.dispatch(voteFeed / list);
+		},
 
-        },
-
-        computed: {
-
-            ...mapState('voteFeed', {
-                state: s => s,
-                items: s => s.items,
-                loading: s => s.is_finished,
-
-            }),
-
-            ...mapState('followsPage', {
-
-                followings: s => s.items,
-
-            }),
-
-
-        },
-
-        methods: {
-
-            load(){
-
-
-                this.$store.dispatch(`voteFeed/loadNextPage`);
-
-
-            },
-
-        },
-
-        mounted(){
-            this.$store.dispatch(`followsPage/getMyFollowings`);
-            this.$store.dispatch(`voteFeed/list`);
-        },
-
-        components: {
-            event,
-            MugenScroll,
-            filterComponent
-        }
-    }
+		components: {
+			event,
+			MugenScroll,
+			filterComponent
+		}
+	};
 </script>
 
 <style lang="scss">
-    .vote-feed {
-        height: 100%;
-        .swiper-container {
+	.vote-feed {
+		height: 100%;
 
-            margin-left: 0px;
+		.loading-spinner {
+			width: 100%;
+			height: 80px;
 
-        }
-        .have-no-subscribers {
+			* {
+				background-color: transparent;
+			}
+		}
 
-            text-align: center;
-            span {
+		.swiper-container {
+			margin-left: 0px;
+		}
+		.have-no-subscribers {
+			text-align: center;
+			span {
+				color: #69777f;
+				font-family: Roboto;
+				font-style: normal;
+			}
+		}
+		.followings-block {
+			width: 75px !important;
+			margin-right: 12px !important;
 
-                color: #69777F;
-                font-family: Roboto;
-                font-style: normal;
-
-            }
-
-        }
-        .followings-block {
-
-            width: 75px !important;
-            margin-right: 12px !important;
-
-            .filter-wrapper {
-
-                span {
-
-                    font-family: Roboto;
-                    font-style: normal;
-                    font-weight: normal;
-                    font-size: 12px;
-                    line-height: 18px;
-                    text-align: center;
-                    color: #152D3A;
-
-
-                }
-
-            }
-
-        }
-
-    }
+			.filter-wrapper {
+				span {
+					font-family: Roboto;
+					font-style: normal;
+					font-weight: normal;
+					font-size: 12px;
+					line-height: 18px;
+					text-align: center;
+					color: #152d3a;
+				}
+			}
+		}
+	}
 </style>
