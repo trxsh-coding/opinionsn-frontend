@@ -43,7 +43,7 @@ export const followsActions = sc => class extends sc {
 
     };
 
-
+ 
 
     getMyFollowings({commit, dispatch}, payload={}){
 
