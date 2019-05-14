@@ -133,7 +133,7 @@
 				};
 
 				axios
-					.post("/api/feedback", bodyFormData, config)
+					.post(`${process.env.VUE_APP_MAIN_API}/feedback`, bodyFormData, config)
 					.then(response => {
 						console.log(response.status);
 						if (response.status === 200) {

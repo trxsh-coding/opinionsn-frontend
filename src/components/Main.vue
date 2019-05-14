@@ -229,7 +229,7 @@ export default {
 
 
     getNotifications() {
-      this.$store.dispatch("notificationPage/list", {customUrl : `/messages/notification/${this.page}`});
+      this.$store.dispatch("notificationPage/list", {customUrl : `${process.env.VUE_APP_NOTIFICATION_API}/notification/${this.page}`});
     },
     onScroll() {
       const currentScrollPosition =
@@ -255,7 +255,7 @@ export default {
     },
     fetch() {
       axios
-        .get(`/api/rest/findAllContaining/${this.keywords}`)
+        .get(`${process.env.VUE_APP_MAIN_API}/rest/findAllContaining/${this.keywords}`)
         .then(
           function(response) {
             if (response.status === 200) {

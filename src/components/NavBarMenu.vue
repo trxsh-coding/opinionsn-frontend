@@ -129,7 +129,7 @@ export default {
   methods: {
     userLogout() {
 
-      axios.get('/api/auth/logout')
+      axios.get(`${process.env.VUE_APP_MAIN_API}/auth/logout`)
               .then(function(response){
                 this.$store.commit("authentication/setAuthenticated", false)
                 this.$store.commit("userPage/removeUser");

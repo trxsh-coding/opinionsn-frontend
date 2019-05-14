@@ -47,7 +47,7 @@
 
 
         mounted(){
-            this.$store.dispatch(`singlePoll/list`, {customUrl: `/api/rest/quiz/getOne/${this.id}`});
+            this.$store.dispatch(`singlePoll/list`, {customUrl: `${process.env.VUE_APP_MAIN_API}/rest/quiz/getOne/${this.id}`});
         },
 
 

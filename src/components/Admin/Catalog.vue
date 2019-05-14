@@ -71,7 +71,7 @@
                                 'content-type': 'multipart/mixed'
                             }
                         }
-                        axios.post('/api/rest/admin/categories/create', bodyFormData, config)
+                        axios.post(`${process.env.VUE_APP_MAIN_API}/rest/admin/categories/create`, bodyFormData, config)
                             .then(function(response){
                                 if (response.status === 200) {
 

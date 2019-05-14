@@ -60,7 +60,7 @@
                 return;
             }
             //console.log(user);
-            this.$store.dispatch(`userFeed/list`, {customUrl: `/api/rest/getFeedByUserId/${userId}`});
+            this.$store.dispatch(`userFeed/list`, {customUrl: `${process.env.VUE_APP_MAIN_API}/rest/getFeedByUserId/${userId}`});
         },
 
         components: {
@@ -74,7 +74,7 @@
                     return;
                 }
                 //console.log(user);
-                this.$store.dispatch(`userFeed/list`, {customUrl: `/api/rest/getFeedByUserId/${userId}`});
+                this.$store.dispatch(`userFeed/list`, {customUrl: `${process.env.VUE_APP_MAIN_API}/rest/getFeedByUserId/${userId}`});
             }
         }
     }

@@ -42,7 +42,7 @@ export const notificationPageList = (sc, listUrl) => class extends sc {
         dispatch('globalStore/verifyStore', {entries: pollsToVerify, storeName: 'polls'}, {root: true});
 
 
-        let {customUrl = '/messages/notification', data={}, method='get'} = payload;
+        let {customUrl = `${process.env.VUE_APP_NOTIFICATION_API}/notification`, data={}, method='get'} = payload;
 
         sc.apiRequest(customUrl, data,{commit, dispatch, onSuccess: 'setNotification', successType: 'action'}, method);
 
@@ -85,7 +85,7 @@ export const notificationPageList = (sc, listUrl) => class extends sc {
     longPollingAction({state, commit, dispatch}, payload={}){
 
 
-        let {customUrl = '/messages/notification', data={}, method='get'} = payload;
+        let {customUrl = `${process.env.VUE_APP_NOTIFICATION_API}/notification`, data={}, method='get'} = payload;
 
         sc.apiRequest(customUrl, data,{commit, dispatch, onSuccess: 'setNotification', successType: 'action'}, method);
 

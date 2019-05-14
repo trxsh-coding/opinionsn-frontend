@@ -21,7 +21,7 @@
         },
         methods : {
             update(selected) {
-                axios.get(`/api/locale/get/${selected}`).then((response) => {
+                axios.get(`${process.env.VUE_APP_MAIN_API}/locale/get/${selected}`).then((response) => {
                     this.$store.commit('lang/setLocale', response.data)
                 });
             }

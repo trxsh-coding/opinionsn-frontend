@@ -101,7 +101,7 @@
 				loginFormData.append("field_email", form.email);
 				loginFormData.append("field_password", form.password);
 				axios
-					.post("/api/auth/login", loginFormData)
+					.post(`${process.env.VUE_APP_MAIN_API}/auth/login`, loginFormData)
 					.then(response => {
 						if (response.status === 200) {
 							this.$store.commit(

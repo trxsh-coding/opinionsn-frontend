@@ -110,7 +110,7 @@ export default  {
       const params = new URLSearchParams();
       params.append('optionID', key.optionID);
       params.append('quizID', key.quizID);
-        axios.post('/api/rest/vote/create/', params, key)
+        axios.post(`${process.env.VUE_APP_MAIN_API}/rest/vote/create/`, params, key)
             .then(function(response){
                 if (response.status === 200) {
                   return dispatch('updateQuiz', key)
@@ -123,7 +123,7 @@ export default  {
         quizID : store.item.id,
 
       };
-      axios.post('/api/rest/explain/save/', a, store)
+      axios.post(`${process.env.VUE_APP_MAIN_API}/rest/explain/save/`, a, store)
           .then(function(response, respStore){
               if (response.status === 200) {
                 commit("markQuizAsFixed", store);
@@ -136,7 +136,7 @@ export default  {
         description : e.description,
         explainID: e.explainID
       };
-      axios.post('/api/rest/comment/save/', a, e)
+      axios.post(`${process.env.VUE_APP_MAIN_API}/rest/comment/save/`, a, e)
           .then(function(response, store){
               if (response.status === 200) {
                 commit("updateQuizComments", {response, e});
@@ -145,7 +145,7 @@ export default  {
     },
     showComments({dispatch, commit}, a){
       let explainPage = this.state.quizFeed.explainPage;
-      axios.get('/api/rest/comment/'+ explainPage + '?event_id=' + a.explainID)
+      axios.get(`${process.env.VUE_APP_MAIN_API}/rest/comment/`+ explainPage + '?event_id=' + a.explainID)
           .then(function(response){
             if (response.status === 200) {
               let index = {
@@ -158,7 +158,7 @@ export default  {
     },
     showExplains({dispatch, commit}, a){
       let quizPage = this.state.quizFeed.quizPage;
-      axios.get('/api/rest/explain/'+ quizPage + '?poll_id=' + a.quizID)
+      axios.get(`${process.env.VUE_APP_MAIN_API}/rest/explain/`+ quizPage + '?poll_id=' + a.quizID)
           .then(function(response){
             if (response.status === 200) {
               let index = {
@@ -210,7 +210,7 @@ export default  {
       }.bind(this))
     },
     getQuizByID({dispatch, commit}, e){
-      axios.get('/api/rest/quiz/getQuiz/' + e)
+      axios.get(`${process.env.VUE_APP_MAIN_API}/rest/quiz/getQuiz/` + e)
       .then(function(response){
         commit('setItems', [response.data]);
         let {quiz: quizzes} = this.state.quizFeed;
@@ -226,7 +226,7 @@ export default  {
       }.bind(this))
     },
     updateQuiz({dispatch, commit}, e){
-      axios.get('/api/rest/quiz/getQuiz/' + e.quizID, e)
+      axios.get(`${process.env.VUE_APP_MAIN_API}/rest/quiz/getQuiz/` + e.quizID, e)
         .then(function(response){
             if (response.status === 200) {
               commit('updateQuizState', {response, e})

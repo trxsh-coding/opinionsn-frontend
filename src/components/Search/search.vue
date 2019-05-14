@@ -45,7 +45,7 @@
 
             searchUsers() {
 
-                this.$store.dispatch('searchUser/list', {customUrl: `/api/rest/findAllContaining/${this.keywords}`})
+                this.$store.dispatch('searchUser/list', {customUrl: `${process.env.VUE_APP_MAIN_API}/rest/findAllContaining/${this.keywords}`})
 
 
             },
