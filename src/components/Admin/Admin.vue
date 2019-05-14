@@ -1,5 +1,5 @@
 <template>
-	<div class="admin-wrapper relative height-100">
+	<div class="admin-wrapper relative height-100" v-loading="mainUser.authorities === undefined">
 		<el-container style="height: 100%; border: 1px solid #eee">
 			<el-aside width="250px" style="background-color: rgb(238, 241, 246)">
 				<el-menu>
@@ -106,6 +106,15 @@
 		},
 		created() {
 			this.$store.dispatch("userPage/getMainUser");
+		},
+		updated() {
+			let { authorities } = this.mainUser;
+			if (authorities !== undefined) {
+				console.log(authorities);
+				if (authorities !== "ADMIN") {
+					this.$router.push('/');
+				}
+			}
 		}
 	};
 </script>
