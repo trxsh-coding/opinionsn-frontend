@@ -218,6 +218,7 @@ const optionsLimit = 2;
 <style lang="scss">
   .poll-preview {
     .main-block {
+		overflow: hidden;
 
       .content-block {
         background: #FFFFFF;
@@ -446,7 +447,7 @@ const optionsLimit = 2;
 
           .options-block {
 
-              overflow: auto;
+              overflow: scroll;
 
           }
 
