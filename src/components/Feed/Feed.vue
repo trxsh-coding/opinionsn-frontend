@@ -19,7 +19,7 @@
           </div>
           <div class="header-main">
             <div  class="middle-content">
-              <div class="profile-avatar" @click="userLink(item.author.id)" :style="{ 'background-image': 'url(' + item.author.path_to_avatar + ')' } "> </div>
+              <div class="profile-avatar" @click="userLink(item.author.id)" :style="{ 'background-image': 'url(' + publicPath + item.author.path_to_avatar + ')' } "> </div>
               <div class="quiz-request">
                 <span class="nicknameId"> </span>{{item.author.username}}
                 <lang-string class="some-text" :title="'created_a_poll'"/>
@@ -44,7 +44,7 @@
         </div>
         <div class="answer-middle">
           <div class="text-body">
-            <div class="picture-block" v-if=" !item.picture.length == 0 " :style="{ 'background-image': 'url(' + item.picture + ')' }">
+            <div class="picture-block" v-if=" !item.picture.length == 0 " :style="{ 'background-image': 'url(' + publicPath + item.picture + ')' }">
 
             </div>
             <div class="text-block ">
@@ -70,7 +70,7 @@
           <div class="options" >
             <div class="answer-blocks" v-for= "(answer, answer_index) in item.options" :key='answer_index' >
               <div class="quiz-section" @click.once="acceptVote(answer.id, item.id, index)" v-bind:class="{ withPicture: answer.picture, noCursor: item.variable_voted}">
-                <div class="optionPicture" v-if=" answer.picture " :class="{noCursor: item.variable_voted}"  :style="{ 'background-image': 'url(' + answer.picture + ')' } "></div>
+                <div class="optionPicture" v-if=" answer.picture " :class="{noCursor: item.variable_voted}"  :style="{ 'background-image': 'url(' + publicPath + answer.picture + ')' } "></div>
                 <!-- <div class="quiz-picture" :style="{ 'background-image': 'url(' + background + ')' }"> </div> -->
                 <div class="quiz-main-section" :class="{noCursor: item.variable_voted}">
                   <div  class="quiz-number" :class="{noCursor: item.variable_voted}" ><span class="nubmer">{{answer_index+1}}</span></div>
@@ -129,7 +129,7 @@
             <hr>
         </div>
         <div class="comments">
-            <div class="profile-picture" @click="userLink(item.event_author.id)" :style="{ 'background-image': 'url(' + user.path_to_avatar + ')' } " >
+            <div class="profile-picture" @click="userLink(item.event_author.id)" :style="{ 'background-image': 'url(' + publicPath + user.path_to_avatar + ')' } " >
           </div>
             <el-input :disabled="!item.variable_voted "  @keyup.enter.native="insertExplains(index, item)" size="small" class="comInput" :placeholder="(!item.variable_voted) ? lstr('you_can_leave_opinion_after_voting') : lstr('you_can_comment_your_vote')" :value="item.explanation"  @input="updateExplains(index, arguments[0])">
               <el-button :disabled="!item.variable_voted " slot="append" size="small"  @click="insertExplains(index, item)" >
@@ -143,7 +143,7 @@
               <span class="time" v-if="com.create_time != null">{{moment(com.create_time).format('HH:mm')}}</span>
             </el-tooltip>
             <div class="explainPicture">
-              <div class="profile-picture" @click="userLink(com.author.id)" :style="{ 'background-image': 'url(' + com.author.path_to_avatar + ')' } ">
+              <div class="profile-picture" @click="userLink(com.author.id)" :style="{ 'background-image': 'url(' + publicPath + com.author.path_to_avatar + ')' } ">
               </div>
             </div>
             <div class="explain-block">
@@ -174,7 +174,7 @@
                 <span class="time">{{moment(reply.create_time).format('HH:mm')}}</span>
               </el-tooltip>
               <div class="explainPicture">
-                <div class="profile-picture" @click="userLink(reply.author.id)" :style="{ 'background-image': 'url(' + reply.author.path_to_avatar + ')' } "></div>
+                <div class="profile-picture" @click="userLink(reply.author.id)" :style="{ 'background-image': 'url(' + publicPath + reply.author.path_to_avatar + ')' } "></div>
               </div>
               <div class="explain-block">
                 <div class="text-block">
@@ -199,7 +199,7 @@
           <div class="comments second-level-comments" >
             <div class="exception" >
               <div class="explainPicture">
-                <div class="profile-picture" :style="{ 'background-image': 'url(' + user.path_to_avatar + ')' } " >
+                <div class="profile-picture" :style="{ 'background-image': 'url(' + publicPath + user.path_to_avatar + ')' } " >
                 </div>
               </div>
               <el-input   size="small"  :placeholder="lstr('you_can_comment')" :value="com.comment" @keyup.enter.native="insertComments(com.id, item.explain[indexExplain].comment, index, indexExplain)" @input="updateComments( index,  indexExplain,arguments[0])">
@@ -216,7 +216,7 @@
               <span class="time" v-if="com.create_time != null">{{moment(com.create_time).format('HH:mm')}}</span>
             </el-tooltip>
             <div class="explainPicture">
-              <div class="profile-picture" @click="userLink(com.author.id)" :style="{ 'background-image': 'url(' + com.author.path_to_avatar + ')' } ">
+              <div class="profile-picture" @click="userLink(com.author.id)" :style="{ 'background-image': 'url(' + publicPath + com.author.path_to_avatar + ')' } ">
             </div>
             </div>
             <div class="explain-block">
@@ -247,7 +247,7 @@
                 <span class="time">{{moment(reply.create_time).format('HH:mm')}}</span>
               </el-tooltip>
               <div class="explainPicture">
-                <div class="profile-picture" @click="userLink(reply.author.id)" :style="{ 'background-image': 'url(' + reply.author.path_to_avatar + ')' } "></div>
+                <div class="profile-picture" @click="userLink(reply.author.id)" :style="{ 'background-image': 'url(' + publicPath + reply.author.path_to_avatar + ')' } "></div>
               </div>
               <div class="explain-block">
                 <div class="text-block">
@@ -272,7 +272,7 @@
           <div class="comments second-level-comments" >
             <div class="exception">
               <div class="explainPicture">
-                <div class="profile-picture" :style="{ 'background-image': 'url(' + user.path_to_avatar + ')' } " >
+                <div class="profile-picture" :style="{ 'background-image': 'url(' + publicPath + user.path_to_avatar + ')' } " >
               </div>
               </div>
                 <el-input size="small" :placeholder="lstr('you_can_comment')" :value="com.comment" @keyup.enter.native="insertComments(com.id, item.explain[index_explain].comment, index, index_explain)" @input="updateComments( index,  index_explain,arguments[0])">

@@ -28,7 +28,7 @@
         </div>
       </div>
     <div class="main-content" v-for="(item, index) in Leaders" :key="index" v-if="phantom.length === 0">
-      <div class="avatar-block" @click="userLink(item.id)" :style="{ 'background-image': 'url(' + item.path_to_avatar + ')' }">
+      <div class="avatar-block" @click="userLink(item.id)" :style="{ 'background-image': 'url(' + publicPath + item.path_to_avatar + ')' }">
       </div>
         <el-button size="small" rounded @click="unFollow(item.id)" >
           <lang-string :title="'unfollow'"/>

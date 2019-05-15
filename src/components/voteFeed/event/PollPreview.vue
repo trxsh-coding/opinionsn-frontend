@@ -44,7 +44,7 @@
               <div class="options" v-for="{option, isSelected} in unsanitizedOptions" v-if="mobile">
 
                   <div class="option btn-animated" >
-                      <div class="picture-with-options" :class="{'is-voted' : isSelected}" :style="{ 'background-image': 'url(' + option.picture + ')' } " v-if="option.picture">
+                      <div class="picture-with-options" :class="{'is-voted' : isSelected}" :style="{ 'background-image': 'url(' + publicPath + option.picture + ')' } " v-if="option.picture">
                       </div>
                       <div class="text-block flex-align-center" :class="{'picture-option' : option.picture, 'main-option' : isSelected} " >
                           <div class="span-block">

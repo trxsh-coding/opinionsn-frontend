@@ -47,7 +47,7 @@
 				<a href="https://www.facebook.com/opinionsncom/" target="_blank" rel="noopener noreferrer">
 					<div
 						class="picture-30x30"
-						:style="{ 'background-image': 'url(' + require('../images/facebook.png') + ')' } "
+						:style="{ 'background-image': 'url(' + publicPath + require('../images/facebook.png') + ')' } "
 					/>
 				</a>
 			</li>
@@ -55,7 +55,7 @@
 				<a href="https://twitter.com/opinionsn_com" target="_blank" rel="noopener noreferrer">
 					<div
 						class="picture-30x30"
-						:style="{ 'background-image': 'url(' + require('../images/twitter.png') + ')' } "
+						:style="{ 'background-image': 'url(' + publicPath + require('../images/twitter.png') + ')' } "
 					/>
 				</a>
 			</li>
@@ -63,7 +63,7 @@
 				<a href="https://www.instagram.com/opinionsn_com/" target="_blank" rel="noopener noreferrer">
 					<div
 						class="picture-30x30"
-						:style="{ 'background-image': 'url(' + require('../images/instagram.png') + ')' } "
+						:style="{ 'background-image': 'url(' + publicPath + require('../images/instagram.png') + ')' } "
 					/>
 				</a>
 			</li>
@@ -71,7 +71,7 @@
 				<a href="https://t.me/opinion_social_network" target="_blank" rel="noopener noreferrer">
 					<div
 						class="picture-30x30"
-						:style="{ 'background-image': 'url(' + require('../images/telegram.png') + ')' } "
+						:style="{ 'background-image': 'url(' + publicPath + require('../images/telegram.png') + ')' } "
 					/>
 				</a>
 			</li>
@@ -79,7 +79,7 @@
 				<a href="https://vk.com/opinion_social_network" target="_blank" rel="noopener noreferrer">
 					<div
 						class="picture-30x30"
-						:style="{ 'background-image': 'url(' + require('../images/vk.png') + ')' } "
+						:style="{ 'background-image': 'url(' + publicPath + require('../images/vk.png') + ')' } "
 					/>
 				</a>
 			</li>
@@ -91,7 +91,7 @@
 				>
 					<div
 						class="picture-30x30"
-						:style="{ 'background-image': 'url(' + require('../images/youtube.png') + ')' } "
+						:style="{ 'background-image': 'url(' + publicPath + require('../images/youtube.png') + ')' } "
 					/>
 				</a>
 			</li>

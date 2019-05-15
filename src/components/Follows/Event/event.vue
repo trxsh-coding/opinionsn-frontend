@@ -52,7 +52,8 @@
 
 				items:[],
 				keyword: "",
-				filteredUsers: null
+				filteredUsers: null,
+				publicPath: process.env.VUE_APP_MAIN_API
 
             }
         },
