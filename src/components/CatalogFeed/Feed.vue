@@ -22,7 +22,7 @@
         <!-- Всё ок -->
 
         <div class="catalog-main-wrapper">
-            <div class="category-background mb-10" :style="{ 'background-image': 'url(' + category.path_to_image + ')' } ">
+            <div class="category-background mb-10" :style="{ 'background-image': 'url(' + publicPath + category.path_to_image + ')' } ">
 
                 <div class="category-subject">
                     <span><lang-string :title="category.name"/></span>
@@ -70,7 +70,9 @@
         mixins:[langMixin],
         data(){
             return {
-                id: this.$route.params.id
+                id: this.$route.params.id,
+                publicPath: process.env.VUE_APP_MAIN_API
+
             }
         },
         computed: {

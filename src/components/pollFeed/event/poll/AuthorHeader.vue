@@ -1,7 +1,7 @@
 <template>
     <div id='author-header'>
 
-        <div @click="userLink(author.id)" class="author-avatar pointer" :style="{ 'background-image': 'url(' + author.path_to_avatar + ')' }" ></div>
+        <div @click="userLink(author.id)" class="author-avatar pointer" :style="{ 'background-image': 'url(' + publicPath +  author.path_to_avatar + ')' }" ></div>
 
         <div class="information-block">
             <div class="author-section flex-align-center flex-between">
@@ -56,6 +56,16 @@
 
     export default {
         name: "AuthorHeader",
+        data(){
+
+            return {
+
+                publicPath: process.env.VUE_APP_MAIN_API
+
+
+            }
+
+        },
         computed:{
 
         },

@@ -15,7 +15,7 @@
       <div
          v-if="notification.eventType != 'NEW_USER'"
         class="avatar avatar-30x30 pointer"
-        :style="{ 'background-image': 'url(' + author.path_to_avatar + ')' } "
+        :style="{ 'background-image': 'url('+ publicPath + author.path_to_avatar + ')' } "
         @click="userLink"
       >
       </div>
@@ -99,6 +99,8 @@ export default {
   },
   data: function() {
     return {
+
+      publicPath: process.env.VUE_APP_MAIN_API
 
     };
   },

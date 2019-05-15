@@ -2,7 +2,7 @@
     <div class='author-header'>
       <div class="avatar">
 
-        <div class="avatar-42x42 pointer" :style="{ 'background-image': 'url(' + author.path_to_avatar+ ')' } " @click="userLink(author.id)"></div>
+        <div class="avatar-42x42 pointer" :style="{ 'background-image': 'url(' + publicPath + author.path_to_avatar+ ')' } " @click="userLink(author.id)"></div>
 
       </div>
       <div class="icon-more">
@@ -61,6 +61,16 @@ import moment from 'moment'
 
     export default {
         name: "AuthorHeader",
+        data(){
+
+          return {
+
+            publicPath: process.env.VUE_APP_MAIN_API
+
+          }
+
+
+        },
         computed:{
           ...mapState('lang',{
             lang : state => state.locale

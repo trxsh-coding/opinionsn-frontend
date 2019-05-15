@@ -3,7 +3,7 @@
         <div class="main-content mb-10">
 
             <div class="pictures-block">
-                <div class="background-block" :style="{ 'background-image': 'url(' + user.background_image + ')' }">
+                <div class="background-block" :style="{ 'background-image': 'url(' + publicPath + user.background_image + ')' }">
                     <el-button size="small" v-if="!hide_edit && user.id === main_user_id"class="edit" @click="editInfo" >
                         <lang-string :title="'edit'"/>
                     </el-button>
@@ -39,7 +39,7 @@
 
 
                 <!--</div>-->
-                <div class="avatar-block pointer" :style="{ 'background-image': 'url(' + user.path_to_avatar + ')' } ">
+                <div class="avatar-block pointer" :style="{ 'background-image': 'url(' + publicPath + user.path_to_avatar + ')' } ">
                     <div class="uploader-wrapper" v-if="user.id === main_user_id">
                         <avatar-uploader   />
                     </div>
@@ -89,7 +89,9 @@
                 aboutMe:null,
                 username:null,
                 last_name:null,
-                first_name:null
+                first_name:null,
+                publicPath: process.env.VUE_APP_MAIN_API
+
             }
         },
         computed: {

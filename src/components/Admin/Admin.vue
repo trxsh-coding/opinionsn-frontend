@@ -1,5 +1,5 @@
 <template>
-	<div class="admin-wrapper relative height-100" v-loading="mainUser.authorities === undefined">
+	<div class="admin-wrapper relative height-100">
 		<el-container style="height: 100%; border: 1px solid #eee">
 			<el-aside width="250px" style="background-color: rgb(238, 241, 246)">
 				<el-menu>
@@ -106,22 +106,6 @@
 		},
 		created() {
 			this.$store.dispatch("userPage/getMainUser");
-		},
-		beforeRouteEnter (to, from, next) {
-			axios
-				.get('/api/rest/getUser')
-				.then((response) => {
-					let { users } = response.data;
-					let { authorities } = users[Object.keys(users)[0]];
-					if (authorities === "ADMIN") {
-						next();
-					} else {
-						next('/pollFeed');
-					}
-				})
-				.catch(() => {
-					next('/pollFeed');
-				})
 		}
 	};
 </script>

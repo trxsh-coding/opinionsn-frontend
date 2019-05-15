@@ -1,8 +1,8 @@
 <template lang="html">
     <div id="profile-section" class="mb-10">
-        <div class="profile-background " :style="{ 'background-image': 'url(' + user.background_image + ')' }" > </div>
+        <div class="profile-background " :style="{ 'background-image': 'url(' + publicPath + user.background_image + ')' }" > </div>
         <div  class="profile-content">
-            <div class="profile-avatar pointer" :style="{ 'background-image': 'url(' + user.path_to_avatar + ')' }  " @click="userLink(user.id)"> </div>
+            <div class="profile-avatar pointer" :style="{ 'background-image': 'url(' + publicPath + user.path_to_avatar + ')' }  " @click="userLink(user.id)"> </div>
             <div class="main-content">
                 <div class="description-block">
                     {{ user.first_name }} {{ user.last_name }}
@@ -28,7 +28,7 @@
     export default {
         data () {
             return {
-
+                publicPath: process.env.VUE_APP_MAIN_API
             }
         },
         methods: {

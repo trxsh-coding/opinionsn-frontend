@@ -8,7 +8,7 @@
             <div class="options" v-for="{option, isSelected} in sanitizedOptions[0].option.picture != null ? sanitizedOptions.slice(0, 2) : sanitizedOptions">
 
               <div class="option" >
-                  <div class="picture-with-options" :class="{'is-voted' : isSelected}" :style="{ 'background-image': 'url(' + option.picture + ')' } " v-if="option.picture">
+                  <div class="picture-with-options" :class="{'is-voted' : isSelected}" :style="{ 'background-image': 'url(' + publicPath + option.picture + ')' } " v-if="option.picture">
                   </div>
                   <div class="text-block flex-align-center" :class="{'picture-option' : option.picture, 'main-option' : isSelected} " >
                       <div class="span-block">
@@ -100,7 +100,9 @@ const optionsLimit = 2;
             return {
 
                 expanded: false,
-                mobile:this.$root.mobile
+                mobile:this.$root.mobile,
+                publicPath: process.env.VUE_APP_MAIN_API
+
 
             }
 

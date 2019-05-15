@@ -2,7 +2,7 @@
     <div>
         <div class="flex-column filter-category" @click="setFilter(category.id)">
 
-            <div class="category-picture "  :style="{ 'background-image': 'url('+ category.path_to_image + ')' }"> </div>
+            <div class="category-picture "  :style="{ 'background-image': 'url('+ publicPath + category.path_to_image + ')' }"> </div>
 
             <lang-string class="lowercase name" :title="category.name" />
 
@@ -23,6 +23,7 @@
 
             return {
 
+                publicPath: process.env.VUE_APP_MAIN_API
 
             }
 
