@@ -104,11 +104,8 @@
 			Catalog,
 			addTranslations
 		},
-		mounted() {
+		created() {
 			this.$store.dispatch("userPage/getMainUser");
-		},
-		 beforeRouteEnter (to, from, next) {
-
 		}
 	};
 </script>
