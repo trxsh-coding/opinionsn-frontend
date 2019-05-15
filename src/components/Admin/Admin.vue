@@ -107,14 +107,21 @@
 		created() {
 			this.$store.dispatch("userPage/getMainUser");
 		},
-		updated() {
-			let { authorities } = this.mainUser;
-			if (authorities !== undefined) {
-				console.log(authorities);
-				if (authorities !== "ADMIN") {
-					this.$router.push('/');
-				}
-			}
+		beforeRouteEnter (to, from, next) {
+			axios
+				.get('/api/rest/getUser')
+				.then((response) => {
+					let { users } = response.data;
+					let { authorities } = users[Object.keys(users)[0]];
+					if (authorities === "ADMIN") {
+						next();
+					} else {
+						next('/pollFeed');
+					}
+				})
+				.catch(() => {
+					next('/pollFeed');
+				})
 		}
 	};
 </script>
