@@ -1,7 +1,7 @@
 <template lang="html">
 	<div id="app">
 		<el-header id="mobile-header" class="mobile-nav hidden-sm-and-up"   :class="{ 'navbar--hidden': !showNavbar }">
-				<mobile-nav :user="main_user"/>
+			<mobile-nav :user="main_user"/>
 		</el-header>
 		<el-header class="nav-header hidden-xs-only" style=" height:48px ">
 			<el-container class="nav">
@@ -119,15 +119,20 @@
 		</el-container>
 
 
-			<notification-side-feed v-if="!mobile"/>
+		<notification-side-feed v-if="!mobile"/>
 
-			<!-- <div class="notification-container flex-column">
-				<notification-block :notification="notification"  v-for="notification in notifications" />
-			</div> -->
+		<!-- <div class="notification-container flex-column">
+			<notification-block :notification="notification"  v-for="notification in notifications" />
+		</div> -->
 
-			<footer v-if="!main_user_id && !hide">
+		<footer v-if="!main_user_id && !hide">
+				
+		</footer>
+			
 
-			</footer>
+		<el-footer>
+			<mobile-footer-nav :user="main_user"/>
+		</el-footer>
 	</div>
 </template>
 
@@ -144,7 +149,8 @@
 	import langString from "./langString.vue";
 	import { localString } from "../utils/localString.js";
 	import axios from "axios";
-	import mobileNav from "./mobileNav";
+	import MobileNav from "./MobileNav";
+	import MobileFooterNav from "./MobileFooterNav";
 	import Search from "./Search/search";
 	import notificationSideFeed from "./notifications/notificationSideFeed";
 	import { log } from "util";
@@ -320,9 +326,10 @@
 			IconTextLogo,
 			langString,
 			IconDropdown,
-			mobileNav,
+			MobileNav,
 			IconClose,
-			notificationSideFeed
+			notificationSideFeed,
+			MobileFooterNav
 		}
 	};
 </script>
@@ -530,7 +537,7 @@
 		@media only screen and (min-device-width: 320px) and (max-device-width: 765px) {
 			.el-header {
 				margin-bottom: 12px;
-				padding: 0 15px;
+				padding: 0;
 				position: fixed;
 				z-index: 100000;
 				width: 100%;
@@ -538,6 +545,15 @@
 				background: #ffffff;
 				transition: 0.1s all ease-out;
 				box-shadow: 0px 0px 12px rgba(0, 0, 0, 0.06);
+			}
+
+			.el-footer {
+				position: fixed;
+				width: 100%;
+				height: auto !important;
+				bottom: 0;
+				padding: 0;
+				background-color: #ffffff;
 			}
 
 			.auth-block {
