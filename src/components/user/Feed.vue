@@ -125,14 +125,14 @@
         },
 
         watch: {
-            // userId: function(userId){
-            //     if (!userId){
-            //         console.warn('User not passed to props of User Feed');
-            //         return;
-            //     }
-            //     //console.log(user);
-            //     this.$store.dispatch(`userFeed/list`, {customUrl: `/api/rest/getFeedByUserId/${userId}`});
-            // }
+            userId: function(userId){
+                if (!userId){
+                    console.warn('User not passed to props of User Feed');
+                    return;
+                }
+                //console.log(user);
+                this.$store.dispatch(`userFeed/list`, {customUrl: `/api/rest/getFeedByUserId/${userId}`});
+            }
         }
     }
 </script>

@@ -74,7 +74,7 @@
 		computed: {
 			...mapState("voteFeed", {
 				state: s => s,
-				items: s => s.items,
+				items: ({ items }) => items,
 				postsEnded: ({ is_finished }) => is_finished,
 				loading: ({ loading }) => loading
 			}),

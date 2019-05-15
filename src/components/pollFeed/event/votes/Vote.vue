@@ -261,6 +261,8 @@
                     font-size: 12px;
                     letter-spacing: -0.1px;
                     color: #4B97B4;
+					text-overflow: ellipsis;
+    				white-space: nowrap;
                 }
             }
         }

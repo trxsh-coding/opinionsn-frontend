@@ -2,9 +2,11 @@
     <div class="prediction-notification">
         <slot>
             <avatar :author="author" />
-            <span class="username">{{author.username}}</span>
-            <span class="message">Автор из ваших подписок создал новый Прогноз</span>
-            <span class="poll pointer" @click="pollLink(targetId)">{{pollName}}</span>
+			<div class="notification-text">
+				<span class="username">{{author.username}}</span>
+				<span class="message">Автор из ваших подписок создал новый Прогноз</span>
+				<span class="poll pointer" @click="pollLink(targetId)">{{pollName}}</span>
+			</div>
         </slot>
     </div>
 </template>
