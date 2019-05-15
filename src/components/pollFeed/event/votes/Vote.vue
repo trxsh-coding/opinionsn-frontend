@@ -1,7 +1,7 @@
 <template>
     <div class="explain-section" >
         <div class="explain-block relative">
-            <div class="avatar-30x30" id="explain-avatar" :style="{ 'background-image': 'url(' + author.path_to_avatar + ')' } " @click="userLink(author.id)"></div>
+            <div class="avatar-30x30" id="explain-avatar" :style="{ 'background-image': 'url(' + publicPath + author.path_to_avatar + ')' } " @click="userLink(author.id)"></div>
             <div class="text-block">
                 <span class="nickname">{{author.username}}</span>
                 <span class="explain-description wb">{{vote.explain_description}}</span>
@@ -60,7 +60,9 @@
                 comment_description:null,
                 no_more_comments: false,
                 show_form:false,
-                hide:false
+                hide:false,
+                publicPath: process.env.VUE_APP_MAIN_API
+
             }
         },
 

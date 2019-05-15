@@ -1,5 +1,5 @@
 <template>
-    <div class="mobile-uploader avatar-90x90" :style="{ 'background-image': 'url(' + user.path_to_avatar + ')' } " @click="dialogVisible = true">
+    <div class="mobile-uploader avatar-90x90" :style="{ 'background-image': 'url(' + publicPath +user.path_to_avatar + ')' } " @click="dialogVisible = true">
         <el-dialog
                 title="Tips"
                 :visible.sync="dialogVisible"
@@ -38,7 +38,9 @@
 
             return {
                 dialogVisible:false,
-                croppa:{}
+                croppa:{},
+                publicPath: process.env.VUE_APP_MAIN_API
+
 
             }
 

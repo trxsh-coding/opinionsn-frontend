@@ -1,7 +1,7 @@
 <template>
     <div class="content-wrapper" id="poll-block">
         <div class="content-block relative" :class="{padding : poll.picture}">
-            <div class="picture-block" :style="{ 'background-image': 'url(' + poll.picture + ')' } " v-if="poll.picture">
+            <div class="picture-block" :style="{ 'background-image': 'url(' + publicPath + poll.picture + ')' } " v-if="poll.picture">
             </div>
             <div class="text-block">
                 <div class="link-div flex  pointer" @click="pollLink(poll.id)">
@@ -9,7 +9,7 @@
                         {{poll.subject}}
                     </div>
                     <div v-if="author" class="author-block">
-                        <div class="author-avatar" :style="{ 'background-image': 'url(' + author.path_to_avatar + ')' } " @click="userLink(author.id)"></div>
+                        <div class="author-avatar" :style="{ 'background-image': 'url(' + publicPath +author.path_to_avatar + ')' } " @click="userLink(author.id)"></div>
                         <span class="span__item">{{author.username}}</span>
                     </div>
                     <slot name="subject_header">
@@ -39,9 +39,16 @@
     import langString from './../../langString.vue'
 
     export default {
-        data: () => ({
+        data(){
 
-        }),
+            return {
+
+                publicPath: process.env.VUE_APP_MAIN_API
+
+
+            }
+
+        },
         name: "PollBlock",
         props: ['poll', 'author', 'item'],
         computed: {

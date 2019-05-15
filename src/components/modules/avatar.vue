@@ -2,7 +2,7 @@
     <div class="notification-avatar" slot="avatar">
         <div
                 class="avatar avatar-30x30 pointer"
-                :style="{ 'background-image': 'url(' + author.path_to_avatar + ')' } "
+                :style="{ 'background-image': 'url(' + publicPath + author.path_to_avatar + ')' } "
                 @click="userLink">
         </div>
     </div>
@@ -12,6 +12,15 @@
     export default {
         name: "avatar",
         props:['author'],
+        data(){
+
+            return {
+
+                publicPath: process.env.VUE_APP_MAIN_API
+
+            }
+
+        },
         methods: {
 
             userLink() {

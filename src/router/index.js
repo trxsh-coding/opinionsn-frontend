@@ -220,10 +220,6 @@ index.beforeResolve((to, from, next) => {
 index.afterEach(() => {
 	nprogress.done()
 });
-index.beforeEach((to, from, next) => {
-	const publicPages = ['/login'];
-	next();
-});
 
 index.beforeEach((to, from, next) => {
 	if (to.path === '/sign' || to.path === '/registration' || to.path === '/login' || to.path === '/restore' || to.name === `token` || to.path === '/pollFeed' || to.name === 'singlePoll' || to.name === 'feedBack') {

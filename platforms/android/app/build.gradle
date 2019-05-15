@@ -174,7 +174,6 @@ android {
 
     lintOptions {
       abortOnError false;
-      disable 'MissingDefaultResource';
     }
 
     compileSdkVersion cdvCompileSdkVersion
@@ -267,6 +266,7 @@ dependencies {
     implementation fileTree(dir: 'libs', include: '*.jar')
     // SUB-PROJECT DEPENDENCIES START
     implementation(project(path: ":CordovaLib"))
+    implementation "com.android.support:support-v4:24.1.1+"
     // SUB-PROJECT DEPENDENCIES END
 }
 
@@ -329,4 +329,3 @@ for (def func : cdvPluginPostBuildExtras) {
 if (hasProperty('postBuildExtras')) {
     postBuildExtras()
 }
-

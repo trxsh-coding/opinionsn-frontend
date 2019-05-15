@@ -1,5 +1,5 @@
 <template>
-    <div class="main-user-avatar" :style="{ 'background-image': 'url('+ user.path_to_avatar + ')' }" @click="userLink(user.id)"></div>
+    <div class="main-user-avatar" :style="{ 'background-image': 'url('+ publicPath + user.path_to_avatar + ')' }" @click="userLink(user.id)"></div>
 
 </template>
 
@@ -7,6 +7,12 @@
     import { mapState } from 'vuex';
     export default {
         name: "mainUserAvatar",
+        data(){
+
+            return {
+                publicPath: process.env.VUE_APP_MAIN_API
+            }
+        },
         computed: {
 
             ...mapState('userPage', {

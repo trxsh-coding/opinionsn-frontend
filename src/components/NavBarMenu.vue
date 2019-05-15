@@ -51,7 +51,7 @@
           <!--</icon-base>-->
         <!--</div>-->
 
-      <div class="profileAvatar pointer" @click="userLink(user.id)" :style="{ 'background-image': 'url('+ user.path_to_avatar + ')' }"> </div>
+      <div class="profileAvatar pointer" @click="userLink(user.id)" :style="{ 'background-image': 'url('+ publicPath +user.path_to_avatar + ')' }"> </div>
      <el-dropdown trigger="click">
        <span class="el-dropdown-link pointer">
          <icon-base
@@ -108,6 +108,8 @@ export default {
   props:['user'],
   data(){
     return {
+
+        publicPath: process.env.VUE_APP_MAIN_API
 
     }
   },

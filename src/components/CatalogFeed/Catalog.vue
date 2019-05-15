@@ -9,7 +9,7 @@
 			</div>
             <div class="category-section">
                 <div class="category-block pointer" @click="categoryLink(category.id)" v-for="category in filteredCategories || categories">
-                    <div class="category-image relative"  :style="{ 'background-image': 'url(' + category.path_to_image + ')' } " >
+                    <div class="category-image relative"  :style="{ 'background-image': 'url(' + publicPath + category.path_to_image + ')' } " >
                         <div class="category-subject">
                             <h1><lang-string :title="category.name" /></h1>
                         </div>
@@ -35,8 +35,10 @@
 		data() {
 			return {
 				keyword: "",
-				filteredCategories: null
-			};
+				filteredCategories: null,
+                publicPath: process.env.VUE_APP_MAIN_API
+
+            };
 		},
 		computed: {
 			...mapState("catalogList", {
@@ -88,7 +90,7 @@
 							case index + 1:
 								keyName += arr[0];
 								break;
-						
+
 							default:
 								keyName += arr[0] + "|";
 								break;

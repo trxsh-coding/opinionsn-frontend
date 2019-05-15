@@ -1,7 +1,7 @@
 <template>
     <div class="filter-wrapper " @click="setFilter(author.id)" >
 
-        <div class="author-picture" :style="{ 'background-image': 'url(' + author.path_to_avatar + ')' }">
+        <div class="author-picture" :style="{ 'background-image': 'url(' + publicPath + author.path_to_avatar + ')' }">
 
         </div>
 
@@ -18,6 +18,16 @@
     export default {
         props:['following'],
         name: "filterComponent",
+        data(){
+
+            return {
+
+                publicPath: process.env.VUE_APP_MAIN_API
+
+
+            }
+
+        },
         computed: {
             ...mapState('globalStore', {
                 users: ({users}) =>users,

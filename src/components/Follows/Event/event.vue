@@ -18,7 +18,7 @@
 
                <div class="subs-wrapper pb-10 pt-10" v-for="(user, index) in filteredUsers || users" :key="index">
                    <div class="left-block flex-align-center">
-                       <div class="avatar-block avatar-42x42" @click="userLink(user.id)" :style="{ 'background-image': 'url(' + user.path_to_avatar + ')' }"></div>
+                       <div class="avatar-block avatar-42x42" @click="userLink(user.id)" :style="{ 'background-image': 'url(' + publicPath + user.path_to_avatar + ')' }"></div>
                        <span>{{user.username}}</span>
                    </div>
                    <div class="right-block">
@@ -108,15 +108,15 @@
                 })
 
 			},
-			
+
 			searchUsers() {
 				let { users, keyword } = this;
-				
+
 				// Фильтрация юзеров через регекс
 				keyword === ""
 					? this.filteredUsers = users
 					: this.filteredUsers = users.filter(({ username }) => username.search(new RegExp(keyword)) >= 0 );
-				
+
 			},
 
 			clearSearchField() {
@@ -165,7 +165,7 @@
 				top: 4px;
 				right: 2px;
 			}
-			
+
 		}
 
 		.el-icon-circle-close {
