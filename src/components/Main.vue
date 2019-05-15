@@ -144,7 +144,7 @@ import { mapState } from "vuex";
 import langString from "./langString.vue";
 import { localString } from "../utils/localString.js";
 import axios from "axios";
-import mobileNav from "./mobileNav";
+import MobileNav from "./MobileNav";
 import Search from "./Search/search";
 import notificationSideFeed from "./notifications/notificationSideFeed";
 import { log } from "util";
@@ -326,7 +326,7 @@ export default {
     IconTextLogo,
     langString,
     IconDropdown,
-    mobileNav,
+    MobileNav,
     IconClose,
     notificationSideFeed
   }
