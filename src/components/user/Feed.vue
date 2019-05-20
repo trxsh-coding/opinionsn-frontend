@@ -15,7 +15,7 @@
 						width="22"
 						height="22"
 						viewBox="0 0 22 22"
-						icon-name="main"><icon-main/>
+						icon-name="opinion"><icon-opinion/>
 					</icon-base>
 				</li>
 				<li @click="changeTypeOfFeed(false)">
@@ -51,6 +51,7 @@
     import { mapState } from 'vuex';
     import IconBase from '../icons/IconBase'
     import IconMain from '../icons/IconMain'
+	import IconOpinion from '../icons/IconOpinion'
     import MugenScroll from 'vue-mugen-scroll'
 
     export default {
@@ -123,6 +124,7 @@
             event,
             IconBase,
             IconMain,
+			IconOpinion,
             MugenScroll
         },
 
@@ -167,6 +169,11 @@
 					g, path, rect {
                     	stroke: #152D3A;
                 	}
+
+					.question {
+						fill: #152D3A;
+						stroke: none;
+					}
 				}
 
             }

@@ -4,23 +4,33 @@
     <div id="poll-wrapper">
         <div class="category-wrapper">
 
-            <div class="search-panel flex-align-center" v-if="mobile">
-                <el-input class="br-12" :placeholder="lstr('search')" v-model="keyword" @change="searchCategory" @keyup.enter.native="searchCategory" >
-                    <template slot="append">
-                        <icon-base
-                                fill="none"
-                                width="15"
-                                height="15"
-                                viewBox="0 0 15 15"
-                                icon-name="close">
-                            <icon-close />
-                        </icon-base>
-                    </template>
-                </el-input>
-                <span class="cancel" @click="clearForm" >
-            </span>
+            <div class="search-panel flex-align-center category-search" v-if="mobile">
+                <el-input class="br-12" :placeholder="lstr('search')" v-model="keyword" @change="searchCategory" @keyup.enter.native="searchCategory">
+					<template slot="append">
+						<icon-base
+							fill="none"
+							width="15"
+							height="15"
+							viewBox="0 0 15 15"
+							icon-name="close">
+							<icon-close />
+						</icon-base>
+					</template>
+				</el-input>
+<!--				<div class="search-btn v-center pointer">-->
+<!--					<icon-base-->
+<!--						fill="none"-->
+<!--						width="15"-->
+<!--						height="15"-->
+<!--						viewBox="0 0 15 15"-->
+<!--						icon-name="close">-->
+<!--						<icon-close />-->
+<!--					</icon-base>-->
+<!--				</div>-->
+				<span class="cancel" @click="clearSearchField"></span>
             </div>
-            <div class="category-section">
+
+            <div class="category-section mt-15">
                 <div class="category-block pointer" @click="categoryLink(category.id)" v-for="category in filteredCategories || categories">
                     <div class="category-image relative"  :style="{ 'background-image': 'url(' + category.path_to_image + ')' } " >
                         <div class="category-subject">
@@ -71,7 +81,7 @@
 
 			/* HERE COME THE GETTERS */
 
-			category: function() {},
+			// category: function() {},
 			lstr() {
 				return str => localString(this.lang, str);
 			}
@@ -142,23 +152,24 @@
 	.category-wrapper {
 		.category-search {
 			position: relative;
-			width: calc(100% - 17px);
+			width: calc(100% - 15px);
 			margin: 0 auto;
-			margin-bottom: 15px;
 			input {
 				width: 100%;
-				height: 23px;
-				background-color: transparent;
-				border: none;
-				border-bottom: 1px solid #69777f;
-				outline: none;
+				background: #FFFFFF;
+				border: 1px solid #C4CCD0;
+				border-radius: 24px 0 0 24px;
+				padding-right: 42px;
+				border-right: none;
 			}
 
-			.el-icon-circle-close {
-				position: absolute;
-				top: 4px;
-				right: 2px;
+			.el-input-group__append {
+				border-radius: 0 24px 24px 0;
+				border: 1px solid #C4CCD0;
+				border-left: none;
+				background-color: #FFFFFF;
 			}
+
 		}
 
 		.category-section {
