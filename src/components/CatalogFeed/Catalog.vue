@@ -3,10 +3,23 @@
 
     <div id="poll-wrapper">
         <div class="category-wrapper">
-			<div class="category-search">
-				<input :placeholder="'Поиск'" v-model="keyword" @change="searchCategory" @keyup.enter.native="searchCategory"/>
-				<i class="el-icon-circle-close" @click="clearSearchField"></i>
-			</div>
+
+            <div class="search-panel flex-align-center" v-if="mobile">
+                <el-input class="br-12" :placeholder="lstr('search')" v-model="keyword" @change="searchCategory" @keyup.enter.native="searchCategory" >
+                    <template slot="append">
+                        <icon-base
+                                fill="none"
+                                width="15"
+                                height="15"
+                                viewBox="0 0 15 15"
+                                icon-name="close">
+                            <icon-close />
+                        </icon-base>
+                    </template>
+                </el-input>
+                <span class="cancel" @click="clearForm" >
+            </span>
+            </div>
             <div class="category-section">
                 <div class="category-block pointer" @click="categoryLink(category.id)" v-for="category in filteredCategories || categories">
                     <div class="category-image relative"  :style="{ 'background-image': 'url(' + category.path_to_image + ')' } " >
@@ -30,14 +43,19 @@
 	import { mapState } from "vuex";
 	import langMixin from "../mixins/langMixin";
 	import langString from "../langString";
-	import { localString } from "../../utils/localString";
+    import IconBase from "../icons/IconBase";
+    import IconClose from "../icons/IconZoomIn";
+    import { localString } from "../../utils/localString";
+    import imageMixin from "../mixins/imageMixin";
 	export default {
 		data() {
 			return {
 				keyword: "",
-				filteredCategories: null
+				filteredCategories: null,
+                mobile: this.$root.mobile
 			};
 		},
+        mixins:[imageMixin],
 		computed: {
 			...mapState("catalogList", {
 				state: s => s,
@@ -88,7 +106,7 @@
 							case index + 1:
 								keyName += arr[0];
 								break;
-						
+
 							default:
 								keyName += arr[0] + "|";
 								break;
@@ -114,7 +132,9 @@
 
 		components: {
 			langMixin,
-			langString
+			langString,
+            IconBase,
+            IconClose
 		}
 	};
 </script>
@@ -188,12 +208,12 @@
 			.category-block {
 				margin: 0 0px 6px 0;
 				margin-right: 6px !important;
-				width: 168px;
+				width: 162px;
 				height: 112px;
 			}
 
 			.category-image {
-				width: 168px;
+				width: 162px;
 				height: 112px;
 				background-color: #ffffff;
 				border-radius: 12px;
@@ -220,7 +240,23 @@
 
 	@media only screen and (max-device-width: 700px) {
 		.category-section {
-			justify-content: center;
+			justify-content: space-between !important;
+            .category-block, .category-image {
+
+                width: 174px !important;
+                height: 121px !important;
+
+            }
+            .category-block:nth-child(2n){
+
+                margin-right: 0px !important;
+
+            }
+            .search-panel {
+
+                margin-bottom: 12px;
+
+            }
 		}
 	}
 </style>

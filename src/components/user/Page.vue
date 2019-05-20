@@ -36,10 +36,9 @@
                 items: s => s.items,
             }),
 
-            beforeRouteUpdate(to, from, next) {
+            beforeRouteLeave(to, from, next) {
 
                 this.$store.commit('userPage/hideForm', true).then(next)
-
 
 
             },
@@ -53,9 +52,18 @@
 
 
         },
+        watch: {
+            id(oldUserId, newUserId) {
+                if (oldUserId !== newUserId) this.getUserPage();
+            }
+        },
         methods: {
 
+            getUserPage(){
 
+                this.$store.dispatch(`userPage/list`, {customUrl: `/api/rest/getUserById/${this.id}`});
+
+            }
 
 
         },
@@ -68,7 +76,7 @@
 
         mounted(){
 
-            this.$store.dispatch(`userPage/list`, {customUrl: `/api/rest/getUserById/${this.id}`});
+            this.getUserPage()
 
         }
     }

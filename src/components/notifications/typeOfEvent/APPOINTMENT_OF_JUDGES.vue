@@ -2,24 +2,34 @@
     <div class="notification-appointment-of-judges">
         <icon-base
                 class="mr-10"
-                v-if="notification.eventType === 'APPOINTMENT_OF_JUDGES'"
-                fill="#152D3A"
                 width="24"
                 height="24"
-                viewBox="0 0 24 24"
-                icon-name="judge"><icon-judge/>
+                viewBox="0 0 48 48"
+                icon-name="etherium"><icon-etherium/>
         </icon-base>
 
-        <span class="notification-span">Вы были назначены судьёй</span>
+        <div class="notification-text">
+            <span class="message">Вы были назначены судьёй в прогнозе</span> <span class="poll pointer" @click="pollLink(targetId)">{{pollName}}</span>
+        </div>
     </div>
 </template>
 
 <script>
     import IconBase from '../../icons/IconBase'
     import IconJudge from '../../icons/IconJudge'
+    import IconEtherium from '../../icons/IconEtherium'
+
     export default {
         name: "APPOINTMENT_OF_JUDGES",
-        components:{IconBase, IconJudge},
+        components:{IconBase, IconJudge, IconEtherium},
+        props:['pollName','targetId'],
+        methods: {
+
+            pollLink(targetId) {
+                this.$router.push({name: 'singlePoll', params: {id: targetId}})
+            }
+
+        }
 
     }
 </script>

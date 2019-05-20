@@ -2,7 +2,7 @@
     <div class='author-header'>
       <div class="avatar">
 
-        <div class="avatar-42x42 pointer" :style="{ 'background-image': 'url(' + author.path_to_avatar+ ')' } " @click="userLink(author.id)"></div>
+        <avatar :author="author" size="S" class="avatar-42x42"/>
 
       </div>
       <div class="icon-more">
@@ -40,6 +40,7 @@ import IconLocation from './../../icons/IconLocation.vue'
 import IconMore from './../../icons/IconMore.vue'
 import langString from './../../langString.vue'
 import {localString, ezLocalString} from './../../../utils/localString'
+import avatar from '../../modules/adaptiveAvatar'
 import moment from 'moment'
     const eventTypes = {
 
@@ -95,7 +96,8 @@ import moment from 'moment'
               IconLocation,
               IconMore,
               langString,
-              timeTrans
+              timeTrans,
+              avatar
         },
         props: ['author', 'type', 'poll', 'item']
     }

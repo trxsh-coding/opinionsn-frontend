@@ -26,6 +26,7 @@
 			/>
 			<appointment-of-judges
 				class="flex-align-center"
+				:targetId="notification.targetId"
 				:pollName="pollName"
 				v-if="notification.eventType == 'APPOINTMENT_OF_JUDGES'"
 			/>

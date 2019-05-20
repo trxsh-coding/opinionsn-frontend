@@ -180,7 +180,7 @@
 						});
 					});
 			},
-			beforeRemove(file, fileList) {
+			beforeRemove(azfile, fileList) {
 				let { uid } = file;
 
 				for (let i = 0; i < this.pictures.length; i++) {

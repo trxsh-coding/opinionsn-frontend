@@ -9,17 +9,8 @@
                     <span @click="userLink(author.id)" class="username pointer">{{author.username}}</span>
                     <lang-string class="created" :title="'created'"/>  <lang-string v-if="!poll.end_date" class="created-poll font-14" :title="'poll'"/> <lang-string  v-if="poll.end_date" class="created-poll" :title="'prediction'"/>
                 </div>
-                <div class="icon-more" v-if="user && user.authorities === 'USER' ">
-                    <icon-base
-                            fill="none"
-                            width="14"
-                            height="4"
-                            viewBox="0 0 14 4"
-                            icon-name="more">
-                        <icon-more /></icon-base>
-                </div>
-                <el-dropdown v-if=" user && user.authorities === 'ADMIN'">
-                    <div class="icon-more">
+                <!--<el-dropdown v-if=" user && user.authorities === 'USER'" trigger="click">-->
+                    <div class="icon-more pointer" v-if="poll.type_of_poll == 0 || poll.type_of_poll == 1">
                         <icon-base
                                 fill="none"
                                 width="14"
@@ -28,7 +19,37 @@
                                 icon-name="more">
                             <icon-more /></icon-base>
                     </div>
-                    <el-dropdown-menu slot="dropdown">
+                    <!--<el-dropdown-menu slot="dropdown">-->
+                        <!--<el-dropdown-item class="contract_url">-->
+                            <!--<a :href="poll.contract_url" target="_blank" >-->
+                                <!--<lang-string v-if="poll.type_of_poll == 2" class="smart-contract__item" title="Smart-contract"/>-->
+                            <!--</a>-->
+                        <!--</el-dropdown-item>-->
+                    <!--</el-dropdown-menu>-->
+                <!--</el-dropdown>-->
+                <div class="icon-more pointer "  v-if="poll.type_of_poll == 2">
+                    <a :href="poll.contract_url" target="_blank">
+                        <icon-base
+                                fill="none"
+                                width="24"
+                                height="24"
+                                viewBox="0 0 48 48"
+                                icon-name="etherium">
+                            <icon-etherium />
+                        </icon-base>
+                    </a>
+                </div>
+                <el-dropdown v-if=" user && user.authorities === 'ADMIN' && poll.type_of_poll == 0 && poll.type_of_poll == 1">
+                    <div class="icon-more pointer">
+                        <icon-base
+                                fill="none"
+                                width="14"
+                                height="4"
+                                viewBox="0 0 14 4"
+                                icon-name="more">
+                            <icon-more /></icon-base>
+                    </div>
+                    <el-dropdown-menu  slot="dropdown">
                         <el-dropdown-item ><span @click="deletePoll(poll.id)">Удалить опрос</span></el-dropdown-item>
                     </el-dropdown-menu>
                 </el-dropdown>
@@ -50,6 +71,7 @@
     import IconBase from '../../../icons/IconBase.vue'
     import IconLocation from '../../../icons/IconLocation.vue'
     import IconMore from '../../../icons/IconMore.vue'
+    import IconEtherium from '../../../icons/IconEtherium.vue'
     import langString from '../../../langString.vue'
     import moment from 'moment'
 
@@ -92,7 +114,8 @@
             IconLocation,
             IconMore,
             langString,
-            timeTrans
+            timeTrans,
+            IconEtherium
         },
         props: ['author', 'type', 'poll', 'item', 'user']
     }
@@ -118,6 +141,11 @@
             color: #69777F;
 
         }
+
+        .smart-contract__item {
+
+            font-size: 12px;
+        }
         .time {
             font-family: Roboto;
             font-style: normal;
@@ -128,10 +156,7 @@
             letter-spacing: -0.2px;
             color: #828D92;
         }
-        .icon-more {
-            display: flex;
 
-        }
         .el-dropdown {
 
             position: absolute;

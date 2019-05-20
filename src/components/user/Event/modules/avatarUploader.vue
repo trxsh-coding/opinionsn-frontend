@@ -22,8 +22,9 @@
                     :width="mobile ? 350 : 120"
                     :height="mobile ? 350 : 120"
                     :zoom-speed="10"
+                    initial-size="natural"
                     :show-remove-button="false"
-                    :quality="2">
+                    :quality="20">
             </croppa>
           <div class="icons-block" v-if="!mobile">
               <div class="zoom-in" @click="croppa.zoomIn()">

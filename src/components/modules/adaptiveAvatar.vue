@@ -1,19 +1,17 @@
 <template>
-    <div class="notification-avatar" slot="avatar" >
         <div
-                class="avatar pointer avatar-25x25"
-                :style="{ 'background-image': 'url(' + imageUtil(author.path_to_avatar, 'S') + ')' } "
+                class="avatar pointer"
+                :style="{ 'background-image': 'url(' + imageUtil(author.path_to_avatar, size) + ')' } "
                 @click="userLink">
         </div>
-    </div>
 </template>
 
 <script>
     import imageMixin from "../mixins/imageMixin";
 
     export default {
-        name: "avatar",
-        props:['author'],
+        name: "smallAvatar",
+        props:['author', 'size'],
         mixins:[imageMixin],
         methods: {
 

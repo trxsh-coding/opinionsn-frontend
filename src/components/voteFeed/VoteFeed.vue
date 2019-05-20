@@ -86,13 +86,13 @@
 
 		methods: {
 			load() {
-				this.$store.dispatch(voteFeed / loadNextPage);
+				this.$store.dispatch('voteFeed/loadNextPage');
 			}
 		},
 
 		mounted() {
-			this.$store.dispatch(followsPage / getMyFollowings);
-			this.$store.dispatch(voteFeed / list);
+			this.$store.dispatch('followsPage/getMyFollowings');
+			this.$store.dispatch('voteFeed/list');
 		},
 
 		components: {

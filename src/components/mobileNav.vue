@@ -42,7 +42,7 @@
             </el-badge>
             </li>
             <li class="nav__item" >
-                <avatar class="avatar-25x25" ></avatar>
+                <avatar class="avatar-25x25"></avatar>
             </li>
             <li class="nav__item" @click="link('menu')">
                 <icon-base
