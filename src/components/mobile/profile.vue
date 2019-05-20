@@ -2,7 +2,7 @@
     <div id="profile-section" class="mb-10">
         <div class="profile-background " :style="{ 'background-image': 'url(' + user.background_image + ')' }" > </div>
         <div  class="profile-content">
-            <div class="profile-avatar pointer" :style="{ 'background-image': 'url(' + user.path_to_avatar + ')' }  " @click="userLink(user.id)"> </div>
+            <avatar :author="user" size="S" class="profile-avatar"/>
             <div class="main-content">
                 <div class="description-block">
                     {{ user.first_name }} {{ user.last_name }}
@@ -22,9 +22,8 @@
 <script>
     import IconBase from '../icons/IconBase.vue'
     import IconLocation from '../icons/IconLocation.vue'
-
+    import avatar from '../modules/adaptiveAvatar'
     import { mapState } from 'vuex';
-    import { mapActions } from 'vuex';
     export default {
         data () {
             return {
@@ -67,7 +66,8 @@
         },
         components: {
             IconBase,
-            IconLocation
+            IconLocation,
+            avatar
         },
     }
 </script>

@@ -1,15 +1,10 @@
 <template>
 
     <div>
-        <!-- Загрузка -->
-        <div v-if="state.loading">
-            <p align="center" style="font-size:10px;margin-top: 5px;color: darkgray">Загружаю...</p>
-        </div>
+
 
         <!-- Выгрузка пользователя -->
-        <div v-else-if="!items.length">
-            <p align="center" style="font-size:10px;margin-top: 5px;color: darkgray">Нет событий</p>
-        </div>
+
 
         <!-- Всё ок -->
 		<div class="user-feed-filter">
@@ -39,7 +34,9 @@
 			<event :item="item"/>
 			<!-- <div class="spinner" v-if="(index + 1 === sanitizedItems.length) && loading">Lorem ipsum dolor sit amet consectetur adipisicing elit. Praesentium quia similique adipisci soluta. Sequi esse ut cumque in commodi at, minus reiciendis consequatur aliquid quaerat ducimus nihil dolor, cupiditate odit optio voluptates exercitationem porro, laudantium alias dolorum. Cumque modi tempore neque vitae rerum odit voluptate? Mollitia placeat, itaque molestias quod voluptatibus odio fuga aliquid modi omnis aut velit reiciendis animi accusamus laborum atque sunt sequi ipsa. A explicabo eveniet perferendis consequatur natus accusantium vero facilis reprehenderit dolores ex ipsum, quisquam tempore quod hic inventore velit labore distinctio corrupti eum, asperiores error iusto cumque vitae aut. Ducimus, suscipit. Ea, voluptates iste.</div> -->
 		</div>
-
+		<div v-if="!items.length">
+			<p align="center" style="font-size:10px;margin-top: 5px;color: darkgray">Нет событий</p>
+		</div>
 		<mugen-scroll :handler="load" :should-handle="!loading">
 			<div class="loading" v-if="!loading" v-loading="true"/>
 		</mugen-scroll>
@@ -66,12 +63,12 @@
                 loading: s => s.is_finished,
 
             }),
+			userId(){
 
-            userId(){
+				return this.$route.params.id;
 
-                return this.$route.params.id;
+			},
 
-            },
             sanitizedItems(){
                 let {items} = this;
 
@@ -91,6 +88,7 @@
                 });
             }
         },
+
         methods: {
 
             load(){
@@ -116,7 +114,11 @@
             this.changeTypeOfFeed();
 
         },
-
+		watch: {
+			userId(oldUserId, newUserId) {
+				if (oldUserId !== newUserId) this.changeTypeOfFeed();
+			}
+		},
         components: {
             event,
             IconBase,
@@ -124,16 +126,6 @@
             MugenScroll
         },
 
-        watch: {
-            userId: function(userId){
-                if (!userId){
-                    console.warn('User not passed to props of User Feed');
-                    return;
-                }
-                //console.log(user);
-                this.$store.dispatch(`userFeed/list`, {customUrl: `/api/rest/getFeedByUserId/${userId}`});
-            }
-        }
     }
 </script>
 

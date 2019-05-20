@@ -12,14 +12,28 @@
         </icon-base>
         <span class="username">Opiniosn</span>
       </div>
+      <div class="notification-new-user flex-align-center"  v-if="notification.eventType === 'APPOINTMENT_OF_JUDGES'">
+        <icon-base
+                class="mr-10"
+                width="24"
+                height="24"
+                viewBox="0 0 48 48"
+                icon-name="etherium"><icon-etherium/>
+        </icon-base>
+      </div>
       <div
-         v-if="notification.eventType != 'NEW_USER'"
+         v-if="notification.eventType != 'NEW_USER' || notification.eventType != 'APPOINTMENT_OF_JUDGES'"
         class="avatar avatar-30x30 pointer"
         :style="{ 'background-image': 'url(' + author.path_to_avatar + ')' } "
         @click="userLink"
       >
       </div>
-      <span class="username pointer">{{ author.username }}</span>
+      <span class="username pointer" v-if="notification.eventType != 'NEW_USER' || notification.eventType != 'APPOINTMENT_OF_JUDGES'">
+        {{ author.username }}
+      </span>
+      <span class="username pointer" v-if="notification.eventType === 'APPOINTMENT_OF_JUDGES'">
+        Blockchain
+      </span>
       <el-button
         class="close-btn"
         @click="dismissNotification"
@@ -90,12 +104,15 @@
 import { mapState } from "vuex";
 import IconBase from '../icons/IconBase'
 import IconLogo from '../icons/IconLogo'
+import IconEtherium from '../icons/IconEtherium'
+
 export default {
   name: "notificationBlock",
   props: ["notification"],
   components: {
   IconBase,
-  IconLogo
+  IconLogo,
+  IconEtherium
   },
   data: function() {
     return {

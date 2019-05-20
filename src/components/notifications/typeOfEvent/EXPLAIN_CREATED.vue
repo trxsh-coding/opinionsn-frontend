@@ -1,6 +1,6 @@
 <template>
     <div class="explain-notification">
-        <avatar  :author="author" />
+        <avatar class="avatar-30x30" :author="author" />
         <div class="notification-text">
             <span class="username pointer">{{author.username}}</span>
             <span class="message">под вашим пояснением вопроса</span>

@@ -1,9 +1,8 @@
 <template>
     <div class="filter-wrapper " @click="setFilter(author.id)" >
 
-        <div class="author-picture" :style="{ 'background-image': 'url(' + author.path_to_avatar + ')' }">
+        <avatar :author="author" size="S" class="profile-avatar author-picture"/>
 
-        </div>
 
         <span>
             {{author.username}}
@@ -14,10 +13,12 @@
 
 <script>
     import {mapState} from 'vuex'
-    import borderedAvatar from '../../user/Event/modules/borderedAvatar'
+    import avatar from '../../modules/adaptiveAvatar'
+
     export default {
         props:['following'],
         name: "filterComponent",
+        components:{avatar},
         computed: {
             ...mapState('globalStore', {
                 users: ({users}) =>users,
@@ -28,7 +29,7 @@
                 let {following, users} = this;
 
 
-                return users[following.id]
+                return users[following.id] || {}
 
 
             }
