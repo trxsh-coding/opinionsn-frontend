@@ -11,7 +11,7 @@
             <span>Уведомлений нет</span>
         </div>
         <mugen-scroll :handler="load" :should-handle="!loaded"  >
-            <div class="loading"  v-loading="loading" v-if="loading" ></div>
+            <div class="loading"  v-loading="loading"  ></div>
         </mugen-scroll>
     </div>
 </template>

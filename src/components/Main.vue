@@ -295,6 +295,8 @@
 
 		created() {
 			this.$store.dispatch("userPage/getMainUser");
+			this.$store.dispatch("lang/getLocaleString");
+
 		},
 		mounted() {
 			if (Object.keys(this.mainUser).length == 0) {
@@ -302,7 +304,6 @@
 			}
 			window.addEventListener("scroll", this.onScroll);
 
-			this.$store.dispatch("lang/getLocaleString");
 		},
 
 		beforeDestroy() {

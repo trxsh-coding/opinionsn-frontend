@@ -41,12 +41,12 @@ export const notificationPageList = (sc, listUrl) => class extends sc {
         dispatch('globalStore/verifyStore', {entries: usersToVerify, storeName: 'users'}, {root: true});
         dispatch('globalStore/verifyStore', {entries: pollsToVerify, storeName: 'polls'}, {root: true});
 
-        commit('setLoaded')
 
         let {customUrl = '/messages/notification', data={}, method='get'} = payload;
 
         sc.apiRequest(customUrl, data,{commit, dispatch, onSuccess: 'setNotification', successType: 'action'}, method);
 
+        commit('setLoaded')
 
     };
 
