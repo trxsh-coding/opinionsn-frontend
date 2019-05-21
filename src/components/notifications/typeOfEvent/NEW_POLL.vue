@@ -2,7 +2,7 @@
     <div class="prediction-notification">
         <slot>
             <avatar class="avatar-30x30" :author="author" />
-			<div class="notification-text">
+			<div class="notification-text wb">
 				<span class="username">{{author.username}}</span>
 				<span class="message" >Создал новый опрос</span>
 				<span class="poll pointer" @click="pollLink(targetId)" v-if="pollName !== '«»'">{{pollName}}</span>

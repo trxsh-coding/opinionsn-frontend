@@ -1,7 +1,7 @@
 <template>
     <div class="explain-notification">
         <avatar class="avatar-30x30" :author="author" />
-        <div class="notification-text">
+        <div class="notification-text wb">
             <span class="username pointer">{{author.username}}</span>
             <span class="message">под вашим пояснением вопроса</span>
             <span class="poll pointer" @click="pollLink(targetId)">{{pollName}}</span>

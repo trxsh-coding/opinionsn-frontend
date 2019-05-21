@@ -8,7 +8,7 @@
                 icon-name="etherium"><icon-etherium/>
         </icon-base>
 
-        <div class="notification-text">
+        <div class="notification-text wb">
             <span class="message">Вы победили в блокчейн прогнозе</span>  <span class="poll pointer" @click="pollLink(targetId)">{{pollName}}</span>
         </div>
 
