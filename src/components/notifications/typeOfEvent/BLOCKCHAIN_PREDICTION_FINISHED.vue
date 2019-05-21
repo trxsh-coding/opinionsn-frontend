@@ -11,7 +11,7 @@
             </icon-base>
         </div>
 
-        <div class="notification-text">
+        <div class="notification-text wb">
             <span class="message">Блокчейн-прогноз <span class="poll pointer" @click="pollLink(targetId)">{{pollName}}</span> завершен</span>
         </div>
     </div>
