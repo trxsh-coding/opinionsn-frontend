@@ -10,8 +10,8 @@
         <div class="nope" v-else-if="messages.length == 0">
             <span>Уведомлений нет</span>
         </div>
-        <mugen-scroll :handler="load" :should-handle="!loaded" >
-            <div class="loading"  v-loading="loading" ></div>
+        <mugen-scroll :handler="load" :should-handle="!loaded" :handleOnMount="false" >
+            <div class="loading"  v-loading="loading"  ></div>
         </mugen-scroll>
     </div>
 </template>
