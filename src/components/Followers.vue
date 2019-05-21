@@ -49,7 +49,7 @@
 <script>
 import { mapState } from 'vuex';
 import langString from './langString.vue'
-import {localString} from './../localString'
+import { localString } from './../localString'
 export default {
   data(){
     return {

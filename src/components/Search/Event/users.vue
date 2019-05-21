@@ -2,9 +2,7 @@
     <div class="user-links-wrapper" v-if="mainUser.id != user.id">
 
         <div class="left-side flex-align-center" >
-            <div class="user-avatar avatar-42x42 pointer" :style="{ 'background-image': 'url('+ user.path_to_avatar + ')' }" v-if="user"  @click="followersLink(user.id)">
-
-            </div>
+            <avatar :author="user" class="avatar-42x42 pointer" size="S"/>
             <div class="info-block">
                 <div class="username__item">
                     <span class="user-name">{{user.username}}</span>
@@ -28,10 +26,11 @@
 <script>
     import {mapState} from 'vuex'
     import langString from '../../langString'
+    import Avatar from "../../modules/adaptiveAvatar";
     export default {
         name: "users",
         props:['item'],
-        components:{langString},
+        components:{Avatar, langString},
         computed: {
 
             ...mapState('globalStore', {

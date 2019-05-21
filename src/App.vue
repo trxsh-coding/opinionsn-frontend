@@ -6,4 +6,8 @@
 
 <style lang="scss">
 
+	.el-popover {
+		z-index: 999999 !important;
+	}
+	
 </style>

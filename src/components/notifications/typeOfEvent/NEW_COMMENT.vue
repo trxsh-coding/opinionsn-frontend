@@ -1,7 +1,7 @@
 <template>
     <div class="prediction-notification">
         <slot>
-            <avatar  :author="author" />
+            <avatar class="avatar-30x30" :author="author" />
             <div class="notification-text">
                 <span class="username">{{author.username}}</span>
                 <span class="message">под вашим пояснением опроса</span>

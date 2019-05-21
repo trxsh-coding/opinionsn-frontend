@@ -109,7 +109,7 @@ export const index = new Router({
 			},
 			children: [
 				{
-					path: '/user/:id',
+					path: 'user/:id',
 					name: 'user',
 					component: user,
 					props: true

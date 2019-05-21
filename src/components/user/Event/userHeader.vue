@@ -1,7 +1,6 @@
 <template>
     <div class="user-header">
         <div class="main-content mb-10">
-
             <div class="pictures-block">
                 <div class="background-block" :style="{ 'background-image': 'url(' + user.background_image + ')' }">
                     <el-button size="small" v-if="!hide_edit && user.id === main_user_id"class="edit" @click="editInfo" >
@@ -33,17 +32,19 @@
                         </div>
                     </div>
                 </div>
-                <!--<div class="avatar-block">-->
 
-                    <!--<mobile-avatar :user="user" />-->
-
-
-                <!--</div>-->
-                <div class="avatar-block pointer" :style="{ 'background-image': 'url(' + user.path_to_avatar + ')' } ">
+                <div class="avatar-block pointer" v-if="user.id === main_user_id" :style="{ 'background-image': 'url(' + imageUtil(user.path_to_avatar, 'S') + ')' } " >
                     <div class="uploader-wrapper" v-if="user.id === main_user_id">
                         <avatar-uploader   />
                     </div>
                 </div>
+                <div class="avatar-block pointer" v-if="user.id != main_user_id" :style="{ 'background-image': 'url(' + imageUtil(user.path_to_avatar, 'S') + ')' } " @click="fullAvatarVisibility = true">
+
+                </div>
+                <el-dialog  :visible.sync="fullAvatarVisibility " custom-class="relative avatar-modal"	:close-on-click-modal="true" width="500px" :modal-append-to-body="true" >
+                    <div class="full-avatar-image-block" :style="{ 'background-image': 'url(' + imageUtil(user.path_to_avatar, 'L') + ')' }">
+                    </div>
+                </el-dialog>
             </div>
             <div class="info-block">
                 <div class="name-block mb-3">
@@ -77,9 +78,12 @@
     import IconBase from '../../icons/IconBase'
     import IconPhoto from '../../icons/IconPhoto'
     import IconLocation from '../../icons/IconLocation'
+    import imageMixin from "../../mixins/imageMixin"
+    import avatar from '../../modules/avatar'
     export default {
         name: "userHeader",
         props:['user'],
+        mixins:[imageMixin],
         data(){
             return {
                 link:this.$route.params,
@@ -89,7 +93,8 @@
                 aboutMe:null,
                 username:null,
                 last_name:null,
-                first_name:null
+                first_name:null,
+                fullAvatarVisibility:false
             }
         },
         computed: {
@@ -111,11 +116,14 @@
 
             route:  function () {
 
-                console.log(this)
 
                 return this.$route.params
 
-            }
+            },
+
+
+
+
 
             //TODO Сделать нормальный хайд формы
 
@@ -170,7 +178,6 @@
             },
 
             editInfo(){
-
                 this.$store.commit('userPage/hideForm', false)
 
             }
@@ -189,7 +196,8 @@
             IconBase,
             IconLocation,
             mobileAvatar,
-            IconPhoto
+            IconPhoto,
+            avatar
 
         }
     }
@@ -200,6 +208,30 @@
 
         .main-content {
 
+            .full-avatar-image-block {
+
+                height: 500px;
+                width: 100%;
+               background-size: contain;
+               background-repeat: no-repeat;
+
+            }
+            .avatar-modal {
+
+                .el-dialog__header, .el-dialog__body {
+
+                    padding: 0;
+
+                }
+
+                .el-dialog__headerbtn .el-dialog__close {
+
+
+                    color: #000000;
+
+                }
+
+            }
             .pictures-block {
                 position: relative;
                 .avatarDialog {

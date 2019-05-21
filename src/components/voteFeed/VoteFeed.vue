@@ -4,9 +4,9 @@
     <div class="vote-feed">
         <!-- Ошибка -->
 
-		<div class="loading-spinner" v-loading="true" v-if="loading"/>
+		<!-- <div class="loading-spinner" v-loading="true" v-if="loading"/> -->
 
-		<div class="have-no-subscribers mt-10" v-else-if="!items.length && !loading">
+		<div class="have-no-subscribers mt-10" v-if="!items.length && !loading">
 			<span>Лента мнений будет доступна после появления подписок</span>
 		</div>
         <!--<div v-if="state.error">-->
@@ -38,7 +38,7 @@
                 <event :item="item"/>
             </div>
             <mugen-scroll :handler="load" :should-handle="!postsEnded">
-        		<div class="loading-spinner" v-loading="true" v-show="loading"/>
+        		<div class="loading-spinner" v-loading="true" v-show="!loading"/>
             </mugen-scroll>
 
         </div>
@@ -74,7 +74,7 @@
 		computed: {
 			...mapState("voteFeed", {
 				state: s => s,
-				items: s => s.items,
+				items: ({ items }) => items,
 				postsEnded: ({ is_finished }) => is_finished,
 				loading: ({ loading }) => loading
 			}),
@@ -86,13 +86,13 @@
 
 		methods: {
 			load() {
-				this.$store.dispatch(voteFeed / loadNextPage);
+				this.$store.dispatch('voteFeed/loadNextPage');
 			}
 		},
 
 		mounted() {
-			this.$store.dispatch(followsPage / getMyFollowings);
-			this.$store.dispatch(voteFeed / list);
+			this.$store.dispatch('followsPage/getMyFollowings');
+			this.$store.dispatch('voteFeed/list');
 		},
 
 		components: {

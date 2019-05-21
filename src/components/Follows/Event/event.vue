@@ -3,16 +3,20 @@
    <div>
 
 
-       <div  class="subscribers-template">
-           <el-button type="primary" class="follows-button" size="small" round @click="followersLink(id)" v-bind:class="{backgroundNone : isFollowing}">
+       <div  class="subscribers-template flex-column">
+           <!-- <el-button type="primary" class="follows-button" size="small" round @click="followersLink(id)" v-bind:class="{backgroundNone : isFollowing}">
                <lang-string :title="'followers'"/>
            </el-button>
            <el-button size="small" class="follows-button" round @click="followingsLink(id)" v-bind:class="{backgroundNone : !isFollowing}">
                <lang-string :title="'followings'"/>
-           </el-button>
+           </el-button> -->
+			<div class="subs-search">
+				<input :placeholder="'Поиск'" v-model="keyword" @change="searchUsers" @keyup.enter.native="searchUsers"/>
+				<i class="el-icon-circle-close" @click="clearSearchField"></i>
+			</div>
            <div class="subs-section mt-10" v-if="items.length">
 
-               <div class="subs-wrapper pb-10 pt-10" v-for="user in users">
+               <div class="subs-wrapper pb-10 pt-10" v-for="(user, index) in filteredUsers || users" :key="index">
                    <div class="left-block flex-align-center">
                        <div class="avatar-block avatar-42x42" @click="userLink(user.id)" :style="{ 'background-image': 'url(' + user.path_to_avatar + ')' }"></div>
                        <span>{{user.username}}</span>
@@ -46,7 +50,9 @@
         data(){
             return {
 
-                items:[]
+				items:[],
+				keyword: "",
+				filteredUsers: null
 
             }
         },
@@ -101,7 +107,22 @@
 
                 })
 
-            },
+			},
+			
+			searchUsers() {
+				let { users, keyword } = this;
+				
+				// Фильтрация юзеров через регекс
+				keyword === ""
+					? this.filteredUsers = users
+					: this.filteredUsers = users.filter(({ username }) => username.search(new RegExp(keyword)) >= 0 );
+				
+			},
+
+			clearSearchField() {
+				this.keyword = '';
+				this.searchUsers();
+			}
 
         },
 
@@ -125,6 +146,32 @@
 <style lang="scss">
 
     .subscribers-template {
+
+		.subs-search {
+			position: relative;
+			width: calc(100% - 17px);
+			margin: 0 auto;
+			input {
+				width: 100%;
+				height: 23px;
+				background-color: transparent;
+				border: none;
+				border-bottom: 1px solid #69777F;
+				outline: none;
+			}
+
+			.el-icon-circle-close {
+				position: absolute;
+				top: 4px;
+				right: 2px;
+			}
+			
+		}
+
+		.el-icon-circle-close {
+			height: 16px;
+			width: 16px;
+		}
 
         .follows-button {
 

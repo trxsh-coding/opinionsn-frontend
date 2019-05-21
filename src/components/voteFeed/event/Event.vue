@@ -56,7 +56,6 @@
                 let {vote, poll, item, isPollEvent} = this;
 
                 if (isPollEvent === undefined) isPollEvent = item.eventType === 'POLL_CREATED';
-                console.log({isPollEvent, item, vote});
 
                 let author_id;
                 if (isPollEvent){

@@ -25,6 +25,13 @@ html, body, #app, section.section {
 body {
 }
 
+a {
+
+  text-decoration: none;
+  color: #000000;
+}
+
+
 .label-subject {
 
 
@@ -86,6 +93,14 @@ body {
 
   display: flex;
   align-items: center;
+  flex-direction: column;
+
+}
+
+.flex-column-stretch {
+
+  display: flex;
+  align-items: stretch;
   flex-direction: column;
 
 }
@@ -157,6 +172,10 @@ body {
 }
 .cursor {
   cursor: auto;
+}
+
+.underline {
+	text-decoration: underline;
 }
 
 
@@ -487,6 +506,10 @@ body {
 
   margin-bottom: 3px;
 
+}
+
+.mr-6 {
+	margin-right: 6px;
 }
 
 .mr-10 {

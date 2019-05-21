@@ -1,9 +1,11 @@
 <template>
     <div class="unsub-notification">
         <slot>
-            <avatar :author="author" />
-            <span class="username">{{author.username}}</span>
-            <span class="message">От вас отписался</span>
+            <avatar class="avatar-30x30" :author="author" />
+			<div class="notification-text">
+	            <span class="username">{{author.username}}</span>
+    	        <span class="message">От вас отписался</span>
+			</div>
         </slot>
     </div>
 </template>

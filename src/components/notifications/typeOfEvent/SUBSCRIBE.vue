@@ -1,9 +1,11 @@
 <template>
     <div class="sub-notification">
        <slot>
-       <avatar :author="author" />
-        <span class="username">{{author.username}}</span>
-        <span class="message">На вас подписался</span>
+       <avatar class="avatar-30x30" :author="author" />
+	   <div class="notification-text">
+			<span class="username">{{author.username}}</span>
+			<span class="message">На вас подписался</span>
+	   </div>
        </slot>
     </div>
 </template>
