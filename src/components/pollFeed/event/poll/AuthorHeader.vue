@@ -10,7 +10,7 @@
                     <lang-string class="created" :title="'created'"/>  <lang-string v-if="!poll.end_date" class="created-poll font-14" :title="'poll'"/> <lang-string  v-if="poll.end_date" class="created-poll" :title="'prediction'"/>
                 </div>
                 <!--<el-dropdown v-if=" user && user.authorities === 'USER'" trigger="click">-->
-                    <div class="icon-more pointer" v-if="poll.type_of_poll == 0 || poll.type_of_poll == 1">
+                    <div class="icon-more pointer flex" v-if="user && user.authorities === 'USER' && (poll.type_of_poll == 0 || poll.type_of_poll == 1)">
                         <icon-base
                                 fill="none"
                                 width="14"
@@ -39,7 +39,7 @@
                         </icon-base>
                     </a>
                 </div>
-                <el-dropdown v-if=" user && user.authorities === 'ADMIN' && poll.type_of_poll == 0 && poll.type_of_poll == 1">
+                <el-dropdown v-if=" user && user.authorities === 'ADMIN' && (poll.type_of_poll === 0 || poll.type_of_poll === 1)">
                     <div class="icon-more pointer">
                         <icon-base
                                 fill="none"
@@ -47,7 +47,7 @@
                                 height="4"
                                 viewBox="0 0 14 4"
                                 icon-name="more">
-                            <icon-more /></icon-base>
+                        <icon-more /></icon-base>
                     </div>
                     <el-dropdown-menu  slot="dropdown">
                         <el-dropdown-item ><span @click="deletePoll(poll.id)">Удалить опрос</span></el-dropdown-item>
