@@ -32,7 +32,7 @@
 			</div>
 		</div>
 		<div class="option-bows-pictures">
-			<poll-option-heads :limit="3" :option="option"/>
+			<poll-option-heads :limit="3" :option="option" v-if="item.voted"/>
 		</div>
 	</div>
 </template>

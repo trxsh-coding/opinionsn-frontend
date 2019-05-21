@@ -37,9 +37,10 @@
 
             </div>
             <div class="expand-block" @click="onExpandAction" v-if="canExpand">
-               <span>+{{options.length - senitizedOptions.length }}</span>
+                <span>+{{options.length - senitizedOptions.length }}</span>
             </div>
         </div>
+
         <icon-block :poll="poll" :item="item" >
             <div slot="bookmark">
             </div>
@@ -297,7 +298,6 @@
 
 
             .options-section  {
-				width: 100%;
                 position: relative;
                 display: flex;
                 flex-direction: row;

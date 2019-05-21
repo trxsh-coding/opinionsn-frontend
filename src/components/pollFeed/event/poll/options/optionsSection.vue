@@ -14,7 +14,7 @@
             </div>
         </div>
         <div class="option-bows "  v-bind:class="{ opacity  : poll.votingOver, rightAnswer : correct_option, cursor : item.voted }" >
-            <poll-option-heads :limit="3" :option="option"/>
+            <poll-option-heads :limit="3" :option="option" v-if="item.voted"/>
         </div>
     </div>
 </template>
