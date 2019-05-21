@@ -50,7 +50,7 @@
         },
 
         mounted(){
-
+            this.load()
             this.$store.dispatch('notificationPage/readInitialNotifications')
 
         }
