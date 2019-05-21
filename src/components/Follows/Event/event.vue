@@ -10,10 +10,23 @@
            <el-button size="small" class="follows-button" round @click="followingsLink(id)" v-bind:class="{backgroundNone : !isFollowing}">
                <lang-string :title="'followings'"/>
            </el-button> -->
-			<div class="subs-search">
-				<input :placeholder="'Поиск'" v-model="keyword" @change="searchUsers" @keyup.enter.native="searchUsers"/>
-				<i class="el-icon-circle-close" @click="clearSearchField"></i>
-			</div>
+           <div class="search-panel flex-align-center category-search" >
+               <el-input class="br-12" :placeholder="lstr('search')" v-model="keyword" @change="searchUsers" @keyup.enter.native="searchUsers">
+                   <template slot="append" >
+                       <i  @click="clearSearchField">
+                           <icon-base
+                                   class="icon-close"
+                                   fill="none"
+                                   width="20"
+                                   height="20"
+                                   viewBox="0 0 10 20"
+                                   icon-name="close">
+                               <icon-close />
+                           </icon-base>
+                       </i>
+                   </template>
+               </el-input>
+           </div>
            <div class="subs-section mt-10" v-if="items.length">
 
                <div class="subs-wrapper pb-10 pt-10" v-for="(user, index) in filteredUsers || users" :key="index">
@@ -41,12 +54,16 @@
     import {globalStoreMixin} from "../../../store/modules/globalStore";
     import {mapState} from 'vuex'
     import langString from '../../langString'
+    import IconBase from '../../icons/IconBase'
+    import IconClose from '../../icons/IconZoomIn'
+
     import axios from 'axios'
+    import langMixin from "../../mixins/langMixin";
     export default {
         name: "event",
         props:['id', 'isFollowing'],
-        mixins:[globalStoreMixin()],
-        components:{langString},
+        mixins:[globalStoreMixin(), langMixin],
+        components:{langString, IconBase, IconClose},
         data(){
             return {
 
@@ -146,7 +163,28 @@
 <style lang="scss">
 
     .subscribers-template {
+        .icon-close {
+            transform: rotate(45deg);
+        }
+        .category-search {
+            position: relative;
+            input {
+                width: 100%;
+                background: #FFFFFF;
+                border: 1px solid #C4CCD0;
+                border-radius: 24px 0 0 24px;
+                padding-right: 42px;
+                border-right: none;
+            }
 
+            .el-input-group__append {
+                border-radius: 0 24px 24px 0;
+                border: 1px solid #C4CCD0;
+                border-left: none;
+                background-color: #FFFFFF;
+            }
+
+        }
 		.subs-search {
 			position: relative;
 			width: calc(100% - 17px);
