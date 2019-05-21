@@ -286,7 +286,12 @@
 				flex: 1;
 
             }
+            .option-container {
 
+                width: 324px;
+
+
+            }
             .option-bows {
 
                 // width: 75px !important;

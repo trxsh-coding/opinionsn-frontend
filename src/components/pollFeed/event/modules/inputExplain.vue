@@ -12,6 +12,7 @@
         <span class="send__button pointer lowercase" @click="saveExplain(item.id)"><lang-string :title="'send'"/></span>
                 <span class="emoji-span" @click="toogleDialogEmoji" v-if="!mobile">
                     <icon-base
+                            :class="{enPosition : lang.choose_language === 'English'}"
                             class="emoji-icon"
                             fill="none"
                             width="13"
@@ -154,7 +155,9 @@
             color: #828D92 !important;
 
         }
-
+        .enPosition {
+            right: 50px !important;
+        }
         .emoji-icon {
             position: absolute;
             right: 84px;
