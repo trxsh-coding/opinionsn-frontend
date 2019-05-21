@@ -153,9 +153,11 @@
     .comment-block {
         align-items: end;
         display: flex;
+        margin-bottom: 6px;
         .comment-avatar {
             margin-top: 5px;
         }
+
         .info-block {
             padding-top: 5px;
             display: flex;
