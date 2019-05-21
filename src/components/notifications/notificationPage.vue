@@ -1,16 +1,17 @@
 <template>
-    <div>
+    <div class="notificationWrapper">
         <div class="notification-section" v-if="messages.length">
             <feed-block :notification="notification"
                         v-for="(notification, index) in messages"
                         :key="index"/>
 
+
         </div>
-        <div class="nope" v-else>
+        <div class="nope" v-else-if="messages.length == 0">
             <span>Уведомлений нет</span>
         </div>
-        <mugen-scroll :handler="load" :should-handle="!loaded">
-            <div class="loading" ><span>Loading</span></div>
+        <mugen-scroll :handler="load" :should-handle="!loaded" >
+            <div class="loading"  v-loading="loading" ></div>
         </mugen-scroll>
     </div>
 </template>
@@ -30,7 +31,8 @@
             ...mapState('notificationPage',{
                 counter : state => state.counter,
                 page : state => state.page,
-                loaded : state => state.loaded
+                loaded : state => state.loaded,
+                loading: state => state.loading
 
             }),
         },

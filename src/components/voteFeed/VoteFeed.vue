@@ -5,7 +5,6 @@
         <!-- Ошибка -->
 
 		<!-- <div class="loading-spinner" v-loading="true" v-if="loading"/> -->
-
 		<div class="have-no-subscribers mt-10" v-if="!items.length && !loading">
 			<span>Лента мнений будет доступна после появления подписок</span>
 		</div>
@@ -37,11 +36,12 @@
             <div v-for="item in items">
                 <event :item="item"/>
             </div>
-            <mugen-scroll :handler="load" :should-handle="!postsEnded">
-        		<div class="loading-spinner" v-loading="true" v-show="!loading"/>
-            </mugen-scroll>
+
 
         </div>
+        <mugen-scroll :handler="load" :should-handle="!postsEnded">
+            <div class="loading-spinner" v-loading="loading" />
+        </mugen-scroll>
     </div>
 
 
@@ -76,7 +76,7 @@
 				state: s => s,
 				items: ({ items }) => items,
 				postsEnded: ({ is_finished }) => is_finished,
-				loading: ({ loading }) => loading
+				loading:  state  => state.loading
 			}),
 
 			...mapState("followsPage", {
