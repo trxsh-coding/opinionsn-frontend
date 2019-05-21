@@ -41,6 +41,7 @@ export const notificationPageList = (sc, listUrl) => class extends sc {
         dispatch('globalStore/verifyStore', {entries: usersToVerify, storeName: 'users'}, {root: true});
         dispatch('globalStore/verifyStore', {entries: pollsToVerify, storeName: 'polls'}, {root: true});
 
+        commit('setLoaded')
 
         let {customUrl = '/messages/notification', data={}, method='get'} = payload;
 
@@ -69,7 +70,13 @@ export const notificationPageList = (sc, listUrl) => class extends sc {
 
     setLoading(state, payload) {
 
-        state.loading = payload;
+        state.loading = true;
+
+    }
+
+    setLoaded(state, payload){
+
+        state.loading = false;
 
     }
 
@@ -148,7 +155,8 @@ export const notificationPageList = (sc, listUrl) => class extends sc {
             setNextPage: this.setNextPage,
             setLoadedTrigger: this.setLoadedTrigger,
             setLoading: this.setLoading,
-            setDefaultPage: this.setDefaultPage
+            setDefaultPage: this.setDefaultPage,
+            setLoaded: this.setLoaded
         }
     }
 
