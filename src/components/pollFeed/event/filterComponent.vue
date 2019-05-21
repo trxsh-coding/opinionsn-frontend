@@ -6,7 +6,7 @@
 
             <lang-string class="lowercase name" :title="category.name" />
 
- 
+
 
         </div>
     </div>
