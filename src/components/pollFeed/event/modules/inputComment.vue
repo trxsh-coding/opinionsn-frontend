@@ -1,5 +1,5 @@
 <template>
-    <div class="input-section flex-between   relative" v-if="hide">
+    <div class="input-section mt-13 flex-between   relative" v-if="hide">
         <el-input  type="textarea" autosize  size="small" v-model="comment_description" @keyup.enter.native="saveComment(item.id, vote.id)" >
 
         </el-input>

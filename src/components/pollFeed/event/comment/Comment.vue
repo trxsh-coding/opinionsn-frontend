@@ -153,7 +153,6 @@
     .comment-block {
         align-items: end;
         display: flex;
-        margin-bottom: 12px;
         .comment-avatar {
             margin-top: 5px;
         }
@@ -216,7 +215,13 @@
 
                 }
 
+                .comment-time {
+
+                    width: 35%;
+
+                }
 
         }
+
     }
 </style>

@@ -6,15 +6,18 @@
 
             <div class="search-panel flex-align-center category-search" v-if="mobile">
                 <el-input class="br-12" :placeholder="lstr('search')" v-model="keyword" @change="searchCategory" @keyup.enter.native="searchCategory">
-					<template slot="append">
-						<icon-base
-							fill="none"
-							width="15"
-							height="15"
-							viewBox="0 0 15 15"
-							icon-name="close">
-							<icon-close />
-						</icon-base>
+					<template slot="append" >
+						<i  @click="clearSearchField">
+                            <icon-base
+                                    class="icon-close"
+                                    fill="none"
+                                    width="20"
+                                    height="20"
+                                    viewBox="0 0 10 20"
+                                    icon-name="close">
+                                <icon-close />
+                            </icon-base>
+                        </i>
 					</template>
 				</el-input>
 <!--				<div class="search-btn v-center pointer">-->
@@ -27,7 +30,6 @@
 <!--						<icon-close />-->
 <!--					</icon-base>-->
 <!--				</div>-->
-				<span class="cancel" @click="clearSearchField"></span>
             </div>
 
             <div class="category-section mt-15">
@@ -93,7 +95,12 @@
 					params: { id: catalogId }
 				});
 			},
+            clearForm(){
 
+                this.keyword = ''
+                this.filteredCategories = this.categories
+
+            },
 			searchCategory() {
 				let { categories, keyword, lang } = this;
 
@@ -150,10 +157,11 @@
 </script>
 <style lang="scss">
 	.category-wrapper {
+        .icon-close {
+            transform: rotate(45deg);
+        }
 		.category-search {
 			position: relative;
-			width: calc(100% - 15px);
-			margin: 0 auto;
 			input {
 				width: 100%;
 				background: #FFFFFF;
@@ -208,6 +216,12 @@
 				}
 			}
 
+            .icon-close {
+
+                transform: rotate(45deg);
+
+            }
+
 			.overlay {
 				width: 100%;
 				height: 100%;
@@ -247,27 +261,28 @@
 				}
 			}
 		}
+        @media only screen and (max-device-width: 700px) {
+            .category-section {
+                justify-content: space-between !important;
+                .category-block, .category-image {
+
+                    width: 174px !important;
+                    height: 121px !important;
+
+                }
+                .category-block:nth-child(2n){
+
+                    margin-right: 0px !important;
+
+                }
+                .search-panel {
+
+                    margin-bottom: 12px;
+
+                }
+            }
+        }
 	}
 
-	@media only screen and (max-device-width: 700px) {
-		.category-section {
-			justify-content: space-between !important;
-            .category-block, .category-image {
 
-                width: 174px !important;
-                height: 121px !important;
-
-            }
-            .category-block:nth-child(2n){
-
-                margin-right: 0px !important;
-
-            }
-            .search-panel {
-
-                margin-bottom: 12px;
-
-            }
-		}
-	}
 </style>

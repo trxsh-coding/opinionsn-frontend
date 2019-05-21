@@ -195,9 +195,8 @@
         .explain-block {
             align-items: end;
             display: flex;
-            margin-bottom: 12px;
             .explain-time {
-                width: 20%;
+                width: 25%;
                 text-align: right;
 
             }
@@ -208,7 +207,7 @@
 
                 .explain-time {
 
-                    width: 15%;
+                    width: 20%;
                     text-align: right;
 
                 }
@@ -232,7 +231,6 @@
                     overflow-x: hidden;
                     text-overflow: ellipsis;
                     padding-left: 6px;
-                    line-height: 18px;
 
                 }
                 .hide {
@@ -283,7 +281,11 @@
 
                 }
 
+                .explain-time {
+                    width: 35%;
+                    text-align: right;
 
+                }
             }
 
         }

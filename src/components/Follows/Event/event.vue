@@ -22,10 +22,10 @@
                        <span>{{user.username}}</span>
                    </div>
                    <div class="right-block">
-                       <el-button class="unfollow-button" v-if="user.leader && user.id != main_user_id" @click="userLink(user.id)">
+                       <el-button class="unfollow-button" v-if="user.isLeader && user.id != main_user_id" @click="userLink(user.id)">
                            <span class="uppercase subscribition"><lang-string :title="'followings'" /></span>
                        </el-button>
-                       <el-button  class="follow-button subscribition" v-if="!user.leader && user.id != main_user_id" @click="follow(user.id)">
+                       <el-button  class="follow-button subscribition" v-if="!user.isLeader && user.id != main_user_id" @click="follow(user.id)">
                            <span class=" uppercase"><lang-string :title="'follow'"/></span>
                        </el-button>
                    </div>
@@ -108,15 +108,15 @@
                 })
 
 			},
-			
+
 			searchUsers() {
 				let { users, keyword } = this;
-				
+
 				// Фильтрация юзеров через регекс
 				keyword === ""
 					? this.filteredUsers = users
 					: this.filteredUsers = users.filter(({ username }) => username.search(new RegExp(keyword)) >= 0 );
-				
+
 			},
 
 			clearSearchField() {
@@ -165,7 +165,7 @@
 				top: 4px;
 				right: 2px;
 			}
-			
+
 		}
 
 		.el-icon-circle-close {

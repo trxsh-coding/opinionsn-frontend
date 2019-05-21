@@ -13,10 +13,10 @@
             </div>
         </div>
         <div class="button-block">
-            <div class="follow-btn pointer" @click="follow(user.id)" v-if="!user.leader">
+            <div class="follow-btn pointer" @click="follow(user.id)" v-if="!user.isLeader">
                 <lang-string :title="'follow'"/>
             </div>
-            <div class="unfollow-btn pointer" v-if="user.leader" @click="followersLink(user.id)" >
+            <div class="unfollow-btn pointer" v-if="user.isLeader" @click="followersLink(user.id)" >
                 <lang-string :title="'followings'"/>
             </div>
         </div>

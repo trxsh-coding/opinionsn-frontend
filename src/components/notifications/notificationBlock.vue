@@ -12,7 +12,7 @@
         </icon-base>
         <span class="username">Opiniosn</span>
       </div>
-      <div class="notification-new-user flex-align-center"  v-if="notification.eventType === 'APPOINTMENT_OF_JUDGES'">
+      <div class="notification-new-user flex-align-center"  v-if="notification.eventType === 'APPOINTMENT_OF_JUDGES' || notification.eventType === 'BLOCKCHAIN_PREDICTION_FINISHED' || notification.eventType === 'BLOCKCHAIN_PREDICTION_WINNER'">
         <icon-base
                 class="mr-10"
                 width="24"
@@ -22,16 +22,16 @@
         </icon-base>
       </div>
       <div
-         v-if="notification.eventType != 'NEW_USER' || notification.eventType != 'APPOINTMENT_OF_JUDGES'"
+              v-if="notification.eventType === 'NEW_COMMENT' || notification.eventType === 'NEW_POLL' || notification.eventType === 'NEW_PREDICTION' || notification.eventType === 'SUBSCRIBE' || notification.eventType === 'UNSUBSCRIBE' || notification.eventType === 'EXPLAIN_CREATED' || notification.eventType === 'NEW_BLOCKCHAIN_PREDICTION'"
         class="avatar avatar-30x30 pointer"
         :style="{ 'background-image': 'url(' + author.path_to_avatar + ')' } "
         @click="userLink"
       >
       </div>
-      <span class="username pointer" v-if="notification.eventType != 'NEW_USER' || notification.eventType != 'APPOINTMENT_OF_JUDGES'">
+      <span class="username pointer" v-if="notification.eventType === 'NEW_COMMENT' || notification.eventType === 'NEW_POLL' || notification.eventType === 'NEW_PREDICTION' || notification.eventType === 'SUBSCRIBE' || notification.eventType === 'UNSUBSCRIBE' || notification.eventType === 'EXPLAIN_CREATED' || notification.eventType === 'NEW_BLOCKCHAIN_PREDICTION'" >
         {{ author.username }}
       </span>
-      <span class="username pointer" v-if="notification.eventType === 'APPOINTMENT_OF_JUDGES'">
+      <span class="username pointer" v-if="notification.eventType === 'APPOINTMENT_OF_JUDGES' || notification.eventType === 'BLOCKCHAIN_PREDICTION_FINISHED' || notification.eventType === 'BLOCKCHAIN_PREDICTION_WINNER'">
         Blockchain
       </span>
       <el-button
@@ -93,7 +93,7 @@
       </div>
           <div class="flex-align-center" v-if="notification.eventType === 'NEW_USER'">
             <span class="message" >
-              {{notification.message}}
+              Добро пожаловать в Opinion!
             </span>
           </div>
     </div>

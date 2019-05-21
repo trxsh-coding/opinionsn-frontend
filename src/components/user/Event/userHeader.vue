@@ -6,10 +6,10 @@
                     <el-button size="small" v-if="!hide_edit && user.id === main_user_id"class="edit" @click="editInfo" >
                         <lang-string :title="'edit'"/>
                     </el-button>
-                    <el-button size="small" v-if="!hide_edit && !user.leader  && user.id != main_user_id"class="edit follow"  @click="follow(user.id)"  >
+                    <el-button size="small" v-if="!hide_edit && !user.isLeader  && user.id != main_user_id"class="edit follow"  @click="follow(user.id)"  >
                         <lang-string :title="'follow'"/>
                     </el-button>
-                    <el-button size="small" v-if="!hide_edit && user.leader && user.id != main_user_id"class="edit"  @click="unfollow(user.id)" >
+                    <el-button size="small" v-if="!hide_edit && user.isLeader && user.id != main_user_id"class="edit"  @click="unfollow(user.id)" >
                         <lang-string :title="'unfollow'"/>
                     </el-button>
                     <el-button size="small" v-if="hide_edit" class="edit-cancel" @click="hide_edit = false" >
@@ -464,6 +464,18 @@
             }
         }
 
+    }
+    @media only screen and (min-device-width: 320px) and (max-device-width: 765px) {
+
+
+        .full-avatar-image-block {
+
+            height: 400px !important;
+            width: 100%;
+            background-size: cover !important;
+            background-repeat: no-repeat;
+
+        }
     }
 
 </style>

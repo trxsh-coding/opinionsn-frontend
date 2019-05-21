@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="filter-component">
         <div class="flex-column filter-category" @click="setFilter(category.id)">
 
             <div class="category-picture "  :style="{ 'background-image': 'url('+ category.path_to_image + ')' }"> </div>
@@ -69,7 +69,7 @@
             background: #FFFFFF;
             border-radius: 12px;
             width: 90px;
-            height: 60px;
+            height: 60px !important;
             background-repeat: no-repeat;
             background-position: center;
             background-size: cover;
