@@ -95,7 +95,7 @@
                 resetFormData.append('code', form.code);
                 resetFormData.append('password', form.password);
                 resetFormData.append('passwordConfirm', form.password_confirm);
-                axios.post(`/api/auth/resetPassword/`, resetFormData)
+                axios.post(`${process.env.VUE_APP_MAIN_API}/auth/resetPassword/`, resetFormData)
                     .then(response => {
                         if (response.status === 200) {
                             this.$router.push({ name: 'login'})
@@ -314,7 +314,8 @@
             }
 
             .buttons-block{
-				margin-top: 18px !important;
+
+
                 height: 50%;
                 display: flex;
                 flex-direction: column;
@@ -331,9 +332,6 @@
             }
             .form-block {
                 .el-form {
-					background: #FFFFFF;
-                    box-shadow: 0px 0px 18px rgba(0, 0, 0, 0.1);
-                    border-radius: 12px;
                     padding: 18px 15px;
                     text-align: center;
                     display: flex;

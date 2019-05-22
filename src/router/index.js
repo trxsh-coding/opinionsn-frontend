@@ -20,7 +20,6 @@ import VoteFeed from '../components/voteFeed/VoteFeed';
 import PollFeed from '../components/pollFeed/PollFeed';
 import Poll from '../components/singlePoll/feed';
 import Admin from '../components/Admin/Admin';
-import addPoll from '../components/Admin/POLL_EDIT/AddPoll';
 import Catalog from '../components/Admin/Catalog';
 import addTranslations from '../components/Admin/addTranslations';
 import CatalogList from '../components/CatalogFeed/Catalog';
@@ -91,11 +90,6 @@ export const index = new Router({
 					path: 'add_translations',
 					name: 'addTranslations',
 					component: addTranslations
-				},
-				{
-					path: 'add_poll',
-					name: 'addPoll',
-					component: addPoll
 				},
 			]
 		},

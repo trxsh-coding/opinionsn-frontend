@@ -1,7 +1,7 @@
 <template>
     <div class="comment-component" v-if="comment.description">
         <div class="comment-block">
-            <div class="avatar-30x30 comment-avatar pointer" :style="{ 'background-image': 'url(' + author.path_to_avatar + ')' } " @click="userLink(author.id)"></div>
+            <div class="avatar-30x30 comment-avatar pointer" :style="{ 'background-image': 'url(' + publicPath + author.path_to_avatar + ')' } " @click="userLink(author.id)"></div>
             <div class="text-block wb">
                 <div class="message">
                     <span class="nickname">{{author.username}}</span>
@@ -50,6 +50,8 @@
     export default {
         data() {
             return {
+
+                publicPath: process.env.VUE_APP_MAIN_API
 
 
             }

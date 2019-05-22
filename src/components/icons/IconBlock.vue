@@ -9,7 +9,7 @@
                        viewBox="0 0 17 16"
                        icon-name="time">
                    <icon-time /></icon-base>
-               <span > {{currentTime || relativeEndDate}}</span>
+               <span > {{currentTime}}</span>
            </slot>
            <slot name="icon-money">
                <icon-base

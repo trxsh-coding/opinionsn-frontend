@@ -123,7 +123,7 @@
 							case index + 1:
 								keyName += arr[0];
 								break;
-
+						
 							default:
 								keyName += arr[0] + "|";
 								break;
@@ -162,6 +162,9 @@
         }
 		.category-search {
 			position: relative;
+			width: calc(100% - 17px);
+			margin: 0 auto;
+			margin-bottom: 15px;
 			input {
 				width: 100%;
 				background: #FFFFFF;

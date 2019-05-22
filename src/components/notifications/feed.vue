@@ -74,7 +74,7 @@ export default {
 
   },
   created(){
-    axios.get(`/messages/notification/unReadCount`)
+    axios.get(`${process.env.VUE_APP_NOTIFICATION_API}/notification/unReadCount`)
             .then(response => {
                 this.$store.commit('notificationPage/setNotificationsCount', response.data)
 

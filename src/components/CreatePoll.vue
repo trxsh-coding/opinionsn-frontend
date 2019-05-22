@@ -427,7 +427,7 @@
                             }
                             if(pollForm.type_of_poll == 1) {
 
-                                axios.post('/api/rest/quiz/create', bodyFormData, config)
+                                axios.post(`${process.env.VUE_APP_MAIN_API}/rest/quiz/create`, bodyFormData, config)
                                     .then(function(response){
                                         if (response.status === 200) {
                                             this.loading = false;
@@ -438,7 +438,7 @@
 
                             } else {
 
-                                axios.post('/api/rest/admin/blockchain/create', bodyFormData, config)
+                                axios.post(`${process.env.VUE_APP_MAIN_API}/rest/admin/blockchain/create`, bodyFormData, config)
                                     .then(function(response){
                                         if (response.status === 200) {
                                             this.loading = false;

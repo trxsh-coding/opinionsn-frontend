@@ -16,6 +16,7 @@
       <li  class="hidden-xs-only pointer" @click="resetFilter('voteFeed')" >
 
            <icon-base
+
                :class="{primary : $route.path==='/voteFeed'} "
                 class="opinion "
                 fill="none"

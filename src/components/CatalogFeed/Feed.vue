@@ -22,7 +22,7 @@
         <!-- Всё ок -->
 
         <div class="catalog-main-wrapper">
-            <div class="category-background mb-10" :style="{ 'background-image': 'url(' + category.path_to_image + ')' } ">
+            <div class="category-background mb-10" :style="{ 'background-image': 'url(' + publicPath + category.path_to_image + ')' } ">
 
                 <div class="category-subject">
                     <span><lang-string :title="category.name"/></span>
@@ -30,7 +30,7 @@
 
             </div>
 
-            <div class="category-subject category-mobile mb-15">
+            <!-- <div class="category-subject category-mobile mb-15">
                 <span @click="backLink">
                     <icon-base
                             class="icon-back"
@@ -42,7 +42,7 @@
                 </icon-base>
                 </span>
                 <span><lang-string class="catalog__name" :title="category.name"/></span>
-            </div>
+            </div> -->
 
             <div v-for="item in items" class="mb-6" v-if="items.length">
                 <event :item="item"/>
@@ -70,7 +70,9 @@
         mixins:[langMixin],
         data(){
             return {
-                id: this.$route.params.id
+                id: this.$route.params.id,
+                publicPath: process.env.VUE_APP_MAIN_API
+
             }
         },
         computed: {
@@ -127,7 +129,7 @@
 
 
         mounted(){
-            this.$store.dispatch(`catalogList/list`, {customUrl: `/api/rest/categories/${this.id}`});
+            this.$store.dispatch(`catalogList/list`, {customUrl: `${process.env.VUE_APP_MAIN_API}/rest/categories/${this.id}`});
 
         },
 

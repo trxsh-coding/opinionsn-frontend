@@ -182,4 +182,12 @@
 			color: #f4f4f4f4;
 		}
 	}
+
+	@media only screen and (max-device-width : 340px) {
+		#poll-wrapper {
+			.category-section {
+				justify-content: center !important;
+			}
+		}
+	}
 </style>

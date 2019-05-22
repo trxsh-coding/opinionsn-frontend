@@ -2,7 +2,7 @@
     <div class="poll-option-head-wrap">
 
 
-        <div class="poll-option-head pointer" v-for="{id, picture} in sanitizedBows" :style="{'background-image': `url('${picture}')`}" @click="userLink(id)">
+        <div class="poll-option-head pointer" v-for="{id, picture} in sanitizedBows" :style="{'background-image': `url('${publicPath + picture}')`}" @click="userLink(id)">
         </div>
 
         <div class="poll-option-head" v-if="canExpand" >
@@ -19,7 +19,8 @@
     export default {
 
         data: () => ({
-            expanded: false,
+			expanded: false,
+			publicPath: process.env.VUE_APP_MAIN_API
         }),
 
         name: "PollOptionHeads",

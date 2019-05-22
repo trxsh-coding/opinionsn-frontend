@@ -7,7 +7,7 @@
         </svg>
 
 
-        <div class="avatar" :style="{ 'background-image': 'url('+ user.path_to_avatar + ')' }">
+        <div class="avatar" :style="{ 'background-image': 'url('+ publicPath + user.path_to_avatar + ')' }">
 
         </div>
 
@@ -22,6 +22,16 @@
     export default {
         props:['user'],
         name: "borderedAvatar",
+        data(){
+
+            return {
+
+                publicPath: process.env.VUE_APP_MAIN_API
+
+
+            }
+
+        },
         components: {IconBase, IconBorder}
     }
 </script>

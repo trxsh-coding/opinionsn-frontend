@@ -1,7 +1,7 @@
 <template lang="html">
 	<div id="app">
 		<el-header id="mobile-header" class="mobile-nav hidden-sm-and-up"   :class="{ 'navbar--hidden': !showNavbar }">
-				<mobile-nav :user="main_user"/>
+			<mobile-nav :user="main_user"/>
 		</el-header>
 		<el-header class="nav-header hidden-xs-only" style=" height:48px ">
 			<el-container class="nav">
@@ -132,435 +132,444 @@
 </template>
 
 <script>
-	import NavBarMenu from "./NavBarMenu.vue";
-	import LeftBarSide from "./LeftBarSide.vue";
-	import IconBase from "./icons/IconBase.vue";
-	import IconLogo from "./icons/IconLogo.vue";
-	import IconClose from "./icons/IconClose.vue";
-	import IconPrice from "./icons/IconPrice.vue";
-	import IconTextLogo from "./icons/IconTextLogo.vue";
-	import IconDropdown from "./icons/IconDropdown.vue";
-	import { mapState } from "vuex";
-	import langString from "./langString.vue";
-	import { localString } from "../utils/localString.js";
-	import axios from "axios";
-	import mobileNav from "./mobileNav";
-	import Search from "./Search/search";
-	import notificationSideFeed from "./notifications/notificationSideFeed";
-	import { log } from "util";
-	export default {
-		data() {
-			return {
-				links: [],
-				keywords: "",
-				timeout: null,
-				mobile_hide: false,
-				mobile: this.$root.mobile,
-				hide: false,
-				showNavbar: true,
-				lastScrollPosition: 0
-			};
-		},
-		watch: {
-			keywords(after, before) {
-				this.fetch();
-			}
-		},
-		computed: {
-			lstr() {
-				return str => localString(this.lang, str);
-			},
-			// ...mapState('user',{
-			//   user : state => state.User[0]
-			// }),
+import NavBarMenu from "./NavBarMenu.vue";
+import LeftBarSide from "./LeftBarSide.vue";
+import IconBase from "./icons/IconBase.vue";
+import IconLogo from "./icons/IconLogo.vue";
+import IconClose from "./icons/IconClose.vue";
+import IconPrice from "./icons/IconPrice.vue";
+import IconTextLogo from "./icons/IconTextLogo.vue";
+import IconDropdown from "./icons/IconDropdown.vue";
+import { mapState } from "vuex";
+import langString from "./langString.vue";
+import { localString } from "../utils/localString.js";
+import axios from "axios";
+import MobileNav from "./MobileNav";
+import Search from "./Search/search";
+import notificationSideFeed from "./notifications/notificationSideFeed";
+import { log } from "util";
+export default {
+  data() {
+    return {
+      links: [],
+      keywords: "",
+      timeout: null,
+      mobile_hide: false,
+      mobile: this.$root.mobile,
+      hide: false,
+      showNavbar: true,
+      lastScrollPosition: 0
+    };
+  },
+  watch: {
+    keywords(after, before) {
+      this.fetch();
+    }
+  },
+  computed: {
+    lstr() {
+      return str => localString(this.lang, str);
+    },
+    // ...mapState('user',{
+    //   user : state => state.User[0]
+    // }),
 
-			...mapState("globalStore", {
-				mainUser: ({ mainUser }) => mainUser
-			}),
+    ...mapState("globalStore", {
+      mainUser: ({ mainUser }) => mainUser
+    }),
 
-			...mapState("lang", {
-				lang: state => state.locale
-			}),
-			...mapState("userPage", {
-				state: s => s,
-				items: s => s.items,
-				main_user_id: s => s.main_user_id
-			}),
+    ...mapState("lang", {
+      lang: state => state.locale
+    }),
+    ...mapState("userPage", {
+      state: s => s,
+      items: s => s.items,
+      main_user_id: s => s.main_user_id
+    }),
 
-			...mapState("authentication", {
-				isAuthenticated: s => s.isAuthenticated
-			}),
+    ...mapState("authentication", {
+      isAuthenticated: s => s.isAuthenticated
+    }),
 
-			...mapState("notificationPage", {
-				page: s => s.page
-			}),
+      ...mapState("notificationPage", {
+          page: s => s.page
+      }),
 
-			...mapState("globalStore", {
-				userMap: ({ users }) => users
-			}),
-			//Main user getter
+    ...mapState("globalStore", {
+      userMap: ({ users }) => users
+    }),
+    //Main user getter
 
-			main_user: function() {
-				let { state, userMap } = this;
+    main_user: function() {
+      let { state, userMap } = this;
 
-				return userMap[state.main_user_id];
-			}
-		},
-		methods: {
-			// notification(response) {
-			//   this.$notify({
-			//     title: "Уведомление",
-			//     message: response[0].message,
-			//     position: "bottom-right",
-			//     duration: 0
-			//   });
-			// },
-			getPathWithPoll(name) {
-				let [, pageName, pollId] = this.$route.path.split("/");
+      return userMap[state.main_user_id];
+    }
+  },
+  methods: {
+    // notification(response) {
+    //   this.$notify({
+    //     title: "Уведомление",
+    //     message: response[0].message,
+    //     position: "bottom-right",
+    //     duration: 0
+    //   });
+    // },
+  getPathWithPoll(name){
 
-				if (pageName === "singlePoll") {
-					return { name, query: { redirectToPoll: pollId } };
-				} else {
-					return { name };
-				}
-			},
+      let [,pageName,pollId] = this.$route.path.split('/');
 
-			getNotifications() {
-				this.$store.dispatch("notificationPage/list", {
-					customUrl: `/messages/notification/${this.page}`
-				});
-			},
-			onScroll() {
-				const currentScrollPosition =
-					window.pageYOffset || document.documentElement.scrollTop;
-				if (currentScrollPosition < 0) {
-					return;
-				}
-				// Stop executing this function if the difference between
-				// current scroll position and last scroll position is less than some offset
-				if (
-					Math.abs(currentScrollPosition - this.lastScrollPosition) < 60
-				) {
-					return;
-				}
-				this.showNavbar = currentScrollPosition < this.lastScrollPosition;
-				this.lastScrollPosition = currentScrollPosition;
-			},
-			onHide(value) {
-				return (this.mobile_hide = value);
-				console.log(this.mobile_hide);
-			},
+      if (pageName === 'singlePoll'){
+          return {name, query: {redirectToPoll: pollId}}
+      } else {
+          return {name}
+      }
 
-			goMain() {
-				this.$router.push({ path: "/pollFeed" });
-			},
-			fetch() {
-				axios
-					.get(`/api/rest/findAllContaining/${this.keywords}`)
-					.then(
-						function(response) {
-							if (response.status === 200) {
-								this.links = Object.values(response.data.users);
-								console.log(this.links);
-							}
-						}.bind(this)
-					)
-					.catch(error => {});
-			},
+  },
 
-			querySearchAsync(queryString, cb) {
-				console.log(this.links);
-				var links = this.links;
-				var results = queryString
-					? links.filter(this.createFilter(queryString))
-					: links;
-				clearTimeout(this.timeout);
-				this.timeout = setTimeout(() => {
-					cb(results);
-				}, 500);
-			},
-			createFilter(queryString) {
-				return link => {
-					return (
-						link.username
-							.toLowerCase()
-							.indexOf(queryString.toLowerCase()) === 0
-					);
-				};
-			},
-			handleSelect(userId) {
-				this.$router.push({ name: "user", params: { id: userId.id } });
-			}
-		},
 
-		created() {
-			this.$store.dispatch("userPage/getMainUser");
-		},
-		mounted() {
-			if (Object.keys(this.mainUser).length == 0) {
-				this.getNotifications();
-			}
-			window.addEventListener("scroll", this.onScroll);
+    getNotifications() {
+      this.$store.dispatch("notificationPage/list", {customUrl : `${process.env.VUE_APP_NOTIFICATION_API}/notification/${this.page}`});
+    },
+    onScroll() {
+      const currentScrollPosition =
+        window.pageYOffset || document.documentElement.scrollTop;
+      if (currentScrollPosition < 0) {
+        return;
+      }
+      // Stop executing this function if the difference between
+      // current scroll position and last scroll position is less than some offset
+      if (Math.abs(currentScrollPosition - this.lastScrollPosition) < 60) {
+        return;
+      }
+      this.showNavbar = currentScrollPosition < this.lastScrollPosition;
+      this.lastScrollPosition = currentScrollPosition;
+    },
+    onHide(value) {
+      return (this.mobile_hide = value);
+      console.log(this.mobile_hide);
+    },
 
-			this.$store.dispatch("lang/getLocaleString");
-		},
+    goMain() {
+      this.$router.push({ path: "/pollFeed" });
+    },
+    fetch() {
+      axios
+        .get(`${process.env.VUE_APP_MAIN_API}/rest/findAllContaining/${this.keywords}`)
+        .then(
+          function(response) {
+            if (response.status === 200) {
+              this.links = Object.values(response.data.users);
+              console.log(this.links);
+            }
+          }.bind(this)
+        )
+        .catch(error => {});
+    },
 
-		beforeDestroy() {
-			window.removeEventListener("scroll", this.onScroll);
-		},
+    querySearchAsync(queryString, cb) {
+      console.log(this.links);
+      var links = this.links;
+      var results = queryString
+        ? links.filter(this.createFilter(queryString))
+        : links;
+      clearTimeout(this.timeout);
+      this.timeout = setTimeout(() => {
+        cb(results);
+      }, 500);
+    },
+    createFilter(queryString) {
+      return link => {
+        return (
+          link.username.toLowerCase().indexOf(queryString.toLowerCase()) === 0
+        );
+      };
+    },
+    handleSelect(userId) {
+      this.$router.push({ name: "user", params: { id: userId.id } });
+    }
+  },
 
-		beforeCreate() {},
-		components: {
-			Search,
-			NavBarMenu,
-			LeftBarSide,
-			IconBase,
-			IconPrice,
-			IconLogo,
-			IconTextLogo,
-			langString,
-			IconDropdown,
-			mobileNav,
-			IconClose,
-			notificationSideFeed
-		}
-	};
+  created(){
+
+      this.$store.dispatch("userPage/getMainUser")
+
+
+  },
+  mounted() {
+
+      if(Object.keys(this.mainUser).length == 0) {
+
+          this.getNotifications();
+
+
+      }
+    window.addEventListener("scroll", this.onScroll);
+
+    this.$store.dispatch("lang/getLocaleString");
+  },
+
+  beforeDestroy() {
+    window.removeEventListener("scroll", this.onScroll);
+  },
+
+
+
+  beforeCreate() {},
+  components: {
+    Search,
+    NavBarMenu,
+    LeftBarSide,
+    IconBase,
+    IconPrice,
+    IconLogo,
+    IconTextLogo,
+    langString,
+    IconDropdown,
+    MobileNav,
+    IconClose,
+    notificationSideFeed
+  }
+};
 </script>
 
 <style lang="scss">
-	body {
-		margin: 0;
-	}
-	#app {
-		background: #f4f4f4;
+body {
+	margin: 0;
+}
+#app {
+	background: #f4f4f4;
 
-		.navbar--hidden {
-			box-shadow: none;
-			transform: translate3d(0, -100%, 0);
-			.el-main {
-				margin-top: 45px !important;
-			}
+
+	.navbar--hidden {
+		box-shadow: none;
+		transform: translate3d(0, -100%, 0);
+		.el-main {
+			margin-top: 45px !important;
 		}
-		.login-btn {
-			background: #4b97b4 !important;
-			box-shadow: 0px 0px 7px rgba(21, 45, 58, 0.24);
-			border-radius: 50px;
-			border-color: #4b97b4;
-			min-width: 127px;
-			padding: 6px 0;
-			margin-bottom: 10px;
+	}
+	.login-btn {
+		background: #4b97b4 !important;
+		box-shadow: 0px 0px 7px rgba(21, 45, 58, 0.24);
+		border-radius: 50px;
+		border-color: #4b97b4;
+		min-width: 127px;
+		padding: 6px 0;
+		margin-bottom: 10px;
 
-			span {
+		span {
+			font-family: Roboto;
+			font-style: normal;
+			font-weight: 500;
+			font-size: 13px;
+			text-transform: capitalize;
+			color: #ffffff;
+		}
+	}
+	footer {
+		width: 100%;
+		height: 92px;
+		background: rgba(21, 45, 58, 0.9);
+		box-shadow: 0px 0px 12px rgba(0, 0, 0, 0.06);
+		position: fixed;
+		bottom: 0;
+		z-index: 20;
+	}
+	.auth-block {
+		display: flex;
+		align-items: center;
+		width: 500px;
+		position: fixed;
+		bottom: 0;
+		z-index: 50;
+		height: 92px;
+		justify-content: space-between;
+		.buttons-block {
+			display: flex;
+			flex-direction: column;
+			justify-content: space-between;
+			position: relative;
+			a {
+				text-decoration: none;
+			}
+			.icon-exit {
+				position: absolute;
+				right: -36px;
+				top: -14px;
+			}
+			a {
+				text-align: center;
+			}
+
+			a:active {
+				text-decoration: none;
+			}
+			.registration-span {
 				font-family: Roboto;
 				font-style: normal;
 				font-weight: 500;
 				font-size: 13px;
+				line-height: 17px;
+				text-align: center;
 				text-transform: capitalize;
-				color: #ffffff;
+
+				color: #d6dadd;
 			}
 		}
-		footer {
-			width: 100%;
-			height: 92px;
-			background: rgba(21, 45, 58, 0.9);
-			box-shadow: 0px 0px 12px rgba(0, 0, 0, 0.06);
-			position: fixed;
-			bottom: 0;
-			z-index: 20;
-		}
-		.auth-block {
+		.logo-block {
 			display: flex;
 			align-items: center;
-			width: 500px;
-			position: fixed;
-			bottom: 0;
-			z-index: 50;
-			height: 92px;
-			justify-content: space-between;
-			.buttons-block {
-				display: flex;
-				flex-direction: column;
-				justify-content: space-between;
-				position: relative;
-				a {
-					text-decoration: none;
+			.text-logo {
+				path {
+					fill: #ffffff;
 				}
-				.icon-exit {
-					position: absolute;
-					right: -36px;
-					top: -14px;
-				}
-				a {
-					text-align: center;
-				}
-
-				a:active {
-					text-decoration: none;
-				}
-				.registration-span {
-					font-family: Roboto;
-					font-style: normal;
-					font-weight: 500;
-					font-size: 13px;
-					line-height: 17px;
-					text-align: center;
-					text-transform: capitalize;
-
-					color: #d6dadd;
-				}
-			}
-			.logo-block {
-				display: flex;
-				align-items: center;
-				.text-logo {
-					path {
-						fill: #ffffff;
-					}
-				}
-			}
-		}
-		.icon {
-			fill: none !important;
-		}
-		.el-col-3 {
-			display: flex;
-			align-items: center;
-			justify-content: center;
-		}
-		.nav-header {
-			background-color: #ffffff;
-			line-height: 48px;
-			margin-bottom: 12px;
-			height: 54px !important;
-			z-index: 100;
-			position: fixed;
-			width: 100%;
-			margin: 0 auto;
-			box-shadow: 0px 0px 12px rgba(0, 0, 0, 0.06);
-			.el-container {
-				height: 100%;
-				display: inherit;
-			}
-			.navbar {
-				display: flex;
-				height: 54px;
-				align-items: center;
-				justify-content: space-between;
-			}
-			.navbar-brand {
-				display: flex;
-				align-items: center;
-				align-content: center;
-				g {
-					fill: none;
-				}
-				.navbar-item {
-					text-decoration: none;
-					display: flex;
-					align-items: center;
-					align-content: center;
-					flex-direction: row;
-					img {
-						width: 41.67px;
-						height: 30px;
-					}
-					span {
-						font-family: ABeeZee;
-						font-style: normal;
-						font-weight: normal;
-						line-height: 18px;
-						font-size: 18px;
-						letter-spacing: -0.3px;
-						color: #4b97b4;
-						margin-left: 6.33px;
-					}
-				}
-			}
-
-			.el-input {
-				margin-left: 14px;
-				.el-input__inner {
-					height: 30px;
-					width: 210px;
-					border-radius: 1px;
-					border: 0.5px solid rgba(56, 56, 56, 0.3);
-					border-radius: 20px;
-				}
-				img {
-					position: absolute;
-				}
-			}
-		}
-		.el-container {
-		}
-		.main-container {
-			display: flex;
-			justify-content: center;
-		}
-		.nav {
-			width: 757px;
-			height: 100%;
-			margin: 0 auto;
-		}
-
-		.el-row::-webkit-scrollbar {
-			width: 0;
-		}
-		.el-aside {
-			overflow-x: hidden !important;
-			overflow-y: hidden !important;
-			margin-right: 12px;
-		}
-
-		.el-main {
-			background: #f4f4f4;
-			display: flex;
-			justify-content: center;
-			padding: 0;
-			.el-row {
-				display: flex;
-				width: 756px;
-				justify-content: center;
-			}
-		}
-		.el-main:first-of-type {
-			margin-top: 65px;
-		}
-
-		@media only screen and (min-device-width: 320px) and (max-device-width: 765px) {
-			.el-header {
-				margin-bottom: 12px;
-				padding: 0 15px;
-				position: fixed;
-				z-index: 100000;
-				width: 100%;
-				height: 44px !important;
-				background: #ffffff;
-				transition: 0.1s all ease-out;
-				box-shadow: 0px 0px 12px rgba(0, 0, 0, 0.06);
-			}
-
-			.auth-block {
-				width: 88%;
-			}
-
-			.el-main {
-				margin-top: 60px !important;
-
-				.el-row {
-					flex-direction: column;
-					max-width: 357px !important;
-				}
-			}
-
-			.quiz-section {
-				width: 100%;
-			}
-
-			.el-aside {
-				width: 359px !important;
-				margin-right: 0px !important;
 			}
 		}
 	}
+	.icon {
+		fill: none !important;
+	}
+	.el-col-3 {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+	}
+	.nav-header {
+		background-color: #ffffff;
+		line-height: 48px;
+		margin-bottom: 12px;
+		height: 54px !important;
+		z-index: 100;
+		position: fixed;
+		width: 100%;
+		margin: 0 auto;
+		box-shadow: 0px 0px 12px rgba(0, 0, 0, 0.06);
+		.el-container {
+			height: 100%;
+			display: inherit;
+		}
+		.navbar {
+			display: flex;
+			height: 54px;
+			align-items: center;
+			justify-content: space-between;
+		}
+		.navbar-brand {
+			display: flex;
+			align-items: center;
+			align-content: center;
+			g {
+				fill: none;
+			}
+			.navbar-item {
+				text-decoration: none;
+				display: flex;
+				align-items: center;
+				align-content: center;
+				flex-direction: row;
+				img {
+					width: 41.67px;
+					height: 30px;
+				}
+				span {
+					font-family: ABeeZee;
+					font-style: normal;
+					font-weight: normal;
+					line-height: 18px;
+					font-size: 18px;
+					letter-spacing: -0.3px;
+					color: #4b97b4;
+					margin-left: 6.33px;
+				}
+			}
+		}
+
+		.el-input {
+			margin-left: 14px;
+			.el-input__inner {
+				height: 30px;
+				width: 210px;
+				border-radius: 1px;
+				border: 0.5px solid rgba(56, 56, 56, 0.3);
+				border-radius: 20px;
+			}
+			img {
+				position: absolute;
+			}
+		}
+	}
+	.el-container {
+	}
+	.main-container {
+		display: flex;
+		justify-content: center;
+	}
+	.nav {
+		width: 757px;
+		height: 100%;
+		margin: 0 auto;
+	}
+
+	.el-row::-webkit-scrollbar {
+		width: 0;
+	}
+	.el-aside {
+		overflow-x: hidden !important;
+		overflow-y: hidden !important;
+		margin-right: 12px;
+	}
+
+	.el-main {
+		background: #f4f4f4;
+		display: flex;
+		justify-content: center;
+		padding: 0;
+		.el-row {
+			display: flex;
+			width: 756px;
+			justify-content: center;
+		}
+	}
+	.el-main:first-of-type {
+		margin-top: 65px;
+	}
+
+	@media only screen and (min-device-width: 320px) and (max-device-width: 765px) {
+		.el-header {
+			position: fixed;
+			z-index: 100000;
+			width: 100%;
+			height: auto !important;
+			padding: 0;
+			margin: 0;
+			background: #ffffff;
+			transition: 0.1s all ease-out;
+			box-shadow: 0px 0px 12px rgba(0, 0, 0, 0.06);
+		}
+
+		.auth-block {
+			width: 88%;
+		}
+
+		.el-main {
+			margin-top: 109px !important;
+
+			.el-row {
+				flex-direction: column;
+				width: 100%;
+				padding: 0 8px;
+			}
+		}
+
+		.quiz-section {
+			width: 100%;
+		}
+
+		.el-aside {
+			width: 359px !important;
+			margin-right: 0px !important;
+		}
+	}
+}
+
 </style>

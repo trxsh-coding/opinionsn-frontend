@@ -24,7 +24,7 @@
       <div
               v-if="notification.eventType === 'NEW_COMMENT' || notification.eventType === 'NEW_POLL' || notification.eventType === 'NEW_PREDICTION' || notification.eventType === 'SUBSCRIBE' || notification.eventType === 'UNSUBSCRIBE' || notification.eventType === 'EXPLAIN_CREATED' || notification.eventType === 'NEW_BLOCKCHAIN_PREDICTION'"
         class="avatar avatar-30x30 pointer"
-        :style="{ 'background-image': 'url(' + author.path_to_avatar + ')' } "
+        :style="{ 'background-image': 'url('+ publicPath + author.path_to_avatar + ')' } "
         @click="userLink"
       >
       </div>
@@ -116,6 +116,8 @@ export default {
   },
   data: function() {
     return {
+
+      publicPath: process.env.VUE_APP_MAIN_API
 
     };
   },

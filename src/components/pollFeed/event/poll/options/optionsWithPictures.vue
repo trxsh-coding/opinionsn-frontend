@@ -5,7 +5,7 @@
 		:class="{cursor : item.voted, opacity  : poll.votingOver, rightAnswer : correct_option}"
 		v-loading="loading_option"
 	>
-		<div class="option-picture" :style="{ 'background-image': 'url(' + option.picture + ')' }">
+		<div class="option-picture" :style="{ 'background-image': 'url(' + publicPath + option.picture + ')' }">
 			<div class="percentage-block">
 				<span
 					v-bind:class="{ selected: selected_option, correct: correct_option }"
@@ -45,7 +45,9 @@
 	export default {
 		data() {
 			return {
-				mobile: this.$root.mobile
+				mobile: this.$root.mobile,
+				publicPath: process.env.VUE_APP_MAIN_API
+
 			};
 		},
 

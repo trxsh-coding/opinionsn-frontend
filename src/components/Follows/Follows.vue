@@ -63,7 +63,7 @@
 
         mounted(){
 
-            // this.$store.dispatch(`followsPage/list`, {customUrl: `/api/rest/getFollowers/${this.id}`});
+            // this.$store.dispatch(`followsPage/list`, {customUrl: `${process.env.VUE_APP_MAIN_API}/rest/getFollowers/${this.id}`});
 
         },
 

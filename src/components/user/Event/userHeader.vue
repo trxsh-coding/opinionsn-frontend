@@ -178,6 +178,7 @@
             },
 
             editInfo(){
+
                 this.$store.commit('userPage/hideForm', false)
 
             }

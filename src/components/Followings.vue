@@ -14,7 +14,7 @@
     </div>
       <!-- <div class="main-content" v-for="(item, index) in links" :key="index"> -->
       <div class="main-content" v-if="phantom.length != 0" v-for="(item, index) in phantom">
-        <div class="avatar-block" @click="userLink(item.id)" :style="{ 'background-image': 'url(' + item.path_to_avatar + ')' }">
+        <div class="avatar-block" @click="userLink(item.id)" :style="{ 'background-image': 'url(' + publicPath +item.path_to_avatar + ')' }">
         </div>
         <div class="user-info">
           <div class="nickname-block">
@@ -28,7 +28,7 @@
         </div>
       </div>
     <div class="main-content" v-for="(item, index) in Followings" :key="index" v-if="phantom.length === 0">
-      <div class="avatar-block" @click="userLink(item.id)" :style="{ 'background-image': 'url(' + item.path_to_avatar + ')' }">
+      <div class="avatar-block" @click="userLink(item.id)" :style="{ 'background-image': 'url(' + publicPath + item.path_to_avatar + ')' }">
       </div>
         <el-button size="small" rounded @click="unFollow(item.id)" v-if="item.leader" >
           <lang-string :title="'subscriptions'"/>
@@ -59,7 +59,9 @@ export default {
     links: [],
     keywords:'',
     timeout:  null,
-    phantom:[]
+    phantom:[],
+    publicPath: process.env.VUE_APP_MAIN_API
+
     }
   },
   created() {

@@ -31,7 +31,7 @@
 
                <div class="subs-wrapper pb-10 pt-10" v-for="(user, index) in filteredUsers || users" :key="index">
                    <div class="left-block flex-align-center">
-                       <div class="avatar-block avatar-42x42" @click="userLink(user.id)" :style="{ 'background-image': 'url(' + user.path_to_avatar + ')' }"></div>
+                       <div class="avatar-block avatar-42x42" @click="userLink(user.id)" :style="{ 'background-image': 'url(' + publicPath + user.path_to_avatar + ')' }"></div>
                        <span>{{user.username}}</span>
                    </div>
                    <div class="right-block">
@@ -69,7 +69,8 @@
 
 				items:[],
 				keyword: "",
-				filteredUsers: null
+				filteredUsers: null,
+				publicPath: process.env.VUE_APP_MAIN_API
 
             }
         },
@@ -115,7 +116,7 @@
 
             follow(id){
 
-                axios.post(`/api/rest/follow/${id}`)
+                axios.post(`${process.env.VUE_APP_MAIN_API}/rest/follow/${id}`)
                     .then((response) => {
                         if (response.status === 200) {
                             this.$store.commit('globalStore/updateStores', response.data, {root: true});
@@ -147,7 +148,7 @@
 
             let urlPart = this.isFollowing ? 'getFollowing' : 'getFollowers'
 
-            axios.get(`/api/rest/${urlPart}/${this.id}`)
+            axios.get(`${process.env.VUE_APP_MAIN_API}/rest/${urlPart}/${this.id}`)
                 .then((response) => {
                     if (response.status === 200) {
                         this.$store.commit('globalStore/updateStores', response.data, {root: true});
