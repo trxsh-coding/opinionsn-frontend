@@ -270,16 +270,15 @@
 
 	@media only screen and (max-device-width: 700px) {
 		.options-section {
-			flex: 0 0 49%;
+			flex: 0 0 100%;
+			&.withPicture {
+				flex: 0 0 49%;
+			}
 		}
 
 		.options-block {
 			cursor: pointer;
 			width: 100%;
-
-			.options-section {
-				flex: 0 0 49%;
-			}
 
 			.options-block {
 				cursor: pointer;

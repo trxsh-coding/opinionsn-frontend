@@ -30,7 +30,8 @@
         <div class="user-statistic border-t" v-if="hide">
             <div v-for="(item, key, index) in items" :key="key" v-if="index <= limit" class="progress-chart flex-column">
                 <div class="header-text">
-                    <lang-string class="header-span" :title="key"/>
+<!--                    <lang-string class="header-span" :title="key"/>-->
+					<span class="header-span">{{ cropString(lstr(key)) }}</span>
                 </div>
                 <div class="progress-border" :class="{full: item[0] == 100}">
                     <el-progress class="circle-chart"  type="circle" :class="{empty : item[2] == 0}" color="#4B97B4" :percentage="item[0]"  width="60" :stroke-width="3"></el-progress>
@@ -56,6 +57,8 @@
     import IconDropdownTop from './../../../icons/IconDropdownTop'
     import langString from '../../../langString'
     import IconBase from '../../../icons/IconBase'
+	import { localString } from "../../../../utils/localString"
+	import {mapState} from "vuex";
     export default {
         name: "userStatistic",
         props:['id', 'limit'],
@@ -70,11 +73,19 @@
         },
         computed:{
 
+			...mapState('lang',{
+				lang : state => state.locale
+			}),
+
             loop:function () {
 
                 console.log(this.items)
 
             },
+
+			lstr(){
+				return (str)=>localString(this.lang, str);
+			},
 
             // empty:function () {
             //
@@ -107,6 +118,10 @@
 
         methods: {
 
+        	cropString(string) {
+        		return (string.length > 10) ? string.slice(0, 10).trim() + '...' : string;
+			}
+
         },
 
         components: {
@@ -120,7 +135,7 @@
 
         mounted(){
 
-            axios.get(`${process.env.VUE_APP_MAIN_API}/rest/getStatisticsOnCategories/${this.id}`)
+            axios.get(`/api/rest/getStatisticsOnCategories/${this.id}`)
                 .then((response) => {
                     if (response.status === 200) {
                         this.$store.commit('globalStore/updateStores', response.data, {root: true});
@@ -232,7 +247,7 @@
                     border-width: 0.5px;
                     border-style: solid;
                     width: 14%;
-                    margin-bottom: 4px;
+					margin: 11px 0 6px;
 
                 }
 
@@ -257,6 +272,7 @@
                 }
 
                 .header-text {
+					margin-bottom: 11px;
                     .header-span {
                         font-family: Roboto;
                         font-style: normal;
@@ -305,8 +321,8 @@
 
 
                 .circle-chart {
-                    padding-top: 8px;
-                    padding-bottom: 12px;
+					/*margin-top: 11px;*/
+					/*margin-bottom: 12px;*/
 
                     .el-progress__text {
 

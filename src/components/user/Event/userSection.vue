@@ -131,7 +131,7 @@
             justify-content: space-evenly !important;
             .progress-border {
 
-                padding: 0 24px !important;
+                padding: 0 15px !important;
 
             }
 

@@ -27,7 +27,7 @@
         </div>
         <div class="options " >
 
-            <div class="options-section" v-for="(option, option_index) in senitizedOptions" :key="option_index">
+            <div class="options-section" :class="{withPicture: option.picture}" v-for="(option, option_index) in senitizedOptions" :key="option_index">
 
                 <el-button v-if="user && user.authorities === 'ADMIN'  "  @click="setRightOption(option.id, item.id)">✔</el-button>
 
@@ -298,6 +298,7 @@
 
 
             .options-section  {
+				width: 100%;
                 position: relative;
                 display: flex;
                 flex-direction: row;
