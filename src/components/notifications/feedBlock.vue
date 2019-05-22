@@ -227,6 +227,8 @@
 
 		.event-time {
 			white-space: nowrap;
+			margin-bottom: auto;
+			margin-top: 5px;
 		}
 
 		hr {

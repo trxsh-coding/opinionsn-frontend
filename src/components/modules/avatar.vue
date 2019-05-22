@@ -26,5 +26,7 @@
 </script>
 
 <style lang="scss">
-
+.notification-avatar {
+	margin-bottom: auto;
+}
 </style>
