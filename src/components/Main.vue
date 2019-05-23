@@ -11,14 +11,7 @@
 								<div class="grid-content" >
 									<div class="navbar-brand" >
 										<a class="navbar-item pointer" @click="goMain">
-											<icon-base
-												fill="none"
-												class="icon logo"
-												width="30"
-												height="30"
-												viewBox="0 0 30 30"
-												icon-name="logo"><icon-logo />
-											</icon-base>
+											<div class="icon logo picture-25x25 mr-6" :style="{ 'background-image': 'url(' + require('./assets/icons/icon-logo.png') + ')' } " />
 											<icon-base
 												fill="none"
 												class="icon"

@@ -264,6 +264,14 @@ a {
 }
 // Pictures
 
+.picture-25x25 {
+  width: 25px;
+  height: 25px;
+  background-size: 50% 50%;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
 .picture-30x30 {
   width: 30px;
   height: 30px;
