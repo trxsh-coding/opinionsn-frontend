@@ -11,7 +11,7 @@
             <span>Уведомлений нет</span>
         </div>
         <mugen-scroll :handler="load" :should-handle="!loaded"  >
-            <div class="loading"  v-loading="loading" v-if="loading" ></div>
+            <div class="loading"  v-loading="!loaded && messages.length > 10" v-if="!loaded" ></div>
         </mugen-scroll>
     </div>
 </template>
@@ -50,7 +50,7 @@
         },
 
         mounted(){
-
+            this.load()
             this.$store.dispatch('notificationPage/readInitialNotifications')
 
         }

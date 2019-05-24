@@ -283,24 +283,18 @@ export default {
     }
   },
 
-  created(){
+		created() {
+			this.$store.dispatch("userPage/getMainUser");
+			this.$store.dispatch("lang/getLocaleString");
 
-      this.$store.dispatch("userPage/getMainUser")
+		},
+		mounted() {
+			if (Object.keys(this.mainUser).length == 0) {
+				this.getNotifications();
+			}
+			window.addEventListener("scroll", this.onScroll);
 
-
-  },
-  mounted() {
-
-      if(Object.keys(this.mainUser).length == 0) {
-
-          this.getNotifications();
-
-
-      }
-    window.addEventListener("scroll", this.onScroll);
-
-    this.$store.dispatch("lang/getLocaleString");
-  },
+		},
 
   beforeDestroy() {
     window.removeEventListener("scroll", this.onScroll);

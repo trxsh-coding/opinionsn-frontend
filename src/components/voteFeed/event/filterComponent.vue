@@ -1,7 +1,10 @@
 <template>
     <div class="filter-wrapper " @click="setFilter(author.id)" >
 
-        <avatar :author="author" size="S" class="profile-avatar author-picture"/>
+
+        <div class="author-picture pointer" :style="{ 'background-image': 'url(' + imageUtil(author.path_to_avatar, 'S') + ')' }">
+
+        </div>
 
 
         <span>
@@ -14,11 +17,12 @@
 <script>
     import {mapState} from 'vuex'
     import avatar from '../../modules/adaptiveAvatar'
-
+    import imageMixin from "../../mixins/imageMixin";
     export default {
         props:['following'],
         name: "filterComponent",
         components:{avatar},
+        mixins:[imageMixin],
         computed: {
             ...mapState('globalStore', {
                 users: ({users}) =>users,
