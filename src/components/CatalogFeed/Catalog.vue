@@ -207,16 +207,23 @@
 				position: absolute;
 				font-variant-caps: all-small-caps;
 
-				span {
-					font-family: Roboto;
-					font-style: normal;
-					font-weight: 500;
-					font-size: 20px;
-					line-height: normal;
-					text-align: center;
-					color: #ffffff;
-					text-transform: uppercase;
+				bottom: 8px;
+
+				h1 {
+					margin: 0 !important;
+
+					span {
+						font-family: Roboto;
+						font-style: normal;
+						font-weight: 500;
+						font-size: 20px;
+						line-height: normal;
+						text-align: center;
+						color: #152D3A;
+						text-transform: uppercase;
+					}
 				}
+
 			}
 
             .icon-close {
@@ -228,7 +235,7 @@
 			.overlay {
 				width: 100%;
 				height: 100%;
-				background: #000;
+				/*background: #000;*/
 				opacity: 0.3;
 				border-radius: 12px;
 			}
@@ -245,7 +252,7 @@
 				height: 112px;
 				background-color: #ffffff;
 				border-radius: 12px;
-				background-size: cover;
+				background-size: 30%;
 				background-repeat: no-repeat;
 				background-position: center;
 				display: flex;
