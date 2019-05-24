@@ -36,7 +36,7 @@
                 <div class="category-block pointer" @click="categoryLink(category.id)" v-for="category in filteredCategories || categories">
                     <div class="category-image relative"  :style="{ 'background-image': 'url(' + category.path_to_image + ')' } " >
                         <div class="category-subject">
-                            <h1><lang-string :title="category.name" /></h1>
+                            <h1><span>{{ cropCategoryName(lstr(category.name)) }}</span></h1>
                         </div>
                         <div class="overlay">
 
@@ -140,6 +140,10 @@
 			clearSearchField() {
 				this.keyword = '';
 				this.searchCategory();
+			},
+
+			cropCategoryName(name) {
+				return name === "Технологии и наука" ? "Технологии" : name;
 			}
 		},
 
@@ -252,7 +256,7 @@
 				height: 112px;
 				background-color: #ffffff;
 				border-radius: 12px;
-				background-size: 30%;
+				background-size: 25%;
 				background-repeat: no-repeat;
 				background-position: center;
 				display: flex;
