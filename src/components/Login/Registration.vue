@@ -1,83 +1,80 @@
 <template lang="html">
-    <div id="register">
-        <div class="register-section">
-            <div class="navbar-brand">
-                <div class="navbar__item">
-                    <icon-base
-                            fill="none"
-                            class="icon"
-                            width="75"
-                            height="64"
-                            viewBox="0 0 23 24"
-                            icon-name="logo"><icon-logo />
-                    </icon-base>
-                </div>
-                <div class="navbar__item">
-                    <icon-base
-                            fill="none"
-                            class="icon-text"
-                            width="66"
-                            height="15"
-                            viewBox="0 0 64 15"
-                            icon-name="text-logo"><icon-text-logo />
-                    </icon-base>
-                </div>
-            </div>
-			<span class="logo-caption">Социальная сеть слоган</span>
-            <div class="form-block">
+	<div class="register-section">
+		<div class="navbar-brand">
+			<div class="navbar__item navbar__item-1">
+				<icon-base
+						fill="none"
+						class="icon"
+						width="75"
+						height="64"
+						viewBox="0 0 23 24"
+						icon-name="logo"><icon-logo />
+				</icon-base>
+			</div>
+			<div class="navbar__item navbar__item-2 v-center">
+				<icon-base
+						fill="none"
+						class="icon-text"
+						width="66"
+						height="15"
+						viewBox="0 0 64 15"
+						icon-name="text-logo"><icon-text-logo />
+				</icon-base>
+			</div>
+		</div>
+<!--		<span class="logo-caption">Социальная сеть слоган</span>-->
+		<div class="form-block">
 
-                <el-form :model="registrationForm" ref="registrationForm">
+			<el-form :model="registrationForm" ref="registrationForm">
 
-                    <el-form-item :label="lstr('username')" >
+				<el-form-item :label="lstr('username')" >
 
-                        <el-input v-model="registrationForm.username" autocomplete="on"  @keyup.enter.native="submitRegistration(registrationForm)"/>
+					<el-input v-model="registrationForm.username" autocomplete="on"  @keyup.enter.native="submitRegistration(registrationForm)"/>
 
-                        <lang-string class="error" :title="errors.login"/>
+					<lang-string class="error" :title="errors.login"/>
 
-                    </el-form-item>
+				</el-form-item>
 
-                    <el-form-item :label="lstr('email')" :class="{padding : error }">
+				<el-form-item :label="lstr('email')" :class="{padding : error }">
 
-                        <el-input v-model="registrationForm.email"   @keyup.enter.native="submitRegistration(registrationForm)"/>
+					<el-input v-model="registrationForm.email"   @keyup.enter.native="submitRegistration(registrationForm)"/>
 
-                        <lang-string class="error" :title="errors.email"/>
+					<lang-string class="error" :title="errors.email"/>
 
-                    </el-form-item>
+				</el-form-item>
 
-                    <el-form-item :label="lstr('password')" :class="{padding : error }">
+				<el-form-item :label="lstr('password')" :class="{padding : error }">
 
-                        <el-input  type="password" v-model="registrationForm.password"  @keyup.enter.native="submitRegistration(registrationForm)"/>
+					<el-input  type="password" v-model="registrationForm.password"  @keyup.enter.native="submitRegistration(registrationForm)"/>
 
-                        <lang-string class="error" :title="errors.pass"/>
+					<lang-string class="error" :title="errors.pass"/>
 
-                        <lang-string class="error" :title="errors.passConfirm"/>
+					<lang-string class="error" :title="errors.passConfirm"/>
 
 
-                    </el-form-item>
+				</el-form-item>
 
-                    <el-form-item :label="lstr('confirm_password')" :class="{padding : error }">
+				<el-form-item :label="lstr('confirm_password')" :class="{padding : error }">
 
-                        <el-input type="password" v-model="registrationForm.conf_pass"  @keyup.enter.native="submitRegistration(registrationForm)"/>
+					<el-input type="password" v-model="registrationForm.conf_pass"  @keyup.enter.native="submitRegistration(registrationForm)"/>
 
-                        <lang-string class="error" :title="errors.passConfirm"/>
+					<lang-string class="error" :title="errors.passConfirm"/>
 
-                    </el-form-item>
-                </el-form>
+				</el-form-item>
+			</el-form>
 
-            </div>
-            <div class="buttons-block">
-                <el-button class="secondary-btn" @click="submitRegistration(registrationForm)">
-                    <lang-string  :title="'registration'"/>
-                </el-button>
-                <div class="registration__item">
+		</div>
+		<div class="buttons-block">
+			<el-button class="primary-btn" @click="submitRegistration(registrationForm)">
+				<lang-string  :title="'registration'"/>
+			</el-button>
+			<div class="registration__item">
 
-                    <lang-string :title="'already_registered?'" /> <router-link class="underline" to="/sign"><lang-string :title="'sign'" /></router-link>
+				<lang-string :title="'already_registered?'" /> <router-link class="underline" to="/sign"><lang-string :title="'sign'" /></router-link>
 
-                </div>
-            </div>
-        </div>
-    </div>
-
+			</div>
+		</div>
+	</div>
 </template>
 
 <script>
@@ -163,166 +160,5 @@
 </script>
 
 <style lang="scss">
-	html {
-		background: #ffffff;
-	}
 
-	#register {
-		justify-content: center;
-		height: 100%;
-		display: flex;
-		align-items: center;
-		background: #ffffff;
-		flex-direction: column;
-
-		input {
-			outline: none;
-		}
-
-		.padding {
-			padding: 0px !important;
-		}
-
-		.register-section {
-			text-align: center;
-			width: 329px;
-			display: flex;
-			flex-direction: column;
-			.form-block {
-				width: 100%;
-				input {
-					border-radius: 12px;
-				}
-			}
-
-			.logo-caption {
-				visibility: hidden;
-				margin-top: 7px;
-
-				font-family: Roboto;
-				font-style: normal;
-				font-weight: normal;
-				font-size: 13px;
-				line-height: 18px; /* identical to box height, or 138% */
-
-				color: rgba(21, 43, 58, 0.8);
-			}
-
-			.buttons-block {
-				.registration__item {
-					text-align: center !important;
-					margin-top: 20px;
-					@extend .el-form-item__label;
-					a {
-						color: #8a9499;
-					}
-				}
-				.el-button {
-					width: 271px;
-					background: #4b97b4;
-					color: #ffffff;
-				}
-			}
-		}
-
-		.navbar-brand {
-			.icon-text {
-				margin-top: 12.64px;
-			}
-		}
-		.el-main {
-			background: #ffffff;
-		}
-
-		.login-box {
-			width: 359px;
-			display: flex;
-			justify-content: center;
-			align-items: center;
-			flex-direction: column;
-			height: 50%;
-		}
-		.errorFields {
-			border-width: 0.9px;
-			border-color: #ff000d;
-			border-style: solid;
-			border-radius: 5px;
-		}
-
-		.el-form-item__label {
-			font-family: Roboto;
-			font-style: normal;
-			font-weight: normal;
-			font-size: 12px;
-			line-height: 12px;
-			text-align: justify;
-			letter-spacing: -0.2px;
-			color: #8a9499;
-			line-height: 30px !important;
-			padding-left: 15px;
-		}
-
-		.el-form-item {
-			margin-bottom: 0px !important;
-			padding-bottom: 10px;
-			text-align: left;
-		}
-		.el-form-item__content {
-			line-height: 28px;
-		}
-		.error {
-			font-family: Roboto;
-			font-style: normal;
-			font-weight: 300;
-			font-size: 11px;
-			line-height: 12px;
-			text-align: justify;
-			letter-spacing: -0.2px;
-			color: #ff5454;
-			padding-left: 15px;
-		}
-		@media only screen and (max-device-width: 700px) {
-			.register-section {
-				width: 359px !important;
-				height: 100%;
-
-				.buttons-block {
-					display: flex;
-					justify-content: space-between;
-					flex-direction: column;
-					align-items: center;
-					.el-button {
-						font-family: Roboto;
-						font-style: normal;
-						font-weight: normal;
-						font-size: 16px;
-						color: #ffffff;
-						text-transform: uppercase;
-					}
-				}
-
-				.navbar-brand {
-					margin-top: 60px;
-				}
-
-				.form-block {
-					.el-form {
-						padding: 28px 15px 38px;
-						text-align: center;
-						display: flex;
-						justify-content: center;
-						flex-direction: column;
-						align-items: center;
-
-						.el-input__inner {
-							width: 329px;
-							border: 1px solid #c4ccd0;
-							box-sizing: border-box;
-							border-radius: 18px;
-						}
-					}
-				}
-			}
-		}
-	}
 </style>

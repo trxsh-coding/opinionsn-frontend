@@ -1,62 +1,61 @@
 ш<template lang="html">
-    <div id="sign" class="sign">
-        <div class="sign-section">
-            <div class="navbar-brand">
-                <div class="navbar__item">
-                    <icon-base
-                            fill="none"
-                            class="icon"
-                            width="75"
-                            height="64"
-                            viewBox="0 0 23 24"
-                            icon-name="logo"><icon-logo />
-                    </icon-base>
-                </div>
-                <div class="navbar__item">
-                    <icon-base
-                            fill="none"
-                            class="icon-text"
-                            width="66"
-                            height="15"
-                            viewBox="0 0 64 15"
-                            icon-name="text-logo"><icon-text-logo />
-                    </icon-base>
-                </div>
-            </div>
-            <div class="form-block">
 
-                <el-form :model="resetForm" ref="signForm">
+	<div class="sign-section">
+		<div class="navbar-brand">
+			<div class="navbar__item navbar__item-1">
+				<icon-base
+					fill="none"
+					class="icon"
+					width="75"
+					height="64"
+					viewBox="0 0 23 24"
+					icon-name="logo"><icon-logo />
+				</icon-base>
+			</div>
+			<div class="navbar__item navbar__item-2 v-center">
+				<icon-base
+					fill="none"
+					class="icon-text"
+					width="66"
+					height="15"
+					viewBox="0 0 64 15"
+					icon-name="text-logo"><icon-text-logo />
+				</icon-base>
+			</div>
+		</div>
+		<div class="form-block">
 
-                    <el-form-item :label="lstr('email')">
+			<el-form :model="resetForm" ref="signForm">
 
-                        <el-input v-model="resetForm.email" autocomplete="on" />
-                        <lang-string class="error" :title="errors.field_email"/>
-                    </el-form-item>
-                    <el-form-item :label="lstr('confirm_email')">
+				<el-form-item :label="lstr('email')">
 
-                        <el-input  v-model="resetForm.email_confirm" />
+					<el-input v-model="resetForm.email" autocomplete="on" />
+<!--					<lang-string class="error" :title="errors.field_email"/>-->
+				</el-form-item>
+				<el-form-item :label="lstr('confirm_email')">
 
-                    </el-form-item>
-                </el-form>
+					<el-input  v-model="resetForm.email_confirm" />
 
-            </div>
-            <div class="buttons-block">
-                <el-button class="secondary-btn" @click="submitSign(resetForm)">
-                    <lang-string class="lowercase" :title="'send'"/>
-                </el-button>
-                <!--<div class="registration__item">-->
+				</el-form-item>
+			</el-form>
 
-                    <!--<lang-string :title="'dont_have_account?'" /> <router-link to="/registration"> <lang-string :title="'registration'" /></router-link>-->
+		</div>
+		<div class="buttons-block">
+			<el-button class="primary-btn" @click="submitSign(resetForm)">
+				<lang-string class="lowercase" :title="'send'"/>
+			</el-button>
+			<!--<div class="registration__item">-->
 
-                <!--</div>-->
-                <!--<div class="reset__item">-->
+			<!--<lang-string :title="'dont_have_account?'" /> <router-link to="/registration"> <lang-string :title="'registration'" /></router-link>-->
 
-                    <!--<lang-string :title="'forgot_your_password?'" /> <router-link to="/restore"> <lang-string :title="'login_reset'" /></router-link>-->
+			<!--</div>-->
+			<!--<div class="reset__item">-->
 
-                <!--</div>-->
-            </div>
-        </div>
-    </div>
+			<!--<lang-string :title="'forgot_your_password?'" /> <router-link to="/restore"> <lang-string :title="'login_reset'" /></router-link>-->
+
+			<!--</div>-->
+		</div>
+	</div>
 
 </template>
 
@@ -80,7 +79,11 @@
 
                 },
 
-                errors:{}
+                errors:{
+
+					field_email: "Ошибка"
+
+				}
 
             }
         },
@@ -150,195 +153,4 @@
 
 <style lang="scss">
 
-    html {
-        background: #ffffff;
-    }
-
-
-
-    #sign {
-
-
-
-        justify-content: center;
-        height: 100%;
-        display: flex;
-        align-items: center;
-        background: #ffffff;
-        flex-direction: column;
-
-        input {
-            outline: none;
-
-        }
-
-        .sign-section {
-            text-align: center;
-            width: 359px;
-            display: flex;
-            flex-direction: column;
-            .form-block {
-                width: 100%;
-                input {
-
-                    border-radius: 12px !important;
-
-                }
-
-            }
-
-            .buttons-block {
-                margin-top: 35.65px;
-                .registration__item {
-                    text-align: center !important;
-                    margin-top: 28px;
-                    @extend  .el-form-item__label;
-                    a {
-
-                        color: #8A9499;
-
-                    }
-                }
-                .reset__item {
-                    @extend .registration__item;
-                    margin-top: 0px;
-
-                }
-                .el-button {
-
-                    width: 271px;
-                    background: #4B97B4;
-                    color: #FFFFFF;
-
-                }
-
-            }
-
-        }
-
-
-
-
-        .navbar-brand {
-
-            .icon-text {
-
-                margin-top: 12.64px;
-
-            }
-
-        }
-        .el-main {
-
-            background: #FFFFFF;
-
-        }
-
-
-        .login-box {
-            width: 359px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            flex-direction: column;
-            height: 50%;
-        }
-        .errorFields {
-            border-width: 0.9px;
-            border-color: #ff000d;
-            border-style: solid;
-            border-radius: 5px;
-        }
-
-
-        .el-form-item__label {
-            font-family: Roboto;
-            font-style: normal;
-            font-weight: normal;
-            font-size: 12px;
-            line-height: 12px;
-            text-align: justify;
-            letter-spacing: -0.2px;
-            color: #8A9499;
-            line-height: 30px !important;
-            padding-left: 15px;
-        }
-
-        .el-form-item {
-            margin-bottom: 0px !important;
-            padding-bottom: 10px;
-            text-align: left;
-        }
-        .el-form-item__content {
-            line-height: 28px;
-        }
-        .error {
-            font-family: Roboto;
-            font-style: normal;
-            font-weight: 300;
-            font-size: 11px;
-            line-height: 12px;
-            text-align: justify;
-            letter-spacing: -0.2px;
-            color: #FF5454;
-            padding-left: 15px;
-
-
-        }
-        @media only screen and (max-device-width : 700px) {
-
-            .sign-section {
-
-                height: 100%;
-
-            }
-
-            .navbar-brand {
-
-                margin-top: 60px;
-
-            }
-
-            .buttons-block{
-
-                height: 50%;
-                display: flex;
-                flex-direction: column;
-                justify-content: space-between;
-                align-items: center;
-                .registration__item {
-
-                    padding-left: 0px !important;
-                    padding-bottom: 10px;
-                }
-
-
-
-            }
-            .form-block {
-                .el-form {
-                    padding: 18px 15px;
-                    text-align: center;
-                    display: flex;
-                    justify-content: center;
-                    flex-direction: column;
-                    align-items: center;
-
-                    .el-input {
-
-                        width: 329px;
-
-                    }
-
-                }
-
-
-
-
-
-            }
-
-
-        }
-    }
 </style>

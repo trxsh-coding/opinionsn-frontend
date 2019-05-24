@@ -4,6 +4,7 @@ import store from '../store/store'
 import axios from 'axios'
 import search from '../components/Search/search'
 import Main from '../components/Main'
+import AuthPanel from '../components/Login/AuthPanel'
 import Login from '../components/Login/Login'
 import Sign from '../components/Login/Sign'
 import Token from '../components/Login/Token'
@@ -46,28 +47,28 @@ export const index = new Router({
 
 		{
 			path: '/login',
-			component: Login,
+			component: AuthPanel,
 			name: 'login',
 		},
 		{
 			path: '/registration',
 			name: 'registration',
-			component: Registration,
+			component: AuthPanel,
 		},
 		{
 			path: '/sign',
 			name: 'sign',
-			component: Sign,
+			component: AuthPanel,
 		},
 		{
 			path: '/restore',
 			name: 'restore',
-			component: Restore,
+			component: AuthPanel,
 		},
 		{
 			path: '/token',
 			name: 'token',
-			component: Token,
+			component: AuthPanel,
 			children: [
 				{
 					path: 'password',
