@@ -13,23 +13,13 @@ export default  {
 
     guestLocale(state, payload){
 
-        console.log(payload)
 
     },
     setLocale(state, payload){
       let {langSelector: lang} = payload;
-
-      console.log(lang)
-      // console.log(`Moment's lang (before): ${moment.locale()}`);
-      // console.log(`Selecting lang: ${lang}`)
       moment.locale(lang);
-      //
-      // console.log(`Moment's lang (after): ${moment.locale()}`);
-
       state.locale = payload
       vueApp.$i18n.locale = state.locale.langSelector
-
-      console.log(vueApp.$i18n.locale)
     },
   },
     actions: {

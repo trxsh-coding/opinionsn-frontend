@@ -102,32 +102,35 @@ export const notificationPageList = (sc, listUrl) => class extends sc {
 
  setNotification({dispatch, commit,state}, payload){
 
-     let {responseData : items} = payload;
+     let {responseData} = payload;
 
-     if (!items.length) {
+     let {userId, initiatorId, targetId} = responseData;
 
-         dispatch('longPollingAction');
+    if(responseData.read !== undefined){
 
-     } else {
-         let usersToVerify = {};
-         let pollsToVerify = {}
-         payload.responseData.forEach(({userId, initiatorId, targetId})=>{
-             usersToVerify[userId] = {action: 'userPage/getNotificationInitiator',payload: userId};
-             usersToVerify[initiatorId] =  {action: 'userPage/getNotificationInitiator',payload: initiatorId};
-             if (targetId){
-                 pollsToVerify[targetId] =  {action: 'singlePoll/getNotificationPoll',payload: targetId};
-             }
-         });
+        let usersToVerify = {};
+        let pollsToVerify = {}
+        usersToVerify[userId] = {action: 'userPage/getNotificationInitiator',payload: userId};
+        usersToVerify[initiatorId] =  {action: 'userPage/getNotificationInitiator',payload: initiatorId};
+        if (targetId){
+            pollsToVerify[targetId] =  {action: 'singlePoll/getNotificationPoll',payload: targetId};
+        }
 
-         dispatch('globalStore/verifyStore', {entries: usersToVerify, storeName: 'users'}, {root: true});
-         dispatch('globalStore/verifyStore', {entries: pollsToVerify, storeName: 'polls'}, {root: true});
+        dispatch('globalStore/verifyStore', {entries: usersToVerify, storeName: 'users'}, {root: true});
+        dispatch('globalStore/verifyStore', {entries: pollsToVerify, storeName: 'polls'}, {root: true});
+        console.log('end')
+        state.items = [...state.items, responseData];
+        state.counter+= 1 ;
+        commit('notificationStore/appendToStores', items, {root: true})
+        dispatch('longPollingAction')
 
-         state.items = [...state.items, ...items];
-         state.counter+= 1 ;
-         commit('notificationStore/appendToStores', items, {root: true})
-         dispatch('longPollingAction')
+    } else {
 
-     }
+        dispatch('longPollingAction')
+
+
+    }
+
 
 
 

@@ -51,7 +51,7 @@ export class VuexStore {
 
             setTimeout(()=>
                 dispatch('notificationPage/longPollingAction', {},{root: true}),
-                15000)
+                100)
 
         });
 
