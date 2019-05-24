@@ -135,6 +135,13 @@
 </script>
 
 <style lang="scss">
+	.options-section {
+		flex: 0 0 100%;
+		&.withPicture {
+			flex: 0 0 49% !important;
+		}
+	}
+
 	.options-block {
 		cursor: pointer;
 		.display {
@@ -269,12 +276,12 @@
 	}
 
 	@media only screen and (max-device-width: 700px) {
-		.options-section {
-			flex: 0 0 100%;
-			&.withPicture {
-				flex: 0 0 49%;
-			}
-		}
+		/*.options-section {*/
+		/*	flex: 0 0 100%;*/
+		/*	&.withPicture {*/
+		/*		flex: 0 0 49% !important;*/
+		/*	}*/
+		/*}*/
 
 		.options-block {
 			cursor: pointer;
