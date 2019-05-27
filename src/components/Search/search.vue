@@ -8,8 +8,14 @@
                 <lang-string :title="'cancel'" />
             </span>
         </div>
+        <div class="button-panel">
+            <el-button @click="setTypeOfSearch('POLL')">
+                Опрос
+            </el-button>
+        </div>
         <div class="links-section" v-for="item in items">
-            <users :item="item" />
+            <users :item="item" v-if="type === 'USER'"/>
+            <polls :item="item" :polls="polls"  v-if="type === 'POLL'"/>
         </div>
     </div>
 </template>
@@ -19,16 +25,20 @@
     import langMixin from '../mixins/langMixin'
     import langString from '../langString'
     import Users from "./Event/users";
+    import Polls from "./Event/polls"
     import {mapState} from 'vuex'
+    import {globalStoreMixin} from '../../store/modules/globalStore'
     export default {
-        mixins:[langMixin],
-        components:{Users, langString},
+        mixins:[langMixin, globalStoreMixin()],
+        components:{Users, langString, Polls},
         name: "search",
         data(){
 
             return {
 
                 keywords:'',
+                type:'USER',
+                contain:null
             }
 
         },
@@ -40,12 +50,54 @@
 
             }),
 
+
+            user_ids:function () {
+
+                return this.items.map(item => {
+                    return item.id
+                });
+
+
+            },
+
+            author:function(){
+
+
+
+            },
+
+            poll_ids:function () {
+
+                return this.items.map(item => {
+                    return item.id
+                });
+
+
+            },
+
         },
         methods: {
+            setTypeOfSearch(payload){
 
+                this.type = payload
+
+            },
             searchUsers() {
 
-                this.$store.dispatch('searchUser/list', {customUrl: `${process.env.VUE_APP_MAIN_API}/rest/findAllContaining/${this.keywords}`})
+                let type = this.type
+                let contain = this.keywords
+
+                if(this.type === 'POLL') {
+
+                    this.$store.dispatch('searchUser/list', {customUrl: `${process.env.VUE_APP_MAIN_API}/rest/search/`, params: {type, contain}})
+
+
+                } else {
+
+                    this.$store.dispatch('searchUser/list', {customUrl: `${process.env.VUE_APP_MAIN_API}/rest/findAllContaining/${this.keywords}`})
+
+
+                }
 
 
             },

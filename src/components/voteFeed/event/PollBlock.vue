@@ -53,13 +53,23 @@
         props: ['poll', 'author', 'item'],
         computed: {
 
+            ...mapState('globalStore', {
 
+                userMap: ({users}) => users,
+
+
+            }),
 
             ...mapState('lang',{
                 _lang : state => {return state.locale.langSelector}
             }),
 
 
+            author(){
+                let {userMap, poll} = this;
+                return this.userMap[this.poll.author_id]
+
+            },
 
             relativeEndDate(){
                 //console.log('Getter is called');
