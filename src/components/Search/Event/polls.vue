@@ -1,8 +1,11 @@
 <template>
     <div class="polls-section">
-        <div class="poll-block" v-for="poll in polls">
+        <div class="poll-block mt-5" v-for="poll in polls">
 
-            <poll-block :author="author" :poll="poll" :item="item" />
+            <poll-block  :poll="poll" :item="item" >
+                <div slot="subject_header">
+                </div>
+            </poll-block>
 
         </div>
     </div>
@@ -31,12 +34,6 @@
 
 
             },
-            author:function () {
-
-
-            }
-
-
 
 
         },

@@ -8,12 +8,15 @@
                 <lang-string :title="'cancel'" />
             </span>
         </div>
-        <div class="button-panel">
-            <el-button @click="setTypeOfSearch('POLL')">
-                Опрос
-            </el-button>
+        <div class="button-panel mt-10 ">
+            <span class="pointer typeSpan" @click="setTypeOfSearch('POLL')" :class="{typeButton : type === 'POLL'}">
+                Опросы
+            </span>
+            <span class="pointer typeSpan" @click="setTypeOfSearch('USER')" :class="{typeButton : type === 'USER'}">
+                Люди
+            </span>
         </div>
-        <div class="links-section" v-for="item in items">
+        <div class="links-section mt-10" v-for="item in items">
             <users :item="item" v-if="type === 'USER'"/>
             <polls :item="item" :polls="polls"  v-if="type === 'POLL'"/>
         </div>
@@ -118,6 +121,30 @@
 
             border-radius: 12px;
             margin-right: 9px;
+
+        }
+        .typeSpan {
+            font-family: Roboto;
+            font-style: normal;
+            font-weight: 300;
+            font-size: 12px;
+            line-height: 14px;
+            color: #3A4F5A;
+            margin-right: 16px;
+        }
+        .typeButton {
+
+                border-radius: 15px;
+                background: #919BA0;
+                padding: 2px 9px;
+                font-family: Roboto;
+                font-style: normal;
+                font-weight: 300;
+                font-size: 12px;
+                line-height: 14px;
+                color: #FFFFFF;
+                margin-right: 16px;
+
 
         }
 
