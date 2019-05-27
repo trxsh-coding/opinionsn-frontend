@@ -16,11 +16,9 @@
             <router-link class-active="active" class="hidden-sm-and-up relative" tag="li" to="/bookmarkFeed">
                 <icon-base
                         :class="{secondary : $route.path==='/bookmarkFeed'} "
-                        class="bookmark"
-                        fill="#152D3A"
                         width="18"
                         height="24"
-                        viewBox="0 0 12 15"
+                        viewBox="0 0 15 22"
                         icon-name="bookmark"><icon-bookmark/>
                 </icon-base>
                 <a><lang-string :title="'bookmarked'"/></a>
@@ -83,7 +81,7 @@
     import IconSettings from '../icons/IconSettings.vue'
     import IconMain from '../icons/IconMain.vue'
     import IconOpinion from '../icons/IconOpinion.vue'
-    import IconBookmark from '../icons/IconBookmark.vue'
+    import IconBookmark from '../icons/IconBookmarkMenu.vue'
     import IconExit from '../icons/IconExit.vue'
     import IconAddPoll from '../icons/IconAddPoll.vue'
     import langString from '../langString.vue'

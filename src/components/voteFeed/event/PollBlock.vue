@@ -1,6 +1,8 @@
 <template>
     <div class="content-wrapper" id="poll-block">
         <div class="content-block relative" :class="{padding : poll.picture}">
+            <bookmark :poll="poll" :item="item"></bookmark>
+
             <div class="picture-block" :style="{ 'background-image': 'url(' + publicPath + poll.picture + ')' } " v-if="poll.picture">
             </div>
             <div class="text-block">
@@ -25,7 +27,6 @@
                 <div slot="bookmark">
                 </div>
             </icon-block>
-                <bookmark :poll="poll" :item="item"></bookmark>
             </div>
         </div>
     </div>
@@ -119,8 +120,8 @@
             .bookmark-block {
 
                 position: absolute;
-                bottom: 12px;
-                right: 10px;
+                top: 0;
+                right: 18px;
 
             }
             .topic {
@@ -369,8 +370,7 @@
                 .bookmark-block {
 
                     position: absolute;
-                    bottom: 6px;
-                    right: 6px;
+                    right: 18px;
 
                 }
 

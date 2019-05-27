@@ -2,24 +2,13 @@
     <div class="bookmark-block pointer " >
         <div class="ok" @click="addToBookmark(poll.id, poll.type_of_poll, poll.bookmark_id)">
 
-            <div class="icon-bookmark" v-if="!bookmarked">
+            <div class="icon-bookmark" :class="{bookmarked : bookmarked}">
                 <icon-base
-                        class="bookmarked"
                         fill="none"
-                        width="11"
-                        height="15"
-                        viewBox="0 0 11 15"
+                        width="13"
+                        height="18"
+                        viewBox="0 0 13 18"
                         icon-name="bookmark"><icon-bookmark />
-                </icon-base>
-            </div>
-            <div class="icon-bookmarked" v-if="bookmarked">
-                <icon-base
-                        class="bookmarked"
-                        fill="none"
-                        width="11"
-                        height="15"
-                        viewBox="0 0 11 15"
-                        icon-name="bookmark"><icon-bookmark-active />
                 </icon-base>
             </div>
         </div>
@@ -95,18 +84,11 @@
 
 <style lang="scss">
 
-    .icon-bookmark {
-        justify-content: center;
-        align-items: center;
-        display: flex;
-        background: #C4CCD0;
-        border-radius: 50px;
-        height: 25px;
-        width: 25px;
+    .bookmarked {
 
         path {
 
-            fill:#C4CCD0 ;
+            fill: #4b97b4;
 
         }
 

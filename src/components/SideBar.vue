@@ -41,12 +41,11 @@
 
       <router-link class-active="active" class="hidden-xs-only main-li pointer" tag="li" to="/bookmarkFeed">
             <icon-base
-                    :class="{secondary : $route.path==='/bookmarkFeed'} "
                     class="bookmark"
-                    fill="#152D3A"
+                    :class="{secondary : $route.path==='/bookmarkFeed'} "
                     width="15"
-                    height="19"
-                    viewBox="0 0 12 15"
+                    height="17"
+                    viewBox="0 0 15 19"
                     icon-name="bookmark"><icon-bookmark/>
             </icon-base>
             <a><lang-string :title="'bookmarked'"/></a>
@@ -60,7 +59,7 @@ import IconBase from './icons/IconBase.vue'
 import IconSettings from './icons/IconSettings.vue'
 import IconMain from './icons/IconMain.vue'
 import IconOpinion from './icons/IconOpinion.vue'
-import IconBookmark from './icons/IconBookmark.vue'
+import IconBookmark from './icons/IconBookmarkMenu.vue'
 import IconExit from './icons/IconExit.vue'
 import IconAddPoll from './icons/IconAddPoll.vue'
 import langString from './langString.vue'
@@ -192,7 +191,7 @@ export default {
         path {
 
             stroke: #4B97B4 !important;
-
+            fill: none;
         }
 
     }
@@ -200,8 +199,6 @@ export default {
         top: 12px;
         left: 4px;
         path {
-
-            stroke:#152D3A;
 
         }
 
