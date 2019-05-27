@@ -1,13 +1,6 @@
 <template>
     <div class="notification-new-user">
-        <icon-base
-                fill="none"
-                class="icon logo"
-                width="35"
-                height="35"
-                viewBox="0 0 40 30"
-                icon-name="logo"><icon-logo />
-        </icon-base>
+		<div class="icon logo picture-20x20 mr-6" :style="{ 'background-image': 'url(' + require('../../assets/icons/icon-logo.png') + ')' } " />
         <span class="notification-span">Добро пожаловать в opinion!</span>
     </div>
 </template>

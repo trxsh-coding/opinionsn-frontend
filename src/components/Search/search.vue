@@ -9,10 +9,10 @@
             </span>
         </div>
         <div class="button-panel mt-10 ">
-            <span class="pointer typeSpan" @click="setTypeOfSearch('POLL')" :class="{typeButton : type === 'POLL'}">
+            <span class="typeSpan pointer" @click="setTypeOfSearch('POLL')" :class="{typeButton : type === 'POLL'}">
                 Опросы
             </span>
-            <span class="pointer typeSpan" @click="setTypeOfSearch('USER')" :class="{typeButton : type === 'USER'}">
+            <span class="typeSpan pointer" @click="setTypeOfSearch('USER')" :class="{typeButton : type === 'USER'}">
                 Люди
             </span>
         </div>
@@ -130,22 +130,13 @@
             font-size: 12px;
             line-height: 14px;
             color: #3A4F5A;
-            margin-right: 16px;
+            margin-right: 7px;
+			padding: 2px 9px;
+			border-radius: 15px;
         }
         .typeButton {
-
-                border-radius: 15px;
                 background: #919BA0;
-                padding: 2px 9px;
-                font-family: Roboto;
-                font-style: normal;
-                font-weight: 300;
-                font-size: 12px;
-                line-height: 14px;
                 color: #FFFFFF;
-                margin-right: 16px;
-
-
         }
 
         .cancel {
