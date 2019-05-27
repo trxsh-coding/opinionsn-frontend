@@ -5,12 +5,7 @@ import axios from 'axios'
 import search from '../components/Search/search'
 import Main from '../components/Main'
 import AuthPanel from '../components/Login/AuthPanel'
-import Login from '../components/Login/Login'
-import Sign from '../components/Login/Sign'
-import Token from '../components/Login/Token'
 import Password from '../components/Login/Password'
-import Restore from '../components/Login/Restore'
-import Registration from '../components/Login/Registration'
 import CreateQuiz from '../components/CreateQuiz'
 import PollCreate from '../components/PollCreate'
 import CreatePoll from '../components/CreatePoll'
@@ -29,8 +24,9 @@ import CatalogFeed from '../components/CatalogFeed/Feed';
 import feedBack from '../components/feedback/feedbackForm';
 import user from '../components/user/Page';
 import sidebar from '../components/mobile/sidebar';
-import { nprogress } from '../main.js'
-import notificationPage from '../components/notifications/notificationPage'
+import { nprogress } from '../main.js';
+import notificationPage from '../components/notifications/notificationPage';
+import PollTable from '../components/Admin/PollTable';
 Vue.use(Router);
 
 export const index = new Router({
@@ -91,6 +87,12 @@ export const index = new Router({
 					path: 'add_translations',
 					name: 'addTranslations',
 					component: addTranslations
+				},
+				{
+					path: 'polls/:poll_type',
+					name: 'polls',
+					component: PollTable,
+					props: true
 				},
 			]
 		},

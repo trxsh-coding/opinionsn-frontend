@@ -16,19 +16,14 @@
 					</el-submenu>
 					<el-submenu index="2">
 						<template slot="title">
-							<i class="el-icon-menu"></i>Пользователи
+							<i class="el-icon-setting"></i>Прогнозы
 						</template>
-						<el-menu-item index="2-1">Добавить</el-menu-item>
-						<el-menu-item index="2-2">Удалить</el-menu-item>
-						<el-menu-item index="2-3">Редактировать</el-menu-item>
-					</el-submenu>
-					<el-submenu index="3">
-						<template slot="title">
-							<i class="el-icon-setting"></i>Опросы
-						</template>
-						<el-menu-item index="3-1">Добавить</el-menu-item>
-						<el-menu-item index="3-2">Удалить</el-menu-item>
-						<el-menu-item index="3-3">Редактировать</el-menu-item>
+						<router-link to="/admin/polls/opened">
+							<el-menu-item index="2-1">Открытые</el-menu-item>
+						</router-link>
+						<router-link to="/admin/polls/closed">
+							<el-menu-item index="2-2">Закрытые</el-menu-item>
+						</router-link>
 					</el-submenu>
 				</el-menu>
 			</el-aside>
@@ -57,7 +52,8 @@
 <script>
 	import Catalog from "./Catalog.vue";
 	import addTranslations from "./addTranslations.vue";
-	import { mapState } from "vuex";
+	import {mapState} from "vuex";
+
 	export default {
 		name: "Admin",
 		data() {
@@ -67,7 +63,7 @@
 			userLogout() {
 				axios
 					.get(`${process.env.VUE_APP_MAIN_API}/auth/logout`)
-					.then(function(response) {
+					.then(function (response) {
 						this.$store.commit(
 							"authentication/setAuthenticated",
 							false
@@ -125,8 +121,14 @@
 		line-height: 60px;
 	}
 
+	.el-main {
+		margin: 0 !important;
+		padding: 10px 0 !important;
+	}
+
 	.el-aside {
 		color: #333;
+		margin-right: 0 !important;
 	}
 
 	a {

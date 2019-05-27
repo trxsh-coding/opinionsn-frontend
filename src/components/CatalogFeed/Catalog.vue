@@ -42,6 +42,8 @@
 
                         </div>
                     </div>
+
+
                 </div>
             </div>
         </div>
@@ -277,7 +279,7 @@
 		}
         @media only screen and (max-device-width: 700px) {
             .category-section {
-                justify-content: space-between !important;
+                justify-content: space-evenly !important;
                 .category-block, .category-image {
 
                     width: 174px !important;
