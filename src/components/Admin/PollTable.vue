@@ -74,7 +74,7 @@
         name: "PollTable",
 		props: ['poll_type'],
 		computed: {
-			...mapState("pollFeed", {
+			...mapState("admin", {
 				polls: ({ items }) => items,
 				loading: ({ is_finished }) => is_finished
 			}),
@@ -140,8 +140,8 @@
 					: string;
 			}
 		},
-		created() {
-			this.$store.dispatch(`pollFeed/list`);
+		mounted() {
+			this.$store.dispatch(`admin/list`);
 		}
 	}
 </script>
