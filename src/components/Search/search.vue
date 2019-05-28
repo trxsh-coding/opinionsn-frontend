@@ -117,6 +117,10 @@
 <style lang="scss">
     .search-wrapper {
 
+		.button-panel {
+			display: flex;
+		}
+
         .el-input__inner {
 
             border-radius: 12px;

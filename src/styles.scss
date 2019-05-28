@@ -56,7 +56,6 @@ a {
 
 }
 
-
 .username {
   font-family: Roboto;
   font-style: normal;
@@ -581,6 +580,12 @@ color: #69777F;
 
 .wb {
   word-break: break-word;
+}
+
+.trim {
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
 }
 
 //Icons
