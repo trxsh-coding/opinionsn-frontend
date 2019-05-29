@@ -67,14 +67,14 @@
 </template>
 
 <script>
-	import { mapState } from "vuex";
 	import moment from "moment";
+	import { mapState } from "vuex";
 
 	export default {
         name: "PollTable",
 		props: ['poll_type'],
 		computed: {
-			...mapState("pollFeed", {
+			...mapState("adminPage", {
 				polls: ({ items }) => items,
 				loading: ({ is_finished }) => is_finished
 			}),
@@ -97,7 +97,7 @@
 						options = {};
 
 					// Если не прогноз, то пропускаем итерацию
-					if (type_of_poll !== 1) return;
+					// if (type_of_poll !== 1) return;
 
 					options_id.forEach((id, index) => {
 						let { description } = globalStoreOptions[id],
@@ -141,7 +141,9 @@
 			}
 		},
 		created() {
-			this.$store.dispatch(`pollFeed/list`);
+			// this.$store.dispatch(`pollFeed/list`);
+			this.$store.dispatch(`adminPage/loadNextPage`);
+			this.$store.dispatch(`adminPage/list`);
 		}
 	}
 </script>
