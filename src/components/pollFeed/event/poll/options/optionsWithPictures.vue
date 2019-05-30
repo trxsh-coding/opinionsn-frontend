@@ -6,7 +6,7 @@
 		v-loading="loading_option"
 	>
 		<div class="option-picture" :style="{ 'background-image': 'url(' + publicPath + option.picture + ')' }">
-			<div class="percentage-block">
+			<div class="percentage-block" v-if="item.voted || poll.votingOver">
 				<span
 					v-bind:class="{ selected: selected_option, correct: correct_option }"
 				>{{option.voted_percentage}}%</span>

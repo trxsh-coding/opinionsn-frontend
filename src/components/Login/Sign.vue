@@ -50,7 +50,7 @@
 				<lang-string  :title="'sign'"/>
 			</el-button>
 
-			<a class="google-btn" href="https://opinionsn.com/oauth2/google">
+			<a class="google-btn" href="https://api.opinionsn.com:7070/oauth2/google">
 				<icon-base
 					class="logo"
 					fill="none"
@@ -188,7 +188,7 @@
 				font-size: 12px;
 				color: #8A9499;
 			}
-			
+
 			a {
 				text-decoration: underline;
 			}

@@ -4,7 +4,6 @@
     <div class="vote-feed">
         <!-- Ошибка -->
 
-		 <div class="loading-spinner" v-loading="true" v-if="loading"/>
 
 		<div class="have-no-subscribers mt-10" v-if="!items.length && !loading">
 			<span>Лента мнений будет доступна после появления подписок</span>
