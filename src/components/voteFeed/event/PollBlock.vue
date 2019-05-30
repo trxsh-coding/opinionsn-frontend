@@ -131,6 +131,7 @@
 				position: absolute;
 				right: 18px;
 				bottom: 10px;
+				z-index: 99999;
 
 				&.searchBlock {
 					top: 0;
