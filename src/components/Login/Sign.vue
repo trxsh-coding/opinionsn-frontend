@@ -38,10 +38,10 @@
 					<el-input type="password" v-model="signForm.password" @keyup.enter.native="submitSign(signForm)"/>
 					<lang-string class="error" :title="errors.field_password"/>
 				</el-form-item>
-				<div class="form-caption">
-					<el-checkbox v-model="signForm.checked">Не запоминать меня</el-checkbox>
-					<router-link :to="'restore'"><lang-string :title="'forgot_your_password?'" /></router-link>
-				</div>
+<!--				<div class="form-caption">-->
+<!--					<el-checkbox v-model="signForm.checked">Не запоминать меня</el-checkbox>-->
+<!--					<router-link :to="'restore'"><lang-string :title="'forgot_your_password?'" /></router-link>-->
+<!--				</div>-->
 			</el-form>
 
 		</div>
@@ -62,7 +62,8 @@
 
 			<div class="registration__item">
 
-				<lang-string :title="'dont_have_account'" /> <router-link :to="getPath('registration')"> <lang-string :title="'registration'" /></router-link>
+				<div><lang-string :title="'forgot_your_password?'" /> <router-link to="/restore"> <lang-string :title="'restore'" /></router-link></div>
+				<div class="mt-10"><lang-string :title="'dont_have_account'" /> <router-link :to="getPath('registration')"> <lang-string :title="'registration'" /></router-link></div>
 
 			</div>
 		</div>
@@ -87,7 +88,7 @@
 				signForm: {
 					email: null,
 					password: null,
-					checked: false
+					// checked: false
 				},
 
 				errors: {}
@@ -199,6 +200,7 @@
 	}
 
 	.buttons-block {
+
 		.google-btn {
 			width: 271px;
 			margin-top: 9px;
@@ -246,6 +248,7 @@
 				font-weight: bold;
 				font-family: 'Roboto',arial,sans-serif;
 			}
+
 		}
 	}
 
