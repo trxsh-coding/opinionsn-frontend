@@ -218,7 +218,8 @@
                 padding-top: 5px;
                 display: flex;
                 align-items: center;
-                justify-content: end;
+                /*justify-content: end;*/
+                justify-content: start;
                 svg {
 
                     flex-shrink: 0;

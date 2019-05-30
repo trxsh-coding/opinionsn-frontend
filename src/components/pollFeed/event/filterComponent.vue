@@ -1,82 +1,91 @@
 <template>
-    <div class="filter-component">
-        <div class="flex-column filter-category" @click="setFilter(category.id)">
+	<div class="filter-component">
+		<div class="flex-column filter-category" @click="setFilter(category.id)">
 
-            <div class="category-picture "  :style="{ 'background-image': 'url('+ publicPath + category.path_to_image + ')' }"> </div>
+			<div class="category-picture "
+				 :style="{ 'background-image': 'url('+ publicPath + category.path_to_image + ')' }"></div>
 
-            <lang-string class="lowercase name" :title="category.name" />
+			<lang-string class="lowercase name" :title="category.name"/>
 
 
-
-        </div>
-    </div>
+		</div>
+	</div>
 </template>
 
 <script>
-    import langString from '../../langString'
-    export default {
+	import langString from '../../langString'
 
-        name: "filterComponent",
-        props: ["category", "filtered"],
-        components:{langString},
-        data(){
+	export default {
 
-            return {
+		name: "filterComponent",
+		props: ["category", "filtered"],
+		components: {langString},
+		data() {
 
-                publicPath: process.env.VUE_APP_MAIN_API
+			return {
 
-            }
+				publicPath: process.env.VUE_APP_MAIN_API
 
-        },
+			}
 
-        methods: {
+		},
 
-            setFilter(id){
+		methods: {
+
+			setFilter(id) {
 
 
-                this.$store.commit('pollFeed/setFilterId', id)
+				this.$store.commit('pollFeed/setFilterId', id)
 
-                this.$store.dispatch('pollFeed/list')
+				this.$store.dispatch('pollFeed/list')
 
-                // this.$emit('getFeed', [id, !this.filtered]);
+				// this.$emit('getFeed', [id, !this.filtered]);
 
-            }
+			}
 
-        }
-    }
+		}
+	}
 </script>
 
 <style lang="scss">
-    .filter-category::selection {
-        background: transparent;
+	.filter-category::selection {
+		background: transparent;
 
-    }
-    .filter-category {
-        align-items: center;
-        .name {
-            font-family: Roboto;
-            font-style: normal;
-            font-weight: 500;
-            font-size: 12px;
-            line-height: normal;
-            text-align: center;
-            font-variant: small-caps;
-            color: #152D3A;
+	}
+
+	.filter-category {
+		align-items: center;
+
+		.name {
+			font-family: Roboto;
+			font-style: normal;
+			font-weight: 500;
+			font-size: 12px;
+			line-height: normal;
+			text-align: center;
+			font-variant: small-caps;
+			color: #152D3A;
 
 
+		}
 
-        }
-        .category-picture {
-            background: #FFFFFF;
-            border-radius: 12px;
-            width: 90px;
-            height: 60px !important;
-            background-repeat: no-repeat;
-            background-position: center;
-            background-size: 40%;
-            margin-bottom: 6px;
+		@-moz-document url-prefix() {
+			.name {
+				font-size: 10px;
+			}
+		}
 
-        }
+		.category-picture {
+			background: #FFFFFF;
+			border-radius: 12px;
+			width: 90px;
+			height: 60px !important;
+			background-repeat: no-repeat;
+			background-position: center;
+			background-size: 40%;
+			margin-bottom: 6px;
 
-    }
+		}
+
+	}
 </style>

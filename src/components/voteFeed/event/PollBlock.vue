@@ -3,22 +3,23 @@
         <div class="content-block relative" :class="{padding : poll.picture}">
             <bookmark :poll="poll" :item="item"></bookmark>
 
-            <div class="picture-block" :style="{ 'background-image': 'url(' + publicPath + poll.picture + ')' } " v-if="poll.picture">
+            <div class="picture-block" :class="{searchBlock: searchBlock}" :style="{ 'background-image': 'url(' + publicPath + poll.picture + ')' } " v-if="poll.picture">
             </div>
             <div class="text-block">
                 <div class="link-div flex  pointer" @click="pollLink(poll.id)">
-                    <div class="description-block wb">
+                    <div class="description-block wb" :class="{order_3: searchBlock, searchBlock: searchBlock}">
                         {{poll.subject}}
                     </div>
-                    <div v-if="author" class="author-block">
+                    <div v-if="author" class="author-block" :class="{order_1: searchBlock}">
                         <div class="author-avatar" :style="{ 'background-image': 'url(' + publicPath +author.path_to_avatar + ')' } " @click="userLink(author.id)"></div>
-                        <span class="span__item">{{author.username}}</span>
+                        <span class="span__item" :class="{searchBlock: searchBlock}" >{{author.username}}</span>
                     </div>
                     <slot name="subject_header">
                         <div class="topic">
                             <span>{{poll.subject_header}}</span>
                         </div>
                     </slot>
+					<slot name="tags"/>
 
                 </div>
                 <icon-block class="relative" :poll="poll" :item="item">
@@ -51,7 +52,7 @@
 
         },
         name: "PollBlock",
-        props: ['poll', 'author', 'item'],
+        props: ['poll', 'author', 'item', 'searchBlock'],
         computed: {
 
             ...mapState('globalStore', {
@@ -114,10 +115,7 @@
             background: #FFFFFF;
             border-radius: 12px;
             display: flex;
-            border-style: solid;
-            border-width: 0.5px;
-            border-color: #C4CCD0;
-            .bookmark-block {
+	            .bookmark-block {
 
                 position: absolute;
                 top: 0;
@@ -155,6 +153,22 @@
                     justify-content: space-between;
 
                 }
+
+				.hashtags {
+					font-family: Roboto;
+					font-style: normal;
+					font-weight: 300;
+					font-size: 12px;
+					line-height: 14px;
+					color: #4B97B4;
+
+					overflow: hidden;
+					order: 2;
+
+					max-height: 28px;
+					margin-bottom: 3px;
+				}
+
             }
 
             .picture-block {
@@ -206,6 +220,12 @@
             align-items: center;
             margin-bottom: 9px;
 
+			order: 2;
+
+			&.order_1 {
+				order: 1;
+			}
+
             span {
                 font-family: Roboto;
                 font-style: normal;
@@ -239,6 +259,18 @@
             font-size: 15px;
             letter-spacing: -0.1px;
             color: #152D3A;
+
+			order: 1;
+
+			&.order_3 {
+				order: 3;
+			}
+
+			&.searchBlock {
+				overflow: hidden;
+				max-height: 15px;
+			}
+
             span {
                 font-family: Roboto;
                 font-style: normal;
@@ -390,6 +422,15 @@
 
                     font-size: 11px;
 
+					&.searchBlock {
+						font-family: Roboto;
+						font-style: normal;
+						font-weight: 500;
+						font-size: 13px;
+						line-height: 13px;
+						color: #152D3A;
+					}
+
                 }
 
             }
@@ -411,6 +452,11 @@
 
                 height: 111px !important;
                 width: 111px !important;
+
+				&.searchBlock {
+					height: 90px !important;
+					width: 90px !important;
+				}
 
             }
 

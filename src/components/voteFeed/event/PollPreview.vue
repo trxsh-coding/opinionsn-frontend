@@ -72,7 +72,11 @@
           <div class="description-section" v-if="type.indexOf('EXPLAINED') > -1">
             <explanation :vote="vote" />
           </div>
-          <poll-block :author="author" :poll="poll" :item="item"/>
+		  <poll-block :author="author" :poll="poll" :item="item">
+		  	<div slot="tags">
+
+			</div>
+		  </poll-block>
       </div>
 
     </div>

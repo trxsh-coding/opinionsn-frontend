@@ -50,6 +50,16 @@
 				<lang-string  :title="'sign'"/>
 			</el-button>
 
+			<a class="google-btn" href="https://opinionsn.com/oauth2/google">
+				<icon-base
+					class="logo"
+					fill="none"
+					icon-name="google-logo"><icon-google />
+				</icon-base>
+<!--				<lang-string class="google-button__text" :title="'sign_google'"/>-->
+				<span class="google-button__text">Sign in with Google</span>
+			</a>
+
 			<div class="registration__item">
 
 				<lang-string :title="'dont_have_account'" /> <router-link :to="getPath('registration')"> <lang-string :title="'registration'" /></router-link>
@@ -64,6 +74,7 @@
 	import langMixin from "../mixins/langMixin";
 	import IconBase from "../icons/IconBase.vue";
 	import IconLogo from "../icons/IconLogo.vue";
+	import IconGoogle from "../icons/IconGoogle.vue";
 	import IconTextLogo from "../icons/IconTextLogo.vue";
 	import langString from "../langString.vue";
 	import { localString } from "../../utils/localString";
@@ -155,6 +166,7 @@
 			IconBase,
 			IconLogo,
 			IconTextLogo,
+			IconGoogle,
 			langString
 		}
 	};
@@ -185,5 +197,57 @@
 			}
 		}
 	}
+
+	.buttons-block {
+		.google-btn {
+			width: 271px;
+			margin-top: 9px;
+			cursor: pointer;
+			outline: none;
+
+			display: flex;
+			justify-content: center;
+			align-items: center;
+
+			height: 40px;
+			border-radius: 21px;
+			border: 1px solid rgba(0, 0, 0, 0.2);
+			background: white;
+			color: #737373;
+			white-space: nowrap;
+			box-shadow: 1px 1px 0px 1px rgba(0,0,0,0.05);
+			transition-property: background-color, box-shadow;
+			transition-duration: 150ms;
+			transition-timing-function: ease-in-out;
+			padding: 0;
+
+			&:focus,
+			&:hover {
+				box-shadow: 1px 4px 5px 1px rgba(0,0,0,0.1);
+			}
+
+			&:active {
+				background-color: #e5e5e5;
+				box-shadow: none;
+				transition-duration: 10ms;
+			}
+
+			.logo {
+				margin-bottom: 2px;
+			}
+
+			.google-button__text {
+
+				margin: auto 0;
+
+				display: inline-block;
+				padding: 0 24px;
+				font-size: 14px;
+				font-weight: bold;
+				font-family: 'Roboto',arial,sans-serif;
+			}
+		}
+	}
+
 }
 </style>

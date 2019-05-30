@@ -152,6 +152,7 @@
 		.category-section {
 			overflow-x: auto;
 			display: flex;
+			scrollbar-width: none;
 			.category-block {
 				text-align: center;
 				margin-right: 10px;

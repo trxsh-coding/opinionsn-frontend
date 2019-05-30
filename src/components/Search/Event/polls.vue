@@ -2,8 +2,11 @@
     <div class="polls-section">
         <div class="poll-block mt-5" v-for="poll in polls">
 
-            <poll-block  :poll="poll" :item="item" >
+            <poll-block  :poll="poll" :item="item" :searchBlock="true" >
                 <div slot="subject_header">
+                </div>
+                <div class="hashtags" slot="tags">
+					<span>{{poll.tags}}</span>
                 </div>
             </poll-block>
 
@@ -36,8 +39,8 @@
             },
 
 
-        },
-    }
+        }
+	}
 </script>
 
 <style lang="scss">

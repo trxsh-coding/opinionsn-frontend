@@ -64,7 +64,6 @@
         .el-input__inner::placeholder {
 
             font-size: 11px;
-            line-height: 14px;
             color: #828D92;
         }
         .el-select {
