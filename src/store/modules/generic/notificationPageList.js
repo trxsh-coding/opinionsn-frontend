@@ -118,10 +118,11 @@ export const notificationPageList = (sc, listUrl) => class extends sc {
 
         dispatch('globalStore/verifyStore', {entries: usersToVerify, storeName: 'users'}, {root: true});
         dispatch('globalStore/verifyStore', {entries: pollsToVerify, storeName: 'polls'}, {root: true});
-        console.log('end')
         state.items = [...state.items, responseData];
         state.counter+= 1 ;
-        commit('notificationStore/appendToStores', items, {root: true})
+        console.log('begin')
+        commit('notificationStore/appendToStores', responseData, {root: true})
+        console.log('end')
         dispatch('longPollingAction')
 
     } else {

@@ -1,8 +1,8 @@
 import {VuexStore} from "./generic/proto";
-import {StoreWithPageList} from "./generic/withPageList";
+import {AdminStoreWithPageList} from "./generic/adminPageList";
 import {adminActions} from "./adminActions";
 
-class adminPage extends adminActions(StoreWithPageList (VuexStore, '/api/rest/feed')) {
+class adminPage extends adminActions(AdminStoreWithPageList (VuexStore, '/api/rest/feed')) {
 
 
 

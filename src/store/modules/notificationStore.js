@@ -36,11 +36,11 @@ export const notificationStore  =  {
          */
 
         appendToStores: function(state, payload){
-            state.messages = [...payload, ...state.messages ];
+            state.messages = [payload, ...state.messages ];
         },
 
         prependToStores: function(state, payload){
-            state.messages = [...state.messages, ...payload ];
+            state.messages = [...state.messages, payload ];
         },
 
         updateStores: function (state, payload) {

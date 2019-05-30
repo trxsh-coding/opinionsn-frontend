@@ -158,9 +158,7 @@ export const pollActions = sc => class extends sc {
 
 
     listItemsAction(vueStuff, args={}){
-
         let {state} = vueStuff;
-
         args.params = {...args.params || {}, categories_id: state.filter_id};
 
         super.listItemsAction(vueStuff, args);

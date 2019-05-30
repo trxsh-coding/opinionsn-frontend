@@ -22,6 +22,7 @@
                         icon-name="bookmark"><icon-bookmark/>
                 </icon-base>
                 <a><lang-string :title="'bookmarked'"/></a>
+
             </router-link>
             <el-popover
                     placement="bottom"
