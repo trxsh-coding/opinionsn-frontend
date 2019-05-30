@@ -6,6 +6,8 @@
 
 		<div class="have-no-subscribers mt-10" v-if="!items.length && !loading">
 			<span>Лента мнений будет доступна после появления подписок</span>
+
+
 		</div>
 <!--        <div v-if="state.error">-->
 <!--            Что-то сломалось:-->
