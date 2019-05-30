@@ -3,6 +3,7 @@ node_modules
 /dist
 platforms
 plugins
+vuex
 
 # local env files
 .env.local
