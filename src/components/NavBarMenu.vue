@@ -21,7 +21,7 @@
 			:content="user.balance">
           <icon-base
                   slot="reference"
-                  class="main-icon"
+                  class="main-icon pointer"
                   width="22"
                   height="36"
                   viewBox="0 0 22 8"

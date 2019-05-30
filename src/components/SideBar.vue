@@ -190,8 +190,7 @@ export default {
 
         path {
 
-            stroke: #4B97B4 !important;
-            fill: none;
+            fill: #4B97B4 !important;
         }
 
     }

@@ -11,6 +11,7 @@
 			<ul>
 				<li @click="changeTypeOfFeed(true)">
 					<icon-base
+						class="pointer"
 						:class="{active: filteredFeed}"
 						width="22"
 						height="22"
@@ -20,6 +21,7 @@
 				</li>
 				<li @click="changeTypeOfFeed(false)">
 					<icon-base
+						class="pointer"
 						:class="{active: !filteredFeed}"
 						width="22"
 						height="22"

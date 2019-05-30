@@ -81,7 +81,8 @@
         methods: {
             setTypeOfSearch(payload){
 
-                this.type = payload
+                this.type = payload;
+                this.clearForm();
 
             },
             searchUsers() {

@@ -34,7 +34,7 @@
 
             <div class="category-section mt-15">
                 <div class="category-block pointer" @click="categoryLink(category.id)" v-for="category in filteredCategories || categories">
-                    <div class="category-image relative"  :style="{ 'background-image': 'url(' + category.path_to_image + ')' } " >
+                    <div class="category-image relative"  :style="{ 'background-image': 'url(' + publicPath + category.path_to_image + ')' } " >
                         <div class="category-subject">
                             <h1><span>{{ cropCategoryName(lstr(category.name)) }}</span></h1>
                         </div>
@@ -66,7 +66,8 @@
 			return {
 				keyword: "",
 				filteredCategories: null,
-                mobile: this.$root.mobile
+                mobile: this.$root.mobile,
+				publicPath: process.env.VUE_APP_MAIN_API
 			};
 		},
         mixins:[imageMixin],

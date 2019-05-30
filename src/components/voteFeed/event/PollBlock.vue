@@ -220,7 +220,7 @@
             align-items: center;
             margin-bottom: 9px;
 
-			order: 2;
+			order: unset;
 
 			&.order_1 {
 				order: 1;
@@ -260,7 +260,7 @@
             letter-spacing: -0.1px;
             color: #152D3A;
 
-			order: 1;
+			order: unset;
 
 			&.order_3 {
 				order: 3;

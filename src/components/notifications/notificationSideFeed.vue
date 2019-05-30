@@ -29,11 +29,11 @@ export default {
 <style lang="scss">
 .notification-container {
   position: fixed;
-  top: 5%;
+  bottom: 5%;
   right: 2%;
   justify-content: flex-end;
   z-index: 20000;
-  height: 90%;
+  max-height: 90%;
   width: 220px;
 }
 
