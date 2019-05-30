@@ -49,7 +49,6 @@
 			<el-button class="primary-btn"  @click="submitSign(signForm)">
 				<lang-string  :title="'sign'"/>
 			</el-button>
-
 			<a class="google-btn" href="https://opinionsn.com/oauth2/google">
 				<icon-base
 					class="logo"
