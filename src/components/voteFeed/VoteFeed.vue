@@ -2,25 +2,23 @@
 
 
     <div class="vote-feed">
-        <!-- Ошибка -->
-
-		 <div class="loading-spinner" v-loading="true" v-if="loading"/>
+		<div class="loading-spinner" v-loading="true" v-if="false"/>
 
 		<div class="have-no-subscribers mt-10" v-if="!items.length && !loading">
 			<span>Лента мнений будет доступна после появления подписок</span>
 		</div>
-        <!--<div v-if="state.error">-->
-            <!--Что-то сломалось:-->
-            <!--{{state.error}}-->
-        <!--</div>-->
+<!--        <div v-if="state.error">-->
+<!--            Что-то сломалось:-->
+<!--            {{state.error}}-->
+<!--        </div>-->
 
-        <!--&lt;!&ndash; Загрузка &ndash;&gt;-->
+<!--        &lt;!&ndash; Загрузка &ndash;&gt;-->
 
 
-        <!--&lt;!&ndash; Нет данных &ndash;&gt;-->
-        <!--<div v-else-if="!items.length">-->
-            <!--<p align="center" style="font-size:10px;margin-top: 5px;color: darkgray">Нет событий</p>-->
-        <!--</div>-->
+<!--        &lt;!&ndash; Нет данных &ndash;&gt;-->
+<!--        <div v-else-if="!items.length">-->
+<!--            <p align="center" style="font-size:10px;margin-top: 5px;color: darkgray">Нет событий</p>-->
+<!--        </div>-->
 
 
         <!-- Всё ок -->
