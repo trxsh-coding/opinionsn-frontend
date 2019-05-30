@@ -164,13 +164,18 @@
 					return (this.hidden = true);
 				}
 			},
+			pollId: function(){
 
+				return this.$route.params.id;
+
+			},
 			category: function() {
 				return this.categories[this.$route.params.id].name;
 			},
 
 			pollName: function() {
-				let pollName = this.polls[this.$route.params.id].subject;
+
+				let pollName = this.polls[this.pollId].subject;
 				// Если название опроса больше 28 символов, тогда обрезаем его.
 				return pollName.length > 28 ? pollName.slice(0, 28).trim() + "..." : pollName;
 			}
