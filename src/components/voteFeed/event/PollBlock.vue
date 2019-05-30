@@ -1,7 +1,7 @@
 <template>
 	<div class="content-wrapper" id="poll-block">
 		<div class="content-block relative" :class="{padding : poll.picture, searchBlock: searchBlock}">
-			<bookmark :poll="poll" :item="item"></bookmark>
+			<bookmark :class="{searchBlock: searchBlock}" :poll="poll" :item="item"></bookmark>
 
 			<div class="picture-block" :class="{searchBlock: searchBlock}"
 				 :style="{ 'background-image': 'url(' + publicPath + poll.picture + ')' } " v-if="poll.picture">
@@ -129,8 +129,12 @@
 			.bookmark-block {
 
 				position: absolute;
-				top: 0;
 				right: 18px;
+				bottom: 10px;
+
+				&.searchBlock {
+					top: 0;
+				}
 
 			}
 
