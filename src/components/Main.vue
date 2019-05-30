@@ -289,7 +289,7 @@ export default {
 
 		},
 		mounted() {
-			if (Object.keys(this.mainUser).length == 0) {
+			if (this.mainUser.id !== undefined) {
 				this.getNotifications();
 			}
 			window.addEventListener("scroll", this.onScroll);

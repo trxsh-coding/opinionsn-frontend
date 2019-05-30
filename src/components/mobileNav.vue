@@ -1,6 +1,6 @@
 <template>
 	<div class="mobile-nav">
-		<div class="section-wrapper" :class="{ swiped: secondNavCaption($route.name)}">
+		<div class="section-wrapper" :class="{ swiped: secondNavCaption}">
 			<ul class="nav-section nav-section-1">
 				<li class="nav__item nav__item-1" v-if="mainUser.authorities === 'ADMIN'">
 					<router-link to="/add">
@@ -11,7 +11,7 @@
 				</li>
 				<li class="nav__item nav__item-2">
 					<div v-if="!hide_form">редактировать профиль</div>
-					<div v-else-if="$route.name === 'user'">{{firstNavCaption($route.params.id)}}</div>
+					<div v-else-if="$route.name === 'user'">{{firstNavCaption}}</div>
 					<router-link to="/pollFeed" v-else>
 						<icon-base
 							class="mr-6"
@@ -30,20 +30,21 @@
 				</li>
 				<li class="nav__item nav__item-3">
 					<el-popover
+                        v-if="mainUser.id !== undefined"
 						class="popover"
 						placement="top-start"
 						title="Balance:"
 						width="50"
 						trigger="click"
-						:content="user.balance"
+						:content="mainUser.balance"
 					>
+
 						<icon-base slot="reference" width="23" height="23" viewBox="0 0 23 23" icon-name="pocket">
 							<icon-pocket/>
 						</icon-base>
 					</el-popover>
 				</li>
 			</ul>
-
 			<ul class="nav-section nav-section-2">
 				<li class="nav__item nav__item-1" @click="$router.go(-1)">
 					<icon-base
@@ -55,7 +56,7 @@
 						icon-name="plus"><icon-arrow-left/>
 					</icon-base>
 				</li>
-				<li class="nav__item nav__item-2">{{secondNavCaption($route.name)}}</li>
+				<li class="nav__item nav__item-2">{{secondNavCaption}}</li>
 			</ul>
 		</div>
 		<hr>
@@ -164,18 +165,60 @@
 					return (this.hidden = true);
 				}
 			},
-			pollId: function(){
+
+			routeId: function(){
 
 				return this.$route.params.id;
 
 			},
+            routeName: function(){
+
+			    return this.$route.name
+
+            },
 			category: function() {
-				return this.categories[this.$route.params.id].name;
+				return this.categories[this.routeId].name;
 			},
+            firstNavCaption() {
+                return this.userMap[this.routeId].username;
+            },
+            userBalance: function() {
+
+			    return this.mainUser.balance;
+
+            },
+
+
+            secondNavCaption() {
+                switch (this.routeName) {
+                    case "followers":
+                        return "подписчики";
+
+                    case "followings":
+                        return "подписки";
+
+                    case "add":
+                        return "добавить опрос";
+
+                    case "bookmarkFeed":
+                        return "сохраненное";
+
+                    case "catalogList":
+                        return "каталог";
+
+                    case "catalogFeed":
+                        return this.category;
+
+
+                    default:
+                        return null;
+                }
+            },
 
 			pollName: function() {
-
-				let pollName = this.polls[this.pollId].subject;
+                console.log(this.routeId)
+                console.log(this.polls)
+				let pollName = this.polls[this.routeId].subject;
 				// Если название опроса больше 28 символов, тогда обрезаем его.
 				return pollName.length > 28 ? pollName.slice(0, 28).trim() + "..." : pollName;
 			}
@@ -191,38 +234,13 @@
 				this.$router.push({ name: pathName });
 			},
 
-			firstNavCaption(ID) {
-				return this.userMap[ID].username;
-			},
 
-			secondNavCaption(route_name) {
-				switch (route_name) {
-					case "followers":
-						return "подписчики";
 
-					case "followings":
-						return "подписки";
-
-					case "add":
-						return "добавить опрос";
-
-					case "bookmarkFeed":
-						return "сохраненное";
-
-					case "catalogList":
-						return "каталог";
-
-					case "catalogFeed":
-						return this.category;
-
-					case "singlePoll":
-						return this.pollName;
-
-					default:
-						return null;
-				}
-			}
 		},
+        mounted(){
+
+            this.secondNavCaption()
+        },
 		components: {
 			IconBase,
 			IconMain,
