@@ -289,9 +289,7 @@ export default {
 
 		},
 		mounted() {
-			if (this.mainUser.id !== undefined) {
-				this.getNotifications();
-			}
+			this.getNotifications();
 			window.addEventListener("scroll", this.onScroll);
 
 		},
