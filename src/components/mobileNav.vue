@@ -206,7 +206,10 @@
                     case "catalogList":
                         return "каталог";
 
-                    case "catalogFeed":
+                    case "singlePoll":
+                        return this.pollName;
+
+					case "catalogFeed":
                         return this.category;
 
 
@@ -216,11 +219,12 @@
             },
 
 			pollName: function() {
-                console.log(this.routeId)
-                console.log(this.polls)
-				let pollName = this.polls[this.routeId].subject;
-				// Если название опроса больше 28 символов, тогда обрезаем его.
-				return pollName.length > 28 ? pollName.slice(0, 28).trim() + "..." : pollName;
+				if (this.polls[this.routeId] !== undefined) {
+					let {subject: pollName} = this.polls[this.routeId];
+					// Если название опроса больше 28 символов, тогда обрезаем его.
+					return pollName.length > 28 ? pollName.slice(0, 28).trim() + "..." : pollName
+				}
+				return "";
 			}
 		},
 		methods: {
