@@ -5,7 +5,12 @@
         <div class="category-wrapper">
 
             <div class="search-panel flex-align-center category-search" v-if="mobile">
-                <el-input class="br-12" :placeholder="lstr('search')" v-model="keyword" @change="searchCategory" @keyup.enter.native="searchCategory">
+                <el-input
+					class="br-12"
+					:placeholder="lstr('search')"
+					v-model="keyword"
+					@change="searchCategory"
+					keyup.enter.native="searchCategory">
 					<template slot="append" >
 						<i  @click="clearSearchField">
                             <icon-base

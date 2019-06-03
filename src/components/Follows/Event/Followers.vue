@@ -27,13 +27,6 @@
         },
         components:{event},
 
-        mounted(){
-
-            console.log(this.isFollowing)
-
-        }
-
-
     }
 </script>
 

@@ -47,7 +47,7 @@
 		</div>
 		<div class="buttons-block">
 			<el-button class="primary-btn"  @click="submitSign(signForm)">
-				<lang-string  :title="'sign'"/>
+				<lang-string  :title="'sign_in'"/>
 			</el-button>
 			<a class="google-btn" href="https://opinionsn.com/api/oauth2/google">
 				<icon-base

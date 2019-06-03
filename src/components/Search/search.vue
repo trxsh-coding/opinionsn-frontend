@@ -1,12 +1,24 @@
 <template>
     <div class="search-wrapper">
         <div class="search-panel flex-align-center">
-            <el-input class="br-12" :placeholder="lstr('search')" v-model="keywords" @change="searchUsers" @keyup.enter.native="searchUsers">
-
+            <el-input
+				class="br-12"
+				:placeholder="lstr('search')"
+				v-model="keywords"
+				@keyup.enter.native="searchUsers">
+				<template slot="append" >
+					<i @click="clearForm">
+						<icon-base
+							class="icon-close"
+							fill="none"
+							width="20"
+							height="20"
+							viewBox="0 0 10 20"
+							icon-name="close"><icon-close />
+						</icon-base>
+					</i>
+				</template>
             </el-input>
-            <span class="cancel" @click="clearForm" >
-                <lang-string :title="'cancel'" />
-            </span>
         </div>
         <div class="button-panel mt-10 ">
             <span class="typeSpan pointer" @click="setTypeOfSearch('POLL')" :class="{typeButton : type === 'POLL'}">
@@ -16,7 +28,7 @@
                 Люди
             </span>
         </div>
-        <div class="links-section mt-10" v-for="item in items">
+        <div class="links-section mt-10" v-show="keywords !== ''" v-for="item in items">
             <users :item="item" v-if="type === 'USER'"/>
             <polls :item="item" :polls="polls"  v-if="type === 'POLL'"/>
         </div>
@@ -24,7 +36,8 @@
 </template>
 
 <script>
-    import axios from 'axios'
+	import IconBase from '../icons/IconBase';
+	import IconClose from "../icons/IconZoomIn";
     import langMixin from '../mixins/langMixin'
     import langString from '../langString'
     import Users from "./Event/users";
@@ -33,7 +46,13 @@
     import {globalStoreMixin} from '../../store/modules/globalStore'
     export default {
         mixins:[langMixin, globalStoreMixin()],
-        components:{Users, langString, Polls},
+        components:{
+        	Users,
+			langString,
+			Polls,
+			IconBase,
+			IconClose
+		},
         name: "search",
         data(){
 
@@ -45,6 +64,11 @@
             }
 
         },
+		watch: {
+			keywords() {
+				this.searchUsers();
+			}
+		},
         computed: {
 
             ...mapState('searchUser', {
@@ -82,13 +106,12 @@
             setTypeOfSearch(payload){
 
                 this.type = payload;
-                this.clearForm();
 
             },
             searchUsers() {
 
-                let type = this.type
-                let contain = this.keywords
+                let type = this.type;
+                let contain = this.keywords;
 
                 if(this.type === 'POLL') {
 
@@ -117,6 +140,30 @@
 
 <style lang="scss">
     .search-wrapper {
+
+		.search-panel {
+			padding: 0 8px;
+
+			input {
+				width: 100%;
+				background: #FFFFFF;
+				border: 1px solid #C4CCD0;
+				border-radius: 24px 0 0 24px !important;
+				padding-right: 42px;
+				border-right: none;
+			}
+
+			.el-input-group__append {
+				border-radius: 0 24px 24px 0;
+				border: 1px solid #C4CCD0;
+				border-left: none;
+				background-color: #FFFFFF;
+			}
+
+			.icon-close {
+				transform: rotate(45deg);
+			}
+		}
 
 		.button-panel {
 			display: flex;

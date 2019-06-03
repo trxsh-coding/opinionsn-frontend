@@ -115,7 +115,8 @@
                 // var duration = end.diff(now);
 
                 return end;
-            },
+            }
+
         },
 
         methods:{

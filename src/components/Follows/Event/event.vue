@@ -3,13 +3,18 @@
    <div>
 
 
-       <div  class="subscribers-template flex-column">
-           <!-- <el-button type="primary" class="follows-button" size="small" round @click="followersLink(id)" v-bind:class="{backgroundNone : isFollowing}">
-               <lang-string :title="'followers'"/>
-           </el-button>
-           <el-button size="small" class="follows-button" round @click="followingsLink(id)" v-bind:class="{backgroundNone : !isFollowing}">
-               <lang-string :title="'followings'"/>
-           </el-button> -->
+       <div class="subscribers-template flex-column">
+
+		   <div class="switch-btns mb-6">
+			   <el-button type="primary" class="follows-button mr-6 pointer" size="small" round @click="followingsLink(id)" :class="{active : isFollowing}">
+				   <lang-string :title="'followers'"/>
+			   </el-button>
+			   <el-button size="small" class="follows-button pointer" round @click="followersLink(id)" :class="{active : !isFollowing}">
+				   <lang-string :title="'followings'"/>
+			   </el-button>
+		   </div>
+
+
            <div class="search-panel flex-align-center category-search" >
                <el-input class="br-12" :placeholder="lstr('search')" v-model="keyword" @change="searchUsers" @keyup.enter.native="searchUsers">
                    <template slot="append" >
@@ -164,9 +169,40 @@
 <style lang="scss">
 
     .subscribers-template {
+
+		.switch-btns {
+			width: 100%;
+			display: flex;
+
+			.follows-button {
+				padding: 12px 5px;
+				margin: 0;
+				line-height: 0;
+				background-color: transparent;
+
+				span {
+					font-family: Roboto;
+					font-style: normal;
+					font-weight: normal;
+					font-size: 12px;
+					color: #69777F;
+				}
+
+				&.active {
+					background-color: #B9C0C4;
+					
+					span {
+						color: #FFFFFF;
+					}
+				}
+			}
+		}
+
+
         .icon-close {
             transform: rotate(45deg);
         }
+
         .category-search {
             position: relative;
             input {
