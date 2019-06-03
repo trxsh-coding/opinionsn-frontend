@@ -2,7 +2,7 @@ export const notificationPageList = (sc, listUrl) => class extends sc {
 
 
     onListReceived({state, commit, dispatch}, payload={}){
-
+            console.log(payload)
             commit('setLoading', true);
 
             if(state.page != 0) {
@@ -27,20 +27,7 @@ export const notificationPageList = (sc, listUrl) => class extends sc {
         }
 
 
-
-        let usersToVerify = {};
-        let pollsToVerify = {}
-        payload.responseData.forEach(({userId, initiatorId, targetId})=>{
-            usersToVerify[userId] = {action: 'userPage/getNotificationInitiator',payload: userId};
-            usersToVerify[initiatorId] =  {action: 'userPage/getNotificationInitiator',payload: initiatorId};
-            if (targetId){
-                pollsToVerify[targetId] =  {action: 'singlePoll/getNotificationPoll',payload: targetId};
-            }
-         });
-
-        dispatch('globalStore/verifyStore', {entries: usersToVerify, storeName: 'users'}, {root: true});
-        dispatch('globalStore/verifyStore', {entries: pollsToVerify, storeName: 'polls'}, {root: true});
-
+        dispatch('verifyStores', payload)
 
         let {customUrl = '/messages/notification', data={}, method='get'} = payload;
 
@@ -74,6 +61,12 @@ export const notificationPageList = (sc, listUrl) => class extends sc {
 
     }
 
+    appendToItems(state, payload){
+        console.log('im here')
+        console.log(payload)
+        state.items = [...state.items, ...payload];
+    }
+
     setLoaded(state, payload){
 
         state.loading = false;
@@ -98,31 +91,53 @@ export const notificationPageList = (sc, listUrl) => class extends sc {
 
 
     };
+
+    getNotificationPoll({commit, dispatch}, payload={}){
+        let body = payload;
+        let {customUrl = `/api/rest/info/poll/notification`, data=body, method='post'} = payload;
+        sc.apiRequest(customUrl, data,{commit, dispatch, onSuccess:'appendToStore', successType: 'action'}, method);
+    }
+
+    getNotificationInitiator({commit, dispatch}, payload={}){
+        let body = payload;
+        let {customUrl = `/api/rest/info/user/notification`, data=body, method='post', } = payload;
+        sc.apiRequest(customUrl, data,{commit, dispatch, onSuccess: 'appendToStore', successType: 'action'}, method);
+
+    };
+
+
+
  /** MUTATIONS **/
+
+ verifyStores({dispatch, commit, state}, payload){
+     payload.forEach(({userId, initiatorId, targetId})=>{
+         state.usersToVerify = [...state.usersToVerify, userId];
+         state.usersToVerify = Array.from(new Set([...state.usersToVerify, initiatorId]));
+         if(targetId){
+             state.pollsToVerify = Array.from(new Set([...state.pollsToVerify, targetId]));
+         }
+
+     });
+     let usersToVerify = {action: 'notificationPage/getNotificationInitiator',payload: state.usersToVerify};
+     let pollsToVerify =  {action: 'notificationPage/getNotificationPoll',payload: state.pollsToVerify};
+     dispatch('notificationStore/verifyStore', {entries: usersToVerify, storeName: 'users'}, {root: true});
+     dispatch('notificationStore/verifyStore', {entries: pollsToVerify, storeName: 'polls'}, {root: true});
+
+ }
+
+
 
  setNotification({dispatch, commit,state}, payload){
 
      let {responseData} = payload;
+     let {userId, initiatorId, targetId} = responseData.messages[0];
 
-     let {userId, initiatorId, targetId} = responseData;
+    if(responseData.messages[0].read !== undefined){
 
-    if(responseData.read !== undefined){
-
-        let usersToVerify = {};
-        let pollsToVerify = {}
-        usersToVerify[userId] = {action: 'userPage/getNotificationInitiator',payload: userId};
-        usersToVerify[initiatorId] =  {action: 'userPage/getNotificationInitiator',payload: initiatorId};
-        if (targetId){
-            pollsToVerify[targetId] =  {action: 'singlePoll/getNotificationPoll',payload: targetId};
-        }
-
-        dispatch('globalStore/verifyStore', {entries: usersToVerify, storeName: 'users'}, {root: true});
-        dispatch('globalStore/verifyStore', {entries: pollsToVerify, storeName: 'polls'}, {root: true});
-        state.items = [...state.items, responseData];
+        dispatch('verifyStores', responseData.messages)
+        commit('appendToItems', responseData.messages)
         state.counter+= 1 ;
-        console.log('begin')
-        commit('notificationStore/appendToStores', responseData, {root: true})
-        console.log('end')
+        commit('appendToStores', responseData)
         dispatch('longPollingAction')
 
     } else {
@@ -137,7 +152,26 @@ export const notificationPageList = (sc, listUrl) => class extends sc {
 
  }
 
+    appendToStore({state, commit}, args){
+        let {responseData: data, requestData: payload} = args;
 
+        let mapKey = Object.keys(data)[0]
+        // state.items.forEach(i=>{map[i.id]=i});
+        // state.itemsById = map;
+        commit(`notificationStore/appendToStores`, {
+
+                mapName: mapKey,
+                payload: Object.values(data)[0]
+
+            },
+            {root: true}
+
+
+
+        );
+
+
+    }
     get state(){
         return {
             ...super.state,
@@ -146,7 +180,10 @@ export const notificationPageList = (sc, listUrl) => class extends sc {
             loaded:false,
             counter:0,
             items:[],
-            loading:false
+            loading:false,
+            usersToVerify:[],
+            pollsToVerify:[],
+            itemsById:[]
 
 
         }
@@ -160,17 +197,22 @@ export const notificationPageList = (sc, listUrl) => class extends sc {
             setLoadedTrigger: this.setLoadedTrigger,
             setLoading: this.setLoading,
             setDefaultPage: this.setDefaultPage,
-            setLoaded: this.setLoaded
+            setLoaded: this.setLoaded,
+            appendToItems: this.appendToItems
         }
     }
 
     get actions(){
         return {
             ...super.actions,
+            verifyStores: this.verifyStores,
             list: this.listItemsAction,
             onListReceived: this.onListReceived,
             setNotification:this.setNotification,
-            longPollingAction: this.longPollingAction
+            longPollingAction: this.longPollingAction,
+            getNotificationInitiator: this.getNotificationInitiator,
+            getNotificationPoll: this.getNotificationPoll,
+            appendToStore: this.appendToStore
         }
     }
 
