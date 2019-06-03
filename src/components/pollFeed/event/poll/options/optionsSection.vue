@@ -220,6 +220,7 @@
             background: #FFFFFF;
             border-radius: 6px;
             box-shadow: 0px 0px 7px rgba(21, 45, 58, 0.24);
+            flex: 1;
 
 
             .option-id {
@@ -277,29 +278,29 @@
             }
 
         }
-        @media only screen and (max-device-width : 700px)  {
+        /*@media only screen and (max-device-width : 700px)  {*/
 
-            .option-container {
+        /*    .option-container {*/
 
-                // width: 249px;
-				flex: 1;
+        /*        // width: 249px;*/
+		/*		flex: 1;*/
 
-            }
-            .option-container {
+        /*    }*/
+        /*    .option-container {*/
 
-                width: 324px;
-
-
-            }
-            .option-bows {
-
-                // width: 75px !important;
-				flex: 0 0 70px;
-
-            }
+        /*        width: 324px;*/
 
 
-        }
+        /*    }*/
+        /*    .option-bows {*/
+
+        /*        // width: 75px !important;*/
+		/*		flex: 0 0 70px;*/
+
+        /*    }*/
+
+
+        /*}*/
     }
 
 

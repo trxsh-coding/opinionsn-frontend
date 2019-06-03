@@ -100,7 +100,7 @@
 						margin-bottom: 6px;
 
 						input {
-							border: 0.5px solid #8A9499;
+							border: 0.7px solid #8A9499;
 							border-radius: 12px;
 						}
 					}
@@ -148,13 +148,13 @@
 			}
 		}
 
-		@media only screen and (max-device-width: 375px) {
-			.section {
-				.form-block {
-					width: 300px;
+		@media only screen
+			and (max-width: 375px) {
+				.section {
+					.form-block {
+						width: 300px;
+					}
 				}
-			}
-
 		}
 	}
 </style>

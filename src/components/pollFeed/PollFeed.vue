@@ -184,11 +184,20 @@
 		}
 	}
 
-	@media only screen and (max-device-width : 340px) {
-		#poll-wrapper {
-			.category-section {
-				justify-content: center !important;
+	@media only screen
+		and (max-width: 420px) {
+			#poll-wrapper {
+				.category-section {
+					justify-content: center !important;
+
+					& > *:nth-child(even) {
+						margin-right: 0 !important;
+
+						@media (max-width: 350px) {
+							margin-right: 6px !important;
+						}
+					}
+				}
 			}
-		}
 	}
 </style>

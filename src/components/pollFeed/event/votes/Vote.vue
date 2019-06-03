@@ -18,7 +18,7 @@
                             <span class="selected-option">{{selected_option.description}}</span>
                         </div>
                     <div class="hide" @click="hideReply">
-                        <lang-string :title="'reply'" class="reply" />
+                        <lang-string :title="'reply'" class="reply pointer" />
                       </div>
                 </div>
             </div>

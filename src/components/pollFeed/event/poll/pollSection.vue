@@ -311,7 +311,8 @@
                     position: absolute;
                     z-index: 10;
                     right: 10px;
-                    top: 9px;
+                    top: 50%;
+                    transform: translateY(-50%);
 
                 }
 

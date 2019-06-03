@@ -198,6 +198,8 @@
 		.category-section {
 			display: flex;
 			flex-wrap: wrap;
+
+
 			.catalog-header {
 				font-family: Roboto;
 				font-style: normal;
@@ -218,6 +220,15 @@
 				align-items: center;
 				position: absolute;
 				font-variant-caps: all-small-caps;
+
+                // FOR Safari ≥ 9
+                @supports (-webkit-appearance:none) {
+                    font-variant-caps: normal;
+
+                    h1 span {
+                        font-size: 13px !important;
+                    }
+                }
 
 				bottom: 8px;
 
@@ -255,12 +266,12 @@
 			.category-block {
 				margin: 0 0px 6px 0;
 				margin-right: 6px !important;
-				width: 162px;
+				width: 161px;
 				height: 112px;
 			}
 
 			.category-image {
-				width: 162px;
+				width: 161px;
 				height: 112px;
 				background-color: #ffffff;
 				border-radius: 12px;

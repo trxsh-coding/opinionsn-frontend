@@ -65,6 +65,14 @@
 			text-align: center;
 			font-variant: small-caps;
 			color: #152D3A;
+			word-break: keep-all;
+
+			// FOR Safari ≥ 9
+			@supports (-webkit-appearance:none) {
+				font-variant: normal;
+				font-size: 8px;
+				text-transform: uppercase;
+			}
 
 
 		}

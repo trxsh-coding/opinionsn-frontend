@@ -125,13 +125,17 @@
 
     }
 
-    @media only screen and (max-device-width : 500px) {
+    @media only screen and (max-width : 500px) {
 
         .user-statistic {
             justify-content: space-evenly !important;
             .progress-border {
 
                 padding: 0 15px !important;
+
+                @media (max-width : 330px) {
+                    padding: 0 11px !important;
+                }
 
             }
 

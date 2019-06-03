@@ -12,17 +12,8 @@
 				<li class="nav__item nav__item-2">
 					<div v-if="!hide_form">редактировать профиль</div>
 					<div v-else-if="$route.name === 'user'">{{firstNavCaption}}</div>
-					<router-link to="/pollFeed" v-else>
-						<icon-base
-							class="mr-6"
-							fill="none"
-							width="24"
-							height="24"
-							viewBox="0 0 24 24"
-							icon-name="logo"
-						>
-							<icon-logo/>
-						</icon-base>
+					<router-link class="v-center" to="/pollFeed" v-else>
+						<div class="icon logo picture-25x25 mr-6" :style="{ 'background-image': 'url(' + require('./assets/icons/icon-logo.png') + ')' } " />
 						<icon-base fill="none" width="66" height="15" viewBox="0 0 66 15" icon-name="text-logo">
 							<icon-text-logo/>
 						</icon-base>
@@ -61,7 +52,7 @@
 		</div>
 		<hr>
 		<ul class="nav-section nav-section-3">
-			<li class="nav__item" @click="resetFilter('pollFeed')">
+			<li class="nav__item pointer" @click="resetFilter('pollFeed')">
 				<icon-base
 					class="main-icon"
 					:class="{primary : $route.path==='/pollFeed'} "
@@ -73,7 +64,7 @@
 					<icon-main/>
 				</icon-base>
 			</li>
-			<li class="nav__item" @click="resetFilter('voteFeed')">
+			<li class="nav__item pointer" @click="resetFilter('voteFeed')">
 				<icon-base
 					:class="{primary : $route.path==='/voteFeed'} "
 					class="main-icon"
@@ -85,7 +76,7 @@
 					<icon-opinion/>
 				</icon-base>
 			</li>
-			<li class="nav__item" @click="link('search')">
+			<li class="nav__item pointer" @click="link('search')">
 				<icon-base
 					:class="{search : $route.path==='/search'} "
 					width="21"
@@ -96,7 +87,7 @@
 					<icon-search/>
 				</icon-base>
 			</li>
-			<li class="nav__item" @click="link('notifications')">
+			<li class="nav__item pointer" @click="link('notifications')">
 				<el-badge :value="counter" :hidden="hidden_badge">
 					<icon-base
 						:class="{secondary_path_only : $route.name==='notifications'} "
@@ -109,10 +100,10 @@
 					</icon-base>
 				</el-badge>
 			</li>
-			<li class="nav__item">
+			<li class="nav__item pointer">
 				<avatar class="avatar-25x25"></avatar>
 			</li>
-			<li class="nav__item" @click="link('menu')">
+			<li class="nav__item pointer" @click="link('menu')">
 				<icon-base width="25" height="22" viewBox="0 0 25 22" icon-name="menu">
 					<icon-menu/>
 				</icon-base>
@@ -292,9 +283,15 @@
 				font-style: normal;
 				font-weight: 500;
 				font-size: 18px;
-				line-height: 18px;
 				font-variant: small-caps;
 				color: #152d3a;
+
+				// FOR Safari ≥ 9
+				@supports (-webkit-appearance:none) {
+					font-variant: normal;
+					font-size: 16px;
+					text-transform: uppercase;
+				}
 			}
 
 			g {

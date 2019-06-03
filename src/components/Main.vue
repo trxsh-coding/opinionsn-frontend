@@ -519,13 +519,15 @@ body {
 		margin-top: 65px;
 	}
 
-	@media only screen and (min-device-width: 320px) and (max-device-width: 765px) {
+	@media only screen
+		and (min-width: 300px)
+		and (max-width: 765px) {
 		.el-header {
 			position: fixed;
 			z-index: 100000;
 			width: 100%;
 			height: auto !important;
-			padding: 0;
+			padding: 0 !important;
 			margin: 0;
 			background: #ffffff;
 			transition: 0.1s all ease-out;
@@ -556,5 +558,4 @@ body {
 		}
 	}
 }
-
 </style>
