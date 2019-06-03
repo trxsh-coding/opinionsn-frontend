@@ -79,6 +79,8 @@ export const notificationStore  =  {
     actions: {
 
         verifyStore: function({state, dispatch, commit}, payload){
+            console.log('please payload me')
+            console.log(payload)
             let {entries, storeName} = payload;
             let store = state[storeName];
                 const missingOnes = [];
@@ -88,8 +90,10 @@ export const notificationStore  =  {
                         // dispatch(entries.action, payload, {root: true});
                     }
                 }
+                console.log(missingOnes)
             if (missingOnes.length){
                 dispatch(entries.action, missingOnes, {root: true});
+                console.log('did u verify?')
                 // Doesnt have these polls/users
                 // missingOnes
             }

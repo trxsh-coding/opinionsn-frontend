@@ -27,7 +27,7 @@ export const notificationPageList = (sc, listUrl) => class extends sc {
         }
 
 
-        dispatch('verifyStores', payload)
+        dispatch('verifyStores', payload.responseData)
 
         let {customUrl = '/messages/notification', data={}, method='get'} = payload;
 
@@ -93,6 +93,8 @@ export const notificationPageList = (sc, listUrl) => class extends sc {
     };
 
     getNotificationPoll({commit, dispatch}, payload={}){
+        console.log('getpayload')
+        console.log(payload)
         let body = payload;
         let {customUrl = `/api/rest/info/poll/notification`, data=body, method='post'} = payload;
         sc.apiRequest(customUrl, data,{commit, dispatch, onSuccess:'appendToStore', successType: 'action'}, method);
@@ -110,6 +112,8 @@ export const notificationPageList = (sc, listUrl) => class extends sc {
  /** MUTATIONS **/
 
  verifyStores({dispatch, commit, state}, payload){
+     console.log('VERIFY PLEASE')
+     console.log(payload)
      payload.forEach(({userId, initiatorId, targetId})=>{
          state.usersToVerify = [...state.usersToVerify, userId];
          state.usersToVerify = Array.from(new Set([...state.usersToVerify, initiatorId]));
