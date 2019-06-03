@@ -27,15 +27,7 @@ export const pollActions = sc => class extends sc {
     }
 
 
-    getNotificationPoll({commit, dispatch}, payload={}){
 
-        console.log(payload)
-
-        let {customUrl = `/api/rest/quiz/getOne/${payload}`, data={}, method='get'} = payload;
-
-        sc.apiRequest(customUrl, data,{commit, dispatch, onSuccess:null, successType: 'action'}, method);
-
-    }
 
 
     // getFilteredFeed({commit, dispatch}, payload={}){
@@ -423,8 +415,7 @@ export const pollActions = sc => class extends sc {
             deletePoll: this.deletePoll,
             deleteComment: this.deleteComment,
             onExplainSaved: this.onExplainSaved,
-            setBlockchainRightOption: this.setBlockchainRightOption,
-            getNotificationPoll: this.getNotificationPoll
+            setBlockchainRightOption: this.setBlockchainRightOption
         }
     }
 

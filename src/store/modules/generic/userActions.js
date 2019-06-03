@@ -11,13 +11,6 @@ export const userActions = sc => class extends sc {
 
     };
 
-    getNotificationInitiator({commit, dispatch}, payload={}){
-
-        let {customUrl = `/api/rest/getUserById/${payload}`, data={}, method='get', } = payload;
-
-        sc.apiRequest(customUrl, data,{commit, dispatch, onSuccess: null, successType: 'action'}, method);
-
-    };
 
     followUser({commit, dispatch}, payload={}){
 
@@ -181,8 +174,7 @@ export const userActions = sc => class extends sc {
             updateUser: this.updateUser,
             getFollowings: this.getFollowings,
             getFollowers: this.getFollowers,
-            setMainUser:this.setMainUser,
-            getNotificationInitiator: this.getNotificationInitiator
+            setMainUser:this.setMainUser
 
         }
     }

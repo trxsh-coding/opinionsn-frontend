@@ -2,6 +2,8 @@
 export const notificationStorages = [
 
     {name: 'message'},
+    {name: 'user'},
+    {name: 'poll'}
 
 ];
 
@@ -32,14 +34,30 @@ export const notificationStore  =  {
         /**
          * Updates all the stores that came with the request
          * @param state
+         * @param mapName
          * @param payload
          */
 
-        appendToStores: function(state, payload){
-            state.messages = [payload, ...state.messages ];
+        appendToStores: function(state, {mapName, payload}){
+        console.log('appendBegin')
+        if(mapName === "messages"){
+
+            state.messages = [payload,...state.messages];
+
+        } else {
+
+            let items = {}
+            payload.forEach(item => {items[item.id]= item})
+            state[mapName] = {...state[mapName], ...items}
+
+        }
+
+            console.log('appendOver')
+
         },
 
         prependToStores: function(state, payload){
+
             state.messages = [...state.messages, ...payload ];
         },
 
@@ -59,6 +77,29 @@ export const notificationStore  =  {
 
     },
     actions: {
+
+        verifyStore: function({state, dispatch, commit}, payload){
+            console.log('please payload me')
+            console.log(payload)
+            let {entries, storeName} = payload;
+            let store = state[storeName];
+                const missingOnes = [];
+                for (let id of entries.payload){
+                    if(!store[id]){
+                        missingOnes.push(id);
+                        // dispatch(entries.action, payload, {root: true});
+                    }
+                }
+                console.log(missingOnes)
+            if (missingOnes.length){
+                dispatch(entries.action, missingOnes, {root: true});
+                console.log('did u verify?')
+                // Doesnt have these polls/users
+                // missingOnes
+            }
+
+
+        }
 
     },
 

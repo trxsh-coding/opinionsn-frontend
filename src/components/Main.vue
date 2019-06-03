@@ -1,7 +1,7 @@
 <template lang="html">
 	<div id="app">
 		<el-header id="mobile-header" class="mobile-nav hidden-sm-and-up"   :class="{ 'navbar--hidden': !showNavbar }">
-			<mobile-nav :user="main_user"/>
+			<mobile-nav :user="main_user" />
 		</el-header>
 		<el-header class="nav-header hidden-xs-only" style=" height:48px ">
 			<el-container class="nav">
@@ -169,7 +169,8 @@ export default {
 
     ...mapState("globalStore", {
       mainUser: ({ mainUser }) => mainUser
-    }),
+
+	}),
 
     ...mapState("lang", {
       lang: state => state.locale
