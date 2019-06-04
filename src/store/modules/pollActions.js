@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios from 'axios';
 
 export const pollActions = sc => class extends sc {
 
@@ -6,23 +6,23 @@ export const pollActions = sc => class extends sc {
     createVote({commit, dispatch}, payload={}){
 
 
-        commit('globalStore/currentLoadingOption',  {id: payload.data.selected_variable, value: true}, {root: true});
+        commit(`globalStore/currentLoadingOption`,  {id: payload.data.selected_variable, value: true}, {root: true});
 
         let typeOfVote;
 
         if (payload.data.type_of_poll >= 2) {
 
-            typeOfVote = "/api/rest/blockchain/vote/create/"
+            typeOfVote = `${process.env.VUE_APP_MAIN_API}/rest/blockchain/vote/create/`
 
         } else {
 
-            typeOfVote = "/api/rest/vote/create/"
+            typeOfVote = `${process.env.VUE_APP_MAIN_API}/rest/vote/create/`
 
         }
 
-        let {customUrl = `${typeOfVote}`, data={}, method='post'} = payload;
+        let {customUrl = `${typeOfVote}`, data={}, method=`post`} = payload;
 
-        sc.apiRequest(customUrl, data,{commit, dispatch, onSuccess: 'onVoteCreated', successType: 'action'}, method);
+        sc.apiRequest(customUrl, data,{commit, dispatch, onSuccess: `onVoteCreated`, successType: `action`}, method);
 
     }
 
@@ -32,18 +32,18 @@ export const pollActions = sc => class extends sc {
 
     // getFilteredFeed({commit, dispatch}, payload={}){
     //
-    //     let {customUrl = '/api/rest/feed/', data={}, method='post'} = payload;
+    //     let {customUrl = `${process.env.VUE_APP_MAIN_API}/rest/feed/`, data={}, method=`post`} = payload;
     //
-    //     sc.apiRequest(customUrl, {},{commit, params: data, dispatch, onSuccess: null, successType: 'action'}, method);
+    //     sc.apiRequest(customUrl, {},{commit, params: data, dispatch, onSuccess: null, successType: `action`}, method);
     //
     // };
 
 
     setRightOption({commit, dispatch}, payload={}){
 
-        let {customUrl = '/api/rest/admin/poll/choiceAnswer/', data={}, method='post'} = payload;
+        let {customUrl = `${process.env.VUE_APP_MAIN_API}/rest/admin/poll/choiceAnswer/`, data={}, method=`post`} = payload;
 
-        sc.apiRequest(customUrl, {},{commit, params: data, dispatch, onSuccess: null, successType: 'action'}, method);
+        sc.apiRequest(customUrl, {},{commit, params: data, dispatch, onSuccess: null, successType: `action`}, method);
 
     };
 
@@ -51,9 +51,9 @@ export const pollActions = sc => class extends sc {
 
     setBlockchainRightOption({commit, dispatch}, payload={}){
 
-        let {customUrl = '/api/rest/blockchain/judge/create', data={}, method='post'} = payload;
+        let {customUrl = `${process.env.VUE_APP_MAIN_API}/rest/blockchain/judge/create`, data={}, method=`post`} = payload;
 
-        sc.apiRequest(customUrl, data, {commit, dispatch, onSuccess: null, successType: 'action'}, method);
+        sc.apiRequest(customUrl, data, {commit, dispatch, onSuccess: null, successType: `action`}, method);
 
     };
 
@@ -61,17 +61,17 @@ export const pollActions = sc => class extends sc {
     saveExplain({commit, dispatch}, payload={}){
 
 
-        let {customUrl = '/api/rest/explain/save/', data={}, method='post'} = payload;
+        let {customUrl = `${process.env.VUE_APP_MAIN_API}/rest/explain/save/`, data={}, method=`post`} = payload;
 
-        sc.apiRequest(customUrl, data,{commit,dispatch, onSuccess: 'onExplainSaved', successType: 'action'}, method);
+        sc.apiRequest(customUrl, data,{commit,dispatch, onSuccess: `onExplainSaved`, successType: `action`}, method);
 
     };
 
     saveComment({commit, dispatch}, payload={}){
 
-        let {customUrl = '/api/rest/comment/save/', data={}, method='post', } = payload;
+        let {customUrl = `${process.env.VUE_APP_MAIN_API}/rest/comment/save/`, data={}, method=`post`, } = payload;
 
-        sc.apiRequest(customUrl, data ,{commit, dispatch, onSuccess: 'onCommentSaved', successType: 'action'}, method);
+        sc.apiRequest(customUrl, data ,{commit, dispatch, onSuccess: `onCommentSaved`, successType: `action`}, method);
 
     };
 
@@ -83,9 +83,9 @@ export const pollActions = sc => class extends sc {
 
         let poll_id = payload.poll_id
 
-        let {customUrl = `/api/rest/explain/${page}/?poll_id=${poll_id}`, data={poll_id, page}, method='get', } = payload;
+        let {customUrl = `${process.env.VUE_APP_MAIN_API}/rest/explain/${page}/?poll_id=${poll_id}`, data={poll_id, page}, method=`get`, } = payload;
 
-        sc.apiRequest(customUrl, data,{commit, dispatch, onSuccess: 'onShowMoreExplains', successType: 'action'}, method);
+        sc.apiRequest(customUrl, data,{commit, dispatch, onSuccess: `onShowMoreExplains`, successType: `action`}, method);
 
     };
 
@@ -96,9 +96,9 @@ export const pollActions = sc => class extends sc {
 
         let type_of_poll = payload.type_of_poll
 
-        let {customUrl = `/api/rest/bookmarks/add/${id}?type_of_poll=${type_of_poll}`, data={id}, method='post', } = payload;
+        let {customUrl = `${process.env.VUE_APP_MAIN_API}/rest/bookmarks/add/${id}?type_of_poll=${type_of_poll}`, data={id}, method=`post`, } = payload;
 
-        sc.apiRequest(customUrl, data,{commit, dispatch, onSuccess: null, successType: 'mutation'}, method);
+        sc.apiRequest(customUrl, data,{commit, dispatch, onSuccess: null, successType: `mutation`}, method);
 
     };
 
@@ -107,9 +107,9 @@ export const pollActions = sc => class extends sc {
 
         let id = payload
 
-        let {customUrl = `/api/rest/bookmarks/delete/${id}`, data={}, method='post', } = payload;
+        let {customUrl = `${process.env.VUE_APP_MAIN_API}/rest/bookmarks/delete/${id}`, data={}, method=`post`, } = payload;
 
-        sc.apiRequest(customUrl, data,{commit, dispatch, onSuccess: null, successType: 'mutation'}, method);
+        sc.apiRequest(customUrl, data,{commit, dispatch, onSuccess: null, successType: `mutation`}, method);
 
     };
 
@@ -117,9 +117,9 @@ export const pollActions = sc => class extends sc {
 
         let id = payload;
 
-        let {customUrl = `/api/rest/admin/poll/delete/${id}`, data={}, method='post', } = payload;
+        let {customUrl = `${process.env.VUE_APP_MAIN_API}/rest/admin/poll/delete/${id}`, data={}, method=`post`, } = payload;
 
-        sc.apiRequest(customUrl, data,{commit, dispatch, onSuccess: null, successType: 'mutation'}, method);
+        sc.apiRequest(customUrl, data,{commit, dispatch, onSuccess: null, successType: `mutation`}, method);
 
     };
 
@@ -128,9 +128,9 @@ export const pollActions = sc => class extends sc {
 
         let id = payload;
 
-        let {customUrl = `/api/rest/admin/comment/delete/${id}`, data={}, method='post', } = payload;
+        let {customUrl = `${process.env.VUE_APP_MAIN_API}/rest/admin/comment/delete/${id}`, data={}, method=`post`, } = payload;
 
-        sc.apiRequest(customUrl, data,{commit, dispatch, onSuccess: null, successType: 'mutation'}, method);
+        sc.apiRequest(customUrl, data,{commit, dispatch, onSuccess: null, successType: `mutation`}, method);
 
     };
 
@@ -140,9 +140,9 @@ export const pollActions = sc => class extends sc {
 
         let id = payload.explain_id;
 
-        let {customUrl = `/api/rest/comment/${comment_page}/?event_id=${id}`, data={id}, method='get', } = payload;
+        let {customUrl = `${process.env.VUE_APP_MAIN_API}/rest/comment/${comment_page}/?event_id=${id}`, data={id}, method=`get`, } = payload;
 
-        sc.apiRequest(customUrl, data,{commit, dispatch, onSuccess:'onShowMoreComments' , successType: 'action'}, method);
+        sc.apiRequest(customUrl, data,{commit, dispatch, onSuccess:`onShowMoreComments` , successType: `action`}, method);
 
     };
 
@@ -168,7 +168,7 @@ export const pollActions = sc => class extends sc {
         let {poll_id} = item;
 
         commit(`globalStore/addChildTo`, {
-                mapName: 'polls',
+                mapName: `polls`,
                 parentId: poll_id,
                 groupName: `votes_id`,
                 item: id,
@@ -176,12 +176,12 @@ export const pollActions = sc => class extends sc {
             {root: true}
 
         );
-        commit('onVoteLoading', false)
+        commit(`onVoteLoading`, false)
 
-        commit('globalStore/currentLoadingOption', {id: payload.selected_variable, value: false}, {root: true});
+        commit(`globalStore/currentLoadingOption`, {id: payload.selected_variable, value: false}, {root: true});
 
 
-        sc.apiRequest(`/api/rest/quiz/getOne/${poll_id}`, {},{commit, onSuccess: 'updatePayloadItem'}, 'get');
+        sc.apiRequest(`${process.env.VUE_APP_MAIN_API}/rest/quiz/getOne/${poll_id}`, {},{commit, onSuccess: `updatePayloadItem`}, `get`);
 
 
     }
@@ -211,7 +211,7 @@ export const pollActions = sc => class extends sc {
             let {poll_id} = data.votes[array[0]];
 
             commit(`globalStore/addChildTo`, {
-                    mapName: 'polls',
+                    mapName: `polls`,
                     parentId: poll_id,
                     groupName: `explains_id`,
                     item: array,
@@ -222,7 +222,7 @@ export const pollActions = sc => class extends sc {
 
         } else {
 
-            commit(`globalStore/changeStateItem`, {mapName : 'polls', parentId: poll_id, item: 'loaded', payload:true} , {root: true})
+            commit(`globalStore/changeStateItem`, {mapName : `polls`, parentId: poll_id, item: `loaded`, payload:true} , {root: true})
 
         }
 
@@ -255,7 +255,7 @@ export const pollActions = sc => class extends sc {
 
 
             commit(`globalStore/addChildTo`, {
-                    mapName: 'votes',
+                    mapName: `votes`,
                     parentId: explain_id,
                     groupName: `comments_id`,
                     item: array,
@@ -267,7 +267,7 @@ export const pollActions = sc => class extends sc {
 
         } else {
 
-        commit(`globalStore/changeStateItem`, {mapName : 'votes', parentId: id_explain, item: 'loaded', payload:true} , {root: true})
+        commit(`globalStore/changeStateItem`, {mapName : `votes`, parentId: id_explain, item: `loaded`, payload:true} , {root: true})
 
         }
 
@@ -316,7 +316,7 @@ export const pollActions = sc => class extends sc {
         let {poll_id} = item;
 
         commit(`globalStore/addChildTo`, {
-                mapName: 'polls',
+                mapName: `polls`,
                 parentId: poll_id,
                 groupName: `votes_id`,
                 item: id,
@@ -325,7 +325,7 @@ export const pollActions = sc => class extends sc {
 
         );
 
-        commit(`globalStore/changeStateItem`, {mapName : 'polls', parentId: poll_id, item: 'isVoted', payload:true} , {root: true})
+        commit(`globalStore/changeStateItem`, {mapName : `polls`, parentId: poll_id, item: `isVoted`, payload:true} , {root: true})
 
         commit(`updatePayloadItem`, [{id: poll_id, haveExplain: true}])
 
@@ -344,7 +344,7 @@ export const pollActions = sc => class extends sc {
         let {explain_id} = item;
 
         commit(`globalStore/addChildTo`, {
-            mapName: 'votes',
+            mapName: `votes`,
             parentId: explain_id,
             groupName: `comments_id`,
             item: id,
@@ -364,7 +364,7 @@ export const pollActions = sc => class extends sc {
     //          let {responseData: data, requestData: explain_id} = args;
     //
     //
-    //         commit(`globalStore/changeStateItem`, {mapName : 'votes', parentId: id_explain, item: 'loaded', payload:true} , {root: true})
+    //         commit(`globalStore/changeStateItem`, {mapName : `votes`, parentId: id_explain, item: `loaded`, payload:true} , {root: true})
     //
     //
     //

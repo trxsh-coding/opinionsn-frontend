@@ -157,7 +157,6 @@
 			}
 		},
 		mounted() {
-			console.log('/api');
 			if (this.$route.query.redirectToPoll) {
 				this.pollNotify();
 			}

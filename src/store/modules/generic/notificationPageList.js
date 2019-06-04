@@ -2,33 +2,33 @@ export const notificationPageList = (sc, listUrl) => class extends sc {
 
 
     onListReceived({state, commit, dispatch}, payload={}){
-            commit('setLoading', true);
+            commit(`setLoading`, true);
             if(state.page != 0) {
 
-                commit('notificationStore/prependToStores', payload.responseData,{root: true})
+                commit(`notificationStore/prependToStores`, payload.responseData,{root: true})
 
 
             } else {
-                commit('notificationStore/updateStores', payload.responseData,{root: true})
+                commit(`notificationStore/updateStores`, payload.responseData,{root: true})
 
 
             }
 
-        commit('setNextPage');
+        commit(`setNextPage`);
         if(!payload.responseData.messages.length) {
-            commit('setLoadedTrigger')
+            commit(`setLoadedTrigger`)
 
         }
 
 
-        dispatch('verifyStores', payload.responseData.messages)
+        dispatch(`verifyStores`, payload.responseData.messages)
 
-        commit('setLoading', false);
+        commit(`setLoading`, false);
 
 
-        let {customUrl = '/messages/notification', data={}, method='get'} = payload;
+        let {customUrl = `${process.env.VUE_APP_NOTIFICATION_API}/notification`, data={}, method=`get`} = payload;
 
-        sc.apiRequest(customUrl, data,{commit, dispatch, onSuccess: 'setNotification', successType: 'action'}, method);
+        sc.apiRequest(customUrl, data,{commit, dispatch, onSuccess: `setNotification`, successType: `action`}, method);
 
 
     };
@@ -69,32 +69,32 @@ export const notificationPageList = (sc, listUrl) => class extends sc {
     listItemsAction({state, commit, dispatch}, payload={}){
 
 
-        let {customUrl, data={}, method='get', onSuccess = 'onListReceived', params} = payload;
+        let {customUrl, data={}, method=`get`, onSuccess = `onListReceived`, params} = payload;
 
-        sc.apiRequest(customUrl || listUrl, data, {commit, dispatch, onSuccess, successType: 'action', method, params});
+        sc.apiRequest(customUrl || listUrl, data, {commit, dispatch, onSuccess, successType: `action`, method, params});
     }
 
 
     longPollingAction({state, commit, dispatch}, payload={}){
 
 
-        let {customUrl = '/messages/notification', data={}, method='get'} = payload;
+        let {customUrl = `${process.env.VUE_APP_NOTIFICATION_API}/notification`, data={}, method=`get`} = payload;
 
-        sc.apiRequest(customUrl, data,{commit, dispatch, onSuccess: 'setNotification', successType: 'action'}, method);
+        sc.apiRequest(customUrl, data,{commit, dispatch, onSuccess: `setNotification`, successType: `action`}, method);
 
 
     };
 
     getNotificationPoll({commit, dispatch}, payload={}){
         let body = payload;
-        let {customUrl = `/api/rest/info/poll/notification`, data=body, method='post'} = payload;
-        sc.apiRequest(customUrl, data,{commit, dispatch, onSuccess:'appendToStore', successType: 'action'}, method);
+        let {customUrl = `${process.env.VUE_APP_MAIN_API}/rest/info/poll/notification`, data=body, method=`post`} = payload;
+        sc.apiRequest(customUrl, data,{commit, dispatch, onSuccess:`appendToStore`, successType: `action`}, method);
     }
 
     getNotificationInitiator({commit, dispatch}, payload={}){
         let body = payload;
-        let {customUrl = `/api/rest/info/user/notification`, data=body, method='post', } = payload;
-        sc.apiRequest(customUrl, data,{commit, dispatch, onSuccess: 'appendToStore', successType: 'action'}, method);
+        let {customUrl = `${process.env.VUE_APP_MAIN_API}/rest/info/user/notification`, data=body, method=`post`, } = payload;
+        sc.apiRequest(customUrl, data,{commit, dispatch, onSuccess: `appendToStore`, successType: `action`}, method);
 
     };
 
@@ -112,10 +112,10 @@ export const notificationPageList = (sc, listUrl) => class extends sc {
          }
 
      });
-     let usersToVerify = {action: 'notificationPage/getNotificationInitiator',payload: state.usersToVerify};
-     let pollsToVerify =  {action: 'notificationPage/getNotificationPoll',payload: state.pollsToVerify};
-     dispatch('notificationStore/verifyStore', {entries: usersToVerify, storeName: 'users'}, {root: true});
-     dispatch('notificationStore/verifyStore', {entries: pollsToVerify, storeName: 'polls'}, {root: true});
+     let usersToVerify = {action: `notificationPage/getNotificationInitiator`,payload: state.usersToVerify};
+     let pollsToVerify =  {action: `notificationPage/getNotificationPoll`,payload: state.pollsToVerify};
+     dispatch(`notificationStore/verifyStore`, {entries: usersToVerify, storeName: `users`}, {root: true});
+     dispatch(`notificationStore/verifyStore`, {entries: pollsToVerify, storeName: `polls`}, {root: true});
 
  }
 
@@ -128,14 +128,14 @@ export const notificationPageList = (sc, listUrl) => class extends sc {
 
     if(responseData.messages[0].read !== undefined){
 
-        dispatch('verifyStores', responseData.messages)
-        commit('appendToItems', responseData.messages)
+        dispatch(`verifyStores`, responseData.messages)
+        commit(`appendToItems`, responseData.messages)
         state.counter+= 1 ;
-        dispatch('appendToStore', payload)
-        dispatch('longPollingAction')
+        dispatch(`appendToStore`, payload)
+        dispatch(`longPollingAction`)
 
     } else {
-        dispatch('longPollingAction')
+        dispatch(`longPollingAction`)
     }
 
 

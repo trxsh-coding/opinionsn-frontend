@@ -30,8 +30,8 @@ import PollTable from '../components/Admin/PollTable';
 Vue.use(Router);
 
 export const index = new Router({
-	base: '/',
-	mode: 'history',
+	base: `/`,
+	mode: `history`,
 	scrollBehavior(to, from, savedPosition) {
 		if (savedPosition) {
 			return savedPosition
@@ -42,88 +42,88 @@ export const index = new Router({
 	routes: [
 
 		{
-			path: '/login',
+			path: `/login`,
 			component: AuthPanel,
-			name: 'login',
+			name: `login`,
 		},
 		{
-			path: '/registration',
-			name: 'registration',
-			component: AuthPanel,
-		},
-		{
-			path: '/sign',
-			name: 'sign',
+			path: `/registration`,
+			name: `registration`,
 			component: AuthPanel,
 		},
 		{
-			path: '/restore',
-			name: 'restore',
+			path: `/sign`,
+			name: `sign`,
 			component: AuthPanel,
 		},
 		{
-			path: '/token',
-			name: 'token',
+			path: `/restore`,
+			name: `restore`,
+			component: AuthPanel,
+		},
+		{
+			path: `/token`,
+			name: `token`,
 			component: AuthPanel,
 			children: [
 				{
-					path: 'password',
-					name: 'password',
+					path: `password`,
+					name: `password`,
 					component: Password
 				},
 			]
 		},
 		{
-			path: '/admin',
-			name: 'admin',
+			path: `/admin`,
+			name: `admin`,
 			component: Admin,
 			children: [
 				{
-					path: 'catalog',
-					name: 'catalog',
+					path: `catalog`,
+					name: `catalog`,
 					component: Catalog
 				},
 				{
-					path: 'add_translations',
-					name: 'addTranslations',
+					path: `add_translations`,
+					name: `addTranslations`,
 					component: addTranslations
 				},
 				{
-					path: 'polls/:poll_type',
-					name: 'polls',
+					path: `polls/:poll_type`,
+					name: `polls`,
 					component: PollTable,
 					props: true
 				},
 			]
 		},
 		{
-			path: '/',
-			name: 'opinion',
+			path: `/`,
+			name: `opinion`,
 			component: Main,
 			redirect:
 			{
-				name: 'pollFeed'
+				name: `pollFeed`
 			},
 			children: [
 				{
-					path: 'user/:id',
-					name: 'user',
+					path: `user/:id`,
+					name: `user`,
 					component: user,
 					props: true
 				},
 				{
-					path: 'add',
-					name: 'add',
+					path: `add`,
+					name: `add`,
 					component: CreateQuiz,
 					children: [
 						{
-							path: 'poll',
-							name: 'poll',
+							path: `poll`,
+							name: `poll`,
 							component: PollCreate
 						},
 						{
-							path: 'prediction',
-							name: 'prediction',
+							path: `prediction`,
+							name: `prediction`,
 							component: CreatePoll
 						},
 
@@ -131,48 +131,48 @@ export const index = new Router({
 				},
 
 				{
-					path: 'voteFeed',
-					name: 'voteFeed',
+					path: `voteFeed`,
+					name: `voteFeed`,
 					component: VoteFeed,
 				},
 				{
-					path: 'feedBack',
-					name: 'feedBack',
+					path: `feedBack`,
+					name: `feedBack`,
 					component: feedBack,
 				},
 				{
-					path: 'notifications',
-					name: 'notifications',
+					path: `notifications`,
+					name: `notifications`,
 					component: notificationPage,
 				},
 				{
-					path: 'search',
-					name: 'search',
+					path: `search`,
+					name: `search`,
 					component: search,
 				},
 				{
-					path: 'menu',
-					name: 'menu',
+					path: `menu`,
+					name: `menu`,
 					component: sidebar,
 				},
 				{
-					path: 'follows',
-					name: 'follows',
+					path: `follows`,
+					name: `follows`,
 					component: follows,
 					redirect:
 					{
-						name: 'followers'
+						name: `followers`
 					},
 					children: [
 						{
-							path: 'followings/:id',
-							name: 'followings',
+							path: `followings/:id`,
+							name: `followings`,
 							component: followings,
 							props: { isFollowing: true }
 						},
 						{
-							path: 'followers/:id',
-							name: 'followers',
+							path: `followers/:id`,
+							name: `followers`,
 							component: followers,
 							props: { isFollowing: false }
 						},
@@ -180,30 +180,30 @@ export const index = new Router({
 					]
 				},
 				{
-					path: 'pollFeed',
-					name: 'pollFeed',
+					path: `pollFeed`,
+					name: `pollFeed`,
 					component: PollFeed,
 					props: { feed: true }
 
 				},
 				{
-					path: 'catalogList',
-					name: 'catalogList',
+					path: `catalogList`,
+					name: `catalogList`,
 					component: CatalogList,
 				},
 				{
-					path: 'bookmarkFeed',
-					name: 'bookmarkFeed',
+					path: `bookmarkFeed`,
+					name: `bookmarkFeed`,
 					component: bookmarkFeed,
 				},
 				{
-					path: 'catalogFeed/:id',
-					name: 'catalogFeed',
+					path: `catalogFeed/:id`,
+					name: `catalogFeed`,
 					component: CatalogFeed,
 				},
 				{
-					path: 'singlePoll/:id',
-					name: 'singlePoll',
+					path: `singlePoll/:id`,
+					name: `singlePoll`,
 					component: Poll,
 					props: { feed: false }
 				},
@@ -224,17 +224,17 @@ index.afterEach(() => {
 	nprogress.done()
 });
 index.beforeEach((to, from, next) => {
-	const publicPages = ['/login'];
+	const publicPages = [`/login`];
 	next();
 });
 
 index.beforeEach((to, from, next) => {
-	if (to.path === '/sign' || to.path === '/registration' || to.path === '/login' || to.path === '/restore' || to.name === `token` || to.path === '/pollFeed' || to.name === 'singlePoll' || to.name === 'feedBack') {
+	if (to.path === `/sign` || to.path === `/registration` || to.path === `/login` || to.path === `/restore` || to.name === `token` || to.path === `/pollFeed` || to.name === `singlePoll` || to.name === `feedBack`) {
 		next({
 			query: { redirect: to.fullPath }
 		});
 	} else {
-		axios.get('/api/rest/getUserStatus')
+		axios.get(`${process.env.VUE_APP_MAIN_API}/rest/getUserStatus`)
 
 			.then(response => {
 
@@ -247,7 +247,7 @@ index.beforeEach((to, from, next) => {
 			})
 			.catch(error => {
 
-				next('/login')
+				next(`/login`)
 
 			})
 	}

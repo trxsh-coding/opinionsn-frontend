@@ -6,7 +6,7 @@ export const followsActions = sc => class extends sc {
 
         let id = payload;
 
-        let {customUrl = `/api/rest/follow/${id}`, data={id}, method='post', } = payload;
+        let {customUrl = `${process.env.VUE_APP_MAIN_API}/rest/follow/${id}`, data={id}, method='post', } = payload;
 
         sc.apiRequest(customUrl, data,{commit, dispatch, onSuccess: 'onFollowUser', successType: 'action'}, method);
 
@@ -17,7 +17,7 @@ export const followsActions = sc => class extends sc {
 
         let id = payload;
 
-        let {customUrl = `/api/rest/unFollow/${id}`, data={id}, method='post', } = payload;
+        let {customUrl = `${process.env.VUE_APP_MAIN_API}/rest/unFollow/${id}`, data={id}, method='post', } = payload;
 
         sc.apiRequest(customUrl, data,{commit, dispatch, onSuccess: 'getFollowings', successType: 'action'}, method);
 
@@ -27,7 +27,7 @@ export const followsActions = sc => class extends sc {
 
         let id = payload;
 
-        let {customUrl = `/api/rest/getFollowing`, data={}, method='get', } = payload;
+        let {customUrl = `${process.env.VUE_APP_MAIN_API}/rest/getFollowing`, data={}, method='get', } = payload;
 
         sc.apiRequest(customUrl, data,{commit, dispatch, onSuccess: 'onListReceived', successType: 'mutation'}, method);
 
@@ -37,7 +37,7 @@ export const followsActions = sc => class extends sc {
 
         let id = payload;
 
-        let {customUrl = `/api/rest/getMyFollowers`, data={}, method='get', } = payload;
+        let {customUrl = `${process.env.VUE_APP_MAIN_API}/rest/getMyFollowers`, data={}, method='get', } = payload;
 
         sc.apiRequest(customUrl, data,{commit, dispatch, onSuccess: 'onListReceived', successType: 'mutation'}, method);
 
@@ -47,7 +47,7 @@ export const followsActions = sc => class extends sc {
 
     getMyFollowings({commit, dispatch}, payload={}){
 
-        let {customUrl = `/api/rest/vote/feed/leaders`, data={}, method='get', } = payload;
+        let {customUrl = `${process.env.VUE_APP_MAIN_API}/rest/vote/feed/leaders`, data={}, method='get', } = payload;
 
         sc.apiRequest(customUrl, data,{commit, dispatch, onSuccess: 'onListReceived', successType: 'mutation'}, method);
 

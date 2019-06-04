@@ -69,7 +69,7 @@ export const user  =  {
   actions: {
 
     getUserByID({ dispatch, commit}, e) {
-        axios.get('/api/rest/getUserById/' + e)
+        axios.get(`${process.env.VUE_APP_MAIN_API}/rest/getUserById/` + e)
             .then(function(response){
               if (response.status === 200) {
                 store.state.user.setUser = response.data;
@@ -79,7 +79,7 @@ export const user  =  {
           }.bind(this))
     },
     getCurrentUser({dispatch, commit}, e) {
-      axios.get('/api/rest/getUser')
+      axios.get(`${process.env.VUE_APP_MAIN_API}/rest/getUser`)
         .then(function (response) {
           if (response.status === 200) {
             commit('setCurrentUser', response.data)
@@ -87,7 +87,7 @@ export const user  =  {
         })
     },
     getUserLocale({dispatch, commit}, payload){
-     return axios.post('/api/rest/locale/change/' + payload, payload)
+     return axios.post(`${process.env.VUE_APP_MAIN_API}/rest/locale/change/` + payload, payload)
           .then(function(response, store){
               if (response.status === 200) {
                 commit('changeLocale', payload)
@@ -96,7 +96,7 @@ export const user  =  {
       })
     },
     updateUser({dispatch, commit}, e) {
-      axios.post('/api/rest/updateUser', e)
+      axios.post(`${process.env.VUE_APP_MAIN_API}/rest/updateUser`, e)
           .then(function(response, store){
               if (response.status === 200) {
                 commit('updateUser', response.data)
@@ -107,7 +107,7 @@ export const user  =  {
       });
     },
     follow({dispatch, commit}, e) {
-      axios.post('/api/rest/follow/' + e, e)
+      axios.post(`${process.env.VUE_APP_MAIN_API}/rest/follow/` + e, e)
           .then(function(response, store){
               if (response.status === 200) {
                 commit('reactiveUser', response)
@@ -115,7 +115,7 @@ export const user  =  {
       }.bind(this))
     },
     trashFollow({dispatch, commit}, e) {
-      axios.post('/api/rest/follow/' + e, e)
+      axios.post(`${process.env.VUE_APP_MAIN_API}/rest/follow/` + e, e)
           .then(function(response, store){
               if (response.status === 200) {
                 dispatch('getFollowers')
@@ -124,7 +124,7 @@ export const user  =  {
       }.bind(this))
     },
     trashUnFollow({dispatch, commit}, e) {
-      axios.post('/api/rest/unFollow/' + e, e)
+      axios.post(`${process.env.VUE_APP_MAIN_API}/rest/unFollow/` + e, e)
           .then(function(response, store){
               if (response.status === 200) {
                 dispatch('getFollowers')
@@ -133,7 +133,7 @@ export const user  =  {
       }.bind(this))
     },
     unFollow({dispatch, commit}, e) {
-      axios.post('/api/rest/unFollow/' + e, e)
+      axios.post(`${process.env.VUE_APP_MAIN_API}/rest/unFollow/` + e, e)
           .then(function(response, store){
               if (response.status === 200) {
                 commit('reactiveUser', response)
@@ -141,7 +141,7 @@ export const user  =  {
       }.bind(this))
     },
     getLeaders({dispatch, commit}) {
-      axios.get('/api/rest/getFollowing')
+      axios.get(`${process.env.VUE_APP_MAIN_API}/rest/getFollowing`)
         .then(function (response) {
           if (response.status === 200) {
             commit('setLeaders', response.data)
@@ -149,7 +149,7 @@ export const user  =  {
         })
     },
     getFollowers({dispatch, commit}) {
-      axios.get('/api/rest/getMyFollowers')
+      axios.get(`${process.env.VUE_APP_MAIN_API}/rest/getMyFollowers`)
         .then(function (response) {
           if (response.status === 200) {
             commit('setFollowers', response.data)

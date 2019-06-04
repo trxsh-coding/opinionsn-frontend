@@ -1,6 +1,6 @@
 import {VuexStore} from "./generic/proto";
 import {StoreWithList} from "./generic/withList";
 
-let store = new (StoreWithList(VuexStore, `/api/rest/categories`));
+let store = new (StoreWithList(VuexStore, `${process.env.VUE_APP_MAIN_API}/rest/categories`));
 
 export const catalogList = store.vuexStore;
