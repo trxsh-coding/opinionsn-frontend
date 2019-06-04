@@ -6,8 +6,8 @@
 				:placeholder="lstr('search')"
 				v-model="keywords"
 				@keyup.enter.native="searchUsers">
-				<template slot="append" >
-					<i @click="clearForm">
+				<template slot="append">
+					<i @click="clearForm" class="pointer">
 						<icon-base
 							class="icon-close"
 							fill="none"
@@ -167,6 +167,7 @@
 
 		.button-panel {
 			display: flex;
+			padding: 0 8px;
 		}
 
         .el-input__inner {

@@ -131,7 +131,7 @@
 				position: absolute;
 				right: 18px;
 				bottom: 10px;
-				z-index: 99999;
+				z-index: 99;
 
 				&.searchBlock {
 					top: 0;
@@ -293,7 +293,7 @@
 
 			&.searchBlock {
 				overflow: hidden;
-				max-height: 15px;
+				max-height: 20px;
 			}
 
 			span {

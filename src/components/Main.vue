@@ -63,14 +63,7 @@
 						<router-view></router-view>
 						<div class="auth-block" v-if="!main_user_id && !hide">
 								<div class="logo-block">
-										<icon-base
-														fill="none"
-														class="icon logo"
-														width="30"
-														height="30"
-														viewBox="0 0 30 30"
-														icon-name="logo"><icon-logo />
-										</icon-base>
+										<div class="icon logo picture-25x25 mr-6" :style="{ 'background-image': 'url(' + require('./assets/icons/icon-logo.png') + ')' } " />
 										<icon-base
 														fill="none"
 														class="text-logo"

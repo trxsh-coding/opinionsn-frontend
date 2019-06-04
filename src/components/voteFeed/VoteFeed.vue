@@ -26,9 +26,9 @@
         <div class="feed relative">
             <div class="filter-section flex mb-10" v-if="items.length">
                 <swiper :options="swiperOption" class="category-section">
-                    <swiper-slide class="followings-block " v-for="following in followings">
+                    <swiper-slide class="followings-block" v-for="following in followings">
 
-                        <filter-component  :following="following"  />
+                        <filter-component class="pointer"  :following="following"  />
 
                     </swiper-slide>
                 </swiper>

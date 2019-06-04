@@ -21,10 +21,10 @@
 
     <!-- Всё ок -->
     <div class="feed relative">
-        <swiper :options="swiperOption" class="category-section">
+        <swiper :options="swiperOption" class="category-section mb-6">
 
         	<swiper-slide class="category-block " v-for="category in categories">
-            	<filter-component :filtered="filtered" :category="category"  />
+            	<filter-component class="pointer" :filtered="filtered" :category="category"  />
         	</swiper-slide>
 
         	<div class="swiper-pagination" slot="pagination"></div>
