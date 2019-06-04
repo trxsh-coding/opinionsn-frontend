@@ -39,10 +39,14 @@ export const notificationStore  =  {
          */
 
         appendToStores: function(state, {mapName, payload}){
-        console.log('appendBegin')
-        if(mapName === "messages"){
+            console.log(mapName)
+            console.log('hallo')
+            console.log(payload)
+            console.log('bye')
 
-            state.messages = [payload,...state.messages];
+            if(mapName === "messages"){
+
+            state.messages = [...payload,...state.messages];
 
         } else {
 
@@ -52,18 +56,18 @@ export const notificationStore  =  {
 
         }
 
-            console.log('appendOver')
 
         },
 
         prependToStores: function(state, payload){
-
-            state.messages = [...state.messages, ...payload ];
+            console.log('prepend')
+            console.log(payload)
+            state.messages = [...state.messages, ...payload.messages ];
         },
 
         updateStores: function (state, payload) {
-
-            state.messages = payload;
+            console.log(payload)
+            state.messages = [...payload.messages];
 
 
         },
@@ -79,8 +83,6 @@ export const notificationStore  =  {
     actions: {
 
         verifyStore: function({state, dispatch, commit}, payload){
-            console.log('please payload me')
-            console.log(payload)
             let {entries, storeName} = payload;
             let store = state[storeName];
                 const missingOnes = [];
@@ -90,10 +92,8 @@ export const notificationStore  =  {
                         // dispatch(entries.action, payload, {root: true});
                     }
                 }
-                console.log(missingOnes)
             if (missingOnes.length){
                 dispatch(entries.action, missingOnes, {root: true});
-                console.log('did u verify?')
                 // Doesnt have these polls/users
                 // missingOnes
             }

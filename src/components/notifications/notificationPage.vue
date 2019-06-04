@@ -11,7 +11,7 @@
             <span>Уведомлений нет</span>
         </div>
         <mugen-scroll :handler="load" :should-handle="!loaded"  >
-            <div class="loading"  v-loading="!loaded && messages.length > 21" v-if="!loaded" ></div>
+            <div class="loading"  v-loading="spinner" ></div>
         </mugen-scroll>
     </div>
 </template>
@@ -32,7 +32,9 @@
                 counter : state => state.counter,
                 page : state => state.page,
                 loaded : state => state.loaded,
-                loading: state => state.loading
+                loading: state => state.loading,
+                spinner: state => state.spinner
+
 
             }),
         },

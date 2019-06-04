@@ -2,43 +2,38 @@ export const notificationPageList = (sc, listUrl) => class extends sc {
 
 
     onListReceived({state, commit, dispatch}, payload={}){
-            console.log(payload)
             commit('setLoading', true);
-
             if(state.page != 0) {
-
 
                 commit('notificationStore/prependToStores', payload.responseData,{root: true})
 
 
             } else {
-
                 commit('notificationStore/updateStores', payload.responseData,{root: true})
 
 
             }
 
         commit('setNextPage');
-
-        if(!payload.responseData.length) {
-
+        if(!payload.responseData.messages.length) {
             commit('setLoadedTrigger')
 
         }
 
 
-        dispatch('verifyStores', payload.responseData)
+        dispatch('verifyStores', payload.responseData.messages)
+
+        commit('setLoading', false);
+
 
         let {customUrl = '/messages/notification', data={}, method='get'} = payload;
 
         sc.apiRequest(customUrl, data,{commit, dispatch, onSuccess: 'setNotification', successType: 'action'}, method);
 
-        commit('setLoaded')
 
     };
 
     setNextPage(state){
-
         state.page += 1;
 
     }
@@ -57,13 +52,11 @@ export const notificationPageList = (sc, listUrl) => class extends sc {
 
     setLoading(state, payload) {
 
-        state.loading = true;
+        state.spinner = payload;
 
     }
 
     appendToItems(state, payload){
-        console.log('im here')
-        console.log(payload)
         state.items = [...state.items, ...payload];
     }
 
@@ -93,8 +86,6 @@ export const notificationPageList = (sc, listUrl) => class extends sc {
     };
 
     getNotificationPoll({commit, dispatch}, payload={}){
-        console.log('getpayload')
-        console.log(payload)
         let body = payload;
         let {customUrl = `/api/rest/info/poll/notification`, data=body, method='post'} = payload;
         sc.apiRequest(customUrl, data,{commit, dispatch, onSuccess:'appendToStore', successType: 'action'}, method);
@@ -112,8 +103,7 @@ export const notificationPageList = (sc, listUrl) => class extends sc {
  /** MUTATIONS **/
 
  verifyStores({dispatch, commit, state}, payload){
-     console.log('VERIFY PLEASE')
-     console.log(payload)
+
      payload.forEach(({userId, initiatorId, targetId})=>{
          state.usersToVerify = [...state.usersToVerify, userId];
          state.usersToVerify = Array.from(new Set([...state.usersToVerify, initiatorId]));
@@ -141,14 +131,11 @@ export const notificationPageList = (sc, listUrl) => class extends sc {
         dispatch('verifyStores', responseData.messages)
         commit('appendToItems', responseData.messages)
         state.counter+= 1 ;
-        commit('appendToStores', responseData)
+        dispatch('appendToStore', payload)
         dispatch('longPollingAction')
 
     } else {
-
         dispatch('longPollingAction')
-
-
     }
 
 
@@ -187,7 +174,8 @@ export const notificationPageList = (sc, listUrl) => class extends sc {
             loading:false,
             usersToVerify:[],
             pollsToVerify:[],
-            itemsById:[]
+            itemsById:[],
+            spinner:false
 
 
         }
