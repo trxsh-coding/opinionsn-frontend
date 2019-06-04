@@ -36,7 +36,7 @@
       </span>
       <el-button
         class="close-btn"
-        @click="dismissNotification"
+        @click="closeNotification"
         icon="el-icon-close"
         type="info"
         circle
@@ -155,8 +155,8 @@ export default {
 
   methods: {
 
-    dismissNotification() {
-      this.$store.commit('notificationPage/closeNotification', this.$vnode.key)
+    closeNotification() {
+		this.$store.commit('notificationPage/closeNotification', this.$vnode.key)
     },
     userLink() {
       this.$router.push({name: "user", params: {id: this.author.id}});

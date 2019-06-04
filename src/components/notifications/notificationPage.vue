@@ -55,6 +55,7 @@
             this.$store.dispatch('notificationPage/readInitialNotifications')
 
         }
+
     }
 </script>
 

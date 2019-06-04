@@ -40,6 +40,12 @@ class notificationStore extends notificationPageList(VuexStore, '/messages/notif
 
     }
 
+	closeAllNotifications(state){
+
+		state.items = [];
+
+	}
+
     clearCounter(state) {
 
         state.counter = 0;
@@ -50,6 +56,7 @@ class notificationStore extends notificationPageList(VuexStore, '/messages/notif
         return {
             ...super.mutations,
             closeNotification: this.closeNotification,
+			closeAllNotifications: this.closeAllNotifications,
             clearCounter: this.clearCounter,
             setReadNotifications: this.setReadNotifications,
             setNotificationsCount: this.setNotificationsCount

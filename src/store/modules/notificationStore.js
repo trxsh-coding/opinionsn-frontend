@@ -39,36 +39,31 @@ export const notificationStore  =  {
          */
 
         appendToStores: function(state, {mapName, payload}){
-            console.log(mapName)
-            console.log('hallo')
-            console.log(payload)
-            console.log('bye')
 
             if(mapName === "messages"){
 
-            state.messages = [...payload,...state.messages];
+            	state.messages = [...payload,...state.messages];
 
-        } else {
+        	} else {
 
-            let items = {}
-            payload.forEach(item => {items[item.id]= item})
-            state[mapName] = {...state[mapName], ...items}
+				let items = {}
+				payload.forEach(item => {items[item.id]= item})
+				state[mapName] = {...state[mapName], ...items}
 
-        }
+        	}
 
 
         },
 
         prependToStores: function(state, payload){
-            console.log('prepend')
-            console.log(payload)
+
             state.messages = [...state.messages, ...payload.messages ];
+
         },
 
         updateStores: function (state, payload) {
-            console.log(payload)
-            state.messages = [...payload.messages];
 
+            state.messages = [...payload.messages];
 
         },
 
