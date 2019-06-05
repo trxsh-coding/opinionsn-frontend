@@ -172,7 +172,7 @@
 				}
 			}
 
-			.swiper-slide {
+			.category-block {
 				width: 93px !important;
 				margin-right: 12px !important;
 			}

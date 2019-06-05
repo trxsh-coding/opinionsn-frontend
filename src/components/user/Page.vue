@@ -1,6 +1,5 @@
 <template>
     <div id="mypage">
-		<div class="loading"  v-loading.fullscreen.lock="state.loading"  v-if="state.loading"/>
         <!-- Загрузка -->
         <!--<div v-else-if="state.loading">-->
             <!--<p align="center" style="font-size:10px;margin-top: 5px;color: darkgray">Загружаю...</p>-->

@@ -31,27 +31,7 @@
 
     </div>
 
-        <!--<div class="pocket-money">-->
-          <!--<icon-base-->
-            <!--fill="#162D3A"-->
-            <!--width="8"-->
-            <!--height="10"-->
-            <!--viewBox="0 0 8 10"-->
-            <!--icon-name="union"><icon-union />-->
-          <!--</icon-base>-->
-          <!--<span v-if="user.balance == 0" >0 000 000</span>-->
-          <!--<span v-if="user.balance > 0">{{user.balance}}</span>-->
-          <!--<icon-base-->
-            <!--class="icon-eye"-->
-            <!--fill="#162D3A"-->
-            <!--width="14"-->
-            <!--height="10"-->
-            <!--viewBox="0 0 14 8"-->
-            <!--icon-name="eye"><icon-eye />-->
-          <!--</icon-base>-->
-        <!--</div>-->
-
-      <div class="profileAvatar pointer" @click="userLink(user.id)" :style="{ 'background-image': 'url('+ publicPath +user.path_to_avatar + ')' }"> </div>
+      <div class="profileAvatar pointer" @click="userLink(user.id)" :style="{ 'background-image': 'url('+ publicPath + user.path_to_avatar + ')' }"> </div>
      <el-dropdown trigger="click">
        <span class="el-dropdown-link pointer">
          <icon-base

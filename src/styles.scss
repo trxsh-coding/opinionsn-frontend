@@ -270,6 +270,13 @@ a {
   background-size: cover;
 }
 
+.picture-22x22 {
+  width: 22px;
+  height: 22px;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
 .picture-25x25 {
   width: 25px;
   height: 25px;
@@ -291,14 +298,37 @@ a {
   background-size: cover;
 }
 
+.rounded {
+	border-radius: 50%;
+}
+
 //Avatars
+
+.avatar-22x22 {
+	width: 22px;
+	height: 22px;
+	border-radius: 1000px;
+	background-repeat: no-repeat;
+	background-size: cover;
+	margin-right: 9px;
+	flex-shrink: 0;
+}
+
+.avatar-30x30 {
+	width: 30px;
+	height: 30px;
+	border-radius: 1000px;
+	background-repeat: no-repeat;
+	background-size: cover;
+	margin-right: 9px;
+	flex-shrink: 0;
+}
 
 .avatar-42x42 {
 
   width: 42px;
   height: 42px;
   border-radius: 1000px;
-  background-size: 50% 50%;
   background-repeat: no-repeat;
   background-size: cover;
   margin-right: 9px;
@@ -309,7 +339,6 @@ a {
   width: 90px;
   height: 90px;
   border-radius: 1000px;
-  background-size: 50% 50%;
   background-repeat: no-repeat;
   background-size: cover;
   margin-right: 9px;
@@ -323,18 +352,6 @@ a {
 
 .normalOpacity {
   opacity: 1 !important;
-
-}
-
-.avatar-30x30 {
-  width: 30px;
-  height: 30px;
-  border-radius: 1000px;
-  background-size: 50% 50%;
-  background-repeat: no-repeat;
-  background-size: cover;
-  margin-right: 9px;
-  flex-shrink: 0;
 
 }
 
@@ -496,6 +513,10 @@ a {
   margin-top: 5px;
 }
 
+.mt-3 {
+	margin-top: 3px;
+}
+
 .mb-40 {
   margin-bottom: 40px;
 }
@@ -536,6 +557,10 @@ a {
 
   margin-right: 10px;
 
+}
+
+.ml-14 {
+	margin-left: 14px !important;
 }
 
 //borders

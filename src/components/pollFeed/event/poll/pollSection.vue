@@ -25,7 +25,8 @@
             </div>
             <div class="picture-block" v-if="poll.picture" :style="{ 'background-image': 'url(' + poll.picture + ')' } "></div>
         </div>
-        <div class="options " >
+		<involved-users-panel class="mt-3 mb-6" :users="poll.bows" v-if="!item.voted && Object.keys(poll.bows).length > 0"/>
+		<div class="options " >
 
             <div class="options-section" :class="{withPicture: option.picture}" v-for="(option, option_index) in senitizedOptions" :key="option_index">
 
@@ -55,6 +56,7 @@
     import langMixin from '../../../mixins/langMixin'
     import optionsSection from './options/optionsSection'
     import optionsWithPictures from './options/optionsWithPictures'
+	import involvedUsersPanel from './involvedUsersPanel'
     import { mapState } from 'vuex'
     import I18n from "../../../i18n"
     import moment from 'moment'
@@ -246,7 +248,8 @@
             optionsWithPictures,
             bookmark,
             inputExplain,
-            langString
+            langString,
+			involvedUsersPanel
         },
 
     }
