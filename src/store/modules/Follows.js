@@ -2,7 +2,7 @@ import {VuexStore} from "./generic/proto";
 import {StoreWithList} from "./generic/withList";
 import {followsActions} from "./followsActions";
 
-class followsPageStore extends followsActions(StoreWithList (VuexStore, `/api/rest/getFollowing`)) {
+class followsPageStore extends followsActions(StoreWithList (VuexStore, `${process.env.VUE_APP_MAIN_API}/rest/getFollowing`)) {
 
 }
 
