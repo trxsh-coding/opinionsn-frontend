@@ -1,6 +1,6 @@
 <template lang="html">
     <div id="profile-section" class="mb-10">
-        <div class="profile-background " :style="{ 'background-image': 'url(' + user.background_image + ')' }" > </div>
+        <div class="profile-background " :style="{ 'background-image': 'url(' + publicPath + user.background_image + ')' }" > </div>
         <div  class="profile-content">
             <avatar :author="user" size="S" class="profile-avatar"/>
             <div class="main-content">
@@ -27,6 +27,7 @@
     export default {
         data () {
             return {
+                publicPath: process.env.VUE_APP_MAIN_API
 
             }
         },
