@@ -1,10 +1,10 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="io.cordova.hellocordova" version="1.0.0" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
-    <name>Opinion-sn</name>
+<widget id="io.opiniosn.app" version="1.0.0" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+    <name>Opinion</name>
     <description>
         Opinion social network
     </description>
-    <author email="noreply@opinionsn.com" href="http://cordova.io">
+    <author email="noreply@opinionsn.com" href="http://opinionsn.io">
         Opinion Team
     </author>
     <content src="index.html" />
@@ -17,6 +17,7 @@
     <allow-intent href="mailto:*" />
     <allow-intent href="geo:*" />
     <platform name="android">
+        <icon src="icon.png" density="xhdpi" />
         <allow-intent href="market:*" />
         <allow-navigation href="*" />
     </platform>
