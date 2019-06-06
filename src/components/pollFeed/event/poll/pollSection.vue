@@ -23,7 +23,7 @@
             <div class="description-block wb" v-if="hiddenText">
                 <span class="poll-description">{{poll.description}}</span>
             </div>
-            <div class="picture-block" v-if="poll.picture" :style="{ 'background-image': 'url(' + poll.picture + ')' } "></div>
+            <div class="picture-block" v-if="poll.picture" :style="{ 'background-image': 'url(' + publicPath + poll.picture + ')' } "></div>
         </div>
 		<involved-users-panel class="mt-3 mb-6" :users="poll.bows" v-if="!item.voted && Object.keys(poll.bows).length > 0"/>
 		<div class="options " >
@@ -74,7 +74,8 @@
                 voteAccess:false,
                 optionsLimit:2,
                 hiddenText:false,
-                showMore:false
+                showMore:false,
+                publicPath: process.env.VUE_APP_MAIN_API
 
             }
 

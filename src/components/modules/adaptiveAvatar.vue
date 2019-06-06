@@ -1,7 +1,7 @@
 <template>
         <div
                 class="avatar pointer"
-                :style="{ 'background-image': 'url(' + imageUtil(author.path_to_avatar, size) + ')' } "
+                :style="{ 'background-image': 'url(' + publicPath  +imageUtil(author.path_to_avatar, size) + ')' } "
                 @click="userLink">
         </div>
 </template>
@@ -13,6 +13,15 @@
         name: "smallAvatar",
         props:['author', 'size'],
         mixins:[imageMixin],
+        data(){
+
+                return {
+
+                        publicPath: process.env.VUE_APP_MAIN_API
+
+                }
+
+        },
         methods: {
 
             userLink() {
