@@ -293,7 +293,7 @@
 
 			&.searchBlock {
 				overflow: hidden;
-				max-height: 20px;
+				max-height: 17px;
 			}
 
 			span {
