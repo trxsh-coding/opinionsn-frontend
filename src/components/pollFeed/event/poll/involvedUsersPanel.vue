@@ -1,7 +1,7 @@
 <template>
     <div class="involved_users-panel">
 
-		<lang-string class="panel-caption" :title="'Friends_who_took_part_in_this_survey'"/>
+		<lang-string class="panel-caption" :title="'poll_bows_caption'"/>
 
 		<swiper class="mt-5" :options="swiperOption">
 			<swiper-slide class="user-picture-wrapper" v-for="(value, key) in users" :key="i">
