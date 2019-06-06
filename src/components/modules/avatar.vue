@@ -2,7 +2,7 @@
     <div class="notification-avatar" slot="avatar" >
         <div
                 class="avatar pointer avatar-25x25"
-                :style="{ 'background-image': 'url(' + imageUtil(author.path_to_avatar, 'S') + ')' } "
+                :style="{ 'background-image': 'url(' + publicPath + imageUtil(author.path_to_avatar, 'S') + ')' } "
                 @click="userLink">
         </div>
     </div>
@@ -15,6 +15,16 @@
         name: "avatar",
         props:['author'],
         mixins:[imageMixin],
+        data(){
+
+            return {
+
+                publicPath: process.env.VUE_APP_MAIN_API
+
+
+            }
+
+        },
         methods: {
 
             userLink() {
