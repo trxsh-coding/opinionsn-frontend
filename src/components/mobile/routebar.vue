@@ -1,5 +1,5 @@
 <template lang="html">
-    <aside class="routebar">
+    <aside class="routebar mb-3">
         <ul>
             <router-link class-active="active" class="hidden-sm-and-up mobile relative" tag="li" to="/add" v-if="mainUser.authorities === 'ADMIN'">
                 <icon-base
@@ -11,7 +11,7 @@
                         viewBox="0 0 24 24"
                         icon-name="add-poll"><icon-add-poll/>
                 </icon-base>
-                <a><lang-string :title="'add_poll'"/></a>
+                <lang-string :title="'add_poll'"/>
             </router-link>
             <router-link class-active="active" class="hidden-sm-and-up relative" tag="li" to="/bookmarkFeed">
                 <icon-base
@@ -21,7 +21,7 @@
                         viewBox="0 0 15 22"
                         icon-name="bookmark"><icon-bookmark/>
                 </icon-base>
-                <a><lang-string :title="'bookmarked'"/></a>
+                <lang-string :title="'bookmarked'"/>
 
             </router-link>
             <el-popover
@@ -38,7 +38,7 @@
                             viewBox="0 0 24 20"
                             icon-name="pocket"><icon-pocket/>
                     </icon-base>
-                    <a><lang-string :title="'pocket'"/></a>
+                    <lang-string :title="'pocket'"/>
                 </li>
             </el-popover>
 
@@ -50,7 +50,7 @@
                         viewBox="0 0 22 25"
                         icon-name="catalog"><icon-catalog/>
                 </icon-base>
-                <a><lang-string :title="'topics'"/></a>
+                <lang-string :title="'topics'"/>
             </router-link>
             <li class="hidden-sm-and-up relative">
                 <icon-base
@@ -60,7 +60,7 @@
                         viewBox="0 0 24 24"
                         icon-name="settings"><icon-settings/>
                 </icon-base>
-                <a><lang-string :title="'settings'"/></a>
+                <lang-string :title="'settings'"/>
             </li>
             <li class="hidden-sm-and-up relative unbordered" @click="userLogout">
                 <icon-base
@@ -70,7 +70,7 @@
                         viewBox="0 0 24 25"
                         icon-name="settings"><icon-exit/>
                 </icon-base>
-                <a><lang-string :title="'exit'"/></a>
+                <lang-string :title="'exit'"/>
             </li>
         </ul>
     </aside>
@@ -126,7 +126,7 @@
                             this.$store.commit("globalStore/clearStores")
                             this.$router.push('/login/sign');
 					})
-            },
+            }
 
         },
         components: {
@@ -257,13 +257,9 @@
 
 
 
-        a {
+        span {
             color: #383838;
             font-size: 12px;
-            line-height: 12px;
-            margin-left: 10px;
-            text-decoration: none;
-            padding-top: 3px;
         }
         figure {
             display: inline-block !important;

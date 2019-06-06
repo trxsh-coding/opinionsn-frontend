@@ -25,7 +25,11 @@
             </div>
             <div class="picture-block" v-if="poll.picture" :style="{ 'background-image': 'url(' + publicPath + poll.picture + ')' } "></div>
         </div>
-		<involved-users-panel class="mt-3 mb-6" :users="poll.bows" v-if="!item.voted && Object.keys(poll.bows).length > 0"/>
+
+		<transition name="fade">
+			<involved-users-panel class="mt-3 mb-6" :users="poll.bows" v-show="!item.voted && Object.keys(poll.bows).length > 0"/>
+		</transition>
+
 		<div class="options " >
 
             <div class="options-section" :class="{withPicture: option.picture}" v-for="(option, option_index) in senitizedOptions" :key="option_index">
@@ -445,5 +449,14 @@
             }
         }
 
+		.fade-enter-active, .fade-leave-active {
+			transition: opacity 0.3s;
+		}
+
+		.fade-enter, .fade-leave-to /* .fade-leave-active до версии 2.1.8 */ {
+			opacity: 0;
+		}
+
     }
+
 </style>

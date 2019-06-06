@@ -1,22 +1,26 @@
 <template>
-    <div id="options-block" v-loading="loading_option">
-        <div class="option-container relative pointer" v-bind:class="{ opacity  : poll.votingOver, rightAnswer : correct_option, cursor : option.voted }" @click="vote(option.id, option.poll_id, poll.type_of_poll)" >
-            <div class="option-id">
-                <span class="span-id">{{option_index + 1}}</span> <span v-if="option.id === correctOption"></span>
-            </div>
-            <div class="description-right-section relative">
-                <div class="option-description" >
-                    <span > {{option.description}} </span>
-                </div>
-                <div class="progress-bar" v-if="item.voted || poll.votingOver">
-                    <el-progress :stroke-width="3" :percentage="option.voted_percentage" color="#152D3A" v-bind:class="{selected:  selected_option, correct: correct_option }"></el-progress>
-                </div>
-            </div>
-        </div>
-        <div class="option-bows " v-show="item.voted" v-bind:class="{ opacity  : poll.votingOver, rightAnswer : correct_option, cursor : item.voted }" >
-            <poll-option-heads :limit="3" :option="option" v-if="item.voted"/>
-        </div>
-    </div>
+
+	<div id="options-block" v-loading="loading_option">
+		<div class="option-container relative pointer" v-bind:class="{ opacity  : poll.votingOver, rightAnswer : correct_option, cursor : option.voted }" @click="vote(option.id, option.poll_id, poll.type_of_poll)" >
+			<div class="option-id">
+				<span class="span-id">{{option_index + 1}}</span> <span v-if="option.id === correctOption"></span>
+			</div>
+			<div class="description-right-section relative">
+				<div class="option-description" >
+					<span > {{option.description}} </span>
+				</div>
+				<div class="progress-bar" v-if="item.voted || poll.votingOver">
+					<el-progress :stroke-width="3" :percentage="option.voted_percentage" color="#152D3A" v-bind:class="{selected:  selected_option, correct: correct_option }"></el-progress>
+				</div>
+			</div>
+		</div>
+		<transition name="fade">
+			<div class="option-bows " v-if="item.voted" v-bind:class="{ opacity  : poll.votingOver, rightAnswer : correct_option, cursor : item.voted }" >
+				<poll-option-heads :limit="3" :option="option" v-if="item.voted"/>
+			</div>
+		</transition>
+	</div>
+
 </template>
 
 <script>
@@ -150,6 +154,10 @@
         flex-wrap: wrap;
 		width: 100%;
 
+		* {
+			transition: all 0.3s;
+		}
+
         .opacity {
 
             opacity: 0.4;
@@ -214,7 +222,7 @@
 
         .option-container {
             display: flex;
-            width: 375px;
+            /*width: 375px;*/
             border-radius: 6px;
             height: 48px;
             background: #FFFFFF;
@@ -301,6 +309,14 @@
 
 
         /*}*/
+
+		.fade-enter-active, .fade-leave-active {
+			transition: opacity 0.3s;
+		}
+
+		.fade-enter, .fade-leave-to /* .fade-leave-active до версии 2.1.8 */ {
+			opacity: 0;
+		}
     }
 
 

@@ -44,7 +44,7 @@
 				</li>
 			</ul>
 			<ul class="nav-section nav-section-2">
-				<li class="nav__item nav__item-1" @click="$router.go(-1)">
+				<li class="nav__item nav__item-1 v-center" @click="$router.go(-1)">
 					<icon-base
 
 						fill="none"
@@ -210,7 +210,6 @@
 					case "catalogFeed":
                         return this.category;
 
-
                     default:
                         return null;
                 }
@@ -222,7 +221,7 @@
 					// Если название опроса больше 28 символов, тогда обрезаем его.
 					return pollName.length > 28 ? pollName.slice(0, 28).trim() + "..." : pollName
 				}
-				return "";
+				return " ";
 			}
 		},
 		methods: {
@@ -328,12 +327,16 @@
 		}
 
 		.nav-section-2 {
-			padding: 13px 12px;
+			/*padding: 13px 12px;*/
+			padding: 0 12px 0 0;
+			width: 44px;
 			display: flex;
 			justify-content: flex-start;
+			align-items: center;
 
 			.nav__item-1 {
-				margin-right: 11px;
+				height: 100%;
+				width: 31px;
 			}
 		}
 
