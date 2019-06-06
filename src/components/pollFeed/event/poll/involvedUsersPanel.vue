@@ -9,7 +9,7 @@
 				<router-link :to="'/user/' + key">
 					<div
 						class="user-picture pointer picture-22x22 rounded"
-						:style="{ 'background-image': 'url(' + value + ')' }" />
+						:style="{ 'background-image': 'url(' + publicPath + imageUtil(value, 'S') + ')' }" />
 				</router-link>
 
 			</swiper-slide>
@@ -20,11 +20,13 @@
 
 <script>
 	import langString from '../../../langString'
-
+	import imageMixin from '../../../mixins/imageMixin'
     export default {
         name: "involvedUsersPanel",
+		mixins:[imageMixin],
 		data() {
 			return {
+				publicPath: process.env.VUE_APP_MAIN_API,
 				swiperOption: {
 					slidesPerView: 2.7,
 					spaceBetween: 10,

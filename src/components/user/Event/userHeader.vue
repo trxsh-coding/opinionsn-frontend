@@ -33,16 +33,16 @@
                     </div>
                 </div>
 
-                <div class="avatar-block pointer" v-if="user.id === main_user_id" :style="{ 'background-image': 'url(' + imageUtil(user.path_to_avatar, 'S') + ')' } " >
+                <div class="avatar-block pointer" v-if="user.id === main_user_id" :style="{ 'background-image': 'url(' + publicPath + imageUtil(user.path_to_avatar, 'S') + ')' } " >
                     <div class="uploader-wrapper" v-if="user.id === main_user_id">
                         <avatar-uploader   />
                     </div>
                 </div>
-                <div class="avatar-block pointer" v-if="user.id != main_user_id" :style="{ 'background-image': 'url(' + imageUtil(user.path_to_avatar, 'S') + ')' } " @click="fullAvatarVisibility = true">
+                <div class="avatar-block pointer" v-if="user.id != main_user_id" :style="{ 'background-image': 'url(' + publicPath + imageUtil(user.path_to_avatar, 'S') + ')' } " @click="fullAvatarVisibility = true">
 
                 </div>
                 <el-dialog  :visible.sync="fullAvatarVisibility " custom-class="relative avatar-modal"	:close-on-click-modal="true" width="500px" :modal-append-to-body="true" >
-                    <div class="full-avatar-image-block" :style="{ 'background-image': 'url(' + imageUtil(user.path_to_avatar, 'L') + ')' }">
+                    <div class="full-avatar-image-block" :style="{ 'background-image': 'url(' + publicPath + imageUtil(user.path_to_avatar, 'L') + ')' }">
                     </div>
                 </el-dialog>
             </div>
@@ -94,7 +94,9 @@
                 username:null,
                 last_name:null,
                 first_name:null,
-                fullAvatarVisibility:false
+                fullAvatarVisibility:false,
+                publicPath: process.env.VUE_APP_MAIN_API
+
             }
         },
         computed: {

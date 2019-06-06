@@ -2,7 +2,7 @@
     <div class="filter-wrapper " @click="setFilter(author.id)" >
 
 
-        <div class="author-picture pointer" :style="{ 'background-image': 'url(' + imageUtil(author.path_to_avatar, 'S') + ')' }">
+        <div class="author-picture pointer" :style="{ 'background-image': 'url(' + publicPath + imageUtil(author.path_to_avatar, 'S') + ')' }">
 
         </div>
 
@@ -23,6 +23,15 @@
         name: "filterComponent",
         components:{avatar},
         mixins:[imageMixin],
+        data(){
+
+            return {
+
+                publicPath: process.env.VUE_APP_MAIN_API
+
+            }
+
+        },
         computed: {
             ...mapState('globalStore', {
                 users: ({users}) =>users,

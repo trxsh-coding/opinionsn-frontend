@@ -13,8 +13,15 @@
 					<div v-if="!hide_form">редактировать профиль</div>
 					<div v-else-if="$route.name === 'user'">{{firstNavCaption}}</div>
 					<router-link class="v-center" to="/pollFeed" v-else>
-						<div class="icon logo picture-25x25 mr-6" :style="{ 'background-image': 'url(' + require('./assets/icons/icon-logo.png') + ')' } " />
-						<icon-base fill="none" width="66" height="15" viewBox="0 0 66 15" icon-name="text-logo">
+						<icon-base
+								fill="none"
+								class="icon"
+								width="25"
+								height="25"
+								viewBox="0 0 25 25"
+								icon-name="logo"><icon-logo />
+						</icon-base>
+						<icon-base  class="ml-6" fill="none" width="66" height="15" viewBox="0 0 66 15" icon-name="text-logo">
 							<icon-text-logo/>
 						</icon-base>
 					</router-link>
