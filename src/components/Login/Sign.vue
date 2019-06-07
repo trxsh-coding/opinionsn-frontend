@@ -49,14 +49,14 @@
 			<el-button class="primary-btn"  @click="submitSign(signForm)">
 				<lang-string  :title="'sign_in'"/>
 			</el-button>
-<!--			<a class="google-btn" href="https://opinionsn.com/api/oauth2/google">-->
-<!--				<icon-base-->
-<!--					class="logo"-->
-<!--					fill="none"-->
-<!--					icon-name="google-logo"><icon-google />-->
-<!--				</icon-base>-->
-<!--				<span class="google-button__text">Sign in with Google</span>-->
-<!--			</a>-->
+			<a class="google-btn" href="https://opinionsn.com/api/oauth2/google">
+				<icon-base
+					class="logo"
+					fill="none"
+					icon-name="google-logo"><icon-google />
+				</icon-base>
+				<span class="google-button__text">Sign in with Google</span>
+			</a>
 
 			<div class="registration__item">
 
