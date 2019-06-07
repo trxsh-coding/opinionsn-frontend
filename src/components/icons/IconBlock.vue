@@ -33,7 +33,7 @@
                        :viewBox="mobile && $route.name === 'voteFeed' ? '0 0 18 18' : '0 0 17 17'"
                        icon-name="accept">
                    <icon-accept /></icon-base>
-               <span>{{item.amountOfVoted}}</span>
+               <span>{{poll.total_amount_of_votes}}</span>
            </slot>
 
            <slot name="icon-comments">
@@ -44,7 +44,7 @@
                        viewBox="0 0 19 17"
                        icon-name="comments">
                    <icon-comments /></icon-base>
-               <span>{{item.amount_of_comments}}</span>
+               <span>{{poll.total_amount_of_comments}}</span>
            </slot>
        </div>
         <slot name="bookmark">

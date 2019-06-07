@@ -26,8 +26,6 @@
 
 				</div>
 				<icon-block class="relative" :poll="poll" :item="item">
-					<div slot="icon-comments">
-					</div>
 					<div slot="bookmark">
 					</div>
 				</icon-block>

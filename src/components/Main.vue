@@ -39,17 +39,17 @@
 										</template>
 									</el-autocomplete>
 
-									<router-link class="search-link pointer v-center ml-14" to="/search">
-										<icon-base
-											:class="{search : $route.path==='/search'} "
-											width="21"
-											height="21"
-											viewBox="0 0 21 21"
-											icon-name="search"
-										>
-											<icon-search/>
-										</icon-base>
-									</router-link>
+<!--									<router-link class="search-link pointer v-center ml-14" to="/search">-->
+<!--										<icon-base-->
+<!--											:class="{search : $route.path==='/search'} "-->
+<!--											width="21"-->
+<!--											height="21"-->
+<!--											viewBox="0 0 21 21"-->
+<!--											icon-name="search"-->
+<!--										>-->
+<!--											<icon-search/>-->
+<!--										</icon-base>-->
+<!--									</router-link>-->
 								</div>
 
 							</div>
