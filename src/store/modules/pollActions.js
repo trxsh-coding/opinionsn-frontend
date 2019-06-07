@@ -167,10 +167,10 @@ export const pollActions = sc => class extends sc {
 
         let {poll_id} = item;
 
-        commit(`globalStore/addChildTo`, {
-                mapName: `polls`,
+        commit('globalStore/addChildTo', {
+                mapName: 'polls',
                 parentId: poll_id,
-                groupName: `votes_id`,
+                groupName: 'votes_id',
                 item: id,
             },
             {root: true}
@@ -210,10 +210,10 @@ export const pollActions = sc => class extends sc {
 
             let {poll_id} = data.votes[array[0]];
 
-            commit(`globalStore/addChildTo`, {
-                    mapName: `polls`,
+            commit('globalStore/addChildTo', {
+                    mapName: 'polls',
                     parentId: poll_id,
-                    groupName: `explains_id`,
+                    groupName: 'explains_id',
                     item: array,
                 },
                 {root: true}
@@ -254,10 +254,10 @@ export const pollActions = sc => class extends sc {
 
 
 
-            commit(`globalStore/addChildTo`, {
-                    mapName: `votes`,
+            commit('globalStore/addChildTo', {
+                    mapName: 'votes',
                     parentId: explain_id,
-                    groupName: `comments_id`,
+                    groupName: 'comments_id',
                     item: array,
                 },
                 {root: true}
@@ -315,15 +315,23 @@ export const pollActions = sc => class extends sc {
 
         let {poll_id} = item;
 
-        commit(`globalStore/addChildTo`, {
-                mapName: `polls`,
+        commit('globalStore/addChildTo', {
+                mapName: 'polls',
                 parentId: poll_id,
-                groupName: `votes_id`,
+                groupName: 'votes_id',
                 item: id,
             },
             {root: true}
 
         );
+
+		// Увеличиваем счетчик комментариев в polls[poll_id].total_amount_of_votes
+		commit('globalStore/addQuantityTo', {
+			mapName: 'polls',
+			parentId: poll_id,
+			groupName: 'total_amount_of_votes',
+			quantity: 1
+		}, {root: true});
 
         commit(`globalStore/changeStateItem`, {mapName : `polls`, parentId: poll_id, item: `isVoted`, payload:true} , {root: true})
 
@@ -336,24 +344,35 @@ export const pollActions = sc => class extends sc {
     onCommentSaved({commit}, args){
         let {responseData: data, requestData: payload} = args;
 
-        console.log(data)
+        console.log('addChildTo', data);
 
         let poll_id = payload.poll_id
         let {id} = data.payload[0];
         let item = data.comments[id];
         let {explain_id} = item;
 
-        commit(`globalStore/addChildTo`, {
-            mapName: `votes`,
+        // commit(`globalStore/addChildTo`, {
+        //     mapName: `votes`,
+        //     parentId: explain_id,
+        //     groupName: `comments_id`,
+        //     item: id,
+        // },
+        commit('globalStore/addChildTo', {
+            mapName: 'votes',
             parentId: explain_id,
-            groupName: `comments_id`,
+            groupName: 'comments_id',
             item: id,
-        },
-        {root: true}
+        }, {root: true} );
 
+        // Увеличиваем счетчик комментариев в polls[poll_id].total_amount_of_comments
+        commit('globalStore/addQuantityTo', {
+			mapName: 'polls',
+			parentId: poll_id,
+			groupName: 'total_amount_of_comments',
+			quantity: 1,
+		}, {root: true})
 
-
-        );
+		// sc.apiRequest(`${process.env.VUE_APP_MAIN_API}/rest/quiz/getOne/${poll_id}`, {},{commit, onSuccess: `updatePayloadItem`}, `get`);
 
 
     }

@@ -13,7 +13,7 @@
 					</div>
 					<div v-if="author" class="author-block" :class="{order_1: searchBlock}">
 						<div class="author-avatar"
-							 :style="{ 'background-image': 'url(' + publicPath +author.path_to_avatar + ')' } "
+							 :style="{ 'background-image': 'url(' + publicPath + author.path_to_avatar + ')' } "
 							 @click="userLink(author.id)"></div>
 						<span class="span__item" :class="{searchBlock: searchBlock}">{{author.username}}</span>
 					</div>

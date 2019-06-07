@@ -161,11 +161,11 @@ export const globalStore  =  {
 
         addChildTo(state, {mapName, parentId, groupName, item}){
 
-            let map = state[mapName];
+			let map = state[mapName];
             if (!map) throw `No map '${map}' in globalStore`;
 
             let parentItem = map[parentId];
-            if (!parentItem) throw `No item with id ${parentId} in ${mapName}`;
+			if (!parentItem) throw `No item with id ${parentId} in ${mapName}`;
 
             let group = parentItem[groupName];
             if (!group || group.length === undefined) throw `No such group '${groupName}' in ${mapName}.${parentId}.
@@ -173,9 +173,9 @@ export const globalStore  =  {
              length: ${group && group.length}`;
 
             if (item.length) {
+				console.log(item);
 
-
-                for (let id of item) {
+				for (let id of item) {
 
                     group.push(id);
 
@@ -186,9 +186,16 @@ export const globalStore  =  {
                 group.push(item);
 
             }
+
+            // TODO: Показать изменения
             // Essentially this is this
-            //state[mapName][parentId][group].append(item);
+            state[mapName][parentId][groupName] = {...state[mapName][parentId][groupName], ...item};
         },
+
+		// TODO: Показать изменения
+		addQuantityTo(state, {mapName, parentId, groupName, quantity}) {
+			state[mapName][parentId][groupName]+= quantity;
+		},
 
         splitChildTo(state, {mapName, parentId, groupName, item}){
 
