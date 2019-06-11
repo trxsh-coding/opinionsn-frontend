@@ -28,11 +28,20 @@
 	  <div class="buttons-block flex-column-center">
 
 		  <el-button class="primary-btn uppercase" @click="routeFn('sign')">
-			  <lang-string class="lowercase" :title="'sign'" />
+			  <lang-string :title="'sign_in'" />
 		  </el-button>
 
+		  <a class="google-btn " href="https://opinionsn.com/api/oauth2/google">
+			  <icon-base
+				  class="logo"
+				  fill="none"
+				  icon-name="google-logo"><icon-google />
+			  </icon-base>
+			  <span class="google-button__text">Sign in with Google</span>
+		  </a>
+
 		  <el-button class="secondary-btn" @click="routeFn('registration')">
-			  <lang-string class="lowercase" :title="'registration'" />
+			  <lang-string :title="'registration'" />
 		  </el-button>
 
 	  </div>
@@ -48,6 +57,8 @@
 	import IconTextLogo from "../icons/IconTextLogo";
 	import langString from "../langString";
 	import { mapState } from "vuex";
+	import IconGoogle from "../icons/IconGoogle.vue";
+
 	export default {
 		mixins: [langMixin],
 		data() {
@@ -67,7 +78,8 @@
 			IconBase,
 			IconLogo,
 			IconTextLogo,
-			langString
+			langString,
+			IconGoogle
 		}
 	};
 </script>

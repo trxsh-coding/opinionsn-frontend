@@ -106,6 +106,7 @@
             setTypeOfSearch(payload){
 
                 this.type = payload;
+				this.searchUsers();
 
             },
             searchUsers() {

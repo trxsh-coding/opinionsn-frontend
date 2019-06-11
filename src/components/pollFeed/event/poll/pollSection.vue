@@ -75,10 +75,10 @@
             return {
 
                 expanded: this.options.length <= 2,
-                voteAccess:false,
-                optionsLimit:2,
-                hiddenText:false,
-                showMore:false,
+                voteAccess: false,
+                optionsLimit: 5,
+                hiddenText: false,
+                showMore: false,
                 publicPath: process.env.VUE_APP_MAIN_API
 
             }

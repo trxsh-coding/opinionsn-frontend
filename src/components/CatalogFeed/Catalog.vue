@@ -221,6 +221,8 @@
 				position: absolute;
 				font-variant-caps: all-small-caps;
 
+				bottom: 30px;
+
                 // FOR Safari ≥ 9
                 @supports (-webkit-appearance:none) {
                     font-variant-caps: normal;
@@ -229,8 +231,6 @@
                         font-size: 13px !important;
                     }
                 }
-
-				bottom: 8px;
 
 				h1 {
 					margin: 0 !important;
@@ -275,9 +275,9 @@
 				height: 112px;
 				background-color: #ffffff;
 				border-radius: 12px;
-				background-size: 25%;
+				background-size: 22%;
 				background-repeat: no-repeat;
-				background-position: center;
+				background-position: 50% 32%;
 				display: flex;
 				justify-content: center;
 				align-items: center;

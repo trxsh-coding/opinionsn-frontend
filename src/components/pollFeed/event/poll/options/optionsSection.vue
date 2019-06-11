@@ -2,9 +2,9 @@
 
 	<div id="options-block" v-loading="loading_option">
 		<div class="option-container relative pointer" v-bind:class="{ opacity  : poll.votingOver, rightAnswer : correct_option, cursor : option.voted }" @click="vote(option.id, option.poll_id, poll.type_of_poll)" >
-			<div class="option-id">
-				<span class="span-id">{{option_index + 1}}</span> <span v-if="option.id === correctOption"></span>
-			</div>
+<!--			<div class="option-id">-->
+<!--				<span class="span-id">{{option_index + 1}}</span> <span v-if="option.id === correctOption"></span>-->
+<!--			</div>-->
 			<div class="description-right-section relative">
 				<div class="option-description" >
 					<span > {{option.description}} </span>
@@ -207,7 +207,7 @@
             box-shadow: 0px 0px 7px rgba(21, 45, 58, 0.24);
             border-radius: 6px;
             margin-left: 3px;
-            width: 96px;
+            width: 70px;
             height: 48px;
             display: flex;
             justify-content: flex-start;
@@ -247,6 +247,7 @@
 
             .description-right-section {
                 width: 93%;
+				padding-left: 8px;
                 .option-description {
                     background: #FFFFFF;
                     word-break: break-word;

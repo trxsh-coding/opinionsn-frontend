@@ -115,6 +115,55 @@
 				flex-direction: column;
 				align-items: center;
 
+				.google-btn {
+					width: 271px;
+					margin-top: 9px;
+					cursor: pointer;
+					outline: none;
+
+					display: flex;
+					justify-content: center;
+					align-items: center;
+
+					height: 40px;
+					border-radius: 21px;
+					border: 1px solid rgba(0, 0, 0, 0.2);
+					background: white;
+					color: #737373;
+					white-space: nowrap;
+					transition-property: background-color, box-shadow;
+					transition-duration: 150ms;
+					transition-timing-function: ease-in-out;
+					padding: 0;
+
+					&:focus,
+					&:hover {
+						box-shadow: 1px 4px 5px 1px rgba(0,0,0,0.1);
+					}
+
+					&:active {
+						background-color: #e5e5e5;
+						box-shadow: none;
+						transition-duration: 10ms;
+					}
+
+					.logo {
+						margin-bottom: 2px;
+					}
+
+					.google-button__text {
+
+						margin: auto 0;
+
+						display: inline-block;
+						padding: 0 24px;
+						font-size: 14px;
+						font-weight: bold;
+						font-family: 'Roboto',arial,sans-serif;
+					}
+
+				}
+
 				.el-button {
 					margin: 0;
 					width: 271px;

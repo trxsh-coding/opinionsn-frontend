@@ -483,6 +483,18 @@ a {
   padding-bottom: 10px;
 }
 
+.mx-auto {
+	margin: 0 auto !important;
+}
+
+.my-auto {
+	margin: auto 0 !important;
+}
+
+.m-auto {
+	margin: auto !important;
+}
+
 .mt-40 {
   margin-top: 40px;
 }
@@ -618,6 +630,12 @@ color: #69777F;
 	white-space: nowrap;
 	overflow: hidden;
 	text-overflow: ellipsis;
+}
+
+.trim-clip {
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: clip;
 }
 
 //Icons

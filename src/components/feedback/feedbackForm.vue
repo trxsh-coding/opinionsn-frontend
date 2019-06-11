@@ -68,7 +68,7 @@
 				</a>
 			</li>
 			<li>
-				<a href="https://t.me/opinion_social_network" target="_blank" rel="noopener noreferrer">
+				<a href="https://t.me/opinionsn_com" target="_blank" rel="noopener noreferrer">
 					<div
 						class="picture-30x30"
 						:style="{ 'background-image': 'url(' + require('../images/telegram.png') + ')' } "

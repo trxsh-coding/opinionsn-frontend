@@ -43,8 +43,8 @@
 					</el-popover>
 				</li>
 			</ul>
-			<ul class="nav-section nav-section-2">
-				<li class="nav__item nav__item-1 v-center" @click="$router.go(-1)">
+			<ul class="nav-section nav-section-2 ">
+				<li class="nav__item nav__item-1 v-center pointer" @click="$router.go(-1)">
 					<icon-base
 
 						fill="none"
@@ -54,7 +54,7 @@
 						icon-name="plus"><icon-arrow-left/>
 					</icon-base>
 				</li>
-				<li class="nav__item nav__item-2">{{secondNavCaption}}</li>
+				<li class="nav__item nav__item-2 trim">{{secondNavCaption}}</li>
 			</ul>
 		</div>
 		<hr>
@@ -110,7 +110,7 @@
 			<li class="nav__item pointer">
 				<avatar class="avatar-25x25"></avatar>
 			</li>
-			<li class="nav__item pointer" @click="link('menu')">
+			<li class="nav__item pointer" @click="$route.path !== '/menu' ? link('menu') : $router.go(-1) ">
 				<icon-base width="25" height="22" viewBox="0 0 25 22" icon-name="menu">
 					<icon-menu/>
 				</icon-base>
@@ -219,7 +219,8 @@
 				if (this.polls[this.routeId] !== undefined) {
 					let {subject: pollName} = this.polls[this.routeId];
 					// Если название опроса больше 28 символов, тогда обрезаем его.
-					return pollName.length > 28 ? pollName.slice(0, 28).trim() + "..." : pollName
+					// return pollName.length > 28 ? pollName.slice(0, 28).trim() + "..." : pollName
+					return pollName;
 				}
 				return " ";
 			}
@@ -288,16 +289,11 @@
 				font-family: Roboto;
 				font-style: normal;
 				font-weight: 500;
-				font-size: 18px;
-				font-variant: small-caps;
+				font-variant: normal;
+				font-size: 14px;
+				text-transform: uppercase;
 				color: #152d3a;
 
-				// FOR Safari ≥ 9
-				@supports (-webkit-appearance:none) {
-					font-variant: normal;
-					font-size: 16px;
-					text-transform: uppercase;
-				}
 			}
 
 			g {
@@ -333,11 +329,23 @@
 			display: flex;
 			justify-content: flex-start;
 			align-items: center;
+			overflow: hidden;
 
 			.nav__item-1 {
 				height: 100%;
 				width: 31px;
+				flex-shrink: 0;
+
+				svg {
+					position: relative;
+					top: -2px;
+				}
 			}
+
+			.nav__item-2 {
+
+			}
+
 		}
 
 		.secondary_path_only {
