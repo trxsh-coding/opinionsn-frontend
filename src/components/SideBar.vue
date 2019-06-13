@@ -62,20 +62,6 @@
 					<lang-string :title="'bookmarked'"/>
 				</a>
 			</router-link>
-
-			<router-link class-active="active" class="hidden-xs-only main-li pointer" tag="li" to="/feedback">
-				<icon-base
-					class="megaphone"
-					width="20"
-					height="18"
-					viewBox="0 0 30 28"
-					icon-name="megaphone">
-					<icon-megaphone/>
-				</icon-base>
-				<a>
-					<lang-string :title="'feedback'"/>
-				</a>
-			</router-link>
 		</ul>
 	</aside>
 </template>
@@ -91,7 +77,6 @@
 	import langString from './langString.vue'
 	import IconBell from './icons/IconBell.vue'
 	import IconPocket from './icons/IconPocket.vue'
-	import IconMegaphone from './icons/IconMegaphone.vue'
 
 	export default {
 		data() {
@@ -108,7 +93,6 @@
 			IconAddPoll,
 			IconBell,
 			IconPocket,
-			IconMegaphone
 
 		},
 

@@ -1,7 +1,7 @@
 <template lang="html">
     <aside class="routebar mb-3">
         <ul>
-            <router-link class-active="active" class="hidden-sm-and-up mobile relative" tag="li" to="/add" v-if="mainUser.authorities === 'ADMIN'">
+            <router-link class-active="active" class="hidden-sm-and-up mobile relative pointer" tag="li" to="/add" v-if="mainUser.authorities === 'ADMIN'">
                 <icon-base
                         :class="{secondary : $route.path==='/add'} "
                         class="add-poll"
@@ -13,7 +13,7 @@
                 </icon-base>
                 <lang-string :title="'add_poll'"/>
             </router-link>
-            <router-link class-active="active" class="hidden-sm-and-up relative" tag="li" to="/bookmarkFeed">
+            <router-link class-active="active" class="hidden-sm-and-up relative pointer" tag="li" to="/bookmarkFeed">
                 <icon-base
                         :class="{secondary : $route.path==='/bookmarkFeed'} "
                         width="18"
@@ -30,7 +30,7 @@
                     width="200"
                     trigger="click"
                     :content="mainUser.balance  ">
-                <li class="hidden-sm-and-up relative" slot="reference">
+                <li class="hidden-sm-and-up relative pointer" slot="reference">
                     <icon-base
                             fill="none"
                             width="24"
@@ -42,7 +42,7 @@
                 </li>
             </el-popover>
 
-            <router-link class-active="active" class="hidden-sm-and-up relative" tag="li" to="/catalogList">
+            <router-link class-active="active" class="hidden-sm-and-up relative pointer " tag="li" to="/catalogList">
                 <icon-base
                         fill="none"
                         width="22"
@@ -52,7 +52,23 @@
                 </icon-base>
                 <lang-string :title="'topics'"/>
             </router-link>
-            <li class="hidden-sm-and-up relative">
+
+			<router-link class-active="active" class="hidden-sm-and-up relative pointer  " tag="li" to="/feedback">
+				<icon-base
+					class="megaphone mr-6"
+					width="24"
+					height="22"
+					viewBox="0 0 30 28"
+					icon-name="megaphone">
+					<icon-megaphone/>
+				</icon-base>
+				<a>
+					<lang-string :title="'feedback'"/>
+				</a>
+			</router-link>
+
+
+			<li class="hidden-sm-and-up relative pointer">
                 <icon-base
                         fill="none"
                         width="24"
@@ -62,7 +78,7 @@
                 </icon-base>
                 <lang-string :title="'settings'"/>
             </li>
-            <li class="hidden-sm-and-up relative unbordered" @click="userLogout">
+            <li class="hidden-sm-and-up relative pointer unbordered" @click="userLogout">
                 <icon-base
                         fill="none"
                         width="24"
@@ -72,6 +88,7 @@
                 </icon-base>
                 <lang-string :title="'exit'"/>
             </li>
+<!--			TODO: добавить кнопку обратной связи -->
         </ul>
     </aside>
 </template>
@@ -88,6 +105,7 @@
     import langString from '../langString.vue'
     import IconBell from '../icons/IconBell.vue'
     import IconPocket from '../icons/IconPocket.vue'
+    import IconMegaphone from '../icons/IconMegaphone.vue'
     import IconCatalog from '../icons/IconCatalog.vue'
     import langMixin from '../mixins/langMixin'
     import {mapState} from 'vuex'
@@ -140,7 +158,8 @@
             IconAddPoll,
             IconBell,
             IconPocket,
-            IconCatalog
+            IconCatalog,
+			IconMegaphone
 
         },
 
@@ -155,8 +174,7 @@
     .routebar {
 
         background-color: #ffffff;
-        padding-left: 15px;
-        padding-right: 16px;
+		padding: 4px 15px;
         border-radius: 12px;
         g {
             fill:#ffffff;
@@ -240,13 +258,12 @@
         }
         ul {
             padding-left: 0;
-            margin-top: 0px;
+            margin-top: 0;
             li {
+				height: 43px;
                 border-bottom-width: 0.5px;
                 border-bottom-color: #DADADA;
                 border-bottom-style: solid;
-                padding-bottom: 9px;
-                padding-top: 6px;
                 position: relative;
                 list-style: none;
                 display: flex;
@@ -270,7 +287,7 @@
 
         .hidden-sm-and-up {
 
-            padding: 10px 0 11px 0;
+            /*padding: 10px 0 11px 0;*/
 
             span {
 

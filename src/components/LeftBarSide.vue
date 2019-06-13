@@ -1,9 +1,22 @@
 <template lang="html">
     <div id="left-aside">
     	<profile-card class="hidden-xs-only" />
-    	<side-bar />
-    	<user-statistic  v-if="user" :id="main_user.id" :limit="1" class="hidden-xs-only"/>
-    	<language-change  class="hidden-xs-only" />
+    	<side-bar class="mb-10"/>
+		<router-link class-active="active" class="hidden-xs-only feedback-link pointer" tag="div" to="/feedback">
+			<icon-base
+				class="megaphone mr-6"
+				width="20"
+				height="18"
+				viewBox="0 0 30 28"
+				icon-name="megaphone">
+				<icon-megaphone/>
+			</icon-base>
+			<a>
+				<lang-string :title="'feedback'"/>
+			</a>
+		</router-link>
+		<user-statistic  v-if="user" :id="main_user.id" :limit="1" class="hidden-xs-only"/>
+    	<language-change  class="hidden-xs-only mt-10" />
         <div class="copyright flex-space-center mt-13 hidden-xs-only">
             <span>© 2019 OPINION</span>
 			<router-link class="feedback-link display__hidden pointer" tag="span" to="/feedback"><lang-string :title="'feedback'"/></router-link>
@@ -21,6 +34,9 @@
 	import guestLocale from "./guestLocale.vue";
 	import langString from "./langString.vue";
 	import userStatistic from "./user/Event/modules/userStatistic";
+	import IconMegaphone from './icons/IconMegaphone';
+	import IconBase from './icons/IconBase.vue';
+
 
 	export default {
 		props: ["id"],
@@ -54,7 +70,9 @@
 			languageChange,
 			langString,
 			userStatistic,
-			guestLocale
+			guestLocale,
+			IconMegaphone,
+			IconBase
 		}
 	};
 </script>
@@ -63,6 +81,18 @@
 	#left-aside {
 		width: 240px !important;
 		position: fixed;
+
+		.feedback-link {
+			padding: 9.5px 11px;
+			border-radius: 12px;
+			background-color: #fff;
+
+			font-family: Roboto;
+			font-style: normal;
+			font-weight: normal;
+			font-size: 14px;
+			color: #152D3A;
+		}
 
 		.user-statistic {
 			justify-content: center;
