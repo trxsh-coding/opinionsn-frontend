@@ -32,8 +32,11 @@
     import IconBase from '../../../icons/IconBase.vue'
     import IconEmoji from '../../../icons/IconEmoji.vue'
     import avatar from '../../../user/Event/modules/mainUserAvatar'
+	import obsceneWordsFilter from '../../../mixins/obsceneWordsFilter'
+
     export default {
         name: "inputExplain",
+		mixins: [obsceneWordsFilter],
         props: ['item', 'hide', 'vote', 'poll'],
         components: {
             VEmojiPicker,
@@ -47,7 +50,7 @@
             return {
 
                 dialogHidden: true,
-                comment_description:'',
+                comment_description: '',
                 mobile:this.$root.mobile
 
             }
@@ -63,7 +66,7 @@
 
             saveComment(poll_id, explain_id){
 
-                let description = this.comment_description;
+                let description = this.purifyBadWords(this.comment_description);
 
                 this.$store.dispatch(`pollFeed/saveComment`, {data: {poll_id, explain_id, description} });
 
@@ -80,7 +83,7 @@
                 return (str)=>localString(this.lang, str);
             },
         },
-    };
+	};
 </script>
 
 <style lang="scss">

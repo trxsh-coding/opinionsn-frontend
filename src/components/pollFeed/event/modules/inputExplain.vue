@@ -38,8 +38,10 @@
     import IconEmoji from '../../../icons/IconEmoji.vue'
     import langMixin from '../../../mixins/langMixin'
     import {mapState} from 'vuex'
+	import obsceneWordsFilter from '../../../mixins/obsceneWordsFilter'
+
     export default {
-        mixins:[langMixin],
+        mixins: [langMixin, obsceneWordsFilter],
         name: "inputExplain",
         props: ['item', 'feed', 'poll'],
         components: {
@@ -71,7 +73,7 @@
 
             saveExplain(poll_id){
 
-                let description = this.explain_description;
+                let description = this.purifyBadWords(this.explain_description);
 
                 this.$store.dispatch(`${this.$route.name}/saveExplain`, {data: {poll_id, description} });
 
