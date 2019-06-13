@@ -4,7 +4,7 @@
     	<side-bar class="mb-10"/>
 		<router-link class-active="active" class="hidden-xs-only feedback-link pointer" tag="div" to="/feedback">
 			<icon-base
-				class="megaphone mr-6"
+				class="megaphone mr-8"
 				width="20"
 				height="18"
 				viewBox="0 0 30 28"
