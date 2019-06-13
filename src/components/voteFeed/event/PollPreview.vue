@@ -424,18 +424,14 @@ const optionsLimit = 2;
           font-family: Roboto;
           font-style: normal;
           font-weight: normal;
-          line-height: 15px;
           font-size: 13px;
-          letter-spacing: -0.1px;
           color: #ffffff;
         }
         .is-voted {
           font-family: Roboto;
           font-style: normal;
           font-weight: 500;
-          line-height: 18px;
           font-size: 13px;
-          letter-spacing: -0.1px;
           color: #ffffff;
           filter: none;
         }
