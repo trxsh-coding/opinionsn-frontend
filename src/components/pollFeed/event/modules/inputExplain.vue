@@ -6,7 +6,7 @@
                   :placeholder="item.voted ? lstr('explain_your_opinion') : lstr('available_after_voting') "
                   size="small"
                   v-model="explain_description"
-                  @keyup.enter.native="saveExplain(item.id)">
+                  @keyup.enter.native.exact="saveExplain(item.id)">
             <i slot="suffix" class="el-input__icon el-icon-date">вфывфы</i>
         </el-input>
         <span class="send__button pointer lowercase" @click="saveExplain(item.id)"><lang-string :title="'send'"/></span>

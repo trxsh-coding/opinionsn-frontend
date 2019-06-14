@@ -1,6 +1,6 @@
 <template>
     <div class="input-section mt-13 flex-between   relative" v-if="hide">
-        <el-input  type="textarea" autosize  size="small" v-model="comment_description" @keyup.enter.native="saveComment(item.id, vote.id)" >
+        <el-input  type="textarea" autosize  size="small" v-model="comment_description" @keyup.enter.native.exact="saveComment(item.id, vote.id)" >
 
         </el-input>
         <span class="send__button pointer lowercase" @click="saveComment(item.id, vote.id)"><lang-string :title="'send'" /></span>
