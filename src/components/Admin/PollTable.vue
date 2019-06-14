@@ -6,7 +6,7 @@
 		max-height="100%">
 		<el-table-column
 			label="ID"
-			prop="id"
+			prop="ID"
 			width="60">
 		</el-table-column>
 		<el-table-column
@@ -51,16 +51,12 @@
 			</template>
 		</el-table-column>
 		<el-table-column
-			width="190"
+			width="100"
 			label="Действия">
 			<template slot-scope="scope">
 				<el-button
 					size="mini"
 					@click="load">Закрыть</el-button>
-				<el-button
-					size="mini"
-					type="danger"
-					@click="handleDelete(scope.$index, scope.row)">Удалить</el-button>
 			</template>
 		</el-table-column>
 	</el-table>
@@ -74,62 +70,48 @@
         name: "PollTable",
 		props: ['poll_type'],
 		computed: {
-			...mapState("admin", {
-				polls: ({ items }) => items,
-				loading: ({ is_finished }) => is_finished
+			...mapState("adminPage", {
+				payload: ({ items }) => items
 			}),
 
-			...mapState('globalStore', {
-				globalStorePolls: ({ polls }) => polls,
-				globalStoreOptions: ({ options }) => options,
+			...mapState("globalStore", {
+				polls: ({ polls }) => polls,
+				pollOptions: ({ options }) => options
 			}),
 
 			tableData() {
 				moment.locale('ru');
-				let { polls, globalStorePolls, globalStoreOptions } = this;
-				let data = [];
+				let { payload, polls, pollOptions } = this;
+				let map = [];
 
-				polls.forEach((item) => {
+				payload.forEach((value, i) => {
+					let { id: ID } = value,
+						{ subject: name, description, date, options_id } = polls[ID];
 
-					let { id, timestamp } = item,
-						{ subject: name, description, options_id, correct_option, type_of_poll } = globalStorePolls[id],
-						date = moment(timestamp).format('LLL'),
-						options = {};
+					date = moment(date).format('LLL');
 
-					// Если не прогноз, то пропускаем итерацию
-					if (type_of_poll !== 1) return;
-
-					options_id.forEach((id, index) => {
-						let { description } = globalStoreOptions[id],
-							isVoted = correct_option === id;
-
-						options[index] = {
-							description,
-							isVoted
-						};
+					let options = [];
+					options_id.forEach((ID, i) => {
+						options[i] = pollOptions[ID];
 					});
 
-					data.push({
-						id,
+					map[i] = {
+						ID,
 						date,
 						name,
 						description,
-						options,
-						type_of_poll
-					});
+						options
+					}
 				});
 
-				return data;
+				return map || {};
 			}
 		},
 		methods: {
         	load() {
-				this.$store.dispatch(`pollFeed/loadNextPage`);
+				this.$store.dispatch(`adminPage/loadNextPage`);
 			},
 			handleClose(index, row) {
-				console.log(index, row);
-			},
-			handleDelete(index, row) {
 				console.log(index, row);
 			},
 			trimString(string, sliceVal) {
@@ -141,7 +123,7 @@
 			}
 		},
 		mounted() {
-			this.$store.dispatch(`admin/list`);
+			this.$store.dispatch(`adminPage/list`);
 		}
 	}
 </script>
