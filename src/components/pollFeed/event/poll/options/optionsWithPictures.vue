@@ -13,9 +13,6 @@
 			</div>
 		</div>
 		<div class="option-container relative">
-			<div class="option-id">
-				<span class="span-id">{{option_index + 1}}</span>
-			</div>
 			<div class="description-right-section">
 				<div class="option-description">
 					<span>{{option.description}}</span>
