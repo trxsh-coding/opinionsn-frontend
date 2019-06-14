@@ -32,11 +32,11 @@
     import IconBase from '../../../icons/IconBase.vue'
     import IconEmoji from '../../../icons/IconEmoji.vue'
     import avatar from '../../../user/Event/modules/mainUserAvatar'
-	import obsceneWordsFilter from '../../../mixins/obsceneWordsFilter'
+	import BadWordsFilter from '../../../mixins/BadWordsFilter'
 
     export default {
         name: "inputExplain",
-		mixins: [obsceneWordsFilter],
+		mixins: [BadWordsFilter],
         props: ['item', 'hide', 'vote', 'poll'],
         components: {
             VEmojiPicker,

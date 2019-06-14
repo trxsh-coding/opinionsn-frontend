@@ -151,13 +151,13 @@
 	import CatalogDropdown from './CatalogFeed/catalogDropdown';
 	import axios from 'axios'
 	import {mapState} from 'vuex'
-	import obsceneWordsFilter from "./mixins/obsceneWordsFilter";
+	import BadWordsFilter from "./mixins/BadWordsFilter";
 
 
 
 	export default {
 		name: "CreatePoll",
-		mixins: [obsceneWordsFilter],
+		mixins: [BadWordsFilter],
 		data() {
 			return {
 				loading: false,

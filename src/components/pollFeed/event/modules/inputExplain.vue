@@ -38,10 +38,10 @@
     import IconEmoji from '../../../icons/IconEmoji.vue'
     import langMixin from '../../../mixins/langMixin'
     import {mapState} from 'vuex'
-	import obsceneWordsFilter from '../../../mixins/obsceneWordsFilter'
+	import BadWordsFilter from '../../../mixins/BadWordsFilter'
 
     export default {
-        mixins: [langMixin, obsceneWordsFilter],
+        mixins: [langMixin, BadWordsFilter],
         name: "inputExplain",
         props: ['item', 'feed', 'poll'],
         components: {
