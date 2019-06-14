@@ -88,7 +88,6 @@
                 </icon-base>
                 <lang-string :title="'exit'"/>
             </li>
-<!--			TODO: добавить кнопку обратной связи -->
         </ul>
     </aside>
 </template>
