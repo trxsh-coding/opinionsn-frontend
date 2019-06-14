@@ -16,38 +16,34 @@ import {followsPage} from "./modules/Follows"
 import {globalStore} from "./modules/globalStore";
 import {notificationPage} from "./modules/notifications";
 import {notificationStore} from "./modules/notificationStore"
-import { admin } from "./modules/adminPage";
+import { adminPage } from "./modules/adminPage";
 
 Vue.use(Vuex)
 Vue.use(axios)
 
-  export const store = new Vuex.Store ({
-    strict:false,
-    modules: {
-    Login,
-    authentication,
-    voteFeed,
-    userFeed,
-    pollFeed,
-    searchUser,
-    globalStore,
-    lang,
-    singlePoll,
-    catalogList,
-    bookmarkFeed,
-    userPage,
-    followsPage,
-    notificationPage,
-    notificationStore,
-	admin
-  },
-  state: {
-  },
-  getters: {
-
-  }  ,
-  actions: {
-  },
+export const store = new Vuex.Store({
+	strict: false,
+	modules: {
+		Login,
+		authentication,
+		voteFeed,
+		userFeed,
+		pollFeed,
+		searchUser,
+		globalStore,
+		lang,
+		singlePoll,
+		catalogList,
+		bookmarkFeed,
+		userPage,
+		followsPage,
+		notificationPage,
+		notificationStore,
+		adminPage
+	},
+	state: {},
+	getters: {},
+	actions: {},
 })
 
 export default store;

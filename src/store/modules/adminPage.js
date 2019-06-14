@@ -2,7 +2,7 @@ import {VuexStore} from "./generic/proto";
 import {AdminStoreWithPageList} from "./generic/adminPageList";
 import {adminActions} from "./adminActions";
 
-class adminPage extends adminActions(AdminStoreWithPageList (VuexStore, `${process.env.VUE_APP_MAIN_API}/rest/feed`)) {
+class adminPageStore extends adminActions(AdminStoreWithPageList (VuexStore, `${process.env.VUE_APP_MAIN_API}/rest/admin/panel/prediction/`)) {
 
 
 
@@ -11,7 +11,7 @@ class adminPage extends adminActions(AdminStoreWithPageList (VuexStore, `${proce
 }
 
 
-let store = new adminPage();
+let store = new adminPageStore();
 
-export const admin = store.vuexStore;
+export const adminPage = store.vuexStore;
 
