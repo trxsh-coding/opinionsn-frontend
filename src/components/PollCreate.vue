@@ -154,7 +154,6 @@
 	import BadWordsFilter from "./mixins/BadWordsFilter";
 
 
-
 	export default {
 		name: "CreatePoll",
 		mixins: [BadWordsFilter],
@@ -313,11 +312,11 @@
 
 						}
 						if (!exception) {
-							let { purifyBadWords } = this,
+							let {purifyBadWords} = this,
 								{end_date, end_time, subject, tags, description, options} = pollForm,
 								mDate = moment(`${end_date} ${end_time}`, 'YYYY-MM-DD HH:mm');
 
-							options.forEach(({ description }, index) => {
+							options.forEach(({description}, index) => {
 								options[index].description = purifyBadWords(description);
 							});
 
@@ -347,23 +346,25 @@
 							if (pollForm.type_of_poll == 0) {
 
 								axios.post(`${process.env.VUE_APP_MAIN_API}/rest/quiz/create`, bodyFormData, config)
-									.then(function (response) {
+									.then(response => {
 										if (response.status === 200) {
 											this.loading = false;
 											this.$router.push({name: 'pollFeed'})
 										}
-									}.bind(this))
+									})
+									.catch(err => console.log(err));
 
 
 							} else {
 
 								axios.post(`${process.env.VUE_APP_MAIN_API}/rest/admin/blockchain/create`, bodyFormData, config)
-									.then(function (response) {
+									.then(response => {
 										if (response.status === 200) {
 											this.loading = false;
 											this.$router.push({name: 'pollFeed'})
 										}
-									}.bind(this))
+									})
+									.catch(err => console.log(err));
 
 							}
 
