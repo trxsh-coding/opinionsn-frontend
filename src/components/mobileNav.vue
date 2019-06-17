@@ -178,7 +178,7 @@
 				return this.categories[this.routeId].name;
 			},
             firstNavCaption() {
-                return this.userMap[this.routeId].username;
+				return (this.userMap[this.routeId] === undefined) ? '' : this.userMap[this.routeId].username;
             },
             userBalance: function() {
 
