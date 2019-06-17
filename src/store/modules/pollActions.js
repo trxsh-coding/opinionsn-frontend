@@ -351,12 +351,6 @@ export const pollActions = sc => class extends sc {
         let item = data.comments[id];
         let {explain_id} = item;
 
-        // commit(`globalStore/addChildTo`, {
-        //     mapName: `votes`,
-        //     parentId: explain_id,
-        //     groupName: `comments_id`,
-        //     item: id,
-        // },
         commit('globalStore/addChildTo', {
             mapName: 'votes',
             parentId: explain_id,

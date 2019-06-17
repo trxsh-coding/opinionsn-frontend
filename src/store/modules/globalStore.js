@@ -173,13 +173,10 @@ export const globalStore  =  {
              length: ${group && group.length}`;
 
             if (item.length) {
-				console.log(item);
 
-				for (let id of item) {
 
-                    group.push(id);
+				group.concat(item);
 
-                }
 
             }   else {
 
@@ -189,7 +186,7 @@ export const globalStore  =  {
 
             // TODO: Показать изменения
             // Essentially this is this
-            state[mapName][parentId][groupName] = {...state[mapName][parentId][groupName], ...item};
+            // state[mapName][parentId][groupName] = {...state[mapName][parentId][groupName], ...item};
         },
 
 		// TODO: Показать изменения
