@@ -427,9 +427,9 @@
 						border-radius: 0 6px 6px 0;
 
 						.span-block {
-							padding-right: 5px;
 							overflow-x: hidden;
 							text-overflow: ellipsis;
+							font-weight: bold;
 
 						}
 
