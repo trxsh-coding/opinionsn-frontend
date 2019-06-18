@@ -5,7 +5,6 @@
         <language-change/>
 		<div class="copyright flex-space-center mt-13">
             <span>© 2019 OPINION</span>
-			<router-link class="pointer" tag="span" to="/feedback">Обратная связь</router-link>
         </div>
     </div>
 </template>
