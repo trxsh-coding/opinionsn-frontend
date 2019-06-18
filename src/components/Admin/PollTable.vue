@@ -116,8 +116,8 @@
 			loadNextPage() {
 				this.$store.dispatch(`adminPage/loadNextPage`, {predictionListOfType: this.poll_type});
 			},
-			setRightOption(selected_variable, poll_id){
-				if (this.poll_type === 'opened') this.$store.dispatch(`pollFeed/setRightOption`, {data: {selected_variable, poll_id }});
+			setRightOption(option_id, poll_id){
+				if (this.poll_type === 'opened') this.$store.dispatch(`pollFeed/setRightOption`, {data: {option_id, poll_id }});
 			},
 			trimString(string, sliceVal) {
 				return sliceVal
