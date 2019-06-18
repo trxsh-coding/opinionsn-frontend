@@ -24,6 +24,9 @@
 						<router-link to="/admin/polls/closed">
 							<el-menu-item index="2-2">Закрытые</el-menu-item>
 						</router-link>
+						<router-link to="/admin/polls/all">
+							<el-menu-item index="2-3">Все</el-menu-item>
+						</router-link>
 					</el-submenu>
 				</el-menu>
 			</el-aside>

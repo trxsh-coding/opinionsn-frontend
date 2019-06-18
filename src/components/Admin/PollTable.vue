@@ -1,9 +1,11 @@
 <template lang="html">
 	<el-table
+		class="mx-5"
 		:data="tableData"
 		border
 		style="width: 100%"
-		max-height="100%">
+		height="100%"
+		ref="el_table">
 		<el-table-column
 			label="ID"
 			prop="ID"
@@ -43,35 +45,38 @@
 			<template slot-scope="props">
 				<div class="description-block">
 					<div v-for="(option, i) in props.row.options" :key="i">
-						<el-button v-if="option.isVoted" type="primary" icon="el-icon-check" class="mr-6"/>
-						<el-button v-else type="primary" plain icon="el-icon-check" class="mr-6"/>
+						<el-button type="primary" plain icon="el-icon-check" @click="setRightOption(option.id, props.row.ID)" class="mr-6"/>
 						<span>{{ option.description }}</span>
 					</div>
 				</div>
 			</template>
 		</el-table-column>
-		<el-table-column
-			width="100"
-			label="Действия">
-			<template slot-scope="scope">
-				<el-button
-					size="mini"
-					@click="load">Закрыть</el-button>
-			</template>
-		</el-table-column>
+		<template slot="append">
+			<el-button type="primary" class="mt-15" @click="loadNextPage">Загрузить еще...</el-button>
+		</template>
 	</el-table>
 </template>
 
 <script>
 	import { mapState } from "vuex";
 	import moment from "moment";
+	import MugenScroll from "vue-mugen-scroll";
 
 	export default {
         name: "PollTable",
+		components: {
+			MugenScroll
+		},
 		props: ['poll_type'],
+		watch: {
+			poll_type() {
+				this.$store.dispatch(`adminPage/list`, {predictionListOfType: this.poll_type});
+			}
+		},
 		computed: {
 			...mapState("adminPage", {
-				payload: ({ items }) => items
+				payload: ({ items }) => items,
+				loading: ({ is_finished }) => is_finished
 			}),
 
 			...mapState("globalStore", {
@@ -108,11 +113,11 @@
 			}
 		},
 		methods: {
-        	load() {
-				this.$store.dispatch(`adminPage/loadNextPage`);
+			loadNextPage() {
+				this.$store.dispatch(`adminPage/loadNextPage`, {predictionListOfType: this.poll_type});
 			},
-			handleClose(index, row) {
-				console.log(index, row);
+			setRightOption(selected_variable, poll_id){
+				if (this.poll_type === 'opened') this.$store.dispatch(`pollFeed/setRightOption`, {data: {selected_variable, poll_id }});
 			},
 			trimString(string, sliceVal) {
 				return sliceVal
@@ -123,14 +128,15 @@
 			}
 		},
 		mounted() {
-			this.$store.dispatch(`adminPage/list`);
-		}
+			this.$store.dispatch(`adminPage/list`, {predictionListOfType: this.poll_type});
+		},
 	}
 </script>
 
 <style lang="scss">
+
 	.admin-wrapper .el-table {
-		margin: 0 10px;
+		overflow: visible !important;
 
 		* {
 			text-align: center !important;
@@ -154,5 +160,17 @@
 				}
 			}
 		}
+
 	}
+
+	.loading-spinner {
+		width: 100%;
+		height: 80px;
+
+		* {
+			background-color: transparent;
+		}
+	}
+
+
 </style>
