@@ -10,11 +10,13 @@ export const adminActions = (sc, listUrl) => class extends sc {
 	};
 	listItemsAction({commit, state}, payload={}){
 
-		let  {page = 0} = payload;
+		let  {page = 0, predictionListOfType = 'all'} = payload;
 
 		commit('setPageNumber', page);
 
-		super.listItemsAction({commit}, {...payload,  customUrl: `${ listUrl}/${page}`, onSuccess: 'appendPayloads'})
+		// , params: {predictionListOfType}
+
+		super.listItemsAction({commit}, {...payload,  customUrl: `${ listUrl}/${page}`, params: {predictionListOfType}, onSuccess: 'appendPayloads'})
 
 
 	};

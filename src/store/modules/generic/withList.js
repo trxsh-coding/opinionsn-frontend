@@ -23,7 +23,7 @@ export const StoreWithList = (sc, listUrl) => class extends sc {
 
     updatePayloadItem(state, payload){
 
-        for (let payloadItem of payload){
+        for (let payloadItem of payload) {
             let {id} = payloadItem;
             let stateItem = state.itemsById[id] || {};
             for (let fieldName of Object.keys(payloadItem)){
