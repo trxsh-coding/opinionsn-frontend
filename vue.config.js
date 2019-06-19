@@ -3,7 +3,7 @@ module.exports = {
 	indexPath: "index.html",
 	outputDir: "www",
 	devServer: {
-		https:true,
+		https:false,
 		proxy: {
 			'/api': {
 				target: 'https://opinionsn.com/api',
