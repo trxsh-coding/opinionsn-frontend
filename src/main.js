@@ -20,6 +20,7 @@ import PerfectScrollbar from 'vue2-perfect-scrollbar'
 import 'vue2-perfect-scrollbar/dist/vue2-perfect-scrollbar.css'
 import VueAwesomeSwiper from 'vue-awesome-swiper'
 import 'swiper/dist/css/swiper.css'
+import './registerServiceWorker'
 
 Vue.use(VueAwesomeSwiper);
 Vue.use(PerfectScrollbar);
