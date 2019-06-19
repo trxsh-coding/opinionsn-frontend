@@ -17,7 +17,6 @@ import {globalStore} from "./modules/globalStore";
 import {notificationPage} from "./modules/notifications";
 import {notificationStore} from "./modules/notificationStore"
 import { adminPage } from "./modules/adminPage";
-
 Vue.use(Vuex)
 Vue.use(axios)
 
