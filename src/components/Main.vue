@@ -67,6 +67,7 @@
 						</div>
 					</nav>
 				</el-row>
+
 			</el-container>
 		</el-header>
 		<el-container class="main-container">
@@ -120,6 +121,8 @@
 
 				</el-row>
 			</el-main>
+			<IphoneAddToScreenComponent v-if="showInstallMessage" :showInstallMessage="showInstallMessage" @closeInstall="closeInstall"/>
+
 		</el-container>
 
 
@@ -132,6 +135,7 @@
 		<footer v-if="!main_user_id && !hide">
 
 		</footer>
+
 	</div>
 </template>
 
@@ -152,8 +156,10 @@
 	import mobileNav from "./mobileNav";
 	import Search from "./Search/search";
 	import notificationSideFeed from "./notifications/notificationSideFeed";
-
+	import IphoneAddToScreenComponent from "./pwaSnippets/IphoneAddToScreenComponent"
+	import Bowser from "bowser"
 	export default {
+
 		data() {
 			return {
 				links: [],
@@ -163,7 +169,8 @@
 				mobile: this.$root.mobile,
 				hide: false,
 				showNavbar: true,
-				lastScrollPosition: 0
+				lastScrollPosition: 0,
+				showInstallMessage: null
 			};
 		},
 		watch: {
@@ -221,6 +228,11 @@
 			//     duration: 0
 			//   });
 			// },
+			closeInstall(){
+
+				this.showInstallMessage = false
+
+			},
 			getPathWithPoll(name) {
 
 				let [, pageName, pollId] = this.$route.path.split('/');
@@ -273,7 +285,24 @@
 					.catch(error => {
 					});
 			},
+			iosAddToHomeScreenSnippet(){
 
+				const isIos = () => {
+					const browser = Bowser.getParser(window.navigator.userAgent).getBrowserName();
+					console.log(browser)
+					return /Safari/.test(browser);
+				}
+				console.log(isIos())
+				// Detects if device is in standalone mode
+				const isInStandaloneMode = () => ('standalone' in window.navigator) && (window.navigator.standalone);
+				console.log(isInStandaloneMode())
+
+				// Checks if should display install popup notification:
+				if (isIos() && !isInStandaloneMode()) {
+					this.state.showInstallMessage = true
+				}
+
+			},
 			querySearchAsync(queryString, cb) {
 				console.log(this.links);
 				var links = this.links;
@@ -303,9 +332,10 @@
 
 		},
 		mounted() {
+
+			this.iosAddToHomeScreenSnippet();
 			this.getNotifications();
 			window.addEventListener("scroll", this.onScroll);
-
 		},
 
 		beforeDestroy() {
@@ -328,7 +358,8 @@
 			mobileNav,
 			IconClose,
 			notificationSideFeed,
-			IconSearch
+			IconSearch,
+			IphoneAddToScreenComponent
 		}
 	};
 </script>

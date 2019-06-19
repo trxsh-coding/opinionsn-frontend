@@ -21,7 +21,9 @@ import 'vue2-perfect-scrollbar/dist/vue2-perfect-scrollbar.css'
 import VueAwesomeSwiper from 'vue-awesome-swiper'
 import 'swiper/dist/css/swiper.css'
 import './registerServiceWorker'
+import browserDetect from "vue-browser-detect-plugin";
 
+Vue.use(browserDetect);
 Vue.use(VueAwesomeSwiper);
 Vue.use(PerfectScrollbar);
 Vue.use(VueTheMask);
