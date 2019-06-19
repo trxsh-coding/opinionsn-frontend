@@ -121,7 +121,7 @@
 
 				</el-row>
 			</el-main>
-			<IphoneAddToScreenComponent v-if="showInstallMessage" :showInstallMessage="showInstallMessage" @closeInstall="closeInstall"/>
+			<IphoneAddToScreenComponent v-if="showInstallMessage && iosNotificationCloseCheck" :showInstallMessage="showInstallMessage" @closeInstall="closeInstall"/>
 
 		</el-container>
 
@@ -170,7 +170,7 @@
 				hide: false,
 				showNavbar: true,
 				lastScrollPosition: 0,
-				showInstallMessage: null
+				showInstallMessage: false
 			};
 		},
 		watch: {
@@ -217,7 +217,16 @@
 				let {state, userMap} = this;
 
 				return userMap[state.main_user_id];
+			},
+
+
+
+
+			iosNotificationCloseCheck: function () {
+
+				return window.localStorage.getItem('iosNotificationPwa' !== 'False');
 			}
+
 		},
 		methods: {
 			// notification(response) {
@@ -231,6 +240,7 @@
 			closeInstall(){
 
 				this.showInstallMessage = false
+				window.localStorage.setItem('iosNotificationPwa', 'False')
 
 			},
 			getPathWithPoll(name) {
@@ -289,17 +299,15 @@
 
 				const isIos = () => {
 					const browser = Bowser.getParser(window.navigator.userAgent).getBrowserName();
-					console.log(browser)
 					return /Safari/.test(browser);
 				}
-				console.log(isIos())
 				// Detects if device is in standalone mode
-				const isInStandaloneMode = () => ('standalone' in window.navigator) && (window.navigator.standalone);
+				const isInStandaloneMode = () => (window.matchMedia('(display-mode: standalone)').matches);
 				console.log(isInStandaloneMode())
 
 				// Checks if should display install popup notification:
 				if (isIos() && !isInStandaloneMode()) {
-					this.state.showInstallMessage = true
+					this.showInstallMessage = true
 				}
 
 			},
@@ -332,7 +340,6 @@
 
 		},
 		mounted() {
-
 			this.iosAddToHomeScreenSnippet();
 			this.getNotifications();
 			window.addEventListener("scroll", this.onScroll);
@@ -344,6 +351,8 @@
 
 
 		beforeCreate() {
+
+
 		},
 		components: {
 			Search,

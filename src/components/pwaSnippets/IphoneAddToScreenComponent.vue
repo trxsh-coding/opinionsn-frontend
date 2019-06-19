@@ -65,6 +65,19 @@
             background: #ffffff;
             margin-right: 10px;
         }
+        .text-block {
+
+            svg {
+
+                g {
+
+                    fill:#3d577b
+
+                }
+
+            }
+
+        }
         span {
             font-family: Roboto;
             font-style: normal;
