@@ -152,6 +152,7 @@
 	import mobileNav from "./mobileNav";
 	import Search from "./Search/search";
 	import notificationSideFeed from "./notifications/notificationSideFeed";
+	import bowser from 'bowser'
 
 	export default {
 		data() {
@@ -305,7 +306,6 @@
 		mounted() {
 			this.getNotifications();
 			window.addEventListener("scroll", this.onScroll);
-
 		},
 
 		beforeDestroy() {
