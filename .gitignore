@@ -4,6 +4,7 @@ node_modules
 platforms
 plugins
 vuex
+/www
 
 # local env files
 .env.local
