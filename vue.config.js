@@ -25,5 +25,10 @@ module.exports = {
 			}
 
 		}
+	},
+	pwa: {
+		themeColor: "#4b97b4",
+		iconPaths: {}
+
 	}
 }
