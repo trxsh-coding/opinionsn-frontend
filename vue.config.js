@@ -13,7 +13,7 @@ module.exports = {
 			},
 			'/messages': {
 				target: 'https://opinionsn.com/messages',
-				pathRewrite: {'^/messages': '/'},
+				pathRewrite: {'^/messages': ''},
 				changeOrigin: true,
 				secure: false
 			},
