@@ -4,6 +4,13 @@ $--color-primary: #4B97B4;
 $--font-path: '~element-ui/lib/theme-chalk/fonts';
 @import "~element-ui/packages/theme-chalk/src/index";
 
+@media all and (display-mode: fullscreen) {
+	body {
+		margin: 0;
+		border: 5px solid black;
+	}
+}
+
 html {
 	font-family: "Roboto", sans-serif;
 
