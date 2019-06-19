@@ -17,11 +17,14 @@ import {globalStore} from "./modules/globalStore";
 import {notificationPage} from "./modules/notifications";
 import {notificationStore} from "./modules/notificationStore"
 import { adminPage } from "./modules/adminPage";
+import createPersistedState from 'vuex-persistedstate'
+
 Vue.use(Vuex)
 Vue.use(axios)
 
 export const store = new Vuex.Store({
 	strict: false,
+	plugins: [createPersistedState()],
 	modules: {
 		Login,
 		authentication,
