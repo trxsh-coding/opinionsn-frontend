@@ -2,7 +2,7 @@
 	<div class="mobile-nav">
 		<div class="section-wrapper" :class="{ swiped: secondNavCaption}">
 			<ul class="nav-section nav-section-1">
-				<li class="nav__item nav__item-1">
+				<li class="nav__item nav__item-1" v-if="mainUser.id != undefined ">
 					<router-link to="/add">
 						<icon-base fill="none" width="24" height="24" viewBox="0 0 24 24" icon-name="plus">
 							<icon-add-poll/>
