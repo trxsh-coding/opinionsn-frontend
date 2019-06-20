@@ -1,5 +1,5 @@
 <template>
-    <div class="add-home-snippet flex">
+    <div class="add-home-snippet flex mx-8">
 
         <div class="plus-block">
             <i class="el-icon-plus"></i>
@@ -9,17 +9,17 @@
                 <i class="el-icon-close"></i>
             </div>
             <span>
-                Install this webapp on your iPhone: tap
-                            <icon-base
-                                    class="ml-5"
-                                    fill="none"
-                                    width="20"
-                                    height="20"
-                                    viewBox="0 0 150 150"
-                                    icon-name="icon-add">
-                <icon-add/>
-            </icon-base>
-                and then Add to homescreen
+				<lang-string :title="'install_this_webapp_on_your_iphone:_tap'"/>
+				<icon-base
+						class="ml-5"
+						fill="none"
+						width="20"
+						height="20"
+						viewBox="0 0 150 150"
+						icon-name="icon-add">
+					<icon-add/>
+				</icon-base>
+				<lang-string :title="'and_then_«add_to_homescreen»'"/>
             </span>
 
         </div>
@@ -29,9 +29,11 @@
 <script>
     import IconBase from "./../icons/IconBase.vue";
     import IconAdd from "./../icons/IconAddToScreen.vue";
+	import langString from "../langString.vue";
+
     export default {
         name: "IphoneAddToScreenComponent",
-        components: {IconAdd, IconBase},
+        components: {IconAdd, IconBase, langString},
         props:['showInstallMessage'],
         methods: {
             closeAdvice(){
@@ -49,7 +51,7 @@
         border-radius: 10px;
         padding: 20px;
         right: 0;
-        bottom: 120px;
+        bottom: 8px;
         position: fixed;
         .icon-close {
             position: absolute;
@@ -58,13 +60,16 @@
             border-radius: 100px;
         }
         .plus-block {
-            padding: 5px;
+			margin: auto 10px auto 0;
+
+			padding: 5px;
+			height: 31px;
+			max-height: 41px;
             display: flex;
             justify-content: center;
             align-items: center;
             background: #ffffff;
-            margin-right: 10px;
-        }
+		}
         .text-block {
 
             svg {

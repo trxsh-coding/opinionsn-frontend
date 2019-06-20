@@ -78,42 +78,6 @@
 					</el-aside>
 					<el-col class="quiz-section" :span="16">
 						<router-view></router-view>
-						<div class="auth-block" v-if="!main_user_id && !hide">
-							<div class="logo-block">
-								<div class="icon logo picture-25x25 mr-6"
-									 :style="{ 'background-image': 'url(' + require('./assets/icons/icon-logo.png') + ')' } "/>
-								<icon-base
-									fill="none"
-									class="text-logo"
-									width="66"
-									height="15"
-									viewBox="0 0 66 15"
-									icon-name="text-logo">
-									<icon-text-logo/>
-								</icon-base>
-							</div>
-							<div class="buttons-block">
-										<span class="icon-exit" @click="hide = !hide">
-										<icon-base
-											fill="none"
-											class="icon-close"
-											width="17"
-											height="17"
-											viewBox="0 0 17 17"
-											icon-name="close"><icon-close/>
-										</icon-base>
-										</span>
-								<router-link :to="getPathWithPoll('sign')">
-									<el-button class="login-btn">
-										<lang-string :title="'login'"/>
-									</el-button>
-								</router-link>
-
-								<router-link :to="getPathWithPoll('registration')">
-									<lang-string class="registration-span" :title="'registration'"/>
-								</router-link>
-							</div>
-						</div>
 					</el-col>
 					<!--<el-col class="quiz-section hidden-sm-and-down" :span="16">-->
 					<!--<router-view></router-view>-->
@@ -121,7 +85,7 @@
 
 				</el-row>
 			</el-main>
-			<IphoneAddToScreenComponent v-if="showInstallMessage && iosNotificationCloseCheck" :showInstallMessage="showInstallMessage" @closeInstall="closeInstall"/>
+			<IphoneAddToScreenComponent v-if="showInstallMessage && iosNotificationCloseCheck && mobile && main_user_id" :showInstallMessage="showInstallMessage" @closeInstall="closeInstall"/>
 
 		</el-container>
 
@@ -133,7 +97,42 @@
         </div> -->
 
 		<footer v-if="!main_user_id && !hide">
+			<div class="auth-block">
+				<div class="logo-block">
+					<div class="icon logo picture-25x25 mr-6"
+						 :style="{ 'background-image': 'url(' + require('./assets/icons/icon-logo.png') + ')' } "/>
+					<icon-base
+						fill="none"
+						class="text-logo"
+						width="66"
+						height="15"
+						viewBox="0 0 66 15"
+						icon-name="text-logo">
+						<icon-text-logo/>
+					</icon-base>
+				</div>
+				<div class="buttons-block mr-10">
+					<span class="icon-exit pointer" @click="hide = !hide">
+						<icon-base
+							fill="none"
+							class="icon-close"
+							width="17"
+							height="17"
+							viewBox="0 0 17 17"
+							icon-name="close"><icon-close/>
+						</icon-base>
+					</span>
+					<router-link :to="getPathWithPoll('sign')">
+						<el-button class="login-btn pointer">
+							<lang-string :title="'login'"/>
+						</el-button>
+					</router-link>
 
+					<router-link :to="getPathWithPoll('registration')">
+						<lang-string class="registration-span pointer" :title="'registration'"/>
+					</router-link>
+				</div>
+			</div>
 		</footer>
 
 	</div>
@@ -224,7 +223,7 @@
 
 			iosNotificationCloseCheck: function () {
 
-				return window.localStorage.getItem('iosNotificationPwa' !== 'False');
+				return window.localStorage.getItem('iosNotificationPwa') !== 'false';
 			}
 
 		},
@@ -239,8 +238,8 @@
 			// },
 			closeInstall(){
 
-				this.showInstallMessage = false
-				window.localStorage.setItem('iosNotificationPwa', 'False')
+				this.showInstallMessage = false;
+				window.localStorage.setItem('iosNotificationPwa', 'false');
 
 			},
 			getPathWithPoll(name) {
@@ -275,7 +274,6 @@
 			},
 			onHide(value) {
 				return (this.mobile_hide = value);
-				console.log(this.mobile_hide);
 			},
 
 			goMain() {
@@ -288,7 +286,6 @@
 						function (response) {
 							if (response.status === 200) {
 								this.links = Object.values(response.data.users);
-								console.log(this.links);
 							}
 						}.bind(this)
 					)
@@ -303,7 +300,6 @@
 				}
 				// Detects if device is in standalone mode
 				const isInStandaloneMode = () => (window.matchMedia('(display-mode: standalone)').matches);
-				console.log(isInStandaloneMode())
 
 				// Checks if should display install popup notification:
 				if (isIos() && !isInStandaloneMode()) {
@@ -312,7 +308,6 @@
 
 			},
 			querySearchAsync(queryString, cb) {
-				console.log(this.links);
 				var links = this.links;
 				var results = queryString
 					? links.filter(this.createFilter(queryString))
@@ -423,12 +418,9 @@
 		.auth-block {
 			display: flex;
 			align-items: center;
-			width: 500px;
-			position: fixed;
-			bottom: 0;
-			z-index: 50;
+			width: 100%;
 			height: 92px;
-			justify-content: space-between;
+			justify-content: space-around;
 
 			.buttons-block {
 				display: flex;
@@ -617,9 +609,9 @@
 				box-shadow: 0px 0px 12px rgba(0, 0, 0, 0.06);
 			}
 
-			.auth-block {
-				width: 88%;
-			}
+			/*.auth-block {*/
+			/*	width: 88%;*/
+			/*}*/
 
 			.el-main {
 				margin-top: 109px !important;
