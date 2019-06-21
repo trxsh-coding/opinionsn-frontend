@@ -1,12 +1,12 @@
 <template lang="html">
 	<div id="app">
-
 		<el-header id="mobile-header" class="mobile-nav hidden-sm-and-up" :class="{ 'navbar--hidden': !showNavbar }">
 			<mobile-nav :user="main_user"/>
 		</el-header>
 
 		<el-header class="nav-header hidden-xs-only" style=" height:48px ">
 			<el-container class="nav">
+
 				<el-row>
 					<nav class="navbar">
 						<el-col :span="11">
@@ -25,6 +25,8 @@
 											<icon-text-logo/>
 										</icon-base>
 									</a>
+
+
 									<el-autocomplete
 										popper-class="my-autocomplete"
 										v-model="keywords"
@@ -77,6 +79,15 @@
 						<left-bar-side :id="main_user_id"></left-bar-side>
 					</el-aside>
 					<el-col class="quiz-section" :span="16">
+						<el-button @click="createSubscription">
+							hallo
+						</el-button>
+						<el-button @click="showNotification">
+							showNotification
+						</el-button>
+						<el-button @click="toggleSubscription">
+							GO
+						</el-button>
 						<router-view></router-view>
 						<div class="auth-block" v-if="!main_user_id && !hide">
 							<div class="logo-block">
@@ -121,7 +132,7 @@
 
 				</el-row>
 			</el-main>
-			<IphoneAddToScreenComponent v-if="showInstallMessage && iosNotificationCloseCheck" :showInstallMessage="showInstallMessage" @closeInstall="closeInstall"/>
+			<IphoneAddToScreenComponent  :showInstallMessage="showInstallMessage" @closeInstall="closeInstall" v-if="false"/>
 
 		</el-container>
 
@@ -170,7 +181,14 @@
 				hide: false,
 				showNavbar: true,
 				lastScrollPosition: 0,
-				showInstallMessage: false
+				showInstallMessage: false,
+				notificationsSupported: false,
+				notificationsEnabled: false,
+				buttonDisabled: false,
+				serviceWorkerRegistation: null,
+				subscription: null,
+				message: null,
+
 			};
 		},
 		watch: {
@@ -179,6 +197,8 @@
 			}
 		},
 		computed: {
+
+
 			lstr() {
 				return str => localString(this.lang, str);
 			},
@@ -229,14 +249,14 @@
 
 		},
 		methods: {
-			// notification(response) {
-			//   this.$notify({
-			//     title: "Уведомление",
-			//     message: response[0].message,
-			//     position: "bottom-right",
-			//     duration: 0
-			//   });
-			// },
+			notification(response) {
+			  this.$notify({
+			    title: "Уведомление",
+			    message: response[0].message,
+			    position: "bottom-right",
+			    duration: 0
+			  });
+			},
 			closeInstall(){
 
 				this.showInstallMessage = false
@@ -256,6 +276,22 @@
 			},
 
 
+
+			createSubscription() {
+
+				this.$store.dispatch('serviceWorker/CREATE_SUBSCRIPTION')
+
+			},
+
+			toggleSubscription() {
+
+				this.$store.dispatch('serviceWorker/TOGGLE_SUBSCRIPTION')
+
+			},
+
+			showNotification() {
+				this.$store.dispatch('serviceWorker/SHOW_NOTIFICATION')
+			},
 			getNotifications() {
 				this.$store.dispatch("notificationPage/list", {customUrl: `${process.env.VUE_APP_NOTIFICATION_API}/notification/${this.page}`});
 			},
@@ -265,8 +301,7 @@
 				if (currentScrollPosition < 0) {
 					return;
 				}
-				// Stop executing this function if the difference between
-				// current scroll position and last scroll position is less than some offset
+
 				if (Math.abs(currentScrollPosition - this.lastScrollPosition) < 60) {
 					return;
 				}
@@ -337,12 +372,14 @@
 		created() {
 			this.$store.dispatch("userPage/getMainUser");
 			this.$store.dispatch("lang/getLocaleString");
-
 		},
 		mounted() {
+			console.log(this);
 			this.iosAddToHomeScreenSnippet();
 			this.getNotifications();
 			window.addEventListener("scroll", this.onScroll);
+			this.$store.commit("serviceWorker/SET_NOTIFICATION_SUPPORT")
+
 		},
 
 		beforeDestroy() {
@@ -351,6 +388,7 @@
 
 
 		beforeCreate() {
+
 
 
 		},

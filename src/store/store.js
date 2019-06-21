@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import Login from './modules/Login'
 import lang from './modules/lang'
+import serviceWorker from './modules/serviceWorker'
 import {authentication} from './modules/authentication'
 import axios from 'axios'
 import {voteFeed} from "./modules/voteFeed";
@@ -41,7 +42,8 @@ export const store = new Vuex.Store({
 		followsPage,
 		notificationPage,
 		notificationStore,
-		adminPage
+		adminPage,
+		serviceWorker
 	},
 	state: {},
 	getters: {},

@@ -122,7 +122,6 @@ export const notificationPageList = (sc, listUrl) => class extends sc {
 
 
  setNotification({dispatch, commit,state}, payload){
-
      let {responseData} = payload;
      let {userId, initiatorId, targetId} = responseData.messages[0];
 
@@ -133,6 +132,7 @@ export const notificationPageList = (sc, listUrl) => class extends sc {
         state.counter+= 1 ;
         dispatch(`appendToStore`, payload)
         dispatch(`longPollingAction`)
+        dispatch('serviceWorker/SHOW_NOTIFICATION', responseData.messages[0], {root: true});
 
     } else {
         dispatch(`longPollingAction`)

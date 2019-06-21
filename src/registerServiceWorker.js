@@ -2,16 +2,25 @@
 
 import { register } from 'register-service-worker'
 
-if (process.env.NODE_ENV === 'production') {
+
   register(`${process.env.BASE_URL}service-worker.js`, {
-    ready () {
+    registrationOptions: {
+      scope: './'
+    },
+
+    ready (registration) {
       console.log(
         'App is being served from cache by a service worker.\n' +
         'For more details, visit https://goo.gl/AFskqB'
       )
+
     },
-    registered () {
-      console.log('Service worker has been registered.')
+
+    registered (registration) {
+
+      console.log('Service worker v2.0 has been registered.');
+
+
     },
     cached () {
       console.log('Content has been cached for offline use.')
@@ -28,5 +37,5 @@ if (process.env.NODE_ENV === 'production') {
     error (error) {
       console.error('Error during service worker registration:', error)
     }
-  })
-}
+  });
+
