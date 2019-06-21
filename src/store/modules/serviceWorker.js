@@ -3,7 +3,8 @@ import  {
     SET_SUBSCRIPTION,
     ENABLE_NOTIFICATION,
     DISABLE_BUTTON,
-    SET_NOTIFICATION_SUPPORT
+    SET_NOTIFICATION_SUPPORT,
+	CONNECTION_UNSTABLE
 } from "../types/mutation-types";
 import  {
     CREATE_SUBSCRIPTION,
@@ -25,12 +26,15 @@ export default  {
         serviceWorkerRegistation: null,
         subscription: null,
         message: null,
+		connectionUnstable: false,
 
-    },
+	},
     mutations: {
 
 
-
+		[CONNECTION_UNSTABLE](state, payload = true) {
+			state.connectionUnstable = payload;
+		},
 
         [SERVICE_WORKER_REGISTRATION](state, payload){
             console.log(payload)

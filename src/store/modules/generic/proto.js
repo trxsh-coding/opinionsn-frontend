@@ -46,11 +46,21 @@ export class VuexStore {
             }
 
             commit('setLoading', false);
+			commit('serviceWorker/CONNECTION_UNSTABLE', false, { root: true });
 
-        }).catch(ex=> {
-            console.error(`Caught an exception`);
-            console.error(ex);
-            commit('onError', ex);
+        }).catch(error=> {
+        	let { message } = error;
+
+        	if (message === "Network Error") {
+				commit('setLoading', false);
+				commit('decrementPage');
+				commit('serviceWorker/CONNECTION_UNSTABLE', true, { root: true });
+			} else {
+				console.error(`Caught an exception`);
+				console.error(error);
+				commit('onError', error);
+			}
+
         });
 
 

@@ -24,9 +24,14 @@ export const StoreWithPageList = (sc, listUrl, additionalUrl) => {
 
         };
 
-        //ACTIONS
+		decrementPage(state, payload) {
+			if (state.page > 0) state.page --;
+			// state.is_finished = true;
+		};
 
-        listItemsAction({commit, state}, payload={}){
+		//ACTIONS
+
+		listItemsAction({commit, state}, payload={}){
 
             let  {page = 0} = payload;
 
@@ -63,7 +68,7 @@ export const StoreWithPageList = (sc, listUrl, additionalUrl) => {
             return {
                 ...super.actions,
                 loadNextPage: this.loadNextPage,
-            }
+			}
         }
 
         get mutations() {
@@ -71,6 +76,7 @@ export const StoreWithPageList = (sc, listUrl, additionalUrl) => {
                 ...super.mutations,
                 appendElements: this.appendElements,
                 setPageNumber: this.setPageNumber,
+				decrementPage: this.decrementPage,
             }
         }
     }

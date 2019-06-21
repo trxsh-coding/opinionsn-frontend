@@ -103,9 +103,9 @@
 
 		<notification-side-feed v-if="!mobile"/>
 
-		<!-- <div class="notification-container flex-column">
-            <notification-block :notification="notification"  v-for="notification in notifications" />
-        </div> -->
+		<div class="connection-alert v-center" v-show="connectionUnstable">
+			<lang-string :title="'connection_could_not_be_established'"/>
+		</div>
 
 		<footer v-if="!main_user_id && !hide">
 			<div class="auth-block">
@@ -201,13 +201,14 @@
 			lstr() {
 				return str => localString(this.lang, str);
 			},
-			// ...mapState('user',{
-			//   user : state => state.User[0]
-			// }),
 
 			...mapState("globalStore", {
 				mainUser: ({mainUser}) => mainUser
 
+			}),
+
+			...mapState("serviceWorker", {
+				connectionUnstable: ({ connectionUnstable }) => connectionUnstable
 			}),
 
 			...mapState("lang", {
@@ -441,6 +442,17 @@
 				text-transform: capitalize;
 				color: #ffffff;
 			}
+		}
+
+		.connection-alert {
+			position: fixed;
+			width: 100%;
+			bottom: 0;
+			padding: 20px 15px;
+			color: #fff;
+			background-color: #000000c4;
+			z-index: 9999;
+			box-sizing: border-box;
 		}
 
 		footer {

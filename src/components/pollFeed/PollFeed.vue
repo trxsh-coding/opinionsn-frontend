@@ -2,24 +2,7 @@
 
 
   <div id="poll-wrapper">
-    <!-- Ошибка -->
-    <!--<div v-if="state.error">-->
-      <!--Что-то сломалось:-->
-      <!--{{state.error}}-->
-    <!--</div>-->
 
-    <!-- Загрузка -->
-    <!--<div v-else-if="state.loading">-->
-      <!--<p align="center" style="font-size:10px;margin-top: 5px;color: darkgray">Загружаю ленту мнений...</p>-->
-    <!--</div>-->
-
-    <!-- Нет данных -->
-    <!--<div >-->
-      <!--<p align="center" style="font-size:10px;margin-top: 5px;color: darkgray">Нет событий</p>-->
-    <!--</div>-->
-
-
-    <!-- Всё ок -->
     <div class="feed relative">
         <swiper :options="swiperOption" class="category-section mb-6">
 
@@ -32,11 +15,11 @@
     	<div v-for="item in items" >
         	<event :item="item" :feed="feed"/>
     	</div>
-    	<mugen-scroll :handler="load" :should-handle="!loading">
-        	<div class="loading-spinner" v-loading="true" v-if="!loading"/>
+    	<mugen-scroll :handler="load" :should-handle="!is_finished">
+        	<div class="loading-spinner" v-loading="true" v-if="!is_finished"/>
     	</mugen-scroll>
 
-    </div>
+	</div>
 
   </div>
 
@@ -85,7 +68,8 @@
 			...mapState("pollFeed", {
 				state: s => s,
 				items: s => s.items,
-				loading: s => s.is_finished
+				is_finished: s => s.is_finished,
+				connectionUnstable: ({ connectionUnstable }) => connectionUnstable
 			}),
 
 			...mapState("globalStore", {
