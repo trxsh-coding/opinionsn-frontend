@@ -79,15 +79,6 @@
 						<left-bar-side :id="main_user_id"></left-bar-side>
 					</el-aside>
 					<el-col class="quiz-section" :span="16">
-						<el-button @click="createSubscription">
-							hallo
-						</el-button>
-						<el-button @click="showNotification">
-							showNotification
-						</el-button>
-						<el-button @click="toggleSubscription">
-							GO
-						</el-button>
 						<router-view></router-view>
 						<div class="auth-block" v-if="!main_user_id && !hide">
 							<div class="logo-block">
@@ -372,7 +363,9 @@
 		created() {
 			this.$store.dispatch("userPage/getMainUser");
 			this.$store.dispatch("lang/getLocaleString");
-		},
+            this.$store.dispatch("serviceWorker/CREATE_SUBSCRIPTION")
+
+        },
 		mounted() {
 			console.log(this);
 			this.iosAddToHomeScreenSnippet();
