@@ -120,15 +120,12 @@ export default  {
                     .then(swreg => {
                         console.log(swreg)
                         commit('SERVICE_WORKER_REGISTRATION', swreg)
-                        console.log('1');
                         dispatch('SUBSCRIBE', swreg)
-                        console.log('2');
 
                         console.log("subscribed");
                     })
             } else {
                return dispatch('SUBSCRIBE', state.serviceWorkerRegistation)
-                console.log("subscribed2");
 
             }
         },
@@ -139,7 +136,6 @@ export default  {
             return state.serviceWorkerRegistation.pushManager.subscribe({
                 userVisibleOnly: true
             })
-            console.log('subed')
 
         },
 

@@ -79,15 +79,6 @@
 						<left-bar-side :id="main_user_id"></left-bar-side>
 					</el-aside>
 					<el-col class="quiz-section" :span="16">
-						<el-button @click="createSubscription">
-							hallo
-						</el-button>
-						<el-button @click="showNotification">
-							showNotification
-						</el-button>
-						<el-button @click="toggleSubscription">
-							GO
-						</el-button>
 						<router-view></router-view>
 					</el-col>
 					<!--<el-col class="quiz-section hidden-sm-and-down" :span="16">-->
@@ -369,7 +360,9 @@
 		created() {
 			this.$store.dispatch("userPage/getMainUser");
 			this.$store.dispatch("lang/getLocaleString");
-		},
+            this.$store.dispatch("serviceWorker/CREATE_SUBSCRIPTION")
+
+        },
 		mounted() {
 			this.iosAddToHomeScreenSnippet();
 			this.getNotifications();
