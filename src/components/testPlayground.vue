@@ -1,28 +1,52 @@
 <template>
     <div class="wrapper-box">
-		<picture-reusable :img="require('../assets/logo.png')" :size="60" textLayout="left" :counter="10" bor-rad="50%">
-			<template #title>
-				qwerty
+		<option-reusable :percentage="55" :bows="bows" correct :picture="picture" :id="123" @selectOption="selectOption">
+			<template>
+				Да, потому что киберпанк в моде
 			</template>
-			<template #description>
-				qwertydsdfs
+			<template #badge>
+				<badge-reusable :counter="Object.keys(bows).length - 1" :size="21"></badge-reusable>
 			</template>
-		</picture-reusable>
+		</option-reusable>
 	</div>
 </template>
 
 <script>
     import PictureReusable from "./reusableСomponents/PictureReusable";
+	import OptionReusable from "./reusableСomponents/OptionReusable";
+	import BadgeReusable from "./reusableСomponents/BadgeReusable";
 
 	export default {
         name: "testPlayground",
-		components: {
-			PictureReusable
+		data() {
+			return {
+				bows: [
+					{
+						img: require('../assets/logo.png'),
+						url: '/admin/test_playground'
+					},
+					{
+						img: require('../assets/logo.png'),
+						url: '/admin/test_playground'
+					},
+					{
+						img: require('../assets/logo.png'),
+						url: '/admin/test_playground'
+					}
+				],
+				picture: require('./reusableСomponents/pic.png')
+			}
 		},
-		mounted() {
-			console.log(require('../assets/logo.png'));
-			console.log(this.picture);
-		}
+		components: {
+			BadgeReusable,
+			PictureReusable,
+			OptionReusable
+		},
+		methods: {
+			selectOption(id) {
+				console.log(id);
+			}
+		},
 	}
 </script>
 
