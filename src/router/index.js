@@ -27,6 +27,8 @@ import sidebar from '../components/mobile/sidebar';
 import { nprogress } from '../main.js';
 import notificationPage from '../components/notifications/notificationPage';
 import PollTable from '../components/Admin/PollTable';
+import testPlayground from "../components/testPlayground";
+
 Vue.use(Router);
 
 export const index = new Router({
@@ -93,6 +95,11 @@ export const index = new Router({
 					name: `polls`,
 					component: PollTable,
 					props: true
+				},
+				{
+					path: `test_playground`,
+					name: `testPlayground`,
+					component: testPlayground
 				},
 			]
 		},
