@@ -34,7 +34,6 @@
     import IconAddPoll from '../../icons/IconAddPoll'
     import IconLogo from '../../icons/IconLogo'
     import IconTextLogo from '../../icons/IconTextLogo'
-
     export default {
         name: "header",
         components:{IconBase, IconAddPoll,IconLogo, IconTextLogo}
@@ -43,7 +42,11 @@
 
 <style lang="scss" >
     .mobile-header {
-
+        width: 100%;
+        position: fixed;
+        top: 0;
+        background: #ffffff;
+        z-index: 999999;
         padding: 8px 20px 13px 20px ;
 
     }
