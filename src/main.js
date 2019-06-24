@@ -21,7 +21,10 @@ import 'vue2-perfect-scrollbar/dist/vue2-perfect-scrollbar.css'
 import VueAwesomeSwiper from 'vue-awesome-swiper'
 import 'swiper/dist/css/swiper.css'
 import './registerServiceWorker'
+import browserDetect from "vue-browser-detect-plugin";
+import * as firebase from "firebase";
 
+Vue.use(browserDetect);
 Vue.use(VueAwesomeSwiper);
 Vue.use(PerfectScrollbar);
 Vue.use(VueTheMask);
@@ -48,6 +51,32 @@ Vue.use(Element, {
   i18n: (key, value) => i18n.t(key, value)});
 
 //*****************
+var config = {
+  apiKey: "AIzaSyDY179FlmkJHEKRK0LFDIwbRdl8hIHaSTo",
+  authDomain: "opinion-sn.firebaseapp.com",
+  databaseURL: "https://opinion-sn.firebaseio.com",
+  projectId: "opinion-sn",
+  storageBucket: "",
+  messagingSenderId: "850070172926",
+  appId: "1:850070172926:web:fc92d571935e2293"
+}; // 4. Get Firebase Configuration
+firebase.initializeApp(config);
+
+const messaging = firebase.messaging();
+
+messaging.usePublicVapidKey("BDA446p4uBe-pozosCxOnAKsk3uCr5vbz6SeklrhralhCeQTR0yMkynub7kyFTO4BLiSONemLn61qaLE-rfVEbY"); // 1. Generate a new key pair
+
+// Request Permission of Notifications
+messaging.requestPermission().then(() => {
+  console.log('Notification permission granted.');
+
+  // Get Token
+  messaging.getToken().then((token) => {
+    console.log(token)
+  })
+}).catch((err) => {
+  console.log('Unable to get permission to notify.', err);
+});
 
 // moment.locale('ru');
 
