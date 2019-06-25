@@ -24,6 +24,7 @@
 <script>
     export default {
         name: "PictureReusable",
+
 		props: {
         	picClass: String,
         	img: {
@@ -159,7 +160,7 @@
 			display: flex;
 			flex-direction: column;
 			justify-content: center;
-			align-items: center;
+			align-items: flex-start;
 			width: fit-content;
 
 			.title,

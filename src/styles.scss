@@ -22,7 +22,8 @@ html {
 }
 
 html, body, #app, section.section {
-	height: 100%;
+	*{box-sizing: border-box !important;}
+
 }
 
 .el-button {
@@ -82,10 +83,9 @@ li {
 	font-family: Roboto;
 	font-style: normal;
 	font-weight: 500;
-	line-height: 18px;
-	font-size: 13px;
-	letter-spacing: -0.1px;
-	color: #828D92;
+	font-size: 14px;
+	line-height: 16px;
+	color: #1A1E22;
 }
 
 .flex-column {

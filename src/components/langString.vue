@@ -1,10 +1,9 @@
 <template lang="html">
   <span class="lang-string">
-    {{lang[title] || transformedKey}}
+    {{lang[title] || transformedKey}}<slot name="text"></slot>
   </span>
 </template>
 <script>
-import axios from 'axios';
 import { mapState } from 'vuex';
 import {localString} from "../utils/localString";
 

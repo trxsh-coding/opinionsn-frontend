@@ -23,7 +23,7 @@ import bookmarkFeed from '../components/bookmarkFeed/Feed';
 import CatalogFeed from '../components/CatalogFeed/Feed';
 import feedBack from '../components/feedback/feedbackForm';
 import user from '../components/user/Page';
-import sidebar from '../components/mobile/sidebar';
+import sidebar from '../components/mobile/menu';
 import { nprogress } from '../main.js';
 import notificationPage from '../components/notifications/notificationPage';
 import PollTable from '../components/Admin/PollTable';

@@ -31,6 +31,12 @@
 </script>
 
 <style lang="scss">
+    .sidebar {
+        margin-top: 15px;
+        margin-left: 60px;
+        margin-right: 20px;
+
+    }
 	.copyright {
 		// padding: 0 10px;
 		span {
