@@ -12,7 +12,25 @@
 
 		<picture-reusable :size="60" :img="picture" :counter="6" bor-rad="50%"></picture-reusable>
 
-		<dropdown-list-reusable>
+		<dropdown-list-reusable @handleDropdownList="handleDropdownList">
+
+			<template>
+				Кино
+			</template>
+
+			<template #icon>
+				<icon-base
+					class="ml-14 mr-4"
+					fill="#023F52"
+					width="6"
+					height="10"
+					viewBox="0 0 10 6"
+					icon-name="drop-arrow">
+					<icon-drop-arrow />
+				</icon-base>
+			</template>
+
+			<!--	class="ml-14 mr-4"  -->
 
 			<template #items>
 				<li>123123123</li>
@@ -31,9 +49,20 @@
 	import OptionReusable from "./reusableСomponents/OptionReusable";
 	import BadgeReusable from "./reusableСomponents/BadgeReusable";
 	import DropdownListReusable from "./reusableСomponents/DropdownListReusable";
+	import IconBase from "./icons/IconBase";
+	import IconDropArrow from "./icons/IconDropArrow";
+
 
 	export default {
         name: "testPlayground",
+		components: {
+			DropdownListReusable,
+			BadgeReusable,
+			PictureReusable,
+			OptionReusable,
+			IconBase,
+			IconDropArrow
+		},
 		data() {
 			return {
 				bows: [
@@ -53,15 +82,12 @@
 				picture: require('./reusableСomponents/pic.png')
 			}
 		},
-		components: {
-			DropdownListReusable,
-			BadgeReusable,
-			PictureReusable,
-			OptionReusable
-		},
 		methods: {
 			selectOption(id) {
 				console.log(id);
+			},
+			handleDropdownList(isListVisible) {
+				console.log('isListVisible', isListVisible);
 			}
 		},
 	}
