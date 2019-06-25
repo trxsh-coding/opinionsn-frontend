@@ -10,7 +10,7 @@
 			</template>
 		</option-reusable>
 
-		<picture-reusable :size="60" :img="picture" :counter="6" bor-rad="50%"></picture-reusable>
+		<picture-reusable :size="60" :img="picture" :counter="6" rounded></picture-reusable>
 
 		<dropdown-list-reusable @handleDropdownList="handleDropdownList">
 
@@ -41,6 +41,10 @@
 
 		</dropdown-list-reusable>
 
+		<button-reusable>
+			<span>123456</span>
+		</button-reusable>
+
 	</div>
 </template>
 
@@ -51,11 +55,13 @@
 	import DropdownListReusable from "./reusableСomponents/DropdownListReusable";
 	import IconBase from "./icons/IconBase";
 	import IconDropArrow from "./icons/IconDropArrow";
+	import ButtonReusable from "./reusableСomponents/ButtonReusable";
 
 
 	export default {
         name: "testPlayground",
 		components: {
+			ButtonReusable,
 			DropdownListReusable,
 			BadgeReusable,
 			PictureReusable,
@@ -96,5 +102,6 @@
 <style scoped lang="scss">
 	.wrapper-box {
 		width: 100%;
+
 	}
 </style>
