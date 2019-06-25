@@ -171,6 +171,7 @@
 
 			.description {
 				font-size: 12px;
+				color: #ADAFB3;
 			}
 
 		}

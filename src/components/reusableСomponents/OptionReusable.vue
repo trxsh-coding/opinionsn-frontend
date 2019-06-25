@@ -1,7 +1,7 @@
 <template>
 	<div class="option-reusable">
 
-		<div class="bows" :style="{...optionStyle, backgroundColor: 'unset !important'}">
+		<div v-if="bows" class="bows" :style="{...optionStyle, backgroundColor: 'unset !important'}">
 			<slot v-if="bows.length > 2" name="badge"></slot>
 			<router-link v-for="bow in filteredBows" :to="bow.url">
 				<div class="bow" :style="{backgroundImage: `url('${bow.img}')`}"></div>
@@ -17,7 +17,7 @@
 				<slot></slot>
 			</span>
 
-				<span class="percentage-block">
+			<span v-if="percentage" class="percentage-block">
 				{{percentage}}%
 			</span>
 
@@ -65,7 +65,8 @@
 			filteredBows() {
 
 				let { bows } = this;
-				return Object.keys(bows).length > 2 ? [bows[0]] : bows;
+				if (bows) return Object.keys(bows).length > 2 ? [bows[0]] : bows;
+				return '';
 
 			},
 			optionStyle() {

@@ -47,8 +47,6 @@
 <style lang="scss" scoped>
 
 	.dropdown-list-reusable {
-		margin-left: 100px;
-
 		position: relative;
 		width: fit-content;
 
