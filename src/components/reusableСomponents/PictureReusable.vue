@@ -38,6 +38,7 @@
 					return 'auto';
 				}
 			},
+			rounded: Boolean,
 			borColor: {
 				type: String
 			},
@@ -75,7 +76,14 @@
 				}
 			},
 			pictureWrapperStyle() {
-				let { borColor, borRad } = this;
+				let { borColor, borRad, rounded } = this;
+
+				if (rounded) {
+					borRad = '50%'
+				} else {
+					borRad = (borRad.slice(-1) === '%') ? borRad : borRad + 'px';
+				}
+
 				if (borColor) {
 					return {
 						border: `2px solid ${borColor}`,
@@ -85,8 +93,13 @@
 				return '';
 			},
 			pictureStyle() {
-				let { size, borRad, img } = this;
-				borRad = (borRad.slice(-1) === '%') ? borRad : borRad + 'px';
+				let { size, borRad, img, rounded } = this;
+
+				if (rounded) {
+					borRad = '50%'
+				} else {
+					borRad = (borRad.slice(-1) === '%') ? borRad : borRad + 'px';
+				}
 
 				return {
 					width: `${size}px`,
