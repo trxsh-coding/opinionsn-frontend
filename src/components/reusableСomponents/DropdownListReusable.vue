@@ -2,8 +2,10 @@
     <div class="dropdown-list-reusable">
 
 		<button class="toggle-btn" @click="show = !show">
-			<slot>Кино <==></slot>
-<!--		TODO: вставить иконку svg	-->
+			<slot></slot>
+			<span class="icon-wrapper" :style="iconStyle">
+				<slot name="icon"></slot>
+			</span>
 		</button>
 
 		<ul class="dropdown-list" :style="listVisibility">
@@ -13,26 +15,38 @@
 </template>
 
 <script>
-    export default {
+
+	export default {
         name: "DropdownListReusable",
 		data() {
 			return {
 				show: false
 			}
 		},
+		watch: {
+        	show() {
+				this.handleDropdownList();
+			}
+		},
 		computed: {
 			listVisibility() {
 				return this.show ? { visibility: 'visible', opacity: '1' } : { visibility: 'hidden', opacity: '0' };
+			},
+			iconStyle() {
+				return this.show ? {transform: "rotateX(180deg)", top: '2px'} : {};
 			}
 		},
-	//	TODO: сделать эмит для this.show
+		methods: {
+			handleDropdownList() {
+				this.$emit('handleDropdownList', this.show);
+			}
+		},
     }
 </script>
 
 <style lang="scss" scoped>
 
 	.dropdown-list-reusable {
-
 		margin-left: 100px;
 
 		position: relative;
@@ -53,15 +67,21 @@
 			color: #1A1E22;
 
 			background-color: transparent;
-			/*outline: none;*/
-			/*border: none;*/
+			outline: none;
+			border: none;
+
+			.icon-wrapper {
+				position: relative;
+				display: flex;
+				align-items: center;
+			}
 
 		}
 
 		.dropdown-list {
 			position: absolute;
 			z-index: 8000;
-			top: 150%;
+			top: calc(100% + 10px);
 			left: 50%;
 			transform: translateX(-50%);
 
