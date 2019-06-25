@@ -1,5 +1,6 @@
 <template>
     <div class="wrapper-box">
+
 		<option-reusable :percentage="55" :bows="bows" correct :picture="picture" :id="123" @selectOption="selectOption">
 			<template>
 				Да, потому что киберпанк в моде
@@ -9,7 +10,19 @@
 			</template>
 		</option-reusable>
 
-		<picture-reusable :size="60" :img="picture" :counter="6"  ></picture-reusable>
+		<picture-reusable :size="60" :img="picture" :counter="6" bor-rad="50%"></picture-reusable>
+
+		<dropdown-list-reusable>
+
+			<template #items>
+				<li>123123123</li>
+				<li>456456456</li>
+				<li>789789789</li>
+			</template>
+
+
+		</dropdown-list-reusable>
+
 	</div>
 </template>
 
@@ -17,6 +30,7 @@
     import PictureReusable from "./reusableСomponents/PictureReusable";
 	import OptionReusable from "./reusableСomponents/OptionReusable";
 	import BadgeReusable from "./reusableСomponents/BadgeReusable";
+	import DropdownListReusable from "./reusableСomponents/DropdownListReusable";
 
 	export default {
         name: "testPlayground",
@@ -40,6 +54,7 @@
 			}
 		},
 		components: {
+			DropdownListReusable,
 			BadgeReusable,
 			PictureReusable,
 			OptionReusable
