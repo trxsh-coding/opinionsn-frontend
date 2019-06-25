@@ -16,6 +16,7 @@
 
 				<div class="option">
 					<span class="option-name">{{explain.option}}</span>
+					<!--TODO: доделать инпуты-->
 					<icon-base
 						class="ml-14 pointer"
 						fill="#BCBEC3"
@@ -46,6 +47,7 @@
 
 					<div class="option">
 						<span class="option-name">{{comment.option}}</span>
+						<!--TODO: доделать инпуты-->
 						<span @click="setActiveInput(index + 1, 2)" class="ml-14 pointer">
 							<icon-base
 								fill="#BCBEC3"
