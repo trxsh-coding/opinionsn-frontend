@@ -2,11 +2,7 @@
     <div class="picture-reusable" :style="wrapperStyle">
 		<div class="picture-wrapper" :class="picClass" :style="pictureWrapperStyle">
 			<div class="picture" :style="pictureStyle">
-				<div v-if="counter" class="counter">
-				<span>
-					+{{handledCounter}}
-				</span>
-				</div>
+				<badge-reusable v-if="counter" :counter="counter" :size="21" class="counter" color="#4B97B4"></badge-reusable>
 			</div>
 		</div>
 		<div class="text">
@@ -22,8 +18,10 @@
 </template>
 
 <script>
-    export default {
+    import BadgeReusable from "./BadgeReusable";
+	export default {
         name: "PictureReusable",
+		components: {BadgeReusable},
 		props: {
         	picClass: String,
         	img: {
@@ -52,6 +50,7 @@
 			counter: Number
 		},
 		computed: {
+        	// TODO: заменить бейдж с инлайнового на новый бейдж компонент
 			wrapperStyle() {
 				let { textLayout } = this;
 
@@ -87,7 +86,7 @@
 				return '';
 			},
 			pictureStyle() {
-				let { size, borRad, img, borColor } = this;
+				let { size, borRad, img } = this;
 				borRad = (borRad.slice(-1) === '%') ? borRad : borRad + 'px';
 
 				return {
@@ -96,13 +95,6 @@
 					borderRadius: `${borRad}`,
 					backgroundImage: `url('${img}')`
 				};
-			},
-			handledCounter() {
-				let { counter } = this;
-				if (counter) {
-					return counter > 9 ? 9 : counter;
-				};
-				return '';
 			}
 		},
 		mounted() {
@@ -132,14 +124,8 @@
 				background-size: cover;
 
 				.counter {
-					width: 21px;
-					height: 21px;
-					background-color: #4B97B4;
-					border-radius: 50%;
-					display: flex;
-
 					position: absolute;
-					top: 0;
+					top: -5px;
 					right: -5px;
 
 					span {

@@ -8,6 +8,8 @@
 				<badge-reusable :counter="Object.keys(bows).length - 1" :size="21"></badge-reusable>
 			</template>
 		</option-reusable>
+
+		<picture-reusable :size="60" :img="picture" :counter="6"  ></picture-reusable>
 	</div>
 </template>
 
