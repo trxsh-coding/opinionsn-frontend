@@ -6,7 +6,7 @@
 			</div>
 		</div>
 		<div class="text">
-			<span class="title" :style="titleStyle">
+			<span class="title">
 				<slot name="title"></slot>
 			</span>
 
@@ -50,7 +50,6 @@
 			counter: Number
 		},
 		computed: {
-        	// TODO: заменить бейдж с инлайнового на новый бейдж компонент
 			wrapperStyle() {
 				let { textLayout } = this;
 
@@ -96,10 +95,6 @@
 					backgroundImage: `url('${img}')`
 				};
 			}
-		},
-		mounted() {
-			let { size, borRad, img } = this;
-        	console.log(size, borRad, img)
 		}
 	}
 </script>
