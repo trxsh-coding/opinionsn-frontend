@@ -9,7 +9,7 @@
 		</div>
 
 		<div class="option-wrapper" @click="selectOption()">
-			<div v-if="picture" class="picture" :style="{backgroundImage: `url('${picture}')`}"></div>
+			<div v-if="picture" class="picture" :style="pictureStyle"></div>
 
 			<div class="option" :style="optionStyle">
 
@@ -37,6 +37,12 @@
 			prediction: Boolean,
 			percentage: Number,
 			picture: String,
+			pictureSize: {
+				type: Number,
+				default: function () {
+					return 90;
+				}
+			},
 			id: {
 				type: Number,
 				required: true
@@ -114,6 +120,15 @@
 					default:
 						return width;
 				}
+			},
+			pictureStyle() {
+				let { picture, pictureSize } = this;
+
+				return {
+					backgroundImage: `url('${picture}')`,
+					width: `${pictureSize}px`,
+					height: `${pictureSize}px`
+				}
 			}
 		},
 	}
@@ -162,8 +177,6 @@
 			cursor: pointer;
 
 			.picture {
-				width: 90px;
-				height: 90px;
 				background-repeat: no-repeat;
 				background-size: cover;
 			}
