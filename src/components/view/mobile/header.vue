@@ -1,5 +1,5 @@
 <template>
-    <div class="mobile-header flex-between">
+    <div class="mobile-header flex-between flex-align-center">
         <div class="create-poll-icon-block">
             <icon-base
                     class="add-poll"
@@ -24,7 +24,7 @@
             </icon-base>
         </div>
         <div class="user-avatar-block">
-
+            <avatar :img="publicPath + imageUtil(user.path_to_avatar, 'S')" :size="27" textLayout="right" bor-rad="50%"/>
         </div>
     </div>
 </template>
@@ -34,14 +34,29 @@
     import IconAddPoll from '../../icons/IconAddPoll'
     import IconLogo from '../../icons/IconLogo'
     import IconTextLogo from '../../icons/IconTextLogo'
+    import avatar from '../../reusableСomponents/PictureReusable'
+    import imageMixin from "../../mixins/imageMixin";
     export default {
         name: "header",
-        components:{IconBase, IconAddPoll,IconLogo, IconTextLogo}
+        props:["user"],
+        mixins:[imageMixin],
+        data(){
+
+            return {
+
+                publicPath: process.env.VUE_APP_MAIN_API
+
+            }
+
+        },
+        components:{IconBase, IconAddPoll,IconLogo, IconTextLogo, avatar},
+
     }
 </script>
 
 <style lang="scss" >
     .mobile-header {
+
         width: 100%;
         position: fixed;
         top: 0;

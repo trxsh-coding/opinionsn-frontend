@@ -2,11 +2,15 @@
     <div class="picture-reusable" :style="wrapperStyle">
 		<div class="picture-wrapper" :class="picClass" :style="pictureWrapperStyle">
 			<div class="picture" :style="pictureStyle">
-				<badge-reusable v-if="counter" :counter="counter" :size="21" class="counter" color="#4B97B4"></badge-reusable>
+				<div v-if="counter" class="counter">
+				<span>
+					+{{handledCounter}}
+				</span>
+				</div>
 			</div>
 		</div>
 		<div class="text">
-			<span class="title">
+			<span class="title" :style="titleStyle">
 				<slot name="title"></slot>
 			</span>
 
@@ -18,10 +22,8 @@
 </template>
 
 <script>
-    import BadgeReusable from "./BadgeReusable";
-	export default {
+    export default {
         name: "PictureReusable",
-		components: {BadgeReusable},
 		props: {
         	picClass: String,
         	img: {
@@ -38,7 +40,6 @@
 					return 'auto';
 				}
 			},
-			rounded: Boolean,
 			borColor: {
 				type: String
 			},
@@ -76,14 +77,7 @@
 				}
 			},
 			pictureWrapperStyle() {
-				let { borColor, borRad, rounded } = this;
-
-				if (rounded) {
-					borRad = '50%'
-				} else {
-					borRad = (borRad.slice(-1) === '%') ? borRad : borRad + 'px';
-				}
-
+				let { borColor, borRad } = this;
 				if (borColor) {
 					return {
 						border: `2px solid ${borColor}`,
@@ -93,13 +87,8 @@
 				return '';
 			},
 			pictureStyle() {
-				let { size, borRad, img, rounded } = this;
-
-				if (rounded) {
-					borRad = '50%'
-				} else {
-					borRad = (borRad.slice(-1) === '%') ? borRad : borRad + 'px';
-				}
+				let { size, borRad, img, borColor } = this;
+				borRad = (borRad.slice(-1) === '%') ? borRad : borRad + 'px';
 
 				return {
 					width: `${size}px`,
@@ -107,7 +96,18 @@
 					borderRadius: `${borRad}`,
 					backgroundImage: `url('${img}')`
 				};
+			},
+			handledCounter() {
+				let { counter } = this;
+				if (counter) {
+					return counter > 9 ? 9 : counter;
+				};
+				return '';
 			}
+		},
+		mounted() {
+			let { size, borRad, img } = this;
+        	console.log(size, borRad, img)
 		}
 	}
 </script>
@@ -132,8 +132,14 @@
 				background-size: cover;
 
 				.counter {
+					width: 21px;
+					height: 21px;
+					background-color: #4B97B4;
+					border-radius: 50%;
+					display: flex;
+
 					position: absolute;
-					top: -5px;
+					top: 0;
 					right: -5px;
 
 					span {
@@ -171,7 +177,6 @@
 
 			.description {
 				font-size: 12px;
-				color: #ADAFB3;
 			}
 
 		}

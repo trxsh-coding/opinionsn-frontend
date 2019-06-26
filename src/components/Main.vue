@@ -1,10 +1,9 @@
 <template lang="html">
 	<div id="main-section">
-		<mobile-header />
+		<mobile-header :user="user" v-if="routeName === 'pollFeed'"/>
 
-		<router-view>
+		<router-view  />
 
-		</router-view>
 		<mobile-footer />
 
 	</div>
@@ -16,7 +15,6 @@
 	import {localString} from "../utils/localString.js";
 	import mobileHeader from "./view/mobile/header"
 	import mobileFooter from "./view/mobile/footer"
-
 	import IphoneAddToScreenComponent from "./pwaSnippets/IphoneAddToScreenComponent"
 	import Bowser from "bowser"
 	export default {
@@ -31,6 +29,17 @@
 		},
 		computed: {
 
+			...mapState('globalStore', {
+
+				user: ({mainUser}) => mainUser
+
+			}),
+
+			routeName: function(){
+
+				return this.$route.name
+
+			},
 			iosNotificationCloseCheck: function () {
 
 				return window.localStorage.getItem('iosNotificationPwa' !== 'False');

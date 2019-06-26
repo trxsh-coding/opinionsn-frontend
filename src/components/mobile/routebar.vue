@@ -1,118 +1,139 @@
 <template lang="html">
-    <aside class="routebar mb-3">
+    <div class="links-section">
         <ul>
-            <router-link class-active="active" class="hidden-sm-and-up mobile relative pointer" tag="li" to="/add" v-if="mainUser.authorities === 'ADMIN'">
-                <icon-base
-                        :class="{secondary : $route.path==='/add'} "
-                        class="add-poll"
-                        fill="#152D3A"
-                        width="24"
-                        height="24"
-                        viewBox="0 0 24 24"
-                        icon-name="add-poll"><icon-add-poll/>
-                </icon-base>
-                <lang-string :title="'add_poll'"/>
-            </router-link>
-            <router-link class-active="active" class="hidden-sm-and-up relative pointer" tag="li" to="/bookmarkFeed">
-                <icon-base
-                        :class="{secondary : $route.path==='/bookmarkFeed'} "
-                        width="18"
-                        height="24"
-                        viewBox="0 0 15 22"
-                        icon-name="bookmark"><icon-bookmark/>
-                </icon-base>
-                <lang-string :title="'bookmarked'"/>
-
-            </router-link>
-            <el-popover
-                    placement="bottom"
-                    :title="lstr('balance')"
-                    width="200"
-                    trigger="click"
-                    :content="mainUser.balance  ">
-                <li class="hidden-sm-and-up relative pointer" slot="reference">
-                    <icon-base
-                            fill="none"
-                            width="24"
-                            height="22"
-                            viewBox="0 0 24 20"
-                            icon-name="pocket"><icon-pocket/>
-                    </icon-base>
-                    <lang-string :title="'pocket'"/>
-                </li>
-            </el-popover>
-
-            <router-link class-active="active" class="hidden-sm-and-up relative pointer " tag="li" to="/catalogList">
+            <li class="link relative">
                 <icon-base
                         fill="none"
-                        width="22"
+                        width="23"
+                        height="23"
+                        viewBox="3 0 23 23"
+                        icon-name="add"><icon-add-poll/>
+                </icon-base>
+                <lang-string :title="'add_poll'">
+
+                </lang-string>
+            </li>
+
+            <li class="link relative">
+                <icon-base
+                        fill="none"
+                        width="25"
                         height="25"
-                        viewBox="0 0 22 25"
+                        viewBox="3 0 25 25"
+                        icon-name="pocket"><icon-pocket/>
+                </icon-base>
+                <lang-string :title="'pocket'">
+
+                </lang-string>
+            </li>
+            <li class="link relative">
+                <icon-base
+                        fill="none"
+                        width="15"
+                        height="22"
+                        viewBox="3 0 11 22"
+                        icon-name="add"><icon-bookmark/>
+                </icon-base>
+                <lang-string :title="'bookmarks'">
+
+                </lang-string>
+            </li>
+            <li class="link relative">
+                <icon-base
+                        fill="none"
+                        width="14"
+                        height="22"
+                        viewBox="0 0 14 22"
+                        icon-name="add"><icon-judgement/>
+                </icon-base>
+                <lang-string :title="'judgement'">
+
+                </lang-string>
+            </li>
+            <li class="link relative">
+                <icon-base
+                        fill="none"
+                        width="21"
+                        height="22"
+                        viewBox="3 0 21 22"
                         icon-name="catalog"><icon-catalog/>
                 </icon-base>
-                <lang-string :title="'topics'"/>
-            </router-link>
+                <lang-string :title="'topics'">
 
-			<router-link class-active="active" class="hidden-sm-and-up relative pointer  " tag="li" to="/feedback">
-				<icon-base
-					class="megaphone mr-6"
-					width="24"
-					height="22"
-					viewBox="0 0 30 28"
-					icon-name="megaphone">
-					<icon-megaphone/>
-				</icon-base>
-				<a>
-					<lang-string :title="'feedback'"/>
-				</a>
-			</router-link>
-
-
-			<li class="hidden-sm-and-up relative pointer">
-                <icon-base
-                        fill="none"
-                        width="24"
-                        height="24"
-                        viewBox="0 0 24 24"
-                        icon-name="settings"><icon-settings/>
-                </icon-base>
-                <lang-string :title="'settings'"/>
+                </lang-string>
             </li>
-            <li class="hidden-sm-and-up relative pointer unbordered" @click="userLogout">
+            <li class="link relative">
                 <icon-base
                         fill="none"
-                        width="24"
-                        height="25"
-                        viewBox="0 0 24 25"
-                        icon-name="settings"><icon-exit/>
+                        width="21"
+                        height="21"
+                        viewBox="3 0 21 21"
+                        icon-name="add"><icon-settings/>
                 </icon-base>
-                <lang-string :title="'exit'"/>
+                <lang-string :title="'settings'">
+
+                </lang-string>
+            </li>
+            <li class="link relative">
+                <icon-base
+                        fill="none"
+                        width="21"
+                        height="21"
+                        viewBox="4 0 21 21"
+                        icon-name="feedback"><icon-feedback/>
+                </icon-base>
+                <lang-string :title="'feedback'">
+
+                </lang-string>
+            </li>
+
+            <li class="link relative">
+                <icon-base
+                        fill="none"
+                        width="21"
+                        height="22"
+                        viewBox="0 0 21 22"
+                        icon-name="exit"><icon-exit/>
+                </icon-base>
+                <lang-string :title="'exit'">
+
+                </lang-string>
             </li>
         </ul>
-    </aside>
+    </div>
 </template>
 
 <script>
     import axios from 'axios'
-    import IconBase from '../icons/IconBase.vue'
-    import IconSettings from '../icons/IconSettings.vue'
-    import IconMain from '../icons/IconMain.vue'
-    import IconOpinion from '../icons/IconOpinion.vue'
-    import IconBookmark from '../icons/IconBookmarkMenu.vue'
-    import IconExit from '../icons/IconExit.vue'
-    import IconAddPoll from '../icons/IconAddPoll.vue'
-    import langString from '../langString.vue'
-    import IconBell from '../icons/IconBell.vue'
-    import IconPocket from '../icons/IconPocket.vue'
-    import IconMegaphone from '../icons/IconMegaphone.vue'
-    import IconCatalog from '../icons/IconCatalog.vue'
     import langMixin from '../mixins/langMixin'
     import {mapState} from 'vuex'
+    import IconBase from '../icons/IconBase'
+    import IconPocket from '../icons/IconPocket'
+    import IconAddPoll from '../icons/IconAddPoll'
+    import IconBookmark from '../icons/menu/IconBookmark'
+    import IconCatalog from '../icons/menu/IconCatalog'
+    import IconExit from '../icons/menu/IconExit'
+    import IconFeedback from '../icons/menu/IconFeedback'
+    import IconJudgement from '../icons/menu/IconJudgement'
+    import IconSettings from '../icons/menu/IconSettings'
+    import langString from '../langString'
     export default {
         data(){
             return {
 
             }
+        },
+        components: {
+            IconBase,
+            IconBookmark,
+            IconCatalog,
+            IconExit,
+            IconFeedback,
+            IconJudgement,
+            IconSettings,
+            IconAddPoll,
+            langString,
+            IconPocket
         },
         mixins:[langMixin],
         computed: {
@@ -146,21 +167,7 @@
             }
 
         },
-        components: {
-            IconBase,
-            IconSettings,
-            IconMain,
-            IconOpinion,
-            IconBookmark,
-            langString,
-            IconExit,
-            IconAddPoll,
-            IconBell,
-            IconPocket,
-            IconCatalog,
-			IconMegaphone
 
-        },
 
         mounted() {
 
@@ -170,136 +177,31 @@
 </script>
 
 <style lang="scss">
-    .routebar {
+    .links-section {
 
-        background-color: #ffffff;
-		padding: 4px 15px;
-        border-radius: 12px;
-        g {
-            fill:#ffffff;
-        }
-        svg {
-
-        }
-        .unbordered {
-
-            border-bottom: none;
-
-        }
-        .primary {
-
-
-
-            rect {
-
-                stroke: #4B97B4;
-
-            }
-
-            path {
-
-                stroke: #4B97B4;
-
-
-            }
-
-            .question {
-
-                stroke: none;
-                fill: #4B97B4;
-
-            }
-        }
-        .is-fixed {
-
-            top:4px !important;
-            right: 9px !important;
-        }
-
-        .el-badge__content {
-
-            border-radius: 30px;
-            color: #FFF;
-            display: inline-block;
-            font-size: 8px;
-            height: 11px;
-            line-height: 10px;
-            padding: 0px 3px;
-            text-align: center;
-            white-space: nowrap;
-            border: 1px solid #FFF;
-
-        }
-
-
-        .secondary {
-
-            path {
-
-                fill: #4B97B4 !important;
-
-            }
-
-        }
-        .bookmark {
-
-            path {
-
-                stroke:#152D3A;
-
-            }
-
-        }
-        .router-link-exact-active {
-            a {
-                color:#4B97B4;
-            }
-        }
         ul {
-            padding-left: 0;
-            margin-top: 0;
+
             li {
-				height: 43px;
-                border-bottom-width: 0.5px;
-                border-bottom-color: #DADADA;
-                border-bottom-style: solid;
-                position: relative;
-                list-style: none;
+                height: 45px;
                 display: flex;
+                padding: 11px 0 11px 7px;
                 align-items: center;
+                border-bottom-color: #BCBEC3;
+                border-bottom-width: 0.5px;
+                border-bottom-style: solid;
+                span {
+                    position: absolute;
+                    left: 45px;
+                    top: 16.5px;
+                    font-family: Roboto;
+                    font-style: normal;
+                    font-weight: normal;
+                    font-size: 14px;
+                    line-height: 16px;
+                    color: #1A1E22;
+
+                }
             }
-        }
-
-
-
-
-        span {
-            color: #383838;
-            font-size: 12px;
-        }
-        figure {
-            display: inline-block !important;
-            width: 21px;
-            height: 21px;
-            vertical-align:middle;
-        }
-
-        .hidden-sm-and-up {
-
-            /*padding: 10px 0 11px 0;*/
-
-            span {
-
-                position: absolute;
-                top: 17px;
-                left: 35px;
-
-            }
-
-        }
-
-        .mobile {
-
 
         }
 

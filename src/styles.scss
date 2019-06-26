@@ -3,9 +3,14 @@ $orange: #FF6200;
 $--color-primary: #4B97B4;
 $--font-path: '~element-ui/lib/theme-chalk/fonts';
 @import "~element-ui/packages/theme-chalk/src/index";
-
+@font-face {
+	font-family: 'Helvetica Neue';
+	font-style: normal;
+	src: url("./assets/fonts/Helvetica.ttf") format("ttf");
+}
 @media all and (display-mode: fullscreen) {
 	body {
+		*{box-sizing: border-box}
 		margin: 0;
 		border: 5px solid black;
 	}
@@ -17,7 +22,8 @@ html {
 }
 
 html, body, #app, section.section {
-	height: 100%;
+	*{box-sizing: border-box !important;}
+
 }
 
 .el-button {
@@ -77,10 +83,9 @@ li {
 	font-family: Roboto;
 	font-style: normal;
 	font-weight: 500;
-	line-height: 18px;
-	font-size: 13px;
-	letter-spacing: -0.1px;
-	color: #828D92;
+	font-size: 14px;
+	line-height: 16px;
+	color: #1A1E22;
 }
 
 .flex-column {
