@@ -19,6 +19,7 @@
     </div>
 </template>
 
+
 <script>
     import subjectPicture from '../../reusableСomponents/PictureReusable'
     import bowsPanel from './involvedUsersPanel'
