@@ -159,7 +159,7 @@
 			display: flex;
 			flex-direction: column;
 			justify-content: center;
-			align-items: center;
+			align-items: flex-start;
 			width: fit-content;
 
 			.title,
@@ -171,12 +171,25 @@
 			}
 
 			.title {
+				font-family: Roboto;
+				font-style: normal;
 				font-weight: 500;
 				font-size: 14px;
+				line-height: 16px;
+				color: #1A1E22;
+				padding-bottom: 5px;
+
 			}
 
 			.description {
 				font-size: 12px;
+				font-family: Roboto;
+				font-style: normal;
+				font-weight: normal;
+				line-height: 9px;
+				color: #ADAFB3;
+
+
 			}
 
 		}

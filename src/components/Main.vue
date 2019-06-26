@@ -1,5 +1,5 @@
 <template lang="html">
-	<div id="main-section">
+	<div id="main-section" class="pt-48">
 		<mobile-header :user="user" v-if="routeName === 'pollFeed'"/>
 
 		<router-view  />
