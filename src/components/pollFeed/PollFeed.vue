@@ -4,20 +4,20 @@
   <div id="poll-wrapper">
 
     <div class="feed relative">
-        <swiper :options="swiperOption" class="category-section mb-6">
+        <!--<swiper :options="swiperOption" class="category-section mb-6">-->
 
-        	<swiper-slide class="category-block " v-for="category in categories">
-            	<filter-component class="pointer" :filtered="filtered" :category="category"  />
-        	</swiper-slide>
+        	<!--<swiper-slide class="category-block " v-for="category in categories">-->
+            	<!--<filter-component class="pointer" :filtered="filtered" :category="category"  />-->
+        	<!--</swiper-slide>-->
 
-        	<div class="swiper-pagination" slot="pagination"></div>
-        </swiper>
+        	<!--<div class="swiper-pagination" slot="pagination"></div>-->
+        <!--</swiper>-->
     	<div v-for="item in items" >
-			<layout :item="item"/>
+			<poll-instance :item="item"/>
     	</div>
-    	<mugen-scroll :handler="load" :should-handle="!is_finished">
-        	<div class="loading-spinner" v-loading="true" v-if="!is_finished"/>
-    	</mugen-scroll>
+    	<!--<mugen-scroll :handler="load" :should-handle="!is_finished">-->
+        	<!--<div class="loading-spinner" v-loading="true" v-if="!is_finished"/>-->
+    	<!--</mugen-scroll>-->
 
 	</div>
 
@@ -32,7 +32,7 @@
 
 <script>
 	import MugenScroll from "vue-mugen-scroll";
-	import layout from "./layout.vue";
+	import pollInstance from "./pollInstance.vue";
 	import filterComponent from "./event/filterComponent.vue";
 	import { mapState } from "vuex";
 	export default {
@@ -116,7 +116,7 @@
 			event,
 			filterComponent,
 			MugenScroll,
-			layout
+			pollInstance
 		}
 	};
 </script>

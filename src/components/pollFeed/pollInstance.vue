@@ -1,19 +1,15 @@
 <template>
     <div id="main-feed-layout">
+        <post-header :author="author" :poll="poll"/>
     </div>
 </template>
 
 <script>
     import {mapState} from 'vuex'
-
+    import postHeader from './layout/header'
     export default {
         name: "layout",
         props:['item'],
-        data:{
-            return: {
-
-            }
-        },
         computed: {
 
             ...mapState('globalStore', {
@@ -24,18 +20,24 @@
                 comments: ({comments}) => comments,
             }),
 
+
+            // POLL GETTER
+
             poll: function () {
                 let {item, polls} = this;
 
                 return polls[item.id];
 
             },
+            // USER GETTER
+
             author: function () {
 
                 let {poll, users} = this;
 
                 return users[poll.author_id];
             },
+            // OPTION GETTER
 
             option: function () {
 
@@ -51,6 +53,7 @@
 
             },
 
+            // VOTE GETTER
 
             vote: function () {
 
@@ -71,6 +74,9 @@
         methods : {
 
 
+        },
+        components: {
+            postHeader
         }
     }
 </script>
