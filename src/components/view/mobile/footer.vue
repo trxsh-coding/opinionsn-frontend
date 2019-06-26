@@ -1,7 +1,7 @@
 <template>
     <div class="mobile-footer">
         <ul>
-            <li class="footer-icon" @click="routerPush('pollFeed')">
+            <li class="footer-icon" @click="routerPush('pollFeed')" :class="{active : routeName === 'pollFeed'}">
                 <icon-base
                         width="24"
                         height="25"
@@ -11,7 +11,7 @@
                 <lang-string :title="'main'"/>
 
             </li>
-            <li class="footer-icon" @click="routerPush('voteFeed')">
+            <li class="footer-icon" @click="routerPush('voteFeed')" :class="{active : routeName === 'voteFeed'}" >
                 <icon-base
                         width="24"
                         height="25"
@@ -20,7 +20,7 @@
                 </icon-base>
                 <lang-string :title="'opinion'"/>
             </li>
-            <li class="footer-icon" @click="routerPush('search')">
+            <li class="footer-icon" @click="routerPush('search')" :class="{active : routeName === 'search'}">
                 <icon-base
                         width="20"
                         height="21"
@@ -29,7 +29,7 @@
                 </icon-base>
                 <lang-string :title="'search'"/>
             </li>
-            <li class="footer-icon" @click="routerPush('notifications')">
+            <li class="footer-icon" @click="routerPush('notifications')" :class="{active : routeName === 'notifications'}">
                 <icon-base
                         width="21"
                         height="21"
@@ -38,7 +38,7 @@
                 </icon-base>
                 <lang-string :title="'notifications'"/>
             </li>
-            <li class="footer-icon" @click="routerPush('menu')">
+            <li class="footer-icon" @click="routerPush('menu')" :class="{active : routeName === 'menu'}">
                 <icon-base
                         width="24"
                         height="24"
@@ -65,6 +65,20 @@
         name: "footer",
         mixins:[langMixin],
         components:{IconBase, IconMain, IconMenu, IconNotifications, IconSearch, IconOpinion, langString},
+        data() {
+
+            return {
+            }
+        },
+        computed: {
+
+            routeName(){
+
+                return this.$route.name
+
+            }
+
+        },
         methods:{
             routerPush(linkName){
 
@@ -84,6 +98,13 @@
         position: fixed;
         bottom: 0;
         padding: 5px 24px 4px 24px;
+
+        .active {
+
+            opacity: 1 !important;
+
+        }
+
         svg {
 
             margin-bottom: 4px;
@@ -98,11 +119,12 @@
                 display: flex;
                 flex-direction: column;
                 align-items: center;
+                opacity: 0.3;
                 span {
                     font-family: Helvetica Neue;
                     font-size: 10px;
                     line-height: 10px;
-                    color: #BEC0C5;
+                    color: #1A1E22;
                 }
             }
         }

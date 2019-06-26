@@ -13,7 +13,7 @@
         	<div class="swiper-pagination" slot="pagination"></div>
         </swiper>
     	<div v-for="item in items" >
-        	<event :item="item" :feed="feed"/>
+			<layout :item="item"/>
     	</div>
     	<mugen-scroll :handler="load" :should-handle="!is_finished">
         	<div class="loading-spinner" v-loading="true" v-if="!is_finished"/>
@@ -32,7 +32,7 @@
 
 <script>
 	import MugenScroll from "vue-mugen-scroll";
-	import event from "./event/Event.vue";
+	import layout from "./layout.vue";
 	import filterComponent from "./event/filterComponent.vue";
 	import { mapState } from "vuex";
 	export default {
@@ -115,7 +115,8 @@
 		components: {
 			event,
 			filterComponent,
-			MugenScroll
+			MugenScroll,
+			layout
 		}
 	};
 </script>

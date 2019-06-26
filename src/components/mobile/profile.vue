@@ -7,9 +7,9 @@
                 </span>
             </template>
             <template #description>
-                <lang-string :title="'balance'" >
-                    <template #text class="balance-text">
-                      :  {{user.balance}}
+                <lang-string :title="'balance'" class="balance-text" >
+                    <template #text >
+                      :  {{user.balance}} OPI
                     </template>
                 </lang-string>
 
@@ -58,11 +58,27 @@
     }
 </script>
 
-<style lang="scss" scoped>
-    .balance-text {
-        font-family: Helvetica Neue,serif;
-        font-size: 10px;
-        line-height: 10px;
-        color: #BEC0C5;
+<style lang="scss" >
+    #profile-section {
+        margin-bottom: 27.5px;
+
+        .balance-text {
+            font-family: Helvetica Neue,serif;
+            font-size: 10px;
+            line-height: 10px;
+            color: #BEC0C5;
+        }
+        .picture-reusable {
+            display: flex;
+            justify-content: flex-start;
+            border-bottom-width: 0.5px;
+            border-bottom-style: solid;
+            border-bottom-color: #D0D1D5 ;
+            opacity: 0.7;
+            width: 100%;
+            padding-bottom: 12px;
+        }
+
     }
+
 </style>
