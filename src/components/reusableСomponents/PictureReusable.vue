@@ -31,8 +31,13 @@
 				required: true
 			},
         	size: {
-        		type: Number,
-				required: true
+        		type: Number
+			},
+			width: {
+				type: Number
+			},
+			height: {
+				type: Number
 			},
 			borRad: {
         		type: [String, Number],
@@ -87,12 +92,12 @@
 				return '';
 			},
 			pictureStyle() {
-				let { size, borRad, img, borColor } = this;
+				let { size, borRad, img, borColor, width, height } = this;
 				borRad = (borRad.slice(-1) === '%') ? borRad : borRad + 'px';
 
 				return {
-					width: `${size}px`,
-					height: `${size}px`,
+					width: `${size || width}px`,
+					height: `${size || height}px`,
 					borderRadius: `${borRad}`,
 					backgroundImage: `url('${img}')`
 				};
@@ -104,10 +109,6 @@
 				};
 				return '';
 			}
-		},
-		mounted() {
-			let { size, borRad, img } = this;
-        	console.log(size, borRad, img)
 		}
 	}
 </script>
@@ -124,13 +125,11 @@
 		}
 
 		.picture-wrapper {
-			padding: 4px;
-
 			.picture {
 				position: relative;
 				background-repeat: no-repeat;
 				background-size: cover;
-
+				background-position: center;
 				.counter {
 					width: 21px;
 					height: 21px;

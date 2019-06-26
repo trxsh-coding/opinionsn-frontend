@@ -1,7 +1,7 @@
 <template lang="html">
 
 
-  <div id="poll-wrapper">
+  <div id="poll-wrapper" class="mr-20">
 
     <div class="feed relative">
         <!--<swiper :options="swiperOption" class="category-section mb-6">-->

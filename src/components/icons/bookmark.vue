@@ -7,7 +7,7 @@
                         fill="none"
                         width="13"
                         height="18"
-                        viewBox="0 0 13 18"
+                        viewBox="2 0 13 18"
                         icon-name="bookmark"><icon-bookmark />
                 </icon-base>
             </div>

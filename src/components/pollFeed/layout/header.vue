@@ -48,6 +48,9 @@
 
 <style lang="scss">
     #poll-header {
-        margin-left: 16%;
+        .picture-reusable {
+            margin-left: 16%;
+            padding-bottom: 9px;
+        }
     }
 </style>

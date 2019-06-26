@@ -1,12 +1,15 @@
 <template>
     <div id="main-feed-layout">
         <post-header :author="author" :poll="poll"/>
+        <headline-body :poll="poll" :item="item"/>
     </div>
 </template>
 
 <script>
     import {mapState} from 'vuex'
     import postHeader from './layout/header'
+    import headlineBody from './layout/headlineBody'
+
     export default {
         name: "layout",
         props:['item'],
@@ -76,7 +79,8 @@
 
         },
         components: {
-            postHeader
+            postHeader,
+            headlineBody
         }
     }
 </script>
