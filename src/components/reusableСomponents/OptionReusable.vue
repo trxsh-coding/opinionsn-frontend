@@ -1,15 +1,15 @@
 <template>
 	<div class="option-reusable">
 
-		<div v-if="bows" class="bows" :style="{...optionStyle, backgroundColor: 'unset !important'}">
-			<slot v-if="bows.length > 2" name="badge"></slot>
+		<div v-if="bows && selected" class="bows" :style="{...optionStyle, backgroundColor: 'unset !important'}">
+			<slot v-if="!!bows && bows.length > 2" name="badge"></slot>
 			<router-link v-for="bow in filteredBows" :to="bow.url">
 				<div class="bow" :style="{backgroundImage: `url('${bow.img}')`}"></div>
 			</router-link>
 		</div>
 
-		<div class="option-wrapper" @click="selectOption()">
-			<div v-if="picture" class="picture" :style="pictureStyle"></div>
+		<div class="option-wrapper" @click="selectOption(id)">
+			<div v-if="picture && picture.slice(-4) !== 'null'" class="picture" :style="pictureStyle"></div>
 
 			<div class="option" :style="optionStyle">
 
@@ -47,8 +47,16 @@
 				type: Number,
 				required: true
 			},
+			poll_id: {
+				type: Number,
+				required: true
+			},
+			type_of_poll: {
+				type: Number,
+				required: true
+			},
 			bows: {
-				type: Array,
+				type: Array, Boolean,
 				validator: function (value) {
 					// Значение в массиве должно соответствовать типу
 					value.forEach((item) => { if (typeof item !== "string") return false });
@@ -57,8 +65,11 @@
 			}
 		},
 		methods: {
-			selectOption() {
-				this.$emit('selectOption', this.id);
+			selectOption(selected_variable) {
+				let {poll_id, type_of_poll} = this;
+				console.log(poll_id)
+				console.log(poll_id)
+				this.$store.dispatch(`${this.$route.name}/createVote`, {data: {selected_variable, poll_id,  type_of_poll}})
 			}
 		},
 		computed: {
@@ -180,6 +191,10 @@
 			.picture {
 				background-repeat: no-repeat;
 				background-size: cover;
+				background-position: center;
+				border: 0.5px solid #BCBEC3;
+				border-radius: 6px 0 0 6px;
+
 			}
 
 			.option {
