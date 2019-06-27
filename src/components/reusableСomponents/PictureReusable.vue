@@ -10,7 +10,7 @@
 			</div>
 		</div>
 		<div class="text">
-			<span class="title" :style="titleStyle">
+			<span class="title">
 				<slot name="title"></slot>
 			</span>
 
@@ -45,6 +45,7 @@
 					return 'auto';
 				}
 			},
+			rounded: Boolean,
 			borColor: {
 				type: String
 			},
@@ -82,7 +83,10 @@
 				}
 			},
 			pictureWrapperStyle() {
-				let { borColor, borRad } = this;
+				let { borColor, borRad, rounded } = this;
+				borRad = (borRad.slice(-1) === '%') ? borRad : borRad + 'px';
+				if (rounded) borRad = "50%";
+
 				if (borColor) {
 					return {
 						border: `2px solid ${borColor}`,
@@ -92,8 +96,9 @@
 				return '';
 			},
 			pictureStyle() {
-				let { size, borRad, img, borColor, width, height } = this;
+				let { size, borRad, img, width, height, rounded } = this;
 				borRad = (borRad.slice(-1) === '%') ? borRad : borRad + 'px';
+				if (rounded) borRad = "50%";
 
 				return {
 					width: `${size || width}px`,
@@ -176,7 +181,6 @@
 				font-size: 14px;
 				line-height: 16px;
 				color: #1A1E22;
-				padding-bottom: 5px;
 
 			}
 
@@ -187,7 +191,7 @@
 				font-weight: normal;
 				line-height: 9px;
 				color: #ADAFB3;
-
+				padding-top: 5px;
 
 			}
 
