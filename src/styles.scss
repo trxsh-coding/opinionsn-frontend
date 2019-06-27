@@ -536,6 +536,9 @@ li {
 	.pb-#{$i} {
 		padding-bottom: $i + px !important;
 	}
+	.p-#{$i} {
+		padding: $i + px !important;
+	}
 }
 
 .mx-auto {
