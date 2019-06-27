@@ -2,6 +2,27 @@
     <div id="main-feed-layout">
         <post-header :author="author" :poll="poll"/>
         <headline-body :poll="poll" :item="item"/>
+        <options-section
+            v-for="option in combinedOptions"
+            :option="option"
+            :id="option.id"
+            :percentage="option.voted_percentage"
+            :type_of_poll="poll.type_of_poll"
+            :poll_id="poll.id"
+            :selected="item.selectedOption === option.id"
+            :correct="poll.correct_option === option.id"
+            :picture="publicPath + option.picture"
+        >
+            {{option.description}}
+        </options-section>
+        <explain-section
+                v-for="explain in combinedVotes"
+                :explain="explain"
+                :poll_id="poll.id"
+                :author_picture="publicPath + author.path_to_avatar"
+                :comments="comments"
+                :options="options"
+                :users="users"/>
     </div>
 </template>
 
@@ -9,10 +30,19 @@
     import {mapState} from 'vuex'
     import postHeader from './layout/header'
     import headlineBody from './layout/headlineBody'
+    import explainSection from "../reusableСomponents/ExplanationReusable";
+    import OptionsSection from "../reusableСomponents/OptionReusable";
 
     export default {
         name: "layout",
         props:['item'],
+        data () {
+            return {
+
+                publicPath: process.env.VUE_APP_MAIN_API
+
+            }
+        },
         computed: {
 
             ...mapState('globalStore', {
@@ -42,7 +72,7 @@
             },
             // OPTION GETTER
 
-            option: function () {
+            combinedOptions: function () {
 
                 let {poll, options} = this;
 
@@ -56,9 +86,11 @@
 
             },
 
+
+
             // VOTE GETTER
 
-            vote: function () {
+            combinedVotes: function () {
 
                 let {poll, votes} = this;
 
@@ -73,12 +105,16 @@
             },
 
 
+
+
         },
         methods : {
 
 
         },
         components: {
+            OptionsSection,
+            explainSection,
             postHeader,
             headlineBody
         }

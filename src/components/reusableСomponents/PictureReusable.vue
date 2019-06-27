@@ -10,7 +10,7 @@
 			</div>
 		</div>
 		<div class="text">
-			<span class="title" :style="titleStyle">
+			<span class="title">
 				<slot name="title"></slot>
 			</span>
 

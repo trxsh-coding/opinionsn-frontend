@@ -1,114 +1,114 @@
 <template>
 	<div class="explanation-reusable">
 
-		<div class="explain mb-9">
-			<picture-reusable class="mr-12" pic-class="mb-5" :img="explain.img" :size="27" rounded text-layout="bottom">
-				<template #description>
-					{{parseTime(explain.timestamp)}}
-				</template>
-			</picture-reusable>
+		<!--<div class="explain mb-9">-->
+			<!--<picture-reusable class="mr-12" pic-class="mb-5" :img="explain.img" :size="27" rounded text-layout="bottom">-->
+				<!--<template #description>-->
+					<!--{{parseTime(explain.timestamp)}}-->
+				<!--</template>-->
+			<!--</picture-reusable>-->
 
-			<div class="text">
+			<!--<div class="text">-->
 
-				<span class="username mb-3">{{explain.username}}</span>
+				<!--<span class="username mb-3">{{explain.username}}</span>-->
 
-				<span v-show="!!explain.explain" class="explain-text mb-3">{{explain.explain}}</span>
+				<!--<span v-show="!!explain.explain" class="explain-text mb-3">{{explain.explain}}</span>-->
 
-				<div class="option">
-					<span class="option-name">{{explain.option}}</span>
-					<span @click="setActiveInput(1, 1)" class="ml-14 pointer">
-						<icon-base
-							fill="#BCBEC3"
-							width="18"
-							height="20"
-							viewBox="0 0 18 20"
-							icon-name="reply-arrow">
-							<icon-reply-arrow/>
-						</icon-base>
-					</span>
-				</div>
+				<!--<div class="option">-->
+					<!--<span class="option-name">{{explain.option}}</span>-->
+					<!--<span @click="setActiveInput(1, 1)" class="ml-14 pointer">-->
+						<!--<icon-base-->
+							<!--fill="#BCBEC3"-->
+							<!--width="18"-->
+							<!--height="20"-->
+							<!--viewBox="0 0 18 20"-->
+							<!--icon-name="reply-arrow">-->
+							<!--<icon-reply-arrow/>-->
+						<!--</icon-base>-->
+					<!--</span>-->
+				<!--</div>-->
 
-				<label class="mt-3" v-show="checkActiveInput(1, 1)">
-					<input type="text" v-model="input_value">
-					<span class="btns-block">
+				<!--<label class="mt-3" v-show="checkActiveInput(1, 1)">-->
+					<!--<input type="text" v-model="input_value">-->
+					<!--<span class="btns-block">-->
 
-						<span class="emoji-span pointer" @click="emoji_menu = !emoji_menu" v-if="!mobile">
-							<icon-base
-								class="emoji-icon"
-								fill="none"
-								width="13"
-								height="13"
-								viewBox="0 0 15 15"
-								icon-name="emoji"><icon-emoji/>
-							</icon-base>
-						</span>
+						<!--<span class="emoji-span pointer" @click="emoji_menu = !emoji_menu" v-if="!mobile">-->
+							<!--<icon-base-->
+								<!--class="emoji-icon"-->
+								<!--fill="none"-->
+								<!--width="13"-->
+								<!--height="13"-->
+								<!--viewBox="0 0 15 15"-->
+								<!--icon-name="emoji"><icon-emoji/>-->
+							<!--</icon-base>-->
+						<!--</span>-->
 
-						<div class="emoji-block" :hidden="emoji_menu">
-							<VEmojiPicker :pack="emojisNative" @select="onSelectEmoji" :labelSearch="hide"/>
-						</div>
+						<!--<div class="emoji-block" :hidden="emoji_menu">-->
+							<!--<VEmojiPicker :pack="emojisNative" @select="onSelectEmoji" :labelSearch="hide"/>-->
+						<!--</div>-->
 
-						<span class="send-btn pointer">Отправить</span>
-					</span>
-				</label>
+						<!--<span class="send-btn pointer">Отправить</span>-->
+					<!--</span>-->
+				<!--</label>-->
 
-			</div>
-		</div>
+			<!--</div>-->
+		<!--</div>-->
+		<!--<ul v-if="comments && commentsArr" class="comment-list">-->
+			<!--<li class="comment mb-10" v-for="(comment, index) in commentsArr" :key="index">-->
 
-		<ul v-if="comments" class="comment-list">
-			<li class="comment mb-10" v-for="(comment, index) in comments" :key="index">
-				<picture-reusable class="mr-12" pic-class="mb-5" :img="comment.img" :size="27" rounded
-								  text-layout="bottom">
-					<template #description>
-						{{parseTime(comment.timestamp)}}
-					</template>
-				</picture-reusable>
+				<!--<picture-reusable class="mr-12" pic-class="mb-5" :img="comment.avatar" :size="27" rounded-->
+								  <!--text-layout="bottom">-->
+					<!--<template #description>-->
+						<!--{{parseTime(comment.timestamp)}}-->
+					<!--</template>-->
+				<!--</picture-reusable>-->
 
-				<div class="text">
+				<!--<div class="text">-->
 
-					<span class="username mb-3">{{comment.username}}</span>
+					<!--<span class="username mb-3">{{comment.username}}</span>-->
 
-					<span v-show="!!comment.comment" class="comment-text mb-3">{{comment.comment}}</span>
+					<!--<span v-show="!!comment.description" class="comment-text mb-3">{{comment.description}}</span>-->
 
-					<div class="option">
-						<span class="option-name">{{comment.option}}</span>
-						<span @click="setActiveInput(index + 1, 2)" class="ml-14 pointer">
-							<icon-base
-								fill="#BCBEC3"
-								width="18"
-								height="20"
-								viewBox="0 0 18 20"
-								icon-name="reply-arrow">
-							<icon-reply-arrow/>
-						</icon-base>
-						</span>
-					</div>
+					<!--<div class="option">-->
+						<!--<span class="option-name">{{comment.option}}</span>-->
+						<!--<span @click="setActiveInput(index + 1, 2)" class="ml-14 pointer">-->
+							<!--<icon-base-->
+								<!--fill="#BCBEC3"-->
+								<!--width="18"-->
+								<!--height="20"-->
+								<!--viewBox="0 0 18 20"-->
+								<!--icon-name="reply-arrow">-->
+							<!--<icon-reply-arrow/>-->
+						<!--</icon-base>-->
+						<!--</span>-->
+					<!--</div>-->
 
-					<label class="mt-3" v-show="checkActiveInput(index + 1, 2)">
-						<input type="text" v-model="input_value">
-						<span class="btns-block">
+					<!--<label class="mt-3" v-show="checkActiveInput(index + 1, 2)">-->
+						<!--<input type="text" v-model="input_value">-->
+						<!--<span class="btns-block">-->
 
-							<span class="emoji-span pointer" @click="emoji_menu = !emoji_menu" v-if="!mobile">
-								<icon-base
-									class="emoji-icon"
-									fill="none"
-									width="13"
-									height="13"
-									viewBox="0 0 15 15"
-									icon-name="emoji"><icon-emoji/>
-                				</icon-base>
-                			</span>
+							<!--<span class="emoji-span pointer" @click="emoji_menu = !emoji_menu" v-if="!mobile">-->
+								<!--<icon-base-->
+									<!--class="emoji-icon"-->
+									<!--fill="none"-->
+									<!--width="13"-->
+									<!--height="13"-->
+									<!--viewBox="0 0 15 15"-->
+									<!--icon-name="emoji"><icon-emoji/>-->
+                				<!--</icon-base>-->
+                			<!--</span>-->
 
-							<div class="emoji-block" :hidden="emoji_menu">
-                				<VEmojiPicker :pack="emojisNative" @select="onSelectEmoji" :labelSearch="hide"/>
-							</div>
+							<!--<div class="emoji-block" :hidden="emoji_menu">-->
+                				<!--<VEmojiPicker :pack="emojisNative" @select="onSelectEmoji" :labelSearch="hide"/>-->
+							<!--</div>-->
 
-							<span class="send-btn pointer">Отправить</span>
-						</span>
-					</label>
+							<!--<span class="send-btn pointer">Отправить</span>-->
+						<!--</span>-->
+					<!--</label>-->
 
-				</div>
-			</li>
-		</ul>
+				<!--</div>-->
+			<!--</li>-->
+		<!--</ul>-->
 
 	</div>
 </template>
@@ -133,12 +133,14 @@
 			VEmojiPicker,
 			IconEmoji
 		},
+
 		data() {
 			return {
 				input_id: null,
 				input_type: null,
 				input_value: '',
-				emoji_menu: true
+				emoji_menu: true,
+				publicPath: process.env.VUE_APP_MAIN_API
 			}
 		},
 		props: {
@@ -150,7 +152,20 @@
 				type: Object,
 				required: true
 			},
-			comments: Array
+			author_picture: {
+				type: String,
+				required: true
+			},
+			comments: Object,
+			options: {
+				type: Object,
+				required: true
+			},
+			users: {
+				type: Object,
+				required: true
+			}
+
 		},
 		methods: {
 			parseTime(date) {
@@ -212,6 +227,47 @@
 			lstr() {
 				return (str) => localString(this.lang, str);
 			},
+			// combinedComments: function () {
+			//
+			// 	let {comments, explain} = this;
+			//
+			// 	let comments_id = explain.comments_id;
+			//
+			// 	return comments_id.map(comment_id => {
+			//
+			// 		return comments[comment_id]
+			//
+			// 	});
+			//
+			// },
+
+			commentsArr: function () {
+				let { users, comments, explain, options, publicPath } = this;
+
+				let commentsArr = [];
+
+				let { comments_id, author_id } = explain;
+
+				this.explain.comments_id.forEach((id, index) => {
+yh
+					commentsArr[index] = {
+						id,
+						avatar: publicPath + users[author_id].path_to_avatar,
+						username: users[author_id].username,
+						description: comments[id].description,
+						option: options[comments[id].explain_id].description,
+						timestamp: comments[id].create_time
+					}
+
+				});
+
+				return comments_id.length > 0 ? commentsArr : false;
+
+			},
+		},
+		mounted() {
+			// console.log(this.explain.comments_id);
+			console.log(this.commentsArr);
 		},
 	}
 </script>

@@ -15,9 +15,9 @@
     	<div v-for="item in items" >
 			<poll-instance :item="item"/>
     	</div>
-    	<!--<mugen-scroll :handler="load" :should-handle="!is_finished">-->
-        	<!--<div class="loading-spinner" v-loading="true" v-if="!is_finished"/>-->
-    	<!--</mugen-scroll>-->
+    	<mugen-scroll :handler="load" :should-handle="!is_finished">
+        	<div class="loading-spinner" v-loading="true" v-if="!is_finished"/>
+    	</mugen-scroll>
 
 	</div>
 

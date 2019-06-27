@@ -7,7 +7,6 @@ export const pollActions = sc => class extends sc {
 
 
         commit(`globalStore/currentLoadingOption`,  {id: payload.data.selected_variable, value: true}, {root: true});
-gv
         let typeOfVote;
 
         if (payload.data.type_of_poll >= 2) {
