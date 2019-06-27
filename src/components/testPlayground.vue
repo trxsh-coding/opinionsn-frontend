@@ -85,40 +85,40 @@
 			return {
 				bows: [
 					{
-						img: require('../assets/logo.png'),
+						img: require('./assets/icons/icon-logo.png'),
 						url: '/admin/test_playground'
 					},
 					{
-						img: require('../assets/logo.png'),
+						img: require('./assets/icons/icon-logo.png'),
 						url: '/admin/test_playground'
 					},
 					{
-						img: require('../assets/logo.png'),
+						img: require('./assets/icons/icon-logo.png'),
 						url: '/admin/test_playground'
 					}
 				],
-				picture: require('./reusableСomponents/pic.png'),
+				picture: require('./assets/icons/icon-logo.png'),
 				explain: {
-					img: require('./reusableСomponents/pic.png'),
+					img: require('./assets/icons/icon-logo.png'),
 					username: "Oloir",
 					explain: "И как же они развращают? Если даже собираются в отдельных местах",
 					option: "Нет, я за более традиционные решения, которые ведут к классическим"
 				},
 				comments: [
 					{
-						img: require('./reusableСomponents/pic.png'),
+						img: require('./assets/icons/icon-logo.png'),
 						username: "Oloir",
 						comment: "И как же они развращают? Если даже собираются в отдельных местах",
 						option: "Нет, я за более традиционные решения, которые ведут к классическим"
 					},
 					{
-						img: require('./reusableСomponents/pic.png'),
+						img: require('./assets/icons/icon-logo.png'),
 						username: "Oloir",
 						comment: "И как же они развращают? Если даже собираются в отдельных местах",
 						option: "Нет, я за более традиционные решения, которые ведут к классическим"
 					},
 					{
-						img: require('./reusableСomponents/pic.png'),
+						img: require('./assets/icons/icon-logo.png'),
 						username: "Oloir",
 						comment: "И как же они развращают? Если даже собираются в отдельных местах",
 						option: "Нет, я за более традиционные решения, которые ведут к классическим"

@@ -1,151 +1,104 @@
 <template lang="html">
 
+<!-- TODO: доделать voteFeed	-->
+    <section class="vote-feed">
+		<swiper :options="swiperOption" class="followers-swiper">
+			<swiper-slide class="avatar-wrapper" v-for="{avatar, username, user_id} in followersData">
+				<router-link :to="{ name: 'user', params: { id: user_id }}">
+					<picture-reusable
+						pic-class="mb-9 p-2"
+						:size="66"
+						:img="avatar"
+						text-layout="bottom"
+						bor-color="#BCBEC3"
+						rounded>
+						<template #title>
+							{{username}}
+						</template>
+					</picture-reusable>
+				</router-link>
+			</swiper-slide>
+		</swiper>
 
-    <div class="vote-feed">
-        <!-- Ошибка -->
-
-
-		<div class="have-no-subscribers mt-10" v-if="!items.length && !loading">
-			<span>Лента мнений будет доступна после появления подписок</span>
-		</div>
-        <!--<div v-if="state.error">-->
-            <!--Что-то сломалось:-->
-            <!--{{state.error}}-->
-        <!--</div>-->
-
-        <!--&lt;!&ndash; Загрузка &ndash;&gt;-->
-
-
-        <!--&lt;!&ndash; Нет данных &ndash;&gt;-->
-        <!--<div v-else-if="!items.length">-->
-            <!--<p align="center" style="font-size:10px;margin-top: 5px;color: darkgray">Нет событий</p>-->
-        <!--</div>-->
-
-
-        <!-- Всё ок -->
-        <div class="feed relative">
-            <div class="filter-section flex mb-10" v-if="items.length">
-                <swiper :options="swiperOption" class="category-section">
-                    <swiper-slide class="followings-block" v-for="following in followings">
-
-                        <filter-component class="pointer"  :following="following"  />
-
-                    </swiper-slide>
-                </swiper>
-            </div>
-            <div v-for="item in items">
-                <event :item="item"/>
-            </div>
-            <mugen-scroll :handler="load" :should-handle="!postsEnded">
-                <div class="loading-spinner" v-loading="loading" >
-                </div>
-            </mugen-scroll>
-
-        </div>
-    </div>
+		<hr class="mt-15 mb-12">
 
 
-
+    </section>
 
 </template>
 
 
 
 <script>
-	import MugenScroll from "vue-mugen-scroll";
-	import event from "./event/Event.vue";
-	import filterComponent from "./event/filterComponent.vue";
-
 	import { mapState } from "vuex";
+	import PictureReusable from "../reusableСomponents/PictureReusable";
+
+
 	export default {
 		data() {
 			return {
+				publicPath: process.env.VUE_APP_MAIN_API,
 				swiperOption: {
 					slidesPerView: 4,
-					spaceBetween: 30,
-					pagination: {
-						el: ".swiper-pagination",
-						clickable: true
-					}
-				}
+					spaceBetween: 7
+				},
 			};
 		},
+		components: {
+			PictureReusable
 
-		computed: {
-			...mapState("voteFeed", {
-				state: s => s,
-				items: ({ items }) => items,
-				postsEnded: ({ is_finished }) => is_finished,
-				loading: ({ loading }) => loading
-			}),
-
-			...mapState("followsPage", {
-				followings: s => s.items
-			})
 		},
-
-		methods: {
-			load() {
-				this.$store.dispatch('voteFeed/loadNextPage');
-			}
-		},
-
 		mounted() {
 			this.$store.dispatch('followsPage/getMyFollowings');
 			this.$store.dispatch('voteFeed/list');
 		},
+		computed: {
 
-		components: {
-			event,
-			MugenScroll,
-			filterComponent
-		}
+			...mapState("followsPage", {
+				followings: s => s.items
+			}),
+
+			...mapState("globalStore", {
+				users: s => s.users
+			}),
+
+			followersData() {
+				let { followings, users } = this;
+				let data = [];
+				followings.forEach(({ id }, index) => {
+					data[index] = {
+						avatar: this.publicPath + users[id].path_to_avatar,
+						username: users[id].username,
+						user_id: id
+					}
+				});
+
+				return data;
+
+			}
+
+		},
 	};
 </script>
 
 <style lang="scss">
 	.vote-feed {
-		height: 100%;
+		position: relative;
+		box-sizing: border-box;
+		width: 100%;
 
-		.loading-spinner {
-			width: 100%;
-			height: 80px;
-
-			* {
-				background-color: transparent;
-			}
+		* {
+			box-sizing: inherit;
 		}
 
-		.filter-section {
-			padding: 0 6px;
+		hr {
+			border: none;
+			height: 1px;
+			background-color: #BCBEC3;
+			opacity: 0.7;
+			box-shadow: 0px 0px 15px rgba(56, 56, 56, 0.05);
+			border-radius: 2px;
 		}
 
-		.swiper-container {
-			margin-left: 0px;
-		}
-		.have-no-subscribers {
-			text-align: center;
-			span {
-				color: #69777f;
-				font-family: Roboto;
-				font-style: normal;
-			}
-		}
-		.followings-block {
-			width: 75px !important;
-			margin-right: 12px !important;
-
-			.filter-wrapper {
-				span {
-					font-family: Roboto;
-					font-style: normal;
-					font-weight: normal;
-					font-size: 12px;
-					line-height: 18px;
-					text-align: center;
-					color: #152d3a;
-				}
-			}
-		}
 	}
 </style>
