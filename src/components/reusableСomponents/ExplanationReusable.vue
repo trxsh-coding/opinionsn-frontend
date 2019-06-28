@@ -1,65 +1,72 @@
 <template>
 	<div class="explanation-reusable">
 
-<!--		<div class="explain mb-9">-->
-<!--			<picture-reusable class="mr-12" pic-class="mb-5" :img="explain.img" :size="27" rounded text-layout="bottom">-->
-<!--				<template #description>-->
-<!--					{{parseTime(explain.timestamp)}}-->
-<!--				</template>-->
-<!--			</picture-reusable>-->
+		<div class="explain mb-9">
+			<picture-reusable
+				class="mr-12 p-0"
+				pic-class="mb-5"
+				:img="fitExplain.avatar"
+				:size="27"
+				rounded
+				text-layout="bottom">
+				<template #description>
+					<time-trans :time="fitExplain.timestamp"></time-trans>
+				</template>
+			</picture-reusable>
 
-<!--			<div class="text">-->
+			<div class="text">
 
-<!--				<span class="username mb-3">{{explain.username}}</span>-->
+				<span class="username mb-3">{{fitExplain.username}}</span>
 
-<!--				<span v-show="!!explain.explain" class="explain-text mb-3">{{explain.explain}}</span>-->
+				<span v-show="!!fitExplain.description" class="explain-description mb-3">{{fitExplain.description}}</span>
 
-<!--				<div class="option">-->
-<!--					<span class="option-name">{{explain.option}}</span>-->
-<!--					<span @click="setActiveInput(1, 1)" class="ml-14 pointer">-->
-<!--						<icon-base-->
-<!--							fill="#BCBEC3"-->
-<!--							width="18"-->
-<!--							height="20"-->
-<!--							viewBox="0 0 18 20"-->
-<!--							icon-name="reply-arrow">-->
-<!--							<icon-reply-arrow/>-->
-<!--						</icon-base>-->
-<!--					</span>-->
-<!--				</div>-->
+				<div class="option">
+					<span class="option-name">{{fitExplain.option}}</span>
+					<span @click="setActiveInput(1, 1)" class="ml-14 pointer">
+						<icon-base
+							fill="#BCBEC3"
+							width="18"
+							height="20"
+							viewBox="0 0 18 20"
+							icon-name="reply-arrow">
+							<icon-reply-arrow/>
+						</icon-base>
+					</span>
+				</div>
 
-<!--				<label class="mt-3" v-show="checkActiveInput(1, 1)">-->
-<!--					<input type="text" v-model="input_value">-->
-<!--					<span class="btns-block">-->
+				<label class="mt-3" v-show="checkActiveInput(1, 1)">
+					<textarea v-model="input_value" />
+					<span class="btns-block">
 
-<!--						<span class="emoji-span pointer" @click="emoji_menu = !emoji_menu" v-if="!mobile">-->
-<!--							<icon-base-->
-<!--								class="emoji-icon"-->
-<!--								fill="none"-->
-<!--								width="13"-->
-<!--								height="13"-->
-<!--								viewBox="0 0 15 15"-->
-<!--								icon-name="emoji"><icon-emoji/>-->
-<!--							</icon-base>-->
-<!--						</span>-->
+						<span class="emoji-span pointer" @click="emoji_menu = !emoji_menu">
+							<icon-base
+								class="emoji-icon"
+								fill="none"
+								width="13"
+								height="13"
+								viewBox="0 0 15 15"
+								icon-name="emoji"><icon-emoji/>
+							</icon-base>
+						</span>
 
-<!--						<div class="emoji-block" :hidden="emoji_menu">-->
-<!--							<VEmojiPicker :pack="emojisNative" @select="onSelectEmoji" :labelSearch="hide"/>-->
-<!--						</div>-->
+						<div class="emoji-block" :hidden="emoji_menu">
+							<VEmojiPicker :pack="emojisNative" @select="onSelectEmoji"/>
+						</div>
 
-<!--						<span class="send-btn pointer">Отправить</span>-->
-<!--					</span>-->
-<!--				</label>-->
+						<span class="send-btn pointer" @click="saveExplain">Отправить</span>
+					</span>
+				</label>
 
-<!--			</div>-->
-<!--		</div>-->
-		<ul v-if="comments && commentsArr" class="comment-list">
-			<li class="comment mb-10" v-for="(comment, index) in commentsArr" :key="index">
+			</div>
+		</div>
+
+		<ul v-if="comments && fitComments" class="comment-list">
+			<li class="comment mb-10" v-for="(comment, index) in fitComments" :key="comment.id">
 
 				<picture-reusable class="mr-12" pic-class="mb-5" :img="comment.avatar" :size="27" rounded
 								  text-layout="bottom">
 					<template #description>
-						{{parseTime(comment.timestamp)}}
+						<time-trans :time="comment.timestamp"></time-trans>
 					</template>
 				</picture-reusable>
 
@@ -67,7 +74,7 @@
 
 					<span class="username mb-3">{{comment.username}}</span>
 
-					<span v-show="!!comment.description" class="comment-text mb-3">{{comment.description}}</span>
+					<span v-show="!!comment.description" class="comment-description mb-3">{{comment.description}}</span>
 
 					<div class="option">
 						<span class="option-name">{{comment.option}}</span>
@@ -84,10 +91,10 @@
 					</div>
 
 					<label class="mt-3" v-show="checkActiveInput(index + 1, 2)">
-						<input type="text" v-model="input_value">
+						<textarea v-model="input_value" />
 						<span class="btns-block">
 
-							<span class="emoji-span pointer" @click="emoji_menu = !emoji_menu" v-if="!mobile">
+							<span class="emoji-span pointer" @click="emoji_menu = !emoji_menu">
 								<icon-base
 									class="emoji-icon"
 									fill="none"
@@ -99,10 +106,10 @@
                 			</span>
 
 							<div class="emoji-block" :hidden="emoji_menu">
-                				<VEmojiPicker :pack="emojisNative" @select="onSelectEmoji" :labelSearch="hide"/>
+                				<VEmojiPicker :pack="emojisNative" @select="onSelectEmoji"/>
 							</div>
 
-							<span class="send-btn pointer">Отправить</span>
+							<span class="send-btn pointer" @click="saveComment">Отправить</span>
 						</span>
 					</label>
 
@@ -117,12 +124,10 @@
 	import PictureReusable from "./PictureReusable";
 	import IconBase from "../icons/IconBase";
 	import IconEmoji from "../icons/IconEmoji";
-
-
+	import timeTrans from "../timeTrans";
 	import IconReplyArrow from "../icons/IconReplyArrow";
 	import VEmojiPicker from "v-emoji-picker";
 	import packData from "v-emoji-picker/data/emojis.json";
-	import moment from "moment";
 
 	export default {
 		name: "ExplanationReusable",
@@ -131,7 +136,8 @@
 			IconBase,
 			IconReplyArrow,
 			VEmojiPicker,
-			IconEmoji
+			IconEmoji,
+			timeTrans
 		},
 
 		data() {
@@ -168,9 +174,6 @@
 
 		},
 		methods: {
-			parseTime(date) {
-				return moment(date).format('HH') || "Ошибка";
-			},
 			onSelectEmoji(dataEmoji) {
 				this.input_value += dataEmoji.emoji;
 			},
@@ -227,31 +230,31 @@
 			lstr() {
 				return (str) => localString(this.lang, str);
 			},
-			// combinedComments: function () {
-			//
-			// 	let {comments, explain} = this;
-			//
-			// 	let comments_id = explain.comments_id;
-			//
-			// 	return comments_id.map(comment_id => {
-			//
-			// 		return comments[comment_id]
-			//
-			// 	});
-			//
-			// },
 
-			commentsArr() {
+			fitExplain() {
+				let { users, explain, options, publicPath  } = this;
+				let { author_id, explain_description, create_time, id, selected_variable } = explain;
+
+				return {
+					id,
+					avatar: publicPath + users[author_id].path_to_avatar,
+					username: users[author_id].username,
+					description: explain_description,
+					option: options[selected_variable].description,
+					timestamp: create_time
+				}
+			},
+
+			fitComments() {
 				let { users, comments, explain, options, publicPath } = this;
 
-				let commentsArr = [];
+				let fitComments = [];
 
 				let { comments_id, author_id } = explain;
 
 				comments_id.forEach((id, index) => {
 
-					commentsArr[index] = {
-						id,
+					fitComments[index] = {
 						avatar: publicPath + users[author_id].path_to_avatar,
 						username: users[author_id].username,
 						description: comments[id].description,
@@ -262,22 +265,18 @@
 
 				});
 
-				return comments_id.length > 0 ? commentsArr : null;
+				return comments_id.length > 0 ? fitComments : null;
 
 			},
 		},
 		mounted() {
-			console.log(this.commentsArr);
-		},
-		updated() {
+			console.log('explain', this.explain);
 		}
 	}
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 	.explanation-reusable {
-		position: relative;
-		width: 100%;
 		display: flex;
 		flex-direction: column;
 		align-items: flex-end;
@@ -292,11 +291,13 @@
 
 			.text {
 
+				flex: 1;
+
 				label {
 					display: flex;
 					position: relative;
 
-					input {
+					textarea {
 						flex: 1;
 						outline: none;
 						padding: 5px 0 5px 15px;
@@ -304,6 +305,7 @@
 						border-radius: 12px 0 0 12px;
 						border: 1px solid #c0c4cc;
 						border-right: none;
+
 					}
 
 					.btns-block {
@@ -362,7 +364,8 @@
 					color: #1A1E22;
 				}
 
-				.comment-text {
+				.comment-description,
+				.explain-description{
 					font-weight: normal;
 					font-size: 13px;
 					color: #1A1E22;
@@ -371,6 +374,7 @@
 				.option {
 					display: flex;
 					justify-content: space-between;
+					align-items: center;
 
 					.option-name {
 						font-weight: normal;

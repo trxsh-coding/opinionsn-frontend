@@ -1,6 +1,7 @@
 <template>
     <div id="headline-body">
-        <div class="tags__item">
+        <div class="tags__item mb-4">
+			{{poll.tags}}
         </div>
         <div class="subject__item">
             <span>
@@ -8,13 +9,13 @@
             </span>
 
         </div>
-        <div class="description__item">
+        <div class="description__item mb-7">
             <span>
                 {{poll.description}}
             </span>
         </div>
-        <subject-picture :img="publicPath + poll.picture" :width="295" :height="190" textLayout="right" bor-rad="6"/>
-        <bows-panel class="mt-3 mb-6" :users="poll.bows" v-show="!item.voted && Object.keys(poll.bows).length > 0" />
+        <subject-picture v-if="poll.picture" :img="publicPath + poll.picture" :width="295" :height="190" textLayout="right" bor-rad="6"/>
+        <bows-panel class="mt-9" :users="poll.bows" v-show="!item.voted && Object.keys(poll.bows).length > 0" />
 
     </div>
 </template>
@@ -46,15 +47,11 @@
         margin-left: 16%;
         .tags__item {
 
-            span {
-                font-family: Roboto;
-                font-style: normal;
-                font-weight: 500;
-                font-size: 15px;
-                display: flex;
-                align-items: center;
-                color: #1A1E22;
-            }
+			font-family: Roboto;
+			font-style: normal;
+			font-weight: normal;
+			font-size: 12px;
+			color: #4B97B4;
 
         }
         .description__item {

@@ -167,6 +167,10 @@ li {
 
 }
 
+.invisible {
+	visibility: hidden;
+}
+
 .v-center {
 	display: -webkit-box;
 	display: -ms-flexbox;
@@ -495,7 +499,7 @@ li {
 
 //  Paddings and Margins
 
-@for $i from 1 through 100 {
+@for $i from 0 through 100 {
 	.mr-#{$i} {
 		margin-right: $i + px !important;
 	}
@@ -538,6 +542,9 @@ li {
 	}
 	.p-#{$i} {
 		padding: $i + px !important;
+	}
+	.m-#{$i} {
+		margin: $i + px !important;
 	}
 }
 

@@ -118,12 +118,13 @@
 	}
 </script>
 
-<style scoped lang="scss">
+<style lang="scss" scoped>
 	.picture-reusable {
 		display: flex;
 		justify-content: center;
 		align-items: center;
 		width: fit-content;
+		flex-shrink: 0;
 
 		* {
 			box-sizing: border-box;

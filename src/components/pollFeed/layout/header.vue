@@ -1,6 +1,6 @@
 <template>
-    <div id="poll-header">
-        <author-headline :img="publicPath + imageUtil(author.path_to_avatar, 'S')" :size="36" textLayout="right" bor-rad="50%">
+    <div id="poll-header" class="mb-3">
+        <author-headline class="mb-9" :img="publicPath + imageUtil(author.path_to_avatar, 'S')" :size="36" textLayout="right" bor-rad="50%">
             <template #title>
                 <span class="username">
                     {{author.username}}
@@ -50,7 +50,6 @@
     #poll-header {
         .picture-reusable {
             margin-left: 16%;
-            padding-bottom: 9px;
         }
     }
 </style>

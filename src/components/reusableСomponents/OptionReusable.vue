@@ -1,10 +1,10 @@
 <template>
 	<div class="option-reusable">
 
-		<div v-if="bows && selected" class="bows" :style="{...optionStyle, backgroundColor: 'unset !important'}">
-			<slot v-if="!!bows && bows.length > 2" name="badge"></slot>
-			<router-link v-for="bow in filteredBows" :to="bow.url">
-				<div class="bow" :style="{backgroundImage: `url('${bow.img}')`}"></div>
+		<div v-if="bows" class="bows" :class="{'invisible': !voted}" :style="{...optionStyle, backgroundColor: 'unset !important'}">
+			<slot v-if="Object.keys(bows).length > 2" name="badge"></slot>
+			<router-link v-for="(value, name) in filteredBows" :to="'/user/' + name">
+				<div class="bow" :style="{backgroundImage: `url('${publicPath + value}')`}"></div>
 			</router-link>
 		</div>
 
@@ -31,7 +31,13 @@
 <script>
 	export default {
 		name: "OptionReusable",
+		data() {
+			return {
+				publicPath: process.env.VUE_APP_MAIN_API
+			}
+		},
 		props: {
+			voted: Boolean,
 			selected: Boolean,
 			correct: Boolean,
 			prediction: Boolean,
@@ -56,12 +62,7 @@
 				required: true
 			},
 			bows: {
-				type: Array, Boolean,
-				validator: function (value) {
-					// Значение в массиве должно соответствовать типу
-					value.forEach((item) => { if (typeof item !== "string") return false });
-					return true;
-				}
+				type: Object
 			}
 		},
 		methods: {
@@ -76,9 +77,16 @@
 			filteredBows() {
 
 				let { bows } = this;
-				if (bows) return Object.keys(bows).length > 2 ? [bows[0]] : bows;
-				return '';
 
+				if (bows) {
+					if (Object.keys(bows).length > 2) {
+						let singleBow = {};
+						singleBow[Object.entries(bows)[0][0]] = Object.entries(bows)[0][1];
+						return singleBow;
+					} else {
+						return bows;
+					}
+				}
 			},
 			optionStyle() {
 				let { selected, correct, prediction, picture } = this;
@@ -146,7 +154,7 @@
 	}
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 	.option-reusable {
 		position: relative;
 		display: flex;
@@ -155,8 +163,9 @@
 		width: 100%;
 
 		.bows {
+			box-sizing: border-box;
 			padding: 12px 6px 12px 3px;
-			width: 54px;
+			flex: 0 0 54px;
 			border: 0.5px solid #BCBEC3;
 			border-left: none;
 			border-radius: 0 6px 6px 0;
@@ -217,9 +226,9 @@
 					color: inherit;
 
 					flex: 1;
-					white-space: nowrap;
-					overflow: hidden;
-					text-overflow: ellipsis;
+					/*white-space: nowrap;*/
+					/*overflow: hidden;*/
+					/*text-overflow: ellipsis;*/
 				}
 
 				.percentage-block {
