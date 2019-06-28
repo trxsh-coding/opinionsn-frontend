@@ -49,9 +49,9 @@ export class VuexStore {
 
         }).catch(ex=> {
 
-            setTimeout(()=>
-                dispatch('notificationPage/longPollingAction', {},{root: true}),
-                100)
+            // setTimeout(()=>
+            //     dispatch('notificationPage/longPollingAction', {},{root: true}),
+            //     100)
 
         });
 
