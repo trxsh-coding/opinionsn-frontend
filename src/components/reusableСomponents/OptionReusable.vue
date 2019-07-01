@@ -67,6 +67,9 @@
 		},
 		methods: {
 			selectOption(selected_variable) {
+
+
+
 				let {poll_id, type_of_poll} = this;
 				console.log(poll_id)
 				console.log(poll_id)
@@ -74,6 +77,8 @@
 			}
 		},
 		computed: {
+
+
 			filteredBows() {
 
 				let { bows } = this;

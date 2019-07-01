@@ -92,7 +92,7 @@
                 :options="options"
                 :users="users"/>
 
-		<hr class="mt-12">
+		<hr class="ml-54 mt-12">
     </div>
 </template>
 
@@ -164,6 +164,12 @@
                 return users[poll.author_id];
             },
             // OPTION GETTER
+			//
+			// accessCheck() {
+			// 	switch (true) {
+			// 		case author
+			// 	}
+			// },
 
             combinedOptions: function () {
 
