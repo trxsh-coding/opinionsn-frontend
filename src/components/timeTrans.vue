@@ -10,7 +10,11 @@
     export default {
         name: "timeTrans",
         mixins:[langMixin],
-        props:['time'],
+        props: {
+			time: {
+				required: true
+			},
+		},
         computed: {
 
             transformed_time:function () {

@@ -52,13 +52,17 @@
 		<hr>
 
 		<div class="explain-wrapper">
-			<explanation-reusable :explain="explain" :comments="comments"></explanation-reusable>
+<!--			<explanation-reusable :explain="explain" :comments="comments"></explanation-reusable>-->
 		</div>
+
+		<short-poll-reusable :poll="polls[1727]"></short-poll-reusable>
 
 	</div>
 </template>
 
 <script>
+
+	import { mapState } from 'vuex';
     import PictureReusable from "./reusableСomponents/PictureReusable";
 	import OptionReusable from "./reusableСomponents/OptionReusable";
 	import BadgeReusable from "./reusableСomponents/BadgeReusable";
@@ -67,11 +71,13 @@
 	import IconDropArrow from "./icons/IconDropArrow";
 	import ButtonReusable from "./reusableСomponents/ButtonReusable";
 	import ExplanationReusable from "./reusableСomponents/ExplanationReusable";
+	import ShortPollReusable from "./reusableСomponents/shortPollReusable";
 
 
 	export default {
         name: "testPlayground",
 		components: {
+			ShortPollReusable,
 			ExplanationReusable,
 			ButtonReusable,
 			DropdownListReusable,
@@ -125,6 +131,13 @@
 					},
 				]
 			}
+		},
+		computed: {
+
+			...mapState('globalStore', {
+				polls: ({polls}) =>polls,
+			}),
+
 		},
 		methods: {
 			selectOption(id) {

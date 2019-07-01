@@ -42,7 +42,7 @@
 			selected: Boolean,
 			correct: Boolean,
 			prediction: Boolean,
-			percentage: Number,
+			percentage: [Number, Boolean],
 			picture: String,
 			pictureSize: {
 				type: Number,

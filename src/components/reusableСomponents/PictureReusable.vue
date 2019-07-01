@@ -9,7 +9,7 @@
 				</div>
 			</div>
 		</div>
-		<div class="text">
+		<div v-if="!withoutText" class="text">
 			<span class="title">
 				<slot name="title"></slot>
 			</span>
@@ -26,6 +26,12 @@
         name: "PictureReusable",
 		props: {
         	picClass: String,
+			withoutText: {
+        		type: Boolean,
+				default: function () {
+					return false;
+				}
+			},
         	img: {
 				type: String,
 				required: true
@@ -118,7 +124,7 @@
 	}
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 	.picture-reusable {
 		display: flex;
 		justify-content: center;
@@ -180,7 +186,6 @@
 				font-style: normal;
 				font-weight: 500;
 				font-size: 14px;
-				line-height: 16px;
 				color: #1A1E22;
 
 			}
@@ -190,7 +195,6 @@
 				font-family: Roboto;
 				font-style: normal;
 				font-weight: normal;
-				line-height: 9px;
 				color: #ADAFB3;
 				padding-top: 5px;
 

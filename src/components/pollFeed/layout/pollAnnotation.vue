@@ -8,7 +8,7 @@
                 <lang-string :title="poll.subject_header"/>
             </div>
         </div>
-        <bookmark  :poll="poll"/>
+        <bookmark :poll="poll"/>
 
     </div>
 </template>
