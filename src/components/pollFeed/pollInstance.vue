@@ -3,6 +3,7 @@
         <post-header :author="author" :poll="poll"/>
         <headline-body :poll="poll" :item="item"/>
         <options-section
+				:access-check="pollAccessCheck"
 				v-for="option in combinedOptions"
 				:bows="option.bows"
 				class="mt-12"
@@ -144,8 +145,8 @@
                 users: ({users}) =>users,
                 options: ({options})=>options,
                 comments: ({comments}) => comments,
+                mainUser: ({mainUser}) => mainUser,
             }),
-
 
             // POLL GETTER
 
@@ -155,6 +156,29 @@
                 return polls[item.id];
 
             },
+
+			pollAccessCheck() {
+				let { mainUser, poll, voted } = this;
+
+				if (mainUser) {
+
+					switch (true) {
+						case !!mainUser.id:
+						case !poll.votingOver:
+						case !voted:
+							return true;
+						default:
+							return false;
+					}
+
+				} else {
+					return false;
+				}
+
+
+
+			},
+
             // USER GETTER
 
             author: function () {
@@ -164,12 +188,6 @@
                 return users[poll.author_id];
             },
             // OPTION GETTER
-			//
-			// accessCheck() {
-			// 	switch (true) {
-			// 		case author
-			// 	}
-			// },
 
             combinedOptions: function () {
 

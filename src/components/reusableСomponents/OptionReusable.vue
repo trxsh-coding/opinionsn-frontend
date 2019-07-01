@@ -37,6 +37,7 @@
 			}
 		},
 		props: {
+			accessCheck: Boolean,
 			voted: Boolean,
 			selected: Boolean,
 			correct: Boolean,
@@ -68,12 +69,14 @@
 		methods: {
 			selectOption(selected_variable) {
 
+				if (this.accessCheck) {
+					let {poll_id, type_of_poll} = this;
+					console.log(poll_id)
+					console.log(poll_id)
+					this.$store.dispatch(`${this.$route.name}/createVote`, {data: {selected_variable, poll_id,  type_of_poll}})
 
+				}
 
-				let {poll_id, type_of_poll} = this;
-				console.log(poll_id)
-				console.log(poll_id)
-				this.$store.dispatch(`${this.$route.name}/createVote`, {data: {selected_variable, poll_id,  type_of_poll}})
 			}
 		},
 		computed: {
@@ -169,7 +172,7 @@
 
 		.bows {
 			box-sizing: border-box;
-			padding: 12px 6px 12px 3px;
+			padding: 12px 4px 12px 1px;
 			flex: 0 0 54px;
 			border: 0.5px solid #BCBEC3;
 			border-left: none;

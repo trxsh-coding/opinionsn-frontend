@@ -38,8 +38,10 @@
 
         .type-block {
             background-color: #4B97B4;
-            border-radius: 0px 15px 15px 0px;
-            padding: 1px 11px;
+            border-radius: 0 15px 15px 0;
+            padding: 1px 0;
+			width: 54px;
+			height: 15px;
         }
 
         .subject-block {
@@ -51,7 +53,7 @@
             font-family: Roboto;
             font-style: normal;
             font-weight: normal;
-            font-size: 12px;
+            font-size: 10px;
             text-align: center;
             color: #FEFEFE;
             text-transform: uppercase;
