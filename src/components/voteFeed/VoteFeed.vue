@@ -21,7 +21,9 @@
 		</swiper>
 
 		<hr class="mt-15 mb-12">
-
+		<div v-for="item in items" >
+			<vote-instance :item="item" />
+		</div>
 
     </section>
 
@@ -32,6 +34,7 @@
 <script>
 	import { mapState } from "vuex";
 	import PictureReusable from "../reusableСomponents/PictureReusable";
+	import VoteInstance from "./voteInstance";
 
 
 	export default {
@@ -44,16 +47,12 @@
 				},
 			};
 		},
-		components: {
-			PictureReusable
 
-		},
-		mounted() {
-			this.$store.dispatch('followsPage/getMyFollowings');
-			this.$store.dispatch('voteFeed/list');
-		},
 		computed: {
-
+			...mapState("voteFeed", {
+				state: s => s,
+				items: s => s.items
+			}),
 			...mapState("followsPage", {
 				followings: s => s.items
 			}),
@@ -77,6 +76,15 @@
 
 			}
 
+		},
+		components: {
+			VoteInstance,
+			PictureReusable
+
+		},
+		mounted() {
+			this.$store.dispatch('followsPage/getMyFollowings');
+			this.$store.dispatch('voteFeed/list');
 		},
 	};
 </script>

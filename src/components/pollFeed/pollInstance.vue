@@ -1,6 +1,10 @@
 <template>
     <div id="main-feed-layout" class="mb-12">
-        <post-header :author="author" :poll="poll"/>
+        <post-header :author="author" :poll="poll">
+			<template #annotation>
+				<poll-anotation :poll="poll"/>
+			</template>
+		</post-header>
         <headline-body :poll="poll" :item="item"/>
         <options-section
 				:access-check="pollAccessCheck"
@@ -25,7 +29,63 @@
 			</template>
         </options-section>
 
-		<counter-badges class="ml-60 mt-12" :poll="poll"></counter-badges>
+		<div class="counter-badges flex ml-60 mt-12">
+
+			<div class="explains-block flex-align-center mr-9">
+				<icon-base
+					fill="BEC0C5"
+					width="13"
+					height="10"
+					viewBox="0 0 13 10"
+					icon-name="check">
+					<icon-check></icon-check>
+				</icon-base>
+
+				<span class="ml-6">{{poll.total_amount_of_votes}}</span>
+			</div>
+
+			<div class="comments-block flex-align-center mr-9">
+				<icon-base
+					fill="BEC0C5"
+					width="13"
+					height="13"
+					viewBox="0 0 13 13"
+					icon-name="baloon">
+					<icon-baloon></icon-baloon>
+				</icon-base>
+
+				<span class="ml-6">{{poll.total_amount_of_comments}}</span>
+			</div>
+
+			<div v-if="poll.type_of_poll === 1 || 2" class="comments-block flex-align-center mr-9">
+				<icon-base
+					fill="BEC0C5"
+					width="13"
+					height="13"
+					viewBox="0 0 13 13"
+					icon-name="clocks">
+					<icon-clocks></icon-clocks>
+				</icon-base>
+
+				<span class="ml-6">
+					<time-trans :time="poll.end_date"></time-trans>
+				</span>
+			</div>
+
+			<div v-if="poll.type_of_poll === 2" class="comments-block flex-align-center">
+				<icon-base
+					fill="BEC0C5"
+					width="13"
+					height="15"
+					viewBox="0 0 13 15"
+					icon-name="bag">
+					<icon-bag></icon-bag>
+				</icon-base>
+
+				<span class="ml-6">{{poll.fund}}</span>
+			</div>
+
+		</div>
 
         <explain-section
 				class="ml-21 mt-12"
@@ -49,19 +109,32 @@
     import OptionsSection from "../reusableСomponents/OptionReusable";
 	import BadgeReusable from "../reusableСomponents/BadgeReusable";
 	import PictureReusable from "../reusableСomponents/PictureReusable";
-	import CounterBadges from "../reusableСomponents/counterBadges";
+	import IconBase from "../icons/IconBase";
+	import IconCheck from "../icons/IconCheck";
+	import IconBaloon from "../icons/IconBaloon";
+	import IconClocks from "../icons/IconClocks";
+	import IconBag from "../icons/IconBag";
+	import TimeTrans from "../timeTrans";
+	import PollAnotation from "./layout/pollAnnotation";
+
 
 	export default {
         name: "layout",
         props:['item'],
 		components: {
-			CounterBadges,
+			PollAnotation,
+			TimeTrans,
 			PictureReusable,
 			BadgeReusable,
 			OptionsSection,
 			explainSection,
 			postHeader,
-			headlineBody
+			headlineBody,
+			IconBase,
+			IconCheck,
+			IconBaloon,
+			IconClocks,
+			IconBag
 		},
         data () {
             return {
