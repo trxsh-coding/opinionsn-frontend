@@ -8,7 +8,8 @@
         <headline-body :poll="poll" :item="item"/>
         <options-section
 				:access-check="pollAccessCheck"
-				v-for="option in combinedOptions"
+				v-for="(option, index) in combinedOptions"
+				v-show="options_visible || index < 5"
 				:bows="option.bows"
 				class="mt-12"
 				:id="option.id"
@@ -26,8 +27,10 @@
 
 			<template #badge>
 				<badge-reusable :counter="Object.keys(option.bows).length - 2" :size="21" ></badge-reusable>
+
 			</template>
         </options-section>
+		<span v-show="!options_visible && combinedOptions.length > 5" class="options-load-btn pointer mt-9" @click="options_visible = true">Показать больше опций</span>
 
 		<div class="counter-badges flex ml-60 mt-12">
 
@@ -90,16 +93,16 @@
         <explain-section
 				class="ml-21 mt-12"
                 v-for="(explain, index) in combinedVotes"
-				:key="index"
 				v-show="index < explains_quantity"
                 :explain="explain"
-                :poll_id="poll.id"
+                :poll-id="poll.id"
+				:poll-type="poll.type_of_poll"
                 :author_picture="publicPath + author.path_to_avatar"
                 :comments="comments"
                 :options="options"
                 :users="users"/>
 
-		<span v-show="voted && !no_more_explains" class="explains-load-btn pointer" @click="loadMoreExplains">Загрузить ещё...</span>
+		<span v-show="voted && !no_more_explains" class="explains-load-btn pointer mt-9" @click="loadMoreExplains">Загрузить ещё...</span>
 
 		<hr class="ml-54 mt-12">
     </div>
@@ -144,6 +147,7 @@
             return {
 
                 publicPath: process.env.VUE_APP_MAIN_API,
+				options_visible: false,
 				explain_page: 1,
 				EXPLAINS_LIMIT: 5,
 				explains_quantity: 5,
@@ -307,7 +311,8 @@
 
 		}
 
-		.explains-load-btn {
+		.explains-load-btn,
+		.options-load-btn {
 			font-family: Helvetica Neue, Roboto;
 			font-size: 10px;
 			color: #BEC0C5;
