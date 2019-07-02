@@ -1,10 +1,10 @@
 <template>
-    <div class="short-poll-reusable" :style="pollStyle">
+    <div class="short-poll-reusable" :class="{'column-layout': !rowLayout }" :style="pollWrapperStyle">
 		<div class="poll">
 
 			<bookmark class="bookmark-btn pointer" :poll="poll"></bookmark>
 
-			<div class="img-wrapper pointer" @click="pollLink(pollData.id)">
+			<div v-if="rowLayout" class="img-wrapper pointer" @click="pollLink(pollData.id)">
 
 				<picture-reusable
 					:img="pollData.picture"
@@ -23,7 +23,19 @@
 
 				<span class="poll-name pointer"  @click="pollLink(pollData.id)">{{pollData.name}}</span>
 
-				<span v-if="true" class="poll-desc mt-3 pointer"  @click="pollLink(pollData.id)">{{pollData.description}}</span>
+				<span v-if="withDesc && rowLayout" class="poll-desc mt-3 pointer"  @click="pollLink(pollData.id)">{{pollData.description}}</span>
+
+				<div v-else-if="!rowLayout" class="main-img-wrapper pointer mt-3" @click="pollLink(pollData.id)">
+
+					<picture-reusable
+						:img="pollData.picture"
+						width="100%"
+						:height="90"
+						bor-rad="6"
+						without-text
+					/>
+
+				</div>
 
 				<div class="poll-info-bar flex-between mt-4">
 					<span @click="userLink(pollData.author_id)">
@@ -64,7 +76,7 @@
 
 
 	export default {
-        name: "shortPollReusable",
+        name: "ShortPollReusable",
 		components: {
 			Bookmark,
         	CounterBadges,
@@ -91,14 +103,14 @@
 					return false;
 				}
 			},
-			type: {
+			typeOfLayout: {
 				type: Number,
 				default: function () {
-					return 1;
+					return 'row';
 				},
 				validator: function (value) {
 					// Значение должно соответствовать одной из этих строк
-					return [1, 2].indexOf(value) !== -1
+					return ['row', 'column'].indexOf(value) !== -1
 				}
 			}
 		},
@@ -128,11 +140,15 @@
 				users: ({users}) => users,
 			}),
 
+			rowLayout() {
+				return this.typeOfLayout === 'row';
+			},
 
 
-			pollStyle() {
+			pollWrapperStyle() {
 				let { width } = this;
 				width = (width.slice(-1) === '%') ? {width: `${width}`} : {width: `${width}px`};
+
 
 				return {
 					...width
@@ -182,6 +198,31 @@
 </script>
 
 <style lang="scss">
+
+	.short-poll-reusable.column-layout {
+
+
+		.poll {
+			margin: 0;
+			padding: 6px 9px 9px;
+
+			.text {
+				margin: 0;
+			}
+
+
+			.main-img-wrapper {
+				.picture-reusable {
+					width: 100%;
+					.picture-wrapper {
+						width: 100%;
+					}
+				}
+			}
+
+		}
+
+	}
 
 	.short-poll-reusable {
 

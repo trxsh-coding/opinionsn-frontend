@@ -55,7 +55,7 @@
 <!--			<explanation-reusable :explain="explain" :comments="comments"></explanation-reusable>-->
 		</div>
 
-		<short-poll-reusable :poll="polls[1727]"></short-poll-reusable>
+		<short-poll-reusable type-of-layout="column" :poll="polls[1727]"></short-poll-reusable>
 
 	</div>
 </template>
@@ -71,7 +71,7 @@
 	import IconDropArrow from "./icons/IconDropArrow";
 	import ButtonReusable from "./reusableСomponents/ButtonReusable";
 	import ExplanationReusable from "./reusableСomponents/ExplanationReusable";
-	import ShortPollReusable from "./reusableСomponents/shortPollReusable";
+	import ShortPollReusable from "./reusableСomponents/ShortPollReusable";
 
 
 	export default {

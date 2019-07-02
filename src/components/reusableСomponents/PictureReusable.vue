@@ -3,9 +3,9 @@
 		<div class="picture-wrapper" :class="picClass" :style="pictureWrapperStyle">
 			<div class="picture" :style="pictureStyle">
 				<div v-if="counter" class="counter">
-				<span>
-					+{{handledCounter}}
-				</span>
+					<span>
+						+{{handledCounter}}
+					</span>
 				</div>
 			</div>
 		</div>
@@ -37,13 +37,13 @@
 				required: true
 			},
         	size: {
-        		type: Number
+        		type: [Number, String]
 			},
 			width: {
-				type: Number
+				type: [Number, String]
 			},
 			height: {
-				type: Number
+				type: [Number, String]
 			},
 			borRad: {
         		type: [String, Number],
@@ -62,6 +62,15 @@
 				}
 			},
 			counter: Number
+		},
+		methods: {
+			handlePrecentValue(value) {
+
+				if (value === undefined) return false;
+
+				return `${value}`.slice(-1) === '%' ? value : value + 'px';
+
+			}
 		},
 		computed: {
 			wrapperStyle() {
@@ -89,8 +98,8 @@
 				}
 			},
 			pictureWrapperStyle() {
-				let { borColor, borRad, rounded } = this;
-				borRad = (borRad.slice(-1) === '%') ? borRad : borRad + 'px';
+				let { borColor, borRad, rounded, handlePrecentValue } = this;
+				borRad = handlePrecentValue(borRad);
 				if (rounded) borRad = "50%";
 
 				if (borColor) {
@@ -102,13 +111,17 @@
 				return '';
 			},
 			pictureStyle() {
-				let { size, borRad, img, width, height, rounded } = this;
-				borRad = (borRad.slice(-1) === '%') ? borRad : borRad + 'px';
+				let { size, borRad, img, width, height, rounded, handlePrecentValue } = this;
+				borRad = handlePrecentValue(borRad);
+				width = handlePrecentValue(width);
+				height = handlePrecentValue(height);
+				size = handlePrecentValue(size);
 				if (rounded) borRad = "50%";
 
+
 				return {
-					width: `${size || width}px`,
-					height: `${size || height}px`,
+					width: `${width || size}`,
+					height: `${height || size}`,
 					borderRadius: `${borRad}`,
 					backgroundImage: `url('${img}')`
 				};
@@ -138,6 +151,7 @@
 
 		.picture-wrapper {
 			.picture {
+				width: auto;
 				position: relative;
 				background-repeat: no-repeat;
 				background-size: cover;
