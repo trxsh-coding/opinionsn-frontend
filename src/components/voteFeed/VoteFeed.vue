@@ -1,28 +1,29 @@
 <template lang="html">
 
-<!-- TODO: доделать voteFeed	-->
     <section class="vote-feed">
-		<swiper :options="swiperOption" class="followers-swiper">
-			<swiper-slide class="avatar-wrapper" v-for="{avatar, username, user_id} in followersData">
-				<router-link :to="{ name: 'user', params: { id: user_id }}">
-					<picture-reusable
-						pic-class="mb-9 p-2"
-						:size="66"
-						:img="avatar"
-						text-layout="bottom"
-						bor-color="#BCBEC3"
-						rounded>
-						<template #title>
-							{{username}}
-						</template>
-					</picture-reusable>
-				</router-link>
-			</swiper-slide>
-		</swiper>
+
+		<scroll-swiper-reusable width="100%" class="followers-swiper pl-30">
+
+			<router-link class="mr-7" v-for="{avatar, username, user_id} in followersData" :to="{ name: 'user', params: { id: user_id }}">
+				<picture-reusable
+					pic-class="mb-9 p-2"
+					:size="66"
+					:img="avatar"
+					text-layout="bottom"
+					bor-color="#BCBEC3"
+					rounded>
+					<template #title>
+						{{username}}
+					</template>
+				</picture-reusable>
+			</router-link>
+
+		</scroll-swiper-reusable>
 
 		<hr class="mt-15 mb-12">
 		<div v-for="item in items" >
 			<vote-instance :item="item" />
+			<hr class="mt-12">
 		</div>
 		<mugen-scroll :handler="load" :should-handle="!postsEnded">
 			<loading-spinner>
@@ -41,6 +42,7 @@
 	import VoteInstance from "./voteInstance";
 	import MugenScroll from "vue-mugen-scroll";
 	import loadingSpinner from "../reusableСomponents/loadingSpinner"
+	import ScrollSwiperReusable from "../reusableСomponents/ScrollSwiperReusable";
 
 	export default {
 		data() {
@@ -90,6 +92,7 @@
 			}
 		},
 		components: {
+			ScrollSwiperReusable,
 			VoteInstance,
 			PictureReusable,
 			MugenScroll,

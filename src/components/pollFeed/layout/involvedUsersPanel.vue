@@ -7,17 +7,15 @@
 			</template>
 		</lang-string>
 
-		<swiper class="mt-5" :options="lang-stringn">
-			<swiper-slide class="user-picture-wrapper" v-for="(value, key) in users" :key="i">
+		<scroll-swiper-reusable class="mt-9">
 
-				<router-link :to="'/user/' + key">
-					<div
-						class="user-picture pointer picture-22x22 rounded"
-						:style="{ 'background-image': 'url(' + publicPath + imageUtil(value, 'S') + ')' }" />
-				</router-link>
+			<router-link v-for="(value, key) in users" :to="'/user/' + key">
+				<div
+					class="user-picture pointer picture-22x22 rounded"
+					:style="{ 'background-image': 'url(' + publicPath + imageUtil(value, 'S') + ')' }" ></div>
+			</router-link>
 
-			</swiper-slide>
-		</swiper>
+		</scroll-swiper-reusable>
 
 	</div>
 </template>
@@ -25,6 +23,7 @@
 <script>
 	import langString from '../../langString'
 	import imageMixin from '../../mixins/imageMixin'
+	import ScrollSwiperReusable from "../../reusableСomponents/ScrollSwiperReusable";
     export default {
         name: "involvedUsersPanel",
 		mixins:[imageMixin],
@@ -46,6 +45,7 @@
 		},
 		props: ['users'],
 		components: {
+			ScrollSwiperReusable,
 			langString
 		}
     }

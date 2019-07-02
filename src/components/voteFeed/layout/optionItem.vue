@@ -70,11 +70,17 @@
         max-width: 180px;
         flex-basis: auto;
 
+		overflow: hidden;
+
         span {
             font-family: Roboto;
             font-style: normal;
             font-weight: normal;
             font-size: 13px;
+
+			height: auto;
+			max-height: 100%;
+			overflow: hidden;
 
         }
 

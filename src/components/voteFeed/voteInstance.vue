@@ -1,11 +1,15 @@
 <template>
-    <div id="opinion-feed-layout">
+    <div id="opinion-feed-layout" class="mt-12">
         <post-header :author="author" :poll="poll" />
+
         <div class="options-scroll-block" >
-            <option-item class="mr-9" v-for="{option, isSelected} in sortedOptions" :selected="isSelected" :option="option" :width="180"   :height="44"/>
+            <option-item class="mr-9" v-for="{option, isSelected} in sortedOptions" :selected="isSelected" :option="option" :width="180"  :height="45"/>
         </div>
+
         <vote-annotation :poll="poll" />
-        <bows-panel class="mt-9" :users="poll.bows"  />
+
+        <bows-panel class="mt-9" v-show="!!Object.keys(poll.bows).length" :users="poll.bows"  />
+
     </div>
 </template>
 
@@ -34,14 +38,23 @@
     #opinion-feed-layout {
         margin-left: 21px;
         overflow-x: hidden;
+
         .options-scroll-block {
             display: inline-flex;
             width: 95%;
             overflow-x: scroll;
+			overflow-y: hidden;
+
+			&::-webkit-scrollbar {
+				display: none !important;
+			}
+
         }
+
         .short-poll-reusable {
             margin-top: 21px;
         }
+
     }
 
 </style>
