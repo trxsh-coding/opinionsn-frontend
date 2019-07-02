@@ -19,6 +19,7 @@ import VueTheMask from 'vue-the-mask'
 import PerfectScrollbar from 'vue2-perfect-scrollbar'
 import 'vue2-perfect-scrollbar/dist/vue2-perfect-scrollbar.css'
 import VueAwesomeSwiper from 'vue-awesome-swiper'
+import VueTextareaAutosize from 'vue-textarea-autosize'
 import 'swiper/dist/css/swiper.css'
 import './registerServiceWorker'
 import browserDetect from "vue-browser-detect-plugin";
@@ -26,6 +27,7 @@ import * as firebase from "firebase";
 
 Vue.use(browserDetect);
 Vue.use(VueAwesomeSwiper);
+Vue.use(VueTextareaAutosize)
 Vue.use(PerfectScrollbar);
 Vue.use(VueTheMask);
 Vue.use(Croppa);

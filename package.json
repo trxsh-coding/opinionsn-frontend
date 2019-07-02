@@ -20,6 +20,7 @@
     "vue-i18n": "^8.8.2",
     "vue-router": "^3.0.1",
     "vue-text-mask": "^6.1.2",
+    "vue-textarea-autosize": "^1.0.4",
     "vue-the-mask": "^0.11.1",
     "vue-yandex-metrika": "^1.8.0",
     "vue2-perfect-scrollbar": "^1.2.0",

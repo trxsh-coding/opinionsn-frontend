@@ -22,7 +22,7 @@
 
 				<div class="option">
 					<span class="option-name">{{fitExplain.option}}</span>
-					<span @click="setActiveInput(1, 1)" class="ml-14 pointer">
+					<span v-show="!input_id" @click="setActiveInput(1, 1)" class="pointer">
 						<icon-base
 							fill="#BCBEC3"
 							width="18"
@@ -35,25 +35,38 @@
 				</div>
 
 				<label class="mt-3" v-show="checkActiveInput(1, 1)">
-					<textarea v-model="input_value" />
+					<textarea-autosize
+						v-model="input_value"
+					></textarea-autosize>
 					<span class="btns-block">
 
-						<span class="emoji-span pointer" @click="emoji_menu = !emoji_menu">
+<!--						<span class="emoji-span pointer" @click="emoji_menu = !emoji_menu">-->
+<!--							<icon-base-->
+<!--								class="emoji-icon"-->
+<!--								fill="none"-->
+<!--								width="13"-->
+<!--								height="13"-->
+<!--								viewBox="0 0 15 15"-->
+<!--								icon-name="emoji"><icon-emoji/>-->
+<!--							</icon-base>-->
+<!--						</span>-->
+
+<!--						<div class="emoji-block" :hidden="emoji_menu">-->
+<!--							<VEmojiPicker :pack="emojisNative" @select="onSelectEmoji"/>-->
+<!--						</div>-->
+
+						<span @click="saveExplain" class="pointer">
 							<icon-base
-								class="emoji-icon"
-								fill="none"
-								width="13"
-								height="13"
-								viewBox="0 0 15 15"
-								icon-name="emoji"><icon-emoji/>
+								class="send-btn"
+								fill="#BCBEC3"
+								width="18"
+								height="20"
+								viewBox="0 0 18 20"
+								icon-name="reply-arrow">
+								<icon-reply-arrow/>
 							</icon-base>
 						</span>
 
-						<div class="emoji-block" :hidden="emoji_menu">
-							<VEmojiPicker :pack="emojisNative" @select="onSelectEmoji"/>
-						</div>
-
-						<span class="send-btn pointer" @click="saveExplain">Отправить</span>
 					</span>
 				</label>
 
@@ -78,38 +91,52 @@
 
 					<div class="option">
 						<span class="option-name">{{comment.option}}</span>
-						<span @click="setActiveInput(index + 1, 2)" class="ml-14 pointer">
+						<span v-show="!input_id" @click="setActiveInput(index + 1, 2)" class="pointer">
 							<icon-base
 								fill="#BCBEC3"
 								width="18"
 								height="20"
 								viewBox="0 0 18 20"
 								icon-name="reply-arrow">
-							<icon-reply-arrow/>
-						</icon-base>
+								<icon-reply-arrow/>
+							</icon-base>
 						</span>
 					</div>
 
 					<label class="mt-3" v-show="checkActiveInput(index + 1, 2)">
-						<textarea v-model="input_value" />
+						<textarea-autosize
+							v-model="input_value"
+							autosize
+						></textarea-autosize>
 						<span class="btns-block">
 
-							<span class="emoji-span pointer" @click="emoji_menu = !emoji_menu">
+<!--							<span class="emoji-span pointer" @click="emoji_menu = !emoji_menu">-->
+<!--								<icon-base-->
+<!--									class="emoji-icon"-->
+<!--									fill="none"-->
+<!--									width="13"-->
+<!--									height="13"-->
+<!--									viewBox="0 0 15 15"-->
+<!--									icon-name="emoji"><icon-emoji/>-->
+<!--                				</icon-base>-->
+<!--                			</span>-->
+
+<!--							<div class="emoji-block" :hidden="emoji_menu">-->
+<!--                				<VEmojiPicker :pack="emojisNative" @select="onSelectEmoji"/>-->
+<!--							</div>-->
+
+							<span @click="saveComment" class="pointer">
 								<icon-base
-									class="emoji-icon"
-									fill="none"
-									width="13"
-									height="13"
-									viewBox="0 0 15 15"
-									icon-name="emoji"><icon-emoji/>
-                				</icon-base>
-                			</span>
+									class="send-btn"
+									fill="#BCBEC3"
+									width="18"
+									height="20"
+									viewBox="0 0 18 20"
+									icon-name="reply-arrow">
+									<icon-reply-arrow/>
+								</icon-base>
+							</span>
 
-							<div class="emoji-block" :hidden="emoji_menu">
-                				<VEmojiPicker :pack="emojisNative" @select="onSelectEmoji"/>
-							</div>
-
-							<span class="send-btn pointer" @click="saveComment">Отправить</span>
 						</span>
 					</label>
 
@@ -180,28 +207,52 @@
 			saveExplain() {
 
 				let description = this.input_value;
-				let { poll_id } = this;
 
-				this.$store.dispatch(`pollFeed/saveExplain`, {data: {poll_id, description} });
+				if (description) {
 
-				this.input_id = null,
-				this.input_type = null,
-				this.input_value = "",
-				this.emoji_menu = true
+					let { poll_id } = this;
+
+					this.$store.dispatch(`pollFeed/saveExplain`, {data: {poll_id, description} });
+
+					this.input_id = null,
+					this.input_type = null,
+					this.input_value = "",
+					this.emoji_menu = true
+
+				} else {
+
+					this.input_id = null,
+					this.input_type = null,
+					this.input_value = "",
+					this.emoji_menu = true
+
+				}
 
 			},
 			saveComment() {
-
 				let description = this.input_value;
-				let { explain_id } = this.explain;
-				let { poll_id } = this;
 
-				this.$store.dispatch(`pollFeed/saveComment`, {data: {poll_id, explain_id, description}});
+				if (description) {
 
-				this.input_id = null,
-				this.input_type = null,
-				this.input_value = "",
-				this.emoji_menu = true
+					let { explain_id } = this.explain;
+					let { poll_id } = this;
+
+					this.$store.dispatch(`pollFeed/saveComment`, {data: {poll_id, explain_id, description}});
+
+					this.input_id = null,
+					this.input_type = null,
+					this.input_value = "",
+					this.emoji_menu = true
+
+				} else {
+
+					this.input_id = null,
+					this.input_type = null,
+					this.input_value = "",
+					this.emoji_menu = true
+
+				}
+
 			},
 			setActiveInput(id, type) {
 				this.input_value = "";
@@ -268,9 +319,6 @@
 				return comments_id.length > 0 ? fitComments : null;
 
 			},
-		},
-		mounted() {
-			console.log('explain', this.explain);
 		}
 	}
 </script>
@@ -296,24 +344,26 @@
 				label {
 					display: flex;
 					position: relative;
+					background: #FFFFFF;
+					border: 1px solid #BCBEC3;
+					box-sizing: border-box;
+					border-radius: 6px;
+					overflow: hidden;
 
 					textarea {
 						flex: 1;
 						outline: none;
-						padding: 5px 0 5px 15px;
+						padding: 7px 9px;
+						border: none;
 
-						border-radius: 12px 0 0 12px;
-						border: 1px solid #c0c4cc;
-						border-right: none;
-
+						font-family: Roboto;
+						font-style: normal;
+						font-weight: normal;
+						font-size: 13px;
+						color: #1A1E22;
 					}
 
 					.btns-block {
-						padding: 0 15px 0 10px;
-
-						border-radius: 0 12px 12px 0;
-						border: 1px solid #c0c4cc;
-						border-left: none;
 
 						display: flex;
 						align-items: center;
@@ -331,14 +381,7 @@
 						}
 
 						.send-btn {
-							margin-left: 8px;
-
-							font-family: Roboto;
-							font-size: 12px;
-							font-style: normal;
-							font-weight: 400;
-							text-transform: uppercase;
-							color: #B9C0C4;
+							margin: 0 9px;
 						}
 					}
 				}
