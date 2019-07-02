@@ -4,17 +4,11 @@
   <div id="poll-wrapper" class="mr-20">
 
     <div class="feed relative">
-        <!--<swiper :options="swiperOption" class="category-section mb-6">-->
 
-        	<!--<swiper-slide class="category-block " v-for="category in categories">-->
-            	<!--<filter-component class="pointer" :filtered="filtered" :category="category"  />-->
-        	<!--</swiper-slide>-->
-
-        	<!--<div class="swiper-pagination" slot="pagination"></div>-->
-        <!--</swiper>-->
     	<div v-for="item in items" >
 			<poll-instance :item="item"/>
     	</div>
+
     	<mugen-scroll :handler="load" :should-handle="!is_finished">
         	<div class="loading-spinner" v-loading="true" v-if="!is_finished"/>
     	</mugen-scroll>
