@@ -57,7 +57,7 @@
 				<span class="ml-6">{{poll.total_amount_of_comments}}</span>
 			</div>
 
-			<div v-if="poll.type_of_poll === 1 || 2" class="comments-block flex-align-center mr-9">
+			<div v-if="poll.type_of_poll === 1 || poll.type_of_poll === 2" class="comments-block flex-align-center mr-9">
 				<icon-base
 					fill="BEC0C5"
 					width="13"
@@ -89,13 +89,17 @@
 
         <explain-section
 				class="ml-21 mt-12"
-                v-for="explain in combinedVotes"
+                v-for="(explain, index) in combinedVotes"
+				:key="index"
+				v-show="index < explains_quantity"
                 :explain="explain"
                 :poll_id="poll.id"
                 :author_picture="publicPath + author.path_to_avatar"
                 :comments="comments"
                 :options="options"
                 :users="users"/>
+
+		<span v-show="voted && !no_more_explains" class="explains-load-btn pointer" @click="loadMoreExplains">Загрузить ещё...</span>
 
 		<hr class="ml-54 mt-12">
     </div>
@@ -139,8 +143,11 @@
         data () {
             return {
 
-                publicPath: process.env.VUE_APP_MAIN_API
-
+                publicPath: process.env.VUE_APP_MAIN_API,
+				explain_page: 1,
+				EXPLAINS_LIMIT: 5,
+				explains_quantity: 5,
+				no_more_explains: false
             }
         },
         computed: {
@@ -232,8 +239,33 @@
 			},
 
         },
-        methods : {
+        methods: {
 
+			loadMoreExplains() {
+
+				let {
+					explain_page,
+					EXPLAINS_LIMIT,
+					poll,
+					no_more_explains,
+					explains_quantity
+				} = this;
+
+				if (!no_more_explains) {
+
+					this.$store.dispatch(`pollFeed/loadExplains`, { poll_id: poll.id, explain_page })
+						.then(() => {
+							this.explain_page += 1;
+							if ( explains_quantity > this.poll.total_amount_of_votes ) {
+								this.no_more_explains = true;
+							} else {
+								this.explains_quantity += EXPLAINS_LIMIT;
+							}
+						});
+
+				}
+
+			}
 
         },
 
@@ -244,6 +276,10 @@
 	#main-feed-layout {
 		position: relative;
 		width: 100%;
+
+		display: flex;
+		flex-direction: column;
+
 		hr {
 			margin: 0;
 			border: none;
@@ -269,6 +305,13 @@
 				color: #BEC0C5;
 			}
 
+		}
+
+		.explains-load-btn {
+			font-family: Helvetica Neue, Roboto;
+			font-size: 10px;
+			color: #BEC0C5;
+			margin: 0 auto;
 		}
 	}
 </style>

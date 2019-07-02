@@ -173,6 +173,10 @@
 				input_type: null,
 				input_value: '',
 				emoji_menu: true,
+				no_more_comments: false,
+				comment_page: 1,
+				COMMENTS_LIMIT: 5,
+				comments_quantity: 5,
 				publicPath: process.env.VUE_APP_MAIN_API
 			}
 		},
@@ -270,6 +274,43 @@
 			checkActiveInput(id, type) {
 				let {input_id, input_type} = this;
 				return input_id === id && input_type === type;
+			},
+			loadMoreComments() {
+
+				let {
+					no_more_comments,
+					comment_page,
+					COMMENTS_LIMIT,
+					comments_quantity,
+					explain
+				} = this;
+
+				if (!no_more_comments) {
+
+					this.$store.dispatch(`pollFeed/loadExplains`, { poll_id: poll.id, explain_page })
+						.then(() => {
+							this.explain_page += 1;
+							if ( explains_quantity > this.poll.total_amount_of_votes ) {
+								this.no_more_explains = true;
+							} else {
+								this.explains_quantity += EXPLAINS_LIMIT;
+							}
+						});
+
+					if(this.poll.type_of_poll === 2) {
+
+						this.$store.dispatch(`pollFeed/loadComments`, {customUrl: `/rest/blockchain/comment` ,params: {explain_id, comment_page}});
+
+
+					} else {
+
+						this.$store.dispatch(`pollFeed/loadComments`,  {vm: this, explain_id, comment_page});
+
+
+					}
+
+				}
+
 			}
 
 		},
