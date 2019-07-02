@@ -1,5 +1,5 @@
 <template>
-    <div class="option__item" >
+    <div class="option__item " :style="wrapperStyle">
         <span>{{option.description}}</span>
     </div>
 </template>
@@ -32,18 +32,24 @@
             },
             voted: {
                 type: Boolean
+            },
+            selected: {
+              type: Boolean
+            },
+            size: {
+                type: Number
             }
         },
         computed: {
             wrapperStyle(){
-                let {height, width} = this;
+                let {height, width, borRad, size, selected} = this;
                 borRad = (borRad.slice(-1) === '%') ? borRad : borRad + 'px';
-                if (rounded) borRad = "50%";
-
+                let selectedOption = selected ? {backgroundColor: '#4B97B4', color:'#ffffff' } : {backgroundColor: '#ffffff', color:'#1A1E22', border: '0.5px solid #BCBEC3' }
                 return {
-                    width: `${size || width}px`,
+                    // flexBasis: `${size || width}px`,
                     height: `${size || height}px`,
                     borderRadius: `${borRad}`,
+                    ...selectedOption
                 };
             },
 
@@ -52,5 +58,28 @@
 </script>
 
 <style lang="scss">
+    .option__item {
 
+        padding: 6px 9px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-wrap: wrap;
+        flex-shrink: 0;
+        flex-grow: 0;
+        max-width: 180px;
+        flex-basis: auto;
+
+        span {
+            font-family: Roboto;
+            font-style: normal;
+            font-weight: normal;
+            font-size: 13px;
+
+        }
+
+        &:last-child {
+            margin-right: 9px !important;
+        }
+    }
 </style>

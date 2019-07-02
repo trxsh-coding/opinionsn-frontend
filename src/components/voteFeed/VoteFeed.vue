@@ -94,7 +94,6 @@
 		position: relative;
 		box-sizing: border-box;
 		width: 100%;
-
 		* {
 			box-sizing: inherit;
 		}

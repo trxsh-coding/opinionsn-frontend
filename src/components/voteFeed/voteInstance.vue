@@ -2,7 +2,7 @@
     <div id="opinion-feed-layout">
         <post-header :author="author" :poll="poll" />
         <div class="options-scroll-block" >
-            <option-item class="mr-9" v-for="option in combinedOptions":option="option.option" />
+            <option-item class="mr-9" v-for="{option, isSelected} in sortedOptions" :selected="isSelected" :option="option" :width="180"   :height="44"/>
         </div>
     </div>
 </template>
@@ -27,8 +27,14 @@
 </script>
 
 <style lang="scss">
-    .options-scroll-block {
-        display: flex;
-        overflow: scroll;
+    #opinion-feed-layout {
+        margin-left: 21px;
+        overflow-x: hidden;
+        .options-scroll-block {
+            display: inline-flex;
+            width: 95%;
+            overflow-x: scroll;
+        }
     }
+
 </style>
