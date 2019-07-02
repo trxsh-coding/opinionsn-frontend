@@ -49,6 +49,15 @@ export default {
             });
 
         },
+
+        sortedOptions: function () {
+            let {combinedOptions} = this;
+            let sanOptions = [...combinedOptions];
+            // Sort them by selected (in future it will allow to use multiple-selection)
+            sanOptions.sort(({isSelected: a}, {isSelected: b}) => b - a);
+            // Limit them either by 3 or the length of the whole things
+            return sanOptions;
+        },
         routeName(){
             return this.$route.name
         },
