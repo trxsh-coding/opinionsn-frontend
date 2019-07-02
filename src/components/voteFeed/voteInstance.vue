@@ -2,7 +2,7 @@
     <div id="opinion-feed-layout">
         <post-header :author="author" :poll="poll" />
         <div class="options-scroll-block" >
-            <option-item class="mr-9" v-for="{option, isSelected} in sortedOptions" :selected="isSelected" :option="option" :width="180"   :height="44"/>
+            <option-item class="mr-9" v-for="{option, isSelected} in sortedOptions" :selected="isSelected" :option="option" :width="180"   :height="44" bor-rad="6"/>
         </div>
         <vote-annotation :poll="poll" />
         <bows-panel class="mt-9" :users="poll.bows"  />
