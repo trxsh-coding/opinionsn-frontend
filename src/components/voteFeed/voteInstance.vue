@@ -1,17 +1,19 @@
 <template>
     <div id="opinion-feed-layout">
         <post-header :author="author" :poll="poll" />
-        <options-scroll-block v-for="option in combinedOptions" :option="option" />
+        <div class="options-scroll-block" >
+            <option-item class="mr-9" v-for="option in combinedOptions":option="option.option" />
+        </div>
     </div>
 </template>
 
 <script>
     import PostHeader from "../pollFeed/layout/header";
     import storeMixin from "../mixins/storeMixin";
-    import OptionsScrollBlock from "./layout/optionsScrollBlock";
+    import optionItem from "./layout/optionItem";
     export default {
         name: "voteInstance",
-        components: {OptionsScrollBlock, PostHeader},
+        components: {optionItem, PostHeader},
         props: ['item'],
         mixins:[storeMixin],
         computed: {
@@ -25,5 +27,8 @@
 </script>
 
 <style lang="scss">
-
+    .options-scroll-block {
+        display: flex;
+        overflow: scroll;
+    }
 </style>
