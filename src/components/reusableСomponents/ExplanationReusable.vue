@@ -142,7 +142,10 @@
 
 				</div>
 			</li>
+
+			<span v-show="!no_more_comments" class="comments-load-btn pointer mt-9" @click="loadMoreComments">Загрузить ещё...</span>
 		</ul>
+
 
 	</div>
 </template>
@@ -181,10 +184,11 @@
 			}
 		},
 		props: {
-			poll_id: {
+			pollId: {
 				type: Number,
 				required: true
 			},
+			pollType: Number,
 			explain: {
 				type: Object,
 				required: true
@@ -282,30 +286,37 @@
 					comment_page,
 					COMMENTS_LIMIT,
 					comments_quantity,
-					explain
+					explain,
+					pollType
 				} = this;
 
 				if (!no_more_comments) {
 
-					this.$store.dispatch(`pollFeed/loadExplains`, { poll_id: poll.id, explain_page })
-						.then(() => {
-							this.explain_page += 1;
-							if ( explains_quantity > this.poll.total_amount_of_votes ) {
-								this.no_more_explains = true;
+					if(pollType === 2) {
+
+						this.$store.dispatch(`pollFeed/loadComments`, {
+							customUrl: `/rest/blockchain/comment` , params: {explain_id: explain.id, comment_page}
+						}).then(() => {
+							this.comment_page += 1;
+							if ( comments_quantity > this.explain.comments_id.length ) {
+								this.no_more_comments = true;
 							} else {
-								this.explains_quantity += EXPLAINS_LIMIT;
+								this.comments_quantity += COMMENTS_LIMIT;
 							}
 						});
-
-					if(this.poll.type_of_poll === 2) {
-
-						this.$store.dispatch(`pollFeed/loadComments`, {customUrl: `/rest/blockchain/comment` ,params: {explain_id, comment_page}});
 
 
 					} else {
 
-						this.$store.dispatch(`pollFeed/loadComments`,  {vm: this, explain_id, comment_page});
-
+						this.$store.dispatch(`pollFeed/loadComments`,  {vm: this, explain_id: explain.id, comment_page})
+							.then(() => {
+								this.comment_page += 1;
+								if ( comments_quantity > this.explain.comments_id.length ) {
+									this.no_more_comments = true;
+								} else {
+									this.comments_quantity += COMMENTS_LIMIT;
+								}
+							});
 
 					}
 
@@ -473,6 +484,15 @@
 		.comment-list {
 			position: relative;
 			width: 80%;
+			display: flex;
+			flex-direction: column;
+
+			.comments-load-btn {
+				font-family: Helvetica Neue, Roboto;
+				font-size: 10px;
+				color: #BEC0C5;
+				margin: 0 auto;
+			}
 
 			.comment {
 				display: flex;
