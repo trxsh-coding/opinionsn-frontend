@@ -1,5 +1,6 @@
 <template>
     <div class="wrapper-box">
+		<loading-spinner></loading-spinner>
 
 		<option-reusable :percentage="55" :bows="bows" correct :picture="picture" :id="123" @selectOption="selectOption">
 			<template>
@@ -72,6 +73,9 @@
 	import ButtonReusable from "./reusableСomponents/ButtonReusable";
 	import ExplanationReusable from "./reusableСomponents/ExplanationReusable";
 	import ShortPollReusable from "./reusableСomponents/ShortPollReusable";
+	import loadingSpinner from "./reusableСomponents/loadingSpinner";
+
+
 
 
 	export default {
@@ -85,7 +89,8 @@
 			PictureReusable,
 			OptionReusable,
 			IconBase,
-			IconDropArrow
+			IconDropArrow,
+			loadingSpinner
 		},
 		data() {
 			return {

@@ -24,7 +24,11 @@
 		<div v-for="item in items" >
 			<vote-instance :item="item" />
 		</div>
+		<mugen-scroll :handler="load" :should-handle="!postsEnded">
+			<loading-spinner>
 
+			</loading-spinner>
+		</mugen-scroll>
     </section>
 
 </template>
@@ -35,7 +39,8 @@
 	import { mapState } from "vuex";
 	import PictureReusable from "../reusableСomponents/PictureReusable";
 	import VoteInstance from "./voteInstance";
-
+	import MugenScroll from "vue-mugen-scroll";
+	import loadingSpinner from "../reusableСomponents/loadingSpinner"
 
 	export default {
 		data() {
@@ -51,7 +56,9 @@
 		computed: {
 			...mapState("voteFeed", {
 				state: s => s,
-				items: s => s.items
+				items: ({ items }) => items,
+				postsEnded: ({ is_finished }) => is_finished,
+				loading: ({ loading }) => loading
 			}),
 			...mapState("followsPage", {
 				followings: s => s.items
@@ -77,9 +84,16 @@
 			}
 
 		},
+		methods: {
+			load() {
+				this.$store.dispatch('voteFeed/loadNextPage');
+			}
+		},
 		components: {
 			VoteInstance,
-			PictureReusable
+			PictureReusable,
+			MugenScroll,
+			loadingSpinner
 
 		},
 		mounted() {

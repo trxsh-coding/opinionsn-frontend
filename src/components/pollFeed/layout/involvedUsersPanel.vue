@@ -1,9 +1,13 @@
 <template>
     <div class="involved_users-panel">
 
-		<lang-string class="panel-caption" :title="'poll_bows_caption'"/>
+		<lang-string class="panel-caption" :title="'friends_who_voted_in_this_poll'">
+			<template #text>
+				:
+			</template>
+		</lang-string>
 
-		<swiper class="mt-5" :options="swiperOption">
+		<swiper class="mt-5" :options="lang-stringn">
 			<swiper-slide class="user-picture-wrapper" v-for="(value, key) in users" :key="i">
 
 				<router-link :to="'/user/' + key">
