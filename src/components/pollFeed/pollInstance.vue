@@ -1,6 +1,10 @@
 <template>
     <div id="main-feed-layout" class="mb-12">
-        <post-header :author="author" :poll="poll"/>
+        <post-header :author="author" :poll="poll">
+			<template #annotation>
+				<poll-anotation :poll="poll"/>
+			</template>
+		</post-header>
         <headline-body :poll="poll" :item="item"/>
         <options-section
 				:access-check="pollAccessCheck"
@@ -111,12 +115,14 @@
 	import IconClocks from "../icons/IconClocks";
 	import IconBag from "../icons/IconBag";
 	import TimeTrans from "../timeTrans";
+	import PollAnotation from "./layout/pollAnnotation";
 
 
 	export default {
         name: "layout",
         props:['item'],
 		components: {
+			PollAnotation,
 			TimeTrans,
 			PictureReusable,
 			BadgeReusable,

@@ -15,7 +15,9 @@
                 </div>
             </template>
         </author-headline>
-        <poll-annotation :poll="poll"/>
+        <slot name="annotation">
+
+        </slot>
 
     </div>
 </template>
