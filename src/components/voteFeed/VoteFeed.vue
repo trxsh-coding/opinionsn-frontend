@@ -2,7 +2,7 @@
 
     <section class="vote-feed">
 
-		<scroll-swiper-reusable width="100%" class="followers-swiper pl-30">
+		<scroll-swiper-reusable class="followers-swiper pl-30" :stub-length="2">
 
 			<router-link class="mr-7" v-for="{avatar, username, user_id} in followersData" :to="{ name: 'user', params: { id: user_id }}">
 				<picture-reusable

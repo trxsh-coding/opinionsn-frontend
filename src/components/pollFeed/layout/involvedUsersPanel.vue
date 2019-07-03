@@ -7,7 +7,7 @@
 			</template>
 		</lang-string>
 
-		<scroll-swiper-reusable class="mt-9">
+		<scroll-swiper-reusable class="mt-9" :stub-length="1">
 
 			<router-link v-for="(value, key) in users" :to="'/user/' + key">
 				<div

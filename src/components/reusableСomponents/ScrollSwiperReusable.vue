@@ -1,6 +1,7 @@
 <template>
     <div class="scroll-swiper-reusable" :style="swiperStyle">
 		<slot></slot>
+		<span class="stub-block">{{stubContent}}</span>
 	</div>
 </template>
 
@@ -13,6 +14,12 @@
 			},
 			width: {
         		type: [String, Number]
+			},
+			stubLength: {
+        		type: Number,
+				default: function() {
+					return 0;
+				}
 			}
 		},
 		methods: {
@@ -37,6 +44,9 @@
 					...height
 				};
 
+			},
+			stubContent() {
+				return '='.repeat(this.stubLength);
 			}
 		},
     }
@@ -45,14 +55,20 @@
 <style lang="scss">
 
 	.scroll-swiper-reusable {
-		/* TODO: разобраться с шириной свайпера */
+		position: relative;
 		display: flex;
-		width: 93%;
+		width: 100%;
 		overflow-y: hidden;
 		overflow-x: scroll;
 
 		&::-webkit-scrollbar {
 			display: none;
+		}
+
+		.stub-block {
+
+			visibility: hidden;
+
 		}
 	}
 
