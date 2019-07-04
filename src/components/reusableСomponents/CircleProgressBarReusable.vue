@@ -1,5 +1,5 @@
 <template>
-    <div class="circle-progress-bar-reusable" :style="wrapperStyle" @click="percent ++">
+    <div class="circle-progress-bar-reusable" :style="wrapperStyle">
 
 		<div class="bar bar-1" :style="bar_1_style"></div>
 		<div class="bar bar-2" :style="bar_2_style"></div>
@@ -8,7 +8,7 @@
 
 		<div class="circle v-center" :style="circleStyle">
 			<slot>
-				<span>{{percent}}%</span>
+				<span class="default-slot">{{percent}}%</span>
 			</slot>
 		</div>
 
@@ -49,8 +49,8 @@
 				let { size } = this;
 
 				return {
-					width: `calc(100% - ${size}px)`,
-					height: `calc(100% - ${size}px)`
+					width: `${size}px`,
+					height: `${size}px`
 				}
 			},
 			circleStyle() {
@@ -62,61 +62,63 @@
 				}
 			},
 			bar_1_style() {
-				let { percent, barColor } = this;
-
-				let DEGREE = Math.trunc(3.6 * percent);
-				let color = (percent >= 0) ? {backgroundColor: barColor} : {};
-
-				if (DEGREE >= 90) DEGREE = 90;
-
-				return {
-					transform: `rotate(${DEGREE}deg)`,
-					...color
-				};
+				return this.calculateBarStyle(1);
 			},
 			bar_2_style() {
-				let { percent, barColor } = this;
-
-				let DEGREE = Math.trunc(3.6 * percent);
-				let color = (percent >= 25) ? {backgroundColor: barColor} : {};
-
-				if (percent >= 50) DEGREE = 180;
-
-				return {
-					transform: `rotate(${DEGREE}deg)`,
-					...color
-				};
+				return this.calculateBarStyle(2);
 			},
 			bar_3_style() {
-				let { percent, barColor } = this;
-
-				let DEGREE = Math.trunc(3.6 * percent);
-				let color = (percent >= 50) ? {backgroundColor: barColor} : {};
-
-				if (percent >= 75) DEGREE = 270;
-
-				return {
-					transform: `rotate(${DEGREE}deg)`,
-					...color
-				};
+				return this.calculateBarStyle(3);
 			},
 			bar_4_style() {
-				let { percent, barColor } = this;
-
-				let DEGREE = Math.trunc(3.6 * percent);
-				let color = (percent >= 75) ? {backgroundColor: barColor} : {};
-
-				if (percent >= 100) {
-					DEGREE = 360
-				} else if (percent <= 74) {
-					DEGREE = 0
-				}
-
-				return {
-					transform: `rotate(${DEGREE}deg)`,
-					...color
-				};
+				return this.calculateBarStyle(4);
 			},
+			calculateBarStyle() {
+				return (step) => {
+					let { percent, barColor } = this;
+
+					if (percent > 100) percent = 100;
+
+					let DEGREE = Math.trunc(3.6 * percent);
+					let color = (percent >= 25 * (step - 1)) ? {backgroundColor: `${barColor}`} : {};
+
+					if (percent >= 25 * step) DEGREE = 90 * step;
+
+					if (step === 4) {
+						if (percent <= 74) {
+							DEGREE = 0
+						}
+					}
+
+					return {
+						transform: `rotate(${DEGREE}deg)`,
+						...color
+					};
+				}
+			}
+		},
+		methods: {
+			// calculateBarStyle(step) {
+			// 	let { percent, barColor } = this;
+			//
+			// 	if (percent > 100) percent = 100;
+			//
+			// 	let DEGREE = Math.trunc(3.6 * percent);
+			// 	let color = (percent >= 25 * step - 1) ? {backgroundColor: barColor} : {};
+			//
+			// 	if (percent >= 25 * step) DEGREE = 90 * step;
+			//
+			// 	if (step === 4) {
+			// 		if (percent <= 74) {
+			// 			DEGREE = 0
+			// 		}
+			// 	}
+			//
+			// 	return {
+			// 		transform: `rotate(${DEGREE}deg)`,
+			// 		...color
+			// 	};
+			// }
 		},
     }
 </script>
@@ -143,17 +145,20 @@
 			left: 50%;
 			transform: translate(-50%, -50%);
 
-			span {
+			.default-slot {
+				font-family: Roboto;
+				font-style: normal;
+				font-weight: 500;
+				font-size: 21px;
+				color: #4B97B4;
 				user-select: none;
 			}
 		}
 
 		.bar {
 			position: absolute;
-			width: 150%;
-			height: 150%;
-
-			// transform: rotate(-45deg);
+			width: 100%;
+			height: 100%;
 
 			bottom: 50%;
 			right: 50%;

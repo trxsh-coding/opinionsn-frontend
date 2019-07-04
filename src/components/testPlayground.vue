@@ -59,8 +59,7 @@
 <!--				<span>================================================</span>-->
 <!--			</popover-reusable>-->
 
-			<circle-progress-bar-reusable :percent="1" bar-size="20">
-			</circle-progress-bar-reusable>
+			<circle-progress-bar-reusable :percent="100" bar-size="5" :size="78"/>
 		</div>
 
 		<short-poll-reusable type-of-layout="column" :poll="polls[1727]"></short-poll-reusable>
