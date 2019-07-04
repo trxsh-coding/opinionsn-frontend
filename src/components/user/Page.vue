@@ -15,7 +15,7 @@
     // import userSection from './Event/userSection'
 	import PageHeader from "./layout/PageHeader";
 	import PageInfo from "./layout/PageInfo";
-	import PageStatistics from "./PageStatistics";
+	import PageStatistics from "./layout/PageStatistics";
     export default {
         name: "userPage",
         computed: {

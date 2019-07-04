@@ -111,6 +111,7 @@
 		position: relative;
 		box-sizing: border-box;
 		width: 100%;
+		background: #FFFFFF;
 		* {
 			box-sizing: inherit;
 		}

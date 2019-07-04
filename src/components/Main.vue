@@ -1,11 +1,16 @@
 <template lang="html">
-	<div id="main-section" class="pt-48 pb-48">
-		<mobile-header :user="user" v-if="routeName === 'pollFeed' || routeName === 'voteFeed'"/>
+	<div class="main-layout">
+		<desktop-header />
 
-		<router-view  />
+		<aside>
 
-		<mobile-footer />
+		</aside>
+		<section class="pt-48 pb-48">
+			<mobile-header :user="user" v-if="routeName === 'pollFeed' || routeName === 'voteFeed' && mobile" />
+			<router-view class="container"/>
 
+			<mobile-footer  v-if="mobile"/>
+		</section>
 	</div>
 </template>
 
@@ -17,6 +22,7 @@
 	import mobileFooter from "./view/mobile/footer"
 	import IphoneAddToScreenComponent from "./pwaSnippets/IphoneAddToScreenComponent"
 	import Bowser from "bowser"
+	import DesktopHeader from "./view/desktop/header";
 	export default {
 
 		data() {
@@ -136,6 +142,7 @@
 
 		},
 		components: {
+			DesktopHeader,
 			IphoneAddToScreenComponent,
 			mobileHeader,
 			mobileFooter
@@ -144,8 +151,16 @@
 </script>
 
 <style lang="scss">
-	body {
-		margin: 0;
+	.main-layout {
+		display: flex;
+		flex-direction: column;
+		section {
+
+		}
 	}
 
+	body {
+		margin: 0;
+		background: #E5E5E5;
+	}
 </style>
