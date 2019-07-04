@@ -52,8 +52,15 @@
 
 		<hr>
 
-		<div class="explain-wrapper">
+		<div class="test-wrapper">
 <!--			<explanation-reusable :explain="explain" :comments="comments"></explanation-reusable>-->
+
+<!--			<popover-reusable attach-point="top-left">-->
+<!--				<span>================================================</span>-->
+<!--			</popover-reusable>-->
+
+			<circle-progress-bar-reusable :percent="1" bar-size="20">
+			</circle-progress-bar-reusable>
 		</div>
 
 		<short-poll-reusable type-of-layout="column" :poll="polls[1727]"></short-poll-reusable>
@@ -74,6 +81,8 @@
 	import ExplanationReusable from "./reusableСomponents/ExplanationReusable";
 	import ShortPollReusable from "./reusableСomponents/ShortPollReusable";
 	import loadingSpinner from "./reusableСomponents/loadingSpinner";
+	import PopoverReusable from "./reusableСomponents/PopoverReusable";
+	import CircleProgressBarReusable from "./reusableСomponents/CircleProgressBarReusable";
 
 
 
@@ -81,6 +90,8 @@
 	export default {
         name: "testPlayground",
 		components: {
+			CircleProgressBarReusable,
+			PopoverReusable,
 			ShortPollReusable,
 			ExplanationReusable,
 			ButtonReusable,
@@ -162,8 +173,13 @@
 	.wrapper-box {
 		width: 100%;
 
-		.explain-wrapper {
-			width: 500px;
+		.test-wrapper {
+			position: relative;
+			width: 300px;
+			height: 300px;
+
+			margin-left: 50%;
+			transform: translateX(-50%);
 		}
 
 	}

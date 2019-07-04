@@ -33,7 +33,7 @@
 				if (rounded) {
 					borRad = {borderRadius: '50%'}
 				} else {
-					borRad = (borRad.slice(-1) === '%') ? {borderRadius: `${borRad}`} : {borderRadius: `${borRad}px`};
+					borRad = (`${borRad}`.slice(-1) === '%') ? {borderRadius: `${borRad}`} : {borderRadius: `${borRad}px`};
 				}
 
 				return {
@@ -51,6 +51,7 @@
 		outline: none;
 		border: none;
 		padding: 0;
+		width: fit-content;
 
 		&:active {
 			filter: hue-rotate(-10deg);

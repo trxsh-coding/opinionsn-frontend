@@ -1,8 +1,11 @@
 <template>
     <div class="badge-reusable" :style="badgeStyle">
-		<span>
+		<span v-if="counter">
 			+{{handledCounter}}
 		</span>
+		<slot v-else>
+
+		</slot>
 	</div>
 </template>
 
@@ -11,8 +14,7 @@
         name: "BadgeReusable",
 		props: {
         	counter: {
-        		type: Number,
-				required: true
+        		type: Number
 			},
 			size: {
         		type: Number,
@@ -58,7 +60,7 @@
     }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 	.badge-reusable {
 		display: flex;
 		justify-content: center;

@@ -497,6 +497,19 @@ li {
 	position: absolute;
 }
 
+// WIDTH & HEIGHT
+
+@for $i from 1 through 100 {
+	.w-#{$i} {
+		width: $i + px !important;
+	}
+	.h-#{$i} {
+		height: $i + px !important;
+	}
+}
+
+/////////////////
+
 //  Paddings and Margins
 
 @for $i from 0 through 100 {
@@ -556,6 +569,22 @@ li {
 .my-auto {
 	margin-top: auto !important;
 	margin-bottom: auto !important;
+}
+
+.mt-auto {
+	margin-top: auto !important;
+}
+
+.mb-auto {
+	margin-bottom: auto !important;
+}
+
+.ml-auto {
+	margin-left: auto !important;
+}
+
+.mr-auto {
+	margin-right: auto !important;
 }
 
 .m-auto {
