@@ -2,11 +2,11 @@
 	<div class="user-page-info">
 
 		<div class="tag-section flex-column">
-			<span
-				v-show="user.isLeader"
-				class="tag px-8 py-2">
-				<lang-string :title="'leader'"></lang-string>
-			</span>
+<!--			<span-->
+<!--				v-show="user.isLeader"-->
+<!--				class="tag px-8 py-2">-->
+<!--				<lang-string :title="'leader'"></lang-string>-->
+<!--			</span>-->
 		</div>
 
 		<div class="text-section">
@@ -15,15 +15,15 @@
 
 				<span class="username">{{user.username}}</span>
 
-				<badge-reusable
-					v-show="user.isLeader"
-					class="v-center ml-5"
-					:size="13"
-					color="#4B97B4"
-					font-color="#ffffff"
-					:fontSize="7">
-					<span>✔</span>
-				</badge-reusable>
+<!--				<badge-reusable-->
+<!--					v-show="user.isLeader"-->
+<!--					class="v-center ml-5"-->
+<!--					:size="13"-->
+<!--					color="#4B97B4"-->
+<!--					font-color="#ffffff"-->
+<!--					:fontSize="7">-->
+<!--					<span>✔</span>-->
+<!--				</badge-reusable>-->
 			</span>
 
 			<span class="location mt-9">{{user.location}}</span>

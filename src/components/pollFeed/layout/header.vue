@@ -5,7 +5,10 @@
                 <span class="username">
                     {{author.username}}
                 </span>
-            </template>
+
+				<slot></slot>
+
+			</template>
             <template #description>
                 <div class="description flex">
                     <span class="pr-9">
@@ -15,9 +18,6 @@
                 </div>
             </template>
         </author-headline>
-        <slot name="annotation">
-
-        </slot>
 
     </div>
 </template>

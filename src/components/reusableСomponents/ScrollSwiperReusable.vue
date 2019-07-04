@@ -61,8 +61,10 @@
 		overflow-y: hidden;
 		overflow-x: scroll;
 
+		scrollbar-width: none;
+
 		&::-webkit-scrollbar {
-			display: none;
+			display: none !important;
 		}
 
 		.stub-block {

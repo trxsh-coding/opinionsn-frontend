@@ -143,7 +143,7 @@
 				</div>
 			</li>
 
-			<span v-show="!no_more_comments" class="comments-load-btn pointer mt-9" @click="loadMoreComments">Загрузить ещё...</span>
+			<span v-show="!no_more_comments && fitComments.length > 5" class="comments-load-btn pointer mt-9" @click="loadMoreComments">Загрузить ещё...</span>
 		</ul>
 
 

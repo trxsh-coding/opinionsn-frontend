@@ -502,7 +502,7 @@ li {
 
 // WIDTH & HEIGHT
 
-@for $i from 1 through 100 {
+@for $i from 0 through 100 {
 	.w-#{$i} {
 		width: $i + px !important;
 	}

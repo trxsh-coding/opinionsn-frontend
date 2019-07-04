@@ -23,10 +23,13 @@ export default {
 
         poll: function () {
 
-            let {vote, polls} = this;
+            let {vote, polls, item} = this;
 
-            return polls[vote.poll_id]
-
+            if (item.eventType === "POLL_CREATED") {
+            	return polls[item.id]
+			} else {
+            	return polls[vote.poll_id]
+			}
 
         },
 

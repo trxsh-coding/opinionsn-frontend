@@ -1,12 +1,14 @@
 <template>
     <div id="opinion-feed-layout" class="mt-12">
-        <post-header :author="author" :poll="poll" />
+        <post-header :author="author" :poll="poll">
+			<slot name="headAnnotation"></slot>
+		</post-header>
 
-        <div class="options-scroll-block" >
-            <option-item class="mr-9" v-for="{option, isSelected} in sortedOptions" :selected="isSelected" :option="option" :width="180"  :height="45"/>
-        </div>
+		<scroll-swiper-reusable>
+			<option-item class="option mr-9" v-for="{option, isSelected} in sortedOptions" :selected="isSelected" :option="option" :width="180"  :height="45"/>
+		</scroll-swiper-reusable>
 
-        <vote-annotation :poll="poll" />
+        <vote-annotation class="mt-21" :poll="poll" />
 
         <bows-panel class="mt-9" v-show="!!Object.keys(poll.bows).length" :users="poll.bows"  />
 
@@ -19,9 +21,10 @@
     import optionItem from "./layout/optionItem";
     import voteAnnotation from "../reusableСomponents/ShortPollReusable";
     import bowsPanel from "../pollFeed/layout/involvedUsersPanel";
+	import ScrollSwiperReusable from "../reusableСomponents/ScrollSwiperReusable";
     export default {
         name: "voteInstance",
-        components: {bowsPanel, voteAnnotation, optionItem, PostHeader},
+        components: {ScrollSwiperReusable, bowsPanel, voteAnnotation, optionItem, PostHeader},
         props: ['item'],
         mixins:[storeMixin],
         computed: {
@@ -39,21 +42,9 @@
         margin-left: 21px;
         overflow-x: hidden;
 
-        .options-scroll-block {
-            display: inline-flex;
-            width: 95%;
-            overflow-x: scroll;
-			overflow-y: hidden;
-
-			&::-webkit-scrollbar {
-				display: none !important;
-			}
-
-        }
-
-        .short-poll-reusable {
-            margin-top: 21px;
-        }
+		.option {
+			border-radius: 6px;
+		}
 
     }
 

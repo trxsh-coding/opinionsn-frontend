@@ -76,7 +76,13 @@
 				<lang-string :title="'edit'"/>
 			</button-reusable>
 
-			<button-reusable v-else class="edit-btn py-6 px-10 mt-9 mr-20 ml-auto" bor-rad="30">
+			<button-reusable
+				v-else
+				class="edit-btn py-6 px-10 mt-9 mr-20 ml-auto"
+				bor-rad="30"
+				:color="user.isLeader ? '#BCBEC3' : '#4B97B4'"
+				@click.native="subscribeActions(user.id)"
+			>
 				<icon-base
 					class="user-check"
 					fill="none"
@@ -86,6 +92,7 @@
 					icon-name="user-check"><icon-user-check/>
 				</icon-base>
 			</button-reusable>
+
 
 		</div>
 
@@ -131,6 +138,17 @@
 				publicPath: process.env.VUE_APP_MAIN_API,
 				balance_popover: false
 			}
+		},
+		methods: {
+			subscribeActions(id) {
+
+				if (!this.user.isLeader) {
+					this.$store.dispatch(`userPage/followUser`, id);
+				} else {
+					this.$store.dispatch(`userPage/unFollowUser`, id);
+				}
+
+			},
 		},
     }
 </script>

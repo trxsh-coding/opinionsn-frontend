@@ -21,11 +21,11 @@
 					<time-trans :time="pollData.date" />
 				</span>
 
-				<span class="poll-name pointer"  @click="pollLink(pollData.id)">{{pollData.name}}</span>
+				<span class="poll-name pointer mb-3"  @click="pollLink(pollData.id)">{{pollData.name}}</span>
 
-				<span v-if="withDesc && rowLayout" class="poll-desc mt-3 pointer"  @click="pollLink(pollData.id)">{{pollData.description}}</span>
+				<span v-if="withDesc && rowLayout" class="poll-desc mb-3 pointer"  @click="pollLink(pollData.id)">{{pollData.description}}</span>
 
-				<div v-else-if="!rowLayout" class="main-img-wrapper pointer mt-3" @click="pollLink(pollData.id)">
+				<div v-else-if="!rowLayout" class="main-img-wrapper pointer mb-3" @click="pollLink(pollData.id)">
 
 					<picture-reusable
 						:img="pollData.picture"
@@ -37,7 +37,7 @@
 
 				</div>
 
-				<div class="poll-info-bar flex-between mt-4">
+				<div class="poll-info-bar flex-between mt-auto">
 					<span @click="userLink(pollData.author_id)">
 						<picture-reusable
 							class="user-block pointer"
@@ -226,6 +226,9 @@
 
 	.short-poll-reusable {
 
+		margin-left: auto;
+		margin-right: auto;
+
 		* {
 			font-family: Roboto;
 			font-style: normal;
@@ -242,6 +245,7 @@
 			padding: 9px 0 10px 0;
 
 			display: flex;
+			align-items: stretch;
 
 			.bookmark-btn {
 				position: absolute;
@@ -262,7 +266,6 @@
 			.text {
 				flex-grow: 1;
 				margin-right: 28px;
-				height: 100%;
 
 				.poll-timestamp {
 					font-family: Helvetica Neue, Roboto;

@@ -161,6 +161,6 @@
 
 	body {
 		margin: 0;
-		background: #E5E5E5;
+		background: #ffffff;
 	}
 </style>

@@ -130,7 +130,7 @@
 		overflow: hidden;
 		width: 300px;
 		height: 300px;
-		background-color: #fff;
+		background-color: #BCBEC3;
 
 		border-radius: 50%;
 
@@ -163,7 +163,7 @@
 			bottom: 50%;
 			right: 50%;
 			transform-origin: right bottom;
-			background-color: #ffffff;
+			background-color: #BCBEC3;
 		}
 
 		.bar-1 {

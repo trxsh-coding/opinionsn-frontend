@@ -102,7 +102,7 @@
                 :options="options"
                 :users="users"/>
 
-		<span v-show="voted && !no_more_explains" class="explains-load-btn pointer mt-9" @click="loadMoreExplains">Загрузить ещё...</span>
+		<span v-show="voted && !no_more_explains && combinedVotes.length > 5" class="explains-load-btn pointer mt-9" @click="loadMoreExplains">Загрузить ещё...</span>
 
 		<hr class="ml-54 mt-12">
     </div>

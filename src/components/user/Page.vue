@@ -1,10 +1,13 @@
 <template>
     <div id="mypage">
+
 		<page-header :user="user" :main-user="main_user" />
 
-		<page-info :user="user" />
+		<page-info class="mt-9" :user="user" />
 
-		<page-statistics />
+		<page-statistics class="mt-18" />
+
+		<page-feed class="mt-24" />
 
 
     </div>
@@ -16,6 +19,7 @@
 	import PageHeader from "./layout/PageHeader";
 	import PageInfo from "./layout/PageInfo";
 	import PageStatistics from "./layout/PageStatistics";
+	import PageFeed from "./layout/PageFeed";
     export default {
         name: "userPage",
         computed: {
@@ -67,6 +71,7 @@
         },
 		//
         components: {
+			PageFeed,
 			PageStatistics,
 			PageInfo,
 			PageHeader,

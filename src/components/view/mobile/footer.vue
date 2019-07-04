@@ -96,6 +96,7 @@
         width: 100%;
         background: #F8F8F8;
         position: fixed;
+		z-index: 9000;
         bottom: 0;
         padding: 5px 24px 4px 24px;
 
