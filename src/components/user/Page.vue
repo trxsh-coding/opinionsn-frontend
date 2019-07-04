@@ -4,6 +4,7 @@
 
 		<page-info :user="user" />
 
+		<page-statistics />
 
 
     </div>
@@ -14,6 +15,7 @@
     // import userSection from './Event/userSection'
 	import PageHeader from "./layout/PageHeader";
 	import PageInfo from "./layout/PageInfo";
+	import PageStatistics from "./PageStatistics";
     export default {
         name: "userPage",
         computed: {
@@ -65,6 +67,7 @@
         },
 		//
         components: {
+			PageStatistics,
 			PageInfo,
 			PageHeader,
         },
@@ -80,6 +83,7 @@
 
 <style lang="scss">
     #mypage {
-
+		position: relative;
+		width: 100%;
     }
 </style>

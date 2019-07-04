@@ -28,7 +28,7 @@
 
 			<span class="location mt-9">{{user.location}}</span>
 
-			<span class="status mt-9">{{user.status}}</span>
+			<span class="status mt-9">{{user.aboutMe}}</span>
 
 <!--			TODO: жду ссылку на персональную страницу юзера от Артура -->
 <!--			<a-->
