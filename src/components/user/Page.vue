@@ -1,5 +1,5 @@
 <template>
-    <div id="mypage">
+    <div id="mypage" class="user-page">
 
 		<page-header :user="user" :main-user="main_user" />
 
@@ -73,7 +73,7 @@
         components: {
 			PageFeed,
 			PageStatistics,
-			PageInfo,
+			PageInfo ,
 			PageHeader,
         },
 		//
@@ -91,4 +91,9 @@
 		position: relative;
 		width: 100%;
     }
+
+	.user-page {
+		position: relative;
+		width: 100%;
+	}
 </style>
