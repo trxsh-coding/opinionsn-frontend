@@ -9,6 +9,7 @@
 				</div>
 			</div>
 		</div>
+
 		<div v-if="!withoutText" class="text">
 			<span class="title">
 				<slot name="title"></slot>
