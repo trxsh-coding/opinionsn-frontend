@@ -1,8 +1,5 @@
 <template>
-   <div class="followings">
-
-       <event :isFollowing="isFollowing" :id="id"/>
-   </div>
+   <event :isFollowing="isFollowing" :id="id"/>
 </template>
 
 <script>

@@ -1,74 +1,106 @@
 <template>
 
-   <div>
+   <div
+	   class="subscribers-template flex-column"
+	   :class="{followers: !isFollowing, followings: isFollowing}"
+   >
 
+	   <div class="switch-btns flex-align-center ml-60">
 
-       <div class="subscribers-template flex-column">
+		   <div
+			   class="follows-button pointer pb-2"
+			   :class="{active: isFollowing}"
+			   :title="'followers'"
+			   @click="followingsLink(id)"
+		   >
+			   <lang-string class="text" :title="'followers'" />
+			   <span class="counter"> ({{current_user.amount_of_followers}})</span>
+		   </div>
 
-		   <div class="switch-btns mb-6">
-			   <el-button type="primary" class="follows-button mr-6 pointer" size="small" round @click="followingsLink(id)" :class="{active : isFollowing}">
-				   <lang-string :title="'followers'"/>
-			   </el-button>
-			   <el-button size="small" class="follows-button pointer" round @click="followersLink(id)" :class="{active : !isFollowing}">
-				   <lang-string :title="'followings'"/>
-			   </el-button>
+		   <div
+			   class="followers-button ml-27 pointer pb-2"
+			   :class="{active: !isFollowing}"
+			   @click="followersLink(id)"
+		   >
+			   <lang-string class="text" :title="'followings'" />
+			   <span class="counter"> ({{current_user.amount_of_leaders}})</span>
 		   </div>
 
 
-           <div class="search-panel flex-align-center category-search" >
-               <el-input class="br-12" :placeholder="lstr('search')" v-model="keyword" @change="searchUsers" @keyup.enter.native="searchUsers">
-                   <template slot="append" >
-                       <i  @click="clearSearchField">
-                           <icon-base
-                                   class="icon-close"
-                                   fill="none"
-                                   width="20"
-                                   height="20"
-                                   viewBox="0 0 10 20"
-                                   icon-name="close">
-                               <icon-close />
-                           </icon-base>
-                       </i>
-                   </template>
-               </el-input>
-           </div>
-           <div class="subs-section mt-10" v-if="items.length">
+	   </div>
 
-               <div class="subs-wrapper pb-10 pt-10" v-for="(user, index) in filteredUsers || users" :key="index">
-                   <div class="left-block flex-align-center">
-                       <div class="avatar-block avatar-42x42" @click="userLink(user.id)" :style="{ 'background-image': 'url(' + publicPath + user.path_to_avatar + ')' }"></div>
-                       <span>{{user.username}}</span>
-                   </div>
-                   <div class="right-block">
-                       <el-button class="unfollow-button" v-if="user.isLeader && user.id != main_user_id" @click="userLink(user.id)">
-                           <span class="uppercase subscribition"><lang-string :title="'followings'" /></span>
-                       </el-button>
-                       <el-button  class="follow-button subscribition" v-if="!user.isLeader && user.id != main_user_id" @click="follow(user.id)">
-                           <span class=" uppercase"><lang-string :title="'follow'"/></span>
-                       </el-button>
-                   </div>
-               </div>
-           </div>
+	   <ul class="subs-list mt-6 flex-column">
 
-       </div>
+		   <li class="list-item mt-12 mx-20" v-for="(user, index) in users_from_payload" :key="index">
+
+			   <div class="flex">
+				   <div class="avatar-wrapper flex">
+
+					   <picture-reusable
+						   class="mr-auto pointer"
+						   pic-class="mb-auto"
+						   :img="publicPath + user.path_to_avatar"
+						   size="36"
+						   rounded
+						   without-text
+						   @click.native="$router.push({name: 'user', params: {id: user.id} })"
+					   />
+
+				   </div>
+
+				   <div class="text flex-column">
+
+					   <span class="username">{{user.username}}</span>
+
+					   <span class="status mt-3">{{user.aboutMe === 'About me' ? '' : user.aboutMe}}</span>
+
+<!--					   NOTE: ждем от Артура статистику в каждом экземпляре юзера -->
+<!--					   <div class="statistics mt-7 flex"></div>-->
+
+
+				   </div>
+
+				   <button-reusable
+					   class="ml-6 p-9 w-fit h-fit"
+					   bor-rad="30"
+					   :color="user.isLeader ? '#BCBEC3' : '#4B97B4'"
+					   @click.native="subscribeActions(user.id, user.isLeader)"
+				   >
+					   {{!user.isLeader ? lstr("follow") : lstr("unfollow")}}
+				   </button-reusable>
+			   </div>
+
+			   <hr class="mt-12">
+
+		   </li>
+
+	   </ul>
+
    </div>
 
 </template>
 
 <script>
-    import {globalStoreMixin} from "../../../store/modules/globalStore";
     import {mapState} from 'vuex'
     import langString from '../../langString'
     import IconBase from '../../icons/IconBase'
     import IconClose from '../../icons/IconZoomIn'
-
     import axios from 'axios'
     import langMixin from "../../mixins/langMixin";
+	import ButtonReusable from "../../reusableСomponents/ButtonReusable";
+	import PictureReusable from "../../reusableСomponents/PictureReusable";
+
     export default {
         name: "event",
         props:['id', 'isFollowing'],
-        mixins:[globalStoreMixin(), langMixin],
-        components:{langString, IconBase, IconClose},
+        mixins:[langMixin],
+        components:{
+        	PictureReusable,
+			ButtonReusable,
+			langString,
+			IconBase,
+			IconClose
+		},
         data(){
             return {
 
@@ -82,20 +114,24 @@
         computed:{
 
             ...mapState('userPage', {
-                state: s => s,
-                items: s => s.items,
-                main_user_id: s => s.main_user_id
+				items: ({items}) => items,
+                main_user_id: ({main_user_id}) => main_user_id
             }),
 
+			...mapState('globalStore', {
+				users: ({users}) => users
+			}),
 
-            user_ids:function () {
+			current_user() {
+				return this.users[this.id];
+			},
 
-                return this.items.map(item => {
-                    return item.id
-                });
+			users_from_payload() {
+				let { users, items } = this;
 
+				return items.map(({id}) => users[id]);
+			}
 
-            }
 
         },
 
@@ -132,26 +168,21 @@
 
 			},
 
-			searchUsers() {
-				let { users, keyword } = this;
+			subscribeActions(id, is_leader) {
 
-				// Фильтрация юзеров через регекс
-				keyword === ""
-					? this.filteredUsers = users
-					: this.filteredUsers = users.filter(({ username }) => username.search(new RegExp(keyword)) >= 0 );
+				if (!is_leader) {
+					this.$store.dispatch(`userPage/followUser`, id);
+				} else {
+					this.$store.dispatch(`userPage/unFollowUser`, id);
+				}
 
 			},
-
-			clearSearchField() {
-				this.keyword = '';
-				this.searchUsers();
-			}
 
         },
 
         mounted(){
 
-            let urlPart = this.isFollowing ? 'getFollowing' : 'getFollowers'
+            let urlPart = this.isFollowing ? 'getFollowers' : 'getFollowing';
 
             axios.get(`${process.env.VUE_APP_MAIN_API}/rest/${urlPart}/${this.id}`)
                 .then((response) => {
@@ -162,168 +193,90 @@
 
                 })
 
-        }
+        },
     }
 </script>
 
 <style lang="scss">
 
     .subscribers-template {
+		position: relative;
+		width: 100%;
 
 		.switch-btns {
-			width: 100%;
-			display: flex;
 
-			.follows-button {
-				padding: 12px 5px;
-				margin: 0;
-				line-height: 0;
-				background-color: transparent;
-
-				span {
-					font-family: Roboto;
-					font-style: normal;
-					font-weight: normal;
-					font-size: 12px;
-					color: #69777F;
-				}
+			.follows-button,
+			.followers-button {
+				font-family: Roboto;
+				font-style: normal;
+				font-weight: normal;
+				font-size: 13px;
+				color: #BCBEC3;
+				border-bottom: 2px solid transparent;
 
 				&.active {
-					background-color: #B9C0C4;
-					
-					span {
-						color: #FFFFFF;
-					}
+					font-weight: 500;
+					font-size: 15px;
+					color: #4B97B4;
+					border-bottom: 2px solid #4B97B4;
 				}
 			}
+
 		}
 
+		.subs-list {
 
-        .icon-close {
-            transform: rotate(45deg);
-        }
+			* {
+				font-family: Roboto;
+				font-style: normal;
 
-        .category-search {
-            position: relative;
-            input {
-                width: 100%;
-                background: #FFFFFF;
-                border: 1px solid #C4CCD0;
-                border-radius: 24px 0 0 24px;
-                padding-right: 42px;
-                border-right: none;
-            }
-
-            .el-input-group__append {
-                border-radius: 0 24px 24px 0;
-                border: 1px solid #C4CCD0;
-                border-left: none;
-                background-color: #FFFFFF;
-            }
-
-        }
-		.subs-search {
-			position: relative;
-			width: calc(100% - 17px);
-			margin: 0 auto;
-			input {
-				width: 100%;
-				height: 23px;
-				background-color: transparent;
-				border: none;
-				border-bottom: 1px solid #69777F;
-				outline: none;
+				hr {
+					margin: 0;
+					border: none;
+					height: 1px;
+					background-color: #BCBEC3;
+					opacity: 0.7;
+					box-shadow: 0 0 15px rgba(56, 56, 56, 0.05);
+					border-radius: 2px;
+				}
 			}
 
-			.el-icon-circle-close {
-				position: absolute;
-				top: 4px;
-				right: 2px;
+			.list-item {
+
+				.avatar-wrapper {
+					flex: 0 0 54px;
+				}
+
+				.text {
+					flex: 1;
+					word-break: break-word;
+
+					.username {
+						font-weight: 500;
+						font-size: 14px;
+						color: #1A1E22;
+					}
+
+					.status {
+						font-weight: normal;
+						font-size: 12px;
+						line-height: 14px;
+						color: #1A1E22;
+						opacity: 0.6;
+					}
+
+				}
+
+				.button-reusable {
+					font-weight: normal;
+					font-size: 11px;
+					color: #FFFFFF;
+				}
+
 			}
 
 		}
 
-		.el-icon-circle-close {
-			height: 16px;
-			width: 16px;
-		}
-
-        .follows-button {
-
-            padding: 4px 12px;
-            background: #B9C0C4;
-            color: #FFFFFF;
-            border: none;
-        }
-
-        .backgroundNone {
-
-
-            background: none;
-            border:none;
-            color: #69777F;
-
-        }
-
-        .subs-section {
-
-
-            background: #ffffff;
-            border-radius: 12px;
-            padding: 0px 12px 0px 12px;
-
-        }
-
-        .subs-wrapper:last-of-type {
-
-            border:none;
-
-        }
-
-        .subs-wrapper {
-            display: flex;
-            justify-content: space-between;
-            border-bottom-color: #B9C0C4 ;
-            border-bottom-width: 0.5px;
-            border-bottom-style: solid;
-            align-items: center;
-            .left-block {
-
-                span {
-
-                    font-family: Roboto;
-                    font-style: normal;
-                    font-weight: 500;
-                    font-size: 15px;
-                    line-height: 18px;
-                    color: #152D3A;
-
-                }
-
-            }
-            .unfollow-button {
-
-                padding: 0px 22px;
-                background: #B9C0C4;
-                border-radius: 15px;
-                height: 24px;
-                width: 107px;
-                color: #ffffff;
-                display: flex;
-                justify-content: center;
-
-
-            }
-
-
-
-            .follow-button {
-
-                @extend .unfollow-button;
-                background: #4B97B4 ;
-
-            }
-        }
 
     }
 

@@ -15,11 +15,11 @@
 
 <script>
     import { mapState } from 'vuex';
-    // import userSection from './Event/userSection'
 	import PageHeader from "./layout/PageHeader";
 	import PageInfo from "./layout/PageInfo";
 	import PageStatistics from "./layout/PageStatistics";
 	import PageFeed from "./layout/PageFeed";
+
     export default {
         name: "userPage",
         computed: {
