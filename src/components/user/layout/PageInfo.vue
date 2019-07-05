@@ -39,15 +39,21 @@
 
 			<div class="follows-section flex mt-9">
 
-				<div class="subscribers flex-column flex-align-center">
+				<router-link
+						class="subscribers flex-column flex-align-center pointer"
+						tag="div"
+						:to="{ name: 'followings', params: { id: user.id } }">
 					<span class="count">{{user.amount_of_followers}}</span>
 					<lang-string class="caption" :title="'subscribers'"></lang-string>
-				</div>
+				</router-link>
 
-				<div class="subscriptions flex-column flex-align-center ml-29">
+				<router-link
+						class="subscriptions flex-column flex-align-center ml-29 pointer"
+						tag="div"
+						:to="{ name: 'followers', params: { id: user.id } }">
 					<span class="count">{{user.amount_of_leaders}}</span>
 					<lang-string class="caption" :title="'subscriptions'"></lang-string>
-				</div>
+				</router-link>
 
 			</div>
 

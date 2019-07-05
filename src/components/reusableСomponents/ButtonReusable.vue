@@ -45,7 +45,7 @@
     }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 	.button-reusable {
 		cursor: pointer;
 		outline: none;
