@@ -59,7 +59,7 @@
 
 <style lang="scss">
     #poll-wrapper {
-
+        background: #FFFFFF;
         .el-aside {
 
             margin-right: 12px ;

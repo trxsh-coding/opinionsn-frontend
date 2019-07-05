@@ -1,17 +1,18 @@
 <template lang="html">
-	<div class="main-layout">
-		<desktop-header />
+	<section >
+		<desktop-header :user="user"/>
 
-		<aside>
+		<section class="main-layout container">
 
-		</aside>
-		<section class="pt-48 pb-48">
-			<mobile-header :user="user" v-if="routeName === 'pollFeed' || routeName === 'voteFeed' && mobile" />
-			<router-view class="container"/>
+			<aside>
+				<aside-desktop />
+			</aside>
+			<mobile-header :user="user" v-if="(routeName === 'pollFeed' || routeName === 'voteFeed') && mobile" />
+			<router-view class="sub-container margin-auto"/>
 
 			<mobile-footer  v-if="mobile"/>
 		</section>
-	</div>
+	</section>
 </template>
 
 <script>
@@ -23,6 +24,7 @@
 	import IphoneAddToScreenComponent from "./pwaSnippets/IphoneAddToScreenComponent"
 	import Bowser from "bowser"
 	import DesktopHeader from "./view/desktop/header";
+	import asideDesktop from "./view/desktop/aside";
 	export default {
 
 		data() {
@@ -142,6 +144,7 @@
 
 		},
 		components: {
+			asideDesktop,
 			DesktopHeader,
 			IphoneAddToScreenComponent,
 			mobileHeader,
@@ -151,16 +154,24 @@
 </script>
 
 <style lang="scss">
+	body {
+		background: #F8F8F8;
+		margin: 0;
+	}
 	.main-layout {
 		display: flex;
-		flex-direction: column;
 		section {
 
 		}
 	}
 
-	body {
-		margin: 0;
-		background: #ffffff;
+	@media only screen
+	and (min-width: 300px)
+	and (max-width: 765px){
+		body {
+			margin: 0;
+			background: #ffffff;
+		}
 	}
+
 </style>

@@ -1,7 +1,7 @@
 <template lang="html">
 
 
-  <div id="poll-wrapper" class="mr-20">
+  <div id="poll-wrapper">
 
     <div class="feed relative">
 
