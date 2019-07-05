@@ -1,5 +1,5 @@
 <template>
-    <div class="picture-reusable" :style="wrapperStyle">
+    <div class="picture-reusable" :style="wrapperStyle" @click="profilePush">
 		<div class="picture-wrapper" :class="picClass" :style="pictureWrapperStyle">
 			<div class="picture" :style="pictureStyle">
 				<div v-if="counter" class="counter">
@@ -51,6 +51,12 @@
 					return 'auto';
 				}
 			},
+			avatar: {
+        		type: Boolean
+			},
+			id: {
+        		type:Number
+			},
 			rounded: Boolean,
 			borColor: {
 				type: String
@@ -64,6 +70,11 @@
 			counter: Number
 		},
 		methods: {
+        	profilePush(){
+        		if(this.avatar){
+					this.$router.push({name:'user', params:this.id})
+				}
+			},
 			handlePrecentValue(value) {
 
 				if (value === undefined) return false;
@@ -73,6 +84,7 @@
 			}
 		},
 		computed: {
+
 			wrapperStyle() {
 				let { textLayout } = this;
 

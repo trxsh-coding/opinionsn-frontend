@@ -1,6 +1,6 @@
 <template>
     <div id="poll-header" class="mb-3">
-        <author-headline class="mb-9" :img="publicPath + imageUtil(author.path_to_avatar, 'S')" :size="36" textLayout="right" bor-rad="50%">
+        <author-headline class="mb-9" avatar :id="author.id" :img="publicPath + imageUtil(author.path_to_avatar, 'S')" :size="36" textLayout="right" bor-rad="50%">
             <template #title>
                 <span class="username">
                     {{author.username}}
