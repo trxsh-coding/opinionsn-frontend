@@ -494,9 +494,7 @@ li {
 //Radius
 
 
-.br-12 {
-	border-radius: 12px;
-}
+
 
 //Positions
 
@@ -519,7 +517,15 @@ li {
 	}
 }
 
-/////////////////
+///////////////// BORDERS
+
+@for $i from 0 through 50 {
+
+	.br-#{$i} {
+		border-radius: $i + px !important;
+	}
+
+}
 
 //  Paddings and Margins
 

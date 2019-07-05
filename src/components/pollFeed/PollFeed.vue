@@ -128,6 +128,7 @@
 	}
 
 	#poll-wrapper {
+		border-radius: 6px;
 		.category-section {
 			overflow-x: auto;
 			display: flex;

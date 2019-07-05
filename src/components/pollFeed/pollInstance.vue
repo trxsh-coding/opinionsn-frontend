@@ -278,9 +278,10 @@
 
 <style lang="scss">
 	#main-feed-layout {
+		border-radius: 6px;
 		position: relative;
 		width: 100%;
-
+		padding: 13px 21px 0 0;
 		display: flex;
 		flex-direction: column;
 
