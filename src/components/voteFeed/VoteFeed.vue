@@ -1,7 +1,10 @@
 <template lang="html">
 
     <section class="vote-feed">
-		<scroll-swiper-reusable class="followers-swiper pl-30" :stub-length="2">
+		<scroll-swiper-reusable
+				v-if="mobile"
+				class="followers-swiper pl-30"
+				:stub-length="2">
 
 			<router-link class="mr-7" v-for="{avatar, username, user_id} in followersData" :to="{ name: 'user', params: { id: user_id }}">
 				<picture-reusable
@@ -19,7 +22,29 @@
 
 		</scroll-swiper-reusable>
 
-		<hr class="mt-15 mb-12">
+		<swiper
+				v-else
+				:options="swiperOption"
+				class="followers-swiper">
+			<swiper-slide class="avatar-wrapper" v-for="{avatar, username, user_id} in followersData">
+				<router-link :to="{ name: 'user', params: { id: user_id }}">
+					<picture-reusable
+							pic-class="mb-9 p-2"
+							:size="66"
+							:img="avatar"
+							text-layout="bottom"
+							bor-color="#BCBEC3"
+							rounded>
+						<template #title>
+							{{username}}
+						</template>
+					</picture-reusable>
+				</router-link>
+			</swiper-slide>
+		</swiper>
+
+		<hr class="mt-15 mb-12" />
+
 		<div v-for="item in items" >
 			<vote-instance :item="item" />
 			<hr class="mt-12">
@@ -44,9 +69,10 @@
 		data() {
 			return {
 				publicPath: process.env.VUE_APP_MAIN_API,
+				mobile: this.$root.mobile,
 				swiperOption: {
-					slidesPerView: 4,
-					spaceBetween: 7
+					slidesPerView: 6,
+					spaceBetween: 3.5
 				},
 			};
 		},
