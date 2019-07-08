@@ -4,7 +4,15 @@
 			<slot name="headAnnotation"></slot>
 		</post-header>
 
-		<scroll-swiper-reusable>
+        <options-carousel   :amount-of-slides="3" :spaceBetween="9" >
+            <template #swiperAnnotation>
+                <swiper-slide v-for="{option, isSelected} in sortedOptions">
+                    <option-item class="option mr-9"  :selected="isSelected" :option="option" :width="180"  :height="45"/>
+                </swiper-slide>
+            </template>
+        </options-carousel>
+
+		<scroll-swiper-reusable v-if="mobile">
 			<option-item class="option mr-9" v-for="{option, isSelected} in sortedOptions" :selected="isSelected" :option="option" :width="180"  :height="45"/>
 		</scroll-swiper-reusable>
 
@@ -22,9 +30,10 @@
     import voteAnnotation from "../reusableСomponents/ShortPollReusable";
     import bowsPanel from "../pollFeed/layout/involvedUsersPanel";
 	import ScrollSwiperReusable from "../reusableСomponents/ScrollSwiperReusable";
+    import optionsCarousel from "../reusableСomponents/swiperCarousel";
     export default {
         name: "voteInstance",
-        components: {ScrollSwiperReusable, bowsPanel, voteAnnotation, optionItem, PostHeader},
+        components: {optionsCarousel, ScrollSwiperReusable, bowsPanel, voteAnnotation, optionItem, PostHeader},
         props: ['item'],
         mixins:[storeMixin],
         computed: {

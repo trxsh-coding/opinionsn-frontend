@@ -43,7 +43,6 @@
 			</swiper-slide>
 		</swiper>
 
-		<hr class="mt-15 mb-12" />
 
 		<div v-for="item in items" >
 			<vote-instance :item="item" />

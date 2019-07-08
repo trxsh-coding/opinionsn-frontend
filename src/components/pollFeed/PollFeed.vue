@@ -2,7 +2,13 @@
 
 
   <div id="poll-wrapper">
-
+		<swiper-carousel   :amount-of-slides="6" :spaceBetween="30" >
+			<template #swiperAnnotation>
+				<swiper-slide v-for="category in categories">
+					<filter-component :filtered="filtered"  :id="filter_id" :category="category" />
+				</swiper-slide>
+			</template>
+		</swiper-carousel>
     <div class="feed relative">
 
     	<div v-for="item in items" >
@@ -27,8 +33,9 @@
 <script>
 	import MugenScroll from "vue-mugen-scroll";
 	import pollInstance from "./pollInstance.vue";
-	import filterComponent from "./event/filterComponent.vue";
+	import filterComponent from "./layout/filterComponent.vue";
 	import { mapState } from "vuex";
+	import SwiperCarousel from "../reusableСomponents/swiperCarousel";
 	export default {
 		data() {
 			return {
@@ -64,6 +71,7 @@
 				items: s => s.items,
 				loading: s => s.loading,
 				is_finished: s => s.is_finished,
+				filter_id: state => state.filter_id,
 				connectionUnstable: ({ connectionUnstable }) => connectionUnstable
 			}),
 
@@ -108,6 +116,7 @@
 		},
 
 		components: {
+			SwiperCarousel,
 			event,
 			filterComponent,
 			MugenScroll,
@@ -117,6 +126,8 @@
 </script>
 
 <style lang="scss">
+
+
 	.ps__thumb-x {
 		background: #4b97b4 !important;
 	}
@@ -130,15 +141,7 @@
 
 	#poll-wrapper {
 		border-radius: 6px;
-		.category-section {
-			overflow-x: auto;
-			display: flex;
-			scrollbar-width: none;
-			.category-block {
-				text-align: center;
-				margin-right: 10px;
-			}
-		}
+
 
 		.feed {
 			height: 100%;
