@@ -1,6 +1,6 @@
 <template lang="html">
 
-    <ul id="category-list">
+    <ul id="category-list" class="mt-58">
 
         <div class="category-block flex-column flex-center pointer p-15" v-for="{path_to_image, name, id} in categories"  @click="categoryLink(id)">
             <picture-reusable
@@ -65,7 +65,6 @@
 
 			cropCategoryName(name) {
 			    let { lstr } = this;
-				// return lstr(name) === "Технологии и наука" ? "Технологии" : lstr(name);
 				return lstr(name).split(' ')[0];
 			}
 		},

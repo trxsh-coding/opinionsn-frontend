@@ -1,7 +1,8 @@
 <template>
-    <div class="mobile-header flex-between flex-align-center">
-        <div class="create-poll-icon-block">
+    <div id="mobile-header" class="flex-between flex-align-center" v-show="header_type !== 'hidden'">
+        <div class="icon-wrapper">
             <icon-base
+                    v-if="header_type === 'primary'"
                     class="add-poll"
                     fill="#152D3A"
                     width="24"
@@ -9,8 +10,22 @@
                     viewBox="0 0 24 25"
                     icon-name="add-poll"><icon-add-poll/>
             </icon-base>
+
+            <icon-base
+                    v-if="header_type === 'secondary'"
+                    @click.native="$router.go(-1)"
+                    class="arrow-icon pointer"
+                    fill="#4B97B4"
+                    width="23"
+                    height="26"
+                    viewBox="0 0 23 16"
+                    icon-name="arrow"><icon-arrow-left/>
+            </icon-base>
         </div>
-        <div class="main-logo-icon-block">
+
+        <div
+                v-if="header_type === 'primary'"
+                class="main-logo-icon-block">
             <icon-base
                     fill="none"
                     class="icon"
@@ -23,9 +38,19 @@
                 <icon-text-logo/>
             </icon-base>
         </div>
-        <div class="user-avatar-block">
-            <avatar :img="publicPath + imageUtil(user.path_to_avatar, 'S')" :size="27" textLayout="right" bor-rad="50%"/>
-        </div>
+
+        <lang-string
+                v-if="header_type === 'secondary'"
+                class="route-title"
+                :title="$route.name.toLowerCase()"/>
+
+        <avatar
+                @click.native="$router.push({ name: 'user', params: { id: user.id } })"
+                class="pointer"
+                :img="publicPath + imageUtil(user.path_to_avatar, 'S')"
+                :size="27"
+                without-text
+                rounded />
     </div>
 </template>
 
@@ -36,26 +61,58 @@
     import IconTextLogo from '../../icons/IconTextLogo'
     import avatar from '../../reusableСomponents/PictureReusable'
     import imageMixin from "../../mixins/imageMixin";
+    import IconArrowLeft from "../../icons/IconArrowLeft";
+    import langString from "../../langString";
+
     export default {
         name: "header",
-        props:["user"],
-        mixins:[imageMixin],
-        data(){
-
-            return {
-
-                publicPath: process.env.VUE_APP_MAIN_API
-
-            }
-
+        components:{
+            IconBase,
+            IconAddPoll,
+            IconLogo,
+            IconTextLogo,
+            avatar,
+            IconArrowLeft,
+            langString
         },
-        components:{IconBase, IconAddPoll,IconLogo, IconTextLogo, avatar},
+        mixins:[imageMixin],
+        props: {
+            user: {
+                type: Object,
+                required: true
+            },
+        },
+        computed: {
+            header_type() {
+                let {name: route_name} = this.$route;
+
+                switch (route_name) {
+                    case 'pollFeed':
+                    case 'voteFeed':
+                    case 'search':
+                        return 'primary';
+
+                    case 'catalogList':
+                    case 'catalogFeed':
+                    case 'bookmarkFeed':
+                        return 'secondary';
+
+                    default:
+                        return 'hidden';
+                }
+            },
+        },
+        data(){
+            return {
+                publicPath: process.env.VUE_APP_MAIN_API
+            }
+        },
 
     }
 </script>
 
 <style lang="scss" >
-    .mobile-header {
+    #mobile-header {
 
         width: 100%;
         position: fixed;
@@ -64,5 +121,12 @@
         z-index: 999999;
         padding: 8px 20px 13px 20px ;
 
+        .route-title {
+            font-family: Roboto;
+            font-style: normal;
+            font-weight: bold;
+            font-size: 26px;
+            color: #4B96B3;
+        }
     }
 </style>
