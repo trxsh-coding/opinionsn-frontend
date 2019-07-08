@@ -1,12 +1,20 @@
 <template>
     <div id="poll-header" class="mb-3">
-        <author-headline class="mb-9" avatar :id="author.id" :img="publicPath + imageUtil(author.path_to_avatar, 'S')" :size="36" textLayout="right" bor-rad="50%">
+        <author-headline
+                pic-class="mr-9"
+                class="mb-9"
+                avatar
+                :id="author.id"
+                :img="publicPath + imageUtil(author.path_to_avatar, 'S')"
+                :size="36"
+                textLayout="right"
+                rounded>
             <template #title>
                 <span class="username">
                     {{author.username}}
                 </span>
                 <span class="event__item">
-                      <lang-string :title="eventType" />
+                      <lang-string :title="user_caption" />
                 </span>
 				<slot>
 
@@ -18,7 +26,7 @@
                     <span class="pr-9">
                     {{author.location}}
                 </span>
-                    <time-trans  :time="poll.date"/>
+                    <time-trans :time="poll.date"/>
                 </div>
             </template>
         </author-headline>
@@ -37,19 +45,35 @@
         name: "postHeader",
         props:['author', 'poll', 'eventType'],
         mixins:[imageMixin, langMixin],
-        data(){
-
-            return {
-                publicPath: process.env.VUE_APP_MAIN_API
-            }
-
-        },
         components: {
             authorHeadline,
             langString,
             pollAnnotation,
             timeTrans
-        }
+        },
+        data() {
+            return {
+                publicPath: process.env.VUE_APP_MAIN_API
+            }
+        },
+        computed: {
+            user_caption() {
+                let { eventType } = this;
+
+                switch (eventType) {
+                    case 'POLL_CREATED':
+                        return "created_a_poll";
+                    case 'VOTED_AND_EXPLAINED':
+                        return "voted_and_commented";
+                    case 'VOTED':
+                        return "voted";
+                    case 'EXPLAINED':
+                        return "explained";
+                    default:
+                        return ""
+                }
+            }
+        },
     }
 </script>
 
