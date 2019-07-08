@@ -517,6 +517,30 @@ li {
 	}
 }
 
+.w-fit {
+	width: fit-content;
+}
+
+.w-max {
+	width: max-content;
+}
+
+.w-min {
+	width: min-content;
+}
+
+.h-fit {
+	height: fit-content;
+}
+
+.h-max {
+	height: max-content;
+}
+
+.h-min {
+	height: min-content;
+}
+
 ///////////////// BORDERS
 
 @for $i from 0 through 50 {
