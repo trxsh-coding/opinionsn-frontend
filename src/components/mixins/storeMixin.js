@@ -28,7 +28,8 @@ export default {
             if (item.eventType === "POLL_CREATED") {
             	return polls[item.id]
 			} else {
-            	return polls[vote.poll_id]
+            	return polls[item.id]
+            	// return polls[vote.poll_id]
 			}
 
         },

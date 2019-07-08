@@ -1,76 +1,49 @@
 <template lang="html">
 
+    <div id="bookmark-feed">
 
-    <div id="poll-wrapper">
-
-        <!-- Загрузка -->
-        <!--<div v-else-if="state.loading">-->
-        <!--<p align="center" style="font-size:10px;margin-top: 5px;color: darkgray">Загружаю ленту мнений...</p>-->
-        <!--</div>-->
-
-        <!-- Нет данных -->
-        <div v-if="!items.length">
-            <p align="center" style="font-size:10px;margin-top: 5px;color: darkgray">Нет событий</p>
-        </div>
-
-
-        <!-- Всё ок -->
-        <div v-else v-for="item in items">
-            <event :item="item"/>
-        </div>
+        <short-poll-reusable v-for="(poll, index) in filtered_polls" :poll="poll" width="100%"></short-poll-reusable>
 
     </div>
-
-
-
 
 </template>
 
 
 
 <script>
-    import event from '../pollFeed/event/Event.vue'
     import { mapState } from 'vuex';
+	import ShortPollReusable from "../reusableСomponents/ShortPollReusable";
+
     export default {
-        data(){
-            return {
-            }
-        },
-        computed: {
+		components: {ShortPollReusable},
+		computed: {
+
             ...mapState('bookmarkFeed', {
-                state: s => s,
-                items: s => s.items,
+                payload: ({items}) => items,
             }),
 
+			...mapState('globalStore', {
+                polls: ({polls}) => polls,
+            }),
+
+			filtered_polls() {
+            	return this.payload.map(({id}) => this.polls[id])
+			}
 
         },
-        methods: {
-
-
-
-        },
-
-
         mounted () {
 
             this.$store.dispatch(`bookmarkFeed/list`);
 
         },
-
-
-        beforeCreate(){
-
-        },
-
-        components: {
-            event,
-        }
     }
 </script>
 
 <style lang="scss">
 
-    .loading {
+    #bookmark-feed {
+		position: relative;
+		width: 100%;
     }
 
 </style>
