@@ -25,7 +25,6 @@
 			<hr class="mt-12">
 		</div>
 		<mugen-scroll :handler="load" :should-handle="!postsEnded || !loading">
-			{{loading}}
 		</mugen-scroll>
     </section>
 

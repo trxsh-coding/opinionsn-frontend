@@ -1,6 +1,6 @@
 <template>
     <div id="opinion-feed-layout" class="mt-12">
-        <post-header :author="author" :poll="poll">
+        <post-header :author="author" :poll="poll" :eventType="item.eventType">
 			<slot name="headAnnotation"></slot>
 		</post-header>
 

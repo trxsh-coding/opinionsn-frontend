@@ -57,19 +57,19 @@
 
 			},
 
-            sanitizedItems(){
-                let {items, votes, polls} = this;
-
-                return items.map( ({id, eventType}) => {
-
-                    if (eventType === "POLL_CREATED"){
-						return polls[id];
-                    } else {
-                    	return polls[votes[id].poll_id]
-                    }
-                });
-
-            }
+            // sanitizedItems(){
+            //     let {items, votes, polls} = this;
+			//
+            //     return items.map( ({id, eventType}) => {
+			//
+            //         if (eventType === "POLL_CREATED"){
+			// 			return polls[id];
+            //         } else {
+            //         	return polls[votes[id].poll_id]
+            //         }
+            //     });
+			//
+            // }
         },
 
         methods: {

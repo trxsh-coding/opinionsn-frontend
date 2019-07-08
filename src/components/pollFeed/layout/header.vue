@@ -5,8 +5,12 @@
                 <span class="username">
                     {{author.username}}
                 </span>
+                <span class="event__item">
+                      <lang-string :title="eventType" />
+                </span>
+				<slot>
 
-				<slot></slot>
+                </slot>
 
 			</template>
             <template #description>
@@ -28,10 +32,11 @@
     import imageMixin from "../../mixins/imageMixin";
     import pollAnnotation from "./pollAnnotation"
     import timeTrans from "../../timeTrans"
+    import langMixin from "../../mixins/langMixin";
     export default {
         name: "postHeader",
-        props:['author', 'poll'],
-        mixins:[imageMixin],
+        props:['author', 'poll', 'eventType'],
+        mixins:[imageMixin, langMixin],
         data(){
 
             return {
@@ -52,6 +57,16 @@
     #poll-header {
         .picture-reusable {
             margin-left: 16%;
+        }
+        .event__item {
+
+            font-family: Roboto;
+            font-style: normal;
+            font-weight: normal;
+            font-size: 13px;
+            color: #1A1E22;
+            text-transform: lowercase;
+
         }
     }
 </style>
