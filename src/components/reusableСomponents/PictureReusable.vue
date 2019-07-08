@@ -73,7 +73,7 @@
 		methods: {
         	profilePush(){
         		if(this.avatar){
-					this.$router.push({name:'user', params:this.id})
+					this.$router.push({name:'user',params:{id:this.id}})
 				}
 			},
 			handlePrecentValue(value) {

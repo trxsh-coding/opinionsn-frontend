@@ -1,8 +1,9 @@
 <template>
 	<div class="filter-component">
-		<div class="flex-column filter-category" @click="setFilter(category.id)">
+		<div class="flex-column filter-category" @click="setFilter(category.id)"	>
 
 			<div class="category-picture "
+				 :class="{active : activeFilter}"
 				 :style="{ 'background-image': 'url('+ publicPath + category.path_to_image + ')' }"></div>
 
 			<lang-string class="lowercase name" :title="category.name"/>
@@ -18,7 +19,7 @@
 	export default {
 
 		name: "filterComponent",
-		props: ["category", "filtered"],
+		props: ["category", "filtered", "id"],
 		components: {langString},
 		data() {
 
@@ -43,11 +44,37 @@
 
 			}
 
+		},
+		computed: {
+			activeFilter(){
+
+				let {category, id} = this;
+
+				if (category.id == id) {
+
+					return true
+
+				} else {
+
+					return false
+
+				}
+
+
+			},
+
 		}
 	}
 </script>
 
 <style lang="scss">
+	.filter-component {
+		.active {
+
+			background-color: #4B97B4 !important;
+
+		}
+	}
 	.filter-category::selection {
 		background: transparent;
 
@@ -87,10 +114,10 @@
 			background: #FFFFFF;
 			border-radius: 12px;
 			width: 90px;
-			height: 60px !important;
+			height: 36px !important;
 			background-repeat: no-repeat;
 			background-position: center;
-			background-size: 40%;
+			background-size: 30%;
 			margin-bottom: 6px;
 
 		}
