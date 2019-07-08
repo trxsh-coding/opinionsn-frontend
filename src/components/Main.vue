@@ -1,10 +1,10 @@
 <template lang="html">
-	<section >
+	<section>
 		<desktop-header
 				v-if="!mobile"
 				:user="user"/>
 
-		<section class="main-layout container" :style="mobile ? {paddingTop: '61px'} : {}">
+		<section class="main-layout container pb-62" :style="(routeName === 'pollFeed' || routeName === 'voteFeed') && mobile ? {paddingTop: '61px'} : {}">
 
 			<aside v-if="!mobile">
 				<aside-desktop />
@@ -41,7 +41,7 @@
 
 			...mapState('globalStore', {
 
-				user: ({mainUser}) => mainUser
+				user: ({ mainUser }) => mainUser
 
 			}),
 

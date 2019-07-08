@@ -52,6 +52,7 @@
 		border: none;
 		padding: 0;
 		width: fit-content;
+		height: fit-content;
 
 		&:active {
 			filter: hue-rotate(-10deg);

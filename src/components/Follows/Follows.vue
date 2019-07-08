@@ -89,6 +89,7 @@
 
 	.follows-section {
 		position: relative;
+		width: 100%;
 
 		.follows-header {
 			display: flex;
