@@ -25,7 +25,6 @@ Vue.use(axios)
 
 export const store = new Vuex.Store({
 	strict: false,
-	plugins: [createPersistedState()],
 	modules: {
 		Login,
 		authentication,

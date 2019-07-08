@@ -1,7 +1,6 @@
 <template lang="html">
 
     <section class="vote-feed">
-
 		<scroll-swiper-reusable class="followers-swiper pl-30" :stub-length="2">
 
 			<router-link class="mr-7" v-for="{avatar, username, user_id} in followersData" :to="{ name: 'user', params: { id: user_id }}">
@@ -25,10 +24,8 @@
 			<vote-instance :item="item" />
 			<hr class="mt-12">
 		</div>
-		<mugen-scroll :handler="load" :should-handle="!postsEnded">
-			<loading-spinner>
-
-			</loading-spinner>
+		<mugen-scroll :handler="load" :should-handle="!postsEnded || !loading">
+			{{loading}}
 		</mugen-scroll>
     </section>
 

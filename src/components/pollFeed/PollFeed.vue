@@ -9,8 +9,8 @@
 			<poll-instance :item="item"/>
     	</div>
 
-    	<mugen-scroll :handler="load" :should-handle="!is_finished">
-        	<div class="loading-spinner" v-loading="true" v-if="!is_finished"/>
+    	<mugen-scroll :handler="load" :should-handle="!is_finished && loading">
+        	<div class="loading-spinner" v-loading="true" v-if="!is_finished || loading"/>
     	</mugen-scroll>
 
 	</div>
@@ -62,6 +62,7 @@
 			...mapState("pollFeed", {
 				state: s => s,
 				items: s => s.items,
+				loading: s => s.loading,
 				is_finished: s => s.is_finished,
 				connectionUnstable: ({ connectionUnstable }) => connectionUnstable
 			}),
