@@ -1,10 +1,12 @@
 <template lang="html">
 	<section >
-		<desktop-header :user="user"/>
+		<desktop-header
+				v-if="!mobile"
+				:user="user"/>
 
-		<section class="main-layout container">
+		<section class="main-layout container" :style="mobile ? {paddingTop: '61px'} : {}">
 
-			<aside>
+			<aside v-if="!mobile">
 				<aside-desktop />
 			</aside>
 			<mobile-header :user="user" v-if="(routeName === 'pollFeed' || routeName === 'voteFeed') && mobile" />
