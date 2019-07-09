@@ -140,6 +140,7 @@
 	}
 
 	#poll-wrapper {
+		overflow: hidden;
 		border-radius: 6px;
 
 

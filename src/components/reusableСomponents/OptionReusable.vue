@@ -1,10 +1,18 @@
 <template>
-	<div class="option-reusable">
+	<div class="option-reusable" :style="transform_shift">
 
-		<div v-if="bows && mobile" class="bows" :class="{'invisible': !voted}" :style="{...optionStyle, backgroundColor: 'unset !important'}">
+		<div
+				v-if="bows && mobile"
+				class="bows"
+				ref="bowsRef"
+				:class="{'invisible': !voted}"
+				:style="{...optionStyle, backgroundColor: 'unset !important'}"
+				@touchstart="trackTouchStart"
+				@touchmove="trackTouchMove"
+				@touchend="trackTouchEnd">
 			<slot v-if="Object.keys(bows).length > 2" name="badge"></slot>
-			<router-link v-for="(value, name) in filteredBows" :to="'/user/' + name">
-				<div class="bow" :style="{backgroundImage: `url('${publicPath + value}')`}"></div>
+			<router-link v-for="(value, name) in bows" :to="'/user/' + name">
+				<div class="bow mx-2 h-21 w-21" :style="{backgroundImage: `url('${publicPath + value}')`}"></div>
 			</router-link>
 		</div>
 
@@ -46,7 +54,12 @@
 		data() {
 			return {
 				publicPath: process.env.VUE_APP_MAIN_API,
-				mobile: this.$root.mobile
+				mobile: this.$root.mobile,
+				initialCoord: 0,
+				block_width: null,
+				difference: 0,
+				transform_px: 0,
+				test: 0
 			}
 		},
 		props: {
@@ -85,22 +98,60 @@
 
 				if (this.accessCheck) {
 					let {poll_id, type_of_poll} = this;
-					console.log(poll_id)
-					console.log(poll_id)
 					this.$store.dispatch(`${this.$route.name}/createVote`, {data: {selected_variable, poll_id,  type_of_poll}})
 
 				}
 
+			},
+			trackTouchStart(e) {
+				let { clientX } = e.touches[0];
+				this.block_width = this.$refs.bowsRef.offsetWidth;
+				if (this.initialCoord === 0) this.initialCoord = clientX;
+				this.difference = clientX - this.initialCoord;
+			},
+
+			trackTouchMove(e) {
+				let { initialCoord, block_width } = this;
+				let { clientX } = e.touches[0];
+				let difference = clientX - initialCoord;
+
+				switch (true) {
+					case this.transform_px > (block_width - 54):
+						this.transform_px = block_width - 54;
+						break;
+					case this.transform_px < 0:
+						this.transform_px = 0;
+						break;
+					default:
+						this.transform_px += difference - this.difference;
+				}
+
+				this.difference = difference;
+
+			},
+
+			trackTouchEnd(e) {
+				// console.log(this.transform_px);
 			}
+
 		},
 		computed: {
 
+			transform_shift() {
+				return {
+					// transform: `translateX(${this.$refs.bowsRef.offsetWidth + 54}px)`
+					transform: `translateX(${this.transform_px}px)`
+				}
+			},
 
 			filteredBows() {
 
-				let { bows } = this;
+				let { bows, enough_difference } = this;
 
 				if (bows) {
+
+					if (enough_difference) return bows;
+
 					if (Object.keys(bows).length > 2) {
 						let singleBow = {};
 						singleBow[Object.entries(bows)[0][0]] = Object.entries(bows)[0][1];
@@ -179,7 +230,9 @@
 <style lang="scss">
 	.option-reusable {
 		position: relative;
+		right: 0;
 		display: flex;
+		justify-content: flex-end;
 		align-items: stretch;
 
 		width: 100%;
@@ -187,15 +240,18 @@
 		.bows {
 			box-sizing: border-box;
 			padding: 12px 4px 12px 1px;
-			flex: 0 0 54px;
 			border: 0.5px solid #BCBEC3;
-			border-left: none;
-			border-radius: 0 6px 6px 0;
+			border-radius: 6px;
+
+			position: absolute;
+			right: calc(100% - 54px);
+			height: 100%;
+			min-width: 60px;
 
 			display: flex;
 			justify-content: flex-end;
 			align-items: center;
-			margin-right: 6px;
+			flex-wrap: nowrap;
 
 			a {
 				.bow {
@@ -208,14 +264,14 @@
 
 				}
 
-				&:last-child {
-					margin: 0 3px;
-				}
+				/*&:last-child {*/
+				/*	margin: 0 3px;*/
+				/*}*/
 			}
 		}
 
 		.option-wrapper {
-			flex: 1;
+			width: calc(100% - 60px);
 			display: flex;
 			cursor: pointer;
 			flex-direction: column;
