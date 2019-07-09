@@ -60,19 +60,31 @@
         },
         computed: {
             user_caption() {
-                let { eventType } = this;
+                let { eventType } = this,
+                    { type_of_poll } = this.poll;
 
-                switch (eventType) {
-                    case 'POLL_CREATED':
-                        return "created_a_poll";
-                    case 'VOTED_AND_EXPLAINED':
-                        return "voted_and_commented";
-                    case 'VOTED':
-                        return "voted";
-                    case 'EXPLAINED':
-                        return "explained";
-                    default:
-                        return ""
+                if (eventType) {
+                    switch (eventType) {
+                        case 'POLL_CREATED':
+                            return "created_a_poll";
+                        case 'VOTED_AND_EXPLAINED':
+                            return "voted_and_commented";
+                        case 'VOTED':
+                            return "voted";
+                        case 'EXPLAINED':
+                            return "explained";
+                        default:
+                            return ""
+                    }
+                } else {
+                    switch (type_of_poll) {
+                        case 0:
+                            return "created_a_poll";
+                        case 1:
+                            return "created_a_prediction";
+                        default:
+                            return ""
+                    }
                 }
             }
         },

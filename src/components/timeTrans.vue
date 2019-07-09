@@ -1,6 +1,5 @@
 <template>
     <div class="timestamp-block">
-
         <span>{{transformed_time}}</span>
     </div>
 </template>
@@ -22,9 +21,9 @@
 
                 let transformed_time = this.time;
 
-                let now = moment(new Date())
+                let now = moment(new Date());
 
-                let isToday = now.format("YYYYMMdd") === moment(transformed_time).format("YYYYMMdd");
+                let isToday = now.format("YYYYMMDD") === moment(transformed_time).format("YYYYMMDD");
 
 
                 // let diff = moment.duration(now.diff(transformed_time))
@@ -42,8 +41,7 @@
 				//
                 // }
 
-                // return isToday ? moment(transformed_time).format('HH:mm') : moment(transformed_time).fromNow();
-                let parsedTime = isToday ? moment(transformed_time).format('h') : moment(transformed_time).fromNow();
+                let parsedTime = isToday ? moment(transformed_time).format('HH:mm') : moment(transformed_time).fromNow('D');
 
 				return parsedTime;
 
