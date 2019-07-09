@@ -1,11 +1,13 @@
 <template>
     <div class="involved_users-panel">
+		<slot name="description">
+			<lang-string class="panel-caption" :title="'friends_who_voted_in_this_poll'">
+				<template #text>
+					:
+				</template>
+			</lang-string>
+		</slot>
 
-		<lang-string class="panel-caption" :title="'friends_who_voted_in_this_poll'">
-			<template #text>
-				:
-			</template>
-		</lang-string>
 
 		<scroll-swiper-reusable class="mt-9" :stub-length="1">
 

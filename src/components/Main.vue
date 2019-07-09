@@ -4,7 +4,7 @@
 				v-if="!mobile"
 				:user="user"/>
 
-		<section class="main-layout container pb-62" :style="(routeName === 'pollFeed' || routeName === 'voteFeed') && mobile ? {paddingTop: '61px'} : {}">
+		<section class="main-layout container pb-62" :style="(routeName === 'pollFeed' || routeName === 'voteFeed' || routeName === 'singlePoll') && mobile ? {paddingTop: '48px'} : {}">
 
 			<aside v-if="!mobile">
 				<aside-desktop />

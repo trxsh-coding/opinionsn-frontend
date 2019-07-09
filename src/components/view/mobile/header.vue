@@ -89,6 +89,7 @@
                 switch (route_name) {
                     case 'pollFeed':
                     case 'voteFeed':
+                    case 'singlePoll':
                     case 'search':
                         return 'primary';
 

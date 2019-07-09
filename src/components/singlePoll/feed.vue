@@ -4,7 +4,7 @@
     <div id="poll-wrapper">
 
         <div v-for="item in items">
-            <event :item="item" :feed="feed"/>
+            <pollInstance :item="item" />
         </div>
     </div>
 
@@ -18,6 +18,7 @@
 <script>
     import event from './../pollFeed/event/Event.vue'
     import { mapState } from 'vuex';
+    import pollInstance from "../pollFeed/pollInstance";
     export default {
         data(){
             return {
@@ -52,6 +53,7 @@
 
 
         components: {
+            pollInstance,
             event,
         }
     }

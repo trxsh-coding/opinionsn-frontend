@@ -14,7 +14,7 @@
                     {{author.username}}
                 </span>
                 <span class="event__item">
-                      <lang-string :title="user_caption" />
+                      <lang-string :title="lstr(user_caption)" />
                 </span>
 				<slot>
 

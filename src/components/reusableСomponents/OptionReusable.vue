@@ -23,14 +23,26 @@
 
 				<div class="progress-bar" :style="progressBarStyle"></div>
 			</div>
+			<div class="option-bows" v-if="!mobile">
+				<involved-users-panel :users="bows" v-if="Object.keys(bows).length > 0">
+					<template #description >
+						<div class="none">
+
+						</div>
+					</template>
+				</involved-users-panel>
+			</div>
 		</div>
+
 
 	</div>
 </template>
 
 <script>
+	import InvolvedUsersPanel from "../pollFeed/layout/involvedUsersPanel";
 	export default {
 		name: "OptionReusable",
+		components: {InvolvedUsersPanel},
 		data() {
 			return {
 				publicPath: process.env.VUE_APP_MAIN_API,
@@ -55,6 +67,7 @@
 				type: Number,
 				required: true
 			},
+
 			poll_id: {
 				type: Number,
 				required: true
@@ -205,7 +218,7 @@
 			flex: 1;
 			display: flex;
 			cursor: pointer;
-
+			flex-direction: column;
 			.picture {
 				background-repeat: no-repeat;
 				background-size: cover;
