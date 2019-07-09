@@ -1,5 +1,5 @@
 <template>
-    <div id="headline-body">
+    <div id="headline-body" class="ml-60">
         <div class="tags__item mb-4">
 			{{poll.tags}}
         </div>
@@ -44,7 +44,6 @@
 
 <style lang="scss">
     #headline-body {
-        margin-left: 16%;
         .tags__item {
 
 			font-family: Roboto;

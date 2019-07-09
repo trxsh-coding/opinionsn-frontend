@@ -2,7 +2,7 @@
     <div id="poll-header" class="mb-3">
         <author-headline
                 pic-class="mr-9"
-                class="mb-9"
+                class="mb-9 ml-60"
                 avatar
                 :id="author.id"
                 :img="publicPath + imageUtil(author.path_to_avatar, 'S')"
@@ -30,6 +30,8 @@
                 </div>
             </template>
         </author-headline>
+
+        <slot name="annotation"></slot>
 
     </div>
 </template>
@@ -79,9 +81,6 @@
 
 <style lang="scss">
     #poll-header {
-        .picture-reusable {
-            margin-left: 16%;
-        }
         .event__item {
 
             font-family: Roboto;
