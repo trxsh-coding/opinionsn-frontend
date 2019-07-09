@@ -141,9 +141,6 @@
 			},
 			handledCounter() {
 				let { counter } = this;
-				if (counter) {
-					return counter > 9 ? 9 : counter;
-				};
 				return '';
 			}
 		}

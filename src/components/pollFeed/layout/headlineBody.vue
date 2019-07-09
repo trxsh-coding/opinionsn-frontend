@@ -14,7 +14,7 @@
                 {{poll.description}}
             </span>
         </div>
-        <subject-picture v-if="poll.picture" :img="publicPath + poll.picture" :width="295" :height="190" textLayout="right" bor-rad="6"/>
+        <subject-picture v-if="poll.picture" :img="publicPath + poll.picture" :width="mobile ? '295' : '471'" :height="190" textLayout="right" bor-rad="6"/>
         <bows-panel class="mt-9" :users="poll.bows" v-show="!item.voted && Object.keys(poll.bows).length > 0" />
 
     </div>
@@ -31,7 +31,8 @@
         data() {
             return {
 
-                publicPath: process.env.VUE_APP_MAIN_API
+                publicPath: process.env.VUE_APP_MAIN_API,
+                mobile: this.$root.mobile
 
             }
         },
