@@ -9,7 +9,7 @@
 			<aside v-if="!mobile">
 				<aside-desktop />
 			</aside>
-			<mobile-header :user="user" v-if="(routeName === 'pollFeed' || routeName === 'voteFeed') && mobile" />
+			<mobile-header :user="user" v-if="mobile" />
 			<router-view class="sub-container margin-auto"/>
 
 			<mobile-footer  v-if="mobile"/>

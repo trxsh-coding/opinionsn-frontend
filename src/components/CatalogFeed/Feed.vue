@@ -1,59 +1,18 @@
 <template lang="html">
 
+    <div id="catalog-feed" :class="{mobile: 'mt-58'}">
 
-    <div id="poll-wrapper">
-        <!-- Ошибка -->
-        <!--<div v-if="state.error">-->
-            <!--Что-то сломалось:-->
-            <!--{{state.error}}-->
-        <!--</div>-->
-
-        <!-- Загрузка -->
-        <!--<div v-else-if="state.loading">-->
-        <!--<p align="center" style="font-size:10px;margin-top: 5px;color: darkgray">Загружаю ленту мнений...</p>-->
-        <!--</div>-->
-
-        <!-- Нет данных -->
-        <!--<div v-else-if="!items.length">-->
-            <!--<p align="center" style="font-size:10px;margin-top: 5px;color: darkgray">Нет событий</p>-->
-        <!--</div>-->
-
-
-        <!-- Всё ок -->
-
-        <div class="catalog-main-wrapper">
-            <div class="category-background mb-10" :style="{ 'background-image': 'url(' + publicPath + category.path_to_image + ')' } ">
-
-                <div class="category-subject">
-                    <span><lang-string :title="category.name"/></span>
-                </div>
-
+        <div class="category-background mb-10" :style="{ 'background-image': 'url(' + publicPath + category.path_to_image + ')' } ">
+            <div class="category-subject">
+                <lang-string :title="category.name" />
             </div>
+        </div>
 
-            <!-- <div class="category-subject category-mobile mb-15">
-                <span @click="backLink">
-                    <icon-base
-                            class="icon-back"
-                            fill="#152D3A"
-                            width="12"
-                            height="20"
-                            viewBox="0 0 12 20"
-                            icon-name="add-poll"><icon-back/>
-                </icon-base>
-                </span>
-                <span><lang-string class="catalog__name" :title="category.name"/></span>
-            </div> -->
-
-            <div v-for="item in items" class="mb-6" v-if="items.length">
-                <event :item="item"/>
-            </div>
-
+        <div v-for="item in items" class="mb-6" v-if="items.length">
+            <event :item="item"/>
         </div>
 
     </div>
-
-
-
 
 </template>
 
@@ -70,6 +29,7 @@
         mixins:[langMixin],
         data(){
             return {
+                mobile: this.$root.mobile,
                 id: this.$route.params.id,
                 publicPath: process.env.VUE_APP_MAIN_API
 

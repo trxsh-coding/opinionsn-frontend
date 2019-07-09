@@ -152,6 +152,7 @@
 
 <style lang="scss">
 	.picture-reusable {
+		position: relative;
 		display: flex;
 		justify-content: center;
 		align-items: center;

@@ -6,19 +6,20 @@
 				class="followers-swiper pl-30"
 				:stub-length="2">
 
-			<router-link class="mr-7" v-for="{avatar, username, user_id} in followersData" :to="{ name: 'user', params: { id: user_id }}">
-				<picture-reusable
-					pic-class="mb-9 p-2"
-					:size="66"
-					:img="avatar"
-					text-layout="bottom"
-					bor-color="#BCBEC3"
-					rounded>
-					<template #title>
-						{{username}}
-					</template>
-				</picture-reusable>
-			</router-link>
+			<picture-reusable
+				v-for="{avatar, username, user_id} in followersData"
+				@click.native="filterFeed(user_id)"
+				class="mr-7 pointer"
+				pic-class="mb-9 p-2"
+				:size="66"
+				:img="avatar"
+				text-layout="bottom"
+				bor-color="#BCBEC3"
+				rounded>
+				<template #title>
+					{{username}}
+				</template>
+			</picture-reusable>
 
 		</scroll-swiper-reusable>
 
@@ -26,27 +27,29 @@
 				v-else
 				:options="swiperOption"
 				class="followers-swiper">
-			<swiper-slide class="avatar-wrapper" v-for="{avatar, username, user_id} in followersData">
-				<router-link :to="{ name: 'user', params: { id: user_id }}">
-					<picture-reusable
-							pic-class="mb-9 p-2"
-							:size="66"
-							:img="avatar"
-							text-layout="bottom"
-							bor-color="#BCBEC3"
-							rounded>
-						<template #title>
-							{{username}}
-						</template>
-					</picture-reusable>
-				</router-link>
+			<swiper-slide
+					class="avatar-wrapper"
+					v-for="{avatar, username, user_id} in followersData">
+				<picture-reusable
+						@click.native="filterFeed(user_id)"
+						class="mr-7 pointer"
+						pic-class="mb-9 p-2"
+						:size="66"
+						:img="avatar"
+						text-layout="bottom"
+						bor-color="#BCBEC3"
+						rounded>
+					<template #title>
+						{{username}}
+					</template>
+				</picture-reusable>
 			</swiper-slide>
 		</swiper>
 
 
 		<div v-for="item in items" >
-			<vote-instance :item="item" />
-			<hr class="mt-12">
+			<vote-instance :item="item" class="mt-18" />
+			<hr class="mt-13">
 		</div>
 		<mugen-scroll :handler="load" :should-handle="!postsEnded || !loading">
 		</mugen-scroll>
@@ -110,6 +113,10 @@
 		methods: {
 			load() {
 				this.$store.dispatch('voteFeed/loadNextPage');
+			},
+			filterFeed(id) {
+				this.$store.commit('voteFeed/setFilterId', id);
+				this.$store.dispatch('voteFeed/list');
 			}
 		},
 		components: {
@@ -122,8 +129,12 @@
 		},
 		mounted() {
 			this.$store.dispatch('followsPage/getMyFollowings');
+			this.$store.commit('voteFeed/clearFilter');
 			this.$store.dispatch('voteFeed/list');
 		},
+		beforeDestroy() {
+			this.$store.commit('voteFeed/clearFilter');
+		}
 	};
 </script>
 
@@ -132,9 +143,10 @@
 		position: relative;
 		box-sizing: border-box;
 		width: 100%;
-		background: #FFFFFF;
+
 		* {
 			box-sizing: inherit;
+			background: transparent;
 		}
 
 		hr {

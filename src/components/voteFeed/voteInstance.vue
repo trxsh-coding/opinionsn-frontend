@@ -1,10 +1,13 @@
 <template>
-    <div id="opinion-feed-layout" class="mt-12 pr-30 pl-50">
+    <div id="opinion-feed-layout">
         <post-header :author="author" :poll="poll" :eventType="item.eventType">
 			<slot name="headAnnotation"></slot>
 		</post-header>
 
-        <options-carousel   :amount-of-slides="3" :spaceBetween="9" v-if="!mobile">
+        <options-carousel
+                v-if="!mobile"
+                :amount-of-slides="3"
+                :spaceBetween="9">
             <template #swiperAnnotation>
                 <swiper-slide v-for="{option, isSelected} in sortedOptions">
                     <option-item class="option mr-9"  :selected="isSelected" :option="option" :width="180"  :height="45"/>
@@ -41,13 +44,6 @@
                 mobile: this.$root.mobile
             }
         },
-        computed: {
-
-
-        },
-        mounted() {
-            console.log(this.poll)
-        }
     }
 </script>
 
