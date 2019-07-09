@@ -1,7 +1,7 @@
 <template>
 	<div class="option-reusable">
 
-		<div v-if="bows" class="bows" :class="{'invisible': !voted}" :style="{...optionStyle, backgroundColor: 'unset !important'}">
+		<div v-if="bows && mobile" class="bows" :class="{'invisible': !voted}" :style="{...optionStyle, backgroundColor: 'unset !important'}">
 			<slot v-if="Object.keys(bows).length > 2" name="badge"></slot>
 			<router-link v-for="(value, name) in filteredBows" :to="'/user/' + name">
 				<div class="bow" :style="{backgroundImage: `url('${publicPath + value}')`}"></div>
@@ -33,7 +33,8 @@
 		name: "OptionReusable",
 		data() {
 			return {
-				publicPath: process.env.VUE_APP_MAIN_API
+				publicPath: process.env.VUE_APP_MAIN_API,
+				mobile: this.$root.mobile
 			}
 		},
 		props: {

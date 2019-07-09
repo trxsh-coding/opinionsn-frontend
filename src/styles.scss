@@ -733,6 +733,14 @@ li {
 	box-shadow: 0 0 6px rgba(0, 0, 0, 0.5);
 	transition: 150ms;
 }
+@media only screen
+and (min-width: 300px)
+and (max-width: 765px){
+	.sub-container {
+		max-width: 100%;
+	}
+}
+
 
 //Colors
 

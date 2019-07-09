@@ -8,7 +8,7 @@
 
 				<picture-reusable
 					:img="pollData.picture"
-					:size="66"
+					:size=" mobile ? 66 : 90"
 					bor-rad="6"
 					without-text
 				/>
@@ -17,7 +17,7 @@
 
 			<div class="text flex-column">
 
-				<span class="poll-timestamp mb-3">
+				<span class="poll-timestamp mb-3" v-if="mobile">
 					<time-trans :time="pollData.date" />
 				</span>
 
@@ -93,8 +93,10 @@
 			width: {
 				type: String,
 				default: function () {
-					// return "100%";
-					return "325";
+					if(this.mobile) return "325";
+					else return "100%";
+
+					// return "325";
 				}
 			},
 			withDesc: {
@@ -116,7 +118,8 @@
 		},
 		data() {
 			return {
-				publicPath: process.env.VUE_APP_MAIN_API
+				publicPath: process.env.VUE_APP_MAIN_API,
+				mobile: this.$root.mobile
 			}
 		},
 		methods: {
@@ -265,7 +268,6 @@
 
 			.text {
 				flex-grow: 1;
-				margin-right: 28px;
 
 				.poll-timestamp {
 					font-family: Helvetica Neue, Roboto;
@@ -275,8 +277,9 @@
 
 				.poll-name {
 					font-weight: 500;
-					font-size: 13px;
+					font-size: 14px;
 					color: #1A1E22;
+					padding-right: 25px;
 				}
 
 				.poll-desc {
@@ -291,7 +294,7 @@
 						.text {
 							.title {
 								font-weight: normal;
-								font-size: 11px;
+								font-size: 12px;
 								color: #BEC0C5;
 								text-transform: uppercase;
 							}
@@ -327,5 +330,21 @@
 
 
 	}
+	@media only screen
+	and (min-width: 300px)
+	and (max-width: 765px){
+		.poll-name {
+			font-size: 13px !important;
+			padding-right: 0;
 
+		}
+		.text {
+			margin-right: 28px;
+
+		}
+
+		.title {
+			font-size: 11px;
+		}
+	}
 </style>

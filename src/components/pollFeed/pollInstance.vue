@@ -1,5 +1,5 @@
 <template>
-    <div id="main-feed-layout" class="mb-12">
+    <div id="main-feed-layout">
         <post-header :author="author" :poll="poll">
 			<template #annotation>
 				<poll-anotation :poll="poll"/>
@@ -91,7 +91,7 @@
 		</div>
 
         <explain-section
-				class="ml-21 mt-12"
+				class="mt-12"
                 v-for="(explain, index) in combinedVotes"
 				v-show="index < explains_quantity"
                 :explain="explain"
@@ -104,7 +104,6 @@
 
 		<span v-show="voted && !no_more_explains && combinedVotes.length > 5" class="explains-load-btn pointer mt-9" @click="loadMoreExplains">Загрузить ещё...</span>
 
-		<hr class="ml-54 mt-12">
     </div>
 </template>
 
@@ -278,13 +277,17 @@
 
 <style lang="scss">
 	#main-feed-layout {
-		border-radius: 6px;
+		background: #FFFFFF;
+		border-radius: 6px 6px 0 0;
 		position: relative;
 		width: 100%;
 		padding: 13px 21px 0 0;
 		display: flex;
 		flex-direction: column;
-
+		border-bottom: 1px solid #BCBEC3;
+		.option-reusable, #headline-body, .poll-header {
+			padding-left: 10%;
+		}
 		hr {
 			margin: 0;
 			border: none;

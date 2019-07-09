@@ -55,9 +55,8 @@
 
 <style lang="scss">
     #poll-header {
-        .picture-reusable {
-            margin-left: 16%;
-        }
+        padding-left: 10%;
+
         .event__item {
 
             font-family: Roboto;
@@ -67,6 +66,14 @@
             color: #1A1E22;
             text-transform: lowercase;
 
+        }
+
+        @media only screen
+        and (min-width: 300px)
+        and (max-width: 765px){
+            .picture-reusable {
+                margin-left: 16%;
+            }
         }
     }
 </style>

@@ -23,9 +23,7 @@
                 <icon-text-logo/>
             </icon-base>
         </div>
-        <div class="user-avatar-block">
             <avatar :img="publicPath + imageUtil(user.path_to_avatar, 'S')" :size="27" textLayout="right" bor-rad="50%"/>
-        </div>
     </div>
 </template>
 

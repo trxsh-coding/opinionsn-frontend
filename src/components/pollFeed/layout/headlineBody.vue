@@ -14,7 +14,7 @@
                 {{poll.description}}
             </span>
         </div>
-        <subject-picture v-if="poll.picture" :img="publicPath + poll.picture" :width="295" :height="190" textLayout="right" bor-rad="6"/>
+        <subject-picture v-if="poll.picture" :img="publicPath + poll.picture" :width="mobile? 295 : 471" :height="mobile ? 190: 303" textLayout="right" bor-rad="6"/>
         <bows-panel class="mt-9" :users="poll.bows" v-show="!item.voted && Object.keys(poll.bows).length > 0" />
 
     </div>
@@ -31,7 +31,8 @@
         data() {
             return {
 
-                publicPath: process.env.VUE_APP_MAIN_API
+                publicPath: process.env.VUE_APP_MAIN_API,
+                mobile:this.$root.mobile
 
             }
         },
@@ -44,7 +45,7 @@
 
 <style lang="scss">
     #headline-body {
-        margin-left: 16%;
+        padding-left: 10%;
         .tags__item {
 
 			font-family: Roboto;
@@ -52,6 +53,18 @@
 			font-weight: normal;
 			font-size: 12px;
 			color: #4B97B4;
+
+        }
+        .subject__item {
+            span {
+                font-family: Roboto;
+                font-style: normal;
+                font-weight: 500;
+                font-size: 15px;
+                line-height: 18px;
+                color: #1A1E22;
+
+            }
 
         }
         .description__item {
