@@ -18,6 +18,8 @@ import {globalStore} from "./modules/globalStore";
 import {notificationPage} from "./modules/notifications";
 import {notificationStore} from "./modules/notificationStore"
 import { adminPage } from "./modules/adminPage";
+import { creationManagement } from "./modules/creationManagement";
+
 import createPersistedState from 'vuex-persistedstate'
 
 Vue.use(Vuex)
@@ -42,7 +44,8 @@ export const store = new Vuex.Store({
 		notificationPage,
 		notificationStore,
 		adminPage,
-		serviceWorker
+		serviceWorker,
+		creationManagement
 	},
 	state: {},
 	getters: {},

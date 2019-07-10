@@ -23,11 +23,12 @@
             <button-reusable class="h-30 mb-6 mt-6" :bor-rad="30" :color="timeLimit ? '#4B97B4': '#B7B9BE'" description="time_limit" @click.native="chooseTypeOfPoll(true)" />
             <button-reusable class="h-30 " :bor-rad="30" :color="timeLimit ?  '#B7B9BE' : '#4B97B4'" description="no_time_limit"   @click.native="chooseTypeOfPoll(false)"/>
         </div>
-        <div class="category-block">
-            <dropdown-list-reusable >
-
-            </dropdown-list-reusable>
+        <div class="category-block mt-12">
+            <catalog-dropdown v-model="category"></catalog-dropdown>
         </div>
+        <input-reusable v-model="subject" class="mt-12" :input-placeholder="'heading'"/>
+        <input-reusable v-model="subject_description" class="mt-12" :input-placeholder="'description'"/>
+
     </div>
 </template>
 
@@ -37,12 +38,18 @@
     import langString from "../langString"
     import ButtonReusable from "../reusableСomponents/ButtonReusable";
     import DropdownListReusable from "../reusableСomponents/DropdownListReusable";
+    import ReusableSelect from "../reusableСomponents/reusableSelect";
+    import CatalogDropdown from "../create/CatalogDropdown";
+    import InputReusable from "../reusableСomponents/InputReusable";
     export default {
         name: "CreatePoll",
         data(){
             return {
                 blockchainPrediction: false,
-                timeLimit:false
+                timeLimit:false,
+                category:null,
+                subject:null,
+                subject_description:null
             }
         },
 
@@ -58,6 +65,9 @@
         },
 
         components: {
+            InputReusable,
+            CatalogDropdown,
+            ReusableSelect,
             DropdownListReusable,
             ButtonReusable,
             SwitchComponent,
@@ -70,7 +80,7 @@
 
 <style lang="scss" >
     .poll-create-wrapper {
-        padding-left: 20px;
+        padding: 0 20px;
         .header-annotation {
             align-items: center;
 
