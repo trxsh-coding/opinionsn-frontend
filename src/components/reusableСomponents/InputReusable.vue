@@ -8,8 +8,10 @@
                v-model="value"
                :style="inputStyle"
                @change="inputValue(arguments[0].target.value)"
-               @focus="focusInput(true)" @blur="focusInput(false)"
-               :class="{ focusedInput : active}" >
+               @focus="focusInput(true)"
+               @blur="inputValidation(false)"
+               :class="{ focusedInput : active, validationStyle : validationError}"
+        >
     </div>
 </template>
 
@@ -22,7 +24,8 @@
         mixins:[langMixin],
         components:{langString},
         model: {
-            event: 'input'
+            event: 'change',
+            validationError:false,
         },
         props: {
             width: {
@@ -42,7 +45,8 @@
                 default: function () {
                     return 'Input'
                 }
-            }
+            },
+
 
         },
         data() {
@@ -70,11 +74,20 @@
             }
         },
         methods: {
-            focusInput(e){
-                this.active = e;
+            focusInput(payload){
+                this.active = payload;
+
             },
-            inputValue(e){
-                this.$emit('input', e);
+            inputValue(payload){
+                this.$emit('change', payload);
+
+            },
+            inputValidation(payload){
+
+                this.active = payload;
+                if(this.value.length === 0){
+                    this.validationError = true
+                }
 
             },
             handlePercentValue(value) {
@@ -92,6 +105,10 @@
     .input-block {
         .focusedInput {
             border-bottom-color: #4B97B4 !important;
+        }
+        .validationStyle {
+            border-bottom-color: red !important;
+
         }
         .input-placeholder {
 

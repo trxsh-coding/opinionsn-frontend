@@ -26,8 +26,56 @@
         <div class="category-block mt-12">
             <catalog-dropdown v-model="category"></catalog-dropdown>
         </div>
-        <input-reusable v-model="subject" class="mt-12" :input-placeholder="'heading'"/>
-        <input-reusable v-model="subject_description" class="mt-12" :input-placeholder="'description'"/>
+        <input-reusable :value="form.subject_header"
+                        @change="updateField(arguments[0], 'subject_header')"
+                        class="mt-12"
+                        :input-placeholder="'heading'"/>
+        <input-reusable :value="form.description"
+                        @change="updateField(arguments[0], 'description')"
+                        class="mt-12"
+                        :input-placeholder="'description'"/>
+        <!--<upload-reusable-->
+                <!--class="mt-12"-->
+                <!--:value="form.picture"-->
+                <!--@change="updateField(arguments[0], 'picture')">-->
+            <!--<template #icon>-->
+                <!--<icon-base-->
+                        <!--fill="none"-->
+                        <!--width="20"-->
+                        <!--height="17"-->
+                        <!--viewBox="0 0 20 17"-->
+                        <!--icon-name="add"><icon-upload-photo/>-->
+                <!--</icon-base>-->
+            <!--</template>-->
+        <!--</upload-reusable>-->
+        <input-reusable :value="form.tags"
+                        @change="updateField(arguments[0], 'tags')"
+                        class="mt-12"
+                        :input-placeholder="'tags'"/>
+        <div class="border-b mt-18"></div>
+        <div class="options-block" v-for="(option, index) in form.options "  :key="index">
+            {{option.picture}}
+            <input-reusable
+                    :value="option.description"
+                    @change="updateArrayField(arguments[0], 'options', 'description', index)"
+                    class="mt-12"
+                    :input-placeholder="'add_option'"/>
+            <upload-reusable
+                    class="mt-12"
+                    :value="option.picture"
+                    @change="(file)=> {check(index, file)}">
+                <template #icon>
+                    {{index}}
+                    <icon-base
+                            fill="none"
+                            width="20"
+                            height="17"
+                            viewBox="0 0 20 17"
+                            icon-name="add"><icon-upload-photo/>
+                    </icon-base>
+                </template>
+            </upload-reusable>
+        </div>
 
     </div>
 </template>
@@ -41,6 +89,10 @@
     import ReusableSelect from "../reusableСomponents/reusableSelect";
     import CatalogDropdown from "../create/CatalogDropdown";
     import InputReusable from "../reusableСomponents/InputReusable";
+    import UploadReusable from "../reusableСomponents/UploadReusable";
+    import IconBase from "../icons/IconBase";
+    import IconUploadPhoto from "../icons/create/IconUploadPhoto";
+    import {mapState} from "vuex"
     export default {
         name: "CreatePoll",
         data(){
@@ -54,9 +106,32 @@
         },
 
 
+        computed: {
 
+            ...mapState('creationManagement', {
+
+                form: s => s.form,
+
+            }),
+        },
         methods: {
 
+            updateField(value, keyName){
+
+                this.$store.commit('creationManagement/UPDATE_FIELD', {value, keyName})
+
+            },
+            check(check, file){
+                console.log(check);
+                console.log(file);
+
+            },
+            updateArrayField(value, arrayName, keyName, index){
+
+
+                this.$store.commit('creationManagement/UPDATE_ARRAY_FIELD', {value, arrayName, keyName, index })
+
+            },
             chooseTypeOfPoll(payload){
 
                 this.timeLimit = payload
@@ -65,13 +140,16 @@
         },
 
         components: {
+            IconBase,
+            UploadReusable,
             InputReusable,
             CatalogDropdown,
             ReusableSelect,
             DropdownListReusable,
             ButtonReusable,
             SwitchComponent,
-            langString
+            langString,
+            IconUploadPhoto
 
         }
 
