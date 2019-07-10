@@ -1,14 +1,14 @@
-<template>
-    <button class="button-reusable" :style="buttonStyle">
-		<slot>
-
-		</slot>
+<template xmlns:lang-string="http://www.w3.org/1999/xlink">
+    <button class="button-reusable flex-align-center " :style="buttonStyle">
+		<lang-string :title="description"/>
 	</button>
 </template>
 
 <script>
+	import langString from '../langString'
     export default {
         name: "ButtonReusable",
+		components: {langString},
 		props: {
         	color: {
         		type: String,
@@ -21,6 +21,9 @@
 				default: function () {
 					return '0';
 				}
+			},
+			description: {
+        		type:String
 			},
 			rounded: Boolean
 		},
@@ -53,7 +56,18 @@
 		padding: 0;
 		width: fit-content;
 		height: fit-content;
+		padding: 0 9px;
+		span {
 
+			text-transform: uppercase;
+			font-family: Roboto;
+			font-style: normal;
+			font-weight: normal;
+			font-size: 11px;
+			color: #FFFFFF;
+
+
+		}
 		&:active {
 			filter: hue-rotate(-10deg);
 		}

@@ -6,9 +6,8 @@ import search from '../components/Search/search'
 import Main from '../components/Main'
 import AuthPanel from '../components/Login/AuthPanel'
 import Password from '../components/Login/Password'
-import CreateQuiz from '../components/CreateQuiz'
-import PollCreate from '../components/PollCreate'
-import CreatePoll from '../components/CreatePoll'
+import createPoll from '../components/create/CreatePoll'
+import createPrediction from '../components/create/CreatePrediction'
 import followers from '../components/Follows/Event/Followers'
 import followings from '../components/Follows/Event/Followings'
 import follows from '../components/Follows/Follows'
@@ -119,23 +118,16 @@ export const index = new Router({
 					props: true
 				},
 				{
-					path: `add`,
-					name: `add`,
-					component: CreateQuiz,
-					children: [
-						{
-							path: `poll`,
-							name: `poll`,
-							component: PollCreate
-						},
-						{
-							path: `prediction`,
-							name: `prediction`,
-							component: CreatePoll
-						},
-
-					]
+					path: `createPoll`,
+					name: `createPoll`,
+					component: createPoll,
 				},
+				{
+					path: `createPrediction`,
+					name: `createPrediction`,
+					component: createPrediction,
+				},
+
 
 				{
 					path: `voteFeed`,

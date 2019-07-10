@@ -1,157 +1,23 @@
 <template>
 	<div class="poll-create-wrapper">
 
-		<el-form label-position="top" :model="pollForm" ref="pollForm" :rules="rules">
-
-			<el-form-item :label="Категории" prop="subject_header"
-						  :rules="[ { required: true, message: lstr('select_topic_name'), trigger: 'change' }]">
-
-				<catalog-dropdown class="max-width" :model="pollForm" field="subject_header"></catalog-dropdown>
-
-			</el-form-item>
-
-			<div class="subject-header">
-
-				<el-form-item :label="lstr('enter_subject_name')" prop="subject" class="subject-form-item"
-							  :rules="[{ required: true, message: lstr('enter_subject_name') , trigger: 'blur' }, { min: 2 , max: 1000, message: lstr('length_should_be_3_to_1000'), trigger: 'blur' }]">
-
-					<el-input type="textarea" autosize size="small" class="second-option picture"
-							  v-model="pollForm.subject"></el-input>
-
-
-					<div class="icon-picture flex" @click="addMainPhoto">
-						<icon-base
-							fill="none"
-							width="18"
-							height="14"
-							viewBox="0 0 18 14"
-							icon-name="picture">
-							<icon-picture/>
-						</icon-base>
-					</div>
-
-				</el-form-item>
-
-
-			</div>
-
-			<div class="image-block" v-if="mainPicture">
-
-				<el-upload
-					class="avatar-uploader"
-					:show-file-list="false"
-					:on-change="imagePreview"
-					:before-upload="beforeAvatarUpload">
-					<img v-if="imageUrl" :src="imageUrl" class="avatar">
-				</el-upload>
-			</div>
-
-			<el-form-item :label="lstr('poll_tags')">
-
-				<el-input type="textarea" autosize v-model="pollForm.tags"></el-input>
-
-			</el-form-item>
-
-
-			<el-form-item :label="lstr('description')" prop="description"
-						  :rules="[{ required: true, message: lstr('enter_description_text') , trigger: 'blur' }, { min: 0 , max: 1000, message: lstr('length_should_be_0_to_1000'), trigger: 'blur' }]">
-
-				<el-input type="textarea" autosize class="description-input" v-model="pollForm.description"></el-input>
-
-			</el-form-item>
-
-
-			<div class="options-header mb-10 flex-space-center">
-
-				<div class="text-block label-subject">
-					<lang-string :title="'offer_answer_text'"/>
-				</div>
-
-
-				<div class="icon-picture flex" @click="addOptionPicture">
-					<icon-base
-						fill="none"
-						width="18"
-						height="14"
-						viewBox="0 0 18 14"
-						icon-name="picture">
-						<icon-picture/>
-					</icon-base>
-				</div>
-			</div>
-			<div class="options-wrapper">
-				<div class="option-block flex-column" v-for="(option, option_id) in pollForm.options" :key="option_id">
-					<div class="option-row">
-						<div class="option-input max-width relative">
-							<el-form-item class="max-width" :label="lstr('answer_text')"
-										  :prop="'options.' + option_id + '.description'"
-										  :rules="[{ required: true, message: lstr('enter_answer_text') , trigger: 'blur' }, { min: 2 , max: 40, message: 'Длина должна быть от 2 до 40 символов', trigger: 'blur' }]">
-								<el-input type="textarea" autosize v-model="option.description"></el-input>
-							</el-form-item>
-						</div>
-						<div class="delete-option" v-if="pollForm.options.length > 2 && option_id > 1 "
-							 @click="deleteOption(option_id)">
-							<div class="icon-picture flex">
-								<icon-base
-									fill="none"
-									width="12"
-									height="2"
-									viewBox="0 0 12 2"
-									icon-name="picture">
-									<icon-minus/>
-								</icon-base>
-							</div>
-						</div>
-					</div>
-
-					<div class="option-picture" v-if="optionPicture">
-
-						<el-upload
-							class="option-picture-uploader"
-							:show-file-list="false"
-							:on-change="(file)=>{optionImagePreview(option_id, file)}">
-							<img v-if="option.optionImageUrl" :src="option.optionImageUrl" class="picture">
-						</el-upload>
-					</div>
-				</div>
-				<el-form-item class="more-item" :label="lstr('more')">
-					<div class="more-btn br-12 grey" @click="addOption">
-						<icon-base
-							fill="none"
-							width="12"
-							height="12"
-							viewBox="0 0 12 12"
-							icon-name="picture">
-							<icon-plus/>
-						</icon-base>
-					</div>
-				</el-form-item>
-			</div>
-			<el-button class="save-button" :loading="loading" @click="submitForm('pollForm')">
-
-				<lang-string :title="'publish'"/>
-
-			</el-button>
-		</el-form>
-
+		<switch-component
+				:height="21"
+				:width="34"
+				:bor-rad="18"
+				color="#B7B9BE"
+				active-color="#81B6CB"
+				:boolean="boolean"
+				@change="onSelect"
+				active-description="OFF-CHAIN"
+				inactive-description="BLOCKCHAIN"
+				text-layout="right"/>
 	</div>
 </template>
 
 <script>
-	import IconBase from './icons/IconBase'
-	import IconDaw from './icons/IconDaw'
-	import IconPicture from './icons/IconPicture'
-	import IconImage from './icons/IconImage'
-	import IconMinus from './icons/IconMinus'
-	import IconPlus from './icons/IconPlusOptions'
-	import IconRequired from './icons/IconRequired'
-	import langString from './langString.vue'
-	import {localString} from './../utils/localString'
-	import moment from 'moment'
-	import CatalogDropdown from './CatalogFeed/catalogDropdown';
-	import axios from 'axios'
-	import {mapState} from 'vuex'
-	import BadWordsFilter from "./mixins/BadWordsFilter";
+
+	import SwitchComponent from "./reusableСomponents/switchComponent";
 
 
 	export default {
@@ -159,6 +25,7 @@
 		mixins: [BadWordsFilter],
 		data() {
 			return {
+				boolean:true,
 				loading: false,
 				mainPicture: false,
 				optionPicture: false,
@@ -217,7 +84,9 @@
 		},
 
 		methods: {
-
+			onSelect(boolean) {
+				this.boolean = boolean
+			},
 			imagePreview(res, file) {
 
 				this.imageUrl = URL.createObjectURL(file[0].raw);
@@ -384,6 +253,7 @@
 		},
 
 		components: {
+			SwitchComponent,
 			CatalogDropdown,
 			IconBase,
 			IconDaw,

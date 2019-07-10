@@ -1,6 +1,5 @@
 <template>
     <div class="wrapper-box">
-		<loading-spinner></loading-spinner>
 
 		<option-reusable :percentage="55" :bows="bows" correct :picture="picture" :id="123" @selectOption="selectOption">
 			<template>
@@ -52,6 +51,7 @@
 
 		<hr>
 
+
 		<div class="test-wrapper">
 <!--			<explanation-reusable :explain="explain" :comments="comments"></explanation-reusable>-->
 
@@ -63,7 +63,8 @@
 		</div>
 
 		<short-poll-reusable type-of-layout="column" :poll="polls[1727]"></short-poll-reusable>
-
+		<switch-component :height="21" :width="34"  :bor-rad="18" color="#B7B9BE"/>
+		<el-date-picker></el-date-picker>
 	</div>
 </template>
 
@@ -82,6 +83,7 @@
 	import loadingSpinner from "./reusableСomponents/loadingSpinner";
 	import PopoverReusable from "./reusableСomponents/PopoverReusable";
 	import CircleProgressBarReusable from "./reusableСomponents/CircleProgressBarReusable";
+	import SwitchComponent from "./reusableСomponents/switchComponent";
 
 
 
@@ -89,6 +91,7 @@
 	export default {
         name: "testPlayground",
 		components: {
+			SwitchComponent,
 			CircleProgressBarReusable,
 			PopoverReusable,
 			ShortPollReusable,
