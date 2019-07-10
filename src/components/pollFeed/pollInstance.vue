@@ -32,7 +32,7 @@
         </options-section>
 		<span v-show="!options_visible && combinedOptions.length > 5" class="options-load-btn pointer mt-9" @click="options_visible = true">Показать больше опций</span>
 
-		<div class="counter-badges flex ml-60 mt-12">
+		<div class="counter-badges flex pl-60 mt-12">
 
 			<div class="explains-block flex-align-center mr-9">
 				<icon-base
@@ -286,7 +286,7 @@
 		flex-direction: column;
 		border-bottom: 1px solid #BCBEC3;
 		.option-reusable, #headline-body, .poll-header {
-			padding-left: 10%;
+			/*padding-left: 10%;*/
 		}
 		hr {
 			margin: 0;
