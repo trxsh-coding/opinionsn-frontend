@@ -1,15 +1,15 @@
 import  {
-UPDATE_FIELD,
-UPLOAD_FILE,
-UPDATE_ARRAY_FIELD
+    UPDATE_FIELD,
+    UPLOAD_FILE,
+    UPDATE_ARRAY_FIELD,
+    CLEAR_STATE
 } from "../types/mutation-types";
 import  {
     SUBMIT_FORM
 } from "../types/action-types";
 
-export const creationManagement = {
-    namespaced:true,
-    state: {
+const initialState = () => {
+    return {
         imageUrl: '',
         picture:'',
         pictures:[],
@@ -39,9 +39,36 @@ export const creationManagement = {
                 },
             ]
         },
+        edit_form: {
+            name: '',
+            username: '',
+            status: '',
+            location: '',
+            site: '',
+            gender: '',
+            email: '',
+            phone_number: '',
+            pictures: [
+                {
+                    url: '',
+                    id: '',
+                    picture: '',
+                    description: ''
+                },
+                {
+                    url: '',
+                    id: '',
+                    picture: '',
+                    description: ''
+                }
+            ]
+        }
+    };
+}
 
-
-    },
+export const creationManagement = {
+    namespaced:true,
+    state: initialState,
     mutations: {
 
 
@@ -55,16 +82,25 @@ export const creationManagement = {
             let arrayName = payload.arrayName;
             let index = payload.index;
             let keyName = payload.keyName;
+            let form = payload.form;
             //
-            state.form[arrayName][index][keyName] = value
+            state[form][arrayName][index][keyName] = value
 
         },
 
         [UPDATE_FIELD](state, payload){
-            let value = payload.value
-            let keyName = payload.keyName
-            state.form[keyName] = value
+            let value = payload.value;
+            let keyName = payload.keyName;
+            let form = payload.form;
+            state[form][keyName] = value
         },
+
+        [CLEAR_STATE](state) {
+            const initialState = initialState();
+            Object.keys(initialState).forEach(key => {
+                state[key] = initialState[key]
+            });
+        }
 
 
 

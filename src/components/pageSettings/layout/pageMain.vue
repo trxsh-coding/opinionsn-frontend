@@ -9,16 +9,16 @@
                     @click="setParameter(1)">
                 <lang-string :title="'private_settings'"/>
             </li>
-            <li
-                    class="btn btn-2 pb-2 ml-18 pointer"
-                    :class="{ active: parameter === 2 }"
-                    @click="setParameter(2)">
-                <lang-string :title="'feed_settings'"/>
-            </li>
+<!--            <li-->
+<!--                    class="btn btn-2 pb-2 ml-18 pointer"-->
+<!--                    :class="{ active: parameter === 2 }"-->
+<!--                    @click="setParameter(2)">-->
+<!--                <lang-string :title="'feed_settings'"/>-->
+<!--            </li>-->
         </ul>
 
         <user-settings class="mt-21" v-if="parameter === 1" />
-        <feed-settings class="mt-21" v-if="parameter === 2" />
+<!--        <feed-settings class="mt-21" v-if="parameter === 2" />-->
 
     </div>
 
@@ -38,17 +38,7 @@
         },
         data() {
             return {
-                parameter: 1,
-                child_data: {
-                    name: '',
-                    username: '',
-                    status: '',
-                    location: '',
-                    site: '',
-                    gender: '',
-                    email: '',
-                    phone: ''
-                }
+                parameter: 1
             }
         },
         methods: {

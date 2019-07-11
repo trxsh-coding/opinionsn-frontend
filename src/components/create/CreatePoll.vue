@@ -63,7 +63,7 @@
             <upload-reusable
                     class="mt-12"
                     :value="option.picture"
-                    @upload="file => {updateArrayField(file, 'options', 'picture', index)}">
+                    @upload="({file, url}) => {updateArrayField(file, 'options', 'picture', index)}">
                 <template #icon>
                     {{index}}
                     <icon-base
@@ -118,7 +118,7 @@
 
             updateField(value, keyName){
 
-                this.$store.commit('creationManagement/UPDATE_FIELD', {value, keyName})
+                this.$store.commit('creationManagement/UPDATE_FIELD', {value, keyName, form: 'form' })
 
             },
             check(file){
@@ -128,7 +128,7 @@
             updateArrayField(value, arrayName, keyName, index){
 
 
-                this.$store.commit('creationManagement/UPDATE_ARRAY_FIELD', {value, arrayName, keyName, index })
+                this.$store.commit('creationManagement/UPDATE_ARRAY_FIELD', {value, arrayName, keyName, index, form: 'form' })
 
             },
             chooseTypeOfPoll(payload){

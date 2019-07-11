@@ -5,56 +5,80 @@
             <span class="caption">
                <lang-string  :title="'name'" />
             </span>
-            <input v-model="name" type="text">
+            <input
+                    :value="form.name"
+                    @change="updateField(arguments[0], 'name')"
+                    type="text">
         </label>
 
         <label class="label label-2 mt-12">
             <span class="caption">
                <lang-string  :title="'username'" />
             </span>
-            <input v-model="username" type="text">
+            <input
+                    :value="form.username"
+                    @change="updateField(arguments[0], 'username')"
+                    type="text">
         </label>
 
         <label class="label label-3 mt-12">
             <span class="caption">
                <lang-string  :title="'status'" />
             </span>
-            <input v-model="status" type="text">
+            <input
+                    :value="form.status"
+                    @change="updateField(arguments[0], 'status')"
+                    type="text">
         </label>
 
         <label class="label label-4 mt-12">
             <span class="caption">
                <lang-string :title="'location'" />
             </span>
-            <input v-model="location" type="text">
+            <input
+                    :value="form.location"
+                    @change="updateField(arguments[0], 'location')"
+                    type="text">
         </label>
 
         <label class="label label-5 mt-12">
             <span class="caption">
                <lang-string :title="'site'" />
             </span>
-            <input v-model="site" type="text">
+            <input
+                    :value="form.site"
+                    @change="updateField(arguments[0], 'site')"
+                    type="text">
         </label>
 
         <label class="label label-6 mt-12">
             <span class="caption">
                <lang-string :title="'gender'" />
             </span>
-            <input v-model="gender" type="text">
+            <input
+                    :value="form.gender"
+                    @change="updateField(arguments[0], 'gender')"
+                    type="text">
         </label>
 
         <label class="label label-7 mt-12">
             <span class="caption">
                <lang-string :title="'email'" />
             </span>
-            <input v-model="email" type="text">
+            <input
+                    :value="form.email"
+                    @change="updateField(arguments[0], 'email')"
+                    type="text">
         </label>
 
         <label class="label label-8 mt-12">
             <span class="caption">
                <lang-string :title="'phone'" />
             </span>
-            <input v-model="phone" type="text">
+            <input
+                    :value="form.phone"
+                    @change="updateField(arguments[0], 'phone')"
+                    type="text">
         </label>
 
     </div>
@@ -62,23 +86,30 @@
 
 <script>
     import langString from "../langString";
+    import {mapState} from "vuex";
 
     export default {
         name: "userSettings",
         components: {
             langString
         },
-        data() {
-            return {
-                name: '',
-                username: '',
-                status: '',
-                location: '',
-                site: '',
-                gender: '',
-                email: '',
-                phone: ''
-            }
+        computed: {
+            
+            ...mapState('creationManagement', {
+
+                form: s => s.edit_form,
+
+            }),
+            
+            
+        },
+        methods: {
+            updateArrayField(value, arrayName, keyName, index){
+
+
+                this.$store.commit('creationManagement/UPDATE_ARRAY_FIELD', {value, arrayName, keyName, index, form: 'edit_form' })
+
+            },
         },
     }
 </script>

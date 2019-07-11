@@ -8,7 +8,7 @@
                         viewBox="0 0 24 25"
                         icon-name="icon-main"><icon-main/>
                 </icon-base>
-                <lang-string :title="'pageMain.vue'"/>
+                <lang-string :title="'main'"/>
 
             </li>
             <li class="footer-icon" @click="routerPush('voteFeed')" :class="{active : routeName === 'voteFeed'}" >

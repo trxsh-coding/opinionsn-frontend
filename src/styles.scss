@@ -542,6 +542,25 @@ li {
 	height: min-content;
 }
 
+// TOP, LEFT, BOTTOM, RIGHT
+
+@for $i from 0 through 10 {
+	.t-#{$i} {
+		top: $i + px !important;
+	}
+	.l-#{$i} {
+		left: $i + px !important;
+	}
+	.b-#{$i} {
+		bottom: $i + px !important;
+	}
+	.r-#{$i} {
+		right: $i + px !important;
+	}
+}
+
+/////////////////
+
 ///////////////// BORDERS
 
 @for $i from 0 through 50 {

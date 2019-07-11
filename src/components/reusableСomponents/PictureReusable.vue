@@ -1,12 +1,13 @@
 <template>
     <div class="picture-reusable" :style="wrapperStyle" @click="profilePush">
 		<div class="picture-wrapper" :class="picClass" :style="pictureWrapperStyle">
-			<div class="picture" :style="pictureStyle">
+			<div class="picture relative v-center" :style="pictureStyle">
 				<div v-if="counter" class="counter">
 					<span>
 						+{{handledCounter}}
 					</span>
 				</div>
+				<slot name="innerPicture"></slot>
 			</div>
 		</div>
 
@@ -128,6 +129,7 @@
 				width = handlePrecentValue(width);
 				height = handlePrecentValue(height);
 				size = handlePrecentValue(size);
+				img = img ? img : '';
 				if (rounded) borRad = "50%";
 
 
