@@ -2,7 +2,9 @@ import  {
     UPDATE_FIELD,
     UPLOAD_FILE,
     UPDATE_ARRAY_FIELD,
-    CLEAR_STATE
+    CLEAR_STATE,
+    ADD_OPTION,
+    INSERT_PICTURES
 } from "../types/mutation-types";
 import  {
     SUBMIT_FORM
@@ -10,6 +12,7 @@ import  {
 
 const initialState = () => {
     return {
+        withPicture:false,
         imageUrl: '',
         picture:'',
         pictures:[],
@@ -100,9 +103,20 @@ export const creationManagement = {
             Object.keys(initialState).forEach(key => {
                 state[key] = initialState[key]
             });
+        },
+
+        [ADD_OPTION](state){
+
+            state.options.push({id:'', picture:'', description:''})
+
+        },
+
+        [INSERT_PICTURES](state, payload){
+            console.log(payload)
+            console.log(state)
+            state.withPicture = payload;
+
         }
-
-
 
     },
 

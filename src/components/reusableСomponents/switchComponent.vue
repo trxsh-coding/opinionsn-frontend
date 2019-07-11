@@ -18,6 +18,9 @@
 <script>
     export default {
         name: "switchComponent",
+        model: {
+            event: 'change',
+        },
         props: {
             width: {
                 type:Number,
@@ -35,7 +38,10 @@
                 type: String
             },
             boolean: {
-                type: Boolean
+                type: Boolean,
+                default: function() {
+                    return undefined;
+                }
             },
             activeDescription: {
                 type: String
@@ -49,6 +55,11 @@
                 }
             },
 
+        },
+        data() {
+            return {
+                is_active: false
+            }
         },
         computed: {
 
@@ -79,7 +90,9 @@
 
             },
             wrapperStyle() {
-                let {borRad, height, width, color, activeColor, boolean} = this;
+                let {borRad, height, width, color, activeColor, is_active, boolean} = this;
+
+                boolean = (boolean !== undefined) ? boolean : is_active;
 
                 return {
                     width: `${width}px`,
@@ -91,8 +104,10 @@
             },
 
             circleStyle(){
-                let {borRad, height, width, color, boolean } = this;
-                let position = boolean ?{transform: 'translate(55%)'}   : {transform: 'translate(0)'};
+                let {borRad, height, width, color, boolean, is_active } = this;
+                boolean = (boolean !== undefined) ? boolean : is_active;
+
+                let position = boolean ? {transform: 'translate(55%)'}   : {transform: 'translate(0)'};
 
                 return {
                     width: `${width/2}px`,
@@ -102,12 +117,18 @@
                     ...position
 
                 };
-            }
+            },
+
         },
         methods: {
             change(){
-                this.boolean = !this.boolean
-                this.$emit('change', this.boolean)
+                // this.boolean = !this.boolean
+                let { boolean } = this;
+
+                this.is_active = !this.is_active;
+                boolean = (boolean !== undefined) ? boolean : this.is_active;
+
+                this.$emit('select', boolean)
             }
         }
     }

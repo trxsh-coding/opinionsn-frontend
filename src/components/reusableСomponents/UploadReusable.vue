@@ -1,13 +1,16 @@
 <template>
     <div class="upload-block v-center relative" :style="blockStyle">
-        <label>
+        <label class="v-center" :style="wrapperStyle">
             <slot name="icon">
 
             </slot>
             <input type="file" @change="handlePicturePreview(arguments[0].target.files)">
-            <!--<img :src="imgUrl" alt="" width="100px" height="100px">-->
-        </label>
 
+            <div class="image-preview mt-15"
+                 v-if="imagePreview"
+                 :style="{ 'background-image': 'url(' + imgUrl + ')' }" >
+            </div>
+        </label>
 
     </div>
 </template>
@@ -24,6 +27,14 @@
             },
             height: {
                 type: [String, Number]
+            },
+            imagePreview: {
+              type: Boolean
+            },
+            imageLayout: {
+                validator: function (value) {
+                    return ['top', 'right', 'left', 'bottom'].indexOf(value) !== -1
+                }
             }
         },
         data() {
@@ -51,6 +62,30 @@
             },
         },
         computed: {
+            wrapperStyle() {
+                let { imageLayout } = this;
+
+                switch (imageLayout) {
+                    case 'top':
+                        return {
+                            flexDirection: 'column-reverse',
+                        };
+                    case 'bottom':
+                        return {
+                            flexDirection: 'column',
+                        };
+                    case 'left':
+                        return {
+                            flexDirection: 'row-reverse',
+                        };
+                    case 'right':
+                        return {
+                            flexDirection: 'row',
+                        };
+                    default:
+                        return '';
+                }
+            },
             blockStyle() {
                 let { width, height, handleCssValue } = this;
                 width = width ? {width: handleCssValue(width)} : {};
@@ -73,8 +108,16 @@
             top: 0;
         }
 
-        img {
+
+
+        .image-preview {
+            width: 120px;
+            height: 120px;
             background-size: cover;
+            background-color: rgba(21, 41, 58, 0.1);
+            border-radius: 6px;
+            background-position: center;
         }
+
     }
 </style>
