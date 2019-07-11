@@ -1,10 +1,10 @@
 <template>
     <div class="upload-block relative" >
-        <label for="input">
+        <label>
             <slot name="icon">
 
             </slot>
-            <input type="file" id="input" @change="handlePicturePreview(arguments[0].target.files)">
+            <input type="file" @change="handlePicturePreview(arguments[0].target.files)">
             <!--<img :src="imgUrl" alt="" width="100px" height="100px">-->
         </label>
 
@@ -26,7 +26,7 @@
         methods: {
 
             handlePicturePreview(file){
-                this.$emit('change', file[0]);
+                this.$emit('upload', file[0]);
                 // this.imgUrl = URL.createObjectURL(file[0])
             }
         }

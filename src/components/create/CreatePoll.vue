@@ -53,7 +53,7 @@
                         class="mt-12"
                         :input-placeholder="'tags'"/>
         <div class="border-b mt-18"></div>
-        <div class="options-block" v-for="(option, index) in form.options "  :key="index">
+        <div class="options-block" v-for="(option, index) in form.options" :key="index">
             {{option.picture}}
             <input-reusable
                     :value="option.description"
@@ -63,7 +63,7 @@
             <upload-reusable
                     class="mt-12"
                     :value="option.picture"
-                    @change="(file)=> {check(index, file)}">
+                    @upload="file => {updateArrayField(file, 'options', 'picture', index)}">
                 <template #icon>
                     {{index}}
                     <icon-base
@@ -121,8 +121,7 @@
                 this.$store.commit('creationManagement/UPDATE_FIELD', {value, keyName})
 
             },
-            check(check, file){
-                console.log(check);
+            check(file){
                 console.log(file);
 
             },

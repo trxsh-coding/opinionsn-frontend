@@ -34,8 +34,7 @@
 				}
 			},
         	img: {
-				type: String,
-				required: true
+				type: String
 			},
         	size: {
         		type: [Number, String]
@@ -167,6 +166,7 @@
 				background-repeat: no-repeat;
 				background-size: cover;
 				background-position: center;
+				background-color: #ADAFB3;
 				.counter {
 					width: 21px;
 					height: 21px;

@@ -28,7 +28,7 @@
                     <lang-string
                             :class="{active : routeName === 'pollFeed'}"
 
-                            :title="'main'" />
+                            :title="'pageMain.vue'" />
                 </li>
                 <li class="links pointer" @click="routerPush('voteFeed')">
                     <icon-base

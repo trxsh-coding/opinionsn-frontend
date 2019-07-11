@@ -16,7 +16,9 @@
 
 		<hr>
 
-		<dropdown-list-reusable @handleDropdownList="handleDropdownList">
+		<dropdown-list-reusable
+				@handleDropdownList="handleDropdownList"
+				width="100">
 
 			<template>
 				Кино
@@ -182,6 +184,10 @@
 
 			margin-left: 50%;
 			transform: translateX(-50%);
+		}
+
+		.dropdown-list-reusable {
+			left: 100px;
 		}
 
 	}

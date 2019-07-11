@@ -27,12 +27,14 @@ import { nprogress } from '../main.js';
 import notificationPage from '../components/notifications/notificationPage';
 import PollTable from '../components/Admin/PollTable';
 import testPlayground from "../components/testPlayground";
+import Settings from "../components/pageSettings/index.vue";
+
 
 Vue.use(Router);
 
 export const index = new Router({
-	base: `/`,
-	mode: `history`,
+	base: '/',
+	mode: 'history',
 	scrollBehavior(to, from, savedPosition) {
 		if (savedPosition) {
 			return savedPosition
@@ -43,77 +45,77 @@ export const index = new Router({
 	routes: [
 
 		{
-			path: `/login`,
+			path: '/login',
 			component: AuthPanel,
-			name: `login`,
+			name: 'login',
 		},
 		{
-			path: `/registration`,
-			name: `registration`,
-			component: AuthPanel,
-		},
-		{
-			path: `/sign`,
-			name: `sign`,
+			path: '/registration',
+			name: 'registration',
 			component: AuthPanel,
 		},
 		{
-			path: `/restore`,
-			name: `restore`,
+			path: '/sign',
+			name: 'sign',
 			component: AuthPanel,
 		},
 		{
-			path: `/token`,
-			name: `token`,
+			path: '/restore',
+			name: 'restore',
+			component: AuthPanel,
+		},
+		{
+			path: '/token',
+			name: 'token',
 			component: AuthPanel,
 			children: [
 				{
-					path: `password`,
-					name: `password`,
+					path: 'password',
+					name: 'password',
 					component: Password
 				},
 			]
 		},
 		{
-			path: `/admin`,
-			name: `admin`,
+			path: '/admin',
+			name: 'admin',
 			component: Admin,
 			children: [
 				{
-					path: `catalog`,
-					name: `catalog`,
+					path: 'catalog',
+					name: 'catalog',
 					component: Catalog
 				},
 				{
-					path: `add_translations`,
-					name: `addTranslations`,
+					path: 'add_translations',
+					name: 'addTranslations',
 					component: addTranslations
 				},
 				{
-					path: `polls/:poll_type`,
-					name: `polls`,
+					path: 'polls/:poll_type',
+					name: 'polls',
 					component: PollTable,
 					props: true
 				},
 				{
-					path: `test_playground`,
-					name: `testPlayground`,
+					path: 'test_playground',
+					name: 'testPlayground',
 					component: testPlayground
 				},
 			]
 		},
 		{
-			path: `/`,
-			name: `opinion`,
+			path: '/',
+			name: 'opinion',
 			component: Main,
 			redirect:
 			{
-				name: `pollFeed`
+				name: 'pollFeed'
 			},
 			children: [
 				{
-					path: `user/:id`,
-					name: `user`,
+					path: 'user/:id',
+					name: 'user',
 					component: user,
 					props: true
 				},
@@ -127,51 +129,54 @@ export const index = new Router({
 					name: `createPrediction`,
 					component: createPrediction,
 				},
-
-
 				{
-					path: `voteFeed`,
-					name: `voteFeed`,
+					path: 'settings',
+					name: 'settings',
+					component: Settings,
+				},
+				{
+					path: 'voteFeed',
+					name: 'voteFeed',
 					component: VoteFeed,
 				},
 				{
-					path: `feedBack`,
-					name: `feedBack`,
+					path: 'feedBack',
+					name: 'feedBack',
 					component: feedBack,
 				},
 				{
-					path: `notifications`,
-					name: `notifications`,
+					path: 'notifications',
+					name: 'notifications',
 					component: notificationPage,
 				},
 				{
-					path: `search`,
-					name: `search`,
+					path: 'search',
+					name: 'search',
 					component: search,
 				},
 				{
-					path: `menu`,
-					name: `menu`,
+					path: 'menu',
+					name: 'menu',
 					component: sidebar,
 				},
 				{
-					path: `follows`,
-					name: `follows`,
+					path: 'follows',
+					name: 'follows',
 					component: follows,
 					redirect:
 					{
-						name: `followers`
+						name: 'followers'
 					},
 					children: [
 						{
-							path: `followings/:id`,
-							name: `followings`,
+							path: 'followings/:id',
+							name: 'followings',
 							component: followings,
 							props: { isFollowing: true }
 						},
 						{
-							path: `followers/:id`,
-							name: `followers`,
+							path: 'followers/:id',
+							name: 'followers',
 							component: followers,
 							props: { isFollowing: false }
 						},
@@ -179,30 +184,30 @@ export const index = new Router({
 					]
 				},
 				{
-					path: `pollFeed`,
-					name: `pollFeed`,
+					path: 'pollFeed',
+					name: 'pollFeed',
 					component: PollFeed,
 					props: { feed: true }
 
 				},
 				{
-					path: `catalogList`,
-					name: `catalogList`,
+					path: 'catalogList',
+					name: 'catalogList',
 					component: CatalogList,
 				},
 				{
-					path: `bookmarkFeed`,
-					name: `bookmarkFeed`,
+					path: 'bookmarkFeed',
+					name: 'bookmarkFeed',
 					component: bookmarkFeed,
 				},
 				{
-					path: `catalogFeed/:id`,
-					name: `catalogFeed`,
+					path: 'catalogFeed/:id',
+					name: 'catalogFeed',
 					component: CatalogFeed,
 				},
 				{
-					path: `singlePoll/:id`,
-					name: `singlePoll`,
+					path: 'singlePoll/:id',
+					name: 'singlePoll',
 					component: Poll,
 					props: { feed: false }
 				},

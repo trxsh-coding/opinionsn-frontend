@@ -1,5 +1,5 @@
 <template>
-    <div class="dropdown-list-reusable">
+    <div class="dropdown-list-reusable" ref="dropdownRef">
 
 		<button class="toggle-btn" @click="show = !show">
 			<slot></slot>
@@ -8,7 +8,7 @@
 			</span>
 		</button>
 
-		<ul class="dropdown-list" :style="listVisibility">
+		<ul class="dropdown-list flex-column flex-align-center" :style="{...listVisibility, ...listWidth}">
 			<slot name="items"></slot>
 		</ul>
 	</div>
@@ -18,6 +18,11 @@
 
 	export default {
         name: "DropdownListReusable",
+		props: {
+        	width: {
+        		type: [String, Number]
+			}
+		},
 		data() {
 			return {
 				show: false
@@ -26,7 +31,8 @@
 		watch: {
         	show() {
 				this.handleDropdownList();
-			}
+			},
+
 		},
 		computed: {
 			listVisibility() {
@@ -34,21 +40,52 @@
 			},
 			iconStyle() {
 				return this.show ? {transform: "rotateX(180deg)", top: '2px'} : {};
+			},
+			listWidth() {
+				let { width, handleCssValue } = this;
+				if (!width) return {};
+
+				width = handleCssValue(width);
+				return { width };
 			}
 		},
 		methods: {
 			handleDropdownList() {
 				this.$emit('handleDropdownList', this.show);
+			},
+			handleCssValue(value) {
+
+				switch (true) {
+					case `${value}`.slice(-1) === '%':
+						return value;
+					case !isNaN(value):
+						return value + 'px';
+					default:
+						return value;
+				}
+
+			},
+			test({target}) {
+				let { dropdownRef } = this.$refs;
+				if (!dropdownRef.contains(target)) this.show = false;
 			}
 		},
-    }
+		mounted() {
+        	let { test } = this;
+			document.body.addEventListener('click', test, false);
+		},
+		beforeDestroy() {
+			let { test } = this;
+			document.body.removeEventListener('click', test, false);
+		}
+	}
 </script>
 
 <style lang="scss" scoped>
 
 	.dropdown-list-reusable {
 		position: relative;
-		width: fit-content;
+		display: inline-block;
 
 		.toggle-btn {
 			display: flex;
