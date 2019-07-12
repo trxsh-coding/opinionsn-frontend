@@ -90,7 +90,6 @@
         display: grid;
         grid-auto-rows: 90px;
         grid-template-columns: repeat(auto-fit, 141px);
-        grid-gap: 12px;
         justify-content: center;
 
         @media only screen and (max-width: 374px) {
@@ -118,7 +117,7 @@
                 .picture {
                     filter: brightness(40);
                 }
-                
+
                 .title {
                     color: #fff;
                 }

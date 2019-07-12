@@ -8,9 +8,10 @@
 			</span>
 		</button>
 
-		<ul class="dropdown-list flex-column flex-align-center" :style="{...listVisibility, ...listWidth}">
+		<div class="dropdown-list flex-column flex-align-center" :style="{...listVisibility, ...listWidth}">
+
 			<slot name="items"></slot>
-		</ul>
+		</div>
 	</div>
 </template>
 

@@ -38,10 +38,16 @@ export default {
         },
 
         author: function () {
+            let {vote, users, poll} = this;
 
-            let {vote, users} = this;
+            if(this.routeName === 'user') {
+                return users[this.$route.params.id];
 
-            return users[vote.author_id];
+            } else {
+                return users[vote.author_id];
+
+            }
+
         },
 
         combinedOptions: function(){

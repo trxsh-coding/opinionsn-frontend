@@ -1,8 +1,7 @@
 <template>
-    <div class="user-page-header">
+    <div class="user-page-header" :class="{'pl-60': !mobile}">
 
-		<ul class="btns-panel btns-panel-1 pl-21 pt-10" v-if="user.id === mainUser.id">
-
+		<ul class="btns-panel btns-panel-1 pl-21 pt-10" v-if="(user.id === mainUser.id) && mobile">
 			<router-link
 					tag="li"
 					class="btn btn-1 pointer"
@@ -35,7 +34,7 @@
 			</li>
 		</ul>
 
-		<ul class="btns-panel btns-panel-2 pl-21 pt-10" v-else>
+		<ul class="btns-panel btns-panel-2 pl-21 pt-10" v-if="(user.id != mainUser.id) && mobile">
 			<li class="btn btn-1 pointer" @click="$router.go(-1)">
 				<icon-base
 					class="arrow-icon"
@@ -135,7 +134,8 @@
 		data() {
 			return {
 				publicPath: process.env.VUE_APP_MAIN_API,
-				balance_popover: false
+				balance_popover: false,
+				mobile: this.$root.mobile
 			}
 		},
 		methods: {

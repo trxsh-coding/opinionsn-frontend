@@ -4,10 +4,10 @@
 
 			<bookmark class="bookmark-btn pointer" :poll="poll"></bookmark>
 
-			<div v-if="rowLayout" class="img-wrapper pointer" @click="pollLink(pollData.id)">
+			<div v-if="rowLayout" class="img-wrapper pointer" @click="pollLink(poll.id)">
 
 				<picture-reusable
-					:img="pollData.picture"
+					:img="publicPath + poll.picture"
 					:size=" mobile ? 66 : 90"
 					bor-rad="6"
 					without-text
@@ -18,17 +18,17 @@
 			<div class="text flex-column">
 
 				<span class="poll-timestamp mb-3" v-if="mobile">
-					<time-trans :time="pollData.date" />
+					<time-trans :time="poll.date" />
 				</span>
 
-				<span class="poll-name pointer mb-3" @click="pollLink(pollData.id)">{{pollData.name}}</span>
+				<span class="poll-name pointer mb-3" @click="pollLink(poll.id)">{{poll.subject}}</span>
 
-				<span v-if="withDesc && rowLayout" class="poll-desc mb-3 pointer"  @click="pollLink(pollData.id)">{{pollData.description}}</span>
+				<span v-if="withDesc && rowLayout" class="poll-desc mb-3 pointer"  @click="pollLink(poll.id)">{{poll.description}}</span>
 
-				<div v-else-if="!rowLayout" class="main-img-wrapper pointer mb-3" @click="pollLink(pollData.id)">
+				<div v-else-if="!rowLayout" class="main-img-wrapper pointer mb-3" @click="pollLink(poll.id)">
 
 					<picture-reusable
-						:img="pollData.picture"
+						:img="publicPath + pollAuthor.path_to_avatar"
 						width="100%"
 						:height="90"
 						bor-rad="6"
@@ -38,17 +38,17 @@
 				</div>
 
 				<div class="poll-info-bar flex-between mt-auto">
-					<span @click="userLink(pollData.author_id)">
+					<span @click="userLink(poll.author_id)">
 						<picture-reusable
 							class="user-block pointer"
 							pic-class="mr-5"
-							:img="pollData.author_avatar"
+							:img="publicPath + pollAuthor.path_to_avatar"
 							:size="15"
 							rounded
 							text-layout="right"
 						>
 							<template #title>
-								{{pollData.author_username}}
+								{{pollAuthor.username}}
 							</template>
 						</picture-reusable>
 					</span>
@@ -150,6 +150,11 @@
 				return this.typeOfLayout === 'row';
 			},
 
+			pollAuthor(){
+
+				return this.users[this.poll.author_id];
+
+			},
 
 			pollWrapperStyle() {
 				let { width } = this;
@@ -161,44 +166,10 @@
 				}
 			},
 
-			pollData() {
+			test() {
+				return this.store_polls[this.vote.poll_id];
+			},
 
-				let { poll, users, publicPath, vote } = this;
-
-				let {
-					id,
-					author_id,
-					picture,
-					subject,
-					description,
-					date,
-					total_amount_of_comments,
-					total_amount_of_votes,
-					type_of_poll,
-					end_date,
-					fund
-				} = poll;
-
-				let author_avatar = publicPath + users[author_id].path_to_avatar;
-				let author_username = users[author_id].username;
-				picture = publicPath + picture;
-
-				return {
-					id,
-					author_id,
-					picture,
-					author_avatar,
-					author_username,
-					name: subject,
-					description,
-					date,
-					total_amount_of_comments,
-					total_amount_of_votes,
-					type_of_poll,
-					end_date,
-					fund
-				}
-			}
 		},
     }
 </script>

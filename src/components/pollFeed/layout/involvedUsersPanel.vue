@@ -12,9 +12,9 @@
 		<scroll-swiper-reusable class="mt-9" :stub-length="1">
 
 			<router-link v-for="(value, key) in users" :to="'/user/' + key">
-				<div
-					class="user-picture pointer picture-22x22 rounded"
-					:style="{ 'background-image': 'url(' + publicPath + imageUtil(value, 'S') + ')' }" ></div>
+				<bow-reusable :width="27" :height="27" :img="value" :id="key">
+
+				</bow-reusable>
 			</router-link>
 
 		</scroll-swiper-reusable>
@@ -26,6 +26,7 @@
 	import langString from '../../langString'
 	import imageMixin from '../../mixins/imageMixin'
 	import ScrollSwiperReusable from "../../reusableСomponents/ScrollSwiperReusable";
+	import BowReusable from "../../reusableСomponents/bowReusable";
     export default {
         name: "involvedUsersPanel",
 		mixins:[imageMixin],
@@ -46,7 +47,9 @@
 			}
 		},
 		props: ['users'],
+
 		components: {
+			BowReusable,
 			ScrollSwiperReusable,
 			langString
 		}
@@ -68,7 +71,21 @@
 			width: unset !important;
 			height: unset !important;
 		}
-
-
+		.user-picture {
+			width: 27px;
+			height: 27px;
+			background-repeat: no-repeat;
+			background-size: cover;
+		}
+		@media only screen
+		and (min-width: 300px)
+		and (max-width: 765px){
+		.user-picture {
+			width: 22px;
+			height: 22px;
+			background-repeat: no-repeat;
+			background-size: cover;
+			}
+		}
 	}
 </style>

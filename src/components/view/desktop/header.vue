@@ -21,14 +21,20 @@
                 <input type="text" placeholder="Поиск">
             </div>
             <div class="profile-annotation-block flex-align-center">
-                <icon-base
-                        fill="none"
-                        class="mr-22"
-                        width="22"
-                        height="22"
-                        viewBox="0 0 22 22"
-                        icon-name="notifications"><icon-notifications/>
-                </icon-base>
+
+                <dropdown-list-reusable width="376">
+                        <icon-base
+                                fill="none"
+                                class="mr-22"
+                                width="22"
+                                height="22"
+                                viewBox="0 0 22 22"
+                                icon-name="notifications"><icon-notifications/>
+                        </icon-base>
+                    <template #items>
+                        <notification-page />
+                    </template>
+                </dropdown-list-reusable>
                 <icon-base
                         fill="none"
                         class="mr-25"
@@ -37,7 +43,19 @@
                         viewBox="0 0 21 21"
                         icon-name="pocket"><icon-pocket/>
                 </icon-base>
-                <picture-reusable :img="publicPath + user.path_to_avatar" :size="27" bor-rad="50%" />
+                <picture-reusable @click="userLink(user.id)" :img="publicPath + user.path_to_avatar" :size="27" bor-rad="50%" />
+                <dropdown-list-reusable >
+                    <template #icon>
+                        <icon-base
+                                fill="none"
+                                class="mr-25"
+                                width="7"
+                                height="4"
+                                viewBox="0 0 7 4"
+                                icon-name="pocket"><icon-dropdown/>
+                        </icon-base>
+                    </template>
+                </dropdown-list-reusable>
             </div>
         </div>
     </div>
@@ -49,7 +67,10 @@
     import IconLogo from "../../icons/IconLogo";
     import IconNotifications from "../../icons/header/IconNotifications";
     import IconPocket from "../../icons/header/IconPocket";
+    import IconDropdown from "../../icons/header/IconDropdown";
     import PictureReusable from "../../reusableСomponents/PictureReusable";
+    import DropdownListReusable from "../../reusableСomponents/DropdownListReusable";
+    import NotificationPage from "../../notifications/notificationPage";
 
     export default {
         name: "desktop-header",
@@ -59,7 +80,28 @@
                 publicPath: process.env.VUE_APP_MAIN_API
             }
         },
-        components: {PictureReusable, IconBase, IconTextLogo, IconLogo, IconNotifications, IconPocket}
+        methods: {
+            routerPush(linkName){
+
+                this.$router.push({name:`${linkName}`})
+
+            },
+            userLink(userId){
+
+                this.$router.push({name:'user',params:{id:userId}})
+
+            },
+        },
+        components: {
+            NotificationPage,
+            DropdownListReusable,
+            PictureReusable,
+            IconBase,
+            IconTextLogo,
+            IconLogo,
+            IconNotifications,
+            IconPocket,
+            IconDropdown}
     }
 </script>
 

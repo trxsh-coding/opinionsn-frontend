@@ -69,6 +69,7 @@
 
 <style lang="scss">
 	.filter-component {
+
 		.active {
 
 			background-color: #4B97B4 !important;
@@ -119,8 +120,16 @@
 			background-position: center;
 			background-size: 30%;
 			margin-bottom: 6px;
+			margin-right: 18.5px;
 
 		}
 
+	}
+	@media only screen
+	and (min-width: 300px)
+	and (max-width: 765px){
+		.category-picture {
+			margin-right: 10px;
+		}
 	}
 </style>
