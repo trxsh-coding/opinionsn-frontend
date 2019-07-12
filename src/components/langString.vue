@@ -1,5 +1,5 @@
 <template lang="html">
-  <span class="lang-string">
+  <span class="lang-string" :style="spanStyle">
     {{lang[title] || transformedKey}}<slot name="text"></slot>
   </span>
 </template>
@@ -11,9 +11,6 @@ export default {
   data(){
     return {
     }
-  },
-  props: {
-    title: String
   },
   computed: {
     ...mapState('lang',{
@@ -39,7 +36,7 @@ export default {
 
   },
 
-  props:['registration', 'login', 'title']
+  props:['registration', 'login', 'title', 'spanStyle']
 }
 </script>
 
