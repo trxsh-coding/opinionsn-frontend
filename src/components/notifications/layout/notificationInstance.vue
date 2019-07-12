@@ -1,0 +1,141 @@
+<template>
+    <div class="notification-section">
+
+        <picture-reusable
+                pic-class="mr-9"
+                avatar
+                :id="author.id"
+                :img="publicPath + imageUtil(author.path_to_avatar, 'S')"
+                :size="36"
+                textLayout="right"
+                rounded>
+            <template #title>
+                <span class="author-name">
+                    {{author.username}}
+                </span>
+                <span class="event__item">
+                    <lang-string class="event-span lowercase" :title="eventCaption" />
+                    <span class="poll-name" v-if="notification.targetId"> "{{pollName}}"</span>
+                </span>
+                <time-trans class="date mt-4" :time="notification.date" />
+                <div class="notification-border">
+
+                </div>
+            </template>
+        </picture-reusable>
+    </div>
+</template>
+
+<script>
+    import {mapState} from 'vuex'
+    import PictureReusable from "../../reusableСomponents/PictureReusable";
+    import imageMixin from "../../mixins/imageMixin";
+    import langString from "../../langString"
+    import TimeTrans from "../../timeTrans";
+    export default {
+        name: "notificationInstance",
+        components: {TimeTrans, PictureReusable, langString},
+        props:['notification', 'index'],
+        mixins:[imageMixin],
+        data() {
+            return {
+                publicPath: process.env.VUE_APP_MAIN_API
+            }
+        },
+        computed: {
+            ...mapState('notificationStore', {
+
+                users: ({users}) => users,
+                polls: ({polls}) => polls
+
+            }),
+            author(){
+                let {users, notification} = this;
+
+                return users[notification.initiatorId]
+            },
+            pollName(){
+                let {polls, notification} = this;
+                if (!polls[notification.targetId]) return {};
+                return  polls[notification.targetId].subject;
+            },
+            eventCaption(){
+                let {notification} = this;
+
+                switch (notification.eventType) {
+                    case "NEW_POLL":
+                        return "created_new_poll";
+
+                    case "NEW_PREDICTION":
+                        return "created_new_prediction";
+
+                    case "EXPLAIN_CREATED":
+                        return "explained";
+
+                    case "NEW_COMMENT":
+                        return "сохраненное";
+
+                    case "SUBSCRIBE":
+                        return "каталог";
+
+                    case "UNSUBSCRIBE":
+                        return "каталог";
+
+                    case "catalogFeed":
+                        return "каталог";
+
+                    default:
+                        return null;
+                }
+            }
+        }
+    }
+</script>
+
+<style lang="scss">
+    .notification-section {
+        .author-name {
+            font-family: Roboto;
+            font-style: normal;
+            font-weight: 500;
+            font-size: 13px;
+            color: #1A1E22;
+        }
+        .event-span {
+            font-family: Roboto;
+            font-style: normal;
+            font-weight: normal;
+            font-size: 13px;
+            color: #76787A;
+        }
+        .picture-reusable {
+            align-items: end;
+            .text {
+                margin-right: 0;
+            }
+        }
+        .poll-name {
+
+            font-family: Roboto;
+            font-style: normal;
+            font-weight: 500;
+            font-size: 13px;
+            color: #1A1E22;
+
+
+        }
+        .date {
+            font-family: Roboto;
+            font-style: normal;
+            font-weight: normal;
+            font-size: 10px;
+            color: #ADAFB3;
+
+        }
+        .notification-border {
+            border-bottom: 1px solid #BCBEC3;
+            padding-left: 60px;
+
+        }
+    }
+</style>

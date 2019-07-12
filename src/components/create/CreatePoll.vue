@@ -4,29 +4,13 @@
             <h1 class="primary-header-annotation mr-36"><lang-string :title="'poll'"/> </h1>
             <h3 class="secondary-header-annotation"><lang-string :title="'prediction'"/> </h3>
         </div>
-            <div class="switch__item">
-                <switch-component
-                        :height="21"
-                        :width="34"
-                        :bor-rad="18"
-                        color="#B7B9BE"
-                        active-color="#81B6CB"
-                        :boolean="blockchainPrediction"
-                        @select="onSelect"
-                        active-description="OFF-CHAIN"
-                        inactive-description="BLOCKCHAIN"
-                        text-layout="right"
-                />
-            </div>
-        <div class="type-of-poll-block mt-16">
-            <lang-string :title="'choose_type_of_poll'" class="choice-span"/>
-            <button-reusable class="h-30 mb-6 mt-6" :bor-rad="30" :color="timeLimit ? '#4B97B4': '#B7B9BE'" description="time_limit" @click.native="chooseTypeOfPoll(true)" />
-            <button-reusable class="h-30 " :bor-rad="30" :color="timeLimit ?  '#B7B9BE' : '#4B97B4'" description="no_time_limit"   @click.native="chooseTypeOfPoll(false)"/>
-        </div>
-        <div class="category-block mt-12">
+        <category-select />
 
-            <catalog-dropdown v-model="category"></catalog-dropdown>
-        </div>
+        <input-reusable :value="form.tags"
+                        @change="updateField(arguments[0], 'tags')"
+                        class="mt-12 mb-12"
+                        :input-placeholder="'tags'"/>
+
         <input-reusable :value="form.subject_header"
                         @change="updateField(arguments[0], 'subject_header')"
                         class="mt-12"
@@ -35,34 +19,30 @@
                         @change="updateField(arguments[0], 'description')"
                         class="mt-12"
                         :input-placeholder="'description'"/>
-        <upload-reusable
-                class="mt-12"
-                image-layout="bottom"
-                width="fit-content"
-                :value="form.picture"
-                @change="updateField(arguments[0], 'picture')">
-            <template #icon>
-                <icon-base
-                        fill="none"
-                        width="20"
-                        height="17"
-                        viewBox="0 0 20 17"
-                        icon-name="add"><icon-upload-photo/>
-                </icon-base>
-            </template>
-        </upload-reusable>
+        <swiper :options="swiperOption">
+            <swiper-slide v-for="(item, index) in pictures" :key="index">
+                <upload-reusable
+                        image-preview
+                        class="mt-12"
+                        pre-width="100%"
+                        :pre-height="190"
+                        :value="item.picture"
+                        @upload="({file, url}) => {updateArrayField(file, url, 'pictures', 'picture', index)}">
 
-        <input-reusable :value="form.tags"
-                        @change="updateField(arguments[0], 'tags')"
-                        class="mt-12 mb-12"
-                        :input-placeholder="'tags'"/>
+                </upload-reusable>
+            </swiper-slide>
+            <div class="swiper-pagination" slot="pagination"></div>
+        </swiper>
+
+
+
 
         <!--<div class="border-b mt-18"></div>-->
         <switch-component
-                :height="21"
-                :width="34"
+                :height="11"
+                :width="20"
                 :bor-rad="18"
-                color="#B7B9BE"
+                color="#FFFFFF"
                 active-color="#81B6CB"
                 :value="enablePicture"
                 @select="insertPicture"
@@ -70,27 +50,27 @@
                 :inactive-description="lstr('without_picture')"
                 text-layout="right"
         />
+        <lang-string class="option-label" :title="'add_options'"/>
+
         <div class="options-block" v-for="(option, index) in form.options" :key="index">
             <input-reusable
                     :value="option.description"
-                    @change="updateArrayField(arguments[0], 'options', 'description', index)"
-                    class="mt-12"
-                    :input-placeholder="'add_option'"/>
+                    :height="60"
+                    @change="updateArrayField(arguments[0], null, 'options', 'description', index, 'form')"
+                    @blur.once="onBlurFunction(index)"
+                    class=" pl-14 mt-1"
+                    input-placeholder="answer_text"
+            />
             <upload-reusable
+                    :pre-height="60"
+                    :pre-width="60"
                     :image-preview="enablePicture"
                     image-layout="bottom"
                     width="fit-content"
-                    class="mt-12"
                     :value="option.picture"
-                    @upload="({file, url}) => {updateArrayField(file, url, 'options', 'picture', index)}">
+                    @upload="({file, url}) => {updateArrayField(file, url, 'options', 'picture', index, 'form')}">
                 <template #icon>
-                    <icon-base
-                            fill="none"
-                            width="20"
-                            height="17"
-                            viewBox="0 0 20 17"
-                            icon-name="add"><icon-upload-photo/>
-                    </icon-base>
+
                 </template>
             </upload-reusable>
         </div>
@@ -112,11 +92,17 @@
     import IconUploadPhoto from "../icons/create/IconUploadPhoto";
     import {mapState} from "vuex"
     import langMixin from "../mixins/langMixin";
+    import CategorySelect from "../reusableСomponents/categorySelect";
     export default {
         name: "CreatePoll",
         mixins:[langMixin],
         data(){
             return {
+                swiperOption: {
+                    pagination: {
+                        el: '.swiper-pagination'
+                    }
+                },
                 blockchainPrediction: false,
                 timeLimit:false,
                 category:null,
@@ -131,11 +117,16 @@
             ...mapState('creationManagement', {
 
                 form: s => s.form,
+                pictures: s => s.pictures,
                 enablePicture: s => s.withPicture,
 
             }),
         },
         methods: {
+            onBlurFunction(index){
+                this.$store.commit('creationManagement/ADD_OPTION', index)
+
+            },
             insertPicture(payload){
 
                 this.$store.commit('creationManagement/INSERT_PICTURES', payload)
@@ -148,9 +139,9 @@
 
             },
 
-            updateArrayField(value, url, arrayName, keyName, index){
-
-                this.$store.commit('creationManagement/UPDATE_ARRAY_FIELD', {value, arrayName, keyName, index, form: 'form' })
+            updateArrayField(value, url, arrayName, keyName, index, form){
+                console.log(form)
+                this.$store.commit('creationManagement/UPDATE_ARRAY_FIELD', {value, arrayName, keyName, index, form })
 
             },
             chooseTypeOfPoll(payload){
@@ -161,6 +152,7 @@
         },
 
         components: {
+            CategorySelect,
             IconBase,
             UploadReusable,
             InputReusable,
@@ -200,8 +192,38 @@
             color: #747474;
 
         }
+        .option-label {
+            font-family: Roboto;
+            font-style: normal;
+            font-weight: normal;
+            font-size: 12px;
+            color: #747474;
 
 
+        }
+        .options-block {
+            margin-bottom: 10px;
+            border-radius: 6px;
+            justify-content: flex-end;
+            border: 0.5px solid #BCBEC3;
+            display: flex;
+            flex-direction: row-reverse;
+            align-items: center;
+            &:first-of-type {
+                margin-top: 6px !important;
+            }
+            .input-block {
+                display: flex;
+                align-items: center;
+                white-space: nowrap;
+            }
+            input {
+                border: none !important;
+            }
+            .image-preview {
+                margin: 0 !important;
+            }
+        }
         .switch__item {
             padding-bottom: 12px;
             border-bottom: 1px solid #4B97B4;

@@ -1,36 +1,27 @@
 <template>
     <div class="search-wrapper">
         <div class="search-panel flex-align-center">
-            <el-input
-				class="br-12"
-				:placeholder="lstr('search')"
-				v-model="keywords"
-				@keyup.enter.native="searchUsers">
-				<template slot="append">
-					<i @click="clearForm" class="pointer">
-						<icon-base
-							class="icon-close"
-							fill="none"
-							width="20"
-							height="20"
-							viewBox="0 0 10 20"
-							icon-name="close"><icon-close />
-						</icon-base>
-					</i>
-				</template>
-            </el-input>
-        </div>
+            <input-reusable
+                    v-model="keywords"
+                    class=" pl-14 mt-1"
+                    input-placeholder="search"
+                    @keyup.enter.native = "searchUsers"
+            />
+       </div>
+
         <div class="button-panel mt-10 ">
-            <span class="typeSpan pointer" @click="setTypeOfSearch('POLL')" :class="{typeButton : type === 'POLL'}">
+            <div class="search_type flex mr-10" >
+                <span class="typeSpan pointer" @click="setTypeOfSearch('POLL')" :class="{typeButton : type === 'POLL'}">
                 Опросы
             </span>
+                <div class="upper-border "></div>
+            </div>
             <span class="typeSpan pointer" @click="setTypeOfSearch('USER')" :class="{typeButton : type === 'USER'}">
                 Люди
             </span>
         </div>
         <div class="links-section mt-10" v-show="keywords !== ''" v-for="item in items">
-            <users :item="item" v-if="type === 'USER'"/>
-            <polls :item="item" :polls="polls"  v-if="type === 'POLL'"/>
+            <search-instance :item="item" />
         </div>
     </div>
 </template>
@@ -44,9 +35,15 @@
     import Polls from "./Event/polls"
     import {mapState} from 'vuex'
     import {globalStoreMixin} from '../../store/modules/globalStore'
+    import InputReusable from "../reusableСomponents/InputReusable";
+    import VoteInstance from "../voteFeed/voteInstance";
+    import SearchInstance from "./searchInstance";
     export default {
-        mixins:[langMixin, globalStoreMixin()],
+        mixins:[langMixin],
         components:{
+            SearchInstance,
+            VoteInstance,
+            InputReusable,
         	Users,
 			langString,
 			Polls,
@@ -78,28 +75,7 @@
             }),
 
 
-            user_ids:function () {
 
-                return this.items.map(item => {
-                    return item.id
-                });
-
-
-            },
-
-            author:function(){
-
-
-
-            },
-
-            poll_ids:function () {
-
-                return this.items.map(item => {
-                    return item.id
-                });
-
-            },
 
         },
         methods: {
@@ -110,7 +86,6 @@
 
             },
             searchUsers() {
-
                 let type = this.type;
                 let contain = this.keywords;
 
@@ -142,70 +117,18 @@
 <style lang="scss">
     .search-wrapper {
 
-		.search-panel {
-			padding: 0 8px;
 
-			input {
-				width: 100%;
-				background: #FFFFFF;
-				border: 1px solid #C4CCD0;
-				border-radius: 24px 0 0 24px !important;
-				padding-right: 42px;
-				border-right: none;
-			}
 
-			.el-input-group__append {
-				border-radius: 0 24px 24px 0;
-				border: 1px solid #C4CCD0;
-				border-left: none;
-				background-color: #FFFFFF;
-			}
+    }
+    @media only screen
+    and (min-width: 300px)
+    and (max-width: 765px){
+        .search-wrapper {
+            margin-top: 48px !important;
 
-			.icon-close {
-				transform: rotate(45deg);
-			}
-		}
-
-		.button-panel {
-			display: flex;
-			padding: 0 8px;
-		}
-
-        .el-input__inner {
-
-            border-radius: 12px;
-            margin-right: 9px;
-
+            .button-panel {
+                display: flex;
+            }
         }
-        .typeSpan {
-            font-family: Roboto;
-            font-style: normal;
-            font-weight: 300;
-            font-size: 12px;
-            line-height: 14px;
-            color: #3A4F5A;
-            margin-right: 7px;
-			padding: 2px 9px;
-			border-radius: 15px;
-        }
-        .typeButton {
-                background: #919BA0;
-                color: #FFFFFF;
-        }
-
-        .cancel {
-
-            padding-left: 9px;
-            font-family: Roboto;
-            font-style: normal;
-            font-weight: normal;
-            font-size: 13px;
-            line-height: 13px;
-            letter-spacing: -0.1px;
-            color: #69777F;
-            text-transform: uppercase;
-
-        }
-
     }
 </style>
