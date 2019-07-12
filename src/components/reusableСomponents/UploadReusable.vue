@@ -1,14 +1,22 @@
 <template>
     <div class="upload-block v-center relative" :style="blockStyle">
-        <label class="v-center" :style="wrapperStyle">
+        <label class="v-center" :style="wrapperStyle" >
             <slot name="icon">
 
             </slot>
             <input type="file" @change="handlePicturePreview(arguments[0].target.files)">
 
-            <div class="image-preview mt-15"
+            <div class="image-preview mt-15 flex-center flex-align-center"
                  v-if="imagePreview"
-                 :style="{ 'background-image': 'url(' + imgUrl + ')' }" >
+                 :style="previewStyle" >
+                <icon-base
+                        v-if="!imgUrl"
+                        fill="none"
+                        width="21"
+                        height="25"
+                        viewBox="0 0 21 25"
+                        icon-name="upload"><icon-upload/>
+                </icon-base>
             </div>
         </label>
 
@@ -16,8 +24,12 @@
 </template>
 
 <script>
+    import IconBase from '../icons/IconBase'
+    import IconUpload from '../icons/create/IconUpload'
+
     export default {
         name: "UploadReusable",
+        components: {IconBase, IconUpload},
         model: {
             event: 'change',
         },
@@ -30,6 +42,12 @@
             },
             imagePreview: {
               type: Boolean
+            },
+            preWidth: {
+                type: [String, Number]
+            },
+            preHeight: {
+                type: [String, Number]
             },
             imageLayout: {
                 validator: function (value) {
@@ -62,6 +80,13 @@
             },
         },
         computed: {
+            previewStyle(){
+                let { preWidth, preHeight, handleCssValue } = this;
+                preWidth = preWidth ? {width: handleCssValue(preWidth)} : {};
+                preHeight = preHeight ? {height: handleCssValue(preHeight)} : {};
+                let backgroundImage =  {backgroundImage: `url('${this.imgUrl}')`};
+                return { ...preWidth, ...preHeight, ...backgroundImage };
+            },
             wrapperStyle() {
                 let { imageLayout } = this;
 
@@ -108,11 +133,12 @@
             top: 0;
         }
 
-
+        label {
+            width: 100%;
+        }
 
         .image-preview {
-            width: 120px;
-            height: 120px;
+
             background-size: cover;
             background-color: rgba(21, 41, 58, 0.1);
             border-radius: 6px;

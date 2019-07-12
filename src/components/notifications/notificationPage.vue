@@ -1,10 +1,14 @@
 <template>
     <div class="notificationWrapper">
+        <div class="notification-headline flex-center">
+            <h1><lang-string :title="'notifications'"/></h1>
+        </div>
         <div class="notification-section" v-if="messages.length">
-            <feed-block :notification="notification"
-                        v-for="(notification, index) in messages"
-                        :key="index"/>
-
+            <notification-instance
+                    :notification="notification"
+                    v-for="(notification, index) in messages"
+                    :key="index"
+            />
 
         </div>
         <div class="nope" v-else-if="messages.length == 0">
@@ -20,10 +24,11 @@
     import feedBlock from './feedBlock'
     import {mapState} from  'vuex'
     import MugenScroll from 'vue-mugen-scroll'
-    import axios from 'axios'
+    import langString from '../langString'
+    import NotificationInstance from "./layout/notificationInstance";
     export default {
         name: "notificationPage",
-        components:{feedBlock, MugenScroll},
+        components:{NotificationInstance, feedBlock, MugenScroll, langString},
         computed: {
             ...mapState("notificationStore", {
                 messages: s => s.messages
@@ -41,12 +46,9 @@
         methods: {
 
             load(){
-                if(this.page) {
-
                     this.$store.dispatch('notificationPage/list', {customUrl : `${process.env.VUE_APP_NOTIFICATION_API}/notification/${this.page}`});
 
 
-                }
             },
 
         },
@@ -65,7 +67,9 @@
         padding: 12px 12px 0px 12px;
         background: #FFFFFF;
         border-radius: 12px;
+        .notification-headline {
 
+        }
     }
     .nope {
 

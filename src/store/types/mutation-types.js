@@ -13,3 +13,4 @@ export const UPLOAD_FILE = 'UPLOAD_FILE';
 export const CLEAR_STATE = 'CLEAR_STATE';
 export const ADD_OPTION = 'ADD_OPTION';
 export const INSERT_PICTURES = 'INSERT_PICTURES';
+export const SET_CATEGORY_NAME = 'SET_CATEGORY_NAME';

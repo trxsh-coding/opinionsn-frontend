@@ -4,7 +4,8 @@ import  {
     UPDATE_ARRAY_FIELD,
     CLEAR_STATE,
     ADD_OPTION,
-    INSERT_PICTURES
+    INSERT_PICTURES,
+    SET_CATEGORY_NAME
 } from "../types/mutation-types";
 import  {
     SUBMIT_FORM
@@ -15,9 +16,21 @@ const initialState = () => {
         withPicture:false,
         imageUrl: '',
         picture:'',
-        pictures:[],
+        pictures:[
+            {
+                picture:'',
+                imgUrl:''
+            },
+            {
+                picture:'',
+                imgUrl:''
+            },
+            {
+                picture:'',
+                imgUrl:''
+            }
+        ],
         form: {
-            picture:'',
             subject_header:'',
             subject:'',
             tags:'',
@@ -87,7 +100,13 @@ export const creationManagement = {
             let keyName = payload.keyName;
             let form = payload.form;
             //
-            state[form][arrayName][index][keyName] = value
+            if(form){
+                state[form][arrayName][index][keyName] = value
+
+            } else {
+                state[arrayName][index][keyName] = value
+
+            }
 
         },
 
@@ -105,12 +124,17 @@ export const creationManagement = {
             });
         },
 
-        [ADD_OPTION](state){
+        [ADD_OPTION](state, payload){
+            if(payload > 0){
+                state.form.options.push({id:'', picture:'', description:''})
 
-            state.options.push({id:'', picture:'', description:''})
+            }
 
         },
-
+        [SET_CATEGORY_NAME](state, payload){
+          console.log('imhere')
+          state.form.subject_header = payload
+        },
         [INSERT_PICTURES](state, payload){
             console.log(payload)
             console.log(state)

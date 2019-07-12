@@ -15,9 +15,17 @@ export default {
 
         vote: function () {
 
-            let {item, votes} = this;
+            let {item, votes, poll} = this;
 
-            return votes[item.id];
+            if(item.eventType === null) {
+
+
+
+            } else {
+
+                return votes[item.id];
+
+            }
 
         },
 
@@ -27,13 +35,13 @@ export default {
 
             if (item.eventType === "POLL_CREATED") {
             	return polls[item.id]
-                console.log('poll_created')
-			} else {
-            	// return polls[item.id]
-                console.log('somethingWrong')
+			} else  if(item.eventType === null){
+            	return polls[item.id]
 
+			} else {
                 return polls[vote.poll_id]
-			}
+
+            }
 
         },
 

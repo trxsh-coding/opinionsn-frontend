@@ -98,7 +98,7 @@
                     width: `${width}px`,
                     height: `${height}px`,
                     borderRadius: `${borRad}px`,
-                    backgroundColor: boolean ? `${activeColor}` :  `${color}`,
+                    backgroundColor: `${color}`,
 
                 };
             },
@@ -107,13 +107,13 @@
                 let {borRad, height, width, color, boolean, is_active } = this;
                 boolean = (boolean !== undefined) ? boolean : is_active;
 
-                let position = boolean ? {transform: 'translate(55%)'}   : {transform: 'translate(0)'};
+                let position = boolean ? {transform: 'translate(90%)'}   : {transform: 'translate(0)'};
 
                 return {
-                    width: `${width/2}px`,
-                    height: `${height - 4}px`,
+                    width: `${width/3}px`,
+                    height: `${height-5}px`,
                     borderRadius: `50%`,
-                    backgroundColor: `#ffffff`,
+                    backgroundColor: `#1A1E22`,
                     ...position
 
                 };
@@ -156,13 +156,14 @@
         }
 
         .switch-button {
+            border-width: 1.5px;
+            border-style: solid;
             display: flex;
             align-items: center;
-            padding: 4px;
+            padding: 2px;
             transition: 300ms;
 
             .switch-circle {
-                border: 4px solid #1A1E22;
                 transition: 300ms;
             }
         }

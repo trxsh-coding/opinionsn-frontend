@@ -1,6 +1,7 @@
 <template>
     <div class="input-block">
         <lang-string
+                v-if="!hide"
                 class="input-placeholder"
                 :title="inputPlaceholder"
         />
@@ -9,7 +10,7 @@
                :style="inputStyle"
                @change="inputValue(arguments[0].target.value)"
                @focus="focusInput(true)"
-               @blur="inputValidation(false)"
+               @blur="eventOnBlur"
                :class="{ focusedInput : active, validationStyle : validationError}"
         >
     </div>
@@ -24,6 +25,7 @@
         mixins:[langMixin],
         components:{langString},
         model: {
+            prop: 'value',
             event: 'change',
             validationError:false,
         },
@@ -52,7 +54,8 @@
         data() {
             return {
                 value: '',
-                active:false
+                active:false,
+                hide:false
             }
         },
 
@@ -75,6 +78,7 @@
         },
         methods: {
             focusInput(payload){
+                this.hide = true;
                 this.active = payload;
 
             },
@@ -89,6 +93,9 @@
                     this.validationError = true
                 }
 
+            },
+            eventOnBlur(){
+                this.$emit('blur');
             },
             handlePercentValue(value) {
 
@@ -128,6 +135,7 @@
             border-top: none;
             border-right: none;
             border-left: 0;
+            margin-bottom: 1px;
         }
     }
 </style>

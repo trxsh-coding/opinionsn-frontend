@@ -1,5 +1,5 @@
 <template>
-    <div class="aside-layout">
+    <div class="aside-layout mr-19">
         <profile />
         <aside-navigation />
    </div>
