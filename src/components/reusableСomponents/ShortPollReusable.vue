@@ -90,6 +90,9 @@
 				type: Object,
 				required: true
 			},
+			vote: {
+				type: Object
+			},
 			width: {
 				type: String,
 				default: function () {
@@ -160,7 +163,7 @@
 
 			pollData() {
 
-				let { poll, users, publicPath } = this;
+				let { poll, users, publicPath, vote } = this;
 
 				let {
 					id,
@@ -176,7 +179,7 @@
 					fund
 				} = poll;
 
-				let author_avatar = publicPath + this.users[author_id].path_to_avatar;
+				let author_avatar = publicPath + users[author_id].path_to_avatar;
 				let author_username = users[author_id].username;
 				picture = publicPath + picture;
 

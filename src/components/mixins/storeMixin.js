@@ -15,17 +15,9 @@ export default {
 
         vote: function () {
 
-            let {item, votes, poll} = this;
+            let {item, votes} = this;
 
-            if(item.eventType === null) {
-
-
-
-            } else {
-
-                return votes[item.id];
-
-            }
+            return votes[item.id];
 
         },
 
@@ -47,9 +39,9 @@ export default {
 
         author: function () {
 
-            let {poll, users} = this;
+            let {vote, users} = this;
 
-            return users[poll.author_id];
+            return users[vote.author_id];
         },
 
         combinedOptions: function(){

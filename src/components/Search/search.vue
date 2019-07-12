@@ -21,7 +21,7 @@
             </span>
         </div>
         <div class="links-section mt-10" v-show="keywords !== ''" v-for="item in items">
-            <search-instance :item="item" />
+            <search-instance :item="item" :type="type"/>
         </div>
     </div>
 </template>
