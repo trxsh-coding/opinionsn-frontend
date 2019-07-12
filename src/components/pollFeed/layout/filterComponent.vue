@@ -120,7 +120,6 @@
 			background-position: center;
 			background-size: 30%;
 			margin-bottom: 6px;
-			margin-right: 18.5px;
 
 		}
 

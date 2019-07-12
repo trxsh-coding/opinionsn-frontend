@@ -1,6 +1,6 @@
 <template lang="html">
 
-    <section class="vote-feed" :class="{'bg-white pt-16': !mobile}">
+    <section class="vote-feed" :class="{'pt-16': !mobile}">
 		<scroll-swiper-reusable
 				v-if="mobile"
 				class="followers-swiper pl-30"
@@ -47,7 +47,7 @@
 		</swiper>
 
 
-		<div v-for="item in items" >
+		<div v-for="item in items" :class="{'bg-white': !mobile}">
 			<vote-instance :item="item" class="mt-18" />
 			<hr class="mt-13">
 		</div>
