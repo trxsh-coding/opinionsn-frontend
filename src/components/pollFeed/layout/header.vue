@@ -2,7 +2,7 @@
     <div id="poll-header" class="mb-3">
         <author-headline
                 pic-class="mr-9"
-                class="mb-9 ml-60"
+                class="mb-9 ml-60 pointer"
                 avatar
                 :id="author.id"
                 :img="publicPath + imageUtil(author.path_to_avatar, 'S')"
@@ -24,8 +24,8 @@
             <template #description>
                 <div class="description flex">
                     <span class="pr-9">
-                    {{author.location}}
-                </span>
+                        {{author.location}}
+                    </span>
                     <time-trans :time="poll.date"/>
                 </div>
             </template>

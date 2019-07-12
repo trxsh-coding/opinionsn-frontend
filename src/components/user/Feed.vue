@@ -4,8 +4,8 @@
 		<vote-instance class="mt-12" v-for="item in items" :item="item">
 			<template #headAnnotation>
 
-				<lang-string class="annotation" v-if="item.eventType === 'POLL_CREATED'" :title="'created_a_poll'"/>
-				<lang-string class="annotation" v-else :title="'voted'"/>
+<!--				<lang-string class="annotation" v-if="item.eventType === 'POLL_CREATED'" :title="'created_a_poll'"/>-->
+<!--				<lang-string class="annotation" v-else :title="'voted'"/>-->
 
 			</template>
 		</vote-instance>
@@ -108,7 +108,7 @@
 
         mounted() {
 
-            this.changeTypeOfFeed();
+			this.changeTypeOfFeed();
 
         },
 

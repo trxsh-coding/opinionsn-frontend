@@ -1,23 +1,38 @@
 <template>
     <div class="header">
 
-        <div class="background">
+        <div class="background" :style="{backgroundImage: `url('${form.pictures[0].url}')`}">
 
             <upload-reusable
-                    class="mt-12"
                     width="100%"
                     height="100%"
-                    :value="form.pictures[0]"
                     @upload="({file, url}) => {
                         updateArrayField(file, 'pictures', 'picture', 0);
-                        updateArrayField(file, 'pictures', 'url', 0);
+                        updateArrayField(url, 'pictures', 'url', 0);
                     }">
                 <template #icon>
                     <icon-base
+                            class="pointer"
+                            v-show="!form.pictures[0].url"
                             width="24"
                             height="21"
                             viewBox="0 0 20 17"
-                            icon-name="add"><icon-upload-photo/>
+                            icon-name="upload"><icon-upload-photo/>
+                    </icon-base>
+                </template>
+                <template #clearIcon>
+                    <icon-base
+                            class="pointer"
+                            v-show="!!form.pictures[0].url"
+                            @click.native="() => {
+                                updateArrayField('', 'pictures', 'picture', 0);
+                                updateArrayField('', 'pictures', 'url', 0);
+                            }"
+                            fill="none"
+                            width="22"
+                            height="22"
+                            viewBox="0 0 19 19"
+                            icon-name="close"><icon-cross/>
                     </icon-base>
                 </template>
             </upload-reusable>
@@ -25,24 +40,41 @@
             <picture-reusable
                     class="avatar absolute"
                     size="72"
+                    :img="form.pictures[1].url"
+                    bg-color="#ADAFB3"
                     rounded
                     without-text>
                 <template #innerPicture>
                     <upload-reusable
-                            class="mt-12 b-3"
                             width="100%"
                             height="100%"
-                            :value="form.pictures[1]"
                             @upload="({file, url}) => {
                                 updateArrayField(file, 'pictures', 'picture', 1);
-                                updateArrayField(file, 'pictures', 'url', 1);
+                                updateArrayField(url, 'pictures', 'url', 1);
                             }">
                         <template #icon>
                             <icon-base
+                                    class="pointer"
+                                    v-show="!form.pictures[1].url"
                                     width="24"
                                     height="21"
                                     viewBox="0 0 20 17"
-                                    icon-name="add"><icon-upload-photo/>
+                                    icon-name="upload"><icon-upload-photo/>
+                            </icon-base>
+                        </template>
+                        <template #clearIcon>
+                            <icon-base
+                                    class="pointer"
+                                    v-show="!!form.pictures[1].url"
+                                    @click.native="() => {
+                                        updateArrayField('', 'pictures', 'picture', 1);
+                                        updateArrayField('', 'pictures', 'url', 1);
+                                    }"
+                                    fill="none"
+                                    width="22"
+                                    height="22"
+                                    viewBox="0 0 19 19"
+                                    icon-name="close"><icon-cross/>
                             </icon-base>
                         </template>
                     </upload-reusable>
@@ -60,6 +92,7 @@
 
     import IconBase from "../../icons/IconBase";
     import IconUploadPhoto from "../../icons/create/IconUploadPhoto";
+    import IconCross from "../../icons/IconCross";
 
 
 
@@ -69,7 +102,8 @@
             UploadReusable,
             PictureReusable,
             IconBase,
-            IconUploadPhoto
+            IconUploadPhoto,
+            IconCross
         },
         computed: {
             ...mapState('creationManagement', {
@@ -113,7 +147,7 @@
                 position: relative;
                 height: 132px;
                 background-color: #ADAFB3;
-                background-size: contain;
+                background-size: cover;
                 background-repeat: no-repeat;
 
                 .avatar {

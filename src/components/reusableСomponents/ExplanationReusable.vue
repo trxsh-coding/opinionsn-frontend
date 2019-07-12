@@ -3,7 +3,9 @@
 
 		<div class="explain mb-9">
 			<picture-reusable
-				class="mr-12 p-0"
+				v-if="!without_avatar"
+				class="ml-18 mr-12 p-0"
+				:class="{'ml-21': mobile}"
 				pic-class="mb-5"
 				:img="fitExplain.avatar"
 				:size="27"
@@ -172,6 +174,7 @@
 
 		data() {
 			return {
+				mobile: this.$root.mobile,
 				input_id: null,
 				input_type: null,
 				input_value: '',
@@ -193,9 +196,8 @@
 				type: Object,
 				required: true
 			},
-			author_picture: {
-				type: String,
-				required: true
+			without_avatar: {
+				type: Boolean
 			},
 			comments: Object,
 			options: {

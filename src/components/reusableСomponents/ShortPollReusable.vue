@@ -21,7 +21,7 @@
 					<time-trans :time="pollData.date" />
 				</span>
 
-				<span class="poll-name pointer mb-3"  @click="pollLink(pollData.id)">{{pollData.name}}</span>
+				<span class="poll-name pointer mb-3" @click="pollLink(pollData.id)">{{pollData.name}}</span>
 
 				<span v-if="withDesc && rowLayout" class="poll-desc mb-3 pointer"  @click="pollLink(pollData.id)">{{pollData.description}}</span>
 
@@ -176,7 +176,7 @@
 					fund
 				} = poll;
 
-				let author_avatar = publicPath + users[author_id].path_to_avatar;
+				let author_avatar = publicPath + this.users[author_id].path_to_avatar;
 				let author_username = users[author_id].username;
 				picture = publicPath + picture;
 
@@ -339,7 +339,7 @@
 
 		}
 		.text {
-			margin-right: 28px;
+			/*margin-right: 28px;*/
 
 		}
 

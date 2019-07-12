@@ -1,6 +1,7 @@
 <template xmlns:lang-string="http://www.w3.org/1999/xlink">
     <button class="button-reusable flex-align-center " :style="buttonStyle">
 		<lang-string :title="description"/>
+		<slot />
 	</button>
 </template>
 

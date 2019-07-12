@@ -31,48 +31,7 @@
 
 	   <ul class="subs-list mt-6 flex-column">
 
-		   <li class="list-item mt-12 mx-20" v-for="(user, index) in users_from_payload" :key="index">
-
-			   <div class="flex">
-				   <div class="avatar-wrapper flex">
-
-					   <picture-reusable
-						   class="mr-auto pointer"
-						   pic-class="mb-auto"
-						   :img="publicPath + user.path_to_avatar"
-						   size="36"
-						   rounded
-						   without-text
-						   @click.native="$router.push({name: 'user', params: {id: user.id} })"
-					   />
-
-				   </div>
-
-				   <div class="text flex-column">
-
-					   <span class="username">{{user.username}}</span>
-
-					   <span class="status mt-3">{{user.aboutMe === 'About me' ? '' : user.aboutMe}}</span>
-
-<!--					   NOTE: ждем от Артура статистику в каждом экземпляре юзера -->
-<!--					   <div class="statistics mt-7 flex"></div>-->
-
-
-				   </div>
-
-				   <button-reusable
-					   class="ml-6 p-9 w-fit h-fit"
-					   bor-rad="30"
-					   :color="user.isLeader ? '#BCBEC3' : '#4B97B4'"
-					   @click.native="subscribeActions(user.id, user.isLeader)"
-				   >
-					   {{!user.isLeader ? lstr("follow") : lstr("unfollow")}}
-				   </button-reusable>
-			   </div>
-
-			   <hr class="mt-12">
-
-		   </li>
+		   <short-user-reusable :user="user" v-for="(user, index) in users_from_payload" :key="index" />
 
 	   </ul>
 
@@ -87,19 +46,19 @@
     import IconClose from '../../icons/IconZoomIn'
     import axios from 'axios'
     import langMixin from "../../mixins/langMixin";
-	import ButtonReusable from "../../reusableСomponents/ButtonReusable";
-	import PictureReusable from "../../reusableСomponents/PictureReusable";
+    import ShortUserReusable from "../../reusableСomponents/ShortUserReusable";
+
+
 
     export default {
         name: "event",
         props:['id', 'isFollowing'],
         mixins:[langMixin],
         components:{
-        	PictureReusable,
-			ButtonReusable,
 			langString,
 			IconBase,
-			IconClose
+			IconClose,
+	        ShortUserReusable
 		},
         data(){
             return {
@@ -114,15 +73,17 @@
         computed:{
 
             ...mapState('userPage', {
-				items: ({items}) => items,
                 main_user_id: ({main_user_id}) => main_user_id
             }),
 
 			...mapState('globalStore', {
-				users: ({users}) => users
+				users: ({ users }) => users,
+				mainUser: ({ mainUser }) => mainUser
+
 			}),
 
 			current_user() {
+            	if (!this.users) return false;
 				return this.users[this.id];
 			},
 
@@ -181,7 +142,6 @@
         },
 
         mounted(){
-
             let urlPart = this.isFollowing ? 'getFollowers' : 'getFollowing';
 
             axios.get(`${process.env.VUE_APP_MAIN_API}/rest/${urlPart}/${this.id}`)

@@ -77,6 +77,7 @@
             font-style: normal;
             font-weight: normal;
             font-size: 13px;
+            line-height: 16px;
 
 			height: auto;
 			max-height: 100%;

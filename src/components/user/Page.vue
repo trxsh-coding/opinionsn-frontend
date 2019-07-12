@@ -55,7 +55,7 @@
 
         },
         watch: {
-            id(oldUserId, newUserId) {
+			user_id(oldUserId, newUserId) {
                 if (oldUserId !== newUserId) this.getUserPage();
             }
         },

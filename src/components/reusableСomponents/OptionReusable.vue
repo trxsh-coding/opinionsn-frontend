@@ -31,17 +31,18 @@
 
 				<div class="progress-bar" :style="progressBarStyle"></div>
 			</div>
-			<div class="option-bows" v-if="!mobile">
-				<involved-users-panel :users="bows" v-if="Object.keys(bows).length > 0">
-					<template #description >
-						<div class="none">
 
-						</div>
-					</template>
-				</involved-users-panel>
-			</div>
 		</div>
 
+		<div class="desktop-bows" v-if="!mobile">
+			<involved-users-panel :users="bows" v-if="Object.keys(bows).length > 0">
+				<template #description >
+					<div class="none">
+
+					</div>
+				</template>
+			</involved-users-panel>
+		</div>
 
 	</div>
 </template>
@@ -232,10 +233,15 @@
 		position: relative;
 		right: 0;
 		display: flex;
+		flex-wrap: wrap;
 		justify-content: flex-end;
 		align-items: stretch;
 
 		width: 100%;
+
+		.desktop-bows {
+			flex: 0 0 calc(100% - 60px);
+		}
 
 		.bows {
 			box-sizing: border-box;
@@ -274,7 +280,7 @@
 			width: calc(100% - 60px);
 			display: flex;
 			cursor: pointer;
-			flex-direction: column;
+			/*flex-direction: column;*/
 			.picture {
 				background-repeat: no-repeat;
 				background-size: cover;

@@ -1,13 +1,12 @@
 <template>
     <div class="upload-block v-center relative" :style="blockStyle">
         <label>
-            <slot name="icon">
-
-            </slot>
-            <input type="file" @change="handlePicturePreview(arguments[0].target.files)">
+            <slot name="icon" />
+            <input ref="input_ref" type="file" @change="handlePicturePreview(arguments[0].target.files)">
             <!--<img :src="imgUrl" alt="" width="100px" height="100px">-->
         </label>
 
+        <slot name="clearIcon" />
 
     </div>
 </template>
@@ -35,7 +34,8 @@
 
             handlePicturePreview(file) {
                 this.imgUrl = URL.createObjectURL(file[0]);
-                this.$emit('upload', {file: file[0], url: this.imgUrl});
+                this.$emit('upload', {file: file[0], url: `${this.imgUrl}`});
+                this.$refs.input_ref.value = '';
             },
             handleCssValue(value) {
 
@@ -75,6 +75,11 @@
 
         img {
             background-size: cover;
+            background-position: center center;
+        }
+
+        svg {
+            position: relative;
         }
     }
 </style>

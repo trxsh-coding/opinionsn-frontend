@@ -32,7 +32,7 @@
         </options-section>
 		<span v-show="!options_visible && combinedOptions.length > 5" class="options-load-btn pointer mt-9" @click="options_visible = true">Показать больше опций</span>
 
-		<div class="counter-badges flex pl-60 mt-12">
+		<div class="counter-badges flex pl-60 my-12">
 
 			<div class="explains-block flex-align-center mr-9">
 				<icon-base
@@ -91,7 +91,6 @@
 		</div>
 
         <explain-section
-				class="mt-12"
                 v-for="(explain, index) in combinedVotes"
 				v-show="index < explains_quantity"
                 :explain="explain"

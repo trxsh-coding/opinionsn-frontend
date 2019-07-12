@@ -72,12 +72,11 @@
 
 			</div>
 
-			<button-reusable v-if="user.id === mainUser.id" class="edit-btn py-8 px-9 mt-9 mr-20 ml-auto" bor-rad="30">
-				<lang-string :title="'edit'"/>
+			<button-reusable v-show="user.id === mainUser.id" class="edit-btn py-8 px-9 mt-9 mr-20 ml-auto" bor-rad="30" :description="'edit'">
 			</button-reusable>
 
 			<button-reusable
-				v-else
+				v-show="user.id !== mainUser.id"
 				class="edit-btn py-6 px-10 mt-9 mr-20 ml-auto"
 				bor-rad="30"
 				:color="user.isLeader ? '#BCBEC3' : '#4B97B4'"
@@ -150,7 +149,10 @@
 
 			},
 		},
-    }
+		mounted() {
+			this.$store.dispatch("userPage/getMainUser");
+		}
+	}
 </script>
 
 <style lang="scss">

@@ -54,7 +54,6 @@
                         :input-placeholder="'tags'"/>
         <div class="border-b mt-18"></div>
         <div class="options-block" v-for="(option, index) in form.options" :key="index">
-            {{option.picture}}
             <input-reusable
                     :value="option.description"
                     @change="updateArrayField(arguments[0], 'options', 'description', index)"
@@ -65,7 +64,6 @@
                     :value="option.picture"
                     @upload="({file, url}) => {updateArrayField(file, 'options', 'picture', index)}">
                 <template #icon>
-                    {{index}}
                     <icon-base
                             fill="none"
                             width="20"

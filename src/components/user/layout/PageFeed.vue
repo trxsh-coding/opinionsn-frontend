@@ -1,5 +1,5 @@
 <template>
-    <div class="user-page-feed pr-20 mb-14">
+    <div class="user-page-feed mb-14">
 
 		<div class="pl-60 feed-switchers flex-column">
 

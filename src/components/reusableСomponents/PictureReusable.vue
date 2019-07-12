@@ -62,6 +62,9 @@
 			borColor: {
 				type: String
 			},
+			bgColor: {
+				type: String
+			},
 			textLayout: {
 				validator: function (value) {
 					// Значение должно соответствовать одной из этих строк
@@ -124,11 +127,12 @@
 				return '';
 			},
 			pictureStyle() {
-				let { size, borRad, img, width, height, rounded, handlePrecentValue } = this;
+				let { size, borRad, img, width, height, rounded, handlePrecentValue, bgColor } = this;
 				borRad = handlePrecentValue(borRad);
 				width = handlePrecentValue(width);
 				height = handlePrecentValue(height);
 				size = handlePrecentValue(size);
+				bgColor = bgColor ? {backgroundColor: bgColor} : {};
 				img = img ? img : '';
 				if (rounded) borRad = "50%";
 
@@ -137,7 +141,8 @@
 					width: `${width || size}`,
 					height: `${height || size}`,
 					borderRadius: `${borRad}`,
-					backgroundImage: `url('${img}')`
+					backgroundImage: `url('${img}')`,
+					...bgColor
 				};
 			},
 			handledCounter() {
@@ -168,7 +173,7 @@
 				background-repeat: no-repeat;
 				background-size: cover;
 				background-position: center;
-				background-color: #ADAFB3;
+				/*background-color: #ADAFB3;*/
 				.counter {
 					width: 21px;
 					height: 21px;

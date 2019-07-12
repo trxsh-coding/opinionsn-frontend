@@ -1,8 +1,8 @@
 <template lang="html">
 
-	<div class="follows-section">
+	<div class="follows-section mt-10">
 
-		<div class="follows-header mb-12">
+		<div class="follows-header mb-12" v-if="user">
 
 			<ul class="btns flex-center">
 
@@ -75,12 +75,13 @@
 			},
 
 			user() {
-				let { id, users } = this;
-				return users[id];
+				return this.users[this.id];
 			}
 
-
         },
+		mounted() {
+			this.$store.dispatch(`userPage/list`, {customUrl: `${process.env.VUE_APP_MAIN_API}/rest/getUserById/${this.id}`});
+		}
 
 	}
 </script>
