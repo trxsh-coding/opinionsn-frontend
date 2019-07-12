@@ -1,6 +1,6 @@
 <template lang="html">
-    <div class="sidebar">
-        <profile v-if="hide"/>
+    <div class="sidebar px-10" :class="{'bg-white': !mobile}">
+        <profile v-if="mobile"/>
         <routebar/>
         <language-change/>
 		<div class="copyright flex-space-center mt-13">
@@ -17,7 +17,7 @@
 	export default {
 		data() {
 			return {
-				hide: this.$root.mobile
+                mobile: this.$root.mobile
 			};
 		},
 		components: {
@@ -35,6 +35,7 @@
         margin-top: 15px;
         margin-left: 60px;
         margin-right: 20px;
+        border-radius: 6px;
 
     }
 	.copyright {

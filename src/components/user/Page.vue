@@ -1,5 +1,5 @@
 <template>
-    <div id="mypage" class="user-page">
+    <div id="mypage" class="user-page" :class="{'bg-white': !mobile}">
 
 		<page-header :user="user" :main-user="main_user" />
 
@@ -95,5 +95,6 @@
 	.user-page {
 		position: relative;
 		width: 100%;
+		border-radius: 6px;
 	}
 </style>

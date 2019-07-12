@@ -1,5 +1,5 @@
 <template>
-    <div class="search-wrapper">
+    <div class="search-wrapper" :class="{'bg-white': !mobile}">
         <div class="search-panel flex-align-center">
             <input-reusable
                     v-model="keywords"
@@ -57,7 +57,8 @@
 
                 keywords:'',
                 type:'USER',
-                contain:null
+                contain:null,
+                mobile: this.$root.mobile
             }
 
         },
@@ -116,7 +117,7 @@
 
 <style lang="scss">
     .search-wrapper {
-
+        border-radius: 6px;
 
 
     }

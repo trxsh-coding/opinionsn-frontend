@@ -181,7 +181,7 @@
 <style lang="scss">
 	.feedback-form {
 		padding: 20px;
-		border-radius: 24px;
+		border-radius: 6px;
 		background: #ffffff;
 		text-align: center;
 

@@ -1,6 +1,6 @@
 <template lang="html">
 
-	<div class="follows-section mt-10">
+	<div class="follows-section" :class="{'bg-white pt-18': !mobile, 'mt-10': mobile}">
 
 		<div class="follows-header mb-12" v-if="user">
 
@@ -58,7 +58,8 @@
 		},
 		data() {
 			return {
-				publicPath: process.env.VUE_APP_MAIN_API
+				publicPath: process.env.VUE_APP_MAIN_API,
+				mobile: this.$root.mobile
 			}
 		},
 		computed: {
@@ -91,6 +92,7 @@
 	.follows-section {
 		position: relative;
 		width: 100%;
+		border-radius: 6px;
 
 		.follows-header {
 			display: flex;

@@ -1,6 +1,6 @@
 <template lang="html">
 
-    <section class="vote-feed">
+    <section class="vote-feed" :class="{'bg-white pt-16': !mobile}">
 		<scroll-swiper-reusable
 				v-if="mobile"
 				class="followers-swiper pl-30"
@@ -143,6 +143,7 @@
 		position: relative;
 		box-sizing: border-box;
 		width: 100%;
+		border-radius: 6px;
 
 		* {
 			box-sizing: inherit;

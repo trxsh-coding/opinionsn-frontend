@@ -158,6 +158,7 @@
 <style lang="scss">
 	body {
 		background: #F8F8F8;
+		/*background: #dca4c0;*/
 		margin: 0;
 	}
 	.main-layout {

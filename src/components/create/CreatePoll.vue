@@ -1,5 +1,5 @@
 <template>
-    <div class="poll-create-wrapper">
+    <div class="poll-create-wrapper" :class="{'bg-white': !mobile}">
         <div class="header-annotation flex">
             <h1 class="primary-header-annotation mr-36"><lang-string :title="'poll'"/> </h1>
             <h3 class="secondary-header-annotation"><lang-string :title="'prediction'"/> </h3>
@@ -107,7 +107,8 @@
                 timeLimit:false,
                 category:null,
                 subject:null,
-                subject_description:null
+                subject_description:null,
+                mobile: this.$root.mobile
             }
         },
 
@@ -172,6 +173,7 @@
 <style lang="scss" >
     .poll-create-wrapper {
         padding: 0 20px;
+        border-radius: 6px;
         .header-annotation {
             align-items: center;
 

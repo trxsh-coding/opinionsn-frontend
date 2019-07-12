@@ -1,5 +1,5 @@
 <template>
-    <div class="settings-page">
+    <div class="settings-page" :class="{'bg-white': !mobile}">
 
         <page-navigation class="px-20 py-12" />
         <page-header class="pl-60" />
@@ -31,6 +31,7 @@
     .settings-page {
         position: relative;
         width: 100%;
+        border-radius: 6px;
 
         * {
             font-family: Roboto, sans-serif;
