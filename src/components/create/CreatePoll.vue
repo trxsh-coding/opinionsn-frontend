@@ -12,7 +12,7 @@
                         color="#B7B9BE"
                         active-color="#81B6CB"
                         :boolean="blockchainPrediction"
-                        @change="onSelect"
+                        @select="onSelect"
                         active-description="OFF-CHAIN"
                         inactive-description="BLOCKCHAIN"
                         text-layout="right"
@@ -24,6 +24,7 @@
             <button-reusable class="h-30 " :bor-rad="30" :color="timeLimit ?  '#B7B9BE' : '#4B97B4'" description="no_time_limit"   @click.native="chooseTypeOfPoll(false)"/>
         </div>
         <div class="category-block mt-12">
+
             <catalog-dropdown v-model="category"></catalog-dropdown>
         </div>
         <input-reusable :value="form.subject_header"
@@ -34,25 +35,41 @@
                         @change="updateField(arguments[0], 'description')"
                         class="mt-12"
                         :input-placeholder="'description'"/>
-        <!--<upload-reusable-->
-                <!--class="mt-12"-->
-                <!--:value="form.picture"-->
-                <!--@change="updateField(arguments[0], 'picture')">-->
-            <!--<template #icon>-->
-                <!--<icon-base-->
-                        <!--fill="none"-->
-                        <!--width="20"-->
-                        <!--height="17"-->
-                        <!--viewBox="0 0 20 17"-->
-                        <!--icon-name="add"><icon-upload-photo/>-->
-                <!--</icon-base>-->
-            <!--</template>-->
-        <!--</upload-reusable>-->
+        <upload-reusable
+                class="mt-12"
+                image-layout="bottom"
+                width="fit-content"
+                :value="form.picture"
+                @change="updateField(arguments[0], 'picture')">
+            <template #icon>
+                <icon-base
+                        fill="none"
+                        width="20"
+                        height="17"
+                        viewBox="0 0 20 17"
+                        icon-name="add"><icon-upload-photo/>
+                </icon-base>
+            </template>
+        </upload-reusable>
+
         <input-reusable :value="form.tags"
                         @change="updateField(arguments[0], 'tags')"
-                        class="mt-12"
+                        class="mt-12 mb-12"
                         :input-placeholder="'tags'"/>
-        <div class="border-b mt-18"></div>
+
+        <!--<div class="border-b mt-18"></div>-->
+        <switch-component
+                :height="21"
+                :width="34"
+                :bor-rad="18"
+                color="#B7B9BE"
+                active-color="#81B6CB"
+                :value="enablePicture"
+                @select="insertPicture"
+                :active-description="lstr('with_picture')"
+                :inactive-description="lstr('without_picture')"
+                text-layout="right"
+        />
         <div class="options-block" v-for="(option, index) in form.options" :key="index">
             <input-reusable
                     :value="option.description"
@@ -60,9 +77,12 @@
                     class="mt-12"
                     :input-placeholder="'add_option'"/>
             <upload-reusable
+                    :image-preview="enablePicture"
+                    image-layout="bottom"
+                    width="fit-content"
                     class="mt-12"
                     :value="option.picture"
-                    @upload="({file, url}) => {updateArrayField(file, 'options', 'picture', index)}">
+                    @upload="({file, url}) => {updateArrayField(file, url, 'options', 'picture', index)}">
                 <template #icon>
                     <icon-base
                             fill="none"
@@ -91,8 +111,10 @@
     import IconBase from "../icons/IconBase";
     import IconUploadPhoto from "../icons/create/IconUploadPhoto";
     import {mapState} from "vuex"
+    import langMixin from "../mixins/langMixin";
     export default {
         name: "CreatePoll",
+        mixins:[langMixin],
         data(){
             return {
                 blockchainPrediction: false,
@@ -109,22 +131,24 @@
             ...mapState('creationManagement', {
 
                 form: s => s.form,
+                enablePicture: s => s.withPicture,
 
             }),
         },
         methods: {
+            insertPicture(payload){
 
+                this.$store.commit('creationManagement/INSERT_PICTURES', payload)
+
+
+            },
             updateField(value, keyName){
 
                 this.$store.commit('creationManagement/UPDATE_FIELD', {value, keyName, form: 'form' })
 
             },
-            check(file){
-                console.log(file);
 
-            },
-            updateArrayField(value, arrayName, keyName, index){
-
+            updateArrayField(value, url, arrayName, keyName, index){
 
                 this.$store.commit('creationManagement/UPDATE_ARRAY_FIELD', {value, arrayName, keyName, index, form: 'form' })
 

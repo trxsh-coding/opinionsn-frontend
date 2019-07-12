@@ -11,3 +11,5 @@ export const UPDATE_FIELD = 'UPDATE_FIELD';
 export const UPDATE_ARRAY_FIELD = 'UPDATE_ARRAY_FIELD';
 export const UPLOAD_FILE = 'UPLOAD_FILE';
 export const CLEAR_STATE = 'CLEAR_STATE';
+export const ADD_OPTION = 'ADD_OPTION';
+export const INSERT_PICTURES = 'INSERT_PICTURES';
