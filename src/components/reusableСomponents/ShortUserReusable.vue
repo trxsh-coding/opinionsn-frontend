@@ -29,7 +29,7 @@
 			</div>
 
 			<button-reusable
-					class="ml-6 p-9 w-fit h-fit"
+					class="ml-6 p-9 w-fit h-fit pointer"
 					bor-rad="30"
 					:bg-color="user.isLeader ? '#BCBEC3' : '#4B97B4'"
 					@click.native="subscribeActions(user.id, user.isLeader)"
@@ -63,6 +63,15 @@
                 publicPath: process.env.VUE_APP_MAIN_API
             }
         },
+	    methods: {
+		    subscribeActions(id, isLeader) {
+			    if (!isLeader) {
+				    this.$store.dispatch('followsPage/followUser', id);
+			    } else {
+			    	this.$store.dispatch('followsPage/unFollowUser', id);
+			    }
+		    }
+	    },
     }
 </script>
 

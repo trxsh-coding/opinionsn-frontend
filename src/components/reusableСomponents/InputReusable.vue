@@ -1,5 +1,7 @@
 <template>
-	<div class="input-reusable">
+	<div
+			class="input-reusable"
+			:style="inputStyle">
 		<lang-string
 				v-show="!hide"
 				class="input-placeholder"
@@ -7,28 +9,51 @@
 		/>
 		<input type="text"
 		       v-model="value"
-		       :style="inputStyle"
-		       @change="inputValue(arguments[0].target.value)"
 		       @focus="focusInput(true)"
-		       @blur="eventOnBlur"
-		       :class="{ focusedInput : active, validationStyle : validationError}"
+		       :class="[{ focusedInput : active, validationStyle : validationError}, inputClass]"
 		>
+		<div class="action-btns" v-if="withActionButtons">
+			<icon-base
+					@click.native="clearInput"
+					class="pointer"
+					fill="none"
+					width="17"
+					height="18"
+					viewBox="0 0 17 18"
+					icon-name="close-btn">
+				<icon-close />
+			</icon-base>
+
+			<lang-string
+					@click.native="clearInput"
+					class="cancel-btn pointer"
+					title="cancel"
+			/>
+		</div>
 	</div>
 </template>
 
 <script>
 	import langMixin from "../mixins/langMixin";
 	import langString from "../langString";
+	import IconBase from "../icons/IconBase";
+	import IconClose from "../icons/IconClose";
 
 	export default {
 		name: "inputReusable",
 		mixins: [langMixin],
-		components: {langString},
+		components: {
+			langString,
+			IconBase,
+			IconClose
+		},
 		model: {
 			prop: 'value',
 			event: 'change'
 		},
 		props: {
+			inputClass: String,
+			withActionButtons: Boolean,
 			width: {
 				type: [Number, String],
 				default() {
@@ -67,50 +92,68 @@
 		watch: {
 			value(old) {
 				old.length > 0 ? this.hide = true : this.hide = false;
+				this.$emit('change', this.value);
+			},
+			parent_value(old) {
+				//NOTE:  Не знаю как вписать в watch this.$attrs.value, поэтому сделал пока так
+				if (old !== undefined && old.length === 0) this.clearInput();
 			}
 		},
 
 		computed: {
 			inputStyle() {
-				let {width, height, handlePercentValue} = this;
-				width = handlePercentValue(width);
-				height = handlePercentValue(height);
+				let {width, height, handleCssValue} = this;
+				width = handleCssValue(width);
+				height = handleCssValue(height);
 				return {
 					width: `${width}`,
 					height: `${height}`,
 
 				};
+			},
+			parent_value() {
+				return this.$attrs.value;
 			}
 		},
 		methods: {
 			focusInput(payload) {
 				this.hide = true;
 				this.active = payload;
+			},
 
+			clearInput() {
+				this.value = '';
 			},
-			inputValue(payload) {
-				this.$emit('change', payload);
-			},
+
+			// inputValue(payload) {
+			// 	this.$emit('change', payload);
+			// },
+
 			inputValidation(payload) {
-
 				this.active = payload;
 				if (this.value.length === 0) {
 					this.validationError = true
 				}
-
 			},
-			eventOnBlur() {
-				this.hide = false;
-				this.value = '';
-				this.$emit('blur');
-			},
-			handlePercentValue(value) {
 
-				if (value === undefined) return false;
+			// eventOnBlur() {
+			// 	this.hide = false;
+			// 	this.value = '';
+			// 	this.$emit('blur');
+			// },
 
-				return `${value}`.slice(-1) === '%' ? value : value + 'px';
+			handleCssValue(value) {
 
-			},
+				switch (true) {
+					case `${value}`.slice(-1) === '%':
+						return value;
+					case !isNaN(value):
+						return value + 'px';
+					default:
+						return value;
+				}
+
+			}
 		}
 	}
 </script>
@@ -118,6 +161,18 @@
 <style lang="scss">
 	.input-reusable {
 		position: relative;
+
+		.action-btns {
+			position: absolute;
+			z-index: 200;
+			display: flex;
+			top: 0;
+			right: 20px;
+			.cancel-btn {
+				margin-left: 19px;
+				color: #1A1E22;
+			}
+		}
 
 		.focusedInput {
 			border-bottom-color: #4B97B4 !important;
@@ -143,6 +198,7 @@
 		}
 
 		input {
+			width: 100%;
 			position: relative;
 			z-index: 200;
 			background-color: transparent;

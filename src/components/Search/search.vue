@@ -1,12 +1,13 @@
 <template>
-	<div class="search-wrapper flex-column" :class="{'bg-white': !mobile}">
+	<div class="search-wrapper flex-column" :class="{'bg-white pt-21 pb-19': !mobile, 'pt-6': mobile}">
 		<input-reusable
 				v-model="keywords"
-				class="ml-60 w-fit"
-				width="165"
+				input-class="pr-28"
+				class="pl-60 pr-86"
+				width="100%"
 				input-placeholder="search"
 				@keyup.enter.native="searchUsers"
-		/>
+				with-action-buttons/>
 
 		<div class="button-panel flex mt-12 ml-60">
 			<button-reusable
@@ -119,7 +120,7 @@
 
 				} else {
 
-					this.$store.dispatch('searchUser/list', {customUrl: `${process.env.VUE_APP_MAIN_API}/rest/findAllContaining/${this.keywords}`})
+					this.$store.dispatch('searchUser/list', {customUrl: `${process.env.VUE_APP_MAIN_API}/rest/findAllContaining/${contain}`})
 
 
 				}
