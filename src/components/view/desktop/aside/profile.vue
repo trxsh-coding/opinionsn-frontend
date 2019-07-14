@@ -4,7 +4,12 @@
             <picture-reusable :img="publicPath + user.background_image" :width="288" :height="90"/>
         </div>
         <div class="profile-annotation flex-column ">
-            <picture-reusable class="user-avatar" :img="publicPath + user.path_to_avatar" :size="42" bor-rad="50%"/>
+            <picture-reusable
+                    @click.native="$router.push( {name:'user', params:{ id: user.id} } )"
+                    class="user-avatar pointer"
+                    :img="publicPath + user.path_to_avatar"
+                    :size="42"
+                    bor-rad="50%"/>
 
             <span class="profile-username">
                 {{user.username}}

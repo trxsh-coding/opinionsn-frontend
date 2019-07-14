@@ -1,6 +1,11 @@
 <template lang="html">
     <div id="profile-section">
-        <avatar :img="publicPath + imageUtil(user.path_to_avatar, 'S')" :size="36" textLayout="right" bor-rad="50%">
+        <avatar
+                pic-class="mr-9"
+                :img="publicPath + imageUtil(user.path_to_avatar, 'S')"
+                :size="36"
+                textLayout="right"
+                rounded>
             <template #title>
                 <span class="username">
                     {{user.username}}

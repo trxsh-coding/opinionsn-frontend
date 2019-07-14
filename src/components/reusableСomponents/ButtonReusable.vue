@@ -108,6 +108,7 @@
 
 <style lang="scss">
 	.button-reusable {
+		cursor: pointer;
 
 		.btn {
 			cursor: pointer;
