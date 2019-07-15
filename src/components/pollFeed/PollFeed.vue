@@ -1,41 +1,36 @@
 <template lang="html">
 
-
-  <div id="poll-wrapper">
-		<swiper-carousel   :amount-of-slides="6" :spaceBetween="30" >
+	<div id="poll-wrapper">
+		<swiper-carousel :amount-of-slides="6" :spaceBetween="30">
 			<template #swiperAnnotation>
 				<swiper-slide v-for="category in categories">
-					<filter-component :filtered="filtered"  :id="filter_id" :category="category" />
+					<filter-component :filtered="filtered" :id="filter_id" :category="category"/>
 				</swiper-slide>
 			</template>
 		</swiper-carousel>
-    <div class="feed relative">
+		<div class="feed relative flex-column pb-12">
 
-    	<div v-for="item in items" >
-			<poll-instance :item="item"/>
-    	</div>
+			<div v-for="item in items">
+				<poll-instance :item="item"/>
+			</div>
 
-    	<mugen-scroll :handler="load" :should-handle="!is_finished">
-        	<div class="loading-spinner" v-loading="true" v-if="!is_finished || loading"/>
-    	</mugen-scroll>
+			<loader-reusable class="m-auto" v-show="!is_finished" />
+
+		</div>
 
 	</div>
-
-  </div>
-
-
 
 
 </template>
 
 
-
 <script>
-	import MugenScroll from "vue-mugen-scroll";
 	import pollInstance from "./pollInstance.vue";
 	import filterComponent from "./layout/filterComponent.vue";
-	import { mapState } from "vuex";
+	import {mapState} from "vuex";
 	import SwiperCarousel from "../reusableСomponents/swiperCarousel";
+	import LoaderReusable from "../reusableСomponents/LoaderReusable";
+
 	export default {
 		data() {
 			return {
@@ -65,6 +60,15 @@
 			};
 		},
 		props: ["feed"],
+
+		watch: {
+			scrolled_to_bottom(old) {
+				if (old) {
+					this.load();
+				}
+			}
+		},
+
 		computed: {
 			...mapState("pollFeed", {
 				state: s => s,
@@ -72,14 +76,18 @@
 				loading: s => s.loading,
 				is_finished: s => s.is_finished,
 				filter_id: state => state.filter_id,
-				connectionUnstable: ({ connectionUnstable }) => connectionUnstable
+				connectionUnstable: ({connectionUnstable}) => connectionUnstable
 			}),
 
 			...mapState("globalStore", {
-				categories: ({ categories }) => categories
+				categories: ({categories}) => categories
 			}),
 
-			slidesPerView: function() {
+			scrolled_to_bottom() {
+				return this.$root.scrolled_to_bottom;
+			},
+
+			slidesPerView: function () {
 				if (this.mobile) {
 					this.swiperOption.slidesPerView = 5;
 					this.swiperOption.spaceBetween = 12;
@@ -90,7 +98,7 @@
 			},
 
 			beforeRouteLeave(to, from, next) {
-				let { page } = this;
+				let {page} = this;
 
 				page = 0;
 
@@ -105,9 +113,8 @@
 			}
 		},
 
-		watch: {},
-
-		created() {},
+		created() {
+		},
 
 		mounted() {
 			this.$store.dispatch(`catalogList/list`);
@@ -116,10 +123,10 @@
 		},
 
 		components: {
+			LoaderReusable,
 			SwiperCarousel,
 			event,
 			filterComponent,
-			MugenScroll,
 			pollInstance
 		}
 	};
@@ -135,6 +142,7 @@
 	.category-section::-webkit-scrollbar {
 		display: none;
 	}
+
 	.category-block span::selection {
 		background: transparent;
 	}
@@ -145,8 +153,7 @@
 
 
 		.feed {
-			height: 100%;
-			overflow: hidden;
+			height: 99%;
 
 			.loading-spinner {
 				width: 100%;
@@ -163,26 +170,26 @@
 			}
 		}
 	}
+
 	.loading {
 		span {
 			color: #f4f4f4f4;
 		}
 	}
 
-	@media only screen
-		and (max-width: 420px) {
-			#poll-wrapper {
-				.category-section {
-					justify-content: center !important;
+	@media only screen and (max-width: 420px) {
+		#poll-wrapper {
+			.category-section {
+				justify-content: center !important;
 
-					& > *:nth-child(even) {
-						margin-right: 0 !important;
+				& > *:nth-child(even) {
+					margin-right: 0 !important;
 
-						@media (max-width: 350px) {
-							margin-right: 6px !important;
-						}
+					@media (max-width: 350px) {
+						margin-right: 6px !important;
 					}
 				}
 			}
+		}
 	}
 </style>

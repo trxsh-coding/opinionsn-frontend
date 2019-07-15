@@ -1,9 +1,8 @@
 <template>
 	<div
 			class="notificationWrapper"
-			@scroll="handleSectionScroll"
-			ref="sectionRef"
-			:class="{ 'scroll': route_name === 'notifications' }">
+			:class="{'desktop': !mobile}"
+			ref="sectionRef">
 		<div class="notification-section flex-column" v-if="messages.length && !closed">
 			<div class="today flex-column flex-center" v-if="filtered_messages.today.length">
 				<notification-instance
@@ -43,6 +42,11 @@
 						:key="index"
 				/>
 			</div>
+
+
+<!--			 TODO: разобраться с лоадером -->
+			<loader-reusable class="mx-auto" v-show="!loaded && route_name !== 'notifications'" />
+
 		</div>
 
 		<div class="nope" v-else-if="messages.length == 0">
@@ -59,17 +63,35 @@
 	import langString from '../langString'
 	import NotificationInstance from "./layout/notificationInstance"
 	import moment from "moment";
+	import ElementScrollHandler from "../mixins/ElementScrollHandler";
+	import LoaderReusable from "../reusableСomponents/LoaderReusable";
 
 	export default {
 		name: "notificationPage",
-		components: {NotificationInstance, feedBlock, langString },
+		components: {
+			LoaderReusable, NotificationInstance, feedBlock, langString
+		},
 		props: {
-			scrollDifference: Boolean, Number
+			scrollDifference: Boolean
+		},
+		data() {
+			return {
+				mobile: this.$root.mobile
+			}
 		},
 		watch: {
+			scrolled_to_bottom(old) {
+				if (this.route_name === 'notifications') {
+					if (old === true) {
+						this.load();
+					}
+				}
+			},
 			scrollDifference(old) {
-				if (old === true) {
-					this.load();
+				if (this.route_name !== 'notifications') {
+					if (old === true) {
+						this.load();
+					}
 				}
 			}
 		},
@@ -84,6 +106,10 @@
 				loading: state => state.loading,
 				spinner: state => state.spinner
 			}),
+
+			scrolled_to_bottom() {
+				return this.$root.scrolled_to_bottom;
+			},
 
 			route_name() {
 				return this.$route.name;
@@ -124,14 +150,6 @@
 		},
 		methods: {
 
-			handleSectionScroll() {
-				if (this.route_name === 'notifications') {
-					let {sectionRef} = this.$refs;
-					let scroll_difference = sectionRef.scrollTop + sectionRef.offsetHeight - sectionRef.scrollHeight;
-					if (scroll_difference === 0) this.load();
-				}
-			},
-
 			load() {
 				this.$store.dispatch('notificationPage/list', {customUrl: `${process.env.VUE_APP_NOTIFICATION_API}/notification/${this.page}`});
 			},
@@ -150,14 +168,15 @@
 	.notificationWrapper {
 		width: 100%;
 
-		&.scroll {
-			overflow-y: scroll;
-			height: 100vh;
+		&.desktop {
+			min-height: 619px;
 		}
+
 
 		.notification-section {
 			background: #FFFFFF;
 			border-radius: 6px;
+			height: 100%;
 
 			.title {
 				width: fit-content;

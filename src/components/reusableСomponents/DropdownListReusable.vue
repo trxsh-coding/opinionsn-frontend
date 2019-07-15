@@ -16,7 +16,6 @@
 				:style="[listVisibility, listWidth, listHeight]">
 
 			<slot name="items"></slot>
-			<loader-reusable />
 		</div>
 	</div>
 </template>
