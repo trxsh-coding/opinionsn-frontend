@@ -95,6 +95,8 @@
 
             },
             eventOnBlur(){
+                this.hide = false;
+
                 this.$emit('blur');
             },
             handlePercentValue(value) {

@@ -22,7 +22,7 @@
             </div>
             <div class="profile-annotation-block flex-align-center">
 
-                <dropdown-list-reusable width="376">
+                <dropdown-list-reusable width="376" :height="583">
                         <icon-base
                                 fill="none"
                                 class="mr-22"

@@ -25,7 +25,7 @@
                         image-preview
                         class="mt-12"
                         pre-width="100%"
-                        :pre-height="190"
+                        :pre-height="mobile ? 190 : 371"
                         :value="item.picture"
                         @upload="({file, url}) => {updateArrayField(file, url, 'pictures', 'picture', index)}">
 
@@ -74,6 +74,7 @@
                 </template>
             </upload-reusable>
         </div>
+        <checkbox-reusable :width="20" :height="20" :bor-rad="5"></checkbox-reusable>
 
     </div>
 </template>
@@ -93,6 +94,7 @@
     import {mapState} from "vuex"
     import langMixin from "../mixins/langMixin";
     import CategorySelect from "../reusableСomponents/categorySelect";
+    import CheckboxReusable from "../reusableСomponents/checkboxReusable";
     export default {
         name: "CreatePoll",
         mixins:[langMixin],
@@ -153,6 +155,7 @@
         },
 
         components: {
+            CheckboxReusable,
             CategorySelect,
             IconBase,
             UploadReusable,

@@ -22,6 +22,9 @@
 		props: {
         	width: {
         		type: [String, Number]
+			},
+			height: {
+        		type: [String, Number]
 			}
 		},
 		data() {
@@ -43,11 +46,12 @@
 				return this.show ? {transform: "rotateX(180deg)", top: '2px'} : {};
 			},
 			listWidth() {
-				let { width, handleCssValue } = this;
+				let { width, height, handleCssValue } = this;
 				if (!width) return {};
+				height = handleCssValue(height);
 
 				width = handleCssValue(width);
-				return { width };
+				return { width, height };
 			}
 		},
 		methods: {
