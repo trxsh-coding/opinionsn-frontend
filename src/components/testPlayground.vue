@@ -67,6 +67,7 @@
 		<short-poll-reusable type-of-layout="column" :poll="polls[1727]"></short-poll-reusable>
 		<switch-component :height="21" :width="34"  :bor-rad="18" color="#B7B9BE"/>
 		<el-date-picker></el-date-picker>
+	    <loader-reusable></loader-reusable>
 	</div>
 </template>
 
@@ -86,6 +87,7 @@
 	import PopoverReusable from "./reusableСomponents/PopoverReusable";
 	import CircleProgressBarReusable from "./reusableСomponents/CircleProgressBarReusable";
 	import SwitchComponent from "./reusableСomponents/switchComponent";
+	import LoaderReusable from "./reusableСomponents/LoaderReusable";
 
 
 
@@ -93,6 +95,7 @@
 	export default {
         name: "testPlayground",
 		components: {
+			LoaderReusable,
 			SwitchComponent,
 			CircleProgressBarReusable,
 			PopoverReusable,

@@ -62,13 +62,13 @@
 
 	export default {
 		name: "notificationPage",
-		components: {NotificationInstance, feedBlock, MugenScroll, langString },
+		components: {NotificationInstance, feedBlock, langString },
 		props: {
-			scrollDifference: Number
+			scrollDifference: Boolean, Number
 		},
 		watch: {
 			scrollDifference(old) {
-				if (old === 0) {
+				if (old === true) {
 					this.load();
 				}
 			}

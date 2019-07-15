@@ -9,21 +9,27 @@
 		</button>
 
 		<div
-				ref="listRef"
-				@scroll="getScrollDifference"
+				ref="srollableBlockRef"
+				@scroll="setScrollDifference($refs.srollableBlockRef, 64, 'scrollDifference')"
 				class="dropdown-list flex-column flex-align-center"
 				:class="listClass"
 				:style="[listVisibility, listWidth, listHeight]">
 
 			<slot name="items"></slot>
+			<loader-reusable />
 		</div>
 	</div>
 </template>
 
 <script>
 
+	import LoaderReusable from "./LoaderReusable";
+	import ElementScrollHandler from "../mixins/ElementScrollHandler";
+
 	export default {
 		name: "DropdownListReusable",
+		components: {LoaderReusable},
+		mixins: [ElementScrollHandler],
 		props: {
 			width: {
 				type: [String, Number]
@@ -89,11 +95,6 @@
 				if (!wrapperRef.contains(target)) this.show = false;
 			},
 
-			getScrollDifference() {
-				let {listRef} = this.$refs;
-				let scroll_difference = listRef.scrollTop + listRef.offsetHeight - listRef.scrollHeight;
-				this.$emit('scrollDifference', scroll_difference);
-			}
 		},
 		mounted() {
 			let {handleOutsideClick} = this;

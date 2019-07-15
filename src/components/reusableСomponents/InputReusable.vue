@@ -10,7 +10,7 @@
 		<input type="text"
 		       v-model="value"
 		       @focus="focusInput(true)"
-		       :class="[{ focusedInput : active, validationStyle : validationError}, inputClass]"
+		       :class="[{ focusedInput : active && withUnderline, validationStyle : validationError}, inputClass]"
 		>
 		<div class="action-btns" v-if="withActionButtons">
 			<icon-base
@@ -54,6 +54,12 @@
 		props: {
 			inputClass: String,
 			withActionButtons: Boolean,
+			withUnderline: {
+				type: Boolean,
+				default: function () {
+					return true;
+				}
+			},
 			width: {
 				type: [Number, String],
 				default() {
