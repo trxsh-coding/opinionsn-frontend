@@ -68,7 +68,7 @@
 		},
 		watch: {
 			scrollDifference(old) {
-				if (old === 0) {
+				if (old > -20) {
 					this.load();
 				}
 			}
@@ -110,7 +110,7 @@
 						case difference = 1:
 							msgs.yesterday.push(this.messages[i]);
 							break;
-						case difference > 7:
+						case difference > 7 && difference <= 31:
 							msgs.week.push(this.messages[i]);
 							break;
 						default:
