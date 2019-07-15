@@ -10,6 +10,7 @@
 		<input type="text"
 		       v-model="value"
 		       @focus="focusInput(true)"
+			   @blur="eventOnBlur"
 		       :class="[{ focusedInput : active, validationStyle : validationError}, inputClass]"
 		>
 		<div class="action-btns" v-if="withActionButtons">
@@ -85,7 +86,8 @@
 			return {
 				value: '',
 				active: false,
-				hide: false
+				hide: false,
+				blurIsEnabled:true
 			}
 		},
 
@@ -136,11 +138,14 @@
 				}
 			},
 
-			// eventOnBlur() {
-			// 	this.hide = false;
-			// 	this.value = '';
-			// 	this.$emit('blur');
-			// },
+			eventOnBlur() {
+				if(this.blurIsEnabled){
+					this.hide = false;
+					this.active = false;
+					this.value = '';
+					this.$emit('blur');
+				}
+			},
 
 			handleCssValue(value) {
 

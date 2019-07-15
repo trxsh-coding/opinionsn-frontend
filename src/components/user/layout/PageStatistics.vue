@@ -9,7 +9,7 @@
 			<div
 				class="card flex-column flex-align-center mt-13"
 				v-for="(item, index) in itemsSorted"
-				v-show="!hidden || (mobile && index < 3 || !mobile && index < 4)"
+				v-show="!hidden || ((mobile && index < 3) ||  (!mobile && index < 4))"
 			>
 				<lang-string class="title px-9 py-2 my-auto" :title="item[0]" />
 				<div class="flex-column flex-align-center pt-13">
@@ -43,7 +43,8 @@
 		data() {
 			return {
 				items: null,
-				hidden: true
+				hidden: true,
+				mobile: this.$root.mobile
 			}
 		},
 		computed: {

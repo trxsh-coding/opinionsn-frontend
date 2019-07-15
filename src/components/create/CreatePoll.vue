@@ -1,5 +1,6 @@
 <template>
     <div class="poll-create-wrapper" :class="{'bg-white': !mobile}">
+        <create-header />
         <div class="header-annotation flex">
             <h1 class="primary-header-annotation mr-36"><lang-string :title="'poll'"/> </h1>
             <h3 class="secondary-header-annotation"><lang-string :title="'prediction'"/> </h3>
@@ -8,18 +9,21 @@
 
         <input-reusable :value="form.tags"
                         @change="updateField(arguments[0], 'tags')"
-                        class="mt-12 mb-12"
+                        class="mt-12 mb-12 flex-between"
+                        :height="44"
                         :input-placeholder="'tags'"/>
 
         <input-reusable :value="form.subject_header"
                         @change="updateField(arguments[0], 'subject_header')"
-                        class="mt-12"
+                        class="mt-12 mb-12 flex-between"
+                        :height="44"
                         :input-placeholder="'heading'"/>
         <input-reusable :value="form.description"
                         @change="updateField(arguments[0], 'description')"
-                        class="mt-12"
+                        class="mt-12 mb-12 flex-between"
+                        :height="44"
                         :input-placeholder="'description'"/>
-        <swiper :options="swiperOption">
+        <swiper :options="swiperOption" class="mb-12">
             <swiper-slide v-for="(item, index) in pictures" :key="index">
                 <upload-reusable
                         image-preview
@@ -58,7 +62,7 @@
                     :height="60"
                     @change="updateArrayField(arguments[0], null, 'options', 'description', index, 'form')"
                     @blur.once="onBlurFunction(index)"
-                    class=" pl-14 mt-1"
+                    class="flex-align-center pl-14 mt-1"
                     input-placeholder="answer_text"
             />
             <upload-reusable
@@ -74,7 +78,13 @@
                 </template>
             </upload-reusable>
         </div>
-        <checkbox-reusable :width="20" :height="20" :bor-rad="5"></checkbox-reusable>
+        <date-pick v-model="message"
+                   :isDateDisabled="isFutureDate"
+                   :format="'YYYY-MM-DD HH:mm'"
+                   :pickTime="true"
+                   @change="check(arguments)">
+
+        </date-pick>
 
     </div>
 </template>
@@ -95,6 +105,10 @@
     import langMixin from "../mixins/langMixin";
     import CategorySelect from "../reusableСomponents/categorySelect";
     import CheckboxReusable from "../reusableСomponents/checkboxReusable";
+    import DatePick from 'vue-date-pick';
+    import 'vue-date-pick/dist/vueDatePick.css';
+    import Header from "../view/mobile/header";
+    import CreateHeader from "./createHeader";
     export default {
         name: "CreatePoll",
         mixins:[langMixin],
@@ -120,12 +134,26 @@
             ...mapState('creationManagement', {
 
                 form: s => s.form,
+                end_date: s => s.form.end_date,
                 pictures: s => s.pictures,
                 enablePicture: s => s.withPicture,
 
             }),
+            message: {
+                get () {
+                    return this.end_date
+                },
+                set (value) {
+                    this.$store.commit('creationManagement/SET_DATE_TIME', value)
+                }
+            }
         },
         methods: {
+
+            isFutureDate(date){
+                const currentDate = new Date();
+                return date <= currentDate;
+            },
             onBlurFunction(index){
                 this.$store.commit('creationManagement/ADD_OPTION', index)
 
@@ -135,6 +163,9 @@
                 this.$store.commit('creationManagement/INSERT_PICTURES', payload)
 
 
+            },
+            check(date){
+              console.log(date)
             },
             updateField(value, keyName){
 
@@ -150,11 +181,14 @@
             chooseTypeOfPoll(payload){
 
                 this.timeLimit = payload
-            }
+            },
+
 
         },
 
         components: {
+            CreateHeader,
+            Header,
             CheckboxReusable,
             CategorySelect,
             IconBase,
@@ -166,7 +200,8 @@
             ButtonReusable,
             SwitchComponent,
             langString,
-            IconUploadPhoto
+            IconUploadPhoto,
+            DatePick
 
         }
 
@@ -188,7 +223,12 @@
             font-size: 26px;
             color: #4B97B4;
         }
-
+        .vdpComonent {
+            outline: none;
+            border: none;
+            border-bottom: 0.5px solid #747474;
+            padding-bottom: 10px;
+        }
         h3 {
             font-family: Roboto;
             font-style: normal;
@@ -228,6 +268,9 @@
             .image-preview {
                 margin: 0 !important;
             }
+        }
+        .input-reusable .input-placeholder {
+            font-size: 12px;
         }
         .switch__item {
             padding-bottom: 12px;

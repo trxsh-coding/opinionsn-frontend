@@ -68,8 +68,8 @@
 
         }
         .category-picture {
-            height:22px;
-            width: 22px;
+            min-height:22px;
+            min-width: 22px;
             background-size: 100%;
             background-position: center;
             background-repeat: no-repeat;

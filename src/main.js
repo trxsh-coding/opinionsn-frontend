@@ -24,7 +24,10 @@ import 'swiper/dist/css/swiper.css'
 import './registerServiceWorker'
 import browserDetect from "vue-browser-detect-plugin";
 import * as firebase from "firebase";
+import DatePick from 'vue-date-pick';
+import 'vue-date-pick/dist/vueDatePick.css';
 
+Vue.use(DatePick);
 Vue.use(browserDetect);
 Vue.use(VueAwesomeSwiper);
 Vue.use(VueTextareaAutosize)
