@@ -31,7 +31,7 @@
 
 	   <ul class="subs-list mt-6 flex-column">
 
-		   <short-user-reusable :user="user" v-for="(user, index) in users_from_payload" :key="index" />
+		   <short-user-reusable class="mt-12 mx-20" :user="user" v-for="(user, index) in users_from_payload" :key="index" />
 
 	   </ul>
 

@@ -20,7 +20,7 @@
 						icon-name="text">
 					<icon-text-logo/>
 				</icon-base>
-				<input type="text" placeholder="Поиск">
+				<input type="text" placeholder="Поиск" v-model="keyword" @change="routeOnChange">
 			</div>
 			<div class="profile-annotation-block flex-align-center">
 
@@ -93,10 +93,17 @@
 		data() {
 			return {
 				publicPath: process.env.VUE_APP_MAIN_API,
-				listScrollDifference: null
+				listScrollDifference: null,
+				keyword: ''
 			}
 		},
 		methods: {
+
+			routeOnChange(){
+
+				this.$router.push({name:'search', query: {keyword: this.keyword} })
+
+			},
 
 			setListScrollDifference(difference) {
 				this.listScrollDifference = difference;

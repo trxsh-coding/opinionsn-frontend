@@ -1,5 +1,5 @@
 <template>
-	<div class="short-user-reusable mt-12 mx-20">
+	<div class="short-user-reusable">
 
 		<div class="flex">
 			<div class="avatar-wrapper flex">

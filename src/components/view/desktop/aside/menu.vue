@@ -1,9 +1,9 @@
 <template>
     <div class="navigation-aside-menu mt-9 ">
-        <div class="create-poll-block br-6 flex-align-center" >
+        <div class="create-poll-block br-6 pointer flex-align-center" @click="routerPush('notifications')">
             <icon-base
                     fill="none"
-                    class="mr-12 "
+                    class="mr-12 pointer"
                     width="23"
                     height="23"
                     viewBox="0 0 20 20"

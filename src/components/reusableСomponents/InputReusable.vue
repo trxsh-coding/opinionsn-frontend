@@ -54,12 +54,6 @@
 		props: {
 			inputClass: String,
 			withActionButtons: Boolean,
-			withUnderline: {
-				type: Boolean,
-				default: function () {
-					return true;
-				}
-			},
 			width: {
 				type: [Number, String],
 				default() {

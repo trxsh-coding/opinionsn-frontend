@@ -1,6 +1,7 @@
 <template>
 	<div class="search-wrapper flex-column" :class="{'bg-white pt-21 pb-19': !mobile, 'pt-6': mobile}">
 		<input-reusable
+				v-if="mobile"
 				v-model="keywords"
 				input-class="pr-28"
 				class="pl-60 pr-86"
@@ -9,7 +10,7 @@
 				@keyup.enter.native="searchUsers"
 				with-action-buttons/>
 
-		<div class="button-panel flex mt-12 ml-60">
+		<div class="button-panel flex ml-60" :class="{'mt-12': mobile}">
 			<button-reusable
 					bg-color="#ffffff"
 					button_type="underline"
@@ -32,7 +33,7 @@
 		</div>
 
 		<div
-				class="links-section mt-15 ml-30 mr-20"
+				class="links-section mt-15 mr-20 ml-60"
 		        v-show="keywords !== ''">
 			<search-instance
 					class="mt-9"
@@ -96,7 +97,10 @@
 
 			}),
 
-
+			searchQuery(){
+				this.keywords = this.$route.query.keyword;
+				return this.$route.query.keyword
+			},
 		},
 		methods: {
 			setTypeOfSearch(payload) {

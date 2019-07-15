@@ -5,7 +5,8 @@ import  {
     CLEAR_STATE,
     ADD_OPTION,
     INSERT_PICTURES,
-    SET_CATEGORY_NAME
+    SET_CATEGORY_NAME,
+    SET_DATE_TIME
 } from "../types/mutation-types";
 import  {
     SUBMIT_FORM
@@ -89,6 +90,11 @@ export const creationManagement = {
 
 
         [UPLOAD_FILE](state, payload) {
+
+        },
+        [SET_DATE_TIME](state, payload) {
+
+            state.form.end_date = payload;
 
         },
         [UPDATE_ARRAY_FIELD](state, payload) {
