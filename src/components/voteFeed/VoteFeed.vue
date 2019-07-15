@@ -1,9 +1,9 @@
 <template lang="html">
 
-    <section class="vote-feed" :class="{'bg-white pt-16': !mobile}">
+    <section class="vote-feed" :class="{'pt-16': !mobile}">
 		<scroll-swiper-reusable
 				v-if="mobile"
-				class="followers-swiper pl-30"
+				class="followers-swiper mb-15 pl-30"
 				:stub-length="2">
 
 			<picture-reusable
@@ -26,7 +26,7 @@
 		<swiper
 				v-else
 				:options="swiperOption"
-				class="followers-swiper">
+				class="followers-swiper mb-15">
 			<swiper-slide
 					class="avatar-wrapper"
 					v-for="{avatar, username, user_id} in followersData">
@@ -47,9 +47,9 @@
 		</swiper>
 
 
-		<div v-for="item in items" >
-			<vote-instance :item="item" class="mt-18" />
-			<hr class="mt-13">
+		<div v-for="(item, index) in items" class="vote-instance-wrapper" :class="{'bg-white': !mobile}">
+			<vote-instance :item="item" class="py-12" />
+			<hr class="m-0 mt-13" v-show="index !== items.length - 1">
 		</div>
 		<mugen-scroll :handler="load" :should-handle="!postsEnded || !loading">
 		</mugen-scroll>
@@ -144,6 +144,10 @@
 		box-sizing: border-box;
 		width: 100%;
 		border-radius: 6px;
+
+		.vote-instance-wrapper {
+			border-radius: 6px;
+		}
 
 		* {
 			box-sizing: inherit;

@@ -140,8 +140,8 @@ export const index = new Router({
 					component: VoteFeed,
 				},
 				{
-					path: 'feedBack',
-					name: 'feedBack',
+					path: 'feedback',
+					name: 'feedback',
 					component: feedBack,
 				},
 				{

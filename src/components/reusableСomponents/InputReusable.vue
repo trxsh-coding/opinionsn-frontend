@@ -1,143 +1,217 @@
 <template>
-    <div class="input-block">
-        <lang-string
-                v-if="!hide"
-                class="input-placeholder"
-                :title="inputPlaceholder"
-        />
-        <input type="text"
-               v-model="value"
-               :style="inputStyle"
-               @change="inputValue(arguments[0].target.value)"
-               @focus="focusInput(true)"
-               @blur="eventOnBlur"
-               :class="{ focusedInput : active, validationStyle : validationError}"
-        >
-    </div>
+	<div
+			class="input-reusable"
+			:style="inputStyle">
+		<lang-string
+				v-show="!hide"
+				class="input-placeholder"
+				:title="inputPlaceholder"
+		/>
+		<input type="text"
+		       v-model="value"
+		       @focus="focusInput(true)"
+		       :class="[{ focusedInput : active, validationStyle : validationError}, inputClass]"
+		>
+		<div class="action-btns" v-if="withActionButtons">
+			<icon-base
+					@click.native="clearInput"
+					class="pointer"
+					fill="none"
+					width="17"
+					height="18"
+					viewBox="0 0 17 18"
+					icon-name="close-btn">
+				<icon-close />
+			</icon-base>
+
+			<lang-string
+					@click.native="clearInput"
+					class="cancel-btn pointer"
+					title="cancel"
+			/>
+		</div>
+	</div>
 </template>
 
 <script>
-    import langMixin from "../mixins/langMixin";
-    import langString from "../langString";
+	import langMixin from "../mixins/langMixin";
+	import langString from "../langString";
+	import IconBase from "../icons/IconBase";
+	import IconClose from "../icons/IconClose";
 
-    export default {
-        name: "inputReusable",
-        mixins:[langMixin],
-        components:{langString},
-        model: {
-            prop: 'value',
-            event: 'change',
-            validationError:false,
-        },
-        props: {
-            width: {
-                type:[Number, String],
-                default: function () {
-                    return '100%';
-                }
-            },
-            height: {
-                type:[Number, String],
-                default: function () {
-                    return 'auto';
-                }
-            },
-            inputPlaceholder: {
-                type:String,
-                default: function () {
-                    return 'Input'
-                }
-            },
+	export default {
+		name: "inputReusable",
+		mixins: [langMixin],
+		components: {
+			langString,
+			IconBase,
+			IconClose
+		},
+		model: {
+			prop: 'value',
+			event: 'change'
+		},
+		props: {
+			inputClass: String,
+			withActionButtons: Boolean,
+			width: {
+				type: [Number, String],
+				default() {
+					return '100%';
+				}
+			},
+			height: {
+				type: [Number, String],
+				default() {
+					return 'auto';
+				}
+			},
+			inputPlaceholder: {
+				type: String,
+				default() {
+					return 'Input'
+				}
+			},
+			validationError: {
+				type: Boolean,
+				default() {
+					return false;
+				}
+			}
 
 
-        },
-        data() {
-            return {
-                value: '',
-                active:false,
-                hide:false
-            }
-        },
+		},
+		data() {
+			return {
+				value: '',
+				active: false,
+				hide: false
+			}
+		},
 
-        computed: {
-            placeholderTranslate(){
+		watch: {
+			value(old) {
+				old.length > 0 ? this.hide = true : this.hide = false;
+				this.$emit('change', this.value);
+			},
+			parent_value(old) {
+				//NOTE:  Не знаю как вписать в watch this.$attrs.value, поэтому сделал пока так
+				if (old !== undefined && old.length === 0) this.clearInput();
+			}
+		},
 
-                return this.lstr('Input')
+		computed: {
+			inputStyle() {
+				let {width, height, handleCssValue} = this;
+				width = handleCssValue(width);
+				height = handleCssValue(height);
+				return {
+					width: `${width}`,
+					height: `${height}`,
 
-            },
-            inputStyle(){
-                let {width, height, handlePercentValue} = this;
-                width = handlePercentValue(width);
-                height = handlePercentValue(height);
-                return {
-                    width: `${width}`,
-                    height: `${height}`,
+				};
+			},
+			parent_value() {
+				return this.$attrs.value;
+			}
+		},
+		methods: {
+			focusInput(payload) {
+				this.hide = true;
+				this.active = payload;
+			},
 
-                };
-            }
-        },
-        methods: {
-            focusInput(payload){
-                this.hide = true;
-                this.active = payload;
+			clearInput() {
+				this.value = '';
+			},
 
-            },
-            inputValue(payload){
-                this.$emit('change', payload);
+			// inputValue(payload) {
+			// 	this.$emit('change', payload);
+			// },
 
-            },
-            inputValidation(payload){
+			inputValidation(payload) {
+				this.active = payload;
+				if (this.value.length === 0) {
+					this.validationError = true
+				}
+			},
 
-                this.active = payload;
-                if(this.value.length === 0){
-                    this.validationError = true
-                }
+			// eventOnBlur() {
+			// 	this.hide = false;
+			// 	this.value = '';
+			// 	this.$emit('blur');
+			// },
 
-            },
-            eventOnBlur(){
-                this.hide = false;
+			handleCssValue(value) {
 
-                this.$emit('blur');
-            },
-            handlePercentValue(value) {
+				switch (true) {
+					case `${value}`.slice(-1) === '%':
+						return value;
+					case !isNaN(value):
+						return value + 'px';
+					default:
+						return value;
+				}
 
-                if (value === undefined) return false;
-
-                return `${value}`.slice(-1) === '%' ? value : value + 'px';
-
-            },
-        }
-    }
+			}
+		}
+	}
 </script>
 
 <style lang="scss">
-    .input-block {
-        .focusedInput {
-            border-bottom-color: #4B97B4 !important;
-        }
-        .validationStyle {
-            border-bottom-color: red !important;
+	.input-reusable {
+		position: relative;
 
-        }
-        .input-placeholder {
+		.action-btns {
+			position: absolute;
+			z-index: 200;
+			display: flex;
+			top: 0;
+			right: 20px;
+			.cancel-btn {
+				margin-left: 19px;
+				color: #1A1E22;
+			}
+		}
 
-            font-family: Roboto;
-            font-style: normal;
-            font-weight: normal;
-            font-size: 12px;
-            color: #747474;
+		.focusedInput {
+			border-bottom-color: #4B97B4 !important;
+		}
 
+		.validationStyle {
+			border-bottom-color: red !important;
 
-        }
-        input {
-            outline: none;
-            border-bottom-style: solid;
-            border-bottom-color: #BCBEC3;
-            border-bottom-width: 0.5px;
-            border-top: none;
-            border-right: none;
-            border-left: 0;
-            margin-bottom: 1px;
-        }
-    }
+		}
+
+		.input-placeholder {
+
+			position: absolute;
+			/*<!--transform: translateY(-50%);-->*/
+			/*<!--top: 50%;-->*/
+			z-index: 100;
+
+			font-family: Roboto, serif;
+			font-style: normal;
+			font-weight: normal;
+			font-size: inherit;
+			color: #747474;
+		}
+
+		input {
+			width: 100%;
+			position: relative;
+			z-index: 200;
+			background-color: transparent;
+			font-size: inherit;
+			outline: none;
+			border-bottom-style: solid;
+			border-bottom-color: #BCBEC3;
+			border-bottom-width: 0.5px;
+			border-top: none;
+			border-right: none;
+			border-left: 0;
+			margin-bottom: 1px;
+			padding-bottom: 4px;
+		}
+	}
 </style>

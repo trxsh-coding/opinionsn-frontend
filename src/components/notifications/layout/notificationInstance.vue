@@ -1,26 +1,26 @@
 <template>
-    <div class="notification-section">
-
+    <div class="notification-section pt-9 pr-13">
         <picture-reusable
-                pic-class="mr-9"
+                pic-class="mr-18 pointer"
                 avatar
                 :id="author.id"
                 :img="publicPath + imageUtil(author.path_to_avatar, 'S')"
-                :size="36"
+                size="36"
                 textLayout="right"
                 rounded>
             <template #title>
-                <span class="author-name">
+                <span class="author-name pointer" @click="$router.push({ name: 'user', params: { id: author.id } })">
                     {{author.username}}
                 </span>
                 <span class="event__item">
                     <lang-string class="event-span lowercase" :title="eventCaption" />
-                    <span class="poll-name" v-if="notification.targetId"> "{{pollName}}"</span>
+                    <span
+                            class="poll-name pointer"
+                            v-if="notification.targetId"
+                            @click="$router.push({ name: 'singlePoll', params: { id: notification.targetId } })"> "{{pollName}}"</span>
                 </span>
                 <time-trans class="date mt-4" :time="notification.date" />
-                <div class="notification-border">
-
-                </div>
+                <div class="notification-border mt-9" />
             </template>
         </picture-reusable>
     </div>
@@ -32,6 +32,7 @@
     import imageMixin from "../../mixins/imageMixin";
     import langString from "../../langString"
     import TimeTrans from "../../timeTrans";
+
     export default {
         name: "notificationInstance",
         components: {TimeTrans, PictureReusable, langString},
@@ -109,9 +110,17 @@
             color: #76787A;
         }
         .picture-reusable {
+            justify-content: flex-start;
             align-items: end;
+            width: 100%;
+
             .text {
+                width: 100%;
                 margin-right: 0;
+            }
+
+            .title {
+                width: 100% !important;
             }
         }
         .poll-name {
@@ -132,10 +141,11 @@
             color: #ADAFB3;
 
         }
+
         .notification-border {
             border-bottom: 1px solid #BCBEC3;
             padding-left: 60px;
-
+            width: 100%;
         }
     }
 </style>

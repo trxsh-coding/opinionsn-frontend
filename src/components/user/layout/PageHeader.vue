@@ -71,14 +71,18 @@
 
 			</div>
 
-			<button-reusable v-show="user.id === mainUser.id" class="edit-btn py-8 px-9 mt-9 mr-20 ml-auto" bor-rad="30" :description="'edit'">
+			<button-reusable
+					v-show="user.id === mainUser.id"
+					class="edit-btn py-8 px-9 mt-9 mr-20 ml-auto"
+					bor-rad="30"
+					:description="'edit'">
 			</button-reusable>
 
 			<button-reusable
 				v-show="user.id !== mainUser.id"
 				class="edit-btn py-6 px-10 mt-9 mr-20 ml-auto"
 				bor-rad="30"
-				:color="user.isLeader ? '#BCBEC3' : '#4B97B4'"
+				:bg-color="user.isLeader ? '#BCBEC3' : '#4B97B4'"
 				@click.native="subscribeActions(user.id)"
 			>
 				<icon-base

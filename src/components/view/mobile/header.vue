@@ -90,12 +90,12 @@
                     case 'pollFeed':
                     case 'voteFeed':
                     case 'singlePoll':
-                    case 'search':
                         return 'primary';
 
                     case 'catalogList':
                     case 'catalogFeed':
                     case 'bookmarkFeed':
+                    case 'search':
                         return 'secondary';
 
                     default:

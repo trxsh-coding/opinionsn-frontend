@@ -1,7 +1,9 @@
 <template>
-    <div class="picture-reusable" :style="wrapperStyle" @click="profilePush">
+    <div class="picture-reusable" :style="wrapperStyle">
 		<div class="picture-wrapper" :class="picClass" :style="pictureWrapperStyle">
-			<div class="picture relative v-center" :style="pictureStyle">
+			<div class="picture relative v-center"
+			     @click="profilePush"
+			     :style="pictureStyle">
 				<div v-if="counter" class="counter">
 					<span>
 						+{{handledCounter}}

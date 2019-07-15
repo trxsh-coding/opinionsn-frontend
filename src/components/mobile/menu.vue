@@ -1,5 +1,5 @@
 <template lang="html">
-    <div class="sidebar px-10" :class="{'bg-white': !mobile}">
+    <div class="sidebar px-10 pt-15 pl-60 pr-20" :class="{'bg-white': !mobile}">
         <profile v-if="mobile"/>
         <routebar/>
         <language-change/>

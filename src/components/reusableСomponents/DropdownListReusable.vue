@@ -1,5 +1,5 @@
 <template>
-    <div class="dropdown-list-reusable" ref="dropdownRef">
+	<div class="dropdown-list-reusable" ref="wrapperRef">
 
 		<button class="toggle-btn" @click="show = !show">
 			<slot></slot>
@@ -8,7 +8,12 @@
 			</span>
 		</button>
 
-		<div class="dropdown-list flex-column flex-align-center" :style="{...listVisibility, ...listWidth}">
+		<div
+				ref="listRef"
+				@scroll="getScrollDifference"
+				class="dropdown-list flex-column flex-align-center"
+				:class="listClass"
+				:style="[listVisibility, listWidth, listHeight]">
 
 			<slot name="items"></slot>
 		</div>
@@ -18,14 +23,15 @@
 <script>
 
 	export default {
-        name: "DropdownListReusable",
+		name: "DropdownListReusable",
 		props: {
-        	width: {
-        		type: [String, Number]
+			width: {
+				type: [String, Number]
 			},
 			height: {
-        		type: [String, Number]
-			}
+				type: [String, Number]
+			},
+			listClass: String
 		},
 		data() {
 			return {
@@ -33,31 +39,38 @@
 			}
 		},
 		watch: {
-        	show() {
-				this.handleDropdownList();
+			show() {
+				this.handleVisibility();
 			},
 
 		},
 		computed: {
 			listVisibility() {
-				return this.show ? { visibility: 'visible', opacity: '1' } : { visibility: 'hidden', opacity: '0' };
+				return this.show ? {visibility: 'visible', opacity: '1'} : {visibility: 'hidden', opacity: '0'};
 			},
 			iconStyle() {
 				return this.show ? {transform: "rotateX(180deg)", top: '2px'} : {};
 			},
 			listWidth() {
-				let { width, height, handleCssValue } = this;
+				let {width, handleCssValue} = this;
 				if (!width) return {};
-				height = handleCssValue(height);
 
 				width = handleCssValue(width);
-				return { width, height };
-			}
+				return {width};
+			},
+			listHeight() {
+				let {height, handleCssValue} = this;
+				if (!height) return {};
+
+				height = handleCssValue(height);
+				return {height};
+			},
 		},
 		methods: {
-			handleDropdownList() {
-				this.$emit('handleDropdownList', this.show);
+			handleVisibility() {
+				this.$emit('visibile', this.show);
 			},
+
 			handleCssValue(value) {
 
 				switch (true) {
@@ -70,18 +83,25 @@
 				}
 
 			},
-			test({target}) {
-				let { dropdownRef } = this.$refs;
-				if (!dropdownRef.contains(target)) this.show = false;
+
+			handleOutsideClick({target}) {
+				let {wrapperRef} = this.$refs;
+				if (!wrapperRef.contains(target)) this.show = false;
+			},
+
+			getScrollDifference() {
+				let {listRef} = this.$refs;
+				let scroll_difference = listRef.scrollTop + listRef.offsetHeight - listRef.scrollHeight;
+				this.$emit('scrollDifference', scroll_difference);
 			}
 		},
 		mounted() {
-        	let { test } = this;
-			document.body.addEventListener('click', test, false);
+			let {handleOutsideClick} = this;
+			document.body.addEventListener('click', handleOutsideClick, false);
 		},
 		beforeDestroy() {
-			let { test } = this;
-			document.body.removeEventListener('click', test, false);
+			let {handleOutsideClick} = this;
+			document.body.removeEventListener('click', handleOutsideClick, false);
 		}
 	}
 </script>
