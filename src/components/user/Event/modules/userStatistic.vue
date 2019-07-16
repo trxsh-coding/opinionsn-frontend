@@ -135,7 +135,7 @@
 
         mounted(){
 
-            axios.get(`${process.env.VUE_APP_MAIN_API}/rest/getStatisticsOnCategories/${this.id}`)
+            axios.get(`${process.env.VUE_APP_MAIN_API}/rest/v1/categories/stat/user/${this.id}`)
                 .then((response) => {
                     if (response.status === 200) {
                         this.$store.commit('globalStore/updateStores', response.data, {root: true});

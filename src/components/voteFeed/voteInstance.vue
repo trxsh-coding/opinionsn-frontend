@@ -54,7 +54,7 @@
             }
         },
         mounted() {
-            // this.$store.dispatch(`userPage/list`, {customUrl: `${process.env.VUE_APP_MAIN_API}/rest/getUserById/${this.poll.author_id}`});
+            // this.$store.dispatch(`userPage/list`, {customUrl: `${process.env.VUE_APP_MAIN_API}/rest/v1/user/${this.poll.author_id}`});
         }
     }
 </script>

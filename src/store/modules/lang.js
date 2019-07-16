@@ -24,14 +24,14 @@ export default  {
   },
     actions: {
       getLocaleString({dispatch, commit}, payload){
-        axios.get(`${process.env.VUE_APP_MAIN_API}/locale/get`)
+        axios.get(`${process.env.VUE_APP_MAIN_API}/locale`)
           .then(function(response){
             commit('setLocale', response.data)
         }.bind(this))
       },
 
       getGuestsLocaleString({dispatch, commit}, payload){
-        axios.get(`${process.env.VUE_APP_MAIN_API}/locale/get`)
+        axios.get(`${process.env.VUE_APP_MAIN_API}/locale`)
             .then(function(response){
               commit('setLocale', response.data)
             }.bind(this))

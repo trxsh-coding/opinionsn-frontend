@@ -92,7 +92,7 @@
 
                 loginFormData.append('email', form.password);
                 loginFormData.append('emailConfirm', form.password_confirm);
-                axios.post(`${process.env.VUE_APP_MAIN_API}/auth/sendResetPasswordCode`, loginFormData)
+                axios.post(`${process.env.VUE_APP_MAIN_API}/auth/password/reset/code`, loginFormData)
                     .then(response => {
                         if (response.status === 200) {
                             this.$store.commit("authentication/setAuthenticated", true)

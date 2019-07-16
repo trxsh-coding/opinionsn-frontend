@@ -117,14 +117,14 @@
 				if (this.type === 'POLL') {
 
 					this.$store.dispatch('searchUser/list', {
-						customUrl: `${process.env.VUE_APP_MAIN_API}/rest/search/`,
+						customUrl: `${process.env.VUE_APP_MAIN_API}/rest/v1/search/polls`,
 						params: {type, contain}
 					})
 
 
 				} else {
 
-					this.$store.dispatch('searchUser/list', {customUrl: `${process.env.VUE_APP_MAIN_API}/rest/findAllContaining/${contain}`})
+					this.$store.dispatch('searchUser/list', {customUrl: `${process.env.VUE_APP_MAIN_API}/rest/v1/search/user/containing/${contain}`})
 
 
 				}
