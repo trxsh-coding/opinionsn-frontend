@@ -4,6 +4,9 @@
 			:class="{'desktop': !mobile}"
 			ref="sectionRef">
 		<div class="notification-section flex-column" v-if="messages.length && !closed">
+
+
+
 			<div class="today flex-column flex-center" v-if="filtered_messages.today.length">
 				<notification-instance
 						class="notification-instance today pl-21"
@@ -45,7 +48,7 @@
 
 
 <!--			 TODO: разобраться с лоадером -->
-			<loader-reusable class="mx-auto" v-show="!loaded && route_name !== 'notifications'" />
+			<loader-reusable class="mx-auto mt-auto" v-show="!loaded && route_name !== 'notifications'" />c
 
 		</div>
 
@@ -176,7 +179,7 @@
 		.notification-section {
 			background: #FFFFFF;
 			border-radius: 6px;
-			height: 100%;
+			height: auto;
 
 			.title {
 				width: fit-content;

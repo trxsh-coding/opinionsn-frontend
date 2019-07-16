@@ -3,7 +3,7 @@
         <post-header :author="author" :poll="poll" :eventType="item.eventType">
 			<template #annotation>
 				<poll-anotation :poll="poll"/>
-			</template>;
+			</template>
 		</post-header>
         <headline-body :poll="poll" :item="item"/>
         <options-section

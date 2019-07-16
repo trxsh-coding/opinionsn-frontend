@@ -4,7 +4,7 @@
 
 			<bookmark class="bookmark-btn pointer" :poll="poll"></bookmark>
 
-			<div v-if="rowLayout" class="img-wrapper pointer" @click="pollLink(poll.id)">
+			<div v-if="rowLayout && !!poll.picture" class="img-wrapper pointer" @click="pollLink(poll.id)">
 
 				<picture-reusable
 					:img="publicPath + poll.picture"
@@ -15,7 +15,7 @@
 
 			</div>
 
-			<div class="text flex-column">
+			<div class="text flex-column" :class="{'ml-9': !poll.picture || true}">
 
 				<span class="poll-timestamp mb-3" v-if="mobile">
 					<time-trans :time="poll.date" />
@@ -25,7 +25,7 @@
 
 				<span v-if="withDesc && rowLayout" class="poll-desc mb-3 pointer"  @click="pollLink(poll.id)">{{poll.description}}</span>
 
-				<div v-else-if="!rowLayout" class="main-img-wrapper pointer mb-3" @click="pollLink(poll.id)">
+				<div v-else-if="!rowLayout && !!poll.picture" class="main-img-wrapper pointer mb-3" @click="pollLink(poll.id)">
 
 					<picture-reusable
 						:img="publicPath + pollAuthor.path_to_avatar"

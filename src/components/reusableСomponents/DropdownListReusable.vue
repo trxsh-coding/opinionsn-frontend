@@ -106,7 +106,7 @@
 	}
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 
 	.dropdown-list-reusable {
 		position: relative;
