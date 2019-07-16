@@ -8,6 +8,7 @@
         <category-select />
 
         <input-reusable :value="form.tags"
+                        textarea
                         @change="updateField(arguments[0], 'tags')"
                         class="mt-12 mb-12 flex-between"
                         :height="44"
