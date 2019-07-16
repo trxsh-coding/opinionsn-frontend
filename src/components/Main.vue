@@ -10,7 +10,7 @@
 				<aside-desktop />
 			</aside>
 			<mobile-header :user="user" v-if="mobile" />
-			<router-view class="sub-container margin-auto"/>
+			<router-view class="sub-container "/>
 
 			<mobile-footer  v-if="mobile"/>
 		</section>

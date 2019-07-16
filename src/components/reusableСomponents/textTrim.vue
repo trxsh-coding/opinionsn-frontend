@@ -1,11 +1,24 @@
 <template>
-  <span class="">
-      {{trimmedText}}
-         <span>
-        <lang-string class='showMore' :title="'more'" @click="io"/>
-      </span>
-  </span>
-
+    <div>
+        {{text.length}}
+        {{amountOfLetter}}
+        <div v-if="!textIsHidden">
+            <span>
+                {{trimmedText}}
+                <lang-string
+                        v-if="!showMore"
+                        class='showMore pointer'
+                        :title="'more'"
+                        @click.native="expandText"
+                />
+            </span>
+        </div>
+        <div v-if="textIsHidden">
+            <span>
+                {{text}}
+            </span>
+        </div>
+    </div>
 </template>
 
 <script>
@@ -24,14 +37,15 @@
         },
         data() {
             return {
-                showMore: false
+                showMore: false,
+                textIsHidden:false
             }
         },
         computed: {
             trimmedText() {
              let {text, amountOfLetter} = this;
-             if(text.length >= amountOfLetter){
-                  return text.substring(0, text.substring(0, amountOfLetter).lastIndexOf(' ')) + '... '
+             if(text.length > amountOfLetter){
+                  return text.substring(0, text.substring(0, amountOfLetter/2).lastIndexOf(' ')) + '... '
             } else {
                 this.showMore = true
                 return text
@@ -40,7 +54,7 @@
         },
         methods: {
             expandText(){
-                this.showMore = true
+                this.textIsHidden = true
             }
         }
     }

@@ -136,6 +136,9 @@
 
 <style lang="scss">
 	.desktop-header {
+		z-index: 99999999;
+		margin-bottom: 78px;
+		position: fixed;
 		background: #FFFFFF;
 		width: 100%;
 		height: 60px;
@@ -179,6 +182,13 @@
 				overflow-y: scroll;
 				scrollbar-width: thin;
 			}
+		}
+	}
+	@media only screen
+	and (min-width: 300px)
+	and (max-width: 765px){
+		.desktop-header {
+			margin-bottom: 0px !important;
 		}
 	}
 </style>

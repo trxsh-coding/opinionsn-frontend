@@ -105,6 +105,8 @@ li {
 .sub-container {
   max-width: 552px;
   width: 100%;
+  margin-left: auto;
+  margin-top: 78px;
 }
 
 .margin-auto {
@@ -803,8 +805,10 @@ li {
 @media only screen and (min-width: 300px) and (max-width: 765px) {
   .sub-container {
 	max-width: 100%;
+    margin-top: 0 !important;
   }
 }
+
 
 
 //Colors

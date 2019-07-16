@@ -16,5 +16,8 @@
 </script>
 
 <style lang="scss">
-
+    .aside-layout {
+        margin-top: 78px;
+        position: fixed;
+    }
 </style>
