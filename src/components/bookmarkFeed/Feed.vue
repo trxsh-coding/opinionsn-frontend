@@ -2,7 +2,7 @@
 
     <div id="bookmark-feed">
 
-        <short-poll-reusable v-for="(poll, index) in filtered_polls" :class="{'mt-9': index > 0}" :poll="poll" width="100%"></short-poll-reusable>
+        <short-poll-reusable v-for="(poll, index) in filtered_polls" :class="{'mt-9': index > 0}" :poll="poll" width="100%" />
 
     </div>
 

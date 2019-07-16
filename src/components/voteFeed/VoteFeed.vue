@@ -46,13 +46,20 @@
 			</swiper-slide>
 		</swiper>
 
-
-		<div v-for="(item, index) in items" class="vote-instance-wrapper" :class="{'bg-white': !mobile}">
-			<vote-instance :item="item" class="py-12" />
-			<hr class="m-0 mt-13" v-show="index !== items.length - 1">
+		<div
+				class="vote-instance-wrapper flex-column pb-12"
+				:class="{'desktop': !mobile, 'bg-white': !!items.length}">
+			<div
+					class="flex-column"
+					v-for="(item, index) in items">
+				<vote-instance
+						:item="item"
+						class="py-12" />
+				<hr class="m-0 mt-13" v-show="index !== items.length - 1">
+			</div>
+			<loader-reusable class="m-auto" v-show="!loaded" />
 		</div>
-		<mugen-scroll :handler="load" :should-handle="!postsEnded || !loading">
-		</mugen-scroll>
+
     </section>
 
 </template>
@@ -63,9 +70,9 @@
 	import { mapState } from "vuex";
 	import PictureReusable from "../reusableСomponents/PictureReusable";
 	import VoteInstance from "./voteInstance";
-	import MugenScroll from "vue-mugen-scroll";
 	import loadingSpinner from "../reusableСomponents/loadingSpinner"
 	import ScrollSwiperReusable from "../reusableСomponents/ScrollSwiperReusable";
+	import LoaderReusable from "../reusableСomponents/LoaderReusable";
 
 	export default {
 		data() {
@@ -79,12 +86,21 @@
 			};
 		},
 
+		watch: {
+			scrolled_to_bottom(old) {
+				if (old) {
+					this.load();
+				}
+			}
+		},
+
 		computed: {
 			...mapState("voteFeed", {
 				state: s => s,
 				items: ({ items }) => items,
 				postsEnded: ({ is_finished }) => is_finished,
-				loading: ({ loading }) => loading
+				loading: ({ loading }) => loading,
+				loaded: ({ loaded }) => loaded,
 			}),
 			...mapState("followsPage", {
 				followings: s => s.items
@@ -93,6 +109,10 @@
 			...mapState("globalStore", {
 				users: s => s.users
 			}),
+
+			scrolled_to_bottom() {
+				return this.$root.scrolled_to_bottom;
+			},
 
 			followersData() {
 				let { followings, users } = this;
@@ -120,12 +140,11 @@
 			}
 		},
 		components: {
+			LoaderReusable,
 			ScrollSwiperReusable,
 			VoteInstance,
 			PictureReusable,
-			MugenScroll,
 			loadingSpinner
-
 		},
 		mounted() {
 			this.$store.dispatch('followsPage/getMyFollowings');
@@ -147,6 +166,10 @@
 
 		.vote-instance-wrapper {
 			border-radius: 6px;
+
+			&.desktop {
+				min-height: 619px;
+			}
 		}
 
 		* {

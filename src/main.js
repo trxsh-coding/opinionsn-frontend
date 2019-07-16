@@ -1,3 +1,5 @@
+import ElementScrollHandler from "./components/mixins/ElementScrollHandler";
+
 require('./styles.scss');
 import Vue from 'vue'
 import App from './App'
@@ -41,19 +43,20 @@ Vue.use(moment);
 //*****************
 
 const i18n = new VueI18n({
-  locale: 'en',
-  messages: {
-    ru: {
-      ...langRu
-    },
-    en: {
-      ...langEng
-    }
-  }
+	locale: 'en',
+	messages: {
+		ru: {
+			...langRu
+		},
+		en: {
+			...langEng
+		}
+	}
 });
 
 Vue.use(Element, {
-  i18n: (key, value) => i18n.t(key, value)});
+	i18n: (key, value) => i18n.t(key, value)
+});
 
 //*****************
 // var config = {
@@ -87,26 +90,34 @@ Vue.use(Element, {
 
 // console.log(`Moment locale: ${moment.locale()}`);
 
-export const nprogress = new NProgress(  '.nprogress-container' );
+export const nprogress = new NProgress('.nprogress-container');
 
 //////////////////////
 
 export const vueApp = new Vue({
-  el: '#app',
-  router,
-  nprogress,
-  store,
-  i18n,
-  moment,
-  data(){
-    return {
-      mobile:window.innerWidth <= 500
-    }
-  },
-  created(){
-    addEventListener('resize', () => {
-      this.mobile = innerWidth <= 500
-    })
-  },
-  render: h => h(App)
+	el: '#app',
+	router,
+	nprogress,
+	store,
+	i18n,
+	moment,
+	data() {
+		return {
+			mobile: window.innerWidth <= 500,
+			scrolled_to_bottom: null
+		}
+	},
+	mixins: [ElementScrollHandler],
+	created() {
+		addEventListener('resize', () => {
+			this.mobile = innerWidth <= 500
+		});
+
+		// let app = document.getElementById('app');
+		// app.addEventListener('scroll', this.setScrollDifference, false);
+	},
+	// beforeDestroy() {
+	// 	app.removeEventListener('scroll', this.setScrollDifference, false);
+	// },
+	render: h => h(App)
 });
