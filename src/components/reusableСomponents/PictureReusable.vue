@@ -36,6 +36,7 @@
 					return false;
 				}
 			},
+			onlyPicture: Boolean,
         	img: {
 				type: String
 			},
@@ -51,7 +52,7 @@
 			borRad: {
         		type: [String, Number],
 				default: function () {
-					return 'auto';
+					return '0';
 				}
 			},
 			avatar: {
@@ -92,41 +93,56 @@
 		computed: {
 
 			wrapperStyle() {
-				let { textLayout } = this;
+				let { textLayout, width, handlePrecentValue, onlyPicture } = this;
+				width = (width && onlyPicture) ? {width: handlePrecentValue(width)} : {};
 
 				switch (textLayout) {
 					case 'top':
 						return {
 							flexDirection: 'column-reverse',
+							...width
 						};
 					case 'bottom':
 						return {
 							flexDirection: 'column',
+							...width
 						};
 					case 'left':
 						return {
 							flexDirection: 'row-reverse',
+							...width
 						};
 					case 'right':
 						return {
 							flexDirection: 'row',
+							...width
 						};
 					default:
-						return '';
+						return width;
 				}
 			},
 			pictureWrapperStyle() {
-				let { borColor, borRad, rounded, handlePrecentValue } = this;
+				let { borColor, borRad, rounded, handlePrecentValue, onlyPicture, width } = this;
 				borRad = handlePrecentValue(borRad);
+				width = handlePrecentValue(width);
 				if (rounded) borRad = "50%";
 
-				if (borColor) {
-					return {
+				let style = {};
+
+				if (!onlyPicture) {
+					style = {
 						border: `2px solid ${borColor}`,
 						borderRadius: `${borRad}`
-					}
+					};
+				} else {
+					style = {
+						border: `2px solid ${borColor}`,
+						borderRadius: `${borRad}`,
+						width: width
+					};
 				}
-				return '';
+
+				return style;
 			},
 			pictureStyle() {
 				let { size, borRad, img, width, height, rounded, handlePrecentValue, bgColor } = this;

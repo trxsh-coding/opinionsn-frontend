@@ -45,6 +45,7 @@
 		position: relative;
 		width: 64px;
 		height: 64px;
+		flex-shrink: 0;
 	}
 
 	.lds-ring div {
