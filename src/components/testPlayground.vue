@@ -68,6 +68,9 @@
 		<switch-component :height="21" :width="34"  :bor-rad="18" color="#B7B9BE"/>
 		<el-date-picker></el-date-picker>
 	    <loader-reusable></loader-reusable>
+
+	    <textarea v-model="textarea_value" ref="textareaRef"></textarea>
+
 	</div>
 </template>
 
@@ -89,9 +92,6 @@
 	import SwitchComponent from "./reusableСomponents/switchComponent";
 	import LoaderReusable from "./reusableСomponents/LoaderReusable";
 
-
-
-
 	export default {
         name: "testPlayground",
 		components: {
@@ -112,6 +112,7 @@
 		},
 		data() {
 			return {
+				textarea_value: '',
 				bows: [
 					{
 						img: require('./assets/icons/icon-logo.png'),
@@ -155,6 +156,11 @@
 				]
 			}
 		},
+		watch: {
+			textarea_value() {
+				this.calcHeight(this.$refs.textareaRef);
+			}
+		},
 		computed: {
 
 			...mapState('globalStore', {
@@ -171,6 +177,11 @@
 			},
 			showLog() {
 				console.log('===LOG===');
+			},
+			calcHeight(el) {
+				el.style.height = 'auto';
+				let calculated = el.offsetHeight + el.scrollHeight - el.clientHeight;
+				el.style.height = calculated + 'px';
 			}
 		},
 	}
@@ -193,5 +204,12 @@
 			left: 100px;
 		}
 
+	}
+
+	textarea {
+		width: 200px;
+		height: 40px;
+		overflow: scroll;
+		resize: none;
 	}
 </style>
