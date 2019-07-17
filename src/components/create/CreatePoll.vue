@@ -11,7 +11,7 @@
                         textarea
                         @change="updateField(arguments[0], 'tags')"
                         class="mt-12 mb-12 flex-between"
-                        :height="44"
+                        width="100%"
                         :input-placeholder="'tags'"/>
 
         <input-reusable :value="form.subject_header"
@@ -110,6 +110,7 @@
     import 'vue-date-pick/dist/vueDatePick.css';
     import Header from "../view/mobile/header";
     import CreateHeader from "./createHeader";
+    import TextareaReusable from "../reusableСomponents/textareaReusable";
     export default {
         name: "CreatePoll",
         mixins:[langMixin],
@@ -188,6 +189,7 @@
         },
 
         components: {
+            TextareaReusable,
             CreateHeader,
             Header,
             CheckboxReusable,

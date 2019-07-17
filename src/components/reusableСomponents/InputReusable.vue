@@ -12,15 +12,16 @@
 			   v-if="!textarea"
 		       v-model="value"
 		       @focus="focusInput(true)"
+			   @blur=""
 		       :class="[{ focusedInput : active && withUnderline, validationStyle : validationError}, textareaClass]"
 		>
 		<textarea
-				ref="customTextarea"
+				ref="textareaRef"
 			   v-if="textarea"
 			   v-model="value"
+                rows="1"
 			   @focus="focusInput(true)"
-			   :class="[{ focusedInput : active && withUnderline, validationStyle : validationError}, inputClass]"
-				:style="textareaHeight"
+			   :class="[{ focusedInput : active && withUnderline, validationStyle : validationError}, inputClass, primary-font]"
 		>
 		</textarea>
 		<div class="action-btns" v-if="withActionButtons">
@@ -116,10 +117,9 @@
 		watch: {
 			value(old) {
 				old.length > 0 ? this.hide = true : this.hide = false;
-				this.calculateHeight();
+                this.calcHeight(this.$refs.textareaRef);
 				this.$emit('change', this.value);
 			},
-
 			parent_value(old) {
 				//NOTE:  Не знаю как вписать в watch this.$attrs.value, поэтому сделал пока так
 				if (old !== undefined && old.length === 0) this.clearInput();
@@ -137,38 +137,6 @@
 
 				};
 			},
-			textareaHeight(){
-				let autosize;
-				let {height, newHeight, handleCssValue, width} = this;
-				height = handleCssValue(height);
-				width = handleCssValue(width);
-
-				console.log(newHeight);
-
-				if(height === newHeight) {
-					autosize = height;
-				} else {
-					autosize = newHeight;
-				}
-				return {
-					height: `${autosize}`,
-					width: `${width}`,
-				}
-
-			},
-			// offsetHeight(){
-			//
-			//
-			// },
-			//
-			// clientHeight(){
-			// 	return this.$refs.customTextarea.clientHeight;
-			//
-			// },
-			// textareaScrollHeight(){
-			// 	return this.$refs.customTextarea.scrollHeight
-			//
-			// },
 
 
 			parent_value() {
@@ -178,24 +146,12 @@
 		updated(){
 		},
 		methods: {
-			resizeTextarea(){
 
-			},
-			calculateHeight(){
-				let {textareaScrollHeight,  handleCssValue} = this;
-
-				if (!this.$refs.customTextarea) return handleCssValue(this.height);
-				let offsetHeight = this.$refs.customTextarea.offsetHeight;
-				let clientHeight = this.$refs.customTextarea.clientHeight;
-				let scrollHeight = this.$refs.customTextarea.scrollHeight;
-				let textLength = this.$refs.customTextarea.textLength;
-				let textareaOffset = offsetHeight - clientHeight;
-				let textMerge = clientHeight - textLength/4
-				console.log(this.$refs);
-				console.log(clientHeight - textLength)
-				let calculateHeight = scrollHeight + textareaOffset - textMerge + 'px';
-				this.newHeight = calculateHeight;
-			},
+            calcHeight(el) {
+                el.style.height = 'auto';
+                let calculated = el.offsetHeight + el.scrollHeight - el.clientHeight;
+                el.style.height = calculated + 'px';
+            },
 
 			focusInput(payload) {
 				this.hide = true;
@@ -206,10 +162,6 @@
 				this.value = '';
 			},
 
-			// inputValue(payload) {
-			// 	this.$emit('change', payload);
-			// },
-
 			inputValidation(payload) {
 				this.active = payload;
 				if (this.value.length === 0) {
@@ -217,11 +169,7 @@
 				}
 			},
 
-			// eventOnBlur() {
-			// 	this.hide = false;
-			// 	this.value = '';
-			// 	this.$emit('blur');
-			// },
+
 
 			handleCssValue(value) {
 
@@ -238,8 +186,6 @@
 		},
 
 		mounted(){
-			console.log(this.calculateHeight(), '===TEST===')
-			console.log(this.height)
 		},
 	}
 </script>
@@ -301,8 +247,23 @@
 			padding-bottom: 4px;
 		}
 		textarea {
-			overflow: auto;
+            outline: none;
+            border-bottom-style: solid;
+            border-bottom-color: #BCBEC3;
+            border-bottom-width: 0.5px;
+            border-top: none;
+            border-right: none;
+            border-left: 0;
 			height: auto;
+            min-height: 20px;
+            resize: none;
+            width: 100%;
+			margin: 20px 0;
+
+
+            &::-webkit-scrollbar {
+                display: none;
+            }
 		}
 	}
 </style>
