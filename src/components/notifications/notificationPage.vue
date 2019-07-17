@@ -48,7 +48,7 @@
 
 
 <!--			 TODO: разобраться с лоадером -->
-			<loader-reusable class="mx-auto mt-auto" v-show="!loaded && route_name !== 'notifications'" />c
+			<loader-reusable class="mx-auto mt-auto" v-show="!loaded" />
 
 		</div>
 

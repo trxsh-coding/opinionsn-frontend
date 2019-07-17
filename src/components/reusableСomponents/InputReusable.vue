@@ -2,16 +2,27 @@
 	<div
 			class="input-reusable"
 			:style="inputStyle">
+
 		<lang-string
 				v-show="!hide"
 				class="input-placeholder"
 				:title="inputPlaceholder"
 		/>
 		<input type="text"
+			   v-if="!textarea"
 		       v-model="value"
 		       @focus="focusInput(true)"
-		       :class="[{ focusedInput : active && withUnderline, validationStyle : validationError}, inputClass]"
+		       :class="[{ focusedInput : active && withUnderline, validationStyle : validationError}, textareaClass]"
 		>
+		<textarea
+				ref="customTextarea"
+			   v-if="textarea"
+			   v-model="value"
+			   @focus="focusInput(true)"
+			   :class="[{ focusedInput : active && withUnderline, validationStyle : validationError}, inputClass]"
+				:style="textareaHeight"
+		>
+		</textarea>
 		<div class="action-btns" v-if="withActionButtons">
 			<icon-base
 					@click.native="clearInput"
@@ -23,7 +34,6 @@
 					icon-name="close-btn">
 				<icon-close />
 			</icon-base>
-
 			<lang-string
 					@click.native="clearInput"
 					class="cancel-btn pointer"
@@ -66,6 +76,18 @@
 					return 'auto';
 				}
 			},
+			scrollHeight: {
+				type: [Number, String],
+				default() {
+					return this.height;
+				}
+			},
+			textarea: {
+				type:Boolean,
+				default() {
+					return false;
+				}
+			},
 			inputPlaceholder: {
 				type: String,
 				default() {
@@ -85,15 +107,19 @@
 			return {
 				value: '',
 				active: false,
-				hide: false
+				hide: false,
+				newHeight: null
+
 			}
 		},
 
 		watch: {
 			value(old) {
 				old.length > 0 ? this.hide = true : this.hide = false;
+				this.calculateHeight();
 				this.$emit('change', this.value);
 			},
+
 			parent_value(old) {
 				//NOTE:  Не знаю как вписать в watch this.$attrs.value, поэтому сделал пока так
 				if (old !== undefined && old.length === 0) this.clearInput();
@@ -111,11 +137,66 @@
 
 				};
 			},
+			textareaHeight(){
+				let autosize;
+				let {height, newHeight, handleCssValue, width} = this;
+				height = handleCssValue(height);
+				width = handleCssValue(width);
+
+				console.log(newHeight);
+
+				if(height === newHeight) {
+					autosize = height;
+				} else {
+					autosize = newHeight;
+				}
+				return {
+					height: `${autosize}`,
+					width: `${width}`,
+				}
+
+			},
+			// offsetHeight(){
+			//
+			//
+			// },
+			//
+			// clientHeight(){
+			// 	return this.$refs.customTextarea.clientHeight;
+			//
+			// },
+			// textareaScrollHeight(){
+			// 	return this.$refs.customTextarea.scrollHeight
+			//
+			// },
+
+
 			parent_value() {
 				return this.$attrs.value;
 			}
 		},
+		updated(){
+		},
 		methods: {
+			resizeTextarea(){
+
+			},
+			calculateHeight(){
+				let {textareaScrollHeight,  handleCssValue} = this;
+
+				if (!this.$refs.customTextarea) return handleCssValue(this.height);
+				let offsetHeight = this.$refs.customTextarea.offsetHeight;
+				let clientHeight = this.$refs.customTextarea.clientHeight;
+				let scrollHeight = this.$refs.customTextarea.scrollHeight;
+				let textLength = this.$refs.customTextarea.textLength;
+				let textareaOffset = offsetHeight - clientHeight;
+				let textMerge = clientHeight - textLength/4
+				console.log(this.$refs);
+				console.log(clientHeight - textLength)
+				let calculateHeight = scrollHeight + textareaOffset - textMerge + 'px';
+				this.newHeight = calculateHeight;
+			},
+
 			focusInput(payload) {
 				this.hide = true;
 				this.active = payload;
@@ -154,7 +235,12 @@
 				}
 
 			}
-		}
+		},
+
+		mounted(){
+			console.log(this.calculateHeight(), '===TEST===')
+			console.log(this.height)
+		},
 	}
 </script>
 
@@ -200,6 +286,7 @@
 		input {
 			width: 100%;
 			position: relative;
+			resize: none;
 			z-index: 200;
 			background-color: transparent;
 			font-size: inherit;
@@ -212,6 +299,10 @@
 			border-left: 0;
 			margin-bottom: 1px;
 			padding-bottom: 4px;
+		}
+		textarea {
+			overflow: auto;
+			height: auto;
 		}
 	}
 </style>

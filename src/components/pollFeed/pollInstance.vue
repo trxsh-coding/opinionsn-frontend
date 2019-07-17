@@ -280,7 +280,7 @@
 		border-radius: 6px 6px 0 0;
 		position: relative;
 		width: 100%;
-		padding: 13px 21px 0 0;
+		padding: 13px 5px 0 0;
 		display: flex;
 		flex-direction: column;
 		border-bottom: 1px solid #BCBEC3;
