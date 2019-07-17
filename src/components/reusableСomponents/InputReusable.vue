@@ -12,7 +12,7 @@
 			   v-if="!textarea"
 		       v-model="value"
 		       @focus="focusInput(true)"
-		       :class="[{ focusedInput : active && withUnderline, validationStyle : validationError}, textareaClass]"
+		       :class="[{ focusedInput : active && withUnderline, validationStyle : validationError}, inputClass]"
 		>
 		<textarea
 				ref="customTextarea"
@@ -63,7 +63,18 @@
 		},
 		props: {
 			inputClass: String,
-			withActionButtons: Boolean,
+			withActionButtons: {
+				type: Boolean,
+				default() {
+					return false
+				}
+			},
+			withUnderline: {
+				type: Boolean,
+				default() {
+					return false
+				}
+			},
 			width: {
 				type: [Number, String],
 				default() {
@@ -116,7 +127,6 @@
 		watch: {
 			value(old) {
 				old.length > 0 ? this.hide = true : this.hide = false;
-				this.calculateHeight();
 				this.$emit('change', this.value);
 			},
 
@@ -137,65 +147,14 @@
 
 				};
 			},
-			textareaHeight(){
-				let autosize;
-				let {height, newHeight, handleCssValue, width} = this;
-				height = handleCssValue(height);
-				width = handleCssValue(width);
-
-				console.log(newHeight);
-
-				if(height === newHeight) {
-					autosize = height;
-				} else {
-					autosize = newHeight;
-				}
-				return {
-					height: `${autosize}`,
-					width: `${width}`,
-				}
-
-			},
-			// offsetHeight(){
-			//
-			//
-			// },
-			//
-			// clientHeight(){
-			// 	return this.$refs.customTextarea.clientHeight;
-			//
-			// },
-			// textareaScrollHeight(){
-			// 	return this.$refs.customTextarea.scrollHeight
-			//
-			// },
-
 
 			parent_value() {
 				return this.$attrs.value;
 			}
 		},
-		updated(){
-		},
 		methods: {
-			resizeTextarea(){
 
-			},
-			calculateHeight(){
-				let {textareaScrollHeight,  handleCssValue} = this;
 
-				if (!this.$refs.customTextarea) return handleCssValue(this.height);
-				let offsetHeight = this.$refs.customTextarea.offsetHeight;
-				let clientHeight = this.$refs.customTextarea.clientHeight;
-				let scrollHeight = this.$refs.customTextarea.scrollHeight;
-				let textLength = this.$refs.customTextarea.textLength;
-				let textareaOffset = offsetHeight - clientHeight;
-				let textMerge = clientHeight - textLength/4
-				console.log(this.$refs);
-				console.log(clientHeight - textLength)
-				let calculateHeight = scrollHeight + textareaOffset - textMerge + 'px';
-				this.newHeight = calculateHeight;
-			},
 
 			focusInput(payload) {
 				this.hide = true;
