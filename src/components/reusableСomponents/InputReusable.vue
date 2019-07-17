@@ -21,7 +21,9 @@
 			   v-model="value"
                 rows="1"
 			   @focus="focusInput(true)"
-			   :class="[{ focusedInput : active && withUnderline, validationStyle : validationError}, inputClass, primary-font]"
+				@blur="focusInput(false)"
+				class="primary-font"
+			   :class="[{ focusedInput : active && withUnderline, validationStyle : validationError}, inputClass]"
 		>
 		</textarea>
 		<div class="action-btns" v-if="withActionButtons">
@@ -154,7 +156,7 @@
             },
 
 			focusInput(payload) {
-				this.hide = true;
+				this.hide = payload;
 				this.active = payload;
 			},
 
@@ -258,8 +260,7 @@
             min-height: 20px;
             resize: none;
             width: 100%;
-			margin: 20px 0;
-
+			margin-top: 24px;
 
             &::-webkit-scrollbar {
                 display: none;

@@ -17,12 +17,12 @@
         <input-reusable :value="form.subject_header"
                         @change="updateField(arguments[0], 'subject_header')"
                         class="mt-12 mb-12 flex-between"
-                        :height="44"
+                        textarea
                         :input-placeholder="'heading'"/>
         <input-reusable :value="form.description"
                         @change="updateField(arguments[0], 'description')"
                         class="mt-12 mb-12 flex-between"
-                        :height="44"
+                        textarea
                         :input-placeholder="'description'"/>
         <swiper :options="swiperOption" class="mb-12">
             <swiper-slide v-for="(item, index) in pictures" :key="index">
@@ -79,6 +79,7 @@
                 </template>
             </upload-reusable>
         </div>
+        <checkbox-reusable />
         <date-pick v-model="message"
                    :isDateDisabled="isFutureDate"
                    :format="'YYYY-MM-DD HH:mm'"
