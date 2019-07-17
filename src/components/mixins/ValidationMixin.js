@@ -1,14 +1,23 @@
 
 export default {
+
+	data() {
+		return {
+			errors: {}
+		}
+	},
+
 	methods: {
 
-		verifyValues(values_with_rules, ...methods) {
+		verifyValues(values_with_rules, methods) {
 			if (values_with_rules && methods) {
 				values_with_rules.forEach(({value, value_name, rules}) => {
-					rules.some(({method_name, args}) => {
-						if (!methods[method_name](value, ...args)) {
-							this[value_name + '_error'] = true;
-							return true;
+					rules.forEach(({method_name, args}) => {
+						let error = methods[method_name](value, ...args);
+						if (error) {
+							this.errors[value_name + '_error'] = error;
+						} else {
+							this.errors[value_name + '_error'] = null;
 						}
 					})
 				})
@@ -23,9 +32,9 @@ export default {
 			let { length } = str;
 
 			if (to_length) {
-				return length >= from_lenth && length <= to_length;
+				if (!(length >= from_lenth && length <= to_length)) return `Длинна строки от ${from_lenth} до ${to_length} символов`;
 			} else {
-				return length >= from_lenth;
+				if (!(length >= from_lenth)) return `Длинна строки от ${from_lenth} символов`;
 			}
 		}
 
