@@ -11,53 +11,53 @@
 		</div>
 		<category-select/>
 
-		<input-reusable :value="form.tags"
-		                textarea
-		                @change="updateField(arguments[0], 'tags')"
-		                class="mt-12 mb-12 flex-between"
-		                :height="44"
-		                :input-placeholder="'tags'"/>
+        <input-reusable :value="form.tags"
+                        textarea
+                        @change="updateField(arguments[0], 'tags')"
+                        class="mt-12 mb-12 flex-between"
+                        width="100%"
+                        :input-placeholder="'tags'"/>
 
-		<input-reusable :value="form.subject_header"
-		                @change="updateField(arguments[0], 'subject_header')"
-		                class="mt-12 mb-12 flex-between"
-		                :height="44"
-		                :input-placeholder="'heading'"/>
-		<input-reusable :value="form.description"
-		                @change="updateField(arguments[0], 'description')"
-		                class="mt-12 mb-12 flex-between"
-		                :height="44"
-		                :input-placeholder="'description'"/>
-		<swiper :options="swiperOption" class="mb-12">
-			<swiper-slide v-for="(item, index) in pictures" :key="index">
-				<upload-reusable
-						image-preview
-						class="mt-12"
-						pre-width="100%"
-						:pre-height="mobile ? 190 : 371"
-						:value="item.picture"
-						@upload="({file, url}) => {updateArrayField(file, url, 'pictures', 'picture', index)}">
+        <input-reusable :value="form.subject_header"
+                        @change="updateField(arguments[0], 'subject_header')"
+                        class="mt-12 mb-12 flex-between"
+                        textarea
+                        :input-placeholder="'heading'"/>
+        <input-reusable :value="form.description"
+                        @change="updateField(arguments[0], 'description')"
+                        class="mt-12 mb-12 flex-between"
+                        textarea
+                        :input-placeholder="'description'"/>
+        <swiper :options="swiperOption" class="mb-12">
+            <swiper-slide v-for="(item, index) in pictures" :key="index">
+                <upload-reusable
+                        image-preview
+                        class="mt-12"
+                        pre-width="100%"
+                        :pre-height="mobile ? 190 : 371"
+                        :value="item.picture"
+                        @upload="({file, url}) => {updateArrayField(file, url, 'pictures', 'picture', index)}">
 
-				</upload-reusable>
-			</swiper-slide>
-			<div class="swiper-pagination" slot="pagination"></div>
-		</swiper>
+                </upload-reusable>
+            </swiper-slide>
+            <div class="swiper-pagination" slot="pagination"></div>
+        </swiper>
 
 
-		<!--<div class="border-b mt-18"></div>-->
-		<switch-component
-				:height="11"
-				:width="20"
-				:bor-rad="18"
-				color="#FFFFFF"
-				active-color="#81B6CB"
-				:value="enablePicture"
-				@select="insertPicture"
-				:active-description="lstr('with_picture')"
-				:inactive-description="lstr('without_picture')"
-				text-layout="right"
-		/>
-		<lang-string class="option-label" :title="'add_options'"/>
+        <!--<div class="border-b mt-18"></div>-->
+        <switch-component
+                :height="11"
+                :width="20"
+                :bor-rad="18"
+                color="#FFFFFF"
+                active-color="#81B6CB"
+                :value="enablePicture"
+                @select="insertPicture"
+                :active-description="lstr('with_picture')"
+                :inactive-description="lstr('without_picture')"
+                text-layout="right"
+        />
+        <lang-string class="option-label" :title="'add_options'"/>
 
 		<div class="options-block" v-for="(option, index) in form.options" :key="index">
 			<input-reusable
@@ -78,14 +78,15 @@
 					@upload="({file, url}) => {updateArrayField(file, url, 'options', 'picture', index, 'form')}">
 				<template #icon>
 
-				</template>
-			</upload-reusable>
-		</div>
-		<date-pick v-model="message"
-		           :isDateDisabled="isFutureDate"
-		           :format="'YYYY-MM-DD HH:mm'"
-		           :pickTime="true"
-		           @change="check(arguments)">
+                </template>
+            </upload-reusable>
+        </div>
+        <checkbox-reusable />
+        <date-pick v-model="message"
+                   :isDateDisabled="isFutureDate"
+                   :format="'YYYY-MM-DD HH:mm'"
+                   :pickTime="true"
+                   @change="check(arguments)">
 
 		</date-pick>
 
@@ -94,47 +95,48 @@
 
 <script>
 
-	import SwitchComponent from "../reusableСomponents/switchComponent";
-	import langString from "../langString"
-	import ButtonReusable from "../reusableСomponents/ButtonReusable";
-	import DropdownListReusable from "../reusableСomponents/DropdownListReusable";
-	import ReusableSelect from "../reusableСomponents/reusableSelect";
-	import CatalogDropdown from "../create/CatalogDropdown";
-	import InputReusable from "../reusableСomponents/InputReusable";
-	import UploadReusable from "../reusableСomponents/UploadReusable";
-	import IconBase from "../icons/IconBase";
-	import IconUploadPhoto from "../icons/create/IconUploadPhoto";
-	import {mapState} from "vuex"
-	import langMixin from "../mixins/langMixin";
-	import CategorySelect from "../reusableСomponents/categorySelect";
-	import CheckboxReusable from "../reusableСomponents/checkboxReusable";
-	import DatePick from 'vue-date-pick';
-	import 'vue-date-pick/dist/vueDatePick.css';
-	import Header from "../view/mobile/header";
-	import CreateHeader from "./createHeader";
-	import ValidationMixin from "../mixins/ValidationMixin";
+    import SwitchComponent from "../reusableСomponents/switchComponent";
+    import langString from "../langString"
+    import ButtonReusable from "../reusableСomponents/ButtonReusable";
+    import DropdownListReusable from "../reusableСomponents/DropdownListReusable";
+    import ReusableSelect from "../reusableСomponents/reusableSelect";
+    import CatalogDropdown from "../create/CatalogDropdown";
+    import InputReusable from "../reusableСomponents/InputReusable";
+    import UploadReusable from "../reusableСomponents/UploadReusable";
+    import IconBase from "../icons/IconBase";
+    import IconUploadPhoto from "../icons/create/IconUploadPhoto";
+    import {mapState} from "vuex"
+    import langMixin from "../mixins/langMixin";
+    import CategorySelect from "../reusableСomponents/categorySelect";
+    import CheckboxReusable from "../reusableСomponents/checkboxReusable";
+    import DatePick from 'vue-date-pick';
+    import 'vue-date-pick/dist/vueDatePick.css';
+    import Header from "../view/mobile/header";
+    import CreateHeader from "./createHeader";
+    import TextareaReusable from "../reusableСomponents/textareaReusable";
+    import ValidationMixin from "../mixins/ValidationMixin";
 
-	export default {
-		name: "CreatePoll",
-		mixins: [
+    export default {
+        name: "CreatePoll",
+        mixins: [
 			langMixin,
 			ValidationMixin
 		],
-		data() {
-			return {
-				swiperOption: {
-					pagination: {
-						el: '.swiper-pagination'
-					}
-				},
-				blockchainPrediction: false,
-				timeLimit: false,
-				category: null,
-				subject: null,
-				subject_description: null,
-				mobile: this.$root.mobile,
-			}
-		},
+        data(){
+            return {
+                swiperOption: {
+                    pagination: {
+                        el: '.swiper-pagination'
+                    }
+                },
+                blockchainPrediction: false,
+                timeLimit:false,
+                category:null,
+                subject:null,
+                subject_description:null,
+                mobile: this.$root.mobile
+            }
+        },
 
 		watch: {
 			values_with_rules() {
@@ -228,35 +230,35 @@
 
 		},
 
-		components: {
-			CreateHeader,
-			Header,
-			CheckboxReusable,
-			CategorySelect,
-			IconBase,
-			UploadReusable,
-			InputReusable,
-			CatalogDropdown,
-			ReusableSelect,
-			DropdownListReusable,
-			ButtonReusable,
-			SwitchComponent,
-			langString,
-			IconUploadPhoto,
-			DatePick
+        components: {
+            TextareaReusable,
+            CreateHeader,
+            Header,
+            CheckboxReusable,
+            CategorySelect,
+            IconBase,
+            UploadReusable,
+            InputReusable,
+            CatalogDropdown,
+            ReusableSelect,
+            DropdownListReusable,
+            ButtonReusable,
+            SwitchComponent,
+            langString,
+            IconUploadPhoto,
+            DatePick
 
 		}
 
 	}
 </script>
 
-<style lang="scss">
-	.poll-create-wrapper {
-		padding: 0 20px;
-		border-radius: 6px;
-
-		.header-annotation {
-			align-items: center;
+<style lang="scss" >
+    .poll-create-wrapper {
+        padding: 0 20px;
+        border-radius: 6px;
+        .header-annotation {
+            align-items: center;
 
 		}
 

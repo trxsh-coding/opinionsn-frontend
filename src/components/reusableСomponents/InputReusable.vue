@@ -9,18 +9,21 @@
 				:title="inputPlaceholder"
 		/>
 		<input type="text"
-			   v-if="!textarea"
+		       v-if="!textarea"
 		       v-model="value"
 		       @focus="focusInput(true)"
+		       @blur=""
 		       :class="[{ focusedInput : active && withUnderline, validationStyle : validationError}, inputClass]"
 		>
 		<textarea
-				ref="customTextarea"
-			   v-if="textarea"
-			   v-model="value"
-			   @focus="focusInput(true)"
-			   :class="[{ focusedInput : active && withUnderline, validationStyle : validationError}, inputClass]"
-				:style="textareaHeight"
+				ref="textareaRef"
+				v-if="textarea"
+				v-model="value"
+                rows="1"
+				@focus="focusInput(true)"
+				@blur="focusInput(false)"
+				class="primary-font"
+				:class="[{ focusedInput : active && withUnderline, validationStyle : validationError}, inputClass]"
 		>
 		</textarea>
 		<div class="action-btns" v-if="withActionButtons">
@@ -32,7 +35,7 @@
 					height="18"
 					viewBox="0 0 17 18"
 					icon-name="close-btn">
-				<icon-close />
+				<icon-close/>
 			</icon-base>
 			<lang-string
 					@click.native="clearInput"
@@ -94,7 +97,7 @@
 				}
 			},
 			textarea: {
-				type:Boolean,
+				type: Boolean,
 				default() {
 					return false;
 				}
@@ -127,9 +130,9 @@
 		watch: {
 			value(old) {
 				old.length > 0 ? this.hide = true : this.hide = false;
+                this.calcHeight(this.$refs.textareaRef);
 				this.$emit('change', this.value);
 			},
-
 			parent_value(old) {
 				//NOTE:  Не знаю как вписать в watch this.$attrs.value, поэтому сделал пока так
 				if (old !== undefined && old.length === 0) this.clearInput();
@@ -155,9 +158,14 @@
 		methods: {
 
 
+            calcHeight(el) {
+                el.style.height = 'auto';
+                let calculated = el.offsetHeight + el.scrollHeight - el.clientHeight;
+                el.style.height = calculated + 'px';
+            },
 
 			focusInput(payload) {
-				this.hide = true;
+				this.hide = payload;
 				this.active = payload;
 			},
 
@@ -176,12 +184,6 @@
 				}
 			},
 
-			// eventOnBlur() {
-			// 	this.hide = false;
-			// 	this.value = '';
-			// 	this.$emit('blur');
-			// },
-
 			handleCssValue(value) {
 
 				switch (true) {
@@ -196,10 +198,6 @@
 			}
 		},
 
-		mounted(){
-			console.log(this.calculateHeight(), '===TEST===')
-			console.log(this.height)
-		},
 	}
 </script>
 
@@ -213,6 +211,7 @@
 			display: flex;
 			top: 0;
 			right: 20px;
+
 			.cancel-btn {
 				margin-left: 19px;
 				color: #1A1E22;
@@ -259,9 +258,24 @@
 			margin-bottom: 1px;
 			padding-bottom: 4px;
 		}
+
 		textarea {
-			overflow: auto;
+            outline: none;
+            border-bottom-style: solid;
+            border-bottom-color: #BCBEC3;
+            border-bottom-width: 0.5px;
+            border-top: none;
+            border-right: none;
+            border-left: 0;
 			height: auto;
+            min-height: 20px;
+            resize: none;
+            width: 100%;
+			margin-top: 24px;
+
+            &::-webkit-scrollbar {
+                display: none;
+            }
 		}
 	}
 </style>
