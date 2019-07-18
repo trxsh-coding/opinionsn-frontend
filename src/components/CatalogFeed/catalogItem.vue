@@ -26,13 +26,13 @@
 
             setCategoryName(name){
 
-                this.$store.commit('creationManagement/SET_CATEGORY_NAME', name )
+                this.$store.commit('formManagment/SET_CATEGORY_NAME', name )
 
             },
 
         },
         computed: {
-            ...mapState('creationManagement', {
+            ...mapState('formManagment', {
 
                 current: s => s.form.subject_header,
 

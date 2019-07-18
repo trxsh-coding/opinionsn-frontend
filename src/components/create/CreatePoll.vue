@@ -63,7 +63,7 @@
 			<input-reusable
 					:value="option.description"
 					:height="60"
-					@change="updateArrayField(arguments[0], null, 'options', 'description', index, 'form')"
+					@change="updateArrayField(arguments[0], null, 'options', 'description', index, 'create_poll_form')"
 					@blur.once="onBlurFunction(index)"
 					class="flex-align-center pl-14 mt-1"
 					input-placeholder="answer_text"
@@ -75,7 +75,7 @@
 					image-layout="bottom"
 					width="fit-content"
 					:value="option.picture"
-					@upload="({file, url}) => {updateArrayField(file, url, 'options', 'picture', index, 'form')}">
+					@upload="({file, url}) => {updateArrayField(file, url, 'options', 'picture', index, 'create_poll_form')}">
 				<template #icon>
 
                 </template>
@@ -145,16 +145,16 @@
 					checkLength
 				} = this;
 
-				verifyValues(this.values_with_rules, { checkLength });
+				verifyValues('create_poll_form', this.values_with_rules, { checkLength });
 			}
 		},
 
 		computed: {
 
-			...mapState('creationManagement', {
+			...mapState('formManagment', {
 
-				form: s => s.form,
-				end_date: s => s.form.end_date,
+				form: s => s.create_poll_form,
+				end_date: s => s.create_poll_form.end_date,
 				pictures: s => s.pictures,
 				enablePicture: s => s.withPicture,
 
@@ -188,7 +188,7 @@
 					return this.end_date
 				},
 				set(value) {
-					this.$store.commit('creationManagement/SET_DATE_TIME', value)
+					this.$store.commit('formManagment/SET_DATE_TIME', value)
 				}
 			}
 		},
@@ -199,27 +199,23 @@
 				return date <= currentDate;
 			},
 			onBlurFunction(index) {
-				this.$store.commit('creationManagement/ADD_OPTION', index)
+				this.$store.commit('formManagment/ADD_OPTION', index)
 
 			},
 			insertPicture(payload) {
 
-				this.$store.commit('creationManagement/INSERT_PICTURES', payload)
+				this.$store.commit('formManagment/INSERT_PICTURES', payload)
 
 
-			},
-			check(date) {
-				console.log(date)
 			},
 			updateField(value, keyName) {
 
-				this.$store.commit('creationManagement/UPDATE_FIELD', {value, keyName, form: 'form'})
+				this.$store.commit('formManagment/UPDATE_FIELD', {value, keyName, form: 'create_poll_form'})
 
 			},
 
 			updateArrayField(value, url, arrayName, keyName, index, form) {
-				console.log(form)
-				this.$store.commit('creationManagement/UPDATE_ARRAY_FIELD', {value, arrayName, keyName, index, form})
+				this.$store.commit('formManagment/UPDATE_ARRAY_FIELD', {value, arrayName, keyName, index, form})
 
 			},
 			chooseTypeOfPoll(payload) {
