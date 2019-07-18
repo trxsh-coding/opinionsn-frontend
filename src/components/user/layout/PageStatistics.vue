@@ -21,7 +21,7 @@
 
 		</div>
 
-		<span class="toggle-btn mt-12 pointer" v-show="!!items" @click="hidden = !hidden">
+		<span class="toggle-btn mt-12 pointer" v-show="!!itemsSorted && itemsSorted.length > 3" @click="hidden = !hidden">
 				<span v-show="hidden">+{{itemsSorted.length - 3}} категорий</span>
 				<span v-show="!hidden">свернуть</span>
 		</span>
@@ -58,7 +58,11 @@
 
         		if (!this.items) return [];
 
-        		let items = Object.entries(this.items).map((value) => value.flat(1)) || [];
+        		let items = [];
+				Object.entries(this.items).forEach((value, i) => {
+					let item = value.flat(1);
+					if (!!item[1]) items[i] = item;
+				});
 
 				items = items.sort((a, b) => {
 
@@ -139,13 +143,14 @@
 				.title {
 					background: #BCBEC3;
 					border-radius: 15px;
-					width: min-content;
+					width: max-content;
 
 					font-weight: normal;
 					font-size: 10px;
 					text-transform: uppercase;
 					color: #FFFFFF;
 					text-align: center;
+					word-break: keep-all;
 				}
 
 				.description {

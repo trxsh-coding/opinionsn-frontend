@@ -1,6 +1,6 @@
 <template>
 
-    <div class="feed">
+    <div class="feed flex-column">
 		<vote-instance class="mt-12" v-for="item in items" :item="item">
 			<template #headAnnotation>
 
@@ -9,6 +9,8 @@
 
 			</template>
 		</vote-instance>
+	    <loader-reusable class="mx-auto my-9" v-show="!is_finished" />
+	    <lang-string class="caption pl-60 mx-auto" v-show="is_finished && !items.length" :title="(feed_type === 1) ? 'you_have_not_created_any_posts_yet' : 'you_have_not_yet_responded_to_any_publication'" />
     </div>
 
 </template>
@@ -19,10 +21,12 @@
 	import ShortPollReusable from "../reusableСomponents/ShortPollReusable";
 	import VoteInstance from "../voteFeed/voteInstance";
 	import langString from "../langString";
+    import LoaderReusable from "../reusableСomponents/LoaderReusable";
 
 	export default {
         name: "userFeed",
 		components: {
+			LoaderReusable,
 			VoteInstance,
 			ShortPollReusable,
 			MugenScroll,
@@ -42,7 +46,7 @@
 				state: s => s,
 				filteredFeed: ({filteredFeed}) => filteredFeed,
                 items: s => s.items,
-                loading: s => s.is_finished,
+	            is_finished: s => s.is_finished,
 
             }),
 
@@ -135,6 +139,12 @@
 			font-size: 12px;
 			text-transform: lowercase;
 			color: #1A1E22;
+		}
+
+		.caption {
+			font-family: Roboto, sans-serif;
+			font-size: 12px;
+			color: darkgray;
 		}
 
 	}
