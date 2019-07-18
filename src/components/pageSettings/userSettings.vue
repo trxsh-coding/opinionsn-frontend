@@ -7,7 +7,7 @@
             </span>
             <input
                     :value="form.name"
-                    @change="updateField(arguments[0], 'name')"
+                    @change="({target}) => { updateField(target.value, 'name') }"
                     type="text">
         </label>
 
@@ -17,7 +17,7 @@
             </span>
             <input
                     :value="form.username"
-                    @change="updateField(arguments[0], 'username')"
+                    @change="({target}) => { updateField(target.value, 'username') }"
                     type="text">
         </label>
 
@@ -27,7 +27,7 @@
             </span>
             <input
                     :value="form.status"
-                    @change="updateField(arguments[0], 'status')"
+                    @change="({target}) => { updateField(target.value, 'status') }"
                     type="text">
         </label>
 
@@ -37,7 +37,7 @@
             </span>
             <input
                     :value="form.location"
-                    @change="updateField(arguments[0], 'location')"
+                    @change="({target}) => { updateField(target.value, 'location') }"
                     type="text">
         </label>
 
@@ -47,7 +47,7 @@
             </span>
             <input
                     :value="form.site"
-                    @change="updateField(arguments[0], 'site')"
+                    @change="({target}) => { updateField(target.value, 'site') }"
                     type="text">
         </label>
 
@@ -57,7 +57,7 @@
             </span>
             <input
                     :value="form.gender"
-                    @change="updateField(arguments[0], 'gender')"
+                    @change="({target}) => { updateField(target.value, 'gender') }"
                     type="text">
         </label>
 
@@ -67,7 +67,7 @@
             </span>
             <input
                     :value="form.email"
-                    @change="updateField(arguments[0], 'email')"
+                    @change="({target}) => { updateField(target.value, 'email') }"
                     type="text">
         </label>
 
@@ -76,8 +76,8 @@
                <lang-string :title="'phone'" />
             </span>
             <input
-                    :value="form.phone"
-                    @change="updateField(arguments[0], 'phone')"
+                    :value="form.phone_number"
+                    @change="({target}) => { updateField(target.value, 'phone_number') }"
                     type="text">
         </label>
 
@@ -86,29 +86,90 @@
 
 <script>
     import langString from "../langString";
+    import ValidationMixin from "../mixins/ValidationMixin";
     import {mapState} from "vuex";
 
     export default {
         name: "userSettings",
+        mixins: [ValidationMixin],
         components: {
             langString
         },
-        computed: {
-            
-            ...mapState('creationManagement', {
 
-                form: s => s.edit_form,
+        watch: {
+            values_with_rules() {
+                let {
+                    verifyValues,
+                    checkLength
+                } = this;
 
-            }),
-            
-            
+                verifyValues('edit_form', this.values_with_rules, { checkLength });
+            }
         },
+
+        computed: {
+            ...mapState('formManagment', {
+                form: s => s.edit_form
+            }),
+
+            values_with_rules() {
+                let { form } = this;
+
+                return [
+                    {
+                        value: form.name,
+                        value_name: 'name',
+                        rules: [{ method_name: 'checkLength', args: [2] }]
+                    },
+
+                    {
+                        value: form.username,
+                        value_name: 'username',
+                        rules: [{ method_name: 'checkLength', args: [0, 4] }]
+                    },
+
+                    {
+                        value: form.status,
+                        value_name: 'status',
+                        rules: [ {method_name: 'checkLength', args: [0, 4] }]
+                    },
+
+                    {
+                        value: form.location,
+                        value_name: 'location',
+                        rules: [ {method_name: 'checkLength', args: [0, 4] }]
+                    },
+
+                    {
+                        value: form.site,
+                        value_name: 'site',
+                        rules: [ {method_name: 'checkLength', args: [0, 4] }]
+                    },
+
+                    {
+                        value: form.gender,
+                        value_name: 'gender',
+                        rules: [ {method_name: 'checkLength', args: [0, 4] }]
+                    },
+
+                    {
+                        value: form.email,
+                        value_name: 'email',
+                        rules: [ {method_name: 'checkLength', args: [0, 4] }]
+                    },
+
+                    {
+                        value: form.phone_number,
+                        value_name: 'phone_number',
+                        rules: [ {method_name: 'checkLength', args: [0, 4] }]
+                    },
+                ]
+            },
+        },
+
         methods: {
-            updateArrayField(value, arrayName, keyName, index){
-
-
-                this.$store.commit('creationManagement/UPDATE_ARRAY_FIELD', {value, arrayName, keyName, index, form: 'edit_form' })
-
+            updateField(value, keyName){
+                this.$store.commit('formManagment/UPDATE_FIELD', {form: 'edit_form', keyName, value})
             },
         },
     }

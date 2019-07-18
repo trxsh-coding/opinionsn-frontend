@@ -18,7 +18,7 @@ import {globalStore} from "./modules/globalStore";
 import {notificationPage} from "./modules/notifications";
 import {notificationStore} from "./modules/notificationStore"
 import { adminPage } from "./modules/adminPage";
-import { creationManagement } from "./modules/creationManagement";
+import { formManagment } from "./modules/formManagment";
 
 import createPersistedState from 'vuex-persistedstate'
 
@@ -45,7 +45,7 @@ export const store = new Vuex.Store({
 		notificationStore,
 		adminPage,
 		serviceWorker,
-		creationManagement
+		formManagment
 	},
 	state: {},
 	getters: {},

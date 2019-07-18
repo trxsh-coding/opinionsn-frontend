@@ -1,23 +1,17 @@
 
 export default {
 
-	data() {
-		return {
-			errors: {}
-		}
-	},
-
 	methods: {
 
-		verifyValues(values_with_rules, methods) {
+		verifyValues(form, values_with_rules, methods) {
 			if (values_with_rules && methods) {
-				values_with_rules.forEach(({value, value_name, rules}) => {
+				values_with_rules.forEach(({value = '', value_name, rules}) => {
 					rules.forEach(({method_name, args}) => {
 						let error = methods[method_name](value, ...args);
 						if (error) {
-							this.errors[value_name + '_error'] = error;
+							this.$store.commit('formManagment/UPDATE_ERROR_FIELD', {form, key: value_name, value: error})
 						} else {
-							this.errors[value_name + '_error'] = null;
+							this.$store.commit('formManagment/UPDATE_ERROR_FIELD', {form, key: value_name, value: null})
 						}
 					})
 				})

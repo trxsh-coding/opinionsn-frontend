@@ -46,13 +46,21 @@
 				/>
 			</div>
 
+			<div class="later flex-column" v-if="filtered_messages.month.length > 0">
+				<lang-string class="title my-12 pl-60" title="later"/>
+				<notification-instance
+						class="notification-instance later pl-21"
+						v-for="(notification, index) in filtered_messages.later"
+						:notification="notification"
+						:key="index"
+				/>
+			</div>
 
-<!--			 TODO: разобраться с лоадером -->
 			<loader-reusable class="mx-auto mt-auto" v-show="!loaded" />
 
 		</div>
 
-		<div class="nope" v-else-if="messages.length == 0">
+		<div class="nope" v-else-if="messages.length === 0">
 			<span>Уведомлений нет</span>
 		</div>
 
@@ -124,7 +132,8 @@
 					today: [],
 					yesterday: [],
 					week: [],
-					month: []
+					month: [],
+					later: []
 				};
 
 				this.messages.forEach( ({date}, i) => {
@@ -133,17 +142,20 @@
 						difference = today - current;
 
 					switch (true) {
-						case difference = 0:
+						case difference === 0:
 							msgs.today.push(this.messages[i]);
 							break;
-						case difference = 1:
+						case difference === 1:
 							msgs.yesterday.push(this.messages[i]);
 							break;
-						case difference > 7:
+						case difference > 1 && difference <= 7:
 							msgs.week.push(this.messages[i]);
 							break;
-						default:
+						case difference > 7 && difference <= 31:
 							msgs.month.push(this.messages[i]);
+							break;
+						default:
+							msgs.later.push(this.messages[i]);
 							break;
 					}
 				} );
