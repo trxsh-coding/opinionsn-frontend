@@ -2,8 +2,32 @@
     <div class="upload-block v-center relative" :style="blockStyle">
         <label class="v-center" :style="wrapperStyle" >
 
-            <slot name="icon" />
-            <slot name="clearIcon" />
+            <div>
+                <slot name="icon">
+                    <icon-base
+                            class="pointer"
+                            v-show="is_input_empty"
+                            width="24"
+                            height="21"
+                            viewBox="0 0 20 17"
+                            icon-name="upload"><icon-upload-photo/>
+                    </icon-base>
+                </slot>
+            </div>
+
+            <div @click.prevent="handlePictureRemove">
+                <slot name="clearIcon">
+                    <icon-base
+                            class="pointer"
+                            v-show="!is_input_empty"
+                            fill="none"
+                            width="22"
+                            height="22"
+                            viewBox="0 0 19 19"
+                            icon-name="close"><icon-cross/>
+                    </icon-base>
+                </slot>
+            </div>
 
             <input ref="input_ref" type="file" @change="handlePicturePreview(arguments[0].target.files)">
 
@@ -27,10 +51,17 @@
 <script>
     import IconBase from '../icons/IconBase'
     import IconUpload from '../icons/create/IconUpload'
+    import IconUploadPhoto from "../icons/create/IconUploadPhoto";
+    import IconCross from "../icons/IconCross";
 
     export default {
         name: "UploadReusable",
-        components: {IconBase, IconUpload},
+        components: {
+            IconBase,
+            IconUpload,
+            IconUploadPhoto,
+            IconCross
+        },
         model: {
             event: 'change',
         },
@@ -58,7 +89,8 @@
         },
         data() {
             return {
-                imgUrl: null
+                imgUrl: null,
+                is_input_empty: true
             }
         },
         methods: {
@@ -66,8 +98,15 @@
             handlePicturePreview(file) {
                 this.imgUrl = URL.createObjectURL(file[0]);
                 this.$emit('upload', {file: file[0], url: `${this.imgUrl}`});
+                this.is_input_empty = false;
+            },
+
+            handlePictureRemove() {
+                this.$emit('remove', {file: '', url: ''});
+                this.is_input_empty = true;
                 this.$refs.input_ref.value = '';
             },
+
             handleCssValue(value) {
 
                 switch (true) {
@@ -82,6 +121,7 @@
             },
         },
         computed: {
+
             previewStyle(){
                 let { preWidth, preHeight, handleCssValue } = this;
                 preWidth = preWidth ? {width: handleCssValue(preWidth)} : {};
@@ -89,6 +129,7 @@
                 let backgroundImage =  {backgroundImage: `url('${this.imgUrl}')`};
                 return { ...preWidth, ...preHeight, ...backgroundImage };
             },
+
             wrapperStyle() {
                 let { imageLayout } = this;
 
@@ -113,6 +154,7 @@
                         return '';
                 }
             },
+
             blockStyle() {
                 let { width, height, handleCssValue } = this;
                 width = width ? {width: handleCssValue(width)} : {};
@@ -120,6 +162,7 @@
 
                 return { ...width, ...height };
             }
+
         },
     }
 </script>

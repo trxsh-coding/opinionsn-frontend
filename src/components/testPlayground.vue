@@ -64,7 +64,10 @@
 			<circle-progress-bar-reusable :percent="100" bar-size="5" :size="78"/>
 		</div>
 
-		<short-poll-reusable type-of-layout="column" :poll="polls[1727]"></short-poll-reusable>
+	    <div class="crimson-div pointer mb-20" @click="executeTimeout"></div>
+	    <div class="blue-div pointer mb-20" @click="showTimerId"></div>
+
+	    <short-poll-reusable type-of-layout="column" :poll="polls[1727]"></short-poll-reusable>
 		<switch-component :height="21" :width="34"  :bor-rad="18" color="#B7B9BE"/>
 		<el-date-picker></el-date-picker>
 	    <loader-reusable></loader-reusable>
@@ -112,6 +115,7 @@
 		},
 		data() {
 			return {
+				timer_id: null,
 				textarea_value: '',
 				bows: [
 					{
@@ -169,6 +173,18 @@
 
 		},
 		methods: {
+
+        	executeTimeout() {
+		        let runTimeout = () => {
+		        	this.timer_id = setTimeout(() => { console.log('==QWERTY==') }, 1000);
+		        };
+		        runTimeout();
+	        },
+
+			showTimerId() {
+				clearTimeout(this.timer_id);
+			},
+
 			selectOption(id) {
 				console.log(id);
 			},
@@ -190,6 +206,20 @@
 <style scoped lang="scss">
 	.wrapper-box {
 		width: 100%;
+
+		.crimson-div {
+			width: 40px;
+			height: 40px;
+			background-color: crimson;
+		}
+
+		.blue-div {
+			position: fixed;
+			left: 20%;
+			width: 40px;
+			height: 40px;
+			background-color: blue;
+		}
 
 		.test-wrapper {
 			position: relative;
