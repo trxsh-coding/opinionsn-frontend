@@ -190,7 +190,6 @@
 
 		.notification-section {
 			background: #FFFFFF;
-			border-radius: 6px;
 			height: auto;
 
 			.title {
