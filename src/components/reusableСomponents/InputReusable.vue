@@ -9,10 +9,11 @@
 				:title="inputPlaceholder"
 		/>
 		<input type="text"
-		       v-if="!textarea"
+			   class="input"
+		       v-if="input"
 		       v-model="value"
 		       @focus="focusInput(true)"
-		       @blur=""
+			   @blur="focusInput(false)"
 		       :class="[{ focusedInput : active && withUnderline, validationStyle : validationError}, inputClass]"
 		>
 		<textarea
@@ -21,11 +22,19 @@
 				v-model="value"
                 rows="1"
 				@focus="focusInput(true)"
-				@blur="focusInput(false)"
-				class="primary-font"
+				class="primary-font textarea"
 				:class="[{ focusedInput : active && withUnderline, validationStyle : validationError}, inputClass]"
 		>
 		</textarea>
+		<date-pick
+				class="date-pick"
+				v-if="datePicker"
+				v-model="value"
+				:isDateDisabled="isFutureDate"
+				:format="'YYYY-MM-DD HH:mm'"
+				:pickTime="true">
+
+		</date-pick>
 		<div class="action-btns" v-if="withActionButtons">
 			<icon-base
 					@click.native="clearInput"
@@ -51,14 +60,16 @@
 	import langString from "../langString";
 	import IconBase from "../icons/IconBase";
 	import IconClose from "../icons/IconClose";
-
+	import DatePick from 'vue-date-pick';
+	import 'vue-date-pick/dist/vueDatePick.css';
 	export default {
 		name: "inputReusable",
 		mixins: [langMixin],
 		components: {
 			langString,
 			IconBase,
-			IconClose
+			IconClose,
+			DatePick
 		},
 		model: {
 			prop: 'value',
@@ -102,6 +113,18 @@
 					return false;
 				}
 			},
+			input: {
+				type: Boolean,
+				default() {
+					return false;
+				}
+			},
+			datePicker: {
+				type: Boolean,
+				default() {
+					return false;
+				}
+			},
 			inputPlaceholder: {
 				type: String,
 				default() {
@@ -129,7 +152,10 @@
 
 		watch: {
 			value(old) {
-				old.length > 0 ? this.hide = true : this.hide = false;
+				if(this.textarea || this.input) {
+					old.length > 0 ? this.hide = true : this.hide = false;
+
+				}
                 this.calcHeight(this.$refs.textareaRef);
 				this.$emit('change', this.value);
 			},
@@ -217,7 +243,9 @@
 				color: #1A1E22;
 			}
 		}
-
+		.vdpInnerWrap {
+			z-index: 200;
+		}
 		.focusedInput {
 			border-bottom-color: #4B97B4 !important;
 		}
@@ -227,21 +255,39 @@
 
 		}
 
+		.vdpOuterWrap {
+			z-index: 1000;
+		}
+
+		.vdpComponent {
+			display: flex;
+
+		}
+		.vdpComponent {
+
+		}
 		.input-placeholder {
 
 			position: absolute;
-			/*<!--transform: translateY(-50%);-->*/
-			/*<!--top: 50%;-->*/
 			z-index: 100;
-
-			font-family: Roboto, serif;
+			font-family: Roboto;
 			font-style: normal;
 			font-weight: normal;
-			font-size: inherit;
-			color: #747474;
+			font-size: 12px;
+			color: #747474 !important;
 		}
 
-		input {
+		.input, .textarea, .date-pick input {
+			background-color: transparent;
+			outline: none;
+			border-bottom-style: solid;
+			border-bottom-color: #BCBEC3;
+			border-bottom-width: 0.5px;
+			border-top: none;
+			border-right: none;
+			border-left: 0;
+		}
+		.input {
 			width: 100%;
 			position: relative;
 			resize: none;
@@ -258,7 +304,9 @@
 			margin-bottom: 1px;
 			padding-bottom: 4px;
 		}
-
+		.date-pick input {
+			width: 100%;
+		}
 		textarea {
             outline: none;
             border-bottom-style: solid;

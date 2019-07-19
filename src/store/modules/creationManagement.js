@@ -6,7 +6,9 @@ import  {
     ADD_OPTION,
     INSERT_PICTURES,
     SET_CATEGORY_NAME,
-    SET_DATE_TIME
+    SET_DATE_TIME,
+    SET_TIME_LIMIT,
+    CHANGE_MUTABLE_STATE
 } from "../types/mutation-types";
 import  {
     SUBMIT_FORM
@@ -14,6 +16,7 @@ import  {
 
 const initialState = () => {
     return {
+        в:false,
         withPicture:false,
         imageUrl: '',
         picture:'',
@@ -97,9 +100,15 @@ export const creationManagement = {
             state.form.end_date = payload;
 
         },
-        [UPDATE_ARRAY_FIELD](state, payload) {
+        [CHANGE_MUTABLE_STATE](state, payload){
+          state[key] = payload;
+        },
+        [SET_TIME_LIMIT](state, payload) {
+            state.isTimeLimit = payload;
 
-            console.log(payload)
+
+        },
+        [UPDATE_ARRAY_FIELD](state, payload) {
             let value = payload.value;
             let arrayName = payload.arrayName;
             let index = payload.index;

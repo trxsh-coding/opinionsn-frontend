@@ -1,12 +1,12 @@
 <template>
     <div class="upload-block v-center relative" :style="blockStyle">
-        <label class="v-center" :style="wrapperStyle" >
+        <label  :style="wrapperStyle" >
             <slot name="icon">
 
             </slot>
             <input ref="input_ref" type="file" @change="handlePicturePreview(arguments[0].target.files)">
 
-            <div class="image-preview mt-15 flex-center flex-align-center"
+            <div class="image-preview flex-center flex-align-center"
                  v-if="imagePreview"
                  :style="previewStyle" >
                 <icon-base
@@ -26,10 +26,10 @@
 <script>
     import IconBase from '../icons/IconBase'
     import IconUpload from '../icons/create/IconUpload'
-
+    import langString from '../langString'
     export default {
         name: "UploadReusable",
-        components: {IconBase, IconUpload},
+        components: {IconBase, IconUpload, langString},
         model: {
             event: 'change',
         },
@@ -42,6 +42,12 @@
             },
             imagePreview: {
               type: Boolean
+            },
+            description: {
+                type: Boolean,
+                default() {
+                    return false;
+                }
             },
             preWidth: {
                 type: [String, Number]
@@ -136,6 +142,7 @@
 
         label {
             width: 100%;
+            flex-direction: column;
         }
 
         .image-preview {

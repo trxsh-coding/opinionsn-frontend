@@ -1,7 +1,7 @@
 <template>
     <div class="create-header flex-between">
         <lang-string :title="'cancel'" />
-        <lang-string :title="'publish'" />
+        <lang-string class="primary-color" :title="'publish'" />
 
     </div>
 </template>
@@ -15,5 +15,16 @@
 </script>
 
 <style lang="scss">
+    .create-header {
+        padding: 15px 0 38px 20px;
+        span {
 
+            font-family: Roboto;
+            font-style: normal;
+            font-weight: normal;
+            font-size: 13px;
+
+
+        }
+    }
 </style>

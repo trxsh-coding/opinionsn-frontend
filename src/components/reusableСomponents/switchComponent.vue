@@ -1,23 +1,57 @@
 <template>
-    <div class="switch-block flex" :style="wrapperPosition">
-        <div class="switch-button mr-6" :style="wrapperStyle" @click="change">
+    <div class="switch-block flex-align-center" :style="wrapperPosition">
+        <div class="switch-button mr-6" :style="wrapperStyle" @click="change"  v-if="type === 'button'">
                 <div class="switch-circle" :style="circleStyle">
                 </div>
         </div>
+        <div  class="checkbox-button mr-10" @click="change" v-if="type === 'checkbox'" >
+            <icon-base
+                    v-if="!isActive"
+                    fill="none"
+                    width="20"
+                    height="20"
+                    viewBox="0 0 20 20"
+                    icon-name="add"><icon-checkbox/>
+            </icon-base>
+            <icon-base
+                    v-if="isActive"
+                    fill="none"
+                    width="20"
+                    height="20"
+                    viewBox="0 0 20 20"
+                    icon-name="add"><icon-checkbox-active/>
+            </icon-base>
+        </div>
+
             <slot name="description">
-                <transition name="slide-fade">
-                    <span class="description" v-if="boolean">{{activeDescription}}</span>
-                </transition>
-                <transition name="slide-fade">
-                    <span class="description" v-if="!boolean">{{inactiveDescription}}</span>
-                </transition>
+                    <span class="description" v-if="isActive">{{activeDescription}}</span>
+                    <span class="description" v-if="!isActive">{{inactiveDescription}}</span>
             </slot>
+        <div class="arrow-button"
+             @click="change"
+             v-if="type === 'arrow'"
+             :class="{ arrowTranslate : !isActive}">
+            <icon-base
+                    class="ml-10"
+                    fill="none"
+                    width="10"
+                    height="6"
+                    viewBox="0 3 10 6"
+                    icon-name="add"><icon-arrow/>
+            </icon-base>
+        </div>
     </div>
 </template>
 
 <script>
+    import IconBase from '../icons/IconBase'
+    import IconCheckboxActive from '../icons/create/IconCheckboxActive'
+    import IconCheckbox from '../icons/create/IconCheckbox'
+    import IconArrow from '../icons/create/IconArrow'
+
     export default {
         name: "switchComponent",
+        components: {IconBase, IconCheckbox, IconCheckboxActive, IconArrow},
         model: {
             event: 'change',
         },
@@ -43,11 +77,20 @@
                     return undefined;
                 }
             },
+            condition: {
+                type: Number
+            },
             activeDescription: {
                 type: String
             },
             inactiveDescription: {
                 type: String
+            },
+            type: {
+              type: String,
+                default: function() {
+                    return 'button';
+                }
             },
             textLayout: {
                 validator: function (value) {
@@ -58,7 +101,8 @@
         },
         data() {
             return {
-                is_active: false
+                isActive: false,
+                condition:null
             }
         },
         computed: {
@@ -90,9 +134,9 @@
 
             },
             wrapperStyle() {
-                let {borRad, height, width, color, activeColor, is_active, boolean} = this;
+                let {borRad, height, width, color, activeColor, isActive, boolean} = this;
 
-                boolean = (boolean !== undefined) ? boolean : is_active;
+                boolean = (boolean !== undefined) ? boolean : isActive;
 
                 return {
                     width: `${width}px`,
@@ -104,8 +148,8 @@
             },
 
             circleStyle(){
-                let {borRad, height, width, color, boolean, is_active } = this;
-                boolean = (boolean !== undefined) ? boolean : is_active;
+                let {borRad, height, width, color, boolean, isActive } = this;
+                boolean = (boolean !== undefined) ? boolean : isActive;
 
                 let position = boolean ? {transform: 'translate(90%)'}   : {transform: 'translate(0)'};
 
@@ -125,8 +169,8 @@
                 // this.boolean = !this.boolean
                 let { boolean } = this;
 
-                this.is_active = !this.is_active;
-                boolean = (boolean !== undefined) ? boolean : this.is_active;
+                this.isActive = !this.isActive;
+                boolean = (boolean !== undefined) ? boolean : this.isActive;
 
                 this.$emit('select', boolean)
             }
@@ -135,38 +179,38 @@
 </script>
 
 <style lang="scss">
-    .slide-fade-leave-active {
-        transition: all .8s cubic-bezier(1.0, 0.5, 0.8, 1.0);
-    }
-
-    .slide-fade-enter, .slide-fade-leave-to
-     {
-        opacity: 0;
-    }
-    .switch-block {
-        align-items: center;
-        span {
-            font-family: Roboto;
-            font-style: normal;
-            font-weight: normal;
-            font-size: 13px;
-            color: #152D3A;
-            transition: 300ms;
-
-        }
-
-        .switch-button {
-            border-width: 1.5px;
-            border-style: solid;
-            display: flex;
+        .switch-block {
             align-items: center;
-            padding: 2px;
-            transition: 300ms;
-
-            .switch-circle {
+            span {
+                font-family: Roboto;
+                font-style: normal;
+                font-weight: normal;
+                font-size: 13px;
+                color: #152D3A;
                 transition: 300ms;
+
             }
+
+            .switch-button {
+                border-width: 1.5px;
+                border-style: solid;
+                display: flex;
+                align-items: center;
+                padding: 2px;
+                transition: 300ms;
+
+                .switch-circle {
+                    transition: 300ms;
+                }
+            }
+
+        }
+        .arrowTranslate {
+            transform: rotateX(180deg);
+            align-items: flex-start;
+            display: flex;
         }
 
-    }
+
+
 </style>
