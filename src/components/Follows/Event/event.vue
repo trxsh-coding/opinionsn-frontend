@@ -33,6 +33,13 @@
 
 		   <short-user-reusable class="mt-12 mx-20" :user="user" v-for="(user, index) in users_from_payload" :key="index" />
 
+		   <loader-reusable v-show="!is_finished" class="mx-auto my-9" />
+
+		   <lang-string
+				   class="mx-auto my-9 empty-payload"
+				   v-show="is_empty"
+				   :title="isFollowing ? 'you_have_no_followers_yet' : 'you_have_no_active_subscriptions'" />
+
 	   </ul>
 
    </div>
@@ -47,6 +54,7 @@
     import axios from 'axios'
     import langMixin from "../../mixins/langMixin";
     import ShortUserReusable from "../../reusableСomponents/ShortUserReusable";
+    import LoaderReusable from "../../reusableСomponents/LoaderReusable";
 
 
 
@@ -55,6 +63,7 @@
         props:['id', 'isFollowing'],
         mixins:[langMixin],
         components:{
+	        LoaderReusable,
 			langString,
 			IconBase,
 			IconClose,
@@ -64,6 +73,8 @@
             return {
 
 				items:[],
+	            is_finished: false,
+	            is_empty: false,
 				keyword: "",
 				filteredUsers: null,
 				publicPath: process.env.VUE_APP_MAIN_API
@@ -79,7 +90,6 @@
 			...mapState('globalStore', {
 				users: ({ users }) => users,
 				mainUser: ({ mainUser }) => mainUser
-
 			}),
 
 			current_user() {
@@ -149,6 +159,9 @@
                     if (response.status === 200) {
                         this.$store.commit('globalStore/updateStores', response.data, {root: true});
                         this.items = response.data.payload;
+                        if (!this.items.length) this.is_empty = true;
+                        this.is_finished = true;
+
                     }
 
                 })
@@ -199,6 +212,12 @@
 					box-shadow: 0 0 15px rgba(56, 56, 56, 0.05);
 					border-radius: 2px;
 				}
+			}
+
+			.empty-payload {
+				font-family: Roboto, sans-serif;
+				font-size: 12px;
+				color: darkgray;
 			}
 
 			.list-item {
