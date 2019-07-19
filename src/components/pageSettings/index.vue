@@ -13,6 +13,7 @@
     import pageHeader from "./layout/pageHeader";
     import pageMain from "./layout/pageMain";
     import PageNavigation from "./layout/pageNavigation";
+    import {mapState} from "vuex";
 
     export default {
         name: "Settings",
@@ -21,7 +22,21 @@
             pageHeader,
             langString,
             pageMain
-        }
+        },
+
+        watch: {
+            mainUser(old) {
+                if (!!Object.keys(old).length) {
+                    this.$store.commit('formManagment/SET_INITIAL_FORM', {form: 'edit_form', value: {...old}} );
+                }
+            }
+        },
+
+        computed: {
+            ...mapState('globalStore', {
+                mainUser: s => s.mainUser
+            })
+        },
 
     }
 </script>

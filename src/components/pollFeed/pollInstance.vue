@@ -1,5 +1,8 @@
 <template>
-    <div id="main-feed-layout">
+    <div
+		    id="main-feed-layout"
+		    class="py-12"
+		    :class="{'pr-20': mobile, 'pr-12': !mobile}">
         <post-header :author="author" :poll="poll" :eventType="item.eventType">
 			<template #annotation>
 				<poll-anotation :poll="poll"/>
@@ -143,13 +146,13 @@
 		},
         data () {
             return {
-
                 publicPath: process.env.VUE_APP_MAIN_API,
 				options_visible: false,
 				explain_page: 1,
 				EXPLAINS_LIMIT: 5,
 				explains_quantity: 5,
-				no_more_explains: false
+				no_more_explains: false,
+	            mobile: this.$root.mobile,
             }
         },
         computed: {
@@ -280,7 +283,6 @@
 		border-radius: 6px 6px 0 0;
 		position: relative;
 		width: 100%;
-		padding: 13px 5px 0 0;
 		display: flex;
 		flex-direction: column;
 		border-bottom: 1px solid #BCBEC3;

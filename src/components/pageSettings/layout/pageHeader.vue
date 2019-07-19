@@ -1,19 +1,19 @@
 <template>
     <div class="header">
 
-        <div class="background" :style="{backgroundImage: `url('${form.pictures[0].url}')`}">
+        <div class="background" :style="{backgroundImage: `url('${background_image}')`}">
 
             <upload-reusable
                     width="100%"
                     height="100%"
                     @upload="({file, url}) => {
-                        updateArrayField(file, 'pictures', 'picture', 0);
-                        updateArrayField(url, 'pictures', 'url', 0);
+                        UPDATE_FIELD(file, 'background_image');
+                        background_image = url;
                     }">
                 <template #icon>
                     <icon-base
                             class="pointer"
-                            v-show="!form.pictures[0].url"
+                            v-show="!background_image"
                             width="24"
                             height="21"
                             viewBox="0 0 20 17"
@@ -23,10 +23,10 @@
                 <template #clearIcon>
                     <icon-base
                             class="pointer"
-                            v-show="!!form.pictures[0].url"
-                            @click.native="() => {
-                                updateArrayField('', 'pictures', 'picture', 0);
-                                updateArrayField('', 'pictures', 'url', 0);
+                            v-show="!!background_image"
+                            @click.native.prevent="() => {
+                                UPDATE_FIELD('', 'path_to_avatar');
+                                background_image = '';
                             }"
                             fill="none"
                             width="22"
@@ -40,7 +40,7 @@
             <picture-reusable
                     class="avatar absolute"
                     size="72"
-                    :img="form.pictures[1].url"
+                    :img="avatar"
                     bg-color="#ADAFB3"
                     rounded
                     without-text>
@@ -49,13 +49,13 @@
                             width="100%"
                             height="100%"
                             @upload="({file, url}) => {
-                                updateArrayField(file, 'pictures', 'picture', 1);
-                                updateArrayField(url, 'pictures', 'url', 1);
+                                UPDATE_FIELD(file, 'path_to_avatar');
+                                avatar = url;
                             }">
                         <template #icon>
                             <icon-base
                                     class="pointer"
-                                    v-show="!form.pictures[1].url"
+                                    v-show="!avatar"
                                     width="24"
                                     height="21"
                                     viewBox="0 0 20 17"
@@ -65,10 +65,10 @@
                         <template #clearIcon>
                             <icon-base
                                     class="pointer"
-                                    v-show="!!form.pictures[1].url"
-                                    @click.native="() => {
-                                        updateArrayField('', 'pictures', 'picture', 1);
-                                        updateArrayField('', 'pictures', 'url', 1);
+                                    v-show="!!avatar"
+                                    @click.native.prevent="() => {
+                                        UPDATE_FIELD('', 'path_to_avatar');
+                                        avatar = '';
                                     }"
                                     fill="none"
                                     width="22"
@@ -94,8 +94,6 @@
     import IconUploadPhoto from "../../icons/create/IconUploadPhoto";
     import IconCross from "../../icons/IconCross";
 
-
-
     export default {
         name: "pageHeader",
         components: {
@@ -105,27 +103,56 @@
             IconUploadPhoto,
             IconCross
         },
+
+        data() {
+            return {
+                publicPath: process.env.VUE_APP_MAIN_API,
+                background_image: '',
+                avatar: ''
+            }
+        },
+
+        watch: {
+            mainUser({background_image, path_to_avatar}) {
+                if (background_image && path_to_avatar) {
+                    this.background_image = this.publicPath + background_image;
+                    this.avatar = this.publicPath + path_to_avatar;
+                }
+            },
+
+            form({background_image, path_to_avatar}) {
+                if (typeof background_image === 'string' && typeof path_to_avatar === 'string') {
+                    this.background_image = this.publicPath + background_image;
+                    this.avatar = this.publicPath + path_to_avatar;
+                }
+            }
+        },
+
+        mounted() {
+            let { mainUser: usr, publicPath } = this;
+            if (!!Object.keys(usr)) {
+                this.background_image = publicPath + usr.background_image;
+                this.avatar = publicPath + usr.path_to_avatar;
+            }
+        },
+
         computed: {
-            ...mapState('creationManagement', {
 
+            ...mapState('globalStore', {
+                mainUser: s => s.mainUser
+            }),
+
+            ...mapState('formManagment', {
                 form: s => s.edit_form,
-
             }),
         },
+
         methods: {
-            updateField(value, keyName){
 
-                console.log(target.value, keyName);
-                this.$store.commit('creationManagement/UPDATE_FIELD', {value, keyName, form: 'edit_form' })
-
+            UPDATE_FIELD(value, key){
+                this.$store.commit('formManagment/UPDATE_FIELD', { form: 'edit_form', key, value })
             },
-            updateArrayField(value, arrayName, keyName, index){
 
-                console.log(value);
-
-                this.$store.commit('creationManagement/UPDATE_ARRAY_FIELD', {value, arrayName, keyName, index, form: 'edit_form' })
-
-            },
         },
     }
 </script>

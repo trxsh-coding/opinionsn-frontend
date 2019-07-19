@@ -1,9 +1,10 @@
 <template>
     <div class="upload-block v-center relative" :style="blockStyle">
         <label  :style="wrapperStyle" >
-            <slot name="icon">
 
-            </slot>
+            <slot name="icon" />
+            <slot name="clearIcon" />
+
             <input ref="input_ref" type="file" @change="handlePicturePreview(arguments[0].target.files)">
 
             <div class="image-preview flex-center flex-align-center"

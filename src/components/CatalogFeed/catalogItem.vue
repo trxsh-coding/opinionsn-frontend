@@ -1,6 +1,6 @@
 <template>
-    <div class="category-item flex-align-center" @click="setCategoryName(item.name)" :class="{current : isCurrent}" @mouseover="hoverItem('B') " @mouseleave="hoverItem('W')">
-        <div class="category-picture" :style="{ 'background-image': 'url(' + publicPath +  imageUtil(item.path_to_image, hoverColor) +')' } ">
+    <div class="category-item flex-align-center" @click="setCategoryName(item.name)" :class="{current : isCurrent}">
+        <div class="category-picture" :style="{ 'background-image': 'url(' + publicPath +  item.path_to_image +')' } ">
 
         </div>
         <div class="category-name">
@@ -29,13 +29,14 @@
                 this.hoverColor = payload ;
             },
             setCategoryName(name){
-                this.$store.commit('creationManagement/SET_CATEGORY_NAME', name )
+
+                this.$store.commit('formManagment/SET_CATEGORY_NAME', name )
 
             },
 
         },
         computed: {
-            ...mapState('creationManagement', {
+            ...mapState('formManagment', {
 
                 current: s => s.form.subject_header,
 

@@ -72,6 +72,7 @@
 			</div>
 
 			<button-reusable
+					@click.native="$router.push({name: 'settings'})"
 					v-show="user.id === mainUser.id"
 					class="edit-btn py-8 px-9 mt-9 mr-20 ml-auto"
 					bor-rad="30"

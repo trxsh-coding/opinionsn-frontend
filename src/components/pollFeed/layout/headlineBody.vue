@@ -14,7 +14,7 @@
                 {{poll.description}}
             </span>
         </div>
-        <subject-picture v-if="!!poll.picture" :img="publicPath + poll.picture" :width="mobile ? '295' : '100%'" only-picture :height="190" textLayout="right" bor-rad="6"/>
+        <subject-picture v-if="!!poll.picture" :img="publicPath + poll.picture" width="100%" only-picture :height="190" textLayout="right" bor-rad="6"/>
         <bows-panel class="mt-9" :users="poll.bows" v-show="!item.voted && Object.keys(poll.bows).length > 0" />
 
     </div>

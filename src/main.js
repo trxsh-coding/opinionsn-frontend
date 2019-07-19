@@ -113,11 +113,6 @@ export const vueApp = new Vue({
 			this.mobile = innerWidth <= 500
 		});
 
-		// let app = document.getElementById('app');
-		// app.addEventListener('scroll', this.setScrollDifference, false);
 	},
-	// beforeDestroy() {
-	// 	app.removeEventListener('scroll', this.setScrollDifference, false);
-	// },
 	render: h => h(App)
 });
