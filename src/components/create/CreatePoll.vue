@@ -1,94 +1,162 @@
 <template>
-	<div class="poll-create-wrapper" :class="{'bg-white': !mobile}">
+	<div class="poll-create-wrapper " :class="{'bg-white': !mobile}">
 		<create-header/>
-		<div class="header-annotation flex">
-			<h1 class="primary-header-annotation mr-36">
-				<lang-string :title="'poll'"/>
-			</h1>
-			<h3 class="secondary-header-annotation">
-				<lang-string :title="'prediction'"/>
-			</h3>
-		</div>
-		<category-select/>
 
-        <input-reusable :value="form.tags"
-                        textarea
-                        @change="updateField(arguments[0], 'tags')"
-                        class="mt-12 mb-12 flex-between"
-                        width="100%"
-                        :input-placeholder="'tags'"/>
+		<div class="create-form pl-60">
+			<div class="button-block mb-18">
+				<button-reusable
+						text-transform="capitalize"
+						class="mr-20 "
+						:active-font-size="20"
+						:font-size="15"
+						bg-color="#ffffff"
+						button_type="underline"
+						color="#BCBEC3"
+						active-color="#4B97B4"
+						description="poll"
+						:active="type === 'POLL'"
+						@click.native="setTypeOfCreation('POLL')"
+				/>
+				<button-reusable
+						:active-font-size="20"
+						:font-size="15"
+						bg-color="#ffffff"
+						button_type="underline"
+						color="#BCBEC3"
+						active-color="#4B97B4"
+						description="prediction"
+						:active="type === 'PREDICTION'"
+						@click.native="setTypeOfCreation('PREDICTION')"
 
-        <input-reusable :value="form.subject_header"
-                        @change="updateField(arguments[0], 'subject_header')"
-                        class="mt-12 mb-12 flex-between"
-                        textarea
-                        :input-placeholder="'heading'"/>
-        <input-reusable :value="form.description"
-                        @change="updateField(arguments[0], 'description')"
-                        class="mt-12 mb-12 flex-between"
-                        textarea
-                        :input-placeholder="'description'"/>
-        <swiper :options="swiperOption" class="mb-12">
-            <swiper-slide v-for="(item, index) in pictures" :key="index">
-                <upload-reusable
-                        image-preview
-                        class="mt-12"
-                        pre-width="100%"
-                        :pre-height="mobile ? 190 : 371"
-                        :value="item.picture"
-                        @upload="({file, url}) => {updateArrayField(file, url, 'pictures', 'picture', index)}">
+				/>
+			</div>
+			<category-select/>
 
-                </upload-reusable>
-            </swiper-slide>
-            <div class="swiper-pagination" slot="pagination"></div>
-        </swiper>
+			<input-reusable :value="form.tags"
+							textarea
+							@change="updateField(arguments[0], 'tags')"
+							class="mt-20 mb-12 flex-between"
+							width="100%"
+							:input-placeholder="'tags'"/>
+
+			<input-reusable :value="form.subject_header"
+							@change="updateField(arguments[0], 'subject_header')"
+							class="mt-12 mb-12 flex-between"
+							textarea
+							:input-placeholder="'heading'"/>
+			<input-reusable :value="form.description"
+							@change="updateField(arguments[0], 'description')"
+							class="mt-12 mb-12 flex-between"
+							textarea
+							:input-placeholder="'description'"/>
+			<lang-string class="label" :title="'add_pictures_to_poll'"/>
+			<swiper :options="swiperOption" class="mb-12">
+				<swiper-slide v-for="(item, index) in pictures" :key="index">
+					<upload-reusable
+							description
+							image-preview
+							pre-width="100%"
+							:pre-height="mobile ? 190 : 371"
+							:value="item.picture"
+							@upload="({file, url}) => {updateArrayField(file, url, 'pictures', 'picture', index)}">
+
+					</upload-reusable>
+				</swiper-slide>
+				<div class="swiper-pagination" slot="pagination"></div>
+			</swiper>
 
 
-        <!--<div class="border-b mt-18"></div>-->
-        <switch-component
-                :height="11"
-                :width="20"
-                :bor-rad="18"
-                color="#FFFFFF"
-                active-color="#81B6CB"
-                :value="enablePicture"
-                @select="insertPicture"
-                :active-description="lstr('with_picture')"
-                :inactive-description="lstr('without_picture')"
-                text-layout="right"
-        />
-        <lang-string class="option-label" :title="'add_options'"/>
-
-		<div class="options-block" v-for="(option, index) in form.options" :key="index">
-			<input-reusable
-					:value="option.description"
-					:height="60"
-					@change="updateArrayField(arguments[0], null, 'options', 'description', index, 'create_poll_form')"
-					@blur.once="onBlurFunction(index)"
-					class="flex-align-center pl-14 mt-1"
-					input-placeholder="answer_text"
+			<!--<div class="border-b mt-18"></div>-->
+			<switch-component
+					class="mb-18"
+					type="button"
+					:height="11"
+					:width="20"
+					:bor-rad="18"
+					color="#FFFFFF"
+					active-color="#81B6CB"
+					:value="enablePicture"
+					@select="insertPicture"
+					:active-description="lstr('with_pictures')"
+					:inactive-description="lstr('without_pictures')"
+					text-layout="right"
 			/>
-			<upload-reusable
-					:pre-height="60"
-					:pre-width="60"
-					:image-preview="enablePicture"
-					image-layout="bottom"
-					width="fit-content"
-					:value="option.picture"
-					@upload="({file, url}) => {updateArrayField(file, url, 'options', 'picture', index, 'create_poll_form')}">
-				<template #icon>
+			<lang-string class="label" :title="'add_options'"/>
 
-                </template>
-            </upload-reusable>
-        </div>
-        <checkbox-reusable />
-        <date-pick v-model="message"
-                   :isDateDisabled="isFutureDate"
-                   :format="'YYYY-MM-DD HH:mm'"
-                   :pickTime="true"
-                   @change="check(arguments)">
+			<div class="options-block " v-for="(option, index) in form.options" :key="index">
+				<input-reusable
+						textarea
+						:value="option.description"
+						:height="enablePicture ? 90 : 60"
+						@change="updateArrayField(arguments[0], null, 'options', 'description', index, 'form')"
+						@blur.once="onBlurFunction(index)"
+						class="flex-align-center pl-14 mt-1"
+						input-placeholder="answer_text"
+				/>
+				<upload-reusable
 
-		</date-pick>
+						:pre-height="90"
+						:pre-width="90"
+						:image-preview="enablePicture"
+						image-layout="bottom"
+						width="fit-content"
+						:value="option.picture"
+						@upload="({file, url}) => {updateArrayField(file, url, 'options', 'picture', index, 'form')}">
+					<template #icon>
+
+					</template>
+				</upload-reusable>
+			</div>
+			<switch-component
+					class="mb-20"
+					text-layout="right"
+					type="arrow"
+					:active-description="lstr('additional_settings')"
+					:inactive-description="lstr('additional_settings')"
+					:value="hideFields"
+					@select="unhideAdds"/>
+			<div class="additional-fields" v-if="additionalField">
+				<switch-component
+						class="mb-16"
+						type="button"
+						:height="11"
+						:width="20"
+						:bor-rad="18"
+						color="#FFFFFF"
+						active-color="#81B6CB"
+						:value="form.type_of_poll"
+						@select="updateField(arguments[0], 'type_off_poll')"
+						:active-description="lstr('BLOCKCHAIN')"
+						:inactive-description="lstr('OFF_CHAIN')"
+						text-layout="right"
+				/>
+				<switch-component
+						class="mb-18"
+						:boolean="withDate"
+						type="checkbox"
+						:value="withDate"
+						:active-description="lstr('no_time_limit')"
+						:inactive-description="lstr('time_limit')"
+						@select="timeLimit"/>
+
+
+				<input-reusable
+						:value="form.fund"
+						input
+						class="mb-20"
+						@change="updateField(arguments[0], 'description')"
+						input-placeholder="fund"
+				/>
+				<input-reusable
+						:height="44"
+						:value="form.end_date"
+						date-picker
+						@change="updateField(arguments[0], 'description')"
+						input-placeholder="closing_date"
+				/>
+			</div>
+		</div>
+
 
 	</div>
 </template>
@@ -109,8 +177,8 @@
     import langMixin from "../mixins/langMixin";
     import CategorySelect from "../reusableСomponents/categorySelect";
     import CheckboxReusable from "../reusableСomponents/checkboxReusable";
-    import DatePick from 'vue-date-pick';
-    import 'vue-date-pick/dist/vueDatePick.css';
+	import DatePick from 'vue-date-pick';
+	import 'vue-date-pick/dist/vueDatePick.css';
     import Header from "../view/mobile/header";
     import CreateHeader from "./createHeader";
     import TextareaReusable from "../reusableСomponents/textareaReusable";
@@ -130,11 +198,12 @@
                     }
                 },
                 blockchainPrediction: false,
-                timeLimit:false,
                 category:null,
                 subject:null,
                 subject_description:null,
-                mobile: this.$root.mobile
+                mobile: this.$root.mobile,
+				additionalField: true,
+				type:'POLL'
             }
         },
 
@@ -157,6 +226,8 @@
 				end_date: s => s.create_poll_form.end_date,
 				pictures: s => s.pictures,
 				enablePicture: s => s.withPicture,
+				withDate: s => s.isTimeLimit,
+				state: s => s
 
 			}),
 
@@ -193,7 +264,19 @@
 			}
 		},
 		methods: {
+			setTypeOfCreation(payload){
 
+				this.type = payload;
+
+				let currentTypeOfCreation = this.type === 'POLL' ? 0 : 1;
+
+				this.updateField(currentTypeOfCreation, 'type_of_poll')
+			},
+			unhideAdds(payload){
+				console.log(payload)
+				this.additionalField = payload ;
+
+			},
 			isFutureDate(date) {
 				const currentDate = new Date();
 				return date <= currentDate;
@@ -207,6 +290,19 @@
 				this.$store.commit('formManagment/INSERT_PICTURES', payload)
 
 
+			},
+			changeMutableState(payload){
+				this.$store.commit('creationManagement/CHANGE_MUTABLE_STATE', payload)
+
+			},
+			timeLimit(payload) {
+
+				this.$store.commit('creationManagement/SET_TIME_LIMIT', payload)
+
+
+			},
+			check(date) {
+				console.log(date)
 			},
 			updateField(value, keyName) {
 
@@ -242,7 +338,7 @@
             SwitchComponent,
             langString,
             IconUploadPhoto,
-            DatePick
+			DatePick
 
 		}
 
@@ -251,11 +347,15 @@
 
 <style lang="scss" >
     .poll-create-wrapper {
-        padding: 0 20px;
         border-radius: 6px;
+		padding-right: 20px;
         .header-annotation {
             align-items: center;
 
+		}
+		.button-block {
+			display: flex;
+			align-items: flex-end;
 		}
 
 		h1 {
@@ -282,15 +382,7 @@
 
 		}
 
-		.option-label {
-			font-family: Roboto;
-			font-style: normal;
-			font-weight: normal;
-			font-size: 12px;
-			color: #747474;
 
-
-		}
 
 		.options-block {
 			margin-bottom: 10px;
@@ -301,6 +393,16 @@
 			flex-direction: row-reverse;
 			align-items: center;
 
+			transition: 200ms;
+
+			* {
+				transition: 600ms;
+			}
+
+			textarea {
+				border: none !important;
+				margin-top: 0;
+			}
 			&:first-of-type {
 				margin-top: 6px !important;
 			}
@@ -328,7 +430,14 @@
 			padding-bottom: 12px;
 			border-bottom: 1px solid #4B97B4;
 		}
-
+		.additional-fields {
+			* {
+				transition: 300ms;
+			}
+		}
+		.input {
+			padding-top: 24px;
+		}
 		.type-of-poll-block {
 			.choice-span {
 				font-family: Roboto;

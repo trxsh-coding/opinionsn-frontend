@@ -356,6 +356,13 @@ li {
 
 }
 
+.capitalize {
+  text-transform: capitalize;
+}
+
+.primary-color {
+  color: #4B96B3;
+}
 // Pictures
 
 .picture-20x20 {
@@ -514,15 +521,11 @@ li {
 //Labels
 
 .label {
-
   font-family: Roboto;
   font-style: normal;
-  font-weight: 300;
-  line-height: 12px;
+  font-weight: normal;
   font-size: 12px;
-  text-align: justify;
-  letter-spacing: -0.2px;
-  color: #8A9499;
+  color: #747474;
 
 }
 

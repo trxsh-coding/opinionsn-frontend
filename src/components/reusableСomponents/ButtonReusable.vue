@@ -17,6 +17,7 @@
 				:class="{'active': active}"
 				v-if="button_type === 'underline'">
 			<lang-string
+
 					:style="underline_btn.span"
 					:title="description"/>
 			<div
@@ -52,10 +53,23 @@
 					return '#4B97B4';
 				}
 			},
+			activeFontSize: {
+				type: Number,
+			},
+
+			fontSize: {
+				type: Number,
+			},
 			borRad: {
 				type: [String, Number],
 				default: function () {
 					return '0';
+				}
+			},
+			textTransform: {
+				type: String,
+				default: function () {
+					return 'capitalize';
 				}
 			},
 			description: {
@@ -87,14 +101,22 @@
 					...borRad
 				}
 			},
-			underline_btn() {
-				let { color, activeColor, active } = this;
 
+			underline_btn() {
+				let {active, activeFontSize, fontSize, activeColor, color} = this;
 				let current_color = active ? activeColor : color;
+				let current_font_size = active ? activeFontSize : fontSize;
+				let current_font_weight = active ? '500' : 'normal';
+				let current_font_color = active ? activeColor : color;
 
 				return {
+
 					span: {
-						color: current_color
+						color: current_color,
+						fontSize:`${current_font_size}px`,
+						fontWeight:`${current_font_weight}`,
+						fontColor: `${current_font_color}`,
+						textTransform: `${this.textTransform}`
 					},
 					underline: {
 						backgroundColor: current_color
@@ -134,7 +156,6 @@
 			font-family: Roboto, serif;
 			font-style: normal;
 			font-weight: normal;
-			font-size: inherit;
 			/*color: #FFFFFF;*/
 		}
 

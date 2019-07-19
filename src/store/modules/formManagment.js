@@ -7,6 +7,8 @@ import  {
     INSERT_PICTURES,
     SET_CATEGORY_NAME,
     SET_DATE_TIME,
+    SET_TIME_LIMIT,
+    CHANGE_MUTABLE_STATE,
     UPDATE_ERROR_FIELD,
     CLEAR_FORM,
     SET_INITIAL_FORM
@@ -76,6 +78,15 @@ export const formManagment = {
 
         [SET_DATE_TIME](state, payload) {
             state.form.end_date = payload;
+
+        },
+        [CHANGE_MUTABLE_STATE](state, payload){
+          state[key] = payload;
+        },
+        [SET_TIME_LIMIT](state, payload) {
+            state.isTimeLimit = payload;
+
+
         },
 
         [UPDATE_ARRAY_FIELD](state, {value, arrayName, index, keyName, form}) {

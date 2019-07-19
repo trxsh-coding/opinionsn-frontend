@@ -54,13 +54,15 @@
     import IconUploadPhoto from "../icons/create/IconUploadPhoto";
     import IconCross from "../icons/IconCross";
 
+    import langString from '../langString'
     export default {
         name: "UploadReusable",
         components: {
             IconBase,
             IconUpload,
             IconUploadPhoto,
-            IconCross
+            IconCross,
+	        langString
         },
         model: {
             event: 'change',
@@ -74,6 +76,12 @@
             },
             imagePreview: {
               type: Boolean
+            },
+            description: {
+                type: Boolean,
+                default() {
+                    return false;
+                }
             },
             preWidth: {
                 type: [String, Number]
@@ -180,6 +188,7 @@
 
         label {
             width: 100%;
+            flex-direction: column;
         }
 
         .image-preview {

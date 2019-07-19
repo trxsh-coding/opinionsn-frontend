@@ -4,7 +4,7 @@
 
         </div>
         <div class="category-name">
-            <lang-string :title="item.name" />
+            <lang-string :title="item.name" :class="{itemActive : hoverColor === 'B'}"/>
         </div>
     </div>
 </template>
@@ -12,18 +12,22 @@
 <script>
     import {mapState} from 'vuex'
     import langString from '../langString'
+    import imageMixin from "../mixins/imageMixin";
     export default {
         name: "catalogItem",
         components:{langString},
-
+        mixins:[imageMixin],
         props:['item'],
         data() {
             return {
-                publicPath: process.env.VUE_APP_MAIN_API
+                publicPath: process.env.VUE_APP_MAIN_API,
+                hoverColor:'W'
             }
         },
         methods: {
-
+            hoverItem(payload){
+                this.hoverColor = payload ;
+            },
             setCategoryName(name){
 
                 this.$store.commit('formManagment/SET_CATEGORY_NAME', name )
@@ -56,7 +60,9 @@
         margin-right: 10px;
         background: #BBBDC2;
         border-radius: 6px;
-
+    .itemActive {
+        color: #4B97B4;
+    }
         span {
 
             font-family: Roboto;
@@ -74,7 +80,6 @@
             background-position: center;
             background-repeat: no-repeat;
             margin-right: 6px;
-            filter: brightness(30);
         }
     }
 </style>
