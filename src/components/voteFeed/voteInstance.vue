@@ -16,18 +16,18 @@
             </template>
         </options-carousel>
 
-		<scroll-swiper-reusable class="pl-20" v-if="mobile ">
+		<scroll-swiper-reusable class="pl-30" v-if="mobile ">
 			<option-item class="option mr-9" v-for="{option, isSelected} in sortedOptions" :selected="isSelected" :option="option" :width="180"  :height="45"/>
 		</scroll-swiper-reusable>
 
-        <vote-annotation class="pl-11 pr-20" :class="{'p-0 pl-60 pr-30': !mobile, 'm-0 mt-9': !item.voted, 'mt-21': item.voted}" :poll="poll"  />
+        <vote-annotation class="pl-11 pr-20" :class="{'p-0 pl-60 pr-30': !mobile, 'pl-30 pr-20': mobile, 'm-0 mt-9': !item.voted, 'mt-21': item.voted}" :poll="poll"  />
 
         <!--<explanation-reusable-->
                 <!--v-if="item.voted"-->
                 <!--:explain=""-->
                 <!--without_avatar />-->
 
-        <bows-panel class="mt-9 px-20" :class="{'p-0 pl-60 pr-30': !mobile}" v-show="!!Object.keys(poll.bows).length" :users="poll.bows"  />
+        <bows-panel class="mt-9 px-20" :class="{'p-0 pl-60 pr-30': !mobile, 'pl-30 pr-20': mobile}" v-show="!!Object.keys(poll.bows).length" :users="poll.bows"  />
 
     </div>
 </template>

@@ -1,7 +1,7 @@
 <template>
 	<div
 			class="notificationWrapper"
-			:class="{'desktop': !mobile}"
+			:class="{'desktop': !mobile, 'pr-20': mobile}"
 			ref="sectionRef">
 		<div class="notification-section flex-column" v-if="messages.length && !closed">
 

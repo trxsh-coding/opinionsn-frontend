@@ -26,7 +26,7 @@
 
 				<dropdown-list-reusable
 						@scrollDifference="setListScrollDifference"
-						list-class="notification-list p-0 pr-7"
+						list-class="notification-list p-0"
 						height="583"
 						width="376">
 					<icon-base
