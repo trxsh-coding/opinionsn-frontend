@@ -13,7 +13,7 @@
 			<router-view class="sub-container "/>
 
 			<div
-					:class="{'active': !!$root.timer_id}"
+					:class="{'active': !!$root.timer_id, 'desktop': !mobile}"
 					@click="clearTimer"
 					class="undo-panel pointer">
 
@@ -186,12 +186,17 @@
 	.undo-panel {
 		position: fixed;
 		bottom: 49px;
+		left: 0;
 		width: 100%;
 		height: 40px;
 		background-color: crimson;
 		display: flex;
 		align-items: stretch;
 		visibility: hidden;
+
+		&.desktop {
+			bottom: 0;
+		}
 
 		.description {
 			position: absolute;

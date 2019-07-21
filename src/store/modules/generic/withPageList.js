@@ -6,8 +6,7 @@ export const StoreWithPageList = (sc, listUrl, additionalUrl) => {
         /// MUTATIONS
         appendElements(state, payload) {
 
-            console.log(payload)
-            state.is_finished = !payload.length
+            state.is_finished = !payload.length;
 
             if (state.page) state.items = [...state.items, ...payload];
             else state.items = payload;
