@@ -53,12 +53,12 @@
 					<icon-pocket/>
 				</icon-base>
 				<picture-reusable
-						class="pointer"
+						class="pointer mr-5"
 						@click.native="userLink(user.id)"
 						:img="publicPath + user.path_to_avatar"
 						:size="27"
 						rounded/>
-				<dropdown-list-reusable>
+				<dropdown-list-reusable list-class="nav-menu p-0 py-10">
 					<template #icon>
 						<icon-base
 								fill="none"
@@ -69,6 +69,23 @@
 								icon-name="pocket">
 							<icon-dropdown/>
 						</icon-base>
+					</template>
+
+					<template #items>
+						<div class="nav-menu-items flex-column">
+							<lang-string
+									@click.native="$router.push({name: 'followings', params: {id: user.id}})"
+									class="menu-item py-10 px-20 pointer"
+									title="followings" />
+							<lang-string
+									@click.native="$router.push({name: 'catalogList'})"
+									class="menu-item py-10 px-20 pointer"
+									title="topics" />
+							<lang-string
+									@click.native="userLogout"
+									class="menu-item py-10 px-20 pointer"
+									title="exit" />
+						</div>
 					</template>
 				</dropdown-list-reusable>
 			</div>
@@ -86,6 +103,8 @@
 	import PictureReusable from "../../reusableСomponents/PictureReusable";
 	import DropdownListReusable from "../../reusableСomponents/DropdownListReusable";
 	import NotificationPage from "../../notifications/notificationPage";
+	import langString from "../../langString";
+	import axios from "axios";
 
 	export default {
 		name: "desktopHeader",
@@ -98,6 +117,33 @@
 			}
 		},
 		methods: {
+
+			userLogout() {
+
+				axios.get(`${this.publicPath}/auth/logout`)
+					.then(() => {
+						this.$store.commit("authentication/setAuthenticated", false)
+						this.$store.commit("userPage/removeUser");
+						this.$store.commit("pollFeed/clearFeed");
+						this.$store.commit("globalStore/clearStores");
+						this.$store.commit("notificationStore/clearStores");
+						this.$store.commit("notificationPage/setDefaultPage");
+
+						//TODO доделать логаут
+					})
+
+					.catch((error) => {
+						this.$store.commit("authentication/setAuthenticated", false)
+						this.$store.commit("userPage/removeUser");
+						this.$store.commit("pollFeed/clearFeed");
+						this.$store.commit("globalStore/clearStores");
+						this.$store.commit("notificationStore/clearStores");
+						this.$store.commit("notificationPage/setDefaultPage");
+					});
+
+				this.$router.push('/login');
+
+			},
 
 			routeOnChange(){
 
@@ -129,7 +175,8 @@
 			IconLogo,
 			IconNotifications,
 			IconPocket,
-			IconDropdown
+			IconDropdown,
+			langString
 		}
 	}
 </script>
@@ -143,6 +190,22 @@
 		width: 100%;
 		height: 60px;
 		border-bottom: 1px solid #BCBEC3;
+
+		.nav-menu {
+			left: -30px;
+			top: 40px;
+
+			.nav-menu-items {
+				.menu-item {
+					white-space: nowrap;
+					font-size: 14px;
+
+					&:hover {
+						background-color: #edf5f8;
+					}
+				}
+			}
+		}
 
 		.nav-container {
 			height: 60px;

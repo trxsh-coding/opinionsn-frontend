@@ -8,14 +8,17 @@
 				class="input-placeholder"
 				:title="inputPlaceholder"
 		/>
+
 		<input type="text"
 			   class="input"
 		       v-if="input"
 		       v-model="value"
+		       @change="inputValue(arguments[0].target.value)"
 		       @focus="focusInput(true)"
-			   @blur="focusInput(false)"
+			   @blur="!withoutBlur && focusInput(false)"
 		       :class="[{ focusedInput : active && withUnderline, validationStyle : validationError}, inputClass]"
 		>
+
 		<textarea
 				ref="textareaRef"
 				v-if="textarea"
@@ -77,6 +80,7 @@
 		},
 		props: {
 			inputClass: String,
+			withoutBlur: Boolean,
 			withActionButtons: {
 				type: Boolean,
 				default() {
@@ -199,9 +203,9 @@
 				this.value = '';
 			},
 
-			// inputValue(payload) {
-			// 	this.$emit('change', payload);
-			// },
+			inputValue(payload) {
+				this.$emit('change', payload);
+			},
 
 			inputValidation(payload) {
 				this.active = payload;

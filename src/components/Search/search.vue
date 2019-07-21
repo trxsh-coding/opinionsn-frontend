@@ -1,16 +1,19 @@
 <template>
-	<div class="search-wrapper flex-column" :class="{'bg-white pt-21 pb-19': !mobile, 'pt-6': mobile}">
+	<div class="search-wrapper flex-column" :class="{'bg-white pt-21 pb-19': !mobile, 'pt-58': mobile}">
 		<input-reusable
 				v-if="mobile"
 				v-model="keywords"
 				input-class="pr-28"
 				class="pl-60 pr-86"
 				width="100%"
+				input
+				height="33"
 				input-placeholder="search"
 				@keyup.enter.native="searchUsers"
+				without-blur
 				with-action-buttons/>
 
-		<div class="button-panel flex ml-60" :class="{'mt-12': mobile}">
+		<div class="button-panel flex pl-60" :class="{'mt-12': mobile}">
 			<button-reusable
 					bg-color="#ffffff"
 					button_type="underline"
@@ -33,7 +36,8 @@
 		</div>
 
 		<div
-				class="links-section mt-15 mr-20 ml-60"
+				class="links-section mt-15 mr-20 "
+				:class="{'ml-30': mobile, 'ml-60': !mobile}"
 		        v-show="keywords !== ''">
 			<search-instance
 					class="mt-9"
@@ -87,6 +91,9 @@
 		watch: {
 			keywords() {
 				this.searchUsers();
+			},
+			searchQuery() {
+				this.searchUsers();
 			}
 		},
 		computed: {
@@ -101,6 +108,7 @@
 				this.keywords = this.$route.query.keyword;
 				return this.$route.query.keyword
 			},
+
 		},
 		methods: {
 			setTypeOfSearch(payload) {
