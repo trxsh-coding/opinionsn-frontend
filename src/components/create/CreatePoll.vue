@@ -88,7 +88,7 @@
 						textarea
 						:value="option.description"
 						:height="enablePicture ? 90 : 60"
-						@change="updateArrayField(arguments[0], null, 'options', 'description', index, 'form')"
+						@change="updateArrayField(arguments[0], null, 'options', 'description', index)"
 						@blur.once="onBlurFunction(index)"
 						class="flex-align-center pl-14 mt-1"
 						input-placeholder="answer_text"
@@ -101,7 +101,7 @@
 						image-layout="bottom"
 						width="fit-content"
 						:value="option.picture"
-						@upload="({file, url}) => {updateArrayField(file, url, 'options', 'picture', index, 'form')}">
+						@upload="({file, url}) => {updateArrayField(file, url, 'options', 'picture', index)}">
 					<template #icon>
 
 					</template>
@@ -241,20 +241,31 @@
 					{
 						value: form.tags,
 						value_name: 'tags',
-						rules: [{ method_name: 'checkLength', args: [0, 20] }]
+						rules: [{ method_name: 'checkLength', args: [false, 100] }]
 					},
 
 					{
 						value: form.subject_header,
 						value_name: 'subject_header',
-						rules: [{ method_name: 'checkLength', args: [0, 4] }]
+						rules: [{ method_name: 'checkLength', args: [false, 100] }]
 					},
 					{
 						value: form.description,
 						value_name: 'description',
-						rules: [ {method_name: 'checkLength', args: [0, 20] }]
+						rules: [ {method_name: 'checkLength', args: [false, 650] }]
 					},
+					...this.options_with_rules
 				]
+			},
+			
+			options_with_rules() {
+				return this.form.options.map(({description}, index) => {
+					return {
+						value: description,
+						value_name: `option_${index}`,
+						rules: [ {method_name: 'checkLength', args: [2, 65] }]
+					}
+				})
 			},
 
 			message: {
@@ -303,17 +314,19 @@
 
 
 			},
+			
 			check(date) {
 				console.log(date)
 			},
-			updateField(value, keyName) {
+			
+			updateField(value, key) {
 
-				this.$store.commit('formManagment/UPDATE_FIELD', {value, keyName, form: 'create_poll_form'})
+				this.$store.commit('formManagment/UPDATE_FIELD', {value, key, form: 'create_poll_form'})
 
 			},
 
-			updateArrayField(value, url, arrayName, keyName, index, form) {
-				this.$store.commit('formManagment/UPDATE_ARRAY_FIELD', {value, arrayName, keyName, index, form})
+			updateArrayField(value, url, arrayName, keyName, index) {
+				this.$store.commit('formManagment/UPDATE_ARRAY_FIELD', {value, arrayName, keyName, index, form: 'create_poll_form'})
 
 			},
 			chooseTypeOfPoll(payload) {
