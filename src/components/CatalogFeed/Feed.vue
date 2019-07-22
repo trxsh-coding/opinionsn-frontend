@@ -1,6 +1,6 @@
 <template lang="html">
 
-    <div id="catalog-feed" :class="{mobile: 'mt-58'}">
+    <div id="catalog-feed" :class="{'mt-58': mobile}">
 
         <div class="category-background mb-10" :style="{ 'background-image': 'url(' + publicPath + category.path_to_image + ')' } ">
             <div class="category-subject">
