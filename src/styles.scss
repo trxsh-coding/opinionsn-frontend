@@ -363,6 +363,7 @@ li {
 .primary-color {
   color: #4B96B3;
 }
+
 // Pictures
 
 .picture-20x20 {
@@ -758,12 +759,14 @@ li {
   overflow: hidden;
   text-overflow: ellipsis;
 }
+
 .absolute-center {
   position: absolute;
-  top:50%;
+  top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
 }
+
 .trim-clip {
   white-space: nowrap;
   overflow: hidden;
@@ -780,8 +783,8 @@ li {
   font-size: 13px;
   color: #1A1E22;
 }
-//Buttons
 
+//Buttons
 
 
 .primary-btn, .primary-btn:active, .primary-btn:focus, .primary-btn:hover {
@@ -822,10 +825,9 @@ li {
 @media only screen and (min-width: 300px) and (max-width: 765px) {
   .sub-container {
 	max-width: 100%;
-    margin-top: 0 !important;
+	margin-top: 0 !important;
   }
 }
-
 
 
 //Colors
