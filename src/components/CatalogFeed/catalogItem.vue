@@ -31,11 +31,14 @@
             setCategoryName(name){
                 if(this.$route.name === 'pollFeed') {
 
-                    this.$store.commit('formManagment/SET_CATEGORY_NAME', name )
+                    this.$store.commit('pollFeed/setFilterId', this.item.id)
+
+                    this.$store.dispatch('pollFeed/list')
 
                 } else {
 
-                    this.$store.commit('pollFeed/setFilterId', this.category.id)
+                    this.$store.commit('formManagment/SET_CATEGORY_NAME', name )
+
 
                 }
 

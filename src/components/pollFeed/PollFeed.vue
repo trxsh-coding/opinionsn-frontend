@@ -1,6 +1,10 @@
 <template lang="html">
 
 	<div id="poll-wrapper">
+
+		<div class="filter-block pl-60 pr-10" v-if="mobile">
+			<category-select />
+		</div>
 		<swiper-carousel :amount-of-slides="6" :spaceBetween="30">
 			<template #swiperAnnotation>
 				<swiper-slide v-for="category in categories">
@@ -30,6 +34,7 @@
 	import {mapState} from "vuex";
 	import SwiperCarousel from "../reusableСomponents/swiperCarousel";
 	import LoaderReusable from "../reusableСomponents/LoaderReusable";
+	import CategorySelect from "../reusableСomponents/categorySelect";
 
 	export default {
 		data() {
@@ -123,6 +128,7 @@
 		},
 
 		components: {
+			CategorySelect,
 			LoaderReusable,
 			SwiperCarousel,
 			event,

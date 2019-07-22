@@ -185,6 +185,7 @@
     import CreateHeader from "./createHeader";
     import TextareaReusable from "../reusableСomponents/textareaReusable";
     import ValidationMixin from "../mixins/ValidationMixin";
+	import AddOptionBlock from "./addOptionBlock";
 
     export default {
         name: "CreatePoll",
@@ -324,6 +325,7 @@
 		},
 
         components: {
+			AddOptionBlock,
             TextareaReusable,
             CreateHeader,
             Header,

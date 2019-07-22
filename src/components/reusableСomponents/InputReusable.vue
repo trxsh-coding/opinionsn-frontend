@@ -270,7 +270,7 @@
 
 		}
 		.vdpComponent {
-
+			width: 100%;
 		}
 		.input-placeholder {
 

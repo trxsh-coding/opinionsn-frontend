@@ -1,7 +1,7 @@
 <template>
     <div class="create-header flex-between">
-        <lang-string :title="'cancel'" />
-        <lang-string class="primary-color" :title="'publish'" />
+        <lang-string class="pointer" :title="'cancel'" @click="router.go(-1)"/>
+        <lang-string class="primary-color pointer" :title="'publish'" />
 
     </div>
 </template>
