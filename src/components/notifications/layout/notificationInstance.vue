@@ -1,5 +1,7 @@
 <template>
-    <div class="notification-section pt-9 pr-13">
+    <div
+            v-show="!!pollName"
+            class="notification-section pt-9 pr-13">
         <picture-reusable
                 pic-class="mr-18 pointer"
                 avatar
@@ -57,7 +59,7 @@
             },
             pollName(){
                 let {polls, notification} = this;
-                if (!polls[notification.targetId]) return {};
+                if (!polls[notification.targetId]) return false;
                 return  polls[notification.targetId].subject;
             },
             eventCaption(){

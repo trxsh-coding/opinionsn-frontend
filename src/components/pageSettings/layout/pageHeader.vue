@@ -9,33 +9,11 @@
                     @upload="({file, url}) => {
                         UPDATE_FIELD(file, 'background_image');
                         background_image = url;
-                    }">
-                <template #icon>
-                    <icon-base
-                            class="pointer"
-                            v-show="!background_image"
-                            width="24"
-                            height="21"
-                            viewBox="0 0 20 17"
-                            icon-name="upload"><icon-upload-photo/>
-                    </icon-base>
-                </template>
-                <template #clearIcon>
-                    <icon-base
-                            class="pointer"
-                            v-show="!!background_image"
-                            @click.native.prevent="() => {
-                                UPDATE_FIELD('', 'path_to_avatar');
-                                background_image = '';
-                            }"
-                            fill="none"
-                            width="22"
-                            height="22"
-                            viewBox="0 0 19 19"
-                            icon-name="close"><icon-cross/>
-                    </icon-base>
-                </template>
-            </upload-reusable>
+                    }"
+                    @remove="() => {
+                        UPDATE_FIELD(mainUser.background_image, 'background_image');
+                        background_image = publicPath + mainUser.background_image;
+                    }"/>
 
             <picture-reusable
                     class="avatar absolute"
@@ -51,33 +29,11 @@
                             @upload="({file, url}) => {
                                 UPDATE_FIELD(file, 'path_to_avatar');
                                 avatar = url;
-                            }">
-                        <template #icon>
-                            <icon-base
-                                    class="pointer"
-                                    v-show="!avatar"
-                                    width="24"
-                                    height="21"
-                                    viewBox="0 0 20 17"
-                                    icon-name="upload"><icon-upload-photo/>
-                            </icon-base>
-                        </template>
-                        <template #clearIcon>
-                            <icon-base
-                                    class="pointer"
-                                    v-show="!!avatar"
-                                    @click.native.prevent="() => {
-                                        UPDATE_FIELD('', 'path_to_avatar');
-                                        avatar = '';
-                                    }"
-                                    fill="none"
-                                    width="22"
-                                    height="22"
-                                    viewBox="0 0 19 19"
-                                    icon-name="close"><icon-cross/>
-                            </icon-base>
-                        </template>
-                    </upload-reusable>
+                            }"
+                            @remove="() => {
+                                UPDATE_FIELD(mainUser.path_to_avatar, 'path_to_avatar');
+                                avatar = publicPath + mainUser.path_to_avatar;
+                            }"/>
                 </template>
             </picture-reusable>
         </div>
@@ -121,7 +77,8 @@
             },
 
             form({background_image, path_to_avatar}) {
-                if (typeof background_image === 'string' && typeof path_to_avatar === 'string') {
+                let {background_image: init_bg, path_to_avatar: init_avatar} = this.mainUser;
+                if (background_image === init_bg && path_to_avatar === init_avatar) {
                     this.background_image = this.publicPath + background_image;
                     this.avatar = this.publicPath + path_to_avatar;
                 }

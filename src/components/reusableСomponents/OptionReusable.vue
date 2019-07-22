@@ -97,12 +97,35 @@
 		methods: {
 			selectOption(selected_variable) {
 
-				if (this.accessCheck) {
-					let {poll_id, type_of_poll} = this;
-					this.$store.dispatch(`${this.$route.name}/createVote`, {data: {selected_variable, poll_id,  type_of_poll}})
+				if (!this.$root.timer_duration && !this.$root.timer_id) {
+
+					const runTimeout = () => {
+
+						if (this.accessCheck) {
+							let {poll_id, type_of_poll} = this;
+							this.$root.timer_duration = 5000;
+
+							this.$root.timer_id = setTimeout(() => {
+
+								this.$store.dispatch(`${this.$route.name}/createVote`, {
+									data: {
+										selected_variable,
+										poll_id,
+										type_of_poll
+									}
+								});
+
+								this.$root.timer_id = null;
+								this.$root.timer_duration = 0;
+
+							}, 5000);
+
+						}
+
+					};
+					runTimeout();
 
 				}
-
 			},
 			trackTouchStart(e) {
 				let { clientX } = e.touches[0];

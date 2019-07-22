@@ -9,6 +9,7 @@
 		</button>
 
 		<div
+				@click="() => { if (clickClose) closeOnClick()  }"
 				ref="srollableBlockRef"
 				@scroll="setScrollDifference($refs.srollableBlockRef, 64, 'scrollDifference')"
 				class="dropdown-list flex-column flex-align-center"
@@ -36,7 +37,8 @@
 			height: {
 				type: [String, Number]
 			},
-			listClass: String
+			listClass: String,
+			clickClose: Boolean
 		},
 		data() {
 			return {
@@ -51,7 +53,7 @@
 		},
 		computed: {
 			listVisibility() {
-				return this.show ? {visibility: 'visible', opacity: '1'} : {visibility: 'hidden', opacity: '0'};
+				return this.show ? {display: 'block', opacity: '1'} : {display: 'none', opacity: '0'};
 			},
 			iconStyle() {
 				return this.show ? {transform: "rotateX(180deg)", top: '2px'} : {};
@@ -72,6 +74,10 @@
 			},
 		},
 		methods: {
+			closeOnClick() {
+				this.show = false;
+			},
+
 			handleVisibility() {
 				this.$emit('visibile', this.show);
 			},
@@ -140,7 +146,6 @@
 
 		.dropdown-list {
 			position: absolute;
-			z-index: 8000;
 			top: calc(100% + 10px);
 			left: 50%;
 			transform: translateX(-50%);

@@ -125,10 +125,10 @@
 
 	}
 	@media only screen
-	and (min-width: 300px)
-	and (max-width: 765px){
-		.category-picture {
-			margin-right: 10px;
-		}
+		and (min-width: 300px)
+		and (max-width: 765px) {
+			.category-picture {
+				/*margin-right: 10px;*/
+			}
 	}
 </style>

@@ -1,8 +1,11 @@
 <template lang="html">
 
-    <div id="bookmark-feed">
+    <div id="bookmark-feed" class="flex-column" :class="{ 'pt-58 pl-30 pr-20': mobile }">
 
         <short-poll-reusable v-for="(poll, index) in filtered_polls" :class="{'mt-9': index > 0}" :poll="poll" width="100%" />
+        <loader-reusable
+                class="mx-auto my-9"
+                v-show="loading" />
 
     </div>
 
@@ -13,13 +16,20 @@
 <script>
     import { mapState } from 'vuex';
 	import ShortPollReusable from "../reusableСomponents/ShortPollReusable";
+    import LoaderReusable from "../reusableСomponents/LoaderReusable";
 
     export default {
-		components: {ShortPollReusable},
+        data() {
+            return {
+                mobile: this.$root.mobile
+            }
+        },
+		components: {LoaderReusable, ShortPollReusable},
 		computed: {
 
             ...mapState('bookmarkFeed', {
                 payload: ({items}) => items,
+                loading: ({loading}) => loading
             }),
 
 			...mapState('globalStore', {

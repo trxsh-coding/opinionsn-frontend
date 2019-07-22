@@ -93,7 +93,6 @@ export const globalStore  =  {
         },
 
         currentLoadingOption(state, payload){
-            console.log(payload)
             let {id, value} = payload;
 
             if (state.options[id].loading === undefined) {
