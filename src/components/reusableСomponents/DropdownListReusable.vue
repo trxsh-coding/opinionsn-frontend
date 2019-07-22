@@ -9,6 +9,7 @@
 		</button>
 
 		<div
+				@click="() => { if (clickClose) closeOnClick()  }"
 				ref="srollableBlockRef"
 				@scroll="setScrollDifference($refs.srollableBlockRef, 64, 'scrollDifference')"
 				class="dropdown-list flex-column flex-align-center"
@@ -36,7 +37,8 @@
 			height: {
 				type: [String, Number]
 			},
-			listClass: String
+			listClass: String,
+			clickClose: Boolean
 		},
 		data() {
 			return {
@@ -72,6 +74,10 @@
 			},
 		},
 		methods: {
+			closeOnClick() {
+				this.show = false;
+			},
+
 			handleVisibility() {
 				this.$emit('visibile', this.show);
 			},

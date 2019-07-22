@@ -17,7 +17,9 @@
 					@click="clearTimer"
 					class="undo-panel pointer">
 
-				<lang-string class="description" title="cancel" />
+				<lang-string class="description" title="undo_choice" />
+
+				<span class="timer" v-show="timer !== null">{{timer}}</span>
 
 				<div
 						:class="{'active': !!$root.timer_id}"
@@ -47,10 +49,15 @@
 		data() {
 			return {
 				mobile: this.$root.mobile,
+				timer: null
 			};
 		},
 		watch: {
-
+			timer_id(old) {
+				if (old !== null) {
+					this.reverseTimeout();
+				}
+			}
 		},
 		computed: {
 
@@ -65,13 +72,43 @@
 				return this.$route.name
 
 			},
+
 			iosNotificationCloseCheck: function () {
 
 				return window.localStorage.getItem('iosNotificationPwa' !== 'False');
+			},
+
+			timer_id() {
+				return this.$root.timer_id;
 			}
 
 		},
 		methods: {
+
+			reverseTimeout() {
+
+				if (!!this.$root.timer_duration) {
+
+					this.timer = this.$root.timer_duration / 1000;
+					let reverseTimer = () => {
+
+						let run = () => {
+							this.timer -= 1;
+							if (this.timer === 0) {
+								this.timer = null;
+							} else {
+								setTimeout(run, 1000);
+							}
+						};
+
+						setTimeout(run, 1000);
+
+					};
+					reverseTimer();
+
+				}
+
+			},
 
 			clearTimer() {
 				clearTimeout(this.$root.timer_id);
@@ -189,13 +226,29 @@
 		left: 0;
 		width: 100%;
 		height: 40px;
-		background-color: crimson;
+		background-color: #B6B6B6;
 		display: flex;
 		align-items: stretch;
 		visibility: hidden;
 
+		* {
+			font-family: Roboto, sans-serif;
+			font-style: normal;
+			font-weight: normal;
+			font-size: 14px;
+			color: #FFFFFF;
+		}
+
 		&.desktop {
 			bottom: 0;
+		}
+
+		.timer {
+			position: absolute;
+			transform: translateY(-50%);
+			top: 50%;
+			right: 20px;
+			z-index: 100;
 		}
 
 		.description {
@@ -203,6 +256,7 @@
 			transform: translate(-50%, -50%);
 			top: 50%;
 			left: 50%;
+			z-index: 100;
 		}
 
 		&.active {
@@ -210,7 +264,8 @@
 		}
 
 		.undo-bar {
-			background-color: aquamarine;
+			background-color: #4B97B4;
+			opacity: 0.75;
 			width: 0;
 
 			&.active {

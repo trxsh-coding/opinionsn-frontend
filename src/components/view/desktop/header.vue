@@ -58,7 +58,9 @@
 						:img="publicPath + user.path_to_avatar"
 						:size="27"
 						rounded/>
-				<dropdown-list-reusable list-class="nav-menu p-0 py-10">
+				<dropdown-list-reusable
+						click-close
+						list-class="nav-menu p-0 py-10">
 					<template #icon>
 						<icon-base
 								fill="none"
