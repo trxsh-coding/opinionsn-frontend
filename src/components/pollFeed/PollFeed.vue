@@ -4,7 +4,7 @@
 		<swiper-carousel :amount-of-slides="6" :spaceBetween="30">
 			<template #swiperAnnotation>
 				<swiper-slide v-for="category in categories">
-					<filter-component :filtered="filtered" :id="filter_id" :category="category"/>
+					<filter-component :filtered="filtered" :id="filter_id" :category="category" v-if="!mobile"/>
 				</swiper-slide>
 			</template>
 		</swiper-carousel>

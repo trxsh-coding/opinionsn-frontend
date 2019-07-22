@@ -118,7 +118,7 @@ export const formManagment = {
         },
 
         [SET_CATEGORY_NAME](state, payload){
-          state.form.subject_header = payload
+          state.create_poll_form.subject_header = payload
         },
 
         [INSERT_PICTURES](state, payload){

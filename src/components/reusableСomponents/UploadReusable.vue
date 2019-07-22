@@ -1,8 +1,8 @@
 <template>
     <div class="upload-block v-center relative" :style="blockStyle">
-        <label class="v-center" :style="wrapperStyle" >
+        <label :style="wrapperStyle" class="relative">
 
-            <div>
+            <div v-if="iconPhoto">
                 <slot name="icon">
                     <icon-base
                             class="pointer"
@@ -18,8 +18,8 @@
             <div @click.prevent="handlePictureRemove">
                 <slot name="clearIcon">
                     <icon-base
-                            class="pointer"
-                            v-show="!is_input_empty"
+                            v-if="imgUrl"
+                            class="pointer absolute-center"
                             fill="none"
                             width="22"
                             height="22"
@@ -83,6 +83,12 @@
                     return false;
                 }
             },
+            iconPhoto: {
+                type: Boolean,
+                default() {
+                    return false;
+                }
+            },
             preWidth: {
                 type: [String, Number]
             },
@@ -112,6 +118,7 @@
             handlePictureRemove() {
                 this.$emit('remove', {file: '', url: ''});
                 this.is_input_empty = true;
+                this.imgUrl = '';
                 this.$refs.input_ref.value = '';
             },
 

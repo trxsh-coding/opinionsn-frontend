@@ -25,6 +25,7 @@
 				v-model="value"
                 rows="1"
 				@focus="focusInput(true)"
+				@blur="!withoutBlur && focusInput(false)"
 				class="primary-font textarea"
 				:class="[{ focusedInput : active && withUnderline, validationStyle : validationError}, inputClass]"
 		>
@@ -234,7 +235,8 @@
 <style lang="scss">
 	.input-reusable {
 		position: relative;
-
+		display: flex;
+		justify-content: space-between;
 		.action-btns {
 			position: absolute;
 			z-index: 200;

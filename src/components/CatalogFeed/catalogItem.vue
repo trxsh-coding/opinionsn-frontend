@@ -1,6 +1,6 @@
 <template>
     <div class="category-item flex-align-center" @click="setCategoryName(item.name)" :class="{current : isCurrent}">
-        <div class="category-picture" :style="{ 'background-image': 'url(' + publicPath +  item.path_to_image +')' } ">
+        <div class="category-picture" :style="{ 'background-image': 'url(' + publicPath +  imageUtil(item.path_to_image, 'W') +')' } ">
 
         </div>
         <div class="category-name">
@@ -29,8 +29,16 @@
                 this.hoverColor = payload ;
             },
             setCategoryName(name){
+                if(this.$route.name === 'pollFeed') {
 
-                this.$store.commit('formManagment/SET_CATEGORY_NAME', name )
+                    this.$store.commit('formManagment/SET_CATEGORY_NAME', name )
+
+                } else {
+
+                    this.$store.commit('pollFeed/setFilterId', this.category.id)
+
+                }
+
 
             },
 
@@ -38,9 +46,15 @@
         computed: {
             ...mapState('formManagment', {
 
-                current: s => s.form.subject_header,
+                current: s => s.create_poll_form.subject_header,
 
             }),
+            routeName(){
+
+                return this.$route.name
+
+            },
+
             isCurrent(){
                 if(this.current === this.item.name) return true
                 else return false
@@ -60,6 +74,7 @@
         margin-right: 10px;
         background: #BBBDC2;
         border-radius: 6px;
+        white-space: nowrap;
     .itemActive {
         color: #4B97B4;
     }

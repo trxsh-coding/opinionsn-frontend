@@ -108,6 +108,7 @@
 				</upload-reusable>
 			</div>
 			<switch-component
+					v-if="type === 'PREDICTION'"
 					class="mb-20"
 					text-layout="right"
 					type="arrow"
@@ -115,7 +116,8 @@
 					:inactive-description="lstr('additional_settings')"
 					:value="hideFields"
 					@select="unhideAdds"/>
-			<div class="additional-fields" v-if="additionalField">
+			<div class="additional-fields" v-if="additionalField && type === 'PREDICTION'">
+
 				<switch-component
 						class="mb-16"
 						type="button"
@@ -202,7 +204,7 @@
                 subject:null,
                 subject_description:null,
                 mobile: this.$root.mobile,
-				additionalField: true,
+				additionalField: false,
 				type:'POLL'
             }
         },
@@ -273,7 +275,6 @@
 				this.updateField(currentTypeOfCreation, 'type_of_poll')
 			},
 			unhideAdds(payload){
-				console.log(payload)
 				this.additionalField = payload ;
 
 			},
