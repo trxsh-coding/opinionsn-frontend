@@ -106,7 +106,8 @@ export const vueApp = new Vue({
 			mobile: window.innerWidth <= 500,
 			scrolled_to_bottom: null,
 			timer_id: null,
-			timer_duration: 0
+			timer_duration: 0,
+			temp_selected_option: null
 		}
 	},
 	mixins: [ElementScrollHandler],

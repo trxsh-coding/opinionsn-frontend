@@ -23,6 +23,7 @@
 				:selected="item.selectedOption === option.id"
 				:correct="poll.correct_option === option.id"
 				:picture="option.picture ? publicPath + option.picture : null"
+				:loading="loading"
         >
             <template #default>
 				{{option.description}}
@@ -165,6 +166,10 @@
                 comments: ({comments}) => comments,
                 mainUser: ({mainUser}) => mainUser,
             }),
+
+	        ...mapState('pollFeed', {
+		        loading: ({loading}) =>loading
+	        }),
 
             // POLL GETTER
 

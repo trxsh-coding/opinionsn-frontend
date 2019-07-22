@@ -120,8 +120,8 @@ export const index = new Router({
 					props: true
 				},
 				{
-					path: `createPoll`,
-					name: `createPoll`,
+					path: 'createPoll',
+					name: 'createPoll',
 					component: createPoll,
 				},
 				{

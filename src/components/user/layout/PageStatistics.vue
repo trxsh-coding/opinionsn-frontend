@@ -6,10 +6,15 @@
 			<lang-string class="description" :title="'detailed_statistics'" />
 		</div>
 		<div class="statistic-cards mt-5">
+<!--			<div-->
+<!--				class="card flex-column flex-align-center mt-13"-->
+<!--				v-for="(item, index) in itemsSorted"-->
+<!--				v-show="!hidden || ((mobile && index < 3) ||  (!mobile && index < 4))"-->
+<!--			>-->
 			<div
-				class="card flex-column flex-align-center mt-13"
-				v-for="(item, index) in itemsSorted"
-				v-show="!hidden || ((mobile && index < 3) ||  (!mobile && index < 4))"
+					class="card flex-column flex-align-center mt-13"
+					v-for="(item, index) in itemsSorted"
+					v-show="((mobile && index < 3) ||  (!mobile && index < 4))"
 			>
 				<lang-string class="title px-9 py-2 my-auto" :title="item[0]" />
 				<div class="flex-column flex-align-center pt-13">
@@ -21,10 +26,10 @@
 
 		</div>
 
-		<span class="toggle-btn mt-12 pointer" v-show="!!itemsSorted && itemsSorted.length > 3" @click="hidden = !hidden">
-				<span v-show="hidden">+{{itemsSorted.length - 3}} категорий</span>
-				<span v-show="!hidden">свернуть</span>
-		</span>
+<!--		<span class="toggle-btn mt-12 pointer" v-show="!!itemsSorted && itemsSorted.length > 3" @click="hidden = !hidden">-->
+<!--				<span v-show="hidden">+{{itemsSorted.length - 3}} категорий</span>-->
+<!--				<span v-show="!hidden">свернуть</span>-->
+<!--		</span>-->
 
 	</div>
 </template>
@@ -61,7 +66,8 @@
         		let items = [];
 				Object.entries(this.items).forEach((value, i) => {
 					let item = value.flat(1);
-					if (!!item[1]) items[i] = item;
+					// if (!!item[1]) items[i] = item;
+					items[i] = item;
 				});
 
 				items = items.sort((a, b) => {

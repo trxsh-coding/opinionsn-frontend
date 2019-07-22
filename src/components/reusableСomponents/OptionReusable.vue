@@ -69,6 +69,7 @@
 			selected: Boolean,
 			correct: Boolean,
 			prediction: Boolean,
+			loading: Boolean,
 			percentage: [Number, Boolean],
 			picture: String,
 			pictureSize: {
@@ -94,8 +95,15 @@
 				type: Object
 			}
 		},
+
+		beforeDestroy() {
+			this.$root.temp_selected_option = null;
+		},
+
 		methods: {
 			selectOption(selected_variable) {
+
+				if (this.voted) return;
 
 				if (!this.$root.timer_duration && !this.$root.timer_id) {
 
@@ -113,12 +121,15 @@
 										poll_id,
 										type_of_poll
 									}
+								})
+								.then(() => {
+									this.$root.timer_id = null;
+									this.$root.timer_duration = 0;
 								});
 
-								this.$root.timer_id = null;
-								this.$root.timer_duration = 0;
-
 							}, 5000);
+
+							this.$root.temp_selected_option = selected_variable;
 
 						}
 
@@ -161,6 +172,10 @@
 		},
 		computed: {
 
+			temp_selected() {
+				return this.$root.temp_selected_option === this.id;
+			},
+
 			transform_shift() {
 				return {
 					// transform: `translateX(${this.$refs.bowsRef.offsetWidth + 54}px)`
@@ -186,19 +201,19 @@
 				}
 			},
 			optionStyle() {
-				let { selected, correct, prediction, picture } = this;
+				let { selected, temp_selected, correct, prediction, picture } = this;
 
 				let opacity = prediction ? { opacity: '0.3' } : {};
 				let withPicture = picture ? { borderTopLeftRadius: '0', borderBottomLeftRadius: '0' } : {};
 
 				switch (true) {
-					case correct && selected:
+					case correct && (temp_selected || selected):
 						return {
 							backgroundColor: '#4BB48E',
 							color: '#fff',
 							...withPicture
 						};
-					case selected:
+					case temp_selected || selected:
 						return {
 							backgroundColor: '#4B97B4',
 							color: '#fff',
@@ -219,12 +234,12 @@
 				}
 			},
 			progressBarStyle() {
-				let { selected, correct, percentage } = this;
+				let { selected, temp_selected, correct, percentage } = this;
 
 				let width = percentage ? { width: `calc(${percentage}% - 21px)` } : { width: '0' };
 
 				switch (true) {
-					case selected:
+					case temp_selected || selected:
 						return {
 							backgroundColor: '#023F52',
 							...width

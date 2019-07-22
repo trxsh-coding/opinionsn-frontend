@@ -114,6 +114,7 @@
 				clearTimeout(this.$root.timer_id);
 				this.$root.timer_id = null;
 				this.$root.timer_duration = 0;
+				this.$root.temp_selected_option = null;
 			},
 
 			closeInstall(){
