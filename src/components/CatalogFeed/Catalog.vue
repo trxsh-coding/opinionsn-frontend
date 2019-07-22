@@ -1,6 +1,6 @@
 <template lang="html">
 
-    <ul id="category-list" class="pt-21 pb-26 pl-60 pr-21" :class="{'bg-white': !mobile, 'mt-58': mobile}">
+    <ul id="category-list" class="pb-26 pl-60 pr-21" :class="{'bg-white pt-21': !mobile, 'pt-58': mobile}">
 
         <div class="category-block flex-column flex-center pointer p-15" v-for="{path_to_image, name, id} in categories"  @click="categoryLink(id)">
             <picture-reusable

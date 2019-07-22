@@ -30,7 +30,8 @@
 
 			<button-reusable
 					class="ml-6 p-9 w-fit h-fit pointer"
-					bor-rad="30"
+					:font-size="11"
+					bor-rad="6"
 					:bg-color="user.isLeader ? '#BCBEC3' : '#4B97B4'"
 					@click.native="subscribeActions(user.id, user.isLeader)"
 					:description="!user.isLeader ? 'follow' : 'unfollow'"

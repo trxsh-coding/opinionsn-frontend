@@ -17,6 +17,7 @@
 
 	#app {
 
+
 		@media screen and (max-width: 500px) {
 			&::-webkit-scrollbar {
 				display: none;

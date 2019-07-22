@@ -49,7 +49,8 @@
 		data() {
 			return {
 				mobile: this.$root.mobile,
-				timer: null
+				timer: 0,
+				temp_timer_id: null
 			};
 		},
 		watch: {
@@ -88,6 +89,7 @@
 			reverseTimeout() {
 
 				if (!!this.$root.timer_duration) {
+					clearTimeout(this.temp_timer_id);
 
 					this.timer = this.$root.timer_duration / 1000;
 					let reverseTimer = () => {
@@ -95,13 +97,14 @@
 						let run = () => {
 							this.timer -= 1;
 							if (this.timer === 0) {
-								this.timer = null;
+								this.timer = 0;
+								clearTimeout(this.temp_timer_id);
 							} else {
-								setTimeout(run, 1000);
+								this.temp_timer_id = setTimeout(run, 1000);
 							}
 						};
 
-						setTimeout(run, 1000);
+						this.temp_timer_id = setTimeout(run, 1000);
 
 					};
 					reverseTimer();
@@ -112,6 +115,7 @@
 
 			clearTimer() {
 				clearTimeout(this.$root.timer_id);
+				clearTimeout(this.temp_timer_id);
 				this.$root.timer_id = null;
 				this.$root.timer_duration = 0;
 				this.$root.temp_selected_option = null;
