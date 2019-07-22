@@ -1,17 +1,13 @@
 <template>
     <div class="category-list-wrapper ">
-        <poll-block :poll="poll"  :item="item" :author="author" >
-
-            <div slot="subject_header">
-
-            </div>
-        </poll-block>
+        <short-poll-reusable :poll="poll" />
     </div>
 </template>
 
 <script>
     import { mapState } from 'vuex';
     import pollBlock from '../../voteFeed/event/PollBlock'
+    import ShortPollReusable from "../../reusableСomponents/ShortPollReusable";
     export default {
         name: "Event",
         props:['item'],
@@ -69,6 +65,7 @@
 
 
         components:{
+            ShortPollReusable,
             pollBlock
         }
     }

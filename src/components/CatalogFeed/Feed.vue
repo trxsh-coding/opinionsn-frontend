@@ -8,7 +8,7 @@
             </div>
         </div>
 
-        <div v-for="item in items" class="mb-6" v-if="items.length">
+        <div v-for="item in items" class="mb-6 pl-21 pr-20" v-if="items.length">
             <event :item="item"/>
         </div>
 
