@@ -86,7 +86,6 @@
 		.text {
 			flex: 1;
 			word-break: break-word;
-
 			.username {
 				font-weight: 500;
 				font-size: 14px;

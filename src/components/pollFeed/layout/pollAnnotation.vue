@@ -4,7 +4,7 @@
             <div class="type-block mr-6 v-center">
                 <lang-string :title="type_of_poll"/>
             </div>
-            <div class="subject-block v-center">
+            <div class="subject-block v-center pointer" @click="categoryLink(poll.categories)">
                 <lang-string :title="poll.subject_header"/>
             </div>
         </div>
@@ -28,6 +28,13 @@
                     return 'prediction'
                 }
             }
+        },
+        methods: {
+            categoryLink(category_id){
+
+                this.$router.push({name:'catalogFeed',params:{id:category_id}})
+
+            },
         }
     }
 </script>

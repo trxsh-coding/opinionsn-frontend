@@ -185,6 +185,8 @@
 
 			.text {
 				margin: 0;
+				text-transform: lowercase !important;
+
 			}
 
 
