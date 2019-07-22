@@ -22,43 +22,43 @@ const initialState = () => {
     return {
         withPicture:false,
         imageUrl: '',
-        picture:'',
-        pictures:[
+        picture: '',
+        pictures: [
             {
-                picture:'',
-                imgUrl:''
+                picture: '',
+                imgUrl: ''
             },
             {
-                picture:'',
-                imgUrl:''
+                picture: '',
+                imgUrl: ''
             },
             {
-                picture:'',
-                imgUrl:''
+                picture: '',
+                imgUrl: ''
             }
         ],
         create_poll_form: {
-            subject_header:'',
-            subject:'',
-            tags:'',
-            description:'',
-            type_of_poll:'1',
-            end_date:'',
-            end_time:'',
-            fund:'',
-            judges:[],
-            options:[
+            subject_header: '',
+            subject: '',
+            tags: '',
+            description: '',
+            type_of_poll: '1',
+            end_date: '',
+            end_time: '',
+            fund: '',
+            judges: [],
+            options: [
                 {
-                    optionImageUrl:'',
-                    id:'',
-                    picture:'',
-                    description:''
+                    optionImageUrl: '',
+                    id: '',
+                    picture: '',
+                    description: ''
                 },
                 {
-                    optionImageUrl:'',
-                    id:'',
-                    picture:'',
-                    description:''
+                    optionImageUrl: '',
+                    id: '',
+                    picture: '',
+                    description: ''
                 },
             ]
         },

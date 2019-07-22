@@ -4,6 +4,7 @@
         <div class="background" :style="{backgroundImage: `url('${background_image}')`}">
 
             <upload-reusable
+                    icon-photo
                     width="100%"
                     height="100%"
                     @upload="({file, url}) => {
@@ -24,6 +25,7 @@
                     without-text>
                 <template #innerPicture>
                     <upload-reusable
+                            icon-photo
                             width="100%"
                             height="100%"
                             @upload="({file, url}) => {
