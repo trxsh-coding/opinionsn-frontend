@@ -7,6 +7,7 @@
 		<div
 				class="btn flex-align-center"
 				:class="{'active': active}"
+				:style="{fontSize: `${fontSize}px`}"
 				v-if="button_type === 'default'">
 			<lang-string :title="description"/>
 			<slot/>
@@ -139,7 +140,7 @@
 			width: fit-content;
 			height: fit-content;
 			/*padding: 0 9px;*/
-			font-size: 13px;
+			font-size: 11px;
 		}
 
 		.underline {

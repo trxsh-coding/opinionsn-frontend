@@ -1,6 +1,6 @@
 <template lang="html">
 
-    <div id="catalog-feed" :class="{'mt-58': mobile}">
+    <div id="catalog-feed" class="flex-column" :class="{'pt-58': mobile}">
 
         <div class="category-background mb-10" :style="{ 'background-image': 'url(' + publicPath + category.path_to_image + ')' } ">
             <div class="category-subject">
@@ -11,6 +11,8 @@
         <div v-for="item in items" class="mb-6 pl-21 pr-20" v-if="items.length">
             <event :item="item"/>
         </div>
+
+        <loader-reusable class="mx-auto my-9" v-show="loading" />
 
     </div>
 
@@ -25,6 +27,7 @@
     import langString from '../langString'
     import IconBase from '../icons/IconBase'
     import IconBack from '../icons/IconBack'
+    import LoaderReusable from "../reusableСomponents/LoaderReusable";
     export default {
         mixins:[langMixin],
         data(){
@@ -38,7 +41,8 @@
         computed: {
             ...mapState('catalogList', {
                 state: s => s,
-                items: s => s.items
+                items: s => s.items,
+                loading: s => s.loading
             }),
 
             ...mapState('globalStore', {
@@ -90,7 +94,6 @@
 
         mounted(){
             this.$store.dispatch(`catalogList/list`, {customUrl: `${process.env.VUE_APP_MAIN_API}/rest/categories/${this.id}`});
-
         },
 
 
@@ -98,6 +101,7 @@
 
 
         components: {
+            LoaderReusable,
             event,
             langString,
             IconBase,
