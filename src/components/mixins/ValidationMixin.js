@@ -4,7 +4,7 @@ export default {
 	methods: {
 
 		verifyValues(form, values_with_rules, methods) {
-			if (values_with_rules && methods) {
+			if (form && values_with_rules && methods) {
 				values_with_rules.forEach(({value = '', value_name, rules}) => {
 					rules.forEach(({method_name, args}) => {
 						let error = methods[method_name](value, ...args);
@@ -16,15 +16,15 @@ export default {
 					})
 				})
 			} else {
+				if (form === undefined) form = 'values_with_rules';
 				if (values_with_rules === undefined) values_with_rules = 'values_with_rules';
 				if (methods === undefined) methods = 'methods';
-				console.error(`Require arguments: [${values_with_rules} ${methods}] is missing`);
+				console.error(`Require arguments: [${form} ${values_with_rules} ${methods}] is missing`);
 			}
 		},
 
 		checkLength(str, from_length = 0, to_length) {
 			let { length } = str.split(' ').join('');
-			console.log(length);
 			
 			switch (true) {
 				case (length < from_length || length > to_length && from_length !== 0):
