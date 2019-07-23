@@ -47,6 +47,7 @@ const initialState = () => {
             end_time: '',
             fund: '',
             judges: [],
+            errors: {},
             options: [
                 {
                     optionImageUrl: '',

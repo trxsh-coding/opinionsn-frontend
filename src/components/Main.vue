@@ -54,11 +54,19 @@
 			};
 		},
 		watch: {
+			
 			timer_id(old) {
 				if (old !== null) {
 					this.reverseTimeout();
 				}
+			},
+			
+			user(old) {
+				if (!!Object.keys(old).length) {
+					this.$store.commit('formManagment/SET_INITIAL_FORM', {form: 'edit_form', value: {...old, errors: {}} });
+				}
 			}
+			
 		},
 		computed: {
 
