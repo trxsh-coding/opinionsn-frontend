@@ -44,11 +44,16 @@
 							class="mt-12 mb-12 flex-between"
 							textarea
 							:input-placeholder="'heading'"/>
+			
 			<input-reusable :value="form.description"
 							@change="updateField(arguments[0], 'description')"
 							class="mt-12 mb-12 flex-between"
 							textarea
 							:input-placeholder="'description'"/>
+			
+			<popup-error-reusable
+					error-text="Error, error, error"/>
+			
 			<lang-string class="label" :title="'add_pictures_to_poll'"/>
 			<swiper :options="swiperOption" class="mb-12">
 				<swiper-slide v-for="(item, index) in pictures" :key="index">
@@ -186,6 +191,7 @@
     import TextareaReusable from "../reusableСomponents/textareaReusable";
     import ValidationMixin from "../mixins/ValidationMixin";
 	import AddOptionBlock from "./addOptionBlock";
+    import PopupErrorReusable from "../reusableСomponents/PopupErrorReusable";
 
     export default {
         name: "CreatePoll",
@@ -211,6 +217,7 @@
         },
 
 		watch: {
+   
 			values_with_rules() {
 				let {
 					verifyValues,
@@ -218,6 +225,15 @@
 				} = this;
 
 				verifyValues('create_poll_form', this.values_with_rules, { checkLength });
+			},
+			
+			options_with_rules() {
+				let {
+					verifyValues,
+					checkLength
+				} = this;
+				
+				verifyValues('create_poll_form', this.options_with_rules, { checkLength });
 			}
 		},
 
@@ -253,8 +269,7 @@
 						value: form.description,
 						value_name: 'description',
 						rules: [ {method_name: 'checkLength', args: [false, 650] }]
-					},
-					...this.options_with_rules
+					}
 				]
 			},
 			
@@ -338,6 +353,7 @@
 		},
 
         components: {
+	        PopupErrorReusable,
 			AddOptionBlock,
             TextareaReusable,
             CreateHeader,
