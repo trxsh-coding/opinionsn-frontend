@@ -4,7 +4,7 @@ export const userActions = sc => class extends sc {
 
     getMainUser({commit, dispatch}, payload={}){
 
-        let {customUrl = `${process.env.VUE_APP_MAIN_API}/rest/getUser`, data={}, method='get', } = payload;
+        let {customUrl = `${process.env.VUE_APP_MAIN_API}/rest/v1/user`, data={}, method='get', } = payload;
 
 
         sc.apiRequest(customUrl, data,{commit, dispatch, onSuccess: 'setMainUser', successType: 'action'}, method);
@@ -16,7 +16,7 @@ export const userActions = sc => class extends sc {
 
         let id = payload;
 
-        let {customUrl = `${process.env.VUE_APP_MAIN_API}/rest/follow/${id}`, data={id}, method='post', } = payload;
+        let {customUrl = `${process.env.VUE_APP_MAIN_API}/rest/v1/user/subscribe/${id}`, data={id}, method='put', } = payload;
 
         sc.apiRequest(customUrl, data,{commit, dispatch, onSuccess: null, successType: 'action'}, method);
 
@@ -74,7 +74,7 @@ export const userActions = sc => class extends sc {
 
         let id = payload;
 
-        let {customUrl = `${process.env.VUE_APP_MAIN_API}/rest/unFollow/${id}`, data={id}, method='post', } = payload;
+        let {customUrl = `${process.env.VUE_APP_MAIN_API}/rest/v1/user/subscribe/${id}`, data={id}, method='delete', } = payload;
 
         sc.apiRequest(customUrl, data,{commit, dispatch, onSuccess: null, successType: 'mutation'}, method);
 

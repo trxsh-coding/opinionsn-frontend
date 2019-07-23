@@ -238,7 +238,7 @@ index.beforeEach((to, from, next) => {
 			query: { redirect: to.fullPath }
 		});
 	} else {
-		axios.get(`${process.env.VUE_APP_MAIN_API}/rest/getUserStatus`)
+		axios.get(`${process.env.VUE_APP_MAIN_API}/rest/v1/user/status`)
 
 			.then(response => {
 

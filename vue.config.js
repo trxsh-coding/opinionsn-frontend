@@ -4,27 +4,45 @@ module.exports = {
 	outputDir: "www",
 	devServer: {
 		https:false,
-		proxy: {
-			'/api': {
-				target: 'https://opinionsn.com/api',
-				pathRewrite: {'^/api': '/'},
-				changeOrigin: true,
-				secure: false
-			},
-			'/messages': {
-				target: 'https://opinionsn.com/messages',
-				pathRewrite: {'^/messages': ''},
-				changeOrigin: true,
-				secure: false
-			},
-			'/assets': {
-				target: 'https://opinionsn.com/assets',
-				// pathRewrite: {'^/messages': '/'},
-				changeOrigin: true,
-				secure: false
-			}
+		// proxy: {
+			// '/api': {
+			// 	target: 'https://opinionsn.com/api',
+			// 	pathRewrite: {'^/api': '/'},
+			// 	changeOrigin: true,
+			// 	secure: false
+			// },
+			// '/messages': {
+			// 	target: 'https://opinionsn.com/messages',
+			// 	pathRewrite: {'^/messages': ''},
+			// 	changeOrigin: true,
+			// 	secure: false
+			// },
+			// '/assets': {
+			// 	target: 'https://opinionsn.com/assets',
+			// 	// pathRewrite: {'^/messages': '/'},
+			// 	changeOrigin: true,
+			// 	secure: false
+			// }
+			// '/api': {
+			// 	target: 'http://192.168.1.60/api',
+			// 	pathRewrite: {'^api': '/'},
+			// 	changeOrigin: true,
+			// 	secure: false
+			// },
+			// '/messages': {
+			// 	target: 'http://192.168.1.60/messages',
+			// 	pathRewrite: {'^messages': ''},
+			// 	changeOrigin: true,
+			// 	secure: false
+			// },
+			// '/assets': {
+			// 	target: 'http://192.168.1.60/assets',
+			// 	// pathRewrite: {'^/messages': '/'},
+			// 	changeOrigin: true,
+			// 	secure: false
+			// }
 
-		}
+		// }
 	},
 	pwa: {
 		name: "OpinionSN",

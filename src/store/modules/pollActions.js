@@ -96,7 +96,7 @@ export const pollActions = sc => class extends sc {
 
         let type_of_poll = payload.type_of_poll
 
-        let {customUrl = `${process.env.VUE_APP_MAIN_API}/rest/bookmarks/add/${id}?type_of_poll=${type_of_poll}`, data={id}, method=`post`, } = payload;
+        let {customUrl = `${process.env.VUE_APP_MAIN_API}/rest/v1/bookmarks/${id}?type_of_poll=${type_of_poll}`, data={id}, method=`put`, } = payload;
 
         sc.apiRequest(customUrl, data,{commit, dispatch, onSuccess: null, successType: `mutation`}, method);
 
@@ -107,7 +107,7 @@ export const pollActions = sc => class extends sc {
 
         let id = payload
 
-        let {customUrl = `${process.env.VUE_APP_MAIN_API}/rest/bookmarks/delete/${id}`, data={}, method=`post`, } = payload;
+        let {customUrl = `${process.env.VUE_APP_MAIN_API}/rest/bookmarks/${id}`, data={}, method=`delete`, } = payload;
 
         sc.apiRequest(customUrl, data,{commit, dispatch, onSuccess: null, successType: `mutation`}, method);
 

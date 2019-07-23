@@ -63,7 +63,7 @@
 
             getUserPage(){
 
-                this.$store.dispatch(`userPage/list`, {customUrl: `${process.env.VUE_APP_MAIN_API}/rest/getUserById/${this.user_id}`});
+                this.$store.dispatch(`userPage/list`, {customUrl: `${process.env.VUE_APP_MAIN_API}/rest/v1/user/${this.user_id}`});
 
             }
 
