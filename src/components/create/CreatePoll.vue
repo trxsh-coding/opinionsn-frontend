@@ -32,23 +32,36 @@
 			</div>
 			<category-select/>
 
-			<input-reusable :value="form.tags"
-							textarea
-							@change="updateField(arguments[0], 'tags')"
-							class="mt-20 mb-12 flex-between"
-							width="100%"
-							:input-placeholder="'tags'"/>
+			<popup-error-reusable
+					:error-text="form.errors.tags">
+				<input-reusable :value="form.tags"
+				                textarea
+				                @change="updateField(arguments[0], 'tags')"
+				                class="mt-20 mb-12 flex-between"
+				                width="100%"
+				                :input-placeholder="'tags'"/>
+			</popup-error-reusable>
 
-			<input-reusable :value="form.subject_header"
-							@change="updateField(arguments[0], 'subject_header')"
-							class="mt-12 mb-12 flex-between"
-							textarea
-							:input-placeholder="'heading'"/>
-			<input-reusable :value="form.description"
-							@change="updateField(arguments[0], 'description')"
-							class="mt-12 mb-12 flex-between"
-							textarea
-							:input-placeholder="'description'"/>
+			<popup-error-reusable
+					:error-text="form.errors.subject_header">
+				<input-reusable :value="form.subject_header"
+				                @change="updateField(arguments[0], 'subject_header')"
+				                class="mt-12 mb-12 flex-between"
+				                textarea
+				                :input-placeholder="'heading'"/>
+			</popup-error-reusable>
+
+
+
+			<popup-error-reusable
+					:error-text="form.errors.description">
+				<input-reusable :value="form.description"
+				                @change="updateField(arguments[0], 'description')"
+				                class="mt-12 mb-12 flex-between"
+				                textarea
+				                :input-placeholder="'description'"/>
+			</popup-error-reusable>
+
 			<lang-string class="label" :title="'add_pictures_to_poll'"/>
 			<swiper :options="swiperOption" class="mb-12">
 				<swiper-slide v-for="(item, index) in pictures" :key="index">
@@ -82,6 +95,41 @@
 					text-layout="right"
 			/>
 			<lang-string class="label" :title="'add_options'"/>
+
+			<popup-error-reusable
+					v-for="(option, index) in form.options" :key="index"
+					:error-text="form.errors[`option_${index}`]">
+
+				<div class="options-block">
+
+					<input-reusable
+							textarea
+							:value="option.description"
+							:height="enablePicture ? 90 : 60"
+							@change="updateArrayField(arguments[0], null, 'options', 'description', index)"
+							@blur.once="onBlurFunction(index)"
+							class="flex-align-center pl-14 mt-1"
+							input-placeholder="answer_text"
+					/>
+
+					<upload-reusable
+
+							:pre-height="90"
+							:pre-width="90"
+							:image-preview="enablePicture"
+							image-layout="bottom"
+							width="fit-content"
+							:value="option.picture"
+							@upload="({file, url}) => {updateArrayField(file, url, 'options', 'picture', index)}">
+						<template #icon>
+
+						</template>
+					</upload-reusable>
+
+				</div>
+
+			</popup-error-reusable>
+
 
 			<div class="options-block " v-for="(option, index) in form.options" :key="index">
 				<input-reusable
@@ -189,6 +237,7 @@
     import TextareaReusable from "../reusableСomponents/textareaReusable";
     import ValidationMixin from "../mixins/ValidationMixin";
 	import AddOptionBlock from "./addOptionBlock";
+    import PopupErrorReusable from "../reusableСomponents/PopupErrorReusable";
 
     export default {
         name: "CreatePoll",
@@ -214,6 +263,7 @@
         },
 
 		watch: {
+
 			values_with_rules() {
 				let {
 					verifyValues,
@@ -221,6 +271,15 @@
 				} = this;
 
 				verifyValues('create_poll_form', this.values_with_rules, { checkLength });
+			},
+
+			options_with_rules() {
+				let {
+					verifyValues,
+					checkLength
+				} = this;
+
+				verifyValues('create_poll_form', this.options_with_rules, { checkLength });
 			}
 		},
 
@@ -244,20 +303,30 @@
 					{
 						value: form.tags,
 						value_name: 'tags',
-						rules: [{ method_name: 'checkLength', args: [0, 20] }]
+						rules: [{ method_name: 'checkLength', args: [false, 100] }]
 					},
 
 					{
 						value: form.subject_header,
 						value_name: 'subject_header',
-						rules: [{ method_name: 'checkLength', args: [0, 4] }]
+						rules: [{ method_name: 'checkLength', args: [false, 100] }]
 					},
 					{
 						value: form.description,
 						value_name: 'description',
-						rules: [ {method_name: 'checkLength', args: [0, 20] }]
-					},
+						rules: [ {method_name: 'checkLength', args: [false, 650] }]
+					}
 				]
+			},
+
+			options_with_rules() {
+				return this.form.options.map(({description}, index) => {
+					return {
+						value: description,
+						value_name: `option_${index}`,
+						rules: [ {method_name: 'checkLength', args: [2, 65] }]
+					}
+				})
 			},
 
 			message: {
@@ -313,24 +382,19 @@
 
 
 			},
-			check() {
-				alert('dsadasdas')
-			},
-			updateField(value, keyName) {
 
-				this.$store.commit('formManagment/UPDATE_FIELD', {value, keyName, form: 'create_poll_form'})
-
+			check(date) {
+				console.log(date)
 			},
 
-			updateArrayField(value, url, arrayName, keyName, index, form) {
-				console.log(value)
-				console.log(url)
-				console.log(arrayName)
-				console.log(keyName)
-				console.log(index)
-				console.log(form)
+			updateField(value, key) {
 
-				this.$store.commit('formManagment/UPDATE_ARRAY_FIELD', {value, arrayName, keyName, index, form})
+				this.$store.commit('formManagment/UPDATE_FIELD', {value, key, form: 'create_poll_form'})
+
+			},
+
+			updateArrayField(value, url, arrayName, keyName, index) {
+				this.$store.commit('formManagment/UPDATE_ARRAY_FIELD', {value, arrayName, keyName, index, form: 'create_poll_form'})
 
 			},
 			chooseTypeOfPoll(payload) {
@@ -342,6 +406,7 @@
 		},
 
         components: {
+	        PopupErrorReusable,
 			AddOptionBlock,
             TextareaReusable,
             CreateHeader,
