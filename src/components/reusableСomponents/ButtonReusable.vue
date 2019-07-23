@@ -87,9 +87,10 @@
 		},
 		computed: {
 			buttonStyle() {
-				let {bgColor, borRad, rounded} = this;
+				let {bgColor, borRad, rounded, color} = this;
 
 				bgColor = {backgroundColor: `${bgColor}`};
+				color = { color };
 
 				if (rounded) {
 					borRad = {borderRadius: '50%'}
@@ -99,7 +100,8 @@
 
 				return {
 					...bgColor,
-					...borRad
+					...borRad,
+					...color
 				}
 			},
 
@@ -139,6 +141,7 @@
 			border: none;
 			width: fit-content;
 			height: fit-content;
+			color: inherit;
 			/*padding: 0 9px;*/
 			font-size: 11px;
 		}
@@ -157,6 +160,7 @@
 			font-family: Roboto, serif;
 			font-style: normal;
 			font-weight: normal;
+			color: inherit;
 			/*color: #FFFFFF;*/
 		}
 

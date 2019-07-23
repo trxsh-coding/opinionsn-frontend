@@ -274,18 +274,18 @@
 				return [
 					{
 						value: form.tags,
-						value_name: 'tags',
+						key: 'tags',
 						rules: [{ method_name: 'checkLength', args: [false, 100] }]
 					},
 
 					{
 						value: form.subject_header,
-						value_name: 'subject_header',
+						key: 'subject_header',
 						rules: [{ method_name: 'checkLength', args: [false, 100] }]
 					},
 					{
 						value: form.description,
-						value_name: 'description',
+						key: 'description',
 						rules: [ {method_name: 'checkLength', args: [false, 650] }]
 					}
 				]
@@ -295,7 +295,7 @@
 				return this.form.options.map(({description}, index) => {
 					return {
 						value: description,
-						value_name: `option_${index}`,
+						key: `option_${index}`,
 						rules: [ {method_name: 'checkLength', args: [2, 65] }]
 					}
 				})

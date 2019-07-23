@@ -2,28 +2,28 @@
 	<div
 			class="input-reusable"
 			:style="inputStyle">
-
+		
 		<lang-string
-				v-show="!hide"
+				v-show="!hide && inputPlaceholder"
 				class="input-placeholder"
 				:title="inputPlaceholder"
 		/>
-
+		
 		<input type="text"
-			   class="input"
+		       class="input"
 		       v-if="input"
 		       v-model="value"
 		       @change="inputValue(arguments[0].target.value)"
 		       @focus="focusInput(true)"
-			   @blur="!withoutBlur && focusInput(false)"
+		       @blur="!withoutBlur && focusInput(false)"
 		       :class="[{ focusedInput : active && withUnderline, validationStyle : validationError}, inputClass]"
 		>
-
+		
 		<textarea
 				ref="textareaRef"
 				v-if="textarea"
 				v-model="value"
-                rows="1"
+				rows="1"
 				@focus="focusInput(true)"
 				@blur="!withoutBlur && focusInput(false)"
 				class="primary-font textarea"
@@ -37,7 +37,7 @@
 				:isDateDisabled="isFutureDate"
 				:format="'YYYY-MM-DD HH:mm'"
 				:pickTime="true">
-
+		
 		</date-pick>
 		<div class="action-btns" v-if="withActionButtons">
 			<icon-base
@@ -66,6 +66,7 @@
 	import IconClose from "../icons/IconClose";
 	import DatePick from 'vue-date-pick';
 	import 'vue-date-pick/dist/vueDatePick.css';
+	
 	export default {
 		name: "inputReusable",
 		mixins: [langMixin],
@@ -131,10 +132,7 @@
 				}
 			},
 			inputPlaceholder: {
-				type: String,
-				default() {
-					return 'Input'
-				}
+				type: [String, Boolean]
 			},
 			validationError: {
 				type: Boolean,
@@ -142,8 +140,8 @@
 					return false;
 				}
 			}
-
-
+			
+			
 		},
 		data() {
 			return {
@@ -151,17 +149,17 @@
 				active: false,
 				hide: false,
 				newHeight: null
-
+				
 			}
 		},
-
+		
 		watch: {
 			value(old) {
-				if(this.textarea || this.input) {
+				if (this.textarea || this.input) {
 					old.length > 0 ? this.hide = true : this.hide = false;
-
+					
 				}
-                this.calcHeight(this.$refs.textareaRef);
+				// this.calcHeight(this.$refs.textareaRef);
 				this.$emit('change', this.value);
 			},
 			parent_value(old) {
@@ -169,7 +167,7 @@
 				if (old !== undefined && old.length === 0) this.clearInput();
 			}
 		},
-
+		
 		computed: {
 			inputStyle() {
 				let {width, height, handleCssValue} = this;
@@ -177,46 +175,45 @@
 				height = handleCssValue(height);
 				return {
 					width: `${width}`,
-					height: `${height}`,
-
+					height: `${height}`
 				};
 			},
-
+			
 			parent_value() {
-				return this.$attrs.value;
+				return this.$attrs.value || false;
 			}
 		},
 		methods: {
-
-
-            calcHeight(el) {
-                el.style.height = 'auto';
-                let calculated = el.offsetHeight + el.scrollHeight - el.clientHeight;
-                el.style.height = calculated + 'px';
-            },
-
+			
+			
+			calcHeight(el) {
+				el.style.height = 'auto';
+				let calculated = el.offsetHeight + el.scrollHeight - el.clientHeight;
+				el.style.height = calculated + 'px';
+			},
+			
 			focusInput(payload) {
 				this.hide = payload;
 				this.active = payload;
 			},
-
+			
 			clearInput() {
 				this.value = '';
 			},
-
+			
 			inputValue(payload) {
 				this.$emit('change', payload);
 			},
-
+			
 			inputValidation(payload) {
 				this.active = payload;
 				if (this.value.length === 0) {
 					this.validationError = true
 				}
 			},
-
+			
 			handleCssValue(value) {
-
+				
 				switch (true) {
 					case `${value}`.slice(-1) === '%':
 						return value;
@@ -225,10 +222,10 @@
 					default:
 						return value;
 				}
-
+				
 			}
 		},
-
+		
 	}
 </script>
 
@@ -237,43 +234,48 @@
 		position: relative;
 		display: flex;
 		justify-content: space-between;
+		
 		.action-btns {
 			position: absolute;
 			z-index: 200;
 			display: flex;
 			top: 0;
 			right: 20px;
-
+			
 			.cancel-btn {
 				margin-left: 19px;
 				color: #1A1E22;
 			}
 		}
+		
 		.vdpInnerWrap {
 			z-index: 200;
 		}
+		
 		.focusedInput {
 			border-bottom-color: #4B97B4 !important;
 		}
-
+		
 		.validationStyle {
 			border-bottom-color: red !important;
-
+			
 		}
-
+		
 		.vdpOuterWrap {
 			z-index: 1000;
 		}
-
+		
 		.vdpComponent {
 			display: flex;
-
+			
 		}
+		
 		.vdpComponent {
 			width: 100%;
 		}
+		
 		.input-placeholder {
-
+			
 			position: absolute;
 			z-index: 100;
 			font-family: Roboto;
@@ -282,7 +284,7 @@
 			font-size: 12px;
 			color: #747474 !important;
 		}
-
+		
 		.input, .textarea, .date-pick input {
 			background-color: transparent;
 			outline: none;
@@ -293,6 +295,7 @@
 			border-right: none;
 			border-left: 0;
 		}
+		
 		.input {
 			width: 100%;
 			position: relative;
@@ -310,26 +313,28 @@
 			margin-bottom: 1px;
 			padding-bottom: 4px;
 		}
+		
 		.date-pick input {
 			width: 100%;
 		}
+		
 		textarea {
-            outline: none;
-            border-bottom-style: solid;
-            border-bottom-color: #BCBEC3;
-            border-bottom-width: 0.5px;
-            border-top: none;
-            border-right: none;
-            border-left: 0;
+			outline: none;
+			border-bottom-style: solid;
+			border-bottom-color: #BCBEC3;
+			border-bottom-width: 0.5px;
+			border-top: none;
+			border-right: none;
+			border-left: 0;
 			height: auto;
-            min-height: 20px;
-            resize: none;
-            width: 100%;
+			min-height: 20px;
+			resize: none;
+			width: 100%;
 			margin-top: 24px;
-
-            &::-webkit-scrollbar {
-                display: none;
-            }
+			
+			&::-webkit-scrollbar {
+				display: none;
+			}
 		}
 	}
 </style>

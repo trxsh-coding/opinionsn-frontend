@@ -5,6 +5,7 @@
 			<div
 					v-if="errorText"
 					class="popup-error"
+					:class="spanClass"
 					:style="[computed_width]">
 				<span>{{errorText}}</span>
 			</div>
@@ -22,7 +23,13 @@
 					return '100%';
 				}
 			},
-			errorText: [String, Boolean]
+			errorText: [String, Boolean],
+			spanClass: {
+				type: String,
+				default() {
+					return ''
+				}
+			}
 		},
 		methods: {
 			handleCssValue(value) {

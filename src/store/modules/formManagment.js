@@ -127,7 +127,6 @@ export const formManagment = {
         },
 
         [UPDATE_ERROR_FIELD](state, {form, key, value}) {
-            console.log(form, key, value);
             if (!state[form].errors) state[form].errors = {};
             state[form].errors[key] = value;
         },
