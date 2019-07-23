@@ -5,7 +5,7 @@
 
             <upload-reusable
                     icon-photo
-                    width="100%"
+                    fit
                     height="100%"
                     @upload="({file, url}) => {
                         UPDATE_FIELD(file, 'background_image');
@@ -26,7 +26,7 @@
                 <template #innerPicture>
                     <upload-reusable
                             icon-photo
-                            width="100%"
+                            fit
                             height="100%"
                             @upload="({file, url}) => {
                                 UPDATE_FIELD(file, 'path_to_avatar');
@@ -135,6 +135,7 @@
                 background-color: #ADAFB3;
                 background-size: cover;
                 background-repeat: no-repeat;
+                background-position: center center;
 
                 .avatar {
                     bottom: -24px;
