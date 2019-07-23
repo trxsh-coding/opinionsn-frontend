@@ -24,20 +24,6 @@
             pageMain
         },
 
-        watch: {
-            mainUser(old) {
-                if (!!Object.keys(old).length) {
-                    this.$store.commit('formManagment/SET_INITIAL_FORM', {form: 'edit_form', value: {...old}} );
-                }
-            }
-        },
-
-        computed: {
-            ...mapState('globalStore', {
-                mainUser: s => s.mainUser
-            })
-        },
-
     }
 </script>
 
