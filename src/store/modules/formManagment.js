@@ -18,6 +18,9 @@ import  {
     SUBMIT_FORM
 } from "../types/action-types";
 
+import moment from 'moment'
+import axios from 'axios'
+
 const initialState = () => {
     return {
         withPicture:false,
@@ -106,10 +109,8 @@ export const formManagment = {
             });
         },
 
-        [ADD_OPTION](state, payload){
-            if(payload > 0){
-                state.form.options.push({id:'', picture:'', description:''})
-            }
+        [ADD_OPTION](state){
+                state.create_poll_form.options.push({id:'', picture:'', description:''})
         },
 
         [SET_CATEGORY_NAME](state, payload){
@@ -140,7 +141,30 @@ export const formManagment = {
 
     actions: {
 
-        [SUBMIT_FORM]({state, commit, dispatch}){
+        [SUBMIT_FORM]({state, commit, dispatch}, payload){
+
+            state.create_poll_form.judges = [payload];
+
+            var bodyFormData = new FormData();
+
+            const form = new Blob([JSON.stringify(state.create_poll_form)], { type: "application/json"})
+
+            bodyFormData.append('form', form);
+
+            bodyFormData.append('blob', state.pictures);
+
+            const config = {
+                headers: {
+                    'content-type': 'multipart/mixed'
+                }
+            }
+
+            axios.post(`${process.env.VUE_APP_MAIN_API}/rest/quiz/create`, bodyFormData, config)
+                .then(function(response){
+                    if (response.status === 200) {
+                        this.$router.push({ name: 'pollFeed'})
+                    }
+                }.bind(this))
 
 
         }

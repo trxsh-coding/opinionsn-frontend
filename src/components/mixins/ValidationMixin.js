@@ -25,7 +25,9 @@ export default {
 
 		checkLength(str, from_length = 0, to_length) {
 			let { length } = str.split(' ').join('');
-			
+			// let { length } = str;
+
+			// console.log(length);
 			switch (true) {
 				case (length < from_length || length > to_length && from_length !== false):
 					return `Длинна строки от ${from_length} до ${to_length} символов`;

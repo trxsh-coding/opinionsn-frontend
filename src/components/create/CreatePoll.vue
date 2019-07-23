@@ -1,6 +1,6 @@
 <template>
 	<div class="poll-create-wrapper " :class="{'bg-white': !mobile}">
-		<create-header/>
+		<create-header @submit="onFormSubmit"/>
 
 		<div class="create-form pl-60">
 			<div class="button-block mb-18">
@@ -54,7 +54,7 @@
 
 
 			<popup-error-reusable
-					:error-text="form.errors.description">
+                    :error-text="form.errors.description">
 				<input-reusable :value="form.description"
 				                @change="updateField(arguments[0], 'description')"
 				                class="mt-12 mb-12 flex-between"
@@ -80,24 +80,24 @@
 
 
 			<!--<div class="border-b mt-18"></div>-->
-			<switch-component
-					class="mb-18"
-					type="button"
-					:height="11"
-					:width="20"
-					:bor-rad="18"
-					color="#FFFFFF"
-					active-color="#81B6CB"
-					:value="enablePicture"
-					@select="insertPicture"
-					:active-description="lstr('with_pictures')"
-					:inactive-description="lstr('without_pictures')"
-					text-layout="right"
-			/>
+			<!--<switch-component-->
+					<!--class="mb-18"-->
+					<!--type="button"-->
+					<!--:height="11"-->
+					<!--:width="20"-->
+					<!--:bor-rad="18"-->
+					<!--color="#FFFFFF"-->
+					<!--active-color="#81B6CB"-->
+					<!--:value="enablePicture"-->
+					<!--@select="insertPicture"-->
+					<!--:active-description="lstr('with_pictures')"-->
+					<!--:inactive-description="lstr('without_pictures')"-->
+					<!--text-layout="right"-->
+			<!--/>-->
 			<lang-string class="label" :title="'add_options'"/>
 
 			<popup-error-reusable
-					v-for="(option, index) in form.options" :key="index"
+                    v-for="(option, index) in form.options" :key="index"
 					:error-text="form.errors[`option_${index}`]">
 
 				<div class="options-block">
@@ -105,17 +105,16 @@
 					<input-reusable
 							textarea
 							:value="option.description"
-							:height="enablePicture ? 90 : 60"
+							:height="60"
 							@change="updateArrayField(arguments[0], null, 'options', 'description', index)"
-							@blur.once="onBlurFunction(index)"
 							class="flex-align-center pl-14 mt-1"
 							input-placeholder="answer_text"
 					/>
 
 					<upload-reusable
 
-							:pre-height="90"
-							:pre-width="90"
+							:pre-height="60"
+							:pre-width="60"
 							:image-preview="enablePicture"
 							image-layout="bottom"
 							width="fit-content"
@@ -129,34 +128,7 @@
 				</div>
 
 			</popup-error-reusable>
-
-
-			<div class="options-block " v-for="(option, index) in form.options" :key="index">
-				<input-reusable
-						textarea
-						:value="option.description"
-						:height="enablePicture ? 90 : 60"
-						@change="updateArrayField(arguments[0], null, 'options', 'description', index, 'create_poll_form')"
-						@blur="check"
-						class="flex-align-center pl-14 mt-1"
-						input-placeholder="answer_text"
-				/>
-				<upload-reusable
-
-						:pre-height="90"
-						:pre-width="90"
-						:image-preview="enablePicture"
-						image-layout="bottom"
-						width="fit-content"
-						:value="option.picture"
-						@upload="({file, url}) => {updateArrayField(file, url, 'options', 'picture', index, 'create_poll_form')}">
-					<template #icon>
-
-					</template>
-				</upload-reusable>
-
-			</div>
-			<add-option-block :with-photo="enablePicture" @click.native="pushMoreOption"/>
+			<add-option-block  @click.native="pushMoreOption"/>
 
 			<switch-component
 					v-if="type === 'PREDICTION'"
@@ -197,14 +169,14 @@
 						:value="form.fund"
 						input
 						class="mb-20"
-						@change="updateField(arguments[0], 'description')"
+						@change="updateField(arguments[0], 'fund')"
 						input-placeholder="fund"
 				/>
 				<input-reusable
 						:height="44"
 						:value="form.end_date"
 						date-picker
-						@change="updateField(arguments[0], 'description')"
+						@date-pick="updateField(arguments[0], 'end_date')"
 						input-placeholder="closing_date"
 				/>
 			</div>
@@ -296,6 +268,11 @@
 
 			}),
 
+
+            ...mapState("globalStore", {
+                mainUser: ({ mainUser }) => mainUser
+            }),
+
 			values_with_rules() {
 				let { form } = this;
 
@@ -309,7 +286,7 @@
 					{
 						value: form.subject_header,
 						value_name: 'subject_header',
-						rules: [{ method_name: 'checkLength', args: [false, 100] }]
+						rules: [{ method_name: 'checkLength', args: [5, 100] }]
 					},
 					{
 						value: form.description,
@@ -339,6 +316,12 @@
 			}
 		},
 		methods: {
+
+            onFormSubmit(){
+
+                this.$store.dispatch('formManagment/SUBMIT_FORM', this.mainUser.id)
+
+            },
 			setTypeOfCreation(payload){
 
 				this.type = payload;
@@ -355,15 +338,11 @@
 				const currentDate = new Date();
 				return date <= currentDate;
 			},
-			onBlurFunction(index) {
-				alert('das')
-				this.$store.commit('formManagment/ADD_OPTION', index)
 
-			},
 
-			pushMoreOption(index){
+			pushMoreOption(){
 
-				this.$store.commit('formManagment/ADD_OPTION', index)
+				this.$store.commit('formManagment/ADD_OPTION')
 
 			},
 			insertPicture(payload) {
@@ -388,7 +367,8 @@
 			},
 
 			updateField(value, key) {
-
+                console.log(value)
+                console.log(key)
 				this.$store.commit('formManagment/UPDATE_FIELD', {value, key, form: 'create_poll_form'})
 
 			},

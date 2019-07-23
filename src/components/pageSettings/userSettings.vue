@@ -168,8 +168,8 @@
         },
 
         methods: {
-            updateField(value, keyName){
-                this.$store.commit('formManagment/UPDATE_FIELD', {form: 'edit_form', keyName, value})
+            updateField(value, key){
+                this.$store.commit('formManagment/UPDATE_FIELD', {form: 'edit_form', key, value})
             },
         },
     }

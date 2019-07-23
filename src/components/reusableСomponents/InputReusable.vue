@@ -34,7 +34,7 @@
 				class="date-pick"
 				v-if="datePicker"
 				v-model="value"
-				:isDateDisabled="isFutureDate"
+				@change="inputValue(arguments[0].target.value)"
 				:format="'YYYY-MM-DD HH:mm'"
 				:pickTime="true">
 
@@ -66,6 +66,7 @@
 	import IconClose from "../icons/IconClose";
 	import DatePick from 'vue-date-pick';
 	import 'vue-date-pick/dist/vueDatePick.css';
+	import moment from 'moment'
 	export default {
 		name: "inputReusable",
 		mixins: [langMixin],
@@ -73,7 +74,8 @@
 			langString,
 			IconBase,
 			IconClose,
-			DatePick
+			DatePick,
+			moment
 		},
 		model: {
 			prop: 'value',
@@ -159,10 +161,13 @@
 			value(old) {
 				if(this.textarea || this.input) {
 					old.length > 0 ? this.hide = true : this.hide = false;
+					this.calcHeight(this.$refs.textareaRef);
+					this.$emit('change', this.value);
+
+				} else {
+					this.$emit('date-pick', moment(this.value).toISOString());
 
 				}
-                this.calcHeight(this.$refs.textareaRef);
-				this.$emit('change', this.value);
 			},
 			parent_value(old) {
 				//NOTE:  Не знаю как вписать в watch this.$attrs.value, поэтому сделал пока так
@@ -171,6 +176,9 @@
 		},
 
 		computed: {
+			cMoment(){
+				return this.moment
+			},
 			inputStyle() {
 				let {width, height, handleCssValue} = this;
 				width = handleCssValue(width);
@@ -211,6 +219,7 @@
 			},
 
 			inputValue(payload) {
+            	console.log(payload)
 				this.$emit('change', payload);
 			},
 
