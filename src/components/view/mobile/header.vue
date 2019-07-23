@@ -1,6 +1,8 @@
 <template>
     <div id="mobile-header" class="flex-between flex-align-center" v-show="header_type !== 'hidden'">
-        <div class="icon-wrapper">
+        <div
+                v-if="logged_in"
+                class="icon-wrapper">
             <icon-base
                     v-if="header_type === 'primary'"
                     class="add-poll"
@@ -45,12 +47,23 @@
                 :title="$route.name.toLowerCase()"/>
 
         <avatar
+                v-if="logged_in"
                 @click.native="$router.push({ name: 'user', params: { id: user.id } })"
                 class="pointer"
                 :img="publicPath + imageUtil(user.path_to_avatar, 'S')"
                 :size="27"
                 without-text
                 rounded />
+        
+        <button-reusable
+                v-if="!logged_in"
+                @click.native="$router.push({ name: 'login' })"
+                class="py-7 px-12"
+                description="login"
+                bor-rad="30"
+                color="#ffffff"
+                font-size="11"
+                bg-color="#4B97B4"/>
     </div>
 </template>
 
@@ -63,10 +76,12 @@
     import imageMixin from "../../mixins/imageMixin";
     import IconArrowLeft from "../../icons/IconArrowLeft";
     import langString from "../../langString";
+    import ButtonReusable from "../../reusableСomponents/ButtonReusable";
 
     export default {
         name: "header",
         components:{
+            ButtonReusable,
             IconBase,
             IconAddPoll,
             IconLogo,
@@ -78,10 +93,10 @@
         mixins:[imageMixin],
         props: {
             user: {
-                type: Object,
-                required: true
+                type: Object
             },
         },
+        
         computed: {
             header_type() {
                 let {name: route_name} = this.$route;
@@ -102,7 +117,12 @@
                         return 'hidden';
                 }
             },
+            
+            logged_in() {
+                return !!Object.keys(this.user).length;
+            }
         },
+        
         data(){
             return {
                 publicPath: process.env.VUE_APP_MAIN_API
