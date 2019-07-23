@@ -90,14 +90,8 @@ export const formManagment = {
         },
 
         [UPDATE_ARRAY_FIELD](state, {value, arrayName, index, keyName, form}) {
-            //
-            if(form){
-                state[form][arrayName][index][keyName] = value
+            state[form][arrayName][index][keyName] = value
 
-            } else {
-                state[arrayName][index][keyName] = value
-
-            }
         },
 
         [UPDATE_FIELD](state, {form, key, value}){

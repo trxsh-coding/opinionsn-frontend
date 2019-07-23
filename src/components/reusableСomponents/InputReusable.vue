@@ -25,7 +25,7 @@
 				v-model="value"
                 rows="1"
 				@focus="focusInput(true)"
-				@blur="!withoutBlur && focusInput(false)"
+				@blur="!withoutBlur && onBlurAction(index)"
 				class="primary-font textarea"
 				:class="[{ focusedInput : active && withUnderline, validationStyle : validationError}, inputClass]"
 		>
@@ -202,6 +202,12 @@
 
 			clearInput() {
 				this.value = '';
+			},
+
+
+			onBlurAction(payload) {
+				this.$emit('blur', payload);
+				this.focusInput(false)
 			},
 
 			inputValue(payload) {

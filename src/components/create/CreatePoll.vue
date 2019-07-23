@@ -88,8 +88,8 @@
 						textarea
 						:value="option.description"
 						:height="enablePicture ? 90 : 60"
-						@change="updateArrayField(arguments[0], null, 'options', 'description', index, 'form')"
-						@blur.once="onBlurFunction(index)"
+						@change="updateArrayField(arguments[0], null, 'options', 'description', index, 'create_poll_form')"
+						@blur="check"
 						class="flex-align-center pl-14 mt-1"
 						input-placeholder="answer_text"
 				/>
@@ -101,12 +101,15 @@
 						image-layout="bottom"
 						width="fit-content"
 						:value="option.picture"
-						@upload="({file, url}) => {updateArrayField(file, url, 'options', 'picture', index, 'form')}">
+						@upload="({file, url}) => {updateArrayField(file, url, 'options', 'picture', index, 'create_poll_form')}">
 					<template #icon>
 
 					</template>
 				</upload-reusable>
+
 			</div>
+			<add-option-block :with-photo="enablePicture" @click.native="pushMoreOption"/>
+
 			<switch-component
 					v-if="type === 'PREDICTION'"
 					class="mb-20"
@@ -284,6 +287,13 @@
 				return date <= currentDate;
 			},
 			onBlurFunction(index) {
+				alert('das')
+				this.$store.commit('formManagment/ADD_OPTION', index)
+
+			},
+
+			pushMoreOption(index){
+
 				this.$store.commit('formManagment/ADD_OPTION', index)
 
 			},
@@ -303,8 +313,8 @@
 
 
 			},
-			check(date) {
-				console.log(date)
+			check() {
+				alert('dsadasdas')
 			},
 			updateField(value, keyName) {
 
@@ -313,6 +323,13 @@
 			},
 
 			updateArrayField(value, url, arrayName, keyName, index, form) {
+				console.log(value)
+				console.log(url)
+				console.log(arrayName)
+				console.log(keyName)
+				console.log(index)
+				console.log(form)
+
 				this.$store.commit('formManagment/UPDATE_ARRAY_FIELD', {value, arrayName, keyName, index, form})
 
 			},
@@ -396,11 +413,7 @@
 			flex-direction: row-reverse;
 			align-items: center;
 
-			transition: 200ms;
 
-			* {
-				transition: 600ms;
-			}
 
 			textarea {
 				border: none !important;

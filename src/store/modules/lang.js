@@ -16,10 +16,11 @@ export default  {
 
     },
     setLocale(state, payload){
-      let {langSelector: lang} = payload;
+      let {_lang: lang} = payload;
+      console.log(lang)
       moment.locale(lang);
       state.locale = payload
-      vueApp.$i18n.locale = state.locale.langSelector
+      vueApp.$i18n.locale = state.locale.lang
     },
   },
     actions: {
