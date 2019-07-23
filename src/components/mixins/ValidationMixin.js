@@ -27,7 +27,7 @@ export default {
 			let { length } = str.split(' ').join('');
 			
 			switch (true) {
-				case (length < from_length || length > to_length && from_length !== 0):
+				case (length < from_length || length > to_length && from_length !== false):
 					return `Длинна строки от ${from_length} до ${to_length} символов`;
 				case (from_length === false && length > to_length):
 					return `Длинна строки до ${to_length} символов`;

@@ -1,12 +1,15 @@
 <template>
-	<transition name="error">
-		<div
-				v-if="errorText"
-				class="popup-error"
-		        :style="[computed_width]">
-			<span>{{errorText}}</span>
-		</div>
-	</transition>
+	<div class="flex-column">
+		<slot></slot>
+		<transition name="error">
+			<div
+					v-if="errorText"
+					class="popup-error"
+					:style="[computed_width]">
+				<span>{{errorText}}</span>
+			</div>
+		</transition>
+	</div>
 </template>
 
 <script>

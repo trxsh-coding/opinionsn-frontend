@@ -31,28 +31,36 @@
 				/>
 			</div>
 			<category-select/>
-
-			<input-reusable :value="form.tags"
-							textarea
-							@change="updateField(arguments[0], 'tags')"
-							class="mt-20 mb-12 flex-between"
-							width="100%"
-							:input-placeholder="'tags'"/>
-
-			<input-reusable :value="form.subject_header"
-							@change="updateField(arguments[0], 'subject_header')"
-							class="mt-12 mb-12 flex-between"
-							textarea
-							:input-placeholder="'heading'"/>
-			
-			<input-reusable :value="form.description"
-							@change="updateField(arguments[0], 'description')"
-							class="mt-12 mb-12 flex-between"
-							textarea
-							:input-placeholder="'description'"/>
 			
 			<popup-error-reusable
-					error-text="Error, error, error"/>
+					:error-text="form.errors.tags">
+				<input-reusable :value="form.tags"
+				                textarea
+				                @change="updateField(arguments[0], 'tags')"
+				                class="mt-20 mb-12 flex-between"
+				                width="100%"
+				                :input-placeholder="'tags'"/>
+			</popup-error-reusable>
+
+			<popup-error-reusable
+					:error-text="form.errors.subject_header">
+				<input-reusable :value="form.subject_header"
+				                @change="updateField(arguments[0], 'subject_header')"
+				                class="mt-12 mb-12 flex-between"
+				                textarea
+				                :input-placeholder="'heading'"/>
+			</popup-error-reusable>
+			
+			
+			
+			<popup-error-reusable
+					:error-text="form.errors.description">
+				<input-reusable :value="form.description"
+				                @change="updateField(arguments[0], 'description')"
+				                class="mt-12 mb-12 flex-between"
+				                textarea
+				                :input-placeholder="'description'"/>
+			</popup-error-reusable>
 			
 			<lang-string class="label" :title="'add_pictures_to_poll'"/>
 			<swiper :options="swiperOption" class="mb-12">
@@ -87,31 +95,41 @@
 					text-layout="right"
 			/>
 			<lang-string class="label" :title="'add_options'"/>
-
-			<div class="options-block " v-for="(option, index) in form.options" :key="index">
-				<input-reusable
-						textarea
-						:value="option.description"
-						:height="enablePicture ? 90 : 60"
-						@change="updateArrayField(arguments[0], null, 'options', 'description', index)"
-						@blur.once="onBlurFunction(index)"
-						class="flex-align-center pl-14 mt-1"
-						input-placeholder="answer_text"
-				/>
-				<upload-reusable
-
-						:pre-height="90"
-						:pre-width="90"
-						:image-preview="enablePicture"
-						image-layout="bottom"
-						width="fit-content"
-						:value="option.picture"
-						@upload="({file, url}) => {updateArrayField(file, url, 'options', 'picture', index)}">
-					<template #icon>
-
-					</template>
-				</upload-reusable>
-			</div>
+			
+			<popup-error-reusable
+					v-for="(option, index) in form.options" :key="index"
+					:error-text="form.errors[`option_${index}`]">
+				
+				<div class="options-block">
+					
+					<input-reusable
+							textarea
+							:value="option.description"
+							:height="enablePicture ? 90 : 60"
+							@change="updateArrayField(arguments[0], null, 'options', 'description', index)"
+							@blur.once="onBlurFunction(index)"
+							class="flex-align-center pl-14 mt-1"
+							input-placeholder="answer_text"
+					/>
+					
+					<upload-reusable
+							
+							:pre-height="90"
+							:pre-width="90"
+							:image-preview="enablePicture"
+							image-layout="bottom"
+							width="fit-content"
+							:value="option.picture"
+							@upload="({file, url}) => {updateArrayField(file, url, 'options', 'picture', index)}">
+						<template #icon>
+						
+						</template>
+					</upload-reusable>
+					
+				</div>
+				
+			</popup-error-reusable>
+			
 			<switch-component
 					v-if="type === 'PREDICTION'"
 					class="mb-20"
