@@ -296,7 +296,7 @@
 					},
 					{
 						value: !!form.options.picture,
-						value_name: 'description',
+						value_name: 'picture',
 						rules: [
 								{method_name: 'amountIdentity' }
 						]
