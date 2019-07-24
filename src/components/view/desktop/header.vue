@@ -118,6 +118,11 @@
 				keyword: ''
 			}
 		},
+		computed: {
+			logged_in() {
+				return !!Object.keys(this.user).length;
+			}
+		},
 		methods: {
 
 			userLogout() {
