@@ -98,7 +98,7 @@
 
 			<popup-error-reusable
                     v-for="(option, index) in form.options" :key="index"
-					:errors="form.errors[`option_${index}`]">
+					:errors="form.errors.options[index]">
 
 				<div class="options-block">
 
@@ -112,14 +112,14 @@
 					/>
 
 					<upload-reusable
-
 							:pre-height="60"
 							:pre-width="60"
 							image-preview
 							image-layout="bottom"
 							width="fit-content"
 							:value="option.picture"
-							@upload="({file, url}) => {updateArrayField(file, url, 'options', 'picture', index)}">
+							@upload="({file, url}) => {updateArrayField(file, url, 'options', 'picture', index)}"
+                            @remove="() => { updateArrayField('', '', 'options', 'picture', index) }">
 						<template #icon>
 
 						</template>
@@ -181,8 +181,6 @@
 				/>
 			</div>
 		</div>
-
-
 	</div>
 </template>
 
@@ -248,11 +246,18 @@
 			options_with_rules() {
 				let {
 					verifyValues,
-					checkLength
+					checkLength,
+					amountIndentity
 				} = this;
 
-				verifyValues('create_poll_form', this.options_with_rules, { checkLength });
-			}
+				verifyValues('create_poll_form', this.options_with_rules, { checkLength, amountIndentity });
+			},
+
+            pictureBoolean(newOne, old){
+
+
+
+            }
 		},
 
 		computed: {
@@ -296,12 +301,37 @@
 				]
 			},
 
+            enabledPictureIndex(){
+
+			    let {options} = this.form;
+                let pictureIndexArray = []
+
+
+                for (let item in options) {
+
+                    let {picture} = options[item];
+					console.log(picture);
+					if (picture !== null) {
+                        pictureIndexArray = [...pictureIndexArray, ...[item]];
+                    }
+                }
+
+                return pictureIndexArray;
+
+
+
+            },
+
 			options_with_rules() {
-				return this.form.options.map(({description}, index) => {
+				return this.form.options.map(({description: str, picture}, index) => {
 					return {
-						value: description,
-						key: `option_${index}`,
-						rules: [ {method_name: 'checkLength', args: [2, 65] }]
+						value: {str, index},
+                        array_key: 'options',
+						key: index,
+						rules: [
+						    {method_name: 'checkLength', args: [2, 65] },
+                            {method_name: 'amountIndentity', args: [this.enabledPictureIndex] },
+                        ]
 					}
 				})
 			},
@@ -319,13 +349,18 @@
 
             onFormSubmit(){
 
-                this.$store.dispatch('formManagment/SUBMIT_FORM', this.mainUser.id).then(response => {
-
-                	console.log(response)
-
-				})
+                this.$store.dispatch('formManagment/SUBMIT_FORM', this.mainUser.id)
 
             },
+
+            onOptionPictureRemove(){
+
+                this.$store.dispatch('formManagment/SUBMIT_FORM', this.mainUser.id)
+
+
+            },
+
+
 			setTypeOfCreation(payload){
 
 				this.type = payload;
@@ -378,7 +413,13 @@
 
 			updateArrayField(value, url, arrayName, keyName, index) {
 
-				this.$store.commit('formManagment/UPDATE_ARRAY_FIELD', {value, arrayName, keyName, index, form: 'create_poll_form'})
+				this.$store.commit('formManagment/UPDATE_ARRAY_FIELD', {
+					value,
+					arrayName,
+					keyName,
+					index,
+					form: 'create_poll_form'
+				})
 
 			},
 

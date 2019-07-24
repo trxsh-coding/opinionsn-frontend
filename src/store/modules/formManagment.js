@@ -51,18 +51,20 @@ const initialState = () => {
             end_time: '',
             fund: '',
             judges: [],
-            errors: {},
+            errors: {
+                options: {}
+            },
             options: [
                 {
                     optionImageUrl: '',
                     id: '',
-                    picture: '',
+                    picture:null,
                     description: ''
                 },
                 {
                     optionImageUrl: '',
                     id: '',
-                    picture: '',
+                    picture:null,
                     description: ''
                 },
             ]
@@ -125,10 +127,19 @@ export const formManagment = {
             state.withPicture = payload;
         },
 
-        [UPDATE_ERROR_FIELD](state, {form, key, value, error_key}) {
+        [UPDATE_ERROR_FIELD](state, {form, key, value, error_key, array_key}) {
             if (!state[form].errors) state[form].errors = {};
-            if (!state[form].errors[key]) state[form].errors[key] = {};
-            state[form].errors[key][error_key] = value;
+
+            if (!array_key) {
+                if (!state[form].errors[key]) state[form].errors[key] = {};
+                state[form].errors[key][error_key] = value;
+            } else {
+                // console.log({form, key, value, error_key, array_key});
+                if (!state[form].errors[array_key]) state[form].errors[array_key] = {};
+                if (!state[form].errors[array_key][key]) state[form].errors[array_key][key] = {};
+                state[form].errors[array_key][key][error_key] = value;
+                // console.log(state[form].errors[array_key]);
+            }
         },
 
         [CLEAR_FORM](state, form) {
