@@ -1,85 +1,101 @@
 <template>
     <div class="user-settings">
 
-        <label class="label label-1">
+        <popup-error-reusable :errors="form.errors.first_name" >
+            <label class="label label-1">
             <span class="caption">
-               <lang-string  :title="'name'" />
+               <lang-string  :title="'first_name'" />
             </span>
-            <input
-                    :value="form.name"
-                    @change="({target}) => { updateField(target.value, 'name') }"
-                    type="text">
-        </label>
-
-        <label class="label label-2 mt-12">
+                <input
+                        :value="form.first_name"
+                        @input="({target}) => { updateField(target.value, 'first_name') }"
+                        type="text">
+            </label>
+        </popup-error-reusable>
+        
+        <popup-error-reusable :errors="form.errors.username" >
+            <label class="label label-2 mt-12">
             <span class="caption">
                <lang-string  :title="'username'" />
             </span>
-            <input
-                    :value="form.username"
-                    @change="({target}) => { updateField(target.value, 'username') }"
-                    type="text">
-        </label>
+                <input
+                        :value="form.username"
+                        @input="({target}) => { updateField(target.value, 'username') }"
+                        type="text">
+            </label>
+        </popup-error-reusable>
 
-        <label class="label label-3 mt-12">
+        <popup-error-reusable :errors="form.errors.status" >
+            <label class="label label-3 mt-12">
             <span class="caption">
                <lang-string  :title="'status'" />
             </span>
-            <input
-                    :value="form.status"
-                    @change="({target}) => { updateField(target.value, 'status') }"
-                    type="text">
-        </label>
-
-        <label class="label label-4 mt-12">
+                <input
+                        :value="form.status"
+                        @input="({target}) => { updateField(target.value, 'status') }"
+                        type="text">
+            </label>
+        </popup-error-reusable>
+        
+        <popup-error-reusable :errors="form.errors.location" >
+            <label class="label label-4 mt-12">
             <span class="caption">
                <lang-string :title="'location'" />
             </span>
-            <input
-                    :value="form.location"
-                    @change="({target}) => { updateField(target.value, 'location') }"
-                    type="text">
-        </label>
-
-        <label class="label label-5 mt-12">
+                <input
+                        :value="form.location"
+                        @input="({target}) => { updateField(target.value, 'location') }"
+                        type="text">
+            </label>
+        </popup-error-reusable>
+        
+        <popup-error-reusable :errors="form.errors.site" >
+            <label class="label label-5 mt-12">
             <span class="caption">
                <lang-string :title="'site'" />
             </span>
-            <input
-                    :value="form.site"
-                    @change="({target}) => { updateField(target.value, 'site') }"
-                    type="text">
-        </label>
-
-        <label class="label label-6 mt-12">
+                <input
+                        :value="form.site"
+                        @input="({target}) => { updateField(target.value, 'site') }"
+                        type="text">
+            </label>
+        </popup-error-reusable>
+        
+        <popup-error-reusable :errors="form.errors.gender" >
+            <label class="label label-6 mt-12">
             <span class="caption">
                <lang-string :title="'gender'" />
             </span>
-            <input
-                    :value="form.gender === 0 ? 'Мужчина' : 'Женщина'"
-                    @change="({target}) => { updateField(target.value, 'gender') }"
-                    type="text">
-        </label>
+                <input
+                        :value="form.gender === 0 ? 'Женщина' : 'Мужчина'"
+                        @input="({target}) => { updateField(target.value, 'gender') }"
+                        type="text">
+            </label>
+        </popup-error-reusable>
 
-        <label class="label label-7 mt-12">
+        <popup-error-reusable :errors="form.errors.email" >
+            <label class="label label-7 mt-12">
             <span class="caption">
                <lang-string :title="'email'" />
             </span>
-            <input
-                    :value="form.email"
-                    @change="({target}) => { updateField(target.value, 'email') }"
-                    type="text">
-        </label>
-
-        <label class="label label-8 mt-12">
+                <input
+                        :value="form.email"
+                        @input="({target}) => { updateField(target.value, 'email') }"
+                        type="text">
+            </label>
+        </popup-error-reusable>
+        
+        <popup-error-reusable :errors="form.errors.phone_number" >
+            <label class="label label-8 mt-12">
             <span class="caption">
                <lang-string :title="'phone'" />
             </span>
-            <input
-                    :value="form.phone_number"
-                    @change="({target}) => { updateField(target.value, 'phone_number') }"
-                    type="text">
-        </label>
+                <input
+                        :value="form.phone_number"
+                        @input="({target}) => { updateField(target.value, 'phone_number') }"
+                        type="text">
+            </label>
+        </popup-error-reusable>
 
     </div>
 </template>
@@ -88,11 +104,13 @@
     import langString from "../langString";
     import ValidationMixin from "../mixins/ValidationMixin";
     import {mapState} from "vuex";
+    import PopupErrorReusable from "../reusableСomponents/PopupErrorReusable";
 
     export default {
         name: "userSettings",
         mixins: [ValidationMixin],
         components: {
+            PopupErrorReusable,
             langString
         },
 
@@ -117,51 +135,45 @@
 
                 return [
                     {
-                        value: form.name,
-                        value_name: 'name',
-                        rules: [{ method_name: 'checkLength', args: [2] }]
+                        value: form.first_name,
+                        key: 'first_name',
+                        rules: [{ method_name: 'checkLength', args: [0, 20] }]
                     },
 
                     {
                         value: form.username,
-                        value_name: 'username',
-                        rules: [{ method_name: 'checkLength', args: [0, 4] }]
+                        key: 'username',
+                        rules: [{ method_name: 'checkLength', args: [3, 20] }]
                     },
 
                     {
                         value: form.status,
-                        value_name: 'status',
-                        rules: [ {method_name: 'checkLength', args: [0, 4] }]
+                        key: 'status',
+                        rules: [ {method_name: 'checkLength', args: [0, 60] }]
                     },
 
                     {
                         value: form.location,
-                        value_name: 'location',
-                        rules: [ {method_name: 'checkLength', args: [0, 4] }]
+                        key: 'location',
+                        rules: [ {method_name: 'checkLength', args: [0, 20] }]
                     },
 
                     {
                         value: form.site,
-                        value_name: 'site',
-                        rules: [ {method_name: 'checkLength', args: [0, 4] }]
-                    },
-
-                    {
-                        value: form.gender,
-                        value_name: 'gender',
-                        rules: [ {method_name: 'checkLength', args: [0, 4] }]
+                        key: 'site',
+                        rules: [ {method_name: 'checkLength', args: [0, 30] }]
                     },
 
                     {
                         value: form.email,
-                        value_name: 'email',
-                        rules: [ {method_name: 'checkLength', args: [0, 4] }]
+                        key: 'email',
+                        rules: [ {method_name: 'checkLength', args: [0, 40] }]
                     },
 
                     {
                         value: form.phone_number,
-                        value_name: 'phone_number',
-                        rules: [ {method_name: 'checkLength', args: [0, 4] }]
+                        key: 'phone_number',
+                        rules: [ {method_name: 'checkLength', args: [0, 20] }]
                     },
                 ]
             },

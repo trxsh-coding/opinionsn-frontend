@@ -33,7 +33,7 @@
 			<category-select/>
 
 			<popup-error-reusable
-					:error-text="form.errors.tags">
+					:errors="form.errors.tags">
 				<input-reusable :value="form.tags"
 				                textarea
 				                @change="updateField(arguments[0], 'tags')"
@@ -43,9 +43,9 @@
 			</popup-error-reusable>
 
 			<popup-error-reusable
-					:error-text="form.errors.subject">
-				<input-reusable :value="form.subject"
-				                @change="updateField(arguments[0], 'subject')"
+					:errors="form.errors.subject_header">
+				<input-reusable :value="form.subject_header"
+				                @change="updateField(arguments[0], 'subject_header')"
 				                class="mt-12 mb-12 flex-between"
 				                textarea
 				                :input-placeholder="'heading'"/>
@@ -54,12 +54,11 @@
 
 
 			<popup-error-reusable
-                    :error-text="form.errors.description">
+                    :errors="form.errors.description">
 				<input-reusable :value="form.description"
 				                @change="updateField(arguments[0], 'description')"
 				                class="mt-12 mb-12 flex-between"
 				                textarea
-
 				                :input-placeholder="'description'"/>
 			</popup-error-reusable>
 
@@ -99,7 +98,7 @@
 
 			<popup-error-reusable
                     v-for="(option, index) in form.options" :key="index"
-					:error-text="form.errors[`option_${index}`]">
+					:errors="form.errors[`option_${index}`]">
 
 				<div class="options-block">
 
@@ -280,35 +279,28 @@
 				return [
 					{
 						value: form.tags,
-						value_name: 'tags',
-						rules: [{ method_name: 'checkLength', args: [false, 100] }]
+						key: 'tags',
+						rules: [{ method_name: 'checkLength', args: [0, 100] }]
 					},
 
 					{
 						value: form.subject_header,
-						value_name: 'subject_header',
+						key: 'subject_header',
 						rules: [{ method_name: 'checkLength', args: [5, 100] }]
 					},
 					{
 						value: form.description,
-						value_name: 'description',
-						rules: [ {method_name: 'checkLength', args: [false, 650] }]
+						key: 'description',
+						rules: [ {method_name: 'checkLength', args: [0, 650] }]
 					},
-					{
-						value: !!form.options.picture,
-						value_name: 'picture',
-						rules: [
-								{method_name: 'amountIdentity' }
-						]
-					}
 				]
 			},
 
 			options_with_rules() {
-				return this.form.options.map(({description, picture}, index) => {
+				return this.form.options.map(({description}, index) => {
 					return {
-						value: {description, picture},
-						value_name: `option_${index}`,
+						value: description,
+						key: `option_${index}`,
 						rules: [ {method_name: 'checkLength', args: [2, 65] }]
 					}
 				})
@@ -379,8 +371,7 @@
 			},
 
 			updateField(value, key) {
-                console.log(value)
-                console.log(key)
+
 				this.$store.commit('formManagment/UPDATE_FIELD', {value, key, form: 'create_poll_form'})
 
 			},
