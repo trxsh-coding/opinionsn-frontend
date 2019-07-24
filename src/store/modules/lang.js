@@ -16,22 +16,23 @@ export default  {
 
     },
     setLocale(state, payload){
-      let {langSelector: lang} = payload;
+      let {_lang: lang} = payload;
+      console.log(lang)
       moment.locale(lang);
       state.locale = payload
-      vueApp.$i18n.locale = state.locale.langSelector
+      vueApp.$i18n.locale = state.locale.lang
     },
   },
     actions: {
       getLocaleString({dispatch, commit}, payload){
-        axios.get(`${process.env.VUE_APP_MAIN_API}/locale/get`)
+        axios.get(`${process.env.VUE_APP_MAIN_API}/locale`)
           .then(function(response){
             commit('setLocale', response.data)
         }.bind(this))
       },
 
       getGuestsLocaleString({dispatch, commit}, payload){
-        axios.get(`${process.env.VUE_APP_MAIN_API}/locale/get`)
+        axios.get(`${process.env.VUE_APP_MAIN_API}/locale`)
             .then(function(response){
               commit('setLocale', response.data)
             }.bind(this))

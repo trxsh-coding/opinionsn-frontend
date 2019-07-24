@@ -22,6 +22,11 @@ export default {
 				console.error(`Require arguments: [${form} ${values_with_rules} ${methods}] is missing`);
 			}
 		},
+		amountIndentity({picture}){
+
+
+
+		},
 
 		checkLength(value, from_length, to_length) {
 			

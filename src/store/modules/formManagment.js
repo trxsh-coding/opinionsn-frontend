@@ -11,13 +11,17 @@ import  {
     CHANGE_MUTABLE_STATE,
     UPDATE_ERROR_FIELD,
     CLEAR_FORM,
-    SET_INITIAL_FORM
+    SET_INITIAL_FORM,
+    UPDATE_ARRAY_PICTURES
 } from "../types/mutation-types";
 
 import  {
     SUBMIT_FORM
 } from "../types/action-types";
 
+import moment from 'moment'
+import axios from 'axios'
+import {vueApp} from '../../main'
 const initialState = () => {
     return {
         withPicture:false,
@@ -38,11 +42,11 @@ const initialState = () => {
             }
         ],
         create_poll_form: {
-            subject_header: '',
+            subject_header: 'sports',
             subject: '',
             tags: '',
             description: '',
-            type_of_poll: '1',
+            type_of_poll: '0',
             end_date: '',
             end_time: '',
             fund: '',
@@ -91,16 +95,13 @@ export const formManagment = {
         },
 
         [UPDATE_ARRAY_FIELD](state, {value, arrayName, index, keyName, form}) {
-            //
-            if(form){
-                state[form][arrayName][index][keyName] = value
+            state[form][arrayName][index][keyName] = value
 
-            } else {
-                state[arrayName][index][keyName] = value
-
-            }
         },
-
+        [UPDATE_ARRAY_PICTURES](state, payload){
+            let {index, file} = payload
+            state.pictures[index].picture = file
+        },
         [UPDATE_FIELD](state, {form, key, value}){
             state[form][key] = value
         },
@@ -112,10 +113,8 @@ export const formManagment = {
             });
         },
 
-        [ADD_OPTION](state, payload){
-            if(payload > 0){
-                state.form.options.push({id:'', picture:'', description:''})
-            }
+        [ADD_OPTION](state){
+                state.create_poll_form.options.push({id:'', picture:'', description:''})
         },
 
         [SET_CATEGORY_NAME](state, payload){
@@ -145,7 +144,54 @@ export const formManagment = {
 
     actions: {
 
-        [SUBMIT_FORM]({state, commit, dispatch}){
+        [SUBMIT_FORM]({state, commit, dispatch}, payload){
+
+            state.create_poll_form.judges = [payload];
+
+            var bodyFormData = new FormData();
+
+
+
+            const config = {
+                headers: {
+                    'content-type': 'multipart/mixed'
+                }
+            }
+
+            for (let item of state.create_poll_form.options){
+
+                let {picture} = item;
+
+                bodyFormData.append('files[]', picture);
+
+                delete item.picture;
+
+            }
+
+            for (let item of state.pictures){
+                let {picture} = item;
+
+                bodyFormData.append('pollPhotos[]', picture);
+
+                delete item.picture;
+
+            }
+            const form = new Blob([JSON.stringify(state.create_poll_form)], { type: "application/json"})
+
+            bodyFormData.append('form', form);
+
+
+
+            axios.put(`${process.env.VUE_APP_MAIN_API}/rest/v1/poll`, bodyFormData, config)
+                .then(function(response){
+                    if (response.status === 200) {
+
+                        let poll_id = response.data.payload[0].id;
+                        console.log(response.data.payload[0].id)
+                        vueApp.$router.push({name : 'singlePoll', params: {id : poll_id}})
+
+                    }
+                }.bind(this))
 
 
         }

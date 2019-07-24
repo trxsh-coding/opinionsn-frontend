@@ -2,7 +2,7 @@ import {VuexStore} from "./generic/proto";
 import {StoreWithPageList} from "./generic/withPageList";
 import {pollActions} from "./pollActions";
 
-class VoteFeedStore extends StoreWithPageList (VuexStore, `${process.env.VUE_APP_MAIN_API}/rest/vote/feed`) {
+class VoteFeedStore extends StoreWithPageList (VuexStore, `${process.env.VUE_APP_MAIN_API}/rest/v1/opinion/feed/page`) {
 
     setFilterId(state, id){
 

@@ -1,7 +1,7 @@
 <template>
     <div class="create-header flex-between">
         <lang-string class="pointer" :title="'cancel'" @click="router.go(-1)"/>
-        <lang-string class="primary-color pointer" :title="'publish'" />
+        <lang-string class="primary-color pointer" :title="'publish'" @click.native="onFormSubmit"/>
 
     </div>
 </template>
@@ -10,7 +10,14 @@
     import langString from '../langString'
     export default {
         name: "createHeader",
-        components: {langString}
+        components: {langString},
+        methods: {
+            onFormSubmit(){
+
+                this.$emit('submit')
+
+            }
+        }
     }
 </script>
 

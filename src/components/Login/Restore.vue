@@ -95,7 +95,7 @@
                 let loginFormData = new FormData();
                 loginFormData.append('email', form.email);
                 loginFormData.append('emailConfirm', form.email_confirm);
-                axios.post(`${process.env.VUE_APP_MAIN_API}/auth/sendResetPasswordCode`, loginFormData)
+                axios.post(`${process.env.VUE_APP_MAIN_API}/auth/password/reset/code`, loginFormData)
                     .then(response => {
                         if (response.status === 200) {
                             this.$router.push({ name: 'login'})

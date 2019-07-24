@@ -20,28 +20,29 @@
             transformed_time:function () {
 
                 let transformed_time = this.time;
+                let mTime = moment(transformed_time);
 
                 let now = moment(new Date());
 
-                let isToday = now.format("YYYYMMDD") === moment(transformed_time).format("YYYYMMDD");
+                let isToday = now.format("YYYYMMDD") === mTime.format("YYYYMMDD");
+
+                const daysDiff = now.diff(mTime, 'days');
+
+                const relTime = mTime.fromNow('mm');
+                const relTimeParts = relTime.split(' ');
+                let text;
+
+                if (relTimeParts.length > 1){
+                    const [count, title] = relTime.split(' ');
+                    text = `${isNaN(Number(count)) ? '1' : count}${title.substring(0,1)}`;
+                } else {
+                    text = `${relTime.substr(0, 1).toUpperCase()}${relTime.substr(1, relTime.length)}`;
+                }
 
 
-                // let diff = moment.duration(now.diff(transformed_time))
-				//
-				//
-                // if(diff.asHours() > 24) {
-                //     return `${moment(transformed_time).fromNow(true)} : ${diff.asHours()}`
-				//
-				//
-                // } else {
-				//
-                //     return `${moment(transformed_time).format('HH:mm')} : ${diff.asHours()}`
-				//
-                //     //return moment(transformed_time).format('HH:mm')
-				//
-                // }
 
-                let parsedTime = isToday ? moment(transformed_time).format('HH:mm') : moment(transformed_time).fromNow('D');
+
+                let parsedTime = daysDiff > 1 ? mTime.fromNow('d') : text;
 
 				return parsedTime;
 

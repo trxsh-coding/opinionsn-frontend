@@ -6,23 +6,23 @@ module.exports = {
 		https:false,
 		proxy: {
 			'/api': {
-				target: 'https://opinionsn.com/api',
+				target: 'http://192.168.1.60:7070',
 				pathRewrite: {'^/api': '/'},
 				changeOrigin: true,
 				secure: false
 			},
 			'/messages': {
-				target: 'https://opinionsn.com/messages',
+				target: 'http://192.168.1.60:7071',
 				pathRewrite: {'^/messages': ''},
 				changeOrigin: true,
 				secure: false
 			},
-			'/assets': {
-				target: 'https://opinionsn.com/assets',
-				// pathRewrite: {'^/messages': '/'},
-				changeOrigin: true,
-				secure: false
-			}
+			// '/assets': {
+			// 	target: 'http://192.168.1.60/assets',
+			// 	// pathRewrite: {'^/messages': '/'},
+			// 	changeOrigin: true,
+			// 	secure: false
+			// }
 
 		}
 	},

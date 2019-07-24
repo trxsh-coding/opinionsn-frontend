@@ -172,7 +172,7 @@ export default  {
     getAllQuiz({dispatch, commit}, e){
       let page = this.state.quizFeed.page;
       commit('setLoading', {loading: true, ihs: e});
-      axios.get(`api/rest/feed/` + page,{
+      axios.get(`api/rest/v1/feed/page` + page,{
         params: {
           page:this.page
         }

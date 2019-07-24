@@ -128,7 +128,7 @@
 
             follow(id){
 
-                axios.post(`${process.env.VUE_APP_MAIN_API}/rest/follow/${id}`)
+                axios.post(`${process.env.VUE_APP_MAIN_API}/rest/v1/user/subscribe/${id}`)
                     .then((response) => {
                         if (response.status === 200) {
                             this.$store.commit('globalStore/updateStores', response.data, {root: true});
@@ -152,9 +152,9 @@
         },
 
         mounted(){
-            let urlPart = this.isFollowing ? 'getFollowers' : 'getFollowing';
+            let urlPart = this.isFollowing ? 'subscribers' : 'subscription';
 
-            axios.get(`${process.env.VUE_APP_MAIN_API}/rest/${urlPart}/${this.id}`)
+            axios.get(`${process.env.VUE_APP_MAIN_API}/rest/v1/user/${urlPart}/${this.id}`)
                 .then((response) => {
                     if (response.status === 200) {
                         this.$store.commit('globalStore/updateStores', response.data, {root: true});

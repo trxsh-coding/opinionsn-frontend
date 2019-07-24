@@ -4,6 +4,7 @@
                 v-if="logged_in"
                 class="icon-wrapper">
             <icon-base
+		            @click.native="pushToCreatePoll"
                     v-if="header_type === 'primary'"
                     class="add-poll"
                     fill="#152D3A"
@@ -128,6 +129,12 @@
                 publicPath: process.env.VUE_APP_MAIN_API
             }
         },
+        methods: {
+            pushToCreatePoll(){
+                this.$router.push({name: 'createPoll'})
+
+            }
+        }
 
     }
 </script>
