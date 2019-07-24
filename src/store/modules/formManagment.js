@@ -125,9 +125,10 @@ export const formManagment = {
             state.withPicture = payload;
         },
 
-        [UPDATE_ERROR_FIELD](state, {form, key, value}) {
+        [UPDATE_ERROR_FIELD](state, {form, key, value, error_key}) {
             if (!state[form].errors) state[form].errors = {};
-            state[form].errors[key] = value;
+            if (!state[form].errors[key]) state[form].errors[key] = {};
+            state[form].errors[key][error_key] = value;
         },
 
         [CLEAR_FORM](state, form) {

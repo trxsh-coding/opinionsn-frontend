@@ -33,7 +33,7 @@
 			<category-select/>
 
 			<popup-error-reusable
-					:error-text="form.errors.tags">
+					:errors="form.errors.tags">
 				<input-reusable :value="form.tags"
 				                textarea
 				                @change="updateField(arguments[0], 'tags')"
@@ -43,9 +43,9 @@
 			</popup-error-reusable>
 
 			<popup-error-reusable
-					:error-text="form.errors.subject">
-				<input-reusable :value="form.subject"
-				                @change="updateField(arguments[0], 'subject')"
+					:errors="form.errors.subject_header">
+				<input-reusable :value="form.subject_header"
+				                @change="updateField(arguments[0], 'subject_header')"
 				                class="mt-12 mb-12 flex-between"
 				                textarea
 				                :input-placeholder="'heading'"/>
@@ -54,7 +54,7 @@
 
 
 			<popup-error-reusable
-                    :error-text="form.errors.description">
+                    :errors="form.errors.description">
 				<input-reusable :value="form.description"
 				                @change="updateField(arguments[0], 'description')"
 				                class="mt-12 mb-12 flex-between"
@@ -98,7 +98,7 @@
 
 			<popup-error-reusable
                     v-for="(option, index) in form.options" :key="index"
-					:error-text="form.errors[`option_${index}`]">
+					:errors="form.errors[`option_${index}`]">
 
 				<div class="options-block">
 
@@ -280,7 +280,7 @@
 					{
 						value: form.tags,
 						key: 'tags',
-						rules: [{ method_name: 'checkLength', args: [false, 100] }]
+						rules: [{ method_name: 'checkLength', args: [0, 100] }]
 					},
 
 					{
@@ -291,22 +291,15 @@
 					{
 						value: form.description,
 						key: 'description',
-						rules: [ {method_name: 'checkLength', args: [false, 650] }]
+						rules: [ {method_name: 'checkLength', args: [0, 650] }]
 					},
-					{
-						value: !!form.options.picture,
-						key: 'description',
-						rules: [
-								{method_name: 'amountIdentity' }
-						]
-					}
 				]
 			},
 
 			options_with_rules() {
-				return this.form.options.map(({description, picture}, index) => {
+				return this.form.options.map(({description}, index) => {
 					return {
-						value: {description, picture},
+						value: description,
 						key: `option_${index}`,
 						rules: [ {method_name: 'checkLength', args: [2, 65] }]
 					}

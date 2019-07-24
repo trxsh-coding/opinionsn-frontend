@@ -9,9 +9,9 @@ export default {
 					rules.forEach(({method_name, args}) => {
 						let error = methods[method_name](value, ...args);
 						if (error) {
-							this.$store.commit('formManagment/UPDATE_ERROR_FIELD', {form, key, value: error})
+							this.$store.commit('formManagment/UPDATE_ERROR_FIELD', {form, key, value: error, error_key: method_name})
 						} else {
-							this.$store.commit('formManagment/UPDATE_ERROR_FIELD', {form, key, value: null})
+							this.$store.commit('formManagment/UPDATE_ERROR_FIELD', {form, key, value: null, error_key: method_name})
 						}
 					})
 				})
@@ -22,9 +22,10 @@ export default {
 				console.error(`Require arguments: [${form} ${values_with_rules} ${methods}] is missing`);
 			}
 		},
-		amountIndentity({picture}){
+		
+		amountIndentity({picture}, current_state){
 
-
+		
 
 		},
 
@@ -35,7 +36,7 @@ export default {
 				let { length } = value;
 				
 				switch (true) {
-					case ((length < from_length || length > to_length) && (from_length && to_length)):
+					case ((length < from_length || length > to_length) && (!!from_length && !!to_length)):
 						return `Длинна строки от ${from_length} до ${to_length} символов`;
 					case ((length > to_length) && !from_length):
 						return `Длинна строки до ${to_length} символов`;

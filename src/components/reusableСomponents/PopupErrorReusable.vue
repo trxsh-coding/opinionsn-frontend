@@ -3,11 +3,11 @@
 		<slot></slot>
 		<transition name="error">
 			<div
-					v-if="errorText"
-					class="popup-error"
+					v-if="Object.values(errors).some(error => !!error)"
+					class="popup-error flex-column"
 					:class="spanClass"
 					:style="[computed_width]">
-				<span>{{errorText}}</span>
+				<span v-for="error in errors">{{error}}</span>
 			</div>
 		</transition>
 	</div>
@@ -23,7 +23,12 @@
 					return '100%';
 				}
 			},
-			errorText: [String, Boolean],
+			errors: {
+				type: [Object, Boolean],
+				default() {
+					return {};
+				}
+			},
 			spanClass: {
 				type: String,
 				default() {
@@ -31,6 +36,13 @@
 				}
 			}
 		},
+		
+		data() {
+			return {
+				has_error: false
+			}
+		},
+
 		methods: {
 			handleCssValue(value) {
 				switch (true) {
@@ -43,12 +55,15 @@
 				}
 			}
 		},
+		
 		computed: {
+			
 			computed_width() {
 				return {
 					width: `${this.handleCssValue(this.width)}`
 				}
 			}
+			
 		},
 	}
 </script>

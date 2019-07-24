@@ -1,7 +1,7 @@
 <template>
     <div class="user-settings">
 
-        <popup-error-reusable :error-text="form.errors.first_name" >
+        <popup-error-reusable :errors="form.errors.first_name" >
             <label class="label label-1">
             <span class="caption">
                <lang-string  :title="'first_name'" />
@@ -13,7 +13,7 @@
             </label>
         </popup-error-reusable>
         
-        <popup-error-reusable :error-text="form.errors.username" >
+        <popup-error-reusable :errors="form.errors.username" >
             <label class="label label-2 mt-12">
             <span class="caption">
                <lang-string  :title="'username'" />
@@ -25,7 +25,7 @@
             </label>
         </popup-error-reusable>
 
-        <popup-error-reusable :error-text="form.errors.status" >
+        <popup-error-reusable :errors="form.errors.status" >
             <label class="label label-3 mt-12">
             <span class="caption">
                <lang-string  :title="'status'" />
@@ -37,7 +37,7 @@
             </label>
         </popup-error-reusable>
         
-        <popup-error-reusable :error-text="form.errors.location" >
+        <popup-error-reusable :errors="form.errors.location" >
             <label class="label label-4 mt-12">
             <span class="caption">
                <lang-string :title="'location'" />
@@ -49,7 +49,7 @@
             </label>
         </popup-error-reusable>
         
-        <popup-error-reusable :error-text="form.errors.site" >
+        <popup-error-reusable :errors="form.errors.site" >
             <label class="label label-5 mt-12">
             <span class="caption">
                <lang-string :title="'site'" />
@@ -61,19 +61,19 @@
             </label>
         </popup-error-reusable>
         
-        <popup-error-reusable :error-text="form.errors.gender" >
+        <popup-error-reusable :errors="form.errors.gender" >
             <label class="label label-6 mt-12">
             <span class="caption">
                <lang-string :title="'gender'" />
             </span>
                 <input
-                        :value="form.gender === 0 ? 'Мужчина' : 'Женщина'"
+                        :value="form.gender === 0 ? 'Женщина' : 'Мужчина'"
                         @input="({target}) => { updateField(target.value, 'gender') }"
                         type="text">
             </label>
         </popup-error-reusable>
 
-        <popup-error-reusable :error-text="form.errors.email" >
+        <popup-error-reusable :errors="form.errors.email" >
             <label class="label label-7 mt-12">
             <span class="caption">
                <lang-string :title="'email'" />
@@ -85,7 +85,7 @@
             </label>
         </popup-error-reusable>
         
-        <popup-error-reusable :error-text="form.errors.phone_number" >
+        <popup-error-reusable :errors="form.errors.phone_number" >
             <label class="label label-8 mt-12">
             <span class="caption">
                <lang-string :title="'phone'" />
