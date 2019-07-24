@@ -15,12 +15,12 @@ export const pollActions = sc => class extends sc {
 
         } else {
 
-            typeOfVote = `${process.env.VUE_APP_MAIN_API}/rest/vote/create/`
+            typeOfVote = `${process.env.VUE_APP_MAIN_API}/rest/v1/vote/`
 
         }
 
 
-        let {customUrl = `${typeOfVote}`, data={}, method=`post`} = payload;
+        let {customUrl = `${typeOfVote}`, data={}, method=`put`} = payload;
 
         sc.apiRequest(customUrl, data,{commit, dispatch, onSuccess: `onVoteCreated`, successType: `action`}, method);
 
@@ -60,8 +60,9 @@ export const pollActions = sc => class extends sc {
 
     saveExplain({commit, dispatch}, payload={}){
 
+        console.log(payload)
 
-        let {customUrl = `${process.env.VUE_APP_MAIN_API}/rest/explain/save/`, data={}, method=`post`} = payload;
+        let {customUrl = `${process.env.VUE_APP_MAIN_API}/rest/v1/explain/`, data={}, method=`put`} = payload;
 
         sc.apiRequest(customUrl, data,{commit,dispatch, onSuccess: `onExplainSaved`, successType: `action`}, method);
 
@@ -69,7 +70,7 @@ export const pollActions = sc => class extends sc {
 
     saveComment({commit, dispatch}, payload={}){
 
-        let {customUrl = `${process.env.VUE_APP_MAIN_API}/rest/comment/save/`, data={}, method=`post`, } = payload;
+        let {customUrl = `${process.env.VUE_APP_MAIN_API}/rest/v1/comment/`, data={}, method=`put`, } = payload;
 
         sc.apiRequest(customUrl, data ,{commit, dispatch, onSuccess: `onCommentSaved`, successType: `action`}, method);
 
@@ -107,7 +108,7 @@ export const pollActions = sc => class extends sc {
 
         let id = payload
 
-        let {customUrl = `${process.env.VUE_APP_MAIN_API}/rest/bookmarks/${id}`, data={}, method=`delete`, } = payload;
+        let {customUrl = `${process.env.VUE_APP_MAIN_API}/rest/v1/bookmarks/${id}`, data={}, method=`delete`, } = payload;
 
         sc.apiRequest(customUrl, data,{commit, dispatch, onSuccess: null, successType: `mutation`}, method);
 
@@ -181,7 +182,7 @@ export const pollActions = sc => class extends sc {
         commit(`globalStore/currentLoadingOption`, {id: payload.selected_variable, value: false}, {root: true});
 
 
-        sc.apiRequest(`${process.env.VUE_APP_MAIN_API}/rest/quiz/getOne/${poll_id}`, {},{commit, onSuccess: `updatePayloadItem`}, `get`);
+        sc.apiRequest(`${process.env.VUE_APP_MAIN_API}/rest/v1/poll/${poll_id}`, {},{commit, onSuccess: `updatePayloadItem`}, `get`);
 
 
     }

@@ -57,7 +57,15 @@
 <!--							<VEmojiPicker :pack="emojisNative" @select="onSelectEmoji"/>-->
 <!--						</div>-->
 
-						<span @click="saveExplain" class="pointer">
+						<span
+								@click="() => {
+									if (!!explain.explain_description) {
+										saveComment()
+									} else {
+										saveExplain()
+									}
+								}"
+								class="pointer">
 							<icon-base
 								class="send-btn"
 								fill="#BCBEC3"
@@ -220,8 +228,7 @@
 
 				if (description) {
 
-					let { poll_id } = this;
-
+					let { pollId  : poll_id} = this;
 					this.$store.dispatch(`pollFeed/saveExplain`, {data: {poll_id, description} });
 
 					this.input_id = null,
@@ -244,10 +251,9 @@
 
 				if (description) {
 
-					let { explain_id } = this.explain;
-					let { poll_id } = this;
+					let { id: explain_id } = this.explain;
 
-					this.$store.dispatch(`pollFeed/saveComment`, {data: {poll_id, explain_id, description}});
+					this.$store.dispatch(`pollFeed/saveComment`, {data: {explain_id, description}});
 
 					this.input_id = null,
 					this.input_type = null,

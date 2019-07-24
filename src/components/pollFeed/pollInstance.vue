@@ -104,7 +104,6 @@
                 :comments="comments"
                 :options="options"
                 :users="users"/>
-
 		<span v-show="voted && !no_more_explains && combinedVotes.length > 5" class="explains-load-btn pointer mt-9" @click="loadMoreExplains">Загрузить ещё...</span>
 
     </div>

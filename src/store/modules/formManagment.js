@@ -11,7 +11,8 @@ import  {
     CHANGE_MUTABLE_STATE,
     UPDATE_ERROR_FIELD,
     CLEAR_FORM,
-    SET_INITIAL_FORM
+    SET_INITIAL_FORM,
+    UPDATE_ARRAY_PICTURES
 } from "../types/mutation-types";
 
 import  {
@@ -97,7 +98,10 @@ export const formManagment = {
             state[form][arrayName][index][keyName] = value
 
         },
-
+        [UPDATE_ARRAY_PICTURES](state, payload){
+            let {index, file} = payload
+            state.pictures[index].picture = file
+        },
         [UPDATE_FIELD](state, {form, key, value}){
             state[form][key] = value
         },
@@ -147,11 +151,7 @@ export const formManagment = {
 
             var bodyFormData = new FormData();
 
-            const form = new Blob([JSON.stringify(state.create_poll_form)], { type: "application/json"})
 
-            bodyFormData.append('form', form);
-
-            bodyFormData.append('blob', state.pictures);
 
             const config = {
                 headers: {
@@ -159,10 +159,34 @@ export const formManagment = {
                 }
             }
 
-            axios.post(`${process.env.VUE_APP_MAIN_API}/rest/quiz/create`, bodyFormData, config)
+            for (let item of state.create_poll_form.options){
+
+                let {picture} = item;
+
+                bodyFormData.append('files[]', picture);
+
+                delete item.picture;
+
+            }
+
+            for (let item of state.pictures){
+                let {picture} = item;
+
+                bodyFormData.append('pollPhotos[]', picture);
+
+                delete item.picture;
+
+            }
+            const form = new Blob([JSON.stringify(state.create_poll_form)], { type: "application/json"})
+
+            bodyFormData.append('form', form);
+
+
+
+            axios.put(`${process.env.VUE_APP_MAIN_API}/rest/v1/poll`, bodyFormData, config)
                 .then(function(response){
                     if (response.status === 200) {
-                        this.$router.push({ name: 'pollFeed'})
+                        alert('HURRAY')
                     }
                 }.bind(this))
 

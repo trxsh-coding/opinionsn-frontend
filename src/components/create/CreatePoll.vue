@@ -43,9 +43,9 @@
 			</popup-error-reusable>
 
 			<popup-error-reusable
-					:error-text="form.errors.subject_header">
-				<input-reusable :value="form.subject_header"
-				                @change="updateField(arguments[0], 'subject_header')"
+					:error-text="form.errors.subject">
+				<input-reusable :value="form.subject"
+				                @change="updateField(arguments[0], 'subject')"
 				                class="mt-12 mb-12 flex-between"
 				                textarea
 				                :input-placeholder="'heading'"/>
@@ -59,6 +59,7 @@
 				                @change="updateField(arguments[0], 'description')"
 				                class="mt-12 mb-12 flex-between"
 				                textarea
+
 				                :input-placeholder="'description'"/>
 			</popup-error-reusable>
 
@@ -71,7 +72,7 @@
 							pre-width="100%"
 							:pre-height="mobile ? 190 : 371"
 							:value="item.picture"
-							@upload="({file, url}) => {updateArrayField(file, url, 'pictures', 'picture', index)}">
+							@upload="({file}) => {updateArrayPictures(file, index)}">
 
 					</upload-reusable>
 				</swiper-slide>
@@ -115,7 +116,7 @@
 
 							:pre-height="60"
 							:pre-width="60"
-							:image-preview="enablePicture"
+							image-preview
 							image-layout="bottom"
 							width="fit-content"
 							:value="option.picture"
@@ -374,9 +375,17 @@
 			},
 
 			updateArrayField(value, url, arrayName, keyName, index) {
+
 				this.$store.commit('formManagment/UPDATE_ARRAY_FIELD', {value, arrayName, keyName, index, form: 'create_poll_form'})
 
 			},
+
+			updateArrayPictures(file, index) {
+
+				this.$store.commit('formManagment/UPDATE_ARRAY_PICTURES', {file, index})
+
+			},
+
 			chooseTypeOfPoll(payload) {
 
 				this.timeLimit = payload
