@@ -1,7 +1,7 @@
 <template>
     <div id="mobile-header" class="flex-between flex-align-center" v-show="header_type !== 'hidden'">
         <div class="icon-wrapper">
-            <icon-base
+            <icon-base @click.native="pushToCreatePoll"
                     v-if="header_type === 'primary'"
                     class="add-poll"
                     fill="#152D3A"
@@ -108,6 +108,12 @@
                 publicPath: process.env.VUE_APP_MAIN_API
             }
         },
+        methods: {
+            pushToCreatePoll(){
+                this.$router.push({name: 'createPoll'})
+
+            }
+        }
 
     }
 </script>

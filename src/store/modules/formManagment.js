@@ -21,7 +21,7 @@ import  {
 
 import moment from 'moment'
 import axios from 'axios'
-
+import {vueApp} from '../../main'
 const initialState = () => {
     return {
         withPicture:false,
@@ -42,11 +42,11 @@ const initialState = () => {
             }
         ],
         create_poll_form: {
-            subject_header: '',
+            subject_header: 'sports',
             subject: '',
             tags: '',
             description: '',
-            type_of_poll: '1',
+            type_of_poll: '0',
             end_date: '',
             end_time: '',
             fund: '',
@@ -186,7 +186,11 @@ export const formManagment = {
             axios.put(`${process.env.VUE_APP_MAIN_API}/rest/v1/poll`, bodyFormData, config)
                 .then(function(response){
                     if (response.status === 200) {
-                        alert('HURRAY')
+
+                        let poll_id = response.data.payload[0].id;
+                        console.log(response.data.payload[0].id)
+                        vueApp.$router.push({name : 'singlePoll', params: {id : poll_id}})
+
                     }
                 }.bind(this))
 

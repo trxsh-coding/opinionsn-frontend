@@ -3,7 +3,7 @@
         <div class="tags__item mb-4">
 			{{poll.tags}}
         </div>
-        <div class="subject__item">
+        <div class="subject__item " @click="pushToPoll(poll.id)" :class="{'pointer' : routeName !== 'singlePoll'}">
             <span>
                 {{poll.subject}}
             </span>
@@ -39,6 +39,22 @@
         components: {
             subjectPicture,
             bowsPanel
+        },
+        computed: {
+            routeName(){
+                return this.$route.name
+
+            }
+        },
+        methods:{
+            pushToPoll(id){
+
+                if(this.$route.name !== 'singlePoll'){
+                    this.$router.push({name: 'singlePoll', params: {id}})
+
+                }
+
+            }
         }
     }
 </script>

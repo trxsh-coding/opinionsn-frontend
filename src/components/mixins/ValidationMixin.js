@@ -22,9 +22,16 @@ export default {
 				console.error(`Require arguments: [${form} ${values_with_rules} ${methods}] is missing`);
 			}
 		},
+		amountIndentity({picture}){
 
-		checkLength(str, from_length = 0, to_length) {
-			let { length } = str.split(' ').join('');
+
+
+		},
+		checkLength(value, from_length = 0, to_length, name) {
+
+			if (name) value = value[name];
+
+			let { length } = value.split(' ').join('');
 			// let { length } = str;
 
 			// console.log(length);

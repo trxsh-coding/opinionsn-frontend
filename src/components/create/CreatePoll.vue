@@ -293,14 +293,21 @@
 						value: form.description,
 						value_name: 'description',
 						rules: [ {method_name: 'checkLength', args: [false, 650] }]
+					},
+					{
+						value: !!form.options.picture,
+						value_name: 'description',
+						rules: [
+								{method_name: 'amountIdentity' }
+						]
 					}
 				]
 			},
 
 			options_with_rules() {
-				return this.form.options.map(({description}, index) => {
+				return this.form.options.map(({description, picture}, index) => {
 					return {
-						value: description,
+						value: {description, picture},
 						value_name: `option_${index}`,
 						rules: [ {method_name: 'checkLength', args: [2, 65] }]
 					}
@@ -320,7 +327,11 @@
 
             onFormSubmit(){
 
-                this.$store.dispatch('formManagment/SUBMIT_FORM', this.mainUser.id)
+                this.$store.dispatch('formManagment/SUBMIT_FORM', this.mainUser.id).then(response => {
+
+                	console.log(response)
+
+				})
 
             },
 			setTypeOfCreation(payload){
