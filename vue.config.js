@@ -29,14 +29,14 @@ module.exports = {
 				changeOrigin: true,
 				secure: false
 			},
-			
+
 			'/messages': {
 				target: 'http://192.168.1.39:7071',
 				pathRewrite: {'^/messages': ''},
 				changeOrigin: true,
 				secure: false
 			},
-			
+
 			'/assets': {
 				target: 'http://192.168.1.39/assets',
 				// pathRewrite: {'^/messages': '/'},

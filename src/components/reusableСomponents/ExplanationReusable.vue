@@ -12,7 +12,7 @@
 				rounded
 				text-layout="bottom">
 				<template #description>
-					<time-trans :time="fitExplain.timestamp"></time-trans>
+					<time-trans short-time :time="fitExplain.timestamp"></time-trans>
 				</template>
 			</picture-reusable>
 
@@ -89,7 +89,7 @@
 				<picture-reusable class="mr-12" pic-class="mb-5" :img="comment.avatar" :size="27" rounded
 								  text-layout="bottom">
 					<template #description>
-						<time-trans :time="comment.timestamp"></time-trans>
+						<time-trans short-time :time="comment.timestamp"></time-trans>
 					</template>
 				</picture-reusable>
 

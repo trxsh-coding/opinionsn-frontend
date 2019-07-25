@@ -102,7 +102,8 @@
         data() {
             return {
                 isActive: false,
-                condition:null
+                condition:null,
+                trigger:true,
             }
         },
         computed: {
@@ -173,7 +174,8 @@
                 boolean = (boolean !== undefined) ? boolean : this.isActive;
 
                 this.$emit('select', boolean)
-            }
+            },
+
         }
     }
 </script>

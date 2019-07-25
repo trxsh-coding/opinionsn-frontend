@@ -1,6 +1,8 @@
 <template>
     <div class="timestamp-block">
-        <span>{{transformed_time}}</span>
+        <span v-if="!shortTime">{{transformed_time}}</span>
+        <span v-if="shortTime">{{short_time}}</span>
+
     </div>
 </template>
 
@@ -14,10 +16,13 @@
 			time: {
 				required: true
 			},
+            shortTime: {
+			    type:Boolean
+            }
 		},
         computed: {
 
-            transformed_time:function () {
+            short_time:function () {
 
                 let transformed_time = this.time;
                 let mTime = moment(transformed_time);
@@ -45,6 +50,20 @@
                 let parsedTime = daysDiff > 1 ? mTime.fromNow('d') : text;
 
 				return parsedTime;
+
+            },
+
+            transformed_time:function () {
+
+                let transformed_time = this.time;
+
+                let now = moment(new Date());
+
+                let isToday = now.format("YYYYMMDD") === moment(transformed_time).format("YYYYMMDD");
+
+                let parsedTime = isToday ? moment(transformed_time).format('HH:mm') : moment(transformed_time).fromNow('D');
+
+                return parsedTime;
 
             }
 

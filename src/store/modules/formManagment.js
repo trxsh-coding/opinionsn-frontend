@@ -18,7 +18,7 @@ import  {
 import  {
     SUBMIT_FORM
 } from "../types/action-types";
-
+import Vue from 'vue'
 import moment from 'moment'
 import axios from 'axios'
 import {vueApp} from '../../main'
@@ -116,7 +116,7 @@ export const formManagment = {
         },
 
         [ADD_OPTION](state){
-                state.create_poll_form.options.push({id:'', picture:'', description:''})
+                state.create_poll_form.options.push({id:'', picture:null, description:''})
         },
 
         [SET_CATEGORY_NAME](state, payload){
@@ -137,6 +137,7 @@ export const formManagment = {
                 // console.log({form, key, value, error_key, array_key});
                 if (!state[form].errors[array_key]) state[form].errors[array_key] = {};
                 if (!state[form].errors[array_key][key]) state[form].errors[array_key][key] = {};
+                // Vue.set(state[form].errors[array_key][key], `${[error_key]}`, value)
                 state[form].errors[array_key][key][error_key] = value;
                 // console.log(state[form].errors[array_key]);
             }
@@ -158,10 +159,13 @@ export const formManagment = {
 
         [SUBMIT_FORM]({state, commit, dispatch}, payload){
 
+            let valid = Object.keys(state.create_poll_form.errors)
+
             state.create_poll_form.judges = [payload];
 
-            var bodyFormData = new FormData();
 
+
+            var bodyFormData = new FormData();
 
 
             const config = {
