@@ -1,5 +1,6 @@
 <template>
 	<div class="poll-create-wrapper " :class="{'bg-white': !mobile}">
+
 		<create-header @submit="onFormSubmit"/>
 
 		<div class="create-form pl-60">
@@ -43,10 +44,11 @@
 			</popup-error-reusable>
 
 			<popup-error-reusable
-					:errors="form.errors.subject_header">
-				<input-reusable :value="form.subject_header"
-				                @change="updateField(arguments[0], 'subject_header')"
-				                class="mt-12 mb-12 flex-between"
+					:errors="form.errors.subject">
+				<input-reusable :value="form.subject"
+				                @change="updateField(arguments[0], 'subject')"
+				                class=" flex-between"
+								:class="{'mb-0': (form.errors.subject && form.errors.subject.checkLength!==null), 'mb-12': !(form.errors.subject && form.errors.subject.checkLength!==null)}"
 				                textarea
 				                :input-placeholder="'heading'"/>
 			</popup-error-reusable>
@@ -119,7 +121,9 @@
 							width="fit-content"
 							:value="option.picture"
 							@upload="({file, url}) => {updateArrayField(file, url, 'options', 'picture', index)}"
-                            @remove="() => { updateArrayField('', '', 'options', 'picture', index) }">
+                            @remove="() => {
+                            updateArrayField(null, '', 'options', 'picture', index);
+                             onOptionPictureRemove(index)}">
 						<template #icon>
 
 						</template>
@@ -137,7 +141,7 @@
 					type="arrow"
 					:active-description="lstr('additional_settings')"
 					:inactive-description="lstr('additional_settings')"
-					:value="hideFields"
+					:boolean="additionalField"
 					@select="unhideAdds"/>
 			<div class="additional-fields" v-if="additionalField && type === 'PREDICTION'">
 
@@ -227,7 +231,7 @@
                 subject:null,
                 subject_description:null,
                 mobile: this.$root.mobile,
-				additionalField: false,
+				additionalField: true,
 				type:'POLL'
             }
         },
@@ -268,6 +272,7 @@
 				end_date: s => s.create_poll_form.end_date,
 				pictures: s => s.pictures,
 				enablePicture: s => s.withPicture,
+				errors: s => s.create_poll_form.errors,
 				withDate: s => s.isTimeLimit,
 				state: s => s
 
@@ -289,8 +294,8 @@
 					},
 
 					{
-						value: form.subject_header,
-						key: 'subject_header',
+						value: form.subject,
+						key: 'subject',
 						rules: [{ method_name: 'checkLength', args: [5, 100] }]
 					},
 					{
@@ -310,7 +315,6 @@
                 for (let item in options) {
 
                     let {picture} = options[item];
-					console.log(picture);
 					if (picture !== null) {
                         pictureIndexArray = [...pictureIndexArray, ...[item]];
                     }
@@ -349,14 +353,39 @@
 
             onFormSubmit(){
 
-                this.$store.dispatch('formManagment/SUBMIT_FORM', this.mainUser.id)
+            	let {verifyValues, options_with_rules, checkLength, amountIndentity, values_with_rules, errors} = this;
+				verifyValues('create_poll_form', values_with_rules, { checkLength });
+				verifyValues('create_poll_form', options_with_rules, { checkLength, amountIndentity });
+
+				let errors_summary = Object.values(errors).flatMap(err => Object.values(err));
+				errors_summary = errors_summary.flatMap(err => {
+
+					switch (true) {
+						case err === null:
+							return err;
+						case typeof err === 'object':
+							return Object.values(err);
+						default:
+							return err;
+					}
+
+				});
+
+				let has_errors = errors_summary.some(err => err !== null);
+
+				this.$forceUpdate();
+
+				if (!has_errors) {
+					this.$store.dispatch('formManagment/SUBMIT_FORM', this.mainUser.id);
+				} else {
+					alert('Невозможно опубликовать, ошибка в заполнении!')
+				}
 
             },
 
-            onOptionPictureRemove(){
+            onOptionPictureRemove(index){
 
-                this.$store.dispatch('formManagment/SUBMIT_FORM', this.mainUser.id)
-
+				this.enabledPictureIndex.pop(index);
 
             },
 

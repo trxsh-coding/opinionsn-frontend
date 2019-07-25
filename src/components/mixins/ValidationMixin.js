@@ -4,7 +4,7 @@ export default {
 
         verifyValues(form, values_with_rules, methods) {
             if (form && values_with_rules && methods) {
-                values_with_rules.forEach(({value = '', key, rules, array_key}) => {
+                values_with_rules.forEach(({value, key, rules, array_key}) => {
                     rules.forEach(({method_name, args}) => {
                         let error = methods[method_name](value, ...args);
                         if (error) {
@@ -23,38 +23,30 @@ export default {
         },
 
         amountIndentity({index}, indexArray){
-
-            console.log(index, indexArray);
-
-            if (!indexArray.length) {
-                return null;
-            } else if (!indexArray[index]) {
-                return 'ЗАГРУЗИ КАРТИНКУ';
-            } else {
-                return null;
-            }
-
+            // console.log(index, indexArray);
+            // let sortedArray = [];
+            // forEach(indexArray => {
+            //
+            // })
+            return (indexArray.indexOf(`${index}`) === -1) ? 'ЗАГРУЗИ КАРТИНКУ' : null;
         },
 
         checkLength(value, from_length, to_length) {
 
             if (typeof value === 'object') value = value.str;
 
-            if (value) {
+            let { length } = value;
 
-                let { length } = value;
 
-                switch (true) {
-                    case ((length < from_length || length > to_length) && (!!from_length && !!to_length)):
-                        return `Длинна строки от ${from_length} до ${to_length} символов`;
-                    case ((length > to_length) && !from_length):
-                        return `Длинна строки до ${to_length} символов`;
-                    case ((length < from_length) && !to_length):
-                        return `Длинна строки от ${from_length} символов`;
-                    default:
-                        return null;
-                }
-
+            switch (true) {
+                case ((length < from_length || length > to_length) && (!!from_length && !!to_length)):
+                    return `Длинна строки от ${from_length} до ${to_length} символов`;
+                case ((length > to_length) && !from_length):
+                    return `Длинна строки до ${to_length} символов`;
+                case ((length < from_length) && !to_length):
+                    return `Длинна строки от ${from_length} символов`;
+                default:
+                    return null;
             }
 
         }
