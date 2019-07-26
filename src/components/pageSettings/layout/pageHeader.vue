@@ -8,12 +8,10 @@
                     fit
                     height="100%"
                     @upload="({file, url}) => {
-                        UPDATE_FIELD(file, 'background_image');
-                        background_image = url;
+                        UploadNewPhoto(file)
                     }"
                     @remove="() => {
-                        UPDATE_FIELD(mainUser.background_image, 'background_image');
-                        background_image = publicPath + mainUser.background_image;
+
                     }"/>
 
             <picture-reusable
@@ -47,7 +45,7 @@
     import PictureReusable from "../../reusableСomponents/PictureReusable";
     import UploadReusable from "../../reusableСomponents/UploadReusable";
     import {mapState} from "vuex";
-
+    import axios from 'axios'
     import IconBase from "../../icons/IconBase";
     import IconUploadPhoto from "../../icons/create/IconUploadPhoto";
     import IconCross from "../../icons/IconCross";
@@ -111,6 +109,14 @@
             UPDATE_FIELD(value, key){
                 this.$store.commit('formManagment/UPDATE_FIELD', { form: 'edit_form', key, value })
             },
+
+            UploadNewPhoto(file){
+                var fd = new FormData()
+                fd.append('file', blob, 'filename.png');
+                this.$store.dispatch(`userPage/uploadAvatar`, {data: fd});
+
+
+            }
 
         },
     }
