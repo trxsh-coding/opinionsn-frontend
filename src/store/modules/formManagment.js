@@ -187,7 +187,7 @@ export const formManagment = {
             for (let item of state.pictures){
                 let {picture} = item;
 
-                bodyFormData.append('pollPhotos[]', picture);
+                bodyFormData.append('urlPhotos[]', picture);
 
                 delete item.picture;
 

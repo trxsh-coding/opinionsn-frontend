@@ -23,12 +23,11 @@ export default {
         },
 
         amountIndentity({index}, indexArray){
-            // console.log(index, indexArray);
-            // let sortedArray = [];
-            // forEach(indexArray => {
-            //
-            // })
-            return (indexArray.indexOf(`${index}`) === -1) ? 'ЗАГРУЗИ КАРТИНКУ' : null;
+            
+            if (!!indexArray.length) {
+                return (indexArray.indexOf(`${index}`) === -1) ? 'ЗАГРУЗИ КАРТИНКУ' : null;
+            } else return null;
+            
         },
 
         checkLength(value, from_length, to_length) {
