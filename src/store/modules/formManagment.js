@@ -13,10 +13,12 @@ import  {
     CLEAR_FORM,
     SET_INITIAL_FORM,
     UPDATE_ARRAY_PICTURES
+
 } from "../types/mutation-types";
 
 import  {
-    SUBMIT_FORM
+    SUBMIT_FORM,
+    UPDATE_AVATAR
 } from "../types/action-types";
 import Vue from 'vue'
 import moment from 'moment'
@@ -156,6 +158,26 @@ export const formManagment = {
 
 
     actions: {
+
+        [UPDATE_AVATAR]({state, commit, dispatch}, payload) {
+            let file = payload
+            var bodyFormData = new FormData();
+            const config = {
+                headers: {
+                    'content-type': 'multipart/mixed'
+                }
+            }
+            bodyFormData.append('file', payload);
+            axios.post(`${process.env.VUE_APP_MAIN_API}/rest/v1/user/avatar`, bodyFormData, config)
+                .then(function(response){
+                    if (response.status === 200) {
+
+
+
+                    }
+                }.bind(this))
+
+        },
 
         [SUBMIT_FORM]({state, commit, dispatch}, payload){
 

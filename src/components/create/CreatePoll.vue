@@ -350,7 +350,7 @@
 			}
 		},
 		methods: {
-        	
+
         	checkError(key) {
         		let { form } = this;
         	    return !!form.errors[key] && Object.values(form.errors[key]).some(error => !!error)
@@ -358,7 +358,7 @@
 
             onFormSubmit(){
 
-            	let {verifyValues, options_with_rules, checkLength, amountIndentity, values_with_rules, errors} = this;
+            	let {verifyValues, options_with_rules, checkLength, amountIndentity, values_with_rules, errors = {}} = this;
 				verifyValues('create_poll_form', values_with_rules, { checkLength });
 				verifyValues('create_poll_form', options_with_rules, { checkLength, amountIndentity });
 
