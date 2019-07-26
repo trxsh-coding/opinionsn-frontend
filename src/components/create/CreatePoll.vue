@@ -48,7 +48,7 @@
 				<input-reusable :value="form.subject"
 				                @change="updateField(arguments[0], 'subject')"
 				                class=" flex-between"
-								:class="{'mb-0': (form.errors.subject && form.errors.subject.checkLength!==null), 'mb-12': !(form.errors.subject && form.errors.subject.checkLength!==null)}"
+				                :class="{'TEST': checkError('subject_header')}"
 				                textarea
 				                :input-placeholder="'heading'"/>
 			</popup-error-reusable>
@@ -350,6 +350,11 @@
 			}
 		},
 		methods: {
+        	
+        	checkError(key) {
+        		let { form } = this;
+        	    return !!form.errors[key] && Object.values(form.errors[key]).some(error => !!error)
+	        },
 
             onFormSubmit(){
 

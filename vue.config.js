@@ -38,7 +38,7 @@ module.exports = {
 			},
 
 			'/assets': {
-				target: 'http://192.168.1.60/assets',
+				target: 'http://192.168.1.39/assets',
 				// pathRewrite: {'^/messages': '/'},
 				changeOrigin: true,
 				secure: false
