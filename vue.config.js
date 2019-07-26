@@ -24,21 +24,21 @@ module.exports = {
 			// secure: false
 			// }
 			'/api': {
-				target: 'http://192.168.1.39:7070',
+				target: 'http://eng.opinionsn.com:7070/',
 				pathRewrite: {'^/api': '/'},
 				changeOrigin: true,
 				secure: false
 			},
 
 			'/messages': {
-				target: 'http://192.168.1.39:7071',
+				target: 'eng.opinionsn.com:7071/',
 				pathRewrite: {'^/messages': ''},
 				changeOrigin: true,
 				secure: false
 			},
 
 			'/assets': {
-				target: 'http://192.168.1.39/assets',
+				target: 'http://192.168.1.39/assets/',
 				// pathRewrite: {'^/messages': '/'},
 				changeOrigin: true,
 				secure: false

@@ -8,6 +8,8 @@
                     fit
                     height="100%"
                     @upload="({file, url}) => {
+                         UploadNewPhoto(file, 'background')
+
                     }"
                     @remove="() => {
 
@@ -27,7 +29,7 @@
                             height="100%"
                             @upload="({file, url}) => {
 
-                                 UploadNewPhoto(file)
+                                 UploadNewPhoto(file, 'avatar')
 
                             }"
                             @remove="() => {
@@ -109,9 +111,9 @@
                 this.$store.commit('formManagment/UPDATE_FIELD', { form: 'edit_form', key, value })
             },
 
-            UploadNewPhoto(file){
-
-                this.$store.dispatch(`formManagment/UPDATE_AVATAR`, file);
+            UploadNewPhoto(file, type){
+                console.log(type)
+                this.$store.dispatch(`formManagment/UPDATE_AVATAR`, {file, type});
 
 
             }

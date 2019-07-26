@@ -57,7 +57,7 @@
 						class="py-12" />
 				<hr class="m-0 mt-13" v-show="index !== items.length - 1">
 			</div>
-			<loader-reusable class="m-auto" v-show="!loaded" />
+			<loader-reusable class="m-auto" v-show="!loaded && loading" />
 		</div>
 
     </section>

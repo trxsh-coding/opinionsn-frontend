@@ -18,7 +18,7 @@
 				<poll-instance :item="item"/>
 			</div>
 
-			<loader-reusable class="m-auto" v-show="!is_finished" />
+			<loader-reusable class="m-auto" v-show="!is_finished && loading" />
 
 		</div>
 

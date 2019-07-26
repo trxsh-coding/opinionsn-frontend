@@ -159,19 +159,19 @@ export const formManagment = {
 
     actions: {
 
-        [UPDATE_AVATAR]({state, commit, dispatch}, payload) {
-            let file = payload
+        [UPDATE_AVATAR]({state, commit, dispatch}, {file, type}) {
             var bodyFormData = new FormData();
             const config = {
                 headers: {
                     'content-type': 'multipart/mixed'
                 }
             }
-            bodyFormData.append('file', payload);
-            axios.post(`${process.env.VUE_APP_MAIN_API}/rest/v1/user/avatar`, bodyFormData, config)
+            bodyFormData.append('file', file);
+            axios.post(`${process.env.VUE_APP_MAIN_API}/rest/v1/user/${type}`, bodyFormData, config)
                 .then(function(response){
                     if (response.status === 200) {
 
+                        commit('globalStore/updateStores', response.data, {root: true});
 
 
                     }
