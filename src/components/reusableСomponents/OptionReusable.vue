@@ -49,6 +49,7 @@
 
 <script>
 	import InvolvedUsersPanel from "../pollFeed/layout/involvedUsersPanel";
+	import {mapState} from "vuex";
 	export default {
 		name: "OptionReusable",
 		components: {InvolvedUsersPanel},
@@ -103,7 +104,7 @@
 		methods: {
 			selectOption(selected_variable) {
 
-				if (this.voted) return;
+				if (this.voted || !this.userLogged) return;
 
 				if (!this.$root.timer_duration && !this.$root.timer_id) {
 
@@ -171,6 +172,10 @@
 
 		},
 		computed: {
+			
+			...mapState('authentication', {
+				userLogged: s => s.userLogged,
+			}),
 
 			temp_selected() {
 				return this.$root.temp_selected_option === this.id;

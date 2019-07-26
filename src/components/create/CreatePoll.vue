@@ -308,21 +308,25 @@
 
             enabledPictureIndex(){
 
-			    let {options} = this.form;
-                let pictureIndexArray = []
-
-
-                for (let item in options) {
-
-                    let {picture} = options[item];
-					if (picture !== null) {
-                        pictureIndexArray = [...pictureIndexArray, ...[item]];
-                    }
-                }
-
-                return pictureIndexArray;
-
-
+			    let { options } = this.form;
+                // let pictureIndexArray = [];
+				//
+				//
+                // for (let item in options) {
+				//
+                //     let {picture} = options[item];
+				// 	if (picture !== null) {
+                //         pictureIndexArray = [...pictureIndexArray, ...[item]];
+                //     }
+                // }
+				//
+                // return pictureIndexArray;
+	            
+	            let pictureIndexArray = [];
+	
+	            Object.values(options).forEach(({picture}, index) => {
+		            if (!!picture) pictureIndexArray.push(index);
+	            });
 
             },
 

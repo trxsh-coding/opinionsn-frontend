@@ -26,8 +26,54 @@
 						:style="{transition: `${$root.timer_duration}ms`}"
 						class="undo-bar"></div>
 			</div>
+			
+			<footer v-if="!Object.keys(user).length && auth_bar">
+				<div class="auth-block">
+					<div class="logo-block">
+						<div class="icon logo picture-25x25 mr-6"
+						     :style="{ 'background-image': 'url(' + require('./assets/icons/icon-logo.png') + ')' } "/>
+						<icon-base
+								fill="none"
+								class="text-logo"
+								width="66"
+								height="15"
+								viewBox="0 0 66 15"
+								icon-name="text-logo">
+							<icon-text-logo/>
+						</icon-base>
+					</div>
+					<div class="buttons-block mr-10">
+					<span class="icon-exit pointer" @click="auth_bar = !auth_bar">
+						<icon-base
+								fill="none"
+								class="icon-close"
+								width="17"
+								height="17"
+								viewBox="0 0 17 17"
+								icon-name="close"><icon-close/>
+						</icon-base>
+					</span>
+						<router-link :to="{ path: 'login' }">
+							<button-reusable
+									font-size="13"
+									class="v-center py-5 mb-10"
+									bor-rad="50"
+									bg-color="#4b97b4"
+									color="#ffffff"
+									active-color="#4B97B4"
+									description="login"
+									@click.native="setTypeOfSearch('USER')"
+							/>
+						</router-link>
+						
+						<router-link :to="{ path: 'registration' }">
+							<lang-string class="registration-span pointer" :title="'registration'"/>
+						</router-link>
+					</div>
+				</div>
+			</footer>
 
-			<mobile-footer  v-if="mobile"/>
+			<mobile-footer  v-if="mobile && !!Object.keys(user).length"/>
 		</section>
 	</section>
 </template>
@@ -35,6 +81,9 @@
 <script>
 
 	import {mapState} from "vuex";
+	import IconBase from "./icons/IconBase";
+	import IconClose from "./icons/IconClose";
+	import IconTextLogo from "./icons/IconTextLogo";
 	import {localString} from "../utils/localString.js";
 	import mobileHeader from "./view/mobile/header"
 	import mobileFooter from "./view/mobile/footer"
@@ -43,6 +92,7 @@
 	import DesktopHeader from "./view/desktop/header";
 	import asideDesktop from "./view/desktop/aside";
 	import langString from "./langString";
+	import ButtonReusable from "./reusableСomponents/ButtonReusable";
 
 	export default {
 
@@ -50,7 +100,8 @@
 			return {
 				mobile: this.$root.mobile,
 				timer: 0,
-				temp_timer_id: null
+				temp_timer_id: null,
+				auth_bar: true
 			};
 		},
 		watch: {
@@ -217,12 +268,16 @@
 
 		},
 		components: {
+			ButtonReusable,
 			asideDesktop,
 			DesktopHeader,
 			IphoneAddToScreenComponent,
 			mobileHeader,
 			mobileFooter,
-			langString
+			langString,
+			IconBase,
+			IconClose,
+			IconTextLogo
 		}
 	};
 </script>
@@ -292,6 +347,84 @@
 		display: flex;
 		section {
 
+		}
+		
+		footer {
+			width: 100%;
+			height: 92px;
+			background: rgba(21, 45, 58, 0.9);
+			box-shadow: 0px 0px 12px rgba(0, 0, 0, 0.06);
+			position: fixed;
+			left: 0;
+			bottom: 0;
+			z-index: 20;
+		}
+		
+		.auth-block {
+			display: flex;
+			align-items: center;
+			justify-content: space-between;
+			height: 92px;
+			width: 760px;
+			margin: auto;
+			padding-left: 260px;
+			
+			@media only screen and (min-width: 300px) and (max-width: 765px) {
+				box-sizing: border-box;
+				width: 100%;
+				padding-left: 10px;
+				padding-right: 34px !important;
+			}
+			
+			.buttons-block {
+				display: flex;
+				flex-direction: column;
+				justify-content: space-between;
+				position: relative;
+				
+				a {
+					text-decoration: none;
+				}
+				
+				.icon-exit {
+					position: absolute;
+					right: -36px;
+					top: -14px;
+				}
+				
+				a {
+					text-align: center;
+				}
+				
+				a:active {
+					text-decoration: none;
+				}
+				
+				.registration-span {
+					font-family: Roboto;
+					font-style: normal;
+					font-weight: 500;
+					font-size: 13px;
+					line-height: 17px;
+					text-align: center;
+					text-transform: capitalize;
+					
+					color: #d6dadd;
+				}
+			}
+			
+			.logo-block {
+				display: flex;
+				align-items: center;
+				
+				/*margin-left: 25%;*/
+				
+				.text-logo {
+					path {
+						fill: #ffffff;
+					}
+				}
+			}
 		}
 	}
 

@@ -13,7 +13,7 @@
 				without-blur
 				with-action-buttons/>
 
-		<div class="button-panel flex pl-60" :class="{'mt-12': mobile}">
+		<div class="button-panel flex pl-60" :class="{'mt-12': mobile}" >
 			<button-reusable
 					bg-color="#ffffff"
 					button_type="underline"

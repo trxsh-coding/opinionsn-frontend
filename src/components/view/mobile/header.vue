@@ -55,16 +55,7 @@
                 :size="27"
                 without-text
                 rounded />
-        
-        <button-reusable
-                v-if="!logged_in"
-                @click.native="$router.push({ name: 'login' })"
-                class="py-7 px-12"
-                description="login"
-                bor-rad="30"
-                color="#ffffff"
-                font-size="11"
-                bg-color="#4B97B4"/>
+
     </div>
 </template>
 

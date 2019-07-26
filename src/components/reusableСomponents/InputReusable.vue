@@ -257,7 +257,8 @@
 			position: absolute;
 			z-index: 200;
 			display: flex;
-			top: 0;
+			transform: translateY(-50%);
+			top: calc(50% - 4px);
 			right: 20px;
 			
 			.cancel-btn {
