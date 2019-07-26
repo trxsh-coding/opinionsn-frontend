@@ -131,7 +131,6 @@
 			CategorySelect,
 			LoaderReusable,
 			SwiperCarousel,
-			event,
 			filterComponent,
 			pollInstance
 		}

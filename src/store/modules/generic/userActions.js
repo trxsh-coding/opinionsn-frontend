@@ -55,7 +55,7 @@ export const userActions = sc => class extends sc {
     uploadAvatar({commit, dispatch}, payload={}){
 
 
-        let {customUrl = `${process.env.VUE_APP_MAIN_API}/rest/updateAvatar`, data={}, method='post', } = payload;
+        let {customUrl = `${process.env.VUE_APP_MAIN_API}/rest/v1/user/avatar`, data={}, method='post', } = payload;
 
         sc.apiRequest(customUrl, data,{commit, dispatch, onSuccess: null, successType: 'action'}, method);
 

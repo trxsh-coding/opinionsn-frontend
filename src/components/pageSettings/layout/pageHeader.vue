@@ -8,7 +8,6 @@
                     fit
                     height="100%"
                     @upload="({file, url}) => {
-                        UploadNewPhoto(file)
                     }"
                     @remove="() => {
 
@@ -27,12 +26,12 @@
                             fit
                             height="100%"
                             @upload="({file, url}) => {
-                                UPDATE_FIELD(file, 'path_to_avatar');
-                                avatar = url;
+
+                                 UploadNewPhoto(file)
+
                             }"
                             @remove="() => {
-                                UPDATE_FIELD(mainUser.path_to_avatar, 'path_to_avatar');
-                                avatar = publicPath + mainUser.path_to_avatar;
+
                             }"/>
                 </template>
             </picture-reusable>
@@ -111,9 +110,8 @@
             },
 
             UploadNewPhoto(file){
-                var fd = new FormData()
-                fd.append('file', blob, 'filename.png');
-                this.$store.dispatch(`userPage/uploadAvatar`, {data: fd});
+
+                this.$store.dispatch(`formManagment/UPDATE_AVATAR`, file);
 
 
             }
