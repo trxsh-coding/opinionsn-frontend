@@ -17,6 +17,7 @@
 
 <style lang="scss">
     .aside-layout {
+        min-width: 288px;
         margin-top: 78px;
         position: fixed;
     }

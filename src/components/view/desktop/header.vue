@@ -1,7 +1,7 @@
 <template>
 	<div class="desktop-header mb-17">
 		<div class="nav-container container flex-align-center">
-			<div class="search-block flex-align-center">
+			<div class="search-block flex-align-center" >
 				<icon-base
 						class="mr-5"
 						fill="none"
@@ -20,9 +20,9 @@
 						icon-name="text">
 					<icon-text-logo/>
 				</icon-base>
-				<input type="text" placeholder="Поиск" v-model="keyword" @change="routeOnChange">
+				<input v-if="!!Object.keys(user).length" type="text" placeholder="Поиск" v-model="keyword" @change="routeOnChange">
 			</div>
-			<div class="profile-annotation-block flex-align-center">
+			<div class="profile-annotation-block flex-align-center" v-if="!!Object.keys(user).length">
 
 				<dropdown-list-reusable
 						@scrollDifference="setListScrollDifference"

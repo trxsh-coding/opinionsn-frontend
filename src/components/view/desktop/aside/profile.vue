@@ -1,5 +1,6 @@
 <template>
-    <div class="profile-block">
+    <div class="profile-block" v-if="!!Object.keys(user).length">
+<!--    <div class="profile-block">-->
         <div class="profile-background-block">
             <picture-reusable :img="publicPath + user.background_image" :width="288" :height="90"/>
         </div>

@@ -44,8 +44,6 @@ export const userActions = sc => class extends sc {
 
     updateUser({commit, dispatch}, payload={}){
 
-        console.log(payload)
-
         let {customUrl = `${process.env.VUE_APP_MAIN_API}/rest/updateUser`, data={}, method='post', } = payload;
 
         sc.apiRequest(customUrl, data,{commit, dispatch, onSuccess: null, successType: 'action'}, method);
