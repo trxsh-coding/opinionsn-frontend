@@ -67,7 +67,7 @@
                <lang-string :title="'gender'" />
             </span>
                 <input
-                        :value="form.gender === 0 ? 'Женщина' : 'Мужчина'"
+                        :value="form.gender"
                         @input="({target}) => { updateField(target.value, 'gender') }"
                         type="text">
             </label>

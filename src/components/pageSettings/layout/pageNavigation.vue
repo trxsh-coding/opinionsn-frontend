@@ -37,7 +37,7 @@
             },
 
             sendForm() {
-                alert("===sendData===");
+                console.log(this.mainUser);
             }
 
         },

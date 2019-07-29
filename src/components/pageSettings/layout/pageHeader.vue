@@ -7,13 +7,9 @@
                     icon-photo
                     fit
                     height="100%"
-                    @upload="({file, url}) => {
-                         UploadNewPhoto(file, 'background')
-
-                    }"
-                    @remove="() => {
-
-                    }"/>
+                    @upload="({file, url}) => { UPLOAD_PHOTO(file, 'background') }" >
+                <template #clearIcon> </template>
+            </upload-reusable>
 
             <picture-reusable
                     class="avatar absolute"
@@ -27,14 +23,9 @@
                             icon-photo
                             fit
                             height="100%"
-                            @upload="({file, url}) => {
-
-                                 UploadNewPhoto(file, 'avatar')
-
-                            }"
-                            @remove="() => {
-
-                            }"/>
+                            @upload="({file, url}) => { UPLOAD_PHOTO(file, 'avatar') }" >
+                        <template #clearIcon> </template>
+                    </upload-reusable>
                 </template>
             </picture-reusable>
         </div>
@@ -111,9 +102,9 @@
                 this.$store.commit('formManagment/UPDATE_FIELD', { form: 'edit_form', key, value })
             },
 
-            UploadNewPhoto(file, type){
+            UPLOAD_PHOTO(file, type){
                 console.log(type)
-                this.$store.dispatch(`formManagment/UPDATE_AVATAR`, {file, type});
+                this.$store.dispatch(`userPage/uploadAvatar`, {file, type});
 
 
             }
