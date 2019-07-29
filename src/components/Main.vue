@@ -4,7 +4,7 @@
 				v-if="!mobile"
 				:user="user"/>
 
-		<section class="main-layout container pb-62" :style="(routeName === 'pollFeed' || routeName === 'voteFeed' || routeName === 'singlePoll') && mobile ? {paddingTop: '48px'} : {}">
+		<section class="main-layout container pb-62" :style="(routeName === 'pollFeed' || routeName === 'voteFeed' || routeName === 'singlePoll') && mobile ? {paddingTop: '51px'} : {}">
 
 			<aside v-if="!mobile">
 				<aside-desktop />
@@ -24,6 +24,7 @@
 				<div
 						:class="{'active': !!$root.timer_id}"
 						:style="{transition: `${$root.timer_duration}ms`}"
+						v-if="routeName === 'pollFeed'"
 						class="undo-bar"></div>
 			</div>
 			
@@ -105,19 +106,19 @@
 			};
 		},
 		watch: {
-			
+
 			timer_id(old) {
 				if (old !== null) {
 					this.reverseTimeout();
 				}
 			},
-			
+
 			user(old) {
 				if (!!Object.keys(old).length) {
 					this.$store.commit('formManagment/SET_INITIAL_FORM', {form: 'edit_form', value: {...old, errors: {}} });
 				}
 			}
-			
+
 		},
 		computed: {
 
