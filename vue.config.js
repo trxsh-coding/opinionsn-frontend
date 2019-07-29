@@ -8,21 +8,21 @@ module.exports = {
 		https:false,
 		proxy: {
 			'/api': {
-				target: 'http://192.168.1.62:7070/',
+				target: 'http://eng.opinionsn.com:7070/',
 				pathRewrite: {'^/api': ''},
 				changeOrigin: true,
 				secure: false
 			},
 
 			'/messages': {
-				target: 'http://192.168.1.62:7071/',
+				target: 'http://eng.opinionsn.com:7071/',
 				pathRewrite: {'^/messages': ''},
 				changeOrigin: true,
 				secure: false
 			},
 
 			'/assets': {
-				target: 'http://192.168.1.62/assets/',
+				target: 'http://eng.opinionsn.com/assets/',
 				changeOrigin: true,
 				secure: false
 			}
