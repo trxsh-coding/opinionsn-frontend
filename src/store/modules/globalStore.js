@@ -77,8 +77,6 @@ export const globalStore  =  {
         },
 
         updateStores: function(state, payload){
-
-
             for (let name of globalStorageNames){
 
                 // If we don't have that map, just skip it
@@ -134,11 +132,9 @@ export const globalStore  =  {
         //
         // },
 
-        updateUserInfo(state, payload){
-            let item = payload.item;
-            let value = payload.value;
-            state.mainUser[item] = value
-
+        updateUserInfo(state, payload) {
+            let { id } = payload[0];
+            state.mainUser = state.users[id];
         },
 
 

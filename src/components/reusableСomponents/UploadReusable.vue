@@ -8,7 +8,7 @@
 				<slot name="icon">
 					<icon-base
 							class="pointer"
-							v-show="is_input_empty"
+							v-show="!withCloseBtn | is_input_empty"
 							width="24"
 							height="21"
 							viewBox="0 0 20 17"
@@ -23,7 +23,7 @@
 					@click.prevent="handlePictureRemove">
 				<slot name="clearIcon">
 					<icon-base
-							v-if="imgUrl"
+							v-if="withCloseBtn && imgUrl"
 							class="pointer absolute-center"
 							fill="none"
 							width="22"
@@ -85,6 +85,12 @@
 			},
 			imagePreview: {
 				type: Boolean
+			},
+			withCloseBtn: {
+				type: Boolean,
+				default() {
+					return false;
+				}
 			},
 			description: {
 				type: Boolean,

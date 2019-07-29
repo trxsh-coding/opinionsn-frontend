@@ -17,7 +17,8 @@ import  {
 } from "../types/mutation-types";
 
 import  {
-    SUBMIT_FORM,
+    SUBMIT_POLL_FORM,
+    SUBMIT_USERPAGE_FORM,
     UPDATE_AVATAR
 } from "../types/action-types";
 import Vue from 'vue'
@@ -178,8 +179,15 @@ export const formManagment = {
                 }.bind(this))
 
         },
+        
+        [SUBMIT_USERPAGE_FORM]({state, commit, dispatch}, payload) {
+    
+            axios.post(`${process.env.VUE_APP_MAIN_API}/rest/v1/user`, {...payload})
+                .catch(err => { console.error(err) });
+            
+        },
 
-        [SUBMIT_FORM]({state, commit, dispatch}, payload){
+        [SUBMIT_POLL_FORM]({state, commit, dispatch}, payload){
 
             let valid = Object.keys(state.create_poll_form.errors)
 
@@ -194,7 +202,7 @@ export const formManagment = {
                 headers: {
                     'content-type': 'multipart/mixed'
                 }
-            }
+            };
 
             for (let item of state.create_poll_form.options){
 
@@ -221,13 +229,12 @@ export const formManagment = {
 
 
             axios.put(`${process.env.VUE_APP_MAIN_API}/rest/v1/poll`, bodyFormData, config)
-                .then(function(response){
+                .then(response => {
                     if (response.status === 200) {
                         let poll_id = response.data.payload[0].id;
-                        console.log(response.data.payload[0].id)
                         vueApp.$router.push({name : 'singlePoll', params: {id : poll_id}})
                     }
-                }.bind(this))
+                })
 
 
         }

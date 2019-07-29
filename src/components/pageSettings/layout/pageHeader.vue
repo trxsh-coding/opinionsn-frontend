@@ -7,8 +7,7 @@
                     icon-photo
                     fit
                     height="100%"
-                    @upload="({file, url}) => { UPLOAD_PHOTO(file, 'background') }" >
-                <template #clearIcon> </template>
+                    @upload="({file, url}) => { UPLOAD_IMAGE(file, 'background') }" >
             </upload-reusable>
 
             <picture-reusable
@@ -23,8 +22,7 @@
                             icon-photo
                             fit
                             height="100%"
-                            @upload="({file, url}) => { UPLOAD_PHOTO(file, 'avatar') }" >
-                        <template #clearIcon> </template>
+                            @upload="({file, url}) => { UPLOAD_IMAGE(file, 'avatar') }" >
                     </upload-reusable>
                 </template>
             </picture-reusable>
@@ -54,35 +52,25 @@
 
         data() {
             return {
-                publicPath: process.env.VUE_APP_MAIN_API,
-                background_image: '',
-                avatar: ''
+                publicPath: process.env.VUE_APP_MAIN_API
             }
         },
 
         watch: {
-            mainUser({background_image, path_to_avatar}) {
-                if (background_image && path_to_avatar) {
-                    this.background_image = this.publicPath + background_image;
-                    this.avatar = this.publicPath + path_to_avatar;
-                }
-            },
-
-            form({background_image, path_to_avatar}) {
-                let {background_image: init_bg, path_to_avatar: init_avatar} = this.mainUser;
-                if (background_image === init_bg && path_to_avatar === init_avatar) {
-                    this.background_image = this.publicPath + background_image;
-                    this.avatar = this.publicPath + path_to_avatar;
-                }
-            }
-        },
-
-        mounted() {
-            let { mainUser: usr, publicPath } = this;
-            if (!!Object.keys(usr)) {
-                this.background_image = publicPath + usr.background_image;
-                this.avatar = publicPath + usr.path_to_avatar;
-            }
+            // mainUser({background_image, path_to_avatar}) {
+            //     if (background_image && path_to_avatar) {
+            //         this.background_image = this.publicPath + background_image;
+            //         this.avatar = this.publicPath + path_to_avatar;
+            //     }
+            // },
+            //
+            // form({background_image, path_to_avatar}) {
+            //     let {background_image: init_bg, path_to_avatar: init_avatar} = this.mainUser;
+            //     if (background_image === init_bg && path_to_avatar === init_avatar) {
+            //         this.background_image = this.publicPath + background_image;
+            //         this.avatar = this.publicPath + path_to_avatar;
+            //     }
+            // }
         },
 
         computed: {
@@ -94,6 +82,16 @@
             ...mapState('formManagment', {
                 form: s => s.edit_form,
             }),
+            
+            background_image() {
+                let { mainUser: usr, publicPath } = this;
+                return publicPath + usr.background_image;
+            },
+            
+            avatar() {
+                let { mainUser: usr, publicPath } = this;
+                return publicPath + usr.path_to_avatar;
+            }
         },
 
         methods: {
@@ -102,11 +100,22 @@
                 this.$store.commit('formManagment/UPDATE_FIELD', { form: 'edit_form', key, value })
             },
 
-            UPLOAD_PHOTO(file, type){
-                console.log(type)
-                this.$store.dispatch(`userPage/uploadAvatar`, {file, type});
-
-
+            UPLOAD_IMAGE(file, type) {
+                if (file) {
+                    let fd = new FormData();
+                    fd.append('file', file);
+                    
+                    switch (type) {
+                        case 'avatar':
+                            this.$store.dispatch('userPage/uploadAvatar', {data: fd});
+                            break;
+                        case 'background':
+                            this.$store.dispatch('userPage/uploadBackground', {data: fd});
+                            break;
+                        default:
+                            break;
+                    }
+                }
             }
 
         },

@@ -61,15 +61,44 @@
             </label>
         </popup-error-reusable>
         
+<!--        <popup-error-reusable :errors="form.errors.gender" >-->
+<!--            <label class="label label-6 mt-12">-->
+<!--            <span class="caption">-->
+<!--               <lang-string :title="'gender'" />-->
+<!--            </span>-->
+<!--                <input-->
+<!--                        :value="form.gender"-->
+<!--                        @input="({target}) => { updateField(target.value, 'gender') }"-->
+<!--                        type="text">-->
+<!--            </label>-->
+<!--        </popup-error-reusable>-->
+        
         <popup-error-reusable :errors="form.errors.gender" >
             <label class="label label-6 mt-12">
             <span class="caption">
                <lang-string :title="'gender'" />
             </span>
-                <input
-                        :value="form.gender"
-                        @input="({target}) => { updateField(target.value, 'gender') }"
-                        type="text">
+                
+                <div class="radio-wrapper flex">
+                    <label class="flex-center">
+                        <span>Мужчина</span>
+                        <input
+                                class="radio-input"
+                                :value="0"
+                                v-model="form.gender"
+                                type="radio">
+                    </label>
+    
+                    <label class="flex-center ml-30">
+                        <span>Женщина</span>
+                        <input
+                                class="radio-input"
+                                :value="1"
+                                v-model="form.gender"
+                                type="radio">
+                    </label>
+                </div>
+                
             </label>
         </popup-error-reusable>
 
@@ -177,6 +206,7 @@
                     },
                 ]
             },
+            
         },
 
         methods: {
@@ -191,11 +221,21 @@
     .user-settings {
         position: relative;
         width: 100%;
-
+        
         .label {
             display: flex;
             padding-bottom: 12px;
             border-bottom: 0.5px solid #BCBEC3;
+            
+            .radio-wrapper {
+                width: 100%;
+    
+                .radio-input {
+                    width: 13px;
+                    height: 13px;
+                }
+                
+            }
 
             .caption {
                 position: relative;
@@ -219,6 +259,7 @@
             input {
                 border: none;
                 outline: none;
+                width: 100%;
 
                 /*border: 1px solid #BCBEC3;*/
 

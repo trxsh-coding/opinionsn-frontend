@@ -370,7 +370,7 @@
 				this.$forceUpdate();
 
 				if (!has_errors) {
-					this.$store.dispatch('formManagment/SUBMIT_FORM', this.mainUser.id);
+					this.$store.dispatch('formManagment/SUBMIT_POLL_FORM', this.mainUser.id);
 				} else {
 					alert('Невозможно опубликовать, ошибка в заполнении!')
 				}

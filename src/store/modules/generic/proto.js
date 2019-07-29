@@ -4,7 +4,7 @@ import axios from 'axios';
 export class VuexStore {
 
     static apiRequest(url, requestData, requestPayload, method='get'){
-        let {commit, dispatch, successType='mutation', onSuccess='onSuccess', params} = requestPayload;
+        let {commit, dispatch, successType='mutation', onSuccess='onSuccess', root=false, params} = requestPayload;
         let isGet = `${method}`.toLowerCase() === 'get';
 
         let axiosParams = {
@@ -25,11 +25,11 @@ export class VuexStore {
             if (status === 200){
 
                     commit('globalStore/updateStores', data, {root: true});
-
+    
                 if (onSuccess){
                    switch(successType){
                        case 'mutation':
-                           commit(onSuccess, data.payload);
+                           commit(onSuccess, data.payload, {root});
                            break;
 
                        case 'action':

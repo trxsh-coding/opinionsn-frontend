@@ -44,7 +44,7 @@ export const userActions = sc => class extends sc {
 
     updateUser({commit, dispatch}, payload={}){
 
-        let {customUrl = `${process.env.VUE_APP_MAIN_API}/rest/updateUser`, data={}, method='post', } = payload;
+        let {customUrl = `${process.env.VUE_APP_MAIN_API}/rest/v1/user`, data={}, method='post', } = payload;
 
         sc.apiRequest(customUrl, data,{commit, dispatch, onSuccess: null, successType: 'action'}, method);
 
@@ -55,16 +55,16 @@ export const userActions = sc => class extends sc {
 
         let {customUrl = `${process.env.VUE_APP_MAIN_API}/rest/v1/user/avatar`, data={}, method='post', } = payload;
 
-        sc.apiRequest(customUrl, data,{commit, dispatch, onSuccess: null, successType: 'action'}, method);
+        sc.apiRequest(customUrl, data,{commit, dispatch, onSuccess: 'globalStore/updateUserInfo', successType: 'mutation', root: true}, method);
 
     };
 
     uploadBackground({commit, dispatch}, payload={}){
 
 
-        let {customUrl = `${process.env.VUE_APP_MAIN_API}/rest/updateBackground`, data={}, method='post', } = payload;
+        let {customUrl = `${process.env.VUE_APP_MAIN_API}/rest/v1/user/background`, data={}, method='post', } = payload;
 
-        sc.apiRequest(customUrl, data,{commit, dispatch, onSuccess: null, successType: 'action'}, method);
+        sc.apiRequest(customUrl, data,{commit, dispatch, onSuccess: 'globalStore/updateUserInfo', successType: 'mutation', root: true}, method);
 
     };
 

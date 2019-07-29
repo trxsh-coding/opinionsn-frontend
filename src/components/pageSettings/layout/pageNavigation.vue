@@ -27,6 +27,10 @@
         computed: {
             ...mapState('globalStore', {
                 mainUser: s => s.mainUser
+            }),
+            
+            ...mapState('formManagment', {
+                form: s => s.edit_form
             })
         },
 
@@ -37,7 +41,38 @@
             },
 
             sendForm() {
-                console.log(this.mainUser);
+    
+                let { errors = {} } = this.form;
+    
+                let errors_summary = Object.values(errors).flatMap(err => Object.values(err));
+                errors_summary = errors_summary.flatMap(err => {
+        
+                    switch (true) {
+                        case err === null:
+                            return err;
+                        case typeof err === 'object':
+                            return Object.values(err);
+                        default:
+                            return err;
+                    }
+        
+                });
+    
+                let has_errors = errors_summary.some(err => err !== null);
+    
+                this.$forceUpdate();
+    
+                if (!has_errors) {
+                    
+                    this.$store.dispatch('formManagment/SUBMIT_USERPAGE_FORM', this.form);
+                    alert('success');
+                    
+                } else {
+                    
+                    alert('Невозможно отредактировать, ошибка в заполнении!');
+                    
+                }
+                
             }
 
         },
