@@ -31,15 +31,15 @@ const initialState = () => {
         picture: '',
         pictures: [
             {
-                picture: '',
+                picture: null,
                 imgUrl: ''
             },
             {
-                picture: '',
+                picture: null,
                 imgUrl: ''
             },
             {
-                picture: '',
+                picture: null,
                 imgUrl: ''
             }
         ],
@@ -209,12 +209,12 @@ export const formManagment = {
             for (let item of state.pictures){
                 let {picture} = item;
 
-                bodyFormData.append('pollPhotos[]', picture);
+                bodyFormData.append('mainPictures[]', picture);
 
                 delete item.picture;
 
             }
-            const form = new Blob([JSON.stringify(state.create_poll_form)], { type: "application/json"})
+            const form = new Blob([JSON.stringify(state.create_poll_form)], { type: "application/json"});
 
             bodyFormData.append('form', form);
 
@@ -223,11 +223,9 @@ export const formManagment = {
             axios.put(`${process.env.VUE_APP_MAIN_API}/rest/v1/poll`, bodyFormData, config)
                 .then(function(response){
                     if (response.status === 200) {
-
                         let poll_id = response.data.payload[0].id;
                         console.log(response.data.payload[0].id)
                         vueApp.$router.push({name : 'singlePoll', params: {id : poll_id}})
-
                     }
                 }.bind(this))
 
