@@ -22,10 +22,10 @@ export default {
             }
         },
 
-        amountIndentity({index}, indexArray){
+        checkUpload({index}, index_array){
             
-            if (!!indexArray.length) {
-                return (indexArray.indexOf(`${index}`) === -1) ? 'ЗАГРУЗИ КАРТИНКУ' : null;
+            if (!!index_array.length) {
+                return (index_array.indexOf(index) === -1) ? 'ЗАГРУЗИ КАРТИНКУ' : null;
             } else return null;
             
         },

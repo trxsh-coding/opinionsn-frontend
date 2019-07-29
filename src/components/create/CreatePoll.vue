@@ -251,17 +251,12 @@
 				let {
 					verifyValues,
 					checkLength,
-					amountIndentity
+					checkUpload
 				} = this;
 
-				verifyValues('create_poll_form', this.options_with_rules, { checkLength, amountIndentity });
+				verifyValues('create_poll_form', this.options_with_rules, { checkLength, checkUpload });
 			},
 
-            pictureBoolean(newOne, old){
-
-
-
-            }
 		},
 
 		computed: {
@@ -306,30 +301,6 @@
 				]
 			},
 
-            enabledPictureIndex(){
-
-			    let { options } = this.form;
-                // let pictureIndexArray = [];
-				//
-				//
-                // for (let item in options) {
-				//
-                //     let {picture} = options[item];
-				// 	if (picture !== null) {
-                //         pictureIndexArray = [...pictureIndexArray, ...[item]];
-                //     }
-                // }
-				//
-                // return pictureIndexArray;
-	            
-	            let pictureIndexArray = [];
-	
-	            Object.values(options).forEach(({picture}, index) => {
-		            if (!!picture) pictureIndexArray.push(index);
-	            });
-
-            },
-
 			options_with_rules() {
 				return this.form.options.map(({description: str, picture}, index) => {
 					return {
@@ -338,7 +309,7 @@
 						key: index,
 						rules: [
 						    {method_name: 'checkLength', args: [2, 65] },
-                            {method_name: 'amountIndentity', args: [this.enabledPictureIndex] },
+                            {method_name: 'checkUpload', args: [this.getPicsIndexList()] },
                         ]
 					}
 				})
@@ -354,17 +325,31 @@
 			}
 		},
 		methods: {
-
-        	checkError(key) {
+			
+			getPicsIndexList(){
+				
+				let index_arr = [];
+				
+				Object.values(this.form.options).forEach(({picture}, index) => {
+					if (picture !== null) index_arr.push(index);
+				});
+				
+				return index_arr;
+				
+			},
+			
+			checkError(key) {
         		let { form } = this;
         	    return !!form.errors[key] && Object.values(form.errors[key]).some(error => !!error)
 	        },
 
             onFormSubmit(){
-
-            	let {verifyValues, options_with_rules, checkLength, amountIndentity, values_with_rules, errors = {}} = this;
+	
+	            // console.log('test');
+	
+	            let {verifyValues, options_with_rules, checkLength, checkUpload, values_with_rules, errors = {}} = this;
 				verifyValues('create_poll_form', values_with_rules, { checkLength });
-				verifyValues('create_poll_form', options_with_rules, { checkLength, amountIndentity });
+				verifyValues('create_poll_form', options_with_rules, { checkLength, checkUpload });
 
 				let errors_summary = Object.values(errors).flatMap(err => Object.values(err));
 				errors_summary = errors_summary.flatMap(err => {

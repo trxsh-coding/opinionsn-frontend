@@ -103,8 +103,8 @@
 
 		methods: {
 			selectOption(selected_variable) {
-
-				if (this.voted || !this.userLogged) return;
+				
+				if (this.voted || !this.logged_in) return;
 
 				if (!this.$root.timer_duration && !this.$root.timer_id) {
 
@@ -173,10 +173,14 @@
 		},
 		computed: {
 			
-			...mapState('authentication', {
-				userLogged: s => s.userLogged,
+			...mapState("globalStore", {
+				mainUser: state => state.mainUser
 			}),
-
+			
+			logged_in() {
+				return !!Object.keys(this.mainUser).length;
+			},
+			
 			temp_selected() {
 				return this.$root.temp_selected_option === this.id;
 			},

@@ -3,6 +3,7 @@ module.exports = {
 	indexPath: "index.html",
 	outputDir: "www",
 	devServer: {
+		// http-proxy --port 3012 /messages=http://eng.opinionsn.com:7071 /api=http://eng.opinionsn.com:7070 /assets=http://eng.opinionsn.com:7070/assets 8080 -v
 		https:false,
 		proxy: {
 			'/api': {
