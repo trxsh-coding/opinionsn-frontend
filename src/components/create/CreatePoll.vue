@@ -303,7 +303,7 @@
 					{
 						value: form.subject,
 						key: 'subject',
-						rules: [{ method_name: 'checkLength', args: [5, 100] }]
+						rules: [{ method_name: 'checkLength', args: [5, 255] }]
 					},
 					{
 						value: form.description,
