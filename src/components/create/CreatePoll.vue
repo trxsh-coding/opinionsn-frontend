@@ -31,7 +31,7 @@
 
 				/>
 			</div>
-			<category-select @select="check" class="pl-60"/>
+			<category-select @on-select="check" class="pl-60"/>
 
 
 
