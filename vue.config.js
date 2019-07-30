@@ -3,6 +3,7 @@ module.exports = {
 	indexPath: "index.html",
 	outputDir: "www",
 	devServer: {
+		// http-proxy --port 3012 /messages=https://opinionsn.com:7071 /api=https://opinionsn.com:7070 /assets=https://opinionsn.com:7070/assets 8080 -v
 		// http-proxy --port 3012 /messages=http://eng.opinionsn.com:7071 /api=http://eng.opinionsn.com:7070 /assets=http://eng.opinionsn.com:7070/assets 8080 -v
 		// http-proxy --port 3012 /messages=http://192.168.1.62:7071 /api=http://192.168.1.62:7070 /assets=http://192.168.1.62:7070/assets 8080 -v
 		https:false,
@@ -22,7 +23,7 @@ module.exports = {
 			},
 
 			'/assets': {
-				target: 'http://eng.opinionsn.com/assets/',
+				target: 'http://eng.opinionsn.com:7070/assets/',
 				changeOrigin: true,
 				secure: false
 			}

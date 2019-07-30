@@ -25,14 +25,14 @@
             </label>
         </popup-error-reusable>
 
-        <popup-error-reusable :errors="form.errors.status" >
+        <popup-error-reusable :errors="form.errors.aboutMe" >
             <label class="label label-3 mt-12">
             <span class="caption">
-               <lang-string  :title="'status'" />
+               <lang-string  :title="'about_me'" />
             </span>
                 <input
-                        :value="form.status"
-                        @input="({target}) => { updateField(target.value, 'status') }"
+                        :value="form.aboutMe"
+                        @input="({target}) => { updateField(target.value, 'aboutMe') }"
                         type="text">
             </label>
         </popup-error-reusable>
@@ -80,19 +80,19 @@
             </span>
                 
                 <div class="radio-wrapper flex">
-                    <label class="flex-center">
+                    <label class="flex-center pointer">
                         <span>Мужчина</span>
                         <input
-                                class="radio-input"
+                                class="radio-input m-0 ml-10"
                                 :value="0"
                                 v-model="form.gender"
                                 type="radio">
                     </label>
     
-                    <label class="flex-center ml-30">
+                    <label class="flex-center ml-30 pointer">
                         <span>Женщина</span>
                         <input
-                                class="radio-input"
+                                class="radio-input m-0 ml-10"
                                 :value="1"
                                 v-model="form.gender"
                                 type="radio">
@@ -176,8 +176,8 @@
                     },
 
                     {
-                        value: form.status,
-                        key: 'status',
+                        value: form.aboutMe,
+                        key: 'aboutMe',
                         rules: [ {method_name: 'checkLength', args: [0, 60] }]
                     },
 

@@ -17,7 +17,7 @@
                 type:Object,
             },
             amountOfSlides: {
-                type:Number
+                type: [Number, String]
             },
             spaceBetween: {
                 type: Number

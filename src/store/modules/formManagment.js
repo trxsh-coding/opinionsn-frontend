@@ -182,7 +182,8 @@ export const formManagment = {
         
         [SUBMIT_USERPAGE_FORM]({state, commit, dispatch}, payload) {
     
-            axios.post(`${process.env.VUE_APP_MAIN_API}/rest/v1/user`, {...payload})
+            return axios.post(`${process.env.VUE_APP_MAIN_API}/rest/v1/user`, {...payload})
+                .then(({status}) => status === 200)
                 .catch(err => { console.error(err) });
             
         },
