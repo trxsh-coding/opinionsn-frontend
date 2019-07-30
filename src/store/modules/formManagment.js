@@ -240,6 +240,7 @@ export const formManagment = {
                     if (response.status === 200) {
                         let poll_id = response.data.payload[0].id;
                         vueApp.$router.push({name : 'singlePoll', params: {id : poll_id}})
+                        commit(CLEAR_FORM, 'create_poll_form')
                     }
                 })
 

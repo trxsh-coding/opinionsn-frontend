@@ -2,7 +2,7 @@
     <div class="poll-block pb-10">
         <div class="middle-block">
             <div class="subject-header-block flex-between">
-                <div class="subject__item pointer wb " @click="categoryLink(poll.categories)">
+                <div class="subject__item pointer wb pb-5 " @click="categoryLink(poll.categories)">
 					<lang-string class="lowercase" :title="poll.subject_header"/>
                 </div>
                 <div class="subject__icon">
