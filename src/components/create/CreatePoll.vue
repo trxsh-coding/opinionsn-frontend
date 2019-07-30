@@ -112,43 +112,55 @@
 					<!--:inactive-description="lstr('without_pictures')"-->
 					<!--text-layout="right"-->
 			<!--/>-->
-			<lang-string class="label" :title="'add_options'"/>
+			<lang-string class="label pl-60" :title="'add_options'"/>
 
 			<popup-error-reusable
                     v-for="(option, index) in form.options" :key="index"
 					:errors="form.errors.options[index]">
 
-				<div class="options-block">
+				<div class="options-section flex-align-center" :class="{'pl-60' : index < 2}">
+					<div class="delete-block pl-25 pr-24" v-if="index > 1">
+						<icon-base
+								@click.native="deleteOption(index)"
+								width="11"
+								height="12"
+								viewBox="0 0 11 12"
+								icon-name="icon-minus">
+							<icon-minus />
+						</icon-base>
+					</div>
+					<div class="options-block">
 
-					<input-reusable
-							textarea
-							:value="option.description"
-							:height="60"
-							@change="updateArrayField(arguments[0], null, 'options', 'description', index)"
-							class="flex-align-center pl-14 mt-1"
-							input-placeholder="answer_text"
-					/>
+						<input-reusable
+								textarea
+								:value="option.description"
+								:height="60"
+								@change="updateArrayField(arguments[0], null, 'options', 'description', index)"
+								class="flex-align-center pl-14 mt-1"
+								input-placeholder="answer_text"
+						/>
 
-					<upload-reusable
-							:pre-height="60"
-							:pre-width="60"
-							image-preview
-							image-layout="bottom"
-							width="fit-content"
-							:value="option.picture"
-							@upload="({file, url}) => {updateArrayField(file, url, 'options', 'picture', index)}"
-                            @remove="() => {
+						<upload-reusable
+								:pre-height="60"
+								:pre-width="60"
+								image-preview
+								image-layout="bottom"
+								width="fit-content"
+								:value="option.picture"
+								@upload="({file, url}) => {updateArrayField(file, url, 'options', 'picture', index)}"
+								@remove="() => {
                             updateArrayField(null, '', 'options', 'picture', index);
                              onOptionPictureRemove(index)}">
-						<template #icon>
+							<template #icon>
 
-						</template>
-					</upload-reusable>
+							</template>
+						</upload-reusable>
 
+					</div>
 				</div>
 
 			</popup-error-reusable>
-			<add-option-block  @click.native="pushMoreOption"/>
+			<add-option-block class="ml-60" @click.native="pushMoreOption"/>
 
 			<switch-component
 					v-if="type === 'PREDICTION'"
@@ -216,6 +228,7 @@
     import UploadReusable from "../reusableСomponents/UploadReusable";
     import IconBase from "../icons/IconBase";
 	import IconAdd from "../icons/create/IconAdd";
+	import IconMinus from "../icons/create/IconMinus";
 	import IconUploadPhoto from "../icons/create/IconUploadPhoto";
     import {mapState} from "vuex"
     import langMixin from "../mixins/langMixin";
@@ -443,6 +456,11 @@
 
 			},
 
+			deleteOption(index) {
+				this.$store.commit('formManagment/DELETE_OPTION', index)
+
+			},
+
 			check(payload) {
 				alert(payload)
 			},
@@ -498,7 +516,8 @@
             langString,
             IconUploadPhoto,
 			DatePick,
-			IconAdd
+			IconAdd,
+			IconMinus
 
 		}
 

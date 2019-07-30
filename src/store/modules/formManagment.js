@@ -13,7 +13,8 @@ import  {
     CLEAR_FORM,
     SET_INITIAL_FORM,
     UPDATE_ARRAY_PICTURES,
-    ADD_SUBJECT_PICTURE
+    ADD_SUBJECT_PICTURE,
+    DELETE_OPTION
 
 } from "../types/mutation-types";
 
@@ -123,6 +124,9 @@ export const formManagment = {
            } else {
                alert('12 фотографий максимум')
            }
+        },
+        [DELETE_OPTION](state, index){
+            state.create_poll_form.options.splice(index, 1)
         },
         [SET_CATEGORY_NAME](state, payload){
           state.create_poll_form.subject_header = payload
