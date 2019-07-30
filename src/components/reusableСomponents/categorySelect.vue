@@ -29,7 +29,7 @@
         },
         methods: {
             onCategorySelect(id, name){
-                this.$emit('on-select', id, name)
+                this.$emit('on-select', { id, name })
             },
         }
     }

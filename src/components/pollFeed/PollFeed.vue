@@ -1,18 +1,22 @@
 <template lang="html">
 
 	<div id="poll-wrapper">
-
-		<div class="filter-block pl-60 pr-10" v-if="mobile">
-			<category-select @on-select="check"/>
-		</div>
-		<swiper-carousel :amount-of-slides="'auto'" :spaceBetween="15" v-if="!mobile">
-			<template #swiperAnnotation>
+		
+		<swiper-reusable
+				class="pl-60 pr-10"
+				:amount-of-slides="'auto'"
+				:spaceBetween="15"
+				:swiper-type="mobile ? 'scroll' : 'usual'">
+			<template #usual>
 				<swiper-slide class="w-fit" v-for="category in categories">
-<!--					<filter-component :filtered="filtered" :id="filter_id" :category="category" v-if="!mobile"/>-->
 					<catalog-item :item="category"></catalog-item>
 				</swiper-slide>
 			</template>
-		</swiper-carousel>
+			<template #scroll>
+				<catalog-item v-for="category in categories" :item="category"></catalog-item>
+			</template>
+		</swiper-reusable>
+		
 		<div class="feed relative flex-column pb-12">
 
 			<div v-for="item in items">
@@ -37,6 +41,7 @@
 	import LoaderReusable from "../reusableСomponents/LoaderReusable";
 	import CategorySelect from "../reusableСomponents/categorySelect";
 	import CatalogItem from "@/components/CatalogFeed/catalogItem";
+	import SwiperReusable from "@/components/reusableСomponents/swiperReusable";
 
 	export default {
 		data() {
@@ -135,6 +140,7 @@
 		},
 
 		components: {
+			SwiperReusable,
 			CatalogItem,
 			CategorySelect,
 			LoaderReusable,

@@ -1,5 +1,5 @@
 <template>
-    <div class="switch-block flex-align-center" :style="wrapperPosition">
+    <div class="switch-block flex-align-center mt-12" :style="wrapperPosition">
         <div class="switch-button mr-6" :style="wrapperStyle" @click="change"  v-if="type === 'button'">
                 <div class="switch-circle" :style="circleStyle">
                 </div>

@@ -31,9 +31,8 @@
 
 				/>
 			</div>
-			<category-select @on-select="check" class="pl-60"/>
-
-
+			
+			<category-select @on-select="setCategory" class="pl-60"/>
 
 			<div class="description-block pl-60">
 				<popup-error-reusable
@@ -96,22 +95,6 @@
 				</swiper>
 			</div>
 
-
-			<!--<div class="border-b mt-18"></div>-->
-			<!--<switch-component-->
-					<!--class="mb-18"-->
-					<!--type="button"-->
-					<!--:height="11"-->
-					<!--:width="20"-->
-					<!--:bor-rad="18"-->
-					<!--color="#FFFFFF"-->
-					<!--active-color="#81B6CB"-->
-					<!--:value="enablePicture"-->
-					<!--@select="insertPicture"-->
-					<!--:active-description="lstr('with_pictures')"-->
-					<!--:inactive-description="lstr('without_pictures')"-->
-					<!--text-layout="right"-->
-			<!--/>-->
 			<lang-string class="label" :title="'add_options'"/>
 
 			<popup-error-reusable
@@ -443,8 +426,8 @@
 
 			},
 
-			check(payload) {
-				alert(payload)
+			setCategory({ name }) {
+				this.$store.commit('formManagment/SET_CATEGORY_NAME', name )
 			},
 
 			updateField(value, key) {

@@ -90,14 +90,12 @@
 		},
 		mounted(){
 
-			axios.get(`${process.env.VUE_APP_MAIN_API}/rest/v1/categories/stat/user/${this.id}`)
-					.then((response) => {
-						if (response.status === 200) {
-							this.$store.commit('globalStore/updateStores', response.data, {root: true});
-							console.log((response.data))
-							this.items = response.data
-
-
+			axios.get(`${process.env.VUE_APP_MAIN_API}/rest/v1/user/statistic/${this.id}`)
+					.then(res => {
+						if (res.status === 200) {
+							this.$store.commit('globalStore/updateStores', res.data, {root: true});
+							console.log((res.data));
+							this.items = res.data;
 						}
 
 					})
