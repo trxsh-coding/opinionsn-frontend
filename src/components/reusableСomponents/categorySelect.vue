@@ -1,7 +1,7 @@
 <template>
     <div class="category-block">
         <scroll-swiper-reusable  :height="38" width="100%" >
-            <catalog-item v-for="item in categories" :item="item" @click.native="onCategorySelect(item.id)"/>
+            <catalog-item v-for="item in categories" :item="item" @click.native="onCategorySelect(item.id, item.name)"/>
         </scroll-swiper-reusable>
     </div>
 </template>
@@ -28,8 +28,8 @@
 
         },
         methods: {
-            onCategorySelect(id){
-                this.$emit('select', id)
+            onCategorySelect(id, name){
+                this.$emit('on-select', id, name)
             },
         }
     }

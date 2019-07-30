@@ -14,11 +14,11 @@
                 {{poll.description}}
             </span>
         </div>
-        <subject-picture v-if="poll.picture" :img="poll.picture" width="100%" only-picture :height="190" textLayout="right" bor-rad="6"/>
-        <swiper-carousel v-else :amount-of-slides="1"  >
+        <subject-picture v-if="poll.picture" :img="publicPath + poll.picture" width="100%" only-picture :height="mobile ? 190 : 303" textLayout="right" bor-rad="6"/>
+        <swiper-carousel v-else :amount-of-slides="1"  :space-between="10" :without-breakpoints="true"  >
             <template #swiperAnnotation>
-                <swiper-slide>
-                    <subject-picture v-for="picture in poll.urlPhotos" :img="picture" width="100%" only-picture :height="190" textLayout="right" bor-rad="6"/>
+                <swiper-slide v-for="picture in poll.urlPhotos">
+                    <subject-picture  :img="publicPath + picture" width="100%" only-picture :height="mobile ? 190 : 303" textLayout="right" bor-rad="6"/>
                 </swiper-slide>
             </template>
         </swiper-carousel>

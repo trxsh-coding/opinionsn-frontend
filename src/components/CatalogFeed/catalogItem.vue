@@ -1,5 +1,5 @@
 <template>
-    <div class="category-item flex-align-center" @click="onCategorySelect" :class="{current : isCurrent}" >
+    <div class="category-item flex-align-center" :class="{current : isCurrent}" >
         <div class="category-picture" :style="{ 'background-image': 'url(' + publicPath +  imageUtil(item.path_to_image, 'W') +')' } ">
 
         </div>
