@@ -3,8 +3,8 @@
 
 		<create-header @submit="onFormSubmit"/>
 
-		<div class="create-form pl-60">
-			<div class="button-block mb-18">
+		<div class="create-form ">
+			<div class="button-block mb-18 pl-60">
 				<button-reusable
 						text-transform="capitalize"
 						class="mr-20 "
@@ -31,54 +31,70 @@
 
 				/>
 			</div>
-			<category-select/>
-
-			<popup-error-reusable
-					:errors="form.errors.tags">
-				<input-reusable :value="form.tags"
-				                textarea
-				                @change="updateField(arguments[0], 'tags')"
-				                class="mt-20 mb-12 flex-between"
-				                width="100%"
-				                :input-placeholder="'tags'"/>
-			</popup-error-reusable>
-
-			<popup-error-reusable
-					:errors="form.errors.subject">
-				<input-reusable :value="form.subject"
-				                @change="updateField(arguments[0], 'subject')"
-				                class=" flex-between"
-				                :class="{'TEST': checkError('subject_header')}"
-				                textarea
-				                :input-placeholder="'heading'"/>
-			</popup-error-reusable>
+			<category-select @on-select="check" class="pl-60"/>
 
 
 
-			<popup-error-reusable
-                    :errors="form.errors.description">
-				<input-reusable :value="form.description"
-				                @change="updateField(arguments[0], 'description')"
-				                class="mt-12 mb-12 flex-between"
-				                textarea
-				                :input-placeholder="'description'"/>
-			</popup-error-reusable>
+			<div class="description-block pl-60">
+				<popup-error-reusable
+						:errors="form.errors.tags">
+					<input-reusable :value="form.tags"
+									textarea
+									@change="updateField(arguments[0], 'tags')"
+									class="mt-20 mb-12 flex-between"
+									width="100%"
+									:input-placeholder="'tags'"/>
+				</popup-error-reusable>
+				<popup-error-reusable
+						:errors="form.errors.subject">
+					<input-reusable :value="form.subject"
+									@change="updateField(arguments[0], 'subject')"
+									class=" flex-between"
+									:class="{'TEST': checkError('subject_header')}"
+									textarea
+									:input-placeholder="'heading'"/>
+				</popup-error-reusable>
 
-			<lang-string class="label" :title="'add_pictures_to_poll'"/>
-			<swiper :options="swiperOption" class="mb-12">
-				<swiper-slide v-for="(item, index) in pictures" :key="index">
-					<upload-reusable
-							description
-							image-preview
-							pre-width="100%"
-							:pre-height="mobile ? 190 : 371"
-							:value="item.picture"
-							@upload="({file}) => {updateArrayPictures(file, index)}">
 
-					</upload-reusable>
-				</swiper-slide>
-				<div class="swiper-pagination" slot="pagination"></div>
-			</swiper>
+
+				<popup-error-reusable
+						:errors="form.errors.description">
+					<input-reusable :value="form.description"
+									@change="updateField(arguments[0], 'description')"
+									class="mt-12 mb-12 flex-between"
+									textarea
+									:input-placeholder="'description'"/>
+				</popup-error-reusable>
+			</div>
+			<lang-string class="label pl-60" :title="'add_pictures_to_poll'"/>
+
+			<div class="picture-block flex-align-center">
+
+				<div class="icon__item pl-25 pr-25">
+					<icon-base
+							@click.native="addSubjectPicture"
+							width="11"
+							height="12"
+							viewBox="0 0 11 12"
+							icon-name="drop-add">
+						<icon-add />
+					</icon-base>
+				</div>
+				<swiper :options="swiperOption" class="mb-12">
+					<swiper-slide v-for="(item, index) in pictures" :key="index">
+						<upload-reusable
+								description
+								image-preview
+								pre-width="100%"
+								:pre-height="mobile ? 190 : 371"
+								:value="item.picture"
+								@upload="({file}) => {updateArrayPictures(file, index)}">
+
+						</upload-reusable>
+					</swiper-slide>
+					<div class="swiper-pagination" slot="pagination"></div>
+				</swiper>
+			</div>
 
 
 			<!--<div class="border-b mt-18"></div>-->
@@ -199,7 +215,8 @@
     import InputReusable from "../reusableСomponents/InputReusable";
     import UploadReusable from "../reusableСomponents/UploadReusable";
     import IconBase from "../icons/IconBase";
-    import IconUploadPhoto from "../icons/create/IconUploadPhoto";
+	import IconAdd from "../icons/create/IconAdd";
+	import IconUploadPhoto from "../icons/create/IconUploadPhoto";
     import {mapState} from "vuex"
     import langMixin from "../mixins/langMixin";
     import CategorySelect from "../reusableСomponents/categorySelect";
@@ -325,7 +342,9 @@
 			}
 		},
 		methods: {
-			
+			addSubjectPicture(){
+				this.$store.commit('formManagment/ADD_SUBJECT_PICTURE');
+			},
 			getPicsIndexList(){
 				
 				let index_arr = [];
@@ -424,8 +443,8 @@
 
 			},
 
-			check(date) {
-				console.log(date)
+			check(payload) {
+				alert(payload)
 			},
 
 			updateField(value, key) {
@@ -478,7 +497,8 @@
             SwitchComponent,
             langString,
             IconUploadPhoto,
-			DatePick
+			DatePick,
+			IconAdd
 
 		}
 
@@ -522,7 +542,11 @@
 
 		}
 
-
+		.picture-block {
+			.swiper-container {
+				width: 100%;
+			}
+		}
 
 		.options-block {
 			margin-bottom: 10px;

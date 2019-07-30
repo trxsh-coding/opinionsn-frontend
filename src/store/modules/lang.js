@@ -17,7 +17,6 @@ export default  {
     },
     setLocale(state, payload){
       let {_lang: lang} = payload;
-      console.log(lang)
       moment.locale(lang);
       state.locale = payload
       vueApp.$i18n.locale = state.locale.lang

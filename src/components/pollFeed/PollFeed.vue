@@ -3,7 +3,7 @@
 	<div id="poll-wrapper">
 
 		<div class="filter-block pl-60 pr-10" v-if="mobile">
-			<category-select />
+			<category-select @on-select="check"/>
 		</div>
 		<swiper-carousel :amount-of-slides="'auto'" :spaceBetween="15" v-if="!mobile">
 			<template #swiperAnnotation>
@@ -117,7 +117,12 @@
 		methods: {
 			load() {
 				this.$store.dispatch(`pollFeed/loadNextPage`);
+			},
+			check(id, name){
+
+
 			}
+
 		},
 
 		created() {

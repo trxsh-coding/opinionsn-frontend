@@ -12,7 +12,8 @@ import  {
     UPDATE_ERROR_FIELD,
     CLEAR_FORM,
     SET_INITIAL_FORM,
-    UPDATE_ARRAY_PICTURES
+    UPDATE_ARRAY_PICTURES,
+    ADD_SUBJECT_PICTURE
 
 } from "../types/mutation-types";
 
@@ -35,14 +36,6 @@ const initialState = () => {
                 picture: null,
                 imgUrl: ''
             },
-            {
-                picture: null,
-                imgUrl: ''
-            },
-            {
-                picture: null,
-                imgUrl: ''
-            }
         ],
         create_poll_form: {
             subject_header: 'sports',
@@ -121,7 +114,16 @@ export const formManagment = {
         [ADD_OPTION](state){
                 state.create_poll_form.options.push({id:'', picture:null, description:''})
         },
-
+        [ADD_SUBJECT_PICTURE](state){
+           if(state.pictures.length < 12) {
+               state.pictures.push({
+                   picture: null,
+                   imgUrl: ''
+               })
+           } else {
+               alert('12 фотографий максимум')
+           }
+        },
         [SET_CATEGORY_NAME](state, payload){
           state.create_poll_form.subject_header = payload
         },

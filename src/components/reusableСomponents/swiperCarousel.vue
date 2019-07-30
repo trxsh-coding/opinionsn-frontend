@@ -21,29 +21,44 @@
             },
             spaceBetween: {
                 type: Number
+            },
+            withoutBreakpoints: {
+                type: Boolean,
+                default() {
+                    return false;
+                }
             }
         },
-        data() {
-            return {
-                swiperOption: {
-                    slidesPerView: this.amountOfSlides,
-                    spaceBetween: this.spaceBetween,
-                    freeMode: true,
+        computed: {
+            swiperOption() {
+
+                let breakpoints = this.withoutBreakpoints ? {} : {
                     breakpoints: {
+                        1024: {
+                            slidesPerView: 1,
+                            spaceBetween: 100
+                        },
                         768: {
-                            slidesPerView: 3,
+                            slidesPerView: 1,
                             spaceBetween: 50
                         },
                         640: {
-                            slidesPerView: 4,
-                            spaceBetween: 9
+                            slidesPerView: 1,
+                            spaceBetween: 100
                         },
                         320: {
                             slidesPerView: 1,
                             spaceBetween: 10
                         }
                     }
-                }            }
+                };
+
+                return {
+                    slidesPerView: this.amountOfSlides,
+                    spaceBetween: this.spaceBetween,
+                    ...breakpoints
+                };
+            }
         },
 
     }
