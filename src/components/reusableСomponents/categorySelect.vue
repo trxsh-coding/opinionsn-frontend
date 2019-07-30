@@ -1,7 +1,7 @@
 <template>
     <div class="category-block">
         <scroll-swiper-reusable  :height="38" width="100%" >
-            <catalog-item v-for="item in categories" :item="item"/>
+            <catalog-item v-for="item in categories" :item="item" @click.native="onCategorySelect(item.id)"/>
         </scroll-swiper-reusable>
     </div>
 </template>
@@ -26,6 +26,11 @@
         mounted(){
             this.$store.dispatch(`catalogList/list`);
 
+        },
+        methods: {
+            onCategorySelect(id){
+                this.$emit('select', id)
+            },
         }
     }
 </script>

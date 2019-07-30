@@ -31,7 +31,7 @@
 
 				/>
 			</div>
-			<category-select/>
+			<category-select @select="check"/>
 
 			<popup-error-reusable
 					:errors="form.errors.tags">
@@ -424,8 +424,8 @@
 
 			},
 
-			check(date) {
-				console.log(date)
+			check(payload) {
+				alert(payload)
 			},
 
 			updateField(value, key) {

@@ -14,7 +14,14 @@
                 {{poll.description}}
             </span>
         </div>
-        <subject-picture v-if="!!poll.urlPhotos.length" :img="publicPath + poll.urlPhotos[0]" width="100%" only-picture :height="190" textLayout="right" bor-rad="6"/>
+        <subject-picture v-if="poll.picture" :img="poll.picture" width="100%" only-picture :height="190" textLayout="right" bor-rad="6"/>
+        <swiper-carousel v-else :amount-of-slides="1"  >
+            <template #swiperAnnotation>
+                <swiper-slide>
+                    <subject-picture v-for="picture in poll.urlPhotos" :img="picture" width="100%" only-picture :height="190" textLayout="right" bor-rad="6"/>
+                </swiper-slide>
+            </template>
+        </swiper-carousel>
         <bows-panel class="mt-9" :users="poll.bows" v-show="!item.voted && Object.keys(poll.bows).length > 0" />
 
     </div>
@@ -24,6 +31,7 @@
 <script>
     import subjectPicture from '../../reusableСomponents/PictureReusable'
     import bowsPanel from './involvedUsersPanel'
+    import SwiperCarousel from "../../reusableСomponents/swiperCarousel";
 
     export default {
         name: "headlineBody",
@@ -38,7 +46,8 @@
         },
         components: {
             subjectPicture,
-            bowsPanel
+            bowsPanel,
+            SwiperCarousel
         },
         computed: {
             routeName(){
