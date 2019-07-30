@@ -4,7 +4,7 @@
             <slot name="swiperAnnotation">
             
             </slot>
-            <div class="swiper-pagination" slot="pagination"></div>
+            <div  class="swiper-pagination" slot="pagination"></div>
 
         </swiper>
     </div>
@@ -77,6 +77,7 @@
 </script>
 
 <style lang="scss">
-    .swiper-section {
+    .swiper-pagination-bullet-active {
+        background: #4B96B3 !important;
     }
 </style>

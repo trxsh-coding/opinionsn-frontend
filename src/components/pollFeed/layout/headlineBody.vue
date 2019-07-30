@@ -15,7 +15,7 @@
             </span>
         </div>
         <subject-picture v-if="poll.picture" :img="publicPath + poll.picture" width="100%" only-picture :height="mobile ? 190 : 303" textLayout="right" bor-rad="6"/>
-        <swiper-carousel :with-pagination="true" v-else :amount-of-slides="1"  :space-between="10" :without-breakpoints="true"  >
+        <swiper-carousel :with-pagination="poll.urlPhotos.length > 1" v-else :amount-of-slides="1"  :space-between="10" :without-breakpoints="true"  >
             <template #swiperAnnotation>
                 <swiper-slide v-for="picture in poll.urlPhotos">
                     <subject-picture  :img="publicPath + picture" width="100%" only-picture :height="mobile ? 190 : 303" textLayout="right" bor-rad="6"/>
