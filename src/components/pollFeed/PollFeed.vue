@@ -2,20 +2,7 @@
 
 	<div id="poll-wrapper">
 		
-		<swiper-reusable
-				class="pl-60 pr-10"
-				:amount-of-slides="'auto'"
-				:spaceBetween="15"
-				:swiper-type="mobile ? 'scroll' : 'usual'">
-			<template #usual>
-				<swiper-slide class="w-fit" v-for="category in categories">
-					<catalog-item :item="category"></catalog-item>
-				</swiper-slide>
-			</template>
-			<template #scroll>
-				<catalog-item v-for="category in categories" :item="category"></catalog-item>
-			</template>
-		</swiper-reusable>
+		<category-select @on-select="setCategory" class="pl-60"/>
 		
 		<div class="feed relative flex-column pb-12">
 
@@ -123,9 +110,9 @@
 			load() {
 				this.$store.dispatch(`pollFeed/loadNextPage`);
 			},
-			check(id, name){
-
-
+			setCategory({id}){
+				this.$store.commit('pollFeed/setFilterId', id);
+				this.$store.dispatch('pollFeed/list');
 			}
 
 		},
