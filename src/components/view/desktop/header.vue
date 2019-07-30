@@ -45,7 +45,7 @@
 				</dropdown-list-reusable>
 				<icon-base
 						fill="none"
-						class="mr-25"
+						class="mr-25 pointer"
 						width="21"
 						height="21"
 						viewBox="0 0 21 21"

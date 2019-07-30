@@ -5,10 +5,11 @@
 		<div class="filter-block pl-60 pr-10" v-if="mobile">
 			<category-select />
 		</div>
-		<swiper-carousel :amount-of-slides="6" :spaceBetween="30">
+		<swiper-carousel :amount-of-slides="'auto'" :spaceBetween="15" v-if="!mobile">
 			<template #swiperAnnotation>
-				<swiper-slide v-for="category in categories">
-					<filter-component :filtered="filtered" :id="filter_id" :category="category" v-if="!mobile"/>
+				<swiper-slide class="w-fit" v-for="category in categories">
+<!--					<filter-component :filtered="filtered" :id="filter_id" :category="category" v-if="!mobile"/>-->
+					<catalog-item :item="category"></catalog-item>
 				</swiper-slide>
 			</template>
 		</swiper-carousel>
@@ -35,6 +36,7 @@
 	import SwiperCarousel from "../reusableСomponents/swiperCarousel";
 	import LoaderReusable from "../reusableСomponents/LoaderReusable";
 	import CategorySelect from "../reusableСomponents/categorySelect";
+	import CatalogItem from "@/components/CatalogFeed/catalogItem";
 
 	export default {
 		data() {
@@ -128,6 +130,7 @@
 		},
 
 		components: {
+			CatalogItem,
 			CategorySelect,
 			LoaderReusable,
 			SwiperCarousel,

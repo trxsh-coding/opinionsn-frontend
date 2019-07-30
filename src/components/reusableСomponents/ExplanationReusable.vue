@@ -396,10 +396,14 @@
 
 		.explain,
 		.comment-list {
-
-			.text {
-
+			min-height: 60px;
+			align-items: stretch;
+			
+			& > .text {
 				flex: 1;
+				display: flex;
+				flex-direction: column;
+				justify-content: space-between;
 
 				label {
 					display: flex;
@@ -452,7 +456,6 @@
 
 		.explain {
 			display: flex;
-			align-items: flex-start;
 			width: 100%;
 
 			.text {
