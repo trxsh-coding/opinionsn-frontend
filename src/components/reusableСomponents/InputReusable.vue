@@ -1,5 +1,5 @@
 <template>
-	<div
+	<label
 			class="input-reusable"
 			:style="inputStyle">
 		
@@ -56,7 +56,7 @@
 					title="cancel"
 			/>
 		</div>
-	</div>
+	</label>
 </template>
 
 <script>
@@ -216,7 +216,8 @@
 
 			onBlurAction(payload) {
 				this.$emit('blur', payload);
-				this.focusInput(false)
+				console.log(this.parent_value.length);
+				if (!this.parent_value.length) this.focusInput(false);
 			},
 
 			inputValue(payload) {
@@ -252,6 +253,7 @@
 		position: relative;
 		display: flex;
 		justify-content: space-between;
+		cursor: text;
 		
 		.action-btns {
 			position: absolute;

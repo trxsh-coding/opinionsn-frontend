@@ -1,5 +1,5 @@
 <template>
-    <div class="category-item flex-align-center" :class="{current : isCurrent}" >
+    <div class="category-item flex-align-center pointer" :class="{current : isCurrent}" >
         <div class="category-picture" :style="{ 'background-image': 'url(' + publicPath +  imageUtil(item.path_to_image, 'W') +')' } ">
 
         </div>
@@ -27,14 +27,14 @@
         methods: {
 
             hoverItem(payload){
-                this.hoverColor = payload ;
+                this.hoverColor = payload;
             },
             setCategoryName(name){
                 if(this.$route.name === 'pollFeed') {
 
-                    this.$store.commit('pollFeed/setFilterId', this.item.id)
+                    this.$store.commit('pollFeed/setFilterId', this.item.id);
 
-                    this.$store.dispatch('pollFeed/list')
+                    this.$store.dispatch('pollFeed/list');
 
                 } else {
 
@@ -60,8 +60,7 @@
             },
 
             isCurrent(){
-                if(this.current === this.item.name) return true
-                else return false
+                return this.current === this.item.name;
             }
         }
     }

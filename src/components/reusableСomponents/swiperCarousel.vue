@@ -1,9 +1,9 @@
 <template>
     <div class="swiper-section">
         <swiper :options="swiperOption" class="category-section mb-6">
-                <slot name="swiperAnnotation">
-
-                </slot>
+            <slot name="swiperAnnotation">
+            
+            </slot>
             <div class="swiper-pagination" slot="pagination"></div>
         </swiper>
     </div>
@@ -60,7 +60,7 @@
                 };
             }
         },
-
+        
     }
 </script>
 

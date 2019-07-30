@@ -31,9 +31,8 @@
 
 				/>
 			</div>
-			<category-select @on-select="check" class="pl-60"/>
 
-
+			<category-select @on-select="setCategory" class="pl-60"/>
 
 			<div class="description-block pl-60">
 				<popup-error-reusable
@@ -96,22 +95,6 @@
 				</swiper>
 			</div>
 
-
-			<!--<div class="border-b mt-18"></div>-->
-			<!--<switch-component-->
-					<!--class="mb-18"-->
-					<!--type="button"-->
-					<!--:height="11"-->
-					<!--:width="20"-->
-					<!--:bor-rad="18"-->
-					<!--color="#FFFFFF"-->
-					<!--active-color="#81B6CB"-->
-					<!--:value="enablePicture"-->
-					<!--@select="insertPicture"-->
-					<!--:active-description="lstr('with_pictures')"-->
-					<!--:inactive-description="lstr('without_pictures')"-->
-					<!--text-layout="right"-->
-			<!--/>-->
 			<lang-string class="label pl-60" :title="'add_options'"/>
 
 			<popup-error-reusable
@@ -151,16 +134,15 @@
 								@remove="() => {
                             updateArrayField(null, '', 'options', 'picture', index);
                              onOptionPictureRemove(index)}">
-							<template #icon>
+						<template #icon>
 
-							</template>
-						</upload-reusable>
+						</template>
+					</upload-reusable>
 
-					</div>
 				</div>
 
 			</popup-error-reusable>
-			<add-option-block class="ml-60" @click.native="pushMoreOption"/>
+			<add-option-block  @click.native="pushMoreOption"/>
 
 			<switch-component
 					v-if="type === 'PREDICTION'"
@@ -228,7 +210,6 @@
     import UploadReusable from "../reusableСomponents/UploadReusable";
     import IconBase from "../icons/IconBase";
 	import IconAdd from "../icons/create/IconAdd";
-	import IconMinus from "../icons/create/IconMinus";
 	import IconUploadPhoto from "../icons/create/IconUploadPhoto";
     import {mapState} from "vuex"
     import langMixin from "../mixins/langMixin";
@@ -461,8 +442,8 @@
 
 			},
 
-			check(payload) {
-				alert(payload)
+			setCategory({ name }) {
+				this.$store.commit('formManagment/SET_CATEGORY_NAME', name )
 			},
 
 			updateField(value, key) {

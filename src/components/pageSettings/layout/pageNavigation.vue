@@ -64,8 +64,14 @@
     
                 if (!has_errors) {
                     
-                    this.$store.dispatch('formManagment/SUBMIT_USERPAGE_FORM', this.form);
-                    alert('success');
+                    this.$store.dispatch('formManagment/SUBMIT_USERPAGE_FORM', this.form)
+                        .then(res => {
+                            if (res) {
+                                alert('Успешно!');
+                            } else {
+                                alert('Ошибка отправки!');
+                            }
+                        });
                     
                 } else {
                     

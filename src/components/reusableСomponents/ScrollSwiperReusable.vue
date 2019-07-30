@@ -3,6 +3,8 @@
 		<slot></slot>
 		<span class="stub-block">{{stubContent}}</span>
 	</div>
+	
+	
 </template>
 
 <script>

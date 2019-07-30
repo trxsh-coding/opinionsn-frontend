@@ -336,9 +336,9 @@
 			background-color: #4B97B4;
 			opacity: 0.75;
 			width: 0;
-
+			transition-timing-function: linear;
+			
 			&.active {
-				transition-timing-function: linear;
 				width: 100%;
 			}
 		}

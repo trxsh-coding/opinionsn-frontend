@@ -23,10 +23,10 @@
 			</template>
             <template #description>
                 <div class="description flex">
-                    <span class="pr-9">
+                    <span v-show="!!author.location" class="pr-9">
                         {{author.location}}
                     </span>
-                    <time-trans :time="poll.date"/>
+                    <time-trans v-show="!!poll.date" :time="poll.date"/>
                 </div>
             </template>
         </author-headline>

@@ -338,7 +338,8 @@
 			}
 
 			.option {
-				flex: 1;
+				width: 100%;
+				word-break: break-all;
 
 				position: relative;
 				padding: 14.5px 9px 14.5px 12px;

@@ -73,6 +73,10 @@
 	    <loader-reusable></loader-reusable>
 
 	    <textarea v-model="textarea_value" ref="textareaRef"></textarea>
+	    
+	    <swiper-reusable>
+		   
+	    </swiper-reusable>
 
 	</div>
 </template>
@@ -94,10 +98,12 @@
 	import CircleProgressBarReusable from "./reusableСomponents/CircleProgressBarReusable";
 	import SwitchComponent from "./reusableСomponents/switchComponent";
 	import LoaderReusable from "./reusableСomponents/LoaderReusable";
+	import SwiperReusable from "@/components/reusableСomponents/swiperReusable";
 
 	export default {
         name: "testPlayground",
 		components: {
+			SwiperReusable,
 			LoaderReusable,
 			SwitchComponent,
 			CircleProgressBarReusable,
