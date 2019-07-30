@@ -5,6 +5,7 @@
             
             </slot>
             <div class="swiper-pagination" slot="pagination"></div>
+
         </swiper>
     </div>
 </template>
@@ -23,6 +24,12 @@
                 type: Number
             },
             withoutBreakpoints: {
+                type: Boolean,
+                default() {
+                    return false;
+                }
+            },
+            withPagination: {
                 type: Boolean,
                 default() {
                     return false;
@@ -52,11 +59,16 @@
                         }
                     }
                 };
-
+                let swiperPagination = !this.withPagination ? {} : {
+                    pagination: {
+                        el: '.swiper-pagination'
+                    }
+                };
                 return {
                     slidesPerView: this.amountOfSlides,
                     spaceBetween: this.spaceBetween,
-                    ...breakpoints
+                    ...breakpoints,
+                    ...swiperPagination
                 };
             }
         },

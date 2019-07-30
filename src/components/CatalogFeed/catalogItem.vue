@@ -1,7 +1,6 @@
 <template>
     <div class="category-item flex-align-center pointer" :class="{current : isCurrent}" >
         <div class="category-picture" :style="{ 'background-image': 'url(' + publicPath +  imageUtil(item.path_to_image, 'W') +')' } ">
-
         </div>
         <div class="category-name">
             <lang-string :title="item.name" :class="{itemActive : hoverColor === 'B'}"/>
@@ -17,7 +16,17 @@
         name: "catalogItem",
         components:{langString},
         mixins:[imageMixin],
-        props:['item'],
+        props:{
+            item: {
+                type:Object
+            },
+            isCurrentString: {
+                type: Boolean
+            },
+            current: {
+                type: [Number, String],
+            }
+        },
         data() {
             return {
                 publicPath: process.env.VUE_APP_MAIN_API,
@@ -48,11 +57,7 @@
 
         },
         computed: {
-            ...mapState('formManagment', {
 
-                current: s => s.create_poll_form.subject_header,
-
-            }),
             routeName(){
 
                 return this.$route.name
@@ -60,7 +65,18 @@
             },
 
             isCurrent(){
-                return this.current === this.item.name;
+
+                let {item, current, isCurrentString} = this;
+
+                if(isCurrentString){
+
+                    return current === item.name;
+
+                } else {
+
+                    return current === this.item.id;
+
+                }
             }
         }
     }

@@ -8,11 +8,11 @@
                 :swiper-type="mobile ? 'scroll' : 'usual'">
             <template #usual>
                 <swiper-slide class="w-fit" v-for="category in categories">
-                    <catalog-item @click.native="onCategorySelect(category.id, category.name)" :item="category"></catalog-item>
+                    <catalog-item :is-current-string="isCurrentString" :current="current" @click.native="onCategorySelect(category.id, category.name)" :item="category"></catalog-item>
                 </swiper-slide>
             </template>
             <template #scroll>
-                <catalog-item @click.native="onCategorySelect(category.id, category.name)" v-for="category in categories" :item="category"></catalog-item>
+                <catalog-item :is-current-string="isCurrentString" :current="current" @click.native="onCategorySelect(category.id, category.name)" v-for="category in categories" :item="category"></catalog-item>
             </template>
         </swiper-reusable>
         
@@ -29,6 +29,7 @@
         name: "categorySelect",
         components: {swiperReusable, CatalogItem},
         mixins:[langMixin],
+        props:['current', 'isCurrentString'],
         data() {
             return {
                 mobile: this.$root.mobile

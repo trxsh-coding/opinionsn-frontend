@@ -2,7 +2,7 @@
 
 	<div id="poll-wrapper">
 		
-		<category-select @on-select="setCategory" class="pl-60"/>
+		<category-select @on-select="setCategory" :current="filter_id" class="pl-60"/>
 		
 		<div class="feed relative flex-column pb-12">
 

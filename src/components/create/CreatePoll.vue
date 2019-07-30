@@ -32,7 +32,7 @@
 				/>
 			</div>
 
-			<category-select @on-select="setCategory" class="pl-60"/>
+			<category-select :is-current-string="true" :current="form.subject_header" @on-select="setCategory" class="pl-60"/>
 
 			<div class="description-block pl-60">
 				<popup-error-reusable
@@ -91,7 +91,7 @@
 
 						</upload-reusable>
 					</swiper-slide>
-					<div class="swiper-pagination" slot="pagination"></div>
+					<div v-show="pictures.length > 1" class="swiper-pagination" slot="pagination"></div>
 				</swiper>
 			</div>
 
@@ -138,11 +138,11 @@
 
 						</template>
 					</upload-reusable>
-
+					</div>
 				</div>
 
 			</popup-error-reusable>
-			<add-option-block  @click.native="pushMoreOption"/>
+			<add-option-block class="ml-60" @click.native="pushMoreOption"/>
 
 			<switch-component
 					v-if="type === 'PREDICTION'"
@@ -210,6 +210,7 @@
     import UploadReusable from "../reusableСomponents/UploadReusable";
     import IconBase from "../icons/IconBase";
 	import IconAdd from "../icons/create/IconAdd";
+	import IconMinus from "../icons/create/IconMinus";
 	import IconUploadPhoto from "../icons/create/IconUploadPhoto";
     import {mapState} from "vuex"
     import langMixin from "../mixins/langMixin";

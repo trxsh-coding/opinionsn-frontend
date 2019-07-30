@@ -396,7 +396,7 @@
 
 		.explain,
 		.comment-list {
-			min-height: 60px;
+			/*min-height: 60px;*/
 			align-items: stretch;
 			
 			& > .text {
@@ -480,7 +480,7 @@
 				.option {
 					display: flex;
 					justify-content: space-between;
-					align-items: center;
+					align-items: flex-end;
 
 					.option-name {
 						font-weight: normal;
