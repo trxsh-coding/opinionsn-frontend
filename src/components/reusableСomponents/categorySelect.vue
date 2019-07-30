@@ -1,8 +1,21 @@
 <template>
     <div class="category-block">
-        <scroll-swiper-reusable  :height="38" width="100%" >
-            <catalog-item v-for="item in categories" :item="item" @click.native="onCategorySelect(item.id, item.name)"/>
-        </scroll-swiper-reusable>
+        <swiper-reusable
+                :height="38"
+                width="100%"
+                :amount-of-slides="'auto'"
+                :spaceBetween="15"
+                :swiper-type="mobile ? 'scroll' : 'usual'">
+            <template #usual>
+                <swiper-slide class="w-fit" v-for="category in categories">
+                    <catalog-item @click.native="onCategorySelect(category.id, category.name)" :item="category"></catalog-item>
+                </swiper-slide>
+            </template>
+            <template #scroll>
+                <catalog-item @click.native="onCategorySelect(category.id, category.name)" v-for="category in categories" :item="category"></catalog-item>
+            </template>
+        </swiper-reusable>
+        
     </div>
 </template>
 
@@ -10,11 +23,17 @@
     import { mapState } from 'vuex'
     import langMixin from '../mixins/langMixin'
     import CatalogItem from "../CatalogFeed/catalogItem";
-    import ScrollSwiperReusable from "./ScrollSwiperReusable";
+    import swiperReusable from "./swiperReusable";
+    
     export default {
         name: "categorySelect",
-        components: {ScrollSwiperReusable, CatalogItem},
+        components: {swiperReusable, CatalogItem},
         mixins:[langMixin],
+        data() {
+            return {
+                mobile: this.$root.mobile
+            }
+        },
         computed: {
 
             ...mapState('globalStore', {
