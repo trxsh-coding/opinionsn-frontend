@@ -80,6 +80,8 @@ body {
 #app {
   height: 100vh;
   overflow: scroll;
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch !important;
 }
 
 
