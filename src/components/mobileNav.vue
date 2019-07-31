@@ -54,7 +54,10 @@
 						icon-name="plus"><icon-arrow-left/>
 					</icon-base>
 				</li>
-				<li class="nav__item nav__item-2 trim">{{secondNavCaption}}</li>
+				<li class="nav__item nav__item-2 trim"
+					v-if="secondNavCaption">
+					<lang-string :title="secondNavCaption" />
+				</li>
 			</ul>
 		</div>
 		<hr>
@@ -134,6 +137,8 @@
 	import avatar from "./user/Event/modules/mainUserAvatar";
 	import notificationFeed from "./notifications/feed";
 	import { mapState } from "vuex";
+	import langString from "./langString";
+	
 	export default {
 		name: "mobileNav",
 		props: ["mobile_hide", "user"],
@@ -189,20 +194,15 @@
 
             secondNavCaption() {
                 switch (this.routeName) {
-                    case "followers":
-                        return "подписчики";
-
-                    case "followings":
-                        return "подписки";
 
                     case "add":
-                        return "добавить опрос";
+                        return "add_poll";
 
                     case "bookmarkFeed":
-                        return "сохраненное";
+                        return "bookmarked";
 
                     case "catalogList":
-                        return "каталог";
+                        return "catalog";
 
                     case "singlePoll":
                         return this.pollName;
@@ -256,7 +256,8 @@
 			IconArrowLeft,
 			avatar,
 			IconMenu,
-			notificationFeed
+			notificationFeed,
+			langString
 		}
 	};
 </script>

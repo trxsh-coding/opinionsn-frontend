@@ -12,6 +12,7 @@ export default {
 
 			if (root) {
 				this.$root.scrolled_to_bottom = scrolled_to_bottom;
+				this.$root.scroll_top = ref.scrollTop;
 			} else {
 				this.scrolled_to_bottom = scrolled_to_bottom;
 			}

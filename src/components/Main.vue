@@ -9,7 +9,9 @@
 			<aside v-if="!mobile">
 				<aside-desktop />
 			</aside>
-			<mobile-header :user="user" v-if="mobile" />
+			
+			<mobile-header :user="user" v-if="mobile"  />
+			
 			<router-view class="sub-container "/>
 
 			<div

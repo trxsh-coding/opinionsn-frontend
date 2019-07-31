@@ -1,5 +1,8 @@
 <template>
-    <div id="mobile-header" class="flex-between flex-align-center" v-show="header_type !== 'hidden'">
+    <div id="mobile-header"
+         class="flex-between flex-align-center"
+         :class="{'hidden': ($root.scroll_top > 48)}"
+         v-show="header_type !== 'hidden'">
         <div
                 v-if="logged_in"
                 class="icon-wrapper">
@@ -138,7 +141,12 @@
         top: 0;
         background: #ffffff;
         z-index: 999999;
-        padding: 8px 20px 13px 20px ;
+        padding: 8px 20px 13px 20px;
+        transition: 300ms;
+        
+        &.hidden {
+            transform: translateY(-100%);
+        }
 
         .route-title {
             font-family: Roboto;
