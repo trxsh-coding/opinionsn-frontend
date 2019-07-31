@@ -28,6 +28,7 @@ import notificationPage from '../components/notifications/notificationPage';
 import PollTable from '../components/Admin/PollTable';
 import testPlayground from "../components/testPlayground";
 import Settings from "../components/pageSettings/index.vue";
+import Statistic from "../components/Statistic/statisticInstance";
 
 
 Vue.use(Router);
@@ -117,6 +118,12 @@ export const index = new Router({
 					path: 'user/:id',
 					name: 'user',
 					component: user,
+					props: true
+				},
+				{
+					path: 'statistic/:id',
+					name: 'statistic',
+					component: Statistic,
 					props: true
 				},
 				{

@@ -4,7 +4,17 @@
 		<button class="toggle-btn" @click="show = !show">
 			<slot></slot>
 			<span class="icon-wrapper" :style="iconStyle">
-				<slot name="icon"></slot>
+				<slot name="icon">
+				<icon-base
+						class="ml-14 mr-4"
+						fill="#023F52"
+						width="6"
+						height="10"
+						viewBox="0 0 6 10"
+						icon-name="drop-arrow">
+					<icon-drop-arrow />
+				</icon-base>
+				</slot>
 			</span>
 		</button>
 
@@ -25,10 +35,14 @@
 
 	import LoaderReusable from "./LoaderReusable";
 	import ElementScrollHandler from "../mixins/ElementScrollHandler";
-
+	import IconBase from "../icons/IconBase";
+	import IconDropArrow from "../icons/IconDropArrow"
 	export default {
 		name: "DropdownListReusable",
-		components: {LoaderReusable},
+		components: {
+			LoaderReusable,
+			IconDropArrow,
+			IconBase},
 		mixins: [ElementScrollHandler],
 		props: {
 			width: {

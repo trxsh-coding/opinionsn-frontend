@@ -195,6 +195,9 @@
                     case "followings":
                         return "подписки";
 
+					case "statistic":
+						return "статистика";
+
                     case "add":
                         return "добавить опрос";
 

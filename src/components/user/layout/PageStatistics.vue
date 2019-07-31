@@ -3,7 +3,7 @@
 
 		<div class="section-head flex-between">
 			<lang-string class="title" :title="'statistics'" />
-			<lang-string class="description" :title="'detailed_statistics'" />
+			<lang-string @click.native="statisticRoutePush(id)" class="description" :title="'detailed_statistics'" />
 		</div>
 		<div class="statistic-cards mt-5">
 <!--			<div-->
@@ -87,6 +87,11 @@
         		return items;
 			}
 
+		},
+		methods: {
+			statisticRoutePush(id){
+				this.$router.push({name:'statistic',params:{id}})
+			}
 		},
 		mounted(){
 

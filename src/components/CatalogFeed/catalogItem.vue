@@ -35,25 +35,6 @@
         },
         methods: {
 
-            hoverItem(payload){
-                this.hoverColor = payload;
-            },
-            setCategoryName(name){
-                if(this.$route.name === 'pollFeed') {
-
-                    this.$store.commit('pollFeed/setFilterId', this.item.id);
-
-                    this.$store.dispatch('pollFeed/list');
-
-                } else {
-
-                    this.$store.commit('formManagment/SET_CATEGORY_NAME', name )
-
-
-                }
-
-
-            },
 
         },
         computed: {
