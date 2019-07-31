@@ -199,6 +199,12 @@ li {
 
 }
 
+.flex-reverse {
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: flex-end;
+}
+
 .display__hidden {
 
   display: none;

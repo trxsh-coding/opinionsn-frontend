@@ -1,7 +1,6 @@
 <template>
     <div
 		    id="main-feed-layout"
-		    class="py-12"
 		    :class="{'pr-20': mobile, 'pr-12': !mobile}">
         <post-header :author="author" :poll="poll" :eventType="item.eventType">
 			<template #annotation>
