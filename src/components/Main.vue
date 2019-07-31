@@ -13,19 +13,21 @@
 			<router-view class="sub-container "/>
 
 			<div
+					v-if="routeName === 'pollFeed' || 'singlePoll'"
+					id="undo-panel"
+					class="pointer"
 					:class="{'active': !!$root.timer_id, 'desktop': !mobile}"
-					@click="clearTimer"
-					class="undo-panel pointer">
+					@click="clearTimer">
 
 				<lang-string class="description" title="undo_choice" />
 
 				<span class="timer" v-show="timer !== null">{{timer}}</span>
 
 				<div
+						class="undo-bar"
 						:class="{'active': !!$root.timer_id}"
-						:style="{transition: `${$root.timer_duration}ms`}"
-						v-if="routeName === 'pollFeed'"
-						class="undo-bar"></div>
+						:style="{transition: `${$root.timer_duration}ms`}"></div>
+				
 			</div>
 			
 			<footer v-if="!Object.keys(user).length && auth_bar">
@@ -127,6 +129,10 @@
 				user: ({ mainUser }) => mainUser
 
 			}),
+			
+			test() {
+				return this.$root.timer_id
+			},
 
 			routeName: function(){
 
@@ -183,8 +189,8 @@
 
 			closeInstall(){
 
-				this.showInstallMessage = false
-				window.localStorage.setItem('iosNotificationPwa', 'False')
+				this.showInstallMessage = false;
+				window.localStorage.setItem('iosNotificationPwa', 'False');
 
 			},
 			getPathWithPoll(name) {
@@ -289,8 +295,9 @@
 		margin: 0;
 	}
 
-	.undo-panel {
+	#undo-panel {
 		position: fixed;
+		z-index: 6000;
 		bottom: 49px;
 		left: 0;
 		width: 100%;
