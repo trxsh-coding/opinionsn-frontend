@@ -7,12 +7,23 @@
                 :spaceBetween="15"
                 :swiper-type="mobile ? 'scroll' : 'usual'">
             <template #usual>
-                <swiper-slide class="w-fit" v-for="category in categories">
-                    <catalog-item :is-current-string="isCurrentString" :current="current" @click.native="onCategorySelect(category.id, category.name)" :item="category"></catalog-item>
+                <swiper-slide
+                        class="w-fit"
+                        v-for="category in categories">
+                    <catalog-item
+                            :item="category"
+                            :is-current-string="isCurrentString"
+                            :current="current"
+                            @click.native="onCategorySelect(category.id, category.name)" />
                 </swiper-slide>
             </template>
             <template #scroll>
-                <catalog-item :is-current-string="isCurrentString" :current="current" @click.native="onCategorySelect(category.id, category.name)" v-for="category in categories" :item="category"></catalog-item>
+                <catalog-item
+                        v-for="category in categories"
+                        :item="category"
+                        :is-current-string="isCurrentString"
+                        :current="current"
+                        @click.native="onCategorySelect(category.id, category.name)" />
             </template>
         </swiper-reusable>
         
@@ -42,6 +53,7 @@
                 categories: ({categories}) =>categories,
 
             }),
+            
         },
         mounted(){
             this.$store.dispatch(`catalogList/list`);

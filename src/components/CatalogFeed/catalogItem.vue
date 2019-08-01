@@ -1,7 +1,9 @@
 <template>
     <div class="category-item flex-align-center pointer" :class="{current : isCurrent}" >
-        <div class="category-picture" :style="{ 'background-image': 'url(' + publicPath +  imageUtil(item.path_to_image, 'W') +')' } ">
-        </div>
+        <div
+                v-if="!!item.path_to_image"
+                class="category-picture"
+                :style="{ 'background-image': 'url(' + publicPath +  imageUtil(item.path_to_image, 'W') +')' } "></div>
         <div class="category-name">
             <lang-string :title="item.name" :class="{itemActive : hoverColor === 'B'}"/>
         </div>

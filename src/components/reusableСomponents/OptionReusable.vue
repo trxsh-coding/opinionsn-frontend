@@ -1,15 +1,15 @@
 <template>
 	<div class="option-reusable" :style="transform_shift">
 
-		<div
-				v-if="bows && mobile"
-				class="bows"
-				ref="bowsRef"
-				:class="{'invisible': !voted}"
-				:style="{...optionStyle, backgroundColor: 'unset !important'}"
-				@touchstart="trackTouchStart"
-				@touchmove="trackTouchMove"
-				@touchend="trackTouchEnd">
+		<div v-if="bows && mobile"
+		     class="bows"
+		     ref="bowsRef"
+		     :class="{'invisible': !voted}"
+		     :style="{...optionStyle, backgroundColor: 'unset !important'}"
+		     @touchstart="trackTouchStart"
+		     @touchmove="trackTouchMove"
+		     @touchend="trackTouchEnd">
+				
 			<slot v-if="Object.keys(bows).length > 2" name="badge"></slot>
 			<router-link v-for="(value, name) in bows" :to="'/user/' + name">
 				<div class="bow mx-2 h-21 w-21" :style="{backgroundImage: `url('${publicPath + value}')`}"></div>
@@ -141,6 +141,10 @@
 			},
 			trackTouchStart(e) {
 				let { clientX } = e.touches[0];
+				
+				if (clientX < 0) clientX = 0;
+				if (clientX > this.block_width) clientX = this.block_width;
+				
 				this.block_width = this.$refs.bowsRef.offsetWidth;
 				if (this.initialCoord === 0) this.initialCoord = clientX;
 				this.difference = clientX - this.initialCoord;
@@ -149,8 +153,14 @@
 			trackTouchMove(e) {
 				let { initialCoord, block_width } = this;
 				let { clientX } = e.touches[0];
+				
+				console.log(clientX);
+				
+				if (clientX < Math.trunc(block_width * 0.1)) clientX = Math.trunc(block_width * 0.1);
+				if (clientX > block_width) clientX = block_width;
+				
 				let difference = clientX - initialCoord;
-
+				
 				switch (true) {
 					case this.transform_px > (block_width - 54):
 						this.transform_px = block_width - 54;
@@ -167,7 +177,8 @@
 			},
 
 			trackTouchEnd(e) {
-				// console.log(this.transform_px);
+				if (this.transform_px < 0) this.transform_px = 0;
+				if (this.transform_px > (this.block_width - 54)) this.transform_px = this.block_width - 54;
 			}
 
 		},
@@ -283,6 +294,7 @@
 		flex-wrap: wrap;
 		justify-content: flex-end;
 		align-items: stretch;
+		transition: 100ms;
 
 		width: 100%;
 

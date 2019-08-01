@@ -2,12 +2,27 @@
 
 	<div id="poll-wrapper">
 		
-		<category-select @on-select="setCategory" :current="filter_id" :class="{'pl-60' : mobile, 'pb-15' : !mobile, 'pr-10': mobile}"/>
+		<category-select @on-select="setCategory" :current="filter_id" :class="{'pl-60 pr-10 pb-13': mobile, 'pb-13' : !mobile}"/>
 		
-		<div class="feed relative flex-column pb-12">
+		<div class="filter-bar flex-reverse" :class="{'pl-60': mobile}">
+			
+			<button-reusable v-for="({name, id}) in localCategory"
+			                 :active="id === filter_id"
+			                 font-size="13"
+			                 class="v-center py-3 px-9"
+			                 bor-rad="6"
+			                 active-color="#ffffff"
+			                 bg-color="#ffffff"
+			                 activeBgColor="#4B97B4"
+			                 @click.native="setCategory({id})"
+			                 :description="name"/>
 
-			<div v-for="item in items">
-				<poll-instance :item="item"/>
+		</div>
+		
+		<div class="feed relative flex-column mt-18 pb-12">
+
+			<div v-for="(item, index) in items">
+				<poll-instance :class="{'pt-12': (index > 0)}" :item="item"/>
 			</div>
 
 			<loader-reusable class="m-auto" v-show="!is_finished && loading" />
@@ -29,6 +44,7 @@
 	import CategorySelect from "../reusableСomponents/categorySelect";
 	import CatalogItem from "@/components/CatalogFeed/catalogItem";
 	import SwiperReusable from "@/components/reusableСomponents/swiperReusable";
+	import ButtonReusable from "@/components/reusableСomponents/ButtonReusable";
 
 	export default {
 		data() {
@@ -36,6 +52,20 @@
 				page: 1,
 				filtered: false,
 				mobile: this.$root.mobile,
+				localCategory: {
+					"20": {
+						name: 'all',
+						id: -1,
+						path_to_image: null,
+						local: true
+					},
+					"18": {
+						id: -2,
+						name: 'new',
+						path_to_image: null,
+						local: true
+					}
+				},
 				swiperOption: {
 					slidesPerView: 5,
 					spaceBetween: 90,
@@ -107,9 +137,11 @@
 			}
 		},
 		methods: {
+			
 			load() {
 				this.$store.dispatch(`pollFeed/loadNextPage`);
 			},
+			
 			setCategory({id}){
 				this.$store.commit('pollFeed/setFilterId', id);
 				this.$store.dispatch('pollFeed/list');
@@ -122,11 +154,12 @@
 
 		mounted() {
 			this.$store.dispatch(`catalogList/list`);
-
 			this.$store.dispatch(`pollFeed/list`);
+			this.setCategory({id: -1});
 		},
 
 		components: {
+			ButtonReusable,
 			SwiperReusable,
 			CatalogItem,
 			CategorySelect,

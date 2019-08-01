@@ -54,6 +54,12 @@
 					return '#4B97B4';
 				}
 			},
+			activeBgColor: {
+				type: String,
+				default: function () {
+					return 'transparent';
+				}
+			},
 			activeFontSize: {
 				type: Number,
 			},
@@ -87,10 +93,18 @@
 		},
 		computed: {
 			buttonStyle() {
-				let {bgColor, borRad, rounded, color} = this;
+				let {
+					bgColor,
+					borRad,
+					rounded,
+					color,
+					active,
+					activeColor,
+					activeBgColor
+				} = this;
 
-				bgColor = {backgroundColor: `${bgColor}`};
-				color = { color };
+				bgColor = !active ? {backgroundColor: bgColor} : {backgroundColor: activeBgColor};
+				color = !active ? { color } : { color: activeColor };
 
 				if (rounded) {
 					borRad = {borderRadius: '50%'}
