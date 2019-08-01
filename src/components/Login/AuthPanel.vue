@@ -59,8 +59,8 @@
 			}
 
 			.form-block {
-				margin-top: 26px;
-				width: 329px;
+				position: relative;
+				width: 271px;
 
 				.el-form-item {
 					padding: 0 !important;
@@ -109,11 +109,27 @@
 			}
 
 			.buttons-block {
-				margin-top: 29px;
-
 				display: flex;
 				flex-direction: column;
 				align-items: center;
+				
+				.auth-btn {
+					width:100%;
+					border: 1px solid #4B97B4;
+				}
+				
+				.restore-btn {
+					font-family: Roboto;
+					font-style: normal;
+					font-weight: normal;
+					font-size: 12px;
+					text-decoration-line: underline;
+					color: #8A9499;
+				}
+				
+				.oAuth-btns {
+				
+				}
 
 				.google-btn {
 					width: 271px;

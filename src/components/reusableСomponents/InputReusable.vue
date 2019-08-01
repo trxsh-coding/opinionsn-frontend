@@ -4,12 +4,12 @@
 			:style="inputStyle">
 		
 		<lang-string
-				v-show="!hide && inputPlaceholder"
+				v-show="!hide && !!inputPlaceholder"
 				class="input-placeholder"
 				:title="inputPlaceholder"
 		/>
 		
-		<input type="text"
+		<input :type="inputType"
 		       class="input"
 		       v-if="input"
 		       v-model="value"
@@ -127,6 +127,12 @@
 					return false;
 				}
 			},
+			inputType: {
+				type: String,
+				default() {
+					return 'text';
+				}
+			},
 			datePicker: {
 				type: Boolean,
 				default() {
@@ -160,10 +166,8 @@
 				if (this.textarea || this.input) {
 					old.length > 0 ? this.hide = true : this.hide = false;
 					
-				// this.calcHeight(this.$refs.textareaRef);
+				if (this.textarea) this.calcHeight(this.$refs.textareaRef);
 				this.$emit('change', this.value);
-					this.calcHeight(this.$refs.textareaRef);
-					this.$emit('change', this.value);
 
 				} else {
 					this.$emit('date-pick', moment(this.value).toISOString());
@@ -191,7 +195,7 @@
 			},
 			
 			parent_value() {
-				return this.$attrs.value || false;
+				return this.$attrs.value || '';
 			}
 		},
 		methods: {
@@ -204,6 +208,9 @@
 			},
 			
 			focusInput(payload) {
+
+				if (!!this.parent_value.length) payload = true;
+				
 				this.hide = payload;
 				this.active = payload;
 			},
@@ -216,8 +223,6 @@
 
 			onBlurAction(payload) {
 				this.$emit('blur', payload);
-				console.log(this.parent_value.length);
-				if (!this.parent_value.length) this.focusInput(false);
 			},
 
 			inputValue(payload) {

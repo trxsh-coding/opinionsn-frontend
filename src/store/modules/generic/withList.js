@@ -17,7 +17,7 @@ export const StoreWithList = (sc, listUrl) => class extends sc {
 
         let {customUrl, data={}, method='get', onSuccess = 'onListReceived', params} = payload;
 
-        sc.apiRequest(customUrl || listUrl, data, {commit, onSuccess, method, params});
+        return sc.apiRequest(customUrl || listUrl, data, {commit, onSuccess, method, params});
     }
 
 

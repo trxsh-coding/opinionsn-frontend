@@ -11,15 +11,14 @@
 <!--				v-for="(item, index) in itemsSorted"-->
 <!--				v-show="!hidden || ((mobile && index < 3) ||  (!mobile && index < 4))"-->
 <!--			>-->
-			<div
-					class="card flex-column flex-align-center mt-13"
-					v-for="(item, index) in itemsSorted"
-					v-show="((mobile && index < 3) ||  (!mobile && index < 4))"
-			>
-				<lang-string class="title px-9 py-2 my-auto" :title="item[0]" />
+			<div class="card flex-column flex-align-center mt-13"
+			     v-for="(item, index) in itemsSortedNew"
+			     v-show="((mobile && index < 3) ||  (!mobile && index < 4))">
+				
+				<lang-string class="title px-9 py-2 my-auto" :title="item.title" />
 				<div class="flex-column flex-align-center pt-13">
-					<circle-progress-bar-reusable :percent="item[1]" :size="78" bar-size="4"/>
-					<span class="description mt-9"><span>{{item[2]}}</span>/{{item[3]}}</span>
+					<circle-progress-bar-reusable :percent="item.percent" :size="78" bar-size="4"/>
+					<span class="description mt-9"><span>{{item.correct_answers}}</span>/{{item.total_amount_of_answers}}</span>
 
 				</div>
 			</div>
@@ -38,6 +37,7 @@
 	import langString from "../../langString";
 	import axios from 'axios'
 	import CircleProgressBarReusable from "../../reusableСomponents/CircleProgressBarReusable";
+	import {mapState} from "vuex";
 
 	export default {
         name: "PageStatistics",
@@ -53,12 +53,37 @@
 			}
 		},
 		computed: {
+			
+			...mapState("globalStore", {
+				categories: ({ categories }) => categories
+			}),
 
-        	id:function () {
+        	id() {
 
         		return this.$route.params.id
 
 			},
+			
+			itemsSortedNew() {
+				if (!Object.keys(this.items).length || !Object.keys(this.categories).length) return [];
+				
+				let items = [];
+				Object.values(this.items.predictionStatisticGeneral).forEach(({categoryId, percentageOfCorrectAnswers, amountOfCorrectAnswers, totalAmountOfVoted}, index) => {
+					
+					if (!!categoryId) {
+						items[index] = {
+							title: this.categories[categoryId],
+							percent: percentageOfCorrectAnswers,
+							correct_answers: amountOfCorrectAnswers,
+							total_amount_of_answers: totalAmountOfVoted
+						};
+					}
+					
+				});
+				
+				return items;
+			},
+			
 			itemsSorted() {
 
         		if (!this.items) return [];
@@ -94,16 +119,18 @@
 			}
 		},
 		mounted(){
-
-			axios.get(`${process.env.VUE_APP_MAIN_API}/rest/v1/user/statistic/${this.id}`)
+			
+			this.$store.dispatch(`catalogList/list`).then(() => {
+				axios.get(`${process.env.VUE_APP_MAIN_API}/rest/v1/user/statistic/${this.id}`)
 					.then(res => {
 						if (res.status === 200) {
 							this.$store.commit('globalStore/updateStores', res.data, {root: true});
 							console.log((res.data));
 							this.items = res.data;
 						}
-
+						
 					})
+			});
 
 		}
     }
