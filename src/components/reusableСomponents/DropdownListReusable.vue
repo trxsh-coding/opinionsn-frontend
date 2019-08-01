@@ -160,6 +160,7 @@
 
 		.dropdown-list {
 			position: absolute;
+			z-index: 100;
 			top: calc(100% + 10px);
 			left: 50%;
 			transform: translateX(-50%);
