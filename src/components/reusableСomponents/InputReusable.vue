@@ -209,7 +209,9 @@
 			
 			focusInput(payload) {
 
-				if (!!this.parent_value.length) payload = true;
+				console.log(this.parent_value.length);
+
+				if (this.parent_value.length > 0) payload = true;
 				
 				this.hide = payload;
 				this.active = payload;
@@ -223,6 +225,7 @@
 
 			onBlurAction(payload) {
 				this.$emit('blur', payload);
+				this.focusInput(false);
 			},
 
 			inputValue(payload) {
