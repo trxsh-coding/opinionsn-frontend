@@ -9,7 +9,7 @@
 				:class="{'active': active}"
 				:style="{fontSize: `${fontSize}px`}"
 				v-if="button_type === 'default'">
-			<lang-string :title="description"/>
+			<lang-string v-if="!!description" :title="description"/>
 			<slot/>
 		</div>
 
@@ -65,7 +65,7 @@
 			},
 
 			fontSize: {
-				type: Number,
+				type: [Number, String],
 			},
 			borRad: {
 				type: [String, Number],

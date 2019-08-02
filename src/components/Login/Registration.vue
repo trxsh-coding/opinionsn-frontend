@@ -22,57 +22,116 @@
 				</icon-base>
 			</div>
 		</div>
-<!--		<span class="logo-caption">Социальная сеть слоган</span>-->
-		<div class="form-block">
 
-			<el-form :model="registrationForm" ref="registrationForm">
+		<div class="form-block mt-25">
 
-				<el-form-item :label="lstr('username')" >
-
-					<el-input v-model="registrationForm.username" autocomplete="on"  @keyup.enter.native="submitRegistration(registrationForm)"/>
-
-					<lang-string class="error" :title="errors.login"/>
-
-				</el-form-item>
-
-				<el-form-item :label="lstr('email')" :class="{padding : error }">
-
-					<el-input v-model="registrationForm.email"   @keyup.enter.native="submitRegistration(registrationForm)"/>
-
-					<lang-string class="error" :title="errors.email"/>
-
-				</el-form-item>
-
-				<el-form-item :label="lstr('password')" :class="{padding : error }">
-
-					<el-input  type="password" v-model="registrationForm.password"  @keyup.enter.native="submitRegistration(registrationForm)"/>
-
-					<lang-string class="error" :title="errors.pass"/>
-
-					<lang-string class="error" :title="errors.passConfirm"/>
+			<popup-error-reusable :errors="{ login: lstr(errors.login) }" span-class="mt-3">
+				<input-reusable class="mx-auto"
+				                :value="registrationForm.username"
+				                @change="updateField(arguments[0], 'username')"
+				                inputPlaceholder="username"
+				                width="271"
+				                input
+				                with-underline/>
+			</popup-error-reusable>
 
 
-				</el-form-item>
+			<popup-error-reusable :errors="{email: lstr(errors.email) }" span-class="mt-3">
+				<input-reusable class="mx-auto mt-16"
+				                :value="registrationForm.email"
+				                @change="updateField(arguments[0], 'email')"
+				                inputPlaceholder="email"
+				                width="271"
+				                input
+				                with-underline/>
+			</popup-error-reusable>
 
-				<el-form-item :label="lstr('confirm_password')" :class="{padding : error }">
+			<popup-error-reusable :errors="{passConfirm: lstr(errors.passConfirm) }" span-class="mt-3">
+				<input-reusable class="mx-auto mt-16"
+				                :value="registrationForm.password"
+				                @change="updateField(arguments[0], 'password')"
+				                inputPlaceholder="password"
+				                width="271"
+				                input
+				                with-underline/>
+			</popup-error-reusable>
 
-					<el-input type="password" v-model="registrationForm.conf_pass"  @keyup.enter.native="submitRegistration(registrationForm)"/>
-
-					<lang-string class="error" :title="errors.passConfirm"/>
-
-				</el-form-item>
-			</el-form>
+			<popup-error-reusable :errors="{passConfirm: lstr(errors.passConfirm) }" span-class="mt-3">
+				<input-reusable class="mx-auto mt-16"
+				                :value="registrationForm.conf_pass"
+				                @change="updateField(arguments[0], 'conf_pass')"
+				                inputPlaceholder="confirm_password"
+				                width="271"
+				                input
+				                with-underline/>
+			</popup-error-reusable>
 
 		</div>
-		<div class="buttons-block">
-			<el-button class="primary-btn" @click="submitRegistration(registrationForm)">
-				<lang-string  :title="'registration'"/>
-			</el-button>
-			<div class="registration__item">
 
-				<lang-string :title="'already_registered?'" /> <router-link class="underline" to="/sign"><lang-string :title="'sign'" /></router-link>
+		<div class="buttons-block mt-23">
+
+			<button-reusable
+					@click.native="submitRegistration(registrationForm)"
+					class="v-center reg-btn py-13"
+					description="registration"
+					font-size="16"
+					bor-rad="6"
+					bg-color="#4B97B4"
+					color="#ffffff"/>
+
+			<div class="oAuth-btns mt-25 flex-column-center">
+
+
+				<span class="title">
+					<lang-string :title="'already_registered?'" /><router-link class="title underline ml-5" to="/sign"><lang-string :title="'sign'" /></router-link>
+				</span>
+
+				<lang-string class="title mt-26" title="sign_in_with_social_networks" />
+
+				<div class="btns flex-align-center mt-10">
+
+					<a href="https://opinionsn.com/api/oauth2/vk">
+						<button-reusable
+								class="v-center soc-btn vk-btn py-12"
+								font-size="16"
+								bor-rad="6"
+								bg-color="#4C6C91"
+								color="#4B97B4">
+							<icon-base
+									class="logo"
+									width="32"
+									height="18"
+									viewBox="0 0 32 18"
+									fill="none"
+									icon-name="google-logo">
+								<icon-vk/>
+							</icon-base>
+						</button-reusable>
+					</a>
+
+					<a href="https://opinionsn.com/api/oauth2/google">
+						<button-reusable
+								class="v-center soc-btn google-btn py-8 ml-11"
+								font-size="16"
+								bor-rad="6"
+								bg-color="#ffffff"
+								color="#4B97B4">
+							<icon-base
+									class="logo"
+									width="26"
+									height="26"
+									viewBox="0 0 366 372"
+									fill="none"
+									icon-name="google-logo">
+								<icon-google/>
+							</icon-base>
+						</button-reusable>
+					</a>
+
+				</div>
 
 			</div>
+
 		</div>
 	</div>
 </template>
@@ -86,22 +145,43 @@
 	import { localString } from "../../utils/localString";
 	import axios from "axios";
 	import { mapState } from "vuex";
+	import InputReusable from "../reusableСomponents/InputReusable";
+	import ButtonReusable from "../reusableСomponents/ButtonReusable";
+	import IconVk from "../icons/IconVk";
+	import IconGoogle from "../icons/IconGoogle";
+	import PopupErrorReusable from "../reusableСomponents/PopupErrorReusable";
+
 	export default {
 		data() {
 			return {
 				error: false,
 				registrationForm: {
-					username: null,
-					email: null,
-					password: null,
-					conf_pass: null
+					username: '',
+					email: '',
+					password: '',
+					conf_pass: ''
 				},
 
 				errors: {}
 			};
 		},
 
+		computed: {
+			...mapState('lang',{
+				lang : state => state.locale
+			}),
+		},
+
 		methods: {
+
+			lstr(str) {
+				localString(this.lang, str);
+			},
+
+			updateField(val, key) {
+				this.registrationForm[key] = val;
+			},
+
 			submitRegistration(form) {
 				let registerFormData = new FormData();
 				registerFormData.append("login", form.username);
@@ -130,35 +210,29 @@
 					});
 			}
 		},
-
-		computed: {
-			errorFields() {
-				let fields = [
-					["field_login", ""],
-					["field_password", ""],
-					["passConfirm", ""],
-					["email", ""],
-					["login", ""]
-				];
-
-				let map = this.errors;
-				for (let [i, v] of fields) {
-					map[i] = v;
-				}
-				return map;
-			}
-		},
-		watch: {},
 		mixins: [langMixin],
 		components: {
+			PopupErrorReusable,
+			ButtonReusable,
+			InputReusable,
 			IconBase,
 			IconLogo,
 			IconTextLogo,
-			langString
+			langString,
+			IconVk,
+			IconGoogle
 		}
 	};
 </script>
 
 <style lang="scss">
+	.auth-panel {
 
+		.buttons-block {
+
+			.reg-btn {
+				width: 100%;
+			}
+		}
+	}
 </style>

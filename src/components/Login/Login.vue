@@ -24,25 +24,26 @@
 		  </div>
 
 	  </div>
-<!--	  <span class="logo-caption">Социальная сеть слоган</span>-->
-	  <div class="buttons-block flex-column-center">
 
-		  <el-button class="primary-btn uppercase" @click="routeFn('sign')">
-			  <lang-string :title="'sign_in'" />
-		  </el-button>
+	  <div class="buttons-block flex-column-center mt-25">
 
-		  <a class="google-btn " href="https://opinionsn.com/api/oauth2/google">
-			  <icon-base
-				  class="logo"
-				  fill="none"
-				  icon-name="google-logo"><icon-google />
-			  </icon-base>
-			  <span class="google-button__text">Sign in with Google</span>
-		  </a>
+		  <button-reusable
+				  @click.native="routeFn('sign')"
+				  class="v-center auth-btn py-13"
+				  description="sign_in"
+				  font-size="16"
+				  bor-rad="6"
+				  bg-color="#ffffff"
+				  color="#4B97B4"/>
 
-		  <el-button class="secondary-btn" @click="routeFn('registration')">
-			  <lang-string :title="'registration'" />
-		  </el-button>
+		  <button-reusable
+				  @click.native="routeFn('registration')"
+				  class="v-center auth-btn mt-9 py-13"
+				  description="registration"
+				  font-size="16"
+				  bor-rad="6"
+				  bg-color="#4B97B4"
+				  color="#ffffff"/>
 
 	  </div>
   </div>
@@ -58,6 +59,7 @@
 	import langString from "../langString";
 	import { mapState } from "vuex";
 	import IconGoogle from "../icons/IconGoogle.vue";
+	import ButtonReusable from "../reusableСomponents/ButtonReusable";
 
 	export default {
 		mixins: [langMixin],
@@ -73,6 +75,7 @@
 			}
 		},
 		components: {
+			ButtonReusable,
 			Sign,
 			Registration,
 			IconBase,
@@ -85,14 +88,5 @@
 </script>
 
 <style lang="scss">
-	.login-section {
-
-		.buttons-block {
-
-			.secondary-btn {
-				margin-top: 9px !important;
-			}
-		}
-	}
 
 </style>

@@ -27,27 +27,32 @@
 		</div>
 		
 		<div class="form-block mt-58">
-			
-			<input-reusable class="mx-auto"
-			                :value="signForm.email"
-			                @change="updateField(arguments[0], 'email')"
-			                inputPlaceholder="username"
-			                width="271"
-			                input
-			                with-underline/>
-			
-			<input-reusable class="mx-auto mt-30"
-			                input-type="password"
-			                :value="signForm.password"
-			                @change="updateField(arguments[0], 'password')"
-			                inputPlaceholder="password"
-			                width="271"
-			                input
-			                with-underline/>
-		
+
+			<popup-error-reusable :errors="{field_email: lstr(errors.field_email)}" span-class="mt-3">
+				<input-reusable class="mx-auto"
+				                :value="signForm.email"
+				                @change="updateField(arguments[0], 'email')"
+				                inputPlaceholder="username"
+				                width="271"
+				                input
+				                with-underline/>
+			</popup-error-reusable>
+
+
+			<popup-error-reusable :errors="{field_password: lstr(errors.field_password)}" span-class="mt-3">
+				<input-reusable class="mx-auto mt-30"
+				                input-type="password"
+				                :value="signForm.password"
+				                @change="updateField(arguments[0], 'password')"
+				                inputPlaceholder="password"
+				                width="271"
+				                input
+				                with-underline/>
+			</popup-error-reusable>
+
 		</div>
 		
-		<div class="buttons-block mt-20">
+		<div class="buttons-block flex-column-center mt-20">
 			
 			<router-link class="ml-auto restore-btn" to="/restore">
 				<lang-string :title="'forgot_your_password?'"/>
@@ -71,37 +76,52 @@
 					bg-color="#4B97B4"
 					color="#ffffff"/>
 			
-			<div class="oAuth-btns flex-column">
-				<lang-string title="sign_in_with_social_networks" />
-				
-			</div>
-			
-			<a class="google-btn" href="https://opinionsn.com/api/oauth2/google">
-				<icon-base
-						class="logo"
-						fill="none"
-						icon-name="google-logo">
-					<icon-google/>
-				</icon-base>
-				<span class="google-button__text">Sign in with Google</span>
-			</a>
-			
-			<div class="registration__item">
-				
-				<div>
-					<lang-string :title="'forgot_your_password?'"/>
-					<router-link to="/restore">
-						<lang-string :title="'restore'"/>
-					</router-link>
+			<div class="oAuth-btns mt-47 flex-column-center">
+				<lang-string class="title" title="sign_in_with_social_networks" />
+
+				<div class="btns flex-align-center mt-10">
+
+					<a href="https://opinionsn.com/api/oauth2/vk">
+						<button-reusable
+								class="v-center soc-btn vk-btn py-12"
+								font-size="16"
+								bor-rad="6"
+								bg-color="#4C6C91"
+								color="#4B97B4">
+							<icon-base
+									class="logo"
+									width="32"
+									height="18"
+									viewBox="0 0 32 18"
+									fill="none"
+									icon-name="google-logo">
+								<icon-vk/>
+							</icon-base>
+						</button-reusable>
+					</a>
+
+					<a href="https://opinionsn.com/api/oauth2/google">
+						<button-reusable
+								class="v-center soc-btn google-btn py-8 ml-11"
+								font-size="16"
+								bor-rad="6"
+								bg-color="#ffffff"
+								color="#4B97B4">
+							<icon-base
+									class="logo"
+									width="26"
+									height="26"
+									viewBox="0 0 366 372"
+									fill="none"
+									icon-name="google-logo">
+								<icon-google/>
+							</icon-base>
+						</button-reusable>
+					</a>
+
 				</div>
-				<div class="mt-10">
-					<lang-string :title="'dont_have_account'"/>
-					<router-link :to="getPath('registration')">
-						<lang-string :title="'registration'"/>
-					</router-link>
-				</div>
-			
 			</div>
+
 		</div>
 	</div>
 
@@ -112,13 +132,15 @@
 	import IconBase from "../icons/IconBase.vue";
 	import IconLogo from "../icons/IconLogo.vue";
 	import IconGoogle from "../icons/IconGoogle.vue";
+	import IconVk from "../icons/IconVk.vue";
 	import IconTextLogo from "../icons/IconTextLogo.vue";
 	import langString from "../langString.vue";
 	import {localString} from "../../utils/localString";
-	import {mapState} from "vuex";
 	import axios from "axios";
 	import InputReusable from "@/components/reusableСomponents/InputReusable";
 	import ButtonReusable from "@/components/reusableСomponents/ButtonReusable";
+	import PopupErrorReusable from "../reusableСomponents/PopupErrorReusable";
+	import {mapState} from "vuex";
 	
 	export default {
 		data() {
@@ -132,8 +154,18 @@
 				errors: {}
 			};
 		},
+
+		computed: {
+			...mapState('lang',{
+				lang : state => state.locale
+			}),
+		},
 		
 		methods: {
+			lstr(str) {
+				localString(this.lang, str);
+			},
+
 			pollNotify() {
 				this.$message(
 					"Чтобы поучаствовать в опросе, необходимо зарегистрироваться"
@@ -142,10 +174,6 @@
 			
 			updateField(val, key) {
 				this.signForm[key] = val;
-			},
-			
-			getPath(name) {
-				return {name, query: this.$route.query};
 			},
 			
 			submitSign(form) {
@@ -207,42 +235,19 @@
 		
 		mixins: [langMixin],
 		components: {
+			PopupErrorReusable,
 			ButtonReusable,
 			InputReusable,
 			IconBase,
 			IconLogo,
 			IconTextLogo,
 			IconGoogle,
+			IconVk,
 			langString
 		}
 	};
 </script>
 
 <style lang="scss">
-	.sign-section {
-		.form-block {
-			
-			.form-caption {
-				display: flex;
-				justify-content: space-between;
-				align-items: center;
-				
-				* {
-					font-style: normal;
-					font-weight: normal;
-					font-size: 12px;
-					color: #8A9499;
-				}
-				
-				a {
-					text-decoration: underline;
-				}
-				
-				.el-checkbox__inner {
-					/*border-radius: 50%;*/
-				}
-			}
-		}
-		
-	}
+
 </style>

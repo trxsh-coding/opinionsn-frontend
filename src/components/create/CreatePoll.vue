@@ -341,26 +341,26 @@
 				this.$store.commit('formManagment/ADD_SUBJECT_PICTURE');
 			},
 			getPicsIndexList(){
-				
+
 				let index_arr = [];
-				
+
 				Object.values(this.form.options).forEach(({picture}, index) => {
 					if (picture !== null) index_arr.push(index);
 				});
-				
+
 				return index_arr;
-				
+
 			},
-			
+
 			checkError(key) {
         		let { form } = this;
         	    return !!form.errors[key] && Object.values(form.errors[key]).some(error => !!error)
 	        },
 
             onFormSubmit(){
-	
+
 	            // console.log('test');
-	
+
 	            let {verifyValues, options_with_rules, checkLength, checkUpload, values_with_rules, errors = {}} = this;
 				verifyValues('create_poll_form', values_with_rules, { checkLength });
 				verifyValues('create_poll_form', options_with_rules, { checkLength, checkUpload });

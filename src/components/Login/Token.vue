@@ -23,37 +23,43 @@
 				</icon-base>
 			</div>
 		</div>
-		<div class="form-block">
 
-			<el-form :model="passwordForm" ref="signForm">
+		<div class="form-block mt-58">
 
-				<el-form-item :label="lstr('password')">
+			<popup-error-reusable :errors="{ }" span-class="mt-3">
+				<input-reusable class="mx-auto"
+				                :value="passwordForm.password"
+				                @change="updateField(arguments[0], 'password')"
+				                inputPlaceholder="password"
+				                width="271"
+				                input
+				                with-underline/>
+			</popup-error-reusable>
 
-					<el-input type="password" v-model="passwordForm.password" autocomplete="on" />
-					<lang-string class="error" :title="errors.field_email"/>
-				</el-form-item>
-				<el-form-item :label="lstr('confirm_password')">
-
-					<el-input  type="password" v-model="passwordForm.password_confirm" />
-
-				</el-form-item>
-			</el-form>
+			<popup-error-reusable :errors="{ }" span-class="mt-3">
+				<input-reusable class="mx-auto mt-30"
+				                input-type="password"
+				                :value="passwordForm.password_confirm"
+				                @change="updateField(arguments[0], 'password_confirm')"
+				                inputPlaceholder="confirm_password"
+				                width="271"
+				                input
+				                with-underline/>
+			</popup-error-reusable>
 
 		</div>
+
 		<div class="buttons-block">
-			<el-button class="primary-btn" @click="submitSign(passwordForm)">
-				<lang-string class="lowercase" :title="'reset'"/>
-			</el-button>
-			<!--<div class="registration__item">-->
 
-			<!--<lang-string :title="'dont_have_account?'" /> <router-link to="/registration"> <lang-string :title="'registration'" /></router-link>-->
+			<button-reusable
+					@click.native="submitSign(passwordForm)"
+					class="v-center auth-btn mt-23 py-13"
+					description="reset"
+					font-size="16"
+					bor-rad="6"
+					bg-color="#4B97B4"
+					color="#ffffff"/>
 
-			<!--</div>-->
-			<!--<div class="reset__item">-->
-
-			<!--<lang-string :title="'forgot_your_password?'" /> <router-link to="/restore"> <lang-string :title="'login_reset'" /></router-link>-->
-
-			<!--</div>-->
 		</div>
 	</div>
 
@@ -68,14 +74,17 @@
     import {localString} from '../../utils/localString'
     import {mapState} from 'vuex'
     import axios from 'axios'
+    import ButtonReusable from "../reusableСomponents/ButtonReusable";
+    import InputReusable from "../reusableСomponents/InputReusable";
+    import PopupErrorReusable from "../reusableСomponents/PopupErrorReusable";
 
     export default {
         data() {
             return {
                 passwordForm: {
 
-                    password:null,
-                    password_confirm:null,
+                    password: '',
+                    password_confirm: '',
                     code:this.$route.query.code
 
                 },
@@ -87,6 +96,10 @@
 
 
         methods: {
+
+	        updateField(val, key) {
+		        this.passwordForm[key] = val;
+	        },
 
             submitSign(form){
                 let resetFormData = new FormData();
@@ -153,6 +166,9 @@
         },
         mixins:[langMixin],
         components: {
+	        PopupErrorReusable,
+	        InputReusable,
+	        ButtonReusable,
             IconBase,
             IconLogo,
             IconTextLogo,
