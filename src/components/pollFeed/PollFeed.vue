@@ -12,7 +12,7 @@
 			                 class="v-center py-3 px-9"
 			                 bor-rad="6"
 			                 active-color="#ffffff"
-			                 bg-color="#ffffff"
+			                 bg-color="transparent"
 			                 activeBgColor="#4B97B4"
 			                 @click.native="setCategory({id})"
 			                 :description="name"/>
