@@ -17,7 +17,7 @@
 
         <category-select @on-select="setCategoryId" :current="categoryId"  class="pl-60 pr-4"/>
         <div class="select-block pl-69 mt-12">
-            <dropdown-list-reusable class="mr-22" listClass="w-max">
+            <dropdown-list-reusable with-arrow class="mr-22" listClass="w-max">
                 <template>
                     <lang-string :title="periods[periodId].value" />
                 </template>
@@ -29,7 +29,7 @@
                     </li>
                 </template>
             </dropdown-list-reusable>
-            <dropdown-list-reusable listClass="w-max">
+            <dropdown-list-reusable with-arrow listClass="w-max">
                 <template>
                     <lang-string :title="types[typeId].value" />
                 </template>
@@ -45,7 +45,6 @@
         <div class="statistic-section">
             <apexchart  type="bar" :options="chartOptions" :series="series" />
         </div>
-        <button @click="getUserStatistic">click</button>
     </div>
 
 </template>
@@ -89,10 +88,18 @@
                 statistic:[],
 
                 chartOptions: {
+                    chart: {
+                        toolbar: {
+                            show: false,
+                            tools: {
+                                download: false
+                            }
+                        },
+                    },
                     plotOptions: {
                         bar: {
                             horizontal: false,
-                            columnWidth: '10%',
+                            columnWidth: '15%',
                             endingShape: 'rounded'
                         },
                     },
@@ -101,18 +108,24 @@
                     },
                     stroke: {
                         show: true,
-                        width: 2,
+                        width: 5,
                         colors: ['transparent']
                     },
 
                     xaxis: {
                         categories: [],
                     },
-
+                    yaxis: {
+                        min:0,
+                        max:10,
+                        decimalsInFloat: 1,
+                        floating: false,
+                    },
                     fill: {
                         opacity: 1
 
                     },
+
                     tooltip: {
                         y: {
                             formatter: function (val) {
@@ -130,6 +143,17 @@
                     ...this.chartOptions,
                     xaxis: current
                 };
+            },
+            typeId(current, newOne){
+               if(current !== newOne) this.getUserStatistic()
+            },
+            periodId(current, newOne){
+                console.log(current)
+                if(current !== newOne) this.getUserStatistic()
+            },
+            categoryId(current, newOne){
+                console.log(current)
+                if(current !== newOne) this.getUserStatistic()
             }
 
         },
@@ -145,11 +169,39 @@
                 return users[user_id];
             },
             series(){
+                let { pillarsPollDTO = {} } = this.statistic;
+                let {types, typeId} = this;
+                let series = [
+                    {
+                        data:null,
+                        name:null
+                    }
+                ];
+                if(typeId === 1) {
 
-                return [{
-                    name: this.types[this.typeId].value,
-                    data: this.columnInstance
-                }]
+                    let correctAnswers = Object.values(pillarsPollDTO).map(({totalAmountCorrectAnswers}) => totalAmountCorrectAnswers);
+                    let inCorrectAnswers = Object.values(pillarsPollDTO).map(({totalAmountIncorrectAnswers}) => totalAmountIncorrectAnswers);
+
+                    series[0] = {
+                        data: correctAnswers,
+                        name: 'correct answers'
+                    };
+                    series[1] = {
+                        data: inCorrectAnswers,
+                        name: 'incorrect answers'
+                    };
+
+                } else {
+                    let pollAnsweredAmount = Object.values(pillarsPollDTO).map(({totalAmountVoted}) => totalAmountVoted);
+                    series[0] = {
+                        data: pollAnsweredAmount,
+                        name: 'Voted'
+                    };
+
+                }
+
+                return series;
+
 
             },
             chartOptinos(){
@@ -160,22 +212,17 @@
             cXaxis(){
 
                 return {
-                    categories: this.rangeInstance
+                    categories: this.rangeInstance.reverse(),
                 }
 
             },
+
+
             rangeInstance(){
                 let { pillarsPollDTO = {} } = this.statistic;
                 return  Object.values(pillarsPollDTO).map(({day}) => day.toString());
 
-
             },
-            columnInstance(){
-                let { pillarsPollDTO = {} } = this.statistic;
-                return  Object.values(pillarsPollDTO).map(({totalAmountVoted}) => totalAmountVoted);
-
-
-            }
         },
         methods: {
             setRange(index){
@@ -204,6 +251,7 @@
             }
         },
         mounted(){
+            this.getUserStatistic()
         }
 
     }

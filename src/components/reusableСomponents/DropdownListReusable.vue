@@ -6,6 +6,7 @@
 			<span class="icon-wrapper" :style="iconStyle">
 				<slot name="icon">
 				<icon-base
+						v-if="withArrow"
 						class="ml-14 mr-4"
 						fill="#023F52"
 						width="6"
@@ -52,7 +53,8 @@
 				type: [String, Number]
 			},
 			listClass: String,
-			clickClose: Boolean
+			clickClose: Boolean,
+			withArrow: Boolean
 		},
 		data() {
 			return {
