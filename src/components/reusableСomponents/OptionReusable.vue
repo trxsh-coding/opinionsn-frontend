@@ -1,6 +1,5 @@
 <template>
 	<div class="option-reusable" :style="transform_shift">
-
 		<div v-if="bows && mobile"
 		     class="bows"
 		     ref="bowsRef"
@@ -17,6 +16,7 @@
 		</div>
 
 		<div class="option-wrapper" @click="selectOption(id)">
+			<button @click="setRightOption(id, poll_id)">✓</button>
 			<div v-if="picture && picture.slice(-4) !== 'null'" class="picture" :style="pictureStyle"></div>
 
 			<div class="option" :style="optionStyle">
@@ -138,6 +138,11 @@
 					runTimeout();
 
 				}
+			},
+
+			setRightOption(option_id, poll_id){
+				this.$store.dispatch(`pollFeed/setRightOption`, {data: {option_id, poll_id }})
+
 			},
 			trackTouchStart(e) {
 				let { clientX } = e.touches[0];

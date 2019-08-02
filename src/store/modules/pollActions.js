@@ -30,7 +30,7 @@ export const pollActions = sc => class extends sc {
 
     setRightOption({commit, dispatch}, payload={}){
 
-        let {customUrl = `${process.env.VUE_APP_MAIN_API}/rest/admin/poll/choiceAnswer/`, data={}, method=`post`} = payload;
+        let {customUrl = `${process.env.VUE_APP_MAIN_API}/rest/v1/admin/poll/option/choice`, data={}, method=`post`} = payload;
 
         sc.apiRequest(customUrl, {},{commit, params: data, dispatch, onSuccess: null, successType: `action`}, method);
 

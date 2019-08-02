@@ -46,7 +46,6 @@
             <apexchart  type="bar" :options="chartOptions" :series="series" />
         </div>
         <button @click="getUserStatistic">click</button>
-        {{series}}
     </div>
 
 </template>
@@ -107,13 +106,9 @@
                     },
 
                     xaxis: {
-                        categories: ['Feb', 'Mar', 'Apr'],
+                        categories: [],
                     },
-                    yaxis: {
-                        title: {
-                            text: '$ (thousands)'
-                        }
-                    },
+
                     fill: {
                         opacity: 1
 
@@ -209,7 +204,6 @@
             }
         },
         mounted(){
-
         }
 
     }
