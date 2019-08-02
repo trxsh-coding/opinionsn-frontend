@@ -48,6 +48,7 @@
 
 			<popup-error-reusable :errors="{passConfirm: lstr(errors.passConfirm) }" span-class="mt-3">
 				<input-reusable class="mx-auto mt-16"
+				                input-type="password"
 				                :value="registrationForm.password"
 				                @change="updateField(arguments[0], 'password')"
 				                inputPlaceholder="password"
@@ -58,6 +59,7 @@
 
 			<popup-error-reusable :errors="{passConfirm: lstr(errors.passConfirm) }" span-class="mt-3">
 				<input-reusable class="mx-auto mt-16"
+				                input-type="password"
 				                :value="registrationForm.conf_pass"
 				                @change="updateField(arguments[0], 'conf_pass')"
 				                inputPlaceholder="confirm_password"
