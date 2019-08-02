@@ -125,7 +125,6 @@
 					.then(res => {
 						if (res.status === 200) {
 							this.$store.commit('globalStore/updateStores', res.data, {root: true});
-							console.log((res.data));
 							this.items = res.data;
 						}
 						

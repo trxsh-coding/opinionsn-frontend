@@ -1,154 +1,154 @@
-ш<template lang="html">
+<template lang="html">
 
 	<div class="sign-section">
 		<div class="navbar-brand">
 			<div class="navbar__item navbar__item-1">
 				<icon-base
-					fill="none"
-					class="icon"
-					width="75"
-					height="64"
-					viewBox="0 0 23 24"
-					icon-name="logo"><icon-logo />
+						fill="none"
+						class="icon"
+						width="75"
+						height="64"
+						viewBox="0 0 23 24"
+						icon-name="logo">
+					<icon-logo/>
 				</icon-base>
 			</div>
 			<div class="navbar__item navbar__item-2 v-center">
 				<icon-base
-					fill="none"
-					class="icon-text"
-					width="66"
-					height="15"
-					viewBox="0 0 64 15"
-					icon-name="text-logo"><icon-text-logo />
+						fill="none"
+						class="icon-text"
+						width="66"
+						height="15"
+						viewBox="0 0 64 15"
+						icon-name="text-logo">
+					<icon-text-logo/>
 				</icon-base>
 			</div>
 		</div>
-		<div class="form-block">
+		<div class="form-block mt-58">
 
-			<el-form :model="resetForm" ref="signForm">
+			<popup-error-reusable :errors="{ }" span-class="mt-3">
+				<input-reusable class="mx-auto"
+				                :value="resetForm.email"
+				                @change="updateField(arguments[0], 'email')"
+				                inputPlaceholder="email"
+				                width="271"
+				                input
+				                with-underline/>
+			</popup-error-reusable>
 
-				<el-form-item :label="lstr('email')">
+			<popup-error-reusable :errors="{ }" span-class="mt-3">
+				<input-reusable class="mx-auto mt-30"
+				                input-type="password"
+				                :value="resetForm.email_confirm"
+				                @change="updateField(arguments[0], 'email_confirm')"
+				                inputPlaceholder="confirm_email"
+				                width="271"
+				                input
+				                with-underline/>
+			</popup-error-reusable>
 
-					<el-input v-model="resetForm.email" autocomplete="on" />
-<!--					<lang-string class="error" :title="errors.field_email"/>-->
-				</el-form-item>
-				<el-form-item :label="lstr('confirm_email')">
-
-					<el-input  v-model="resetForm.email_confirm" />
-
-				</el-form-item>
-			</el-form>
 
 		</div>
+
 		<div class="buttons-block">
-			<el-button class="primary-btn" @click="submitSign(resetForm)">
-				<lang-string class="lowercase" :title="'send'"/>
-			</el-button>
-			<!--<div class="registration__item">-->
 
-			<!--<lang-string :title="'dont_have_account?'" /> <router-link to="/registration"> <lang-string :title="'registration'" /></router-link>-->
+			<button-reusable
+					@click.native="submitSign(resetForm)"
+					class="v-center auth-btn mt-23 py-13"
+					description="send"
+					font-size="16"
+					bor-rad="6"
+					bg-color="#4B97B4"
+					color="#ffffff"/>
 
-			<!--</div>-->
-			<!--<div class="reset__item">-->
-
-			<!--<lang-string :title="'forgot_your_password?'" /> <router-link to="/restore"> <lang-string :title="'login_reset'" /></router-link>-->
-
-			<!--</div>-->
 		</div>
 	</div>
 
 </template>
 
 <script>
-    import langMixin from '../mixins/langMixin'
-    import IconBase from '../icons/IconBase.vue'
-    import IconLogo from '../icons/IconLogo.vue'
-    import IconTextLogo from '../icons/IconTextLogo.vue'
-    import langString from '../langString.vue'
-    import {localString} from '../../utils/localString'
-    import {mapState} from 'vuex'
-    import axios from 'axios'
+	import langMixin from '../mixins/langMixin'
+	import IconBase from '../icons/IconBase.vue'
+	import IconLogo from '../icons/IconLogo.vue'
+	import IconTextLogo from '../icons/IconTextLogo.vue'
+	import langString from '../langString.vue'
+	import {localString} from '../../utils/localString'
+	import {mapState} from 'vuex'
+	import axios from 'axios'
+	import ButtonReusable from "../reusableСomponents/ButtonReusable";
+	import InputReusable from "../reusableСomponents/InputReusable";
+	import PopupErrorReusable from "../reusableСomponents/PopupErrorReusable";
 
-    export default {
-        data() {
-            return {
-                resetForm: {
+	export default {
+		data() {
+			return {
+				resetForm: {
+					email: null,
+					email_confirm: null
+				},
 
-                    email:null,
-                    email_confirm:null
-
-                },
-
-                errors:{
-
+				errors: {
 					field_email: "Ошибка"
-
 				}
-
-            }
-        },
-
-
-        methods: {
-
-            submitSign(form){
-                let loginFormData = new FormData();
-                loginFormData.append('email', form.email);
-                loginFormData.append('emailConfirm', form.email_confirm);
-                axios.post(`${process.env.VUE_APP_MAIN_API}/auth/password/reset/code`, loginFormData)
-                    .then(response => {
-                        if (response.status === 200) {
-                            this.$router.push({ name: 'login'})
-                        }
-
-                    })
-
-                    .catch((error) => {
+			}
+		},
 
 
+		methods: {
 
-                         this.errors = error.response.data.errorCode
+			updateField(val, key) {
+				this.resetForm[key] = val;
+			},
 
-                        this.$forceUpdate();
-                    });
+			submitSign(form) {
+				let loginFormData = new FormData();
+				loginFormData.append('email', form.email);
+				loginFormData.append('emailConfirm', form.email_confirm);
+				axios.post(`${process.env.VUE_APP_MAIN_API}/auth/password/reset/code`, loginFormData)
+					.then(response => {
+						if (response.status === 200) {
+							this.$router.push({name: 'login'})
+						}
 
+					})
 
-            }
-
-
-        },
-
-        computed: {
-
-
-
-
-
-        },
-        watch: {
-
-            errorFields(){
-
-                let fields = [['field_login', ''],['field_password', ''],['passConfirm', ''],['email', '']];
-
-                let map = this.errors;
-                for (let [i,v] of fields){
-                    map[i] = v;
-                }
-                return map ;
+					.catch((error) => {
+						this.errors = error.response.data.errorCode
+						this.$forceUpdate();
+					});
 
 
-            }
+			}
 
-        },
-        mixins:[langMixin],
-        components: {
-            IconBase,
-            IconLogo,
-            IconTextLogo,
-            langString
-        },
-    }
+
+		},
+
+		computed: {},
+		watch: {
+
+			errorFields() {
+				let fields = [['field_login', ''], ['field_password', ''], ['passConfirm', ''], ['email', '']];
+
+				let map = this.errors;
+				for (let [i, v] of fields) {
+					map[i] = v;
+				}
+				return map;
+			}
+
+		},
+		mixins: [langMixin],
+		components: {
+			PopupErrorReusable,
+			InputReusable,
+			ButtonReusable,
+			IconBase,
+			IconLogo,
+			IconTextLogo,
+			langString
+		},
+	}
 </script>
 
 <style lang="scss">

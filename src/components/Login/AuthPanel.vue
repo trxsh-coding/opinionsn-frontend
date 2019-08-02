@@ -36,14 +36,18 @@
 		justify-content: center;
 		align-items: center;
 
+		* {
+			font-family: Roboto;
+			font-style: normal;
+		}
+
 		.section {
 			display: flex;
 			flex-direction: column;
 			justify-content: center;
 			align-items: center;
-
-			font-family: Roboto;
-			font-style: normal;
+			width: 271px;
+			position: relative;
 
 			.navbar-brand {
 				.navbar__item-2 {
@@ -53,7 +57,6 @@
 
 			.logo-caption {
 				margin-top: 6px;
-
 				font-weight: 300;
 				font-size: 13px;
 			}
@@ -61,141 +64,52 @@
 			.form-block {
 				position: relative;
 				width: 271px;
-
-				.el-form-item {
-					padding: 0 !important;
-					margin: 0 !important;
-
-					.el-form-item__content {
-						line-height: 1;
-
-						&:nth-child(2) {
-							margin-bottom: 6px;
-						}
-
-						.lang-string {
-							margin-left: 12px;
-							font-style: normal;
-							font-weight: 300;
-							font-size: 11px;
-							color: #FF5454;
-
-							line-height: 1;
-						}
-					}
-
-					.el-form-item__label {
-						margin-left: 12px;
-
-						font-weight: normal;
-						font-size: 12px;
-						color: #8A9499;
-
-						line-height: 1;
-						margin-bottom: 6px;
-					}
-
-					.el-input {
-						height: 36px;
-						margin-bottom: 6px;
-
-						input {
-							border: 0.7px solid #8A9499;
-							border-radius: 12px;
-						}
-					}
-				}
-
 			}
 
 			.buttons-block {
 				display: flex;
 				flex-direction: column;
 				align-items: center;
-				
+				width: 100%;
+
 				.auth-btn {
 					width:100%;
 					border: 1px solid #4B97B4;
 				}
-				
+
 				.restore-btn {
-					font-family: Roboto;
-					font-style: normal;
 					font-weight: normal;
 					font-size: 12px;
 					text-decoration-line: underline;
 					color: #8A9499;
 				}
-				
+
 				.oAuth-btns {
-				
-				}
+					width: 100%;
 
-				.google-btn {
-					width: 271px;
-					margin-top: 9px;
-					cursor: pointer;
-					outline: none;
-
-					display: flex;
-					justify-content: center;
-					align-items: center;
-
-					height: 40px;
-					border-radius: 21px;
-					border: 1px solid rgba(0, 0, 0, 0.2);
-					background: white;
-					color: #737373;
-					white-space: nowrap;
-					transition-property: background-color, box-shadow;
-					transition-duration: 150ms;
-					transition-timing-function: ease-in-out;
-					padding: 0;
-
-					&:focus,
-					&:hover {
-						box-shadow: 1px 4px 5px 1px rgba(0,0,0,0.1);
-					}
-
-					&:active {
-						background-color: #e5e5e5;
-						box-shadow: none;
-						transition-duration: 10ms;
-					}
-
-					.logo {
-						margin-bottom: 2px;
-					}
-
-					.google-button__text {
-
-						margin: auto 0;
-
-						display: inline-block;
-						padding: 0 24px;
-						font-size: 14px;
-						font-weight: bold;
-						font-family: 'Roboto',arial,sans-serif;
-					}
-
-				}
-
-				.el-button {
-					margin: 0;
-					width: 271px;
-					height: 42px;
-
-					.lang-string {
-						font-style: normal;
+					.title {
 						font-weight: normal;
-						font-size: 17px;
-						font-variant: small-caps;
-						color: #FFFFFF;
+						font-size: 15px;
+						display: flex;
+						align-items: center;
+						color: #8A9499;
+					}
+
+					.btns {
+						width: 100%;
+
+						.vk-btn {
+							border: none;
+						}
+
+						.soc-btn {
+							border: 1px solid #4B97B4;
+							width: 130px;
+						}
 					}
 				}
 
 				.registration__item {
-					margin-top: 28px;
 					display: inline-block;
 
 					* {
