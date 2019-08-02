@@ -38,6 +38,7 @@
 							icon-name="notifications">
 						<icon-notifications/>
 					</icon-base>
+					<template #icon>{{ }}</template>
 					<template #items>
 						<notification-page
 								:scrollDifference="listScrollDifference"/>
