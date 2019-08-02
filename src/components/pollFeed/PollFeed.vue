@@ -21,8 +21,8 @@
 		
 		<div class="feed relative flex-column mt-18 pb-12">
 
-			<div v-for="(item, index) in items">
-				<poll-instance :class="{'pt-12': (index > 0)}" :item="item"/>
+			<div v-for="item in items">
+				<poll-instance :item="item"/>
 			</div>
 
 			<loader-reusable class="m-auto" v-show="!is_finished && loading" />
