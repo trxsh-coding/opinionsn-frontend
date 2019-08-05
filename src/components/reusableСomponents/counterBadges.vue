@@ -38,9 +38,7 @@
 				<icon-clocks></icon-clocks>
 			</icon-base>
 
-			<span class="ml-6">
-				<time-trans :time="poll.end_date"></time-trans>
-			</span>
+
 		</div>
 
 		<div v-if="!short && poll.type_of_poll === 2" class="comments-block flex-align-center">
@@ -67,6 +65,18 @@
 	import IconClocks from "../icons/IconClocks";
 	import IconBag from "../icons/IconBag";
 	import TimeTrans from "../timeTrans";
+	import {mapState} from 'vuex'
+
+	const pad = (num, len=2, char='0') => {
+		let init = `${num}`;
+
+		while (init.length < (len*char.length)){
+			init = `${char}${init}`
+		}
+
+		return init;
+	};
+
 
     export default {
         name: "counterBadges",
@@ -81,6 +91,62 @@
 					return false;
 				}
 			}
+		},
+		data() {
+			return {
+				currentTime:null,
+				procid:null,
+			}
+		},
+		computed: {
+
+			...mapState('lang',{
+
+				_lang : state => {return state.locale.langSelector},
+				lang : state => state.locale
+
+			}),
+
+			lstr(){
+				return (str)=>localString(this.lang, str);
+			},
+			relativeEndDate(){
+				let {poll, _lang} = this;
+				let {end_date} = poll;
+				moment.locale(_lang);
+				var end = moment.utc(end_date);
+				return end;
+			}
+		},
+		methods: {
+			getTime(){
+
+				let end = this.relativeEndDate;
+				let now = moment(new Date())
+				let duration = moment.duration(end.diff(now));
+
+				if (duration.asDays() > 1){
+					let output = `${Math.floor(duration.asDays())} ${this.lstr('days')}`;
+					this.currentTime = output;
+				} else if (duration > 1 && duration.asHours()<24  ){
+					let output = `${pad(duration.hours())}:${pad(duration.minutes())}:${pad(duration.seconds())}`
+					this.currentTime = output;
+
+				} else {
+
+					this.currentTime = this.lstr('end')
+				}
+
+				return this.currentTime;
+			}
+		},
+
+		mounted(){
+			this.getTime();
+			this.procid = setInterval(() => {this.getTime()}, 1 * 1000);
+		},
+		beforeDestroy(){
+			clearInterval(this.procid);
 		},
 		components: {
 			TimeTrans,

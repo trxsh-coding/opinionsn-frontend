@@ -16,7 +16,7 @@
 		</div>
 
 		<div class="option-wrapper" @click="selectOption(id)">
-			<button @click="setRightOption(id, poll_id)">✓</button>
+			<button @click="setRightOption(id, poll_id)" v-if="mainUser.authorities === 'ADMIN' ">✓</button>
 			<div v-if="picture && picture.slice(-4) !== 'null'" class="picture" :style="pictureStyle"></div>
 
 			<div class="option" :style="optionStyle">
@@ -73,6 +73,7 @@
 			loading: Boolean,
 			percentage: [Number, Boolean],
 			picture: String,
+			expired:Boolean,
 			pictureSize: {
 				type: Number,
 				default: function () {
@@ -104,7 +105,7 @@
 		methods: {
 			selectOption(selected_variable) {
 				
-				if (this.voted || !this.logged_in) return;
+				if (this.voted || !this.logged_in || this.expired) return;
 
 				if (!this.$root.timer_duration && !this.$root.timer_id) {
 

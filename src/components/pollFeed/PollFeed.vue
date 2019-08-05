@@ -4,20 +4,20 @@
 		
 		<category-select @on-select="setCategory" :current="filter_id" :class="{'pl-60 pr-10 pb-13': mobile, 'pb-13' : !mobile}"/>
 		
-		<div class="filter-bar flex-reverse" :class="{'pl-60': mobile}">
-			
-			<button-reusable v-for="({name, id}) in localCategory"
-			                 :active="id === filter_id"
-			                 font-size="13"
-			                 class="v-center py-3 px-9"
-			                 bor-rad="6"
-			                 active-color="#ffffff"
-			                 bg-color="transparent"
-			                 activeBgColor="#4B97B4"
-			                 @click.native="setCategory({id})"
-			                 :description="name"/>
+<!--		<div class="filter-bar flex-reverse" :class="{'pl-60': mobile}">-->
+<!--			-->
+<!--			<button-reusable v-for="({name, id}) in localCategory"-->
+<!--			                 :active="id === filter_id"-->
+<!--			                 font-size="13"-->
+<!--			                 class="v-center py-3 px-9"-->
+<!--			                 bor-rad="6"-->
+<!--			                 active-color="#ffffff"-->
+<!--			                 bg-color="transparent"-->
+<!--			                 activeBgColor="#4B97B4"-->
+<!--			                 @click.native="setCategory({id})"-->
+<!--			                 :description="name"/>-->
 
-		</div>
+<!--		</div>-->
 		
 		<div class="feed relative flex-column mt-18 pb-12">
 
@@ -107,7 +107,13 @@
 				filter_id: state => state.filter_id,
 				connectionUnstable: ({connectionUnstable}) => connectionUnstable
 			}),
-
+			combinedCategories: function(){
+				let {localCategory, categories} = this;
+				const unordered ={...localCategory, ...categories}
+				const array = Object.values(unordered)
+				const ordered = array.reverse();
+				return ordered;
+			},
 			...mapState("globalStore", {
 				categories: ({categories}) => categories
 			}),

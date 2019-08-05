@@ -24,6 +24,7 @@
 				:correct="poll.correct_option === option.id"
 				:picture="option.picture ? publicPath + option.picture : null"
 				:loading="loading"
+				:expired="poll.votingOver"
         >
             <template #default>
 				{{option.description}}
@@ -75,7 +76,7 @@
 				</icon-base>
 
 				<span class="ml-6">
-					<time-trans :time="poll.end_date"></time-trans>
+                    {{currentTime}}
 				</span>
 			</div>
 
@@ -124,7 +125,18 @@
 	import IconBag from "../icons/IconBag";
 	import TimeTrans from "../timeTrans";
 	import PollAnotation from "./layout/pollAnnotation";
+    import moment from 'moment'
+    import {localString} from '../../utils/localString'
 
+    const pad = (num, len=2, char='0') => {
+        let init = `${num}`;
+
+        while (init.length < (len*char.length)){
+            init = `${char}${init}`
+        }
+
+        return init;
+    };
 
 	export default {
         name: "layout",
@@ -153,6 +165,8 @@
 				explains_quantity: 5,
 				no_more_explains: false,
 	            mobile: this.$root.mobile,
+                currentTime:null,
+                procid:null,
             }
         },
         computed: {
@@ -169,7 +183,23 @@
 	        ...mapState('pollFeed', {
 		        loading: ({loading}) =>loading
 	        }),
+            ...mapState('lang',{
 
+                _lang : state => {return state.locale._lang},
+                lang : state => state.locale
+
+            }),
+
+            lstr(){
+                return (str)=>localString(this.lang, str);
+            },
+            relativeEndDate(){
+                let {poll, _lang} = this;
+                let {end_date} = poll;
+                moment.locale(_lang);
+                var end = moment.utc(end_date);
+                return end;
+            },
             // POLL GETTER
 
             poll: function () {
@@ -249,7 +279,26 @@
 
         },
         methods: {
+            getTime(){
 
+                let end = this.relativeEndDate;
+                let now = moment(new Date())
+                let duration = moment.duration(end.diff(now));
+
+                if (duration.asDays() > 1){
+                    let output = `${Math.floor(duration.asDays())} ${this.lstr('days')}`;
+                    this.currentTime = output;
+                } else if (duration > 1 && duration.asHours()<24  ){
+                    let output = `${pad(duration.hours())}:${pad(duration.minutes())}:${pad(duration.seconds())}`
+                    this.currentTime = output;
+
+                } else {
+
+                    this.currentTime = this.lstr('end')
+                }
+
+                return this.currentTime;
+            },
 			loadMoreExplains() {
 
 				let {
@@ -276,6 +325,13 @@
 
 			}
 
+        },
+        mounted(){
+            this.getTime();
+            this.procid = setInterval(() => {this.getTime()}, 1 * 1000);
+        },
+        beforeDestroy(){
+            clearInterval(this.procid);
         },
 
     }

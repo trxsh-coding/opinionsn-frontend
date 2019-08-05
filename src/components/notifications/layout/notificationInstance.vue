@@ -2,6 +2,15 @@
     <div
             v-show="!!pollName"
             class="notification-section pt-9 pr-13">
+        <button-reusable
+                font-size="13"
+                class="v-center py-5 mb-10"
+                bor-rad="50"
+                bg-color="#4b97b4"
+                color="#ffffff"
+                active-color="#4B97B4"
+                description="notifications"
+        />
         <picture-reusable
                 pic-class="mr-18 pointer"
                 avatar
@@ -34,10 +43,11 @@
     import imageMixin from "../../mixins/imageMixin";
     import langString from "../../langString"
     import TimeTrans from "../../timeTrans";
+    import ButtonReusable from "../../reusableСomponents/ButtonReusable";
 
     export default {
         name: "notificationInstance",
-        components: {TimeTrans, PictureReusable, langString},
+        components: {ButtonReusable, TimeTrans, PictureReusable, langString},
         props:['notification', 'index'],
         mixins:[imageMixin],
         data() {
@@ -79,13 +89,10 @@
                         return "сохраненное";
 
                     case "SUBSCRIBE":
-                        return "каталог";
+                        return "has_subscribed";
 
                     case "UNSUBSCRIBE":
-                        return "каталог";
-
-                    case "catalogFeed":
-                        return "каталог";
+                        return "has_unsubscribed";
 
                     default:
                         return null;
