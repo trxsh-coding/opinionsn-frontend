@@ -5,7 +5,7 @@
 			<router-link
 					tag="li"
 					class="btn btn-1 pointer"
-					:to="{ name: 'poll'}">
+					:to="{ name: 'createPoll'}">
 				<icon-base
 					class="add-poll-icon"
 					fill="#4B97B4"

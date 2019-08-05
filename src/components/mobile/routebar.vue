@@ -2,7 +2,7 @@
     <div class="links-section">
         <ul>
             <li
-                    class="link relative"
+                    class="link relative pointer"
                     @click="$router.push({ name: 'createPoll' })">
                 <icon-base
                         fill="none"
@@ -16,7 +16,7 @@
                 </lang-string>
             </li>
 
-            <li class="link relative">
+            <li class="link relative pointer">
                 <icon-base
                         fill="none"
                         width="25"
@@ -29,7 +29,7 @@
                 </lang-string>
             </li>
             <li
-                    class="link relative"
+                    class="link relative pointer"
                     @click="$router.push({ name: 'bookmarkFeed' })">
                 <icon-base
                         fill="none"
@@ -42,7 +42,7 @@
 
                 </lang-string>
             </li>
-            <li class="link relative">
+            <li class="link relative pointer">
                 <icon-base
                         fill="none"
                         width="14"
@@ -55,7 +55,7 @@
                 </lang-string>
             </li>
             <li
-                    class="link relative"
+                    class="link relative pointer"
                     @click="$router.push({ name: 'catalogList' })">
                 <icon-base
                         fill="none"
@@ -69,7 +69,7 @@
                 </lang-string>
             </li>
             <li
-                    class="link relative"
+                    class="link relative pointer"
                     @click="$router.push({ name: 'settings' })">
                 <icon-base
                         fill="none"
@@ -83,7 +83,7 @@
                 </lang-string>
             </li>
             <li
-                    class="link relative"
+                    class="link relative pointer"
                     @click="$router.push({ name: 'feedback' })">
                 <icon-base
                         fill="none"
@@ -98,7 +98,7 @@
             </li>
 
             <li
-                    class="link relative"
+                    class="link relative pointer"
                     @click="userLogout">
                 <icon-base
                         fill="none"

@@ -23,7 +23,7 @@
 			</div>
 		</div>
 
-		<div class="form-block mt-25">
+		<div class="form-block mt-25" @keyup.enter.exact="submit(registrationForm)">
 
 			<popup-error-reusable :errors="{ login: lstr(errors.login) }" span-class="mt-3">
 				<input-reusable class="mx-auto"
@@ -73,7 +73,7 @@
 		<div class="buttons-block mt-23">
 
 			<button-reusable
-					@click.native="submitRegistration(registrationForm)"
+					@click.native="submit(registrationForm)"
 					class="v-center reg-btn py-13"
 					description="registration"
 					font-size="16"
@@ -184,7 +184,7 @@
 				this.registrationForm[key] = val;
 			},
 
-			submitRegistration(form) {
+			submit(form) {
 				let registerFormData = new FormData();
 				registerFormData.append("login", form.username);
 				registerFormData.append("email", form.email);

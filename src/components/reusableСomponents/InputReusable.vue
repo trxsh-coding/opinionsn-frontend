@@ -10,7 +10,7 @@
 		/>
 		
 		<input :type="inputType"
-		       class="input"
+		       class="input TEST"
 		       v-if="input"
 		       v-model="value"
 		       @change="inputValue(arguments[0].target.value)"
@@ -30,6 +30,7 @@
 				:class="[{ focusedInput : active && withUnderline, validationStyle : validationError}, inputClass]"
 		>
 		</textarea>
+		
 		<date-pick
 				class="date-pick"
 				v-if="datePicker"
@@ -135,9 +136,7 @@
 			},
 			datePicker: {
 				type: Boolean,
-				default() {
-					return false;
-				}
+				default: false
 			},
 			inputPlaceholder: {
 				type: [String, Boolean]
@@ -208,8 +207,6 @@
 			},
 			
 			focusInput(payload) {
-
-				console.log(this.parent_value.length);
 
 				if (this.parent_value.length > 0) payload = true;
 				

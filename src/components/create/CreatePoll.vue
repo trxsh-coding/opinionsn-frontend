@@ -36,6 +36,7 @@
 
 			<div class="description-block pl-60">
 				<popup-error-reusable
+						span-class="mt-3 flex-align-start"
 						:errors="form.errors.tags">
 					<input-reusable :value="form.tags"
 									textarea
@@ -44,7 +45,9 @@
 									width="100%"
 									:input-placeholder="'tags'"/>
 				</popup-error-reusable>
+				
 				<popup-error-reusable
+						span-class="mt-3 flex-align-start"
 						:errors="form.errors.subject">
 					<input-reusable :value="form.subject"
 									@change="updateField(arguments[0], 'subject')"
@@ -57,6 +60,7 @@
 
 
 				<popup-error-reusable
+						span-class="mt-3 flex-align-start"
 						:errors="form.errors.description">
 					<input-reusable :value="form.description"
 									@change="updateField(arguments[0], 'description')"
@@ -98,6 +102,9 @@
 			<lang-string class="label pl-60" :title="'add_options'"/>
 
 			<popup-error-reusable
+					class="mb-10"
+					width="calc(100% - 60px)"
+					span-class="ml-auto mt-3 flex-align-start"
                     v-for="(option, index) in form.options" :key="index"
 					:errors="form.errors.options[index]">
 
@@ -142,6 +149,7 @@
 				</div>
 
 			</popup-error-reusable>
+			
 			<add-option-block class="ml-60" @click.native="pushMoreOption"/>
 
 			<switch-component
@@ -189,6 +197,7 @@
 				<input-reusable
 						:height="44"
 						:value="form.end_date"
+						withoutBlur
 						date-picker
 						@date-pick="updateField(arguments[0], 'end_date')"
 						input-placeholder="closing_date"
@@ -550,7 +559,7 @@
 		}
 
 		.options-block {
-			margin-bottom: 10px;
+			width: 100%;
 			border-radius: 6px;
 			justify-content: flex-end;
 			border: 0.5px solid #BCBEC3;
@@ -564,9 +573,10 @@
 				border: none !important;
 				margin-top: 0;
 			}
-			&:first-of-type {
-				margin-top: 6px !important;
-			}
+			
+			/*&:first-of-type {*/
+			/*	margin-top: 6px !important;*/
+			/*}*/
 
 			.input-block {
 				display: flex;

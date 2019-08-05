@@ -10,7 +10,6 @@
 				height="33"
 				input-placeholder="search"
 				@keyup.enter.native="searchUsers"
-				without-blur
 				with-action-buttons/>
 
 		<div class="button-panel flex pl-60" :class="{'mt-12': mobile}" >

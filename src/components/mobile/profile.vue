@@ -1,20 +1,22 @@
 <template lang="html">
     <div id="profile-section">
         <avatar
-                pic-class="mr-9"
-                :img="publicPath + imageUtil(user.path_to_avatar, 'S')"
+                avatar
+                :id="mainUser.id"
+                pic-class="mr-9 pointer"
+                :img="publicPath + imageUtil(mainUser.path_to_avatar, 'S')"
                 :size="36"
                 textLayout="right"
                 rounded>
             <template #title>
-                <span class="username">
-                    {{user.username}}
+                <span class="username pointer" @click="userLink">
+                    {{mainUser.username}}
                 </span>
             </template>
             <template #description>
                 <lang-string :title="'balance'" class="balance-text" >
                     <template #text >
-                      :  {{user.balance}} OPI
+                      :  {{mainUser.balance}} OPI
                     </template>
                 </lang-string>
 
@@ -29,9 +31,10 @@
     import langString from '../langString'
     import { mapState } from 'vuex';
     import imageMixin from "../mixins/imageMixin";
+    
     export default {
         mixins:[imageMixin],
-        data () {
+        data() {
             return {
                 publicPath: process.env.VUE_APP_MAIN_API
 
@@ -39,17 +42,16 @@
         },
         methods: {
 
-            userLink(userId){
-
-                this.$router.push({name:'user',params:{id:userId}})
-
+            userLink() {
+                this.$router.push({ name:'user', params: {id: this.mainUser.id} })
             },
+            
         },
         computed: {
 
             ...mapState('globalStore', {
-
-                user: ({mainUser}) => mainUser
+    
+                mainUser: ({mainUser}) => mainUser
 
             }),
 

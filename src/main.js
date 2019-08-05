@@ -105,6 +105,7 @@ export const vueApp = new Vue({
 		return {
 			mobile: window.innerWidth <= 500,
 			scrolled_to_bottom: null,
+			scroll_top: null,
 			timer_id: null,
 			timer_duration: 0,
 			temp_selected_option: null

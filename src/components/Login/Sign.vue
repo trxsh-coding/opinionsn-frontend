@@ -1,5 +1,4 @@
 <template lang="html">
-	
 	<div class="sign-section">
 		<div class="navbar-brand">
 			<div class="navbar__item navbar__item-1">
@@ -26,7 +25,7 @@
 			</div>
 		</div>
 		
-		<div class="form-block mt-58">
+		<div class="form-block mt-58" @keyup.enter.exact="submit(signForm)">
 
 			<popup-error-reusable :errors="{field_email: lstr(errors.field_email)}" span-class="mt-3">
 				<input-reusable class="mx-auto"
@@ -59,7 +58,7 @@
 			</router-link>
 			
 			<button-reusable
-					@click.native="submitSign(signForm)"
+					@click.native="submit(signForm)"
 					class="v-center auth-btn mt-20 py-13"
 					description="sign_in"
 					font-size="16"
@@ -176,7 +175,7 @@
 				this.signForm[key] = val;
 			},
 			
-			submitSign(form) {
+			submit(form) {
 				let loginFormData = new FormData();
 				loginFormData.append("field_email", form.email);
 				loginFormData.append("field_password", form.password);

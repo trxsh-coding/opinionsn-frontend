@@ -24,7 +24,7 @@
 			</div>
 		</div>
 
-		<div class="form-block mt-58">
+		<div class="form-block mt-58" @keyup.enter.exact="submit(passwordForm)">
 
 			<popup-error-reusable :errors="{ }" span-class="mt-3">
 				<input-reusable class="mx-auto"
@@ -52,7 +52,7 @@
 		<div class="buttons-block">
 
 			<button-reusable
-					@click.native="submitSign(passwordForm)"
+					@click.native="submit(passwordForm)"
 					class="v-center auth-btn mt-23 py-13"
 					description="reset"
 					font-size="16"
@@ -101,7 +101,7 @@
 		        this.passwordForm[key] = val;
 	        },
 
-            submitSign(form){
+            submit(form){
                 let resetFormData = new FormData();
                 console.log(form)
                 resetFormData.append('code', form.code);

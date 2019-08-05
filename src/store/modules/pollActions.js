@@ -49,8 +49,6 @@ export const pollActions = sc => class extends sc {
 
     saveExplain({commit, dispatch}, payload={}){
 
-        console.log(payload)
-
         let {customUrl = `${process.env.VUE_APP_MAIN_API}/rest/v1/explain/`, data={}, method=`put`} = payload;
 
         sc.apiRequest(customUrl, data,{commit,dispatch, onSuccess: `onExplainSaved`, successType: `action`}, method);
