@@ -1,5 +1,6 @@
 <template>
-	<div class="option-reusable" :style="transform_shift">
+	<div class="option-reusable" :style="[transform_shift, optionWrapper]">
+
 		<div v-if="bows && mobile"
 		     class="bows"
 		     ref="bowsRef"
@@ -16,7 +17,7 @@
 		</div>
 
 		<div class="option-wrapper" @click="selectOption(id)">
-			<button @click="setRightOption(id, poll_id)">✓</button>
+			<button @click="setRightOption(id, poll_id)" v-if="mainUser.authorities === 'ADMIN' ">✓</button>
 			<div v-if="picture && picture.slice(-4) !== 'null'" class="picture" :style="pictureStyle"></div>
 
 			<div class="option" :style="optionStyle">
@@ -73,6 +74,7 @@
 			loading: Boolean,
 			percentage: [Number, Boolean],
 			picture: String,
+			expired:Boolean,
 			pictureSize: {
 				type: Number,
 				default: function () {
@@ -104,7 +106,7 @@
 		methods: {
 			selectOption(selected_variable) {
 				
-				if (this.voted || !this.logged_in) return;
+				if (this.voted || !this.logged_in || this.expired) return;
 
 				if (!this.$root.timer_duration && !this.$root.timer_id) {
 
@@ -207,7 +209,27 @@
 					transform: `translateX(${this.transform_px}px)`
 				}
 			},
+			optionWrapper() {
+					let {expired, correct, selected, type_of_poll} = this;
 
+					switch(type_of_poll == 1 && expired){
+						case selected && correct:
+							return {
+								opacity: 1
+							};
+						case selected:
+							return {
+								opacity: 1
+							};
+						default:
+							return {
+								opacity : 0.4
+							}
+					}
+
+
+
+			},
 			filteredBows() {
 
 				let { bows, enough_difference } = this;
@@ -292,6 +314,12 @@
 </script>
 
 <style lang="scss">
+	.lowOpacity {
+		opacity: 0.4;
+	}
+	.highOpacity {
+		opacity: 1;
+	}
 	.option-reusable {
 		position: relative;
 		right: 0;

@@ -40,7 +40,10 @@
                 if (relTimeParts.length > 1){
                     const [count, title] = relTime.split(' ');
                     text = `${isNaN(Number(count)) ? '1' : count}${title.substring(0,1)}`;
-                } else {
+                } else if (relTime.length < 1){
+                    text = 'now'
+                }
+                else {
                     text = `${relTime.substr(0, 1).toUpperCase()}${relTime.substr(1, relTime.length)}`;
                 }
 

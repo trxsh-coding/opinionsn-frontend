@@ -3,7 +3,7 @@
         <div
                 v-if="!!item.path_to_image"
                 class="category-picture"
-                :style="{ 'background-image': 'url(' + publicPath +  imageUtil(item.path_to_image, 'W') +')' } "></div>
+                :style="item.local ?{ 'background-image': 'url(' + item.path_to_image +')' } : { 'background-image': 'url(' + publicPath +  imageUtil(item.path_to_image, 'W') +')' } "></div>
         <div class="category-name">
             <lang-string :title="item.name" :class="{itemActive : hoverColor === 'B'}"/>
         </div>
@@ -70,7 +70,7 @@
         background: #4B97B4 !important;
     }
     .category-item {
-        padding: 8px 9px;
+        padding: 2px 9px;
         width: 100%;
         height: 100%;
         margin-right: 10px;
@@ -91,9 +91,9 @@
 
         }
         .category-picture {
-            min-height:22px;
+            min-height:24px;
             min-width: 22px;
-            background-size: 100%;
+            background-size: contain;
             background-position: center;
             background-repeat: no-repeat;
             margin-right: 6px;

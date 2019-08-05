@@ -9,7 +9,7 @@
             <template #usual>
                 <swiper-slide
                         class="w-fit"
-                        v-for="category in categories">
+                        v-for="category in combinedCategories">
                     <catalog-item
                             :item="category"
                             :is-current-string="isCurrentString"
@@ -19,7 +19,7 @@
             </template>
             <template #scroll>
                 <catalog-item
-                        v-for="category in categories"
+                        v-for="category in combinedCategories"
                         :item="category"
                         :is-current-string="isCurrentString"
                         :current="current"
@@ -43,7 +43,20 @@
         props:['current', 'isCurrentString'],
         data() {
             return {
-                mobile: this.$root.mobile
+                mobile: this.$root.mobile,
+                localCategory: {
+                    "18": {
+                        id:-2,
+                        name:'new',
+                        path_to_image:require('../../assets/new.svg'),
+                        local: true},
+                    "20":{
+                        name:'all',
+                        id:-1,
+                        path_to_image:require('../../assets/all.svg'),
+                        local: true
+                    },
+                },
             }
         },
         computed: {
@@ -53,7 +66,18 @@
                 categories: ({categories}) =>categories,
 
             }),
-            
+            combinedCategories: function(){
+                let {localCategory, categories} = this;
+                const unordered ={...localCategory, ...categories}
+                const array = Object.values(unordered)
+                const ordered = array.reverse();
+                if(this.$route.name === 'pollFeed') {
+                    return ordered;
+
+                } else {
+                    return categories;
+                }
+            },
         },
         mounted(){
             this.$store.dispatch(`catalogList/list`);
