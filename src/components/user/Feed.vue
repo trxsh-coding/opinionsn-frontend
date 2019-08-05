@@ -9,7 +9,7 @@
 
 			</template>
 		</vote-instance>
-	    <loader-reusable class="mx-auto my-9" v-show="!is_finished" />
+	    <loader-reusable class="mx-auto my-9" v-show="!is_finished && loading" />
 	    <lang-string class="empty-payload pl-60 mx-auto" v-show="is_finished && !items.length" :title="(feed_type === 1) ? 'you_have_not_created_any_posts_yet' : 'you_have_not_yet_responded_to_any_publication'" />
     </div>
 
@@ -47,8 +47,11 @@
 				filteredFeed: ({filteredFeed}) => filteredFeed,
                 items: s => s.items,
 	            is_finished: s => s.is_finished,
+				loading: s => s.loading,
 
-            }),
+
+
+			}),
 
 			...mapState('globalStore', {
 				votes: ({votes}) => votes,

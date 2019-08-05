@@ -21,7 +21,7 @@
 		
 		<div class="feed relative flex-column mt-18 pb-12">
 
-			<div v-for="item in items">
+			<div v-for="item in items" class="poll-item">
 				<poll-instance :item="item"/>
 			</div>
 
@@ -190,6 +190,13 @@
 
 	.category-block span::selection {
 		background: transparent;
+	}
+	.poll-item {
+		border-bottom: 1px solid #BCBEC3;
+
+	}
+	.poll-item:nth-last-child(-n+2) {
+		border-bottom: none;
 	}
 
 	#poll-wrapper {

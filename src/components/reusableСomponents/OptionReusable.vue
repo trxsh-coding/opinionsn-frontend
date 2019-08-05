@@ -1,5 +1,6 @@
 <template>
-	<div class="option-reusable" :style="transform_shift">
+	<div class="option-reusable" :style="[transform_shift, optionWrapper]">
+
 		<div v-if="bows && mobile"
 		     class="bows"
 		     ref="bowsRef"
@@ -208,7 +209,27 @@
 					transform: `translateX(${this.transform_px}px)`
 				}
 			},
+			optionWrapper() {
+					let {expired, correct, selected, type_of_poll} = this;
 
+					switch(type_of_poll == 1 && expired){
+						case selected && correct:
+							return {
+								opacity: 1
+							};
+						case selected:
+							return {
+								opacity: 1
+							};
+						default:
+							return {
+								opacity : 0.4
+							}
+					}
+
+
+
+			},
 			filteredBows() {
 
 				let { bows, enough_difference } = this;
@@ -293,6 +314,12 @@
 </script>
 
 <style lang="scss">
+	.lowOpacity {
+		opacity: 0.4;
+	}
+	.highOpacity {
+		opacity: 1;
+	}
 	.option-reusable {
 		position: relative;
 		right: 0;

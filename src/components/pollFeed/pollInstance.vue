@@ -338,6 +338,7 @@
 </script>
 
 <style lang="scss">
+
 	#main-feed-layout {
 		background: #FFFFFF;
 		border-radius: 6px 6px 0 0;
@@ -345,7 +346,6 @@
 		width: 100%;
 		display: flex;
 		flex-direction: column;
-		border-bottom: 1px solid #BCBEC3;
 		.option-reusable, #headline-body, .poll-header {
 			/*padding-left: 10%;*/
 		}
@@ -384,4 +384,5 @@
 			margin: 0 auto;
 		}
 	}
+
 </style>
