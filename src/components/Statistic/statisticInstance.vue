@@ -1,5 +1,5 @@
 <template>
-    <div class="user-statistic pt-51">
+    <div class="user-statistic pt-51" :class="{'bg-white': !mobile}">
        <div class="header-block pl-60 mb-15">
            <picture-reusable
                    class="pointer"
@@ -24,7 +24,7 @@
 
 
                 <template #items>
-                    <li v-for="({value}, index) in periods" @click="setRange(index)" :key="index">
+                    <li class="pointer" v-for="({value}, index) in periods" @click="setRange(index)" :key="index">
                         <lang-string :title="value" />
                     </li>
                 </template>
@@ -36,7 +36,7 @@
 
 
                 <template #items>
-                    <li v-for="({value}, index) in types" @click="setType(index)" >
+                    <li class="pointer" v-for="({value}, index) in types" @click="setType(index)" >
                         <lang-string  :title="value" />
                     </li>
                 </template>
@@ -63,7 +63,8 @@
         data() {
             return {
                 publicPath: process.env.VUE_APP_MAIN_API,
-                periods:[
+                mobile: this.$root.mobile,
+                periods: [
                     {
                         value:'week'
                     },
@@ -74,7 +75,7 @@
                         value:'3 mounth'
                     },
                 ],
-                types:[
+                types: [
                     {
                         value:'poll'
                     },
@@ -85,7 +86,7 @@
                 periodId: 0,
                 categoryId:1,
                 typeId:0,
-                statistic:[],
+                statistic: [],
 
                 chartOptions: {
                     chart: {
@@ -259,6 +260,7 @@
 
 <style lang="scss">
     .user-statistic {
+        border-radius: 6px;
 
         .avatar-username {
 
