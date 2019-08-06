@@ -67,6 +67,9 @@
 
 		&::-webkit-scrollbar {
 			display: none !important;
+			-webkit-appearance: none !important;
+			width: 0 !important;
+			height: 0 !important;
 		}
 
 		.stub-block {

@@ -1,10 +1,12 @@
 <template>
 	<div class="explanation-reusable">
 		
-		<div class="explain mb-9">
+		<div
+				:class="{'pl-18': !mobile, 'pl-20': mobile}"
+				class="explain mb-9">
 			<picture-reusable
 					v-if="!without_avatar"
-					class="ml-18 mr-12 p-0"
+					class="mr-12 p-0"
 					:class="{'ml-21': mobile}"
 					pic-class="mb-5"
 					:img="fitExplain.avatar"
@@ -18,15 +20,21 @@
 			
 			<div class="text">
 				
-				<span class="username mb-3">{{fitExplain.username}}</span>
+				<span class="username">{{fitExplain.username}}</span>
 				
 				<span v-show="!!fitExplain.description"
-				      class="explain-description mb-3">{{fitExplain.description}}</span>
+				      class="explain-description mt-3">{{fitExplain.description}}</span>
 				
 				<div class="option">
+					
 					<span class="option-name">{{fitExplain.option}}</span>
-					<span v-show="!input_id" @click="setActiveInput(1, 1)" class="pointer">
+					
+					<span
+							v-show="!input_id"
+							@click.native="setActiveInput(1, 1)"
+							class="pointer">
 						<icon-base
+								
 								fill="#BCBEC3"
 								width="18"
 								height="20"
@@ -35,9 +43,10 @@
 							<icon-reply-arrow/>
 						</icon-base>
 					</span>
+					
 				</div>
 				
-				<label class="mt-3" v-if="checkActiveInput(1, 1)">
+				<label v-if="checkActiveInput(1, 1)">
 					<textarea-autosize
 							@keyup.esc.native.exact="setActiveInput(null, null)"
 							@keyup.enter.native.prevent.exact="save"
@@ -76,12 +85,19 @@
 						</span>
 
 					</span>
+					
 				</label>
 			
 			</div>
+		
+		
 		</div>
 		
-		<ul v-if="comments && fitComments" class="comment-list">
+		<ul
+				v-if="comments && fitComments"
+				:class="{'pl-60': !mobile, 'pl-59': mobile}"
+				class="comment-list pl-60">
+			
 			<li class="comment mb-10" v-for="(comment, index) in fitComments" :key="comment.id">
 				
 				<picture-reusable class="mr-12" pic-class="mb-5" :img="comment.avatar" :size="27" rounded
@@ -93,9 +109,9 @@
 				
 				<div class="text">
 					
-					<span class="username mb-3">{{comment.username}}</span>
+					<span class="username">{{comment.username}}</span>
 					
-					<span v-show="!!comment.description" class="comment-description mb-3">{{comment.description}}</span>
+					<span v-show="!!comment.description" class="comment-description mt-3">{{comment.description}}</span>
 					
 					<div class="option">
 						<span class="option-name">{{comment.option}}</span>
@@ -111,7 +127,7 @@
 						</span>
 					</div>
 					
-					<label class="mt-3" v-if="checkActiveInput(index + 1, 2)">
+					<label v-if="checkActiveInput(index + 1, 2)">
 						<textarea-autosize
 								@keyup.esc.native.exact="setActiveInput(null, null)"
 								@keyup.enter.native.prevent.exact="saveComment"
@@ -446,7 +462,7 @@
 				flex: 1;
 				display: flex;
 				flex-direction: column;
-				justify-content: space-between;
+				justify-content: flex-start;
 				
 				label {
 					display: flex;
@@ -537,7 +553,7 @@
 		
 		.comment-list {
 			position: relative;
-			width: 80%;
+			width: 100%;
 			display: flex;
 			flex-direction: column;
 			
