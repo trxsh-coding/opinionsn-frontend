@@ -19,8 +19,12 @@
 
 
 		@media screen and (max-width: 500px) {
+			
 			&::-webkit-scrollbar {
-				display: none;
+				display: none !important;
+				-webkit-appearance: none !important;
+				width: 0 !important;
+				height: 0 !important;
 			}
 		}
 

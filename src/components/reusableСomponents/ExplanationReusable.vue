@@ -1,10 +1,12 @@
 <template>
 	<div class="explanation-reusable">
 		
-		<div class="explain mb-9">
+		<div
+				:class="{'pl-18': !mobile, 'pl-20': mobile}"
+				class="explain mb-9">
 			<picture-reusable
 					v-if="!without_avatar"
-					class="ml-18 mr-12 p-0"
+					class="mr-12 p-0"
 					:class="{'ml-21': mobile}"
 					pic-class="mb-5"
 					:img="fitExplain.avatar"
@@ -25,16 +27,7 @@
 				
 				<div class="option">
 					<span class="option-name">{{fitExplain.option}}</span>
-					<span v-show="!input_id" @click="setActiveInput(1, 1)" class="pointer">
-						<icon-base
-								fill="#BCBEC3"
-								width="18"
-								height="20"
-								viewBox="0 0 18 20"
-								icon-name="reply-arrow">
-							<icon-reply-arrow/>
-						</icon-base>
-					</span>
+					
 				</div>
 				
 				<label class="mt-3" v-if="checkActiveInput(1, 1)">
@@ -79,9 +72,25 @@
 				</label>
 			
 			</div>
+			
+			<div v-show="!input_id" @click="setActiveInput(1, 1)" class="pointer">
+						<icon-base
+								fill="#BCBEC3"
+								width="18"
+								height="20"
+								viewBox="0 0 18 20"
+								icon-name="reply-arrow">
+							<icon-reply-arrow/>
+						</icon-base>
+			</div>
+			
 		</div>
 		
-		<ul v-if="comments && fitComments" class="comment-list">
+		<ul
+				v-if="comments && fitComments"
+				:class="{'pl-60': !mobile, 'pl-59': mobile}"
+				class="comment-list pl-60">
+			
 			<li class="comment mb-10" v-for="(comment, index) in fitComments" :key="comment.id">
 				
 				<picture-reusable class="mr-12" pic-class="mb-5" :img="comment.avatar" :size="27" rounded
@@ -537,7 +546,7 @@
 		
 		.comment-list {
 			position: relative;
-			width: 80%;
+			width: 100%;
 			display: flex;
 			flex-direction: column;
 			
