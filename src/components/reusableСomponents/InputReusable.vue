@@ -226,7 +226,6 @@
 			},
 
 			inputValue(payload) {
-				console.log('hi');
 				this.$emit('change', payload);
 			},
 			

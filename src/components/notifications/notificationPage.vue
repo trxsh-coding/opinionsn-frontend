@@ -3,10 +3,8 @@
 			class="notificationWrapper"
 			:class="{'desktop': !mobile, 'pr-20': mobile}"
 			ref="sectionRef">
-		<div class="notification-section flex-column" v-if="messages.length && !closed">
-
-
-
+		<div class="notification-section flex-column" v-if="!!Object.keys(messages).length && !closed">
+			
 			<div class="today flex-column flex-center" v-if="filtered_messages.today.length">
 				<notification-instance
 						class="notification-instance today pl-21"
@@ -60,7 +58,7 @@
 
 		</div>
 
-		<div class="nope" v-else-if="messages.length === 0">
+		<div class="nope" v-if="!Object.keys(messages).length && loaded">
 			<span>Уведомлений нет</span>
 		</div>
 

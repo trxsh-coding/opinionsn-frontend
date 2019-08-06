@@ -26,6 +26,8 @@
 			</div>
 
 			<loader-reusable class="m-auto" v-show="!is_finished && loading" />
+			
+			<lang-string class="finish-warning mx-auto" v-show="is_finished" title="no_more_posts!"/>
 
 		</div>
 
@@ -45,7 +47,8 @@
 	import CatalogItem from "@/components/CatalogFeed/catalogItem";
 	import SwiperReusable from "@/components/reusableСomponents/swiperReusable";
 	import ButtonReusable from "@/components/reusableСomponents/ButtonReusable";
-
+	import langString from "../langString";
+	
 	export default {
 		data() {
 			return {
@@ -172,7 +175,8 @@
 			LoaderReusable,
 			SwiperCarousel,
 			filterComponent,
-			pollInstance
+			pollInstance,
+			langString
 		}
 	};
 </script>

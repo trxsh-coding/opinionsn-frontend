@@ -3,9 +3,12 @@
     <div id="bookmark-feed" class="flex-column" :class="{ 'pt-58 pl-30 pr-20': mobile }">
 
         <short-poll-reusable v-for="(poll, index) in filtered_polls" :class="{'mt-9': index > 0}" :poll="poll" width="100%" />
+        
         <loader-reusable
                 class="mx-auto my-9"
                 v-show="loading" />
+        
+        <lang-string v-show="!loading && !filtered_polls.length" class="finish-warning mx-auto mt-9" title="You_have_no_bookmarks" />
 
     </div>
 
@@ -17,6 +20,7 @@
     import { mapState } from 'vuex';
 	import ShortPollReusable from "../reusableСomponents/ShortPollReusable";
     import LoaderReusable from "../reusableСomponents/LoaderReusable";
+    import langString from "../langString";
 
     export default {
         data() {
@@ -24,7 +28,7 @@
                 mobile: this.$root.mobile
             }
         },
-		components: {LoaderReusable, ShortPollReusable},
+		components: {LoaderReusable, ShortPollReusable, langString},
 		computed: {
 
             ...mapState('bookmarkFeed', {

@@ -31,7 +31,12 @@
 
 	   <ul class="subs-list mt-6 flex-column">
 
-		   <short-user-reusable class="mt-12 mx-20" :user="user" v-for="(user, index) in users_from_payload" :key="index" />
+		   <short-user-reusable
+				   class="mt-12 mx-20"
+				   :user="user"
+				   v-for="(user, index) in users_from_payload"
+				   :is-main-user="user.id === mainUser.id"
+				   :key="index" />
 
 		   <loader-reusable v-show="!is_finished" class="mx-auto my-9" />
 
