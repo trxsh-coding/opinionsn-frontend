@@ -20,17 +20,33 @@
 			
 			<div class="text">
 				
-				<span class="username mb-3">{{fitExplain.username}}</span>
+				<span class="username">{{fitExplain.username}}</span>
 				
 				<span v-show="!!fitExplain.description"
-				      class="explain-description mb-3">{{fitExplain.description}}</span>
+				      class="explain-description mt-3">{{fitExplain.description}}</span>
 				
 				<div class="option">
+					
 					<span class="option-name">{{fitExplain.option}}</span>
+					
+					<span
+							v-show="!input_id"
+							@click.native="setActiveInput(1, 1)"
+							class="pointer">
+						<icon-base
+								
+								fill="#BCBEC3"
+								width="18"
+								height="20"
+								viewBox="0 0 18 20"
+								icon-name="reply-arrow">
+							<icon-reply-arrow/>
+						</icon-base>
+					</span>
 					
 				</div>
 				
-				<label class="mt-3" v-if="checkActiveInput(1, 1)">
+				<label v-if="checkActiveInput(1, 1)">
 					<textarea-autosize
 							@keyup.esc.native.exact="setActiveInput(null, null)"
 							@keyup.enter.native.prevent.exact="save"
@@ -69,21 +85,12 @@
 						</span>
 
 					</span>
+					
 				</label>
 			
 			</div>
-			
-			<div v-show="!input_id" @click="setActiveInput(1, 1)" class="pointer">
-						<icon-base
-								fill="#BCBEC3"
-								width="18"
-								height="20"
-								viewBox="0 0 18 20"
-								icon-name="reply-arrow">
-							<icon-reply-arrow/>
-						</icon-base>
-			</div>
-			
+		
+		
 		</div>
 		
 		<ul
@@ -102,9 +109,9 @@
 				
 				<div class="text">
 					
-					<span class="username mb-3">{{comment.username}}</span>
+					<span class="username">{{comment.username}}</span>
 					
-					<span v-show="!!comment.description" class="comment-description mb-3">{{comment.description}}</span>
+					<span v-show="!!comment.description" class="comment-description mt-3">{{comment.description}}</span>
 					
 					<div class="option">
 						<span class="option-name">{{comment.option}}</span>
@@ -120,7 +127,7 @@
 						</span>
 					</div>
 					
-					<label class="mt-3" v-if="checkActiveInput(index + 1, 2)">
+					<label v-if="checkActiveInput(index + 1, 2)">
 						<textarea-autosize
 								@keyup.esc.native.exact="setActiveInput(null, null)"
 								@keyup.enter.native.prevent.exact="saveComment"
@@ -455,7 +462,7 @@
 				flex: 1;
 				display: flex;
 				flex-direction: column;
-				justify-content: space-between;
+				justify-content: flex-start;
 				
 				label {
 					display: flex;
