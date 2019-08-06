@@ -37,7 +37,9 @@
 				icon-name="clocks">
 				<icon-clocks></icon-clocks>
 			</icon-base>
-
+			<span class="ml-6">
+				<time-trans :time="poll.end_date"></time-trans>
+			</span>
 
 		</div>
 
@@ -66,6 +68,7 @@
 	import IconBag from "../icons/IconBag";
 	import TimeTrans from "../timeTrans";
 	import {mapState} from 'vuex'
+	import moment from 'moment'
 
 	const pad = (num, len=2, char='0') => {
 		let init = `${num}`;

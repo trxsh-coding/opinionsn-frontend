@@ -226,6 +226,7 @@
 			},
 
 			inputValue(payload) {
+				console.log('hi');
 				this.$emit('change', payload);
 			},
 			
@@ -277,7 +278,7 @@
 		.vdpInnerWrap {
 			z-index: 200;
 		}
-		
+
 		.focusedInput {
 			border-bottom-color: #4B97B4 !important;
 		}
