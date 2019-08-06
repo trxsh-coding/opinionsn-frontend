@@ -2,7 +2,7 @@
 
 	<div id="poll-wrapper">
 		
-		<category-select @on-select="setCategory" :current="filter_id" :class="{'pl-60 pr-10 pb-13': mobile, 'pb-13' : !mobile}"/>
+		<category-select @on-select="setCategory" :current="filter_id" :class="{'pl-60 pr-10': mobile, 'pb-13' : !mobile}"/>
 		
 <!--		<div class="filter-bar flex-reverse" :class="{'pl-60': mobile}">-->
 <!--			-->
@@ -19,7 +19,7 @@
 
 <!--		</div>-->
 		
-		<div class="feed relative flex-column mt-18 pb-12">
+		<div class="feed relative flex-column pb-12">
 
 			<div v-for="item in items" class="poll-item">
 				<poll-instance :item="item"/>

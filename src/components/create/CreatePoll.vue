@@ -154,14 +154,14 @@
 
 			<switch-component
 					v-if="type === 'PREDICTION'"
-					class="mb-20"
+					class="mb-20 pl-60"
 					text-layout="right"
 					type="arrow"
 					:active-description="lstr('additional_settings')"
 					:inactive-description="lstr('additional_settings')"
 					:boolean="additionalField"
 					@select="unhideAdds"/>
-			<div class="additional-fields" v-if="additionalField && type === 'PREDICTION'">
+			<div class="additional-fields pl-60" v-if="additionalField && type === 'PREDICTION'" >
 
 				<switch-component
 						class="mb-16"
@@ -197,7 +197,7 @@
 				<input-reusable
 						:height="44"
 						:value="form.end_date"
-						withoutBlur
+						withoutBlur="true"
 						date-picker
 						@date-pick="updateField(arguments[0], 'end_date')"
 						input-placeholder="closing_date"

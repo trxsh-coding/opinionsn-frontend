@@ -92,5 +92,9 @@
 </script>
 
 <style lang="scss">
-
+    .category-block {
+        .swiper-container {
+            height: 38px;
+        }
+    }
 </style>
