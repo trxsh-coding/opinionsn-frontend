@@ -25,6 +25,7 @@
 
 	export default {
         name: "userFeed",
+		
 		components: {
 			LoaderReusable,
 			VoteInstance,
@@ -32,6 +33,7 @@
 			MugenScroll,
 			langString
 		},
+		
 		props: {
         	feed_type: {
         		type: Number,
@@ -41,6 +43,7 @@
 				}
 			}
 		},
+		
         computed: {
             ...mapState('userFeed', {
 				state: s => s,
@@ -48,9 +51,6 @@
                 items: s => s.items,
 	            is_finished: s => s.is_finished,
 				loading: s => s.loading,
-
-
-
 			}),
 
 			...mapState('globalStore', {
@@ -63,30 +63,16 @@
 				return this.$route.params.id;
 
 			},
-
-            // sanitizedItems(){
-            //     let {items, votes, polls} = this;
-			//
-            //     return items.map( ({id, eventType}) => {
-			//
-            //         if (eventType === "POLL_CREATED"){
-			// 			return polls[id];
-            //         } else {
-            //         	return polls[votes[id].poll_id]
-            //         }
-            //     });
-			//
-            // }
+	
+	        scrolled_to_bottom() {
+            	return this.$root.scrolled_to_bottom;
+	        }
         },
 
         methods: {
 
             load() {
-
-
 				this.$store.dispatch(`userFeed/loadNextPage`, {params: { id : this.userId}});
-
-
             },
 
             changeTypeOfFeed() {
@@ -120,12 +106,18 @@
         },
 
 		watch: {
+   
 			userId(oldUserId, newUserId) {
 				if (oldUserId !== newUserId) this.changeTypeOfFeed();
 			},
+			
 			feed_type(old, current) {
 				if (old !== current) this.changeTypeOfFeed();
-			}
+			},
+			
+			scrolled_to_bottom(val) {
+				if (val && !this.is_finished) this.load();
+			},
 		},
 
     }

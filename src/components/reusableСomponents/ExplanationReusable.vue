@@ -5,8 +5,10 @@
 				:class="{'pl-18': !mobile, 'pl-20': mobile}"
 				class="explain mb-9">
 			<picture-reusable
+					:id="fitExplain.author_id"
+					avatar
 					v-if="!without_avatar"
-					class="mr-12 p-0"
+					class="mr-12 p-0 pointer"
 					:class="{'ml-21': mobile}"
 					pic-class="mb-5"
 					:img="fitExplain.avatar"
@@ -20,21 +22,21 @@
 			
 			<div class="text">
 				
-				<span class="username">{{fitExplain.username}}</span>
+				<span class="username w-fit pointer"
+				      @click="$router.push({name:'user', params: { id: fitExplain.author_id } })">{{fitExplain.username}}</span>
 				
 				<span v-show="!!fitExplain.description"
 				      class="explain-description mt-3">{{fitExplain.description}}</span>
 				
 				<div class="option">
 					
-					<span class="option-name">{{fitExplain.option}}</span>
+					<span class="option-name mt-auto">{{fitExplain.option}}</span>
 					
 					<span
 							v-show="!input_id"
-							@click.native="setActiveInput(1, 1)"
+							@click="setActiveInput(1, 1)"
 							class="pointer">
 						<icon-base
-								
 								fill="#BCBEC3"
 								width="18"
 								height="20"
@@ -43,7 +45,7 @@
 							<icon-reply-arrow/>
 						</icon-base>
 					</span>
-					
+				
 				</div>
 				
 				<label v-if="checkActiveInput(1, 1)">
@@ -85,7 +87,7 @@
 						</span>
 
 					</span>
-					
+				
 				</label>
 			
 			</div>
@@ -100,8 +102,15 @@
 			
 			<li class="comment mb-10" v-for="(comment, index) in fitComments" :key="comment.id">
 				
-				<picture-reusable class="mr-12" pic-class="mb-5" :img="comment.avatar" :size="27" rounded
-				                  text-layout="bottom">
+				<picture-reusable
+						:id="comment.author_id"
+						avatar
+						class="mr-12"
+						pic-class="mb-5"
+						:img="comment.avatar"
+						:size="27"
+						rounded
+						text-layout="bottom">
 					<template #description>
 						<time-trans short-time :time="comment.timestamp"></time-trans>
 					</template>
@@ -109,12 +118,12 @@
 				
 				<div class="text">
 					
-					<span class="username">{{comment.username}}</span>
+					<span class="username w-fit">{{comment.username}}</span>
 					
 					<span v-show="!!comment.description" class="comment-description mt-3">{{comment.description}}</span>
 					
 					<div class="option">
-						<span class="option-name">{{comment.option}}</span>
+						<span class="option-name mt-auto">{{comment.option}}</span>
 						<span v-show="!input_id" @click="setActiveInput(index + 1, 2)" class="pointer">
 							<icon-base
 									fill="#BCBEC3"
@@ -399,6 +408,7 @@
 				
 				return {
 					id,
+					author_id,
 					avatar: publicPath + users[author_id].path_to_avatar,
 					username: users[author_id].username,
 					description: explain_description,
@@ -426,6 +436,7 @@
 					} = comments[id];
 					
 					fitComments[index] = {
+						author_id,
 						avatar: publicPath + users[author_id].path_to_avatar,
 						username: users[author_id].username,
 						description: description,
@@ -463,6 +474,10 @@
 				display: flex;
 				flex-direction: column;
 				justify-content: flex-start;
+				
+				.option {
+					min-height: 22px;
+				}
 				
 				label {
 					display: flex;

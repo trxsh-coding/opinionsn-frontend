@@ -2,25 +2,27 @@
 	<div class="desktop-header mb-17">
 		<div class="nav-container container flex-align-center">
 			<div class="search-block flex-align-center" >
-				<icon-base
-						class="mr-5"
-						fill="none"
-						width="23"
-						height="24"
-						viewBox="0 0 23 24"
-						icon-name="text">
-					<icon-logo/>
-				</icon-base>
-				<icon-base
-						class="mr-27"
-						fill="none"
-						width="63"
-						height="15"
-						viewBox="0 0 63 15"
-						icon-name="text">
-					<icon-text-logo/>
-				</icon-base>
-				<input v-if="!!Object.keys(user).length" type="text" placeholder="Поиск" v-model="keyword" @change="routeOnChange">
+				<div class="pointer" @click="$router.push({ name: 'pollFeed' })">
+					<icon-base
+							class="mr-5"
+							fill="none"
+							width="23"
+							height="24"
+							viewBox="0 0 23 24"
+							icon-name="text">
+						<icon-logo/>
+					</icon-base>
+					<icon-base
+							class="ml-6 mb-1"
+							fill="none"
+							width="63"
+							height="15"
+							viewBox="0 0 63 15"
+							icon-name="text">
+						<icon-text-logo/>
+					</icon-base>
+				</div>
+				<input v-if="!!Object.keys(user).length" class="ml-27" type="text" placeholder="Поиск" v-model="keyword" @change="routeOnChange">
 			</div>
 			<div class="profile-annotation-block flex-align-center" v-if="!!Object.keys(user).length">
 

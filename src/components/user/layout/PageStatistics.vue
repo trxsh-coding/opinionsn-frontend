@@ -12,7 +12,7 @@
 <!--				v-show="!hidden || ((mobile && index < 3) ||  (!mobile && index < 4))"-->
 <!--			>-->
 			<div class="card flex-column flex-align-center mt-13"
-			     v-for="(item, index) in itemsSortedNew"
+			     v-for="(item, index) in itemsSorted"
 			     v-show="((mobile && index < 3) ||  (!mobile && index < 4))">
 				
 				<lang-string class="title px-9 py-2 my-auto" :title="item.title" />
@@ -59,59 +59,38 @@
 			}),
 
         	id() {
-
         		return this.$route.params.id
-
-			},
-			
-			itemsSortedNew() {
-				if (!Object.keys(this.items).length || !Object.keys(this.categories).length) return [];
-				
-				let items = [];
-				Object.values(this.items.predictionStatisticGeneral).forEach(({categoryId, percentageOfCorrectAnswers, amountOfCorrectAnswers, totalAmountOfVoted}, index) => {
-					
-					if (!!categoryId) {
-						items[index] = {
-							title: this.categories[categoryId],
-							percent: percentageOfCorrectAnswers,
-							correct_answers: amountOfCorrectAnswers,
-							total_amount_of_answers: totalAmountOfVoted
-						};
-					}
-					
-				});
-				
-				return items;
 			},
 			
 			itemsSorted() {
+				let items = [];
+				
+				switch (true) {
+					case !this.items:
+					case !this.categories:
+					case !Object.keys(this.items).length:
+					case !Object.keys(this.categories).length:
+						return items;
+				}
+				
+				
+				Object.values(this.items.predictionStatisticGeneral).forEach(({categoryId, percentageOfCorrectAnswers, amountOfCorrectAnswers, totalAmountOfVoted}) => {
+					
+					if (categoryId === 0) return;
+					
+					items.push({
+						title: this.categories[categoryId].name,
+						percent: percentageOfCorrectAnswers,
+						correct_answers: amountOfCorrectAnswers,
+						total_amount_of_answers: totalAmountOfVoted
+					});
 
-        		if (!this.items) return [];
-
-        		let items = [];
-				Object.entries(this.items).forEach((value, i) => {
-					let item = value.flat(1);
-					// if (!!item[1]) items[i] = item;
-					items[i] = item;
 				});
-
-				items = items.sort((a, b) => {
-
-					if (a[1] < b[1]) {
-						return 1;
-					}
-
-					if (a[1] > b[1]) {
-						return -1;
-					}
-
-					return 0;
-				});
-
-
-        		return items;
-			}
-
+				
+				return items;
+				
+			},
+			
 		},
 		methods: {
 			statisticRoutePush(id){

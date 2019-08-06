@@ -22,6 +22,11 @@
 
     export default {
         name: "userPage",
+	    data() {
+		    return {
+			    mobile: this.$root.mobile
+		    }
+	    },
         computed: {
             ...mapState('userPage', {
 				userPage: s => s,
