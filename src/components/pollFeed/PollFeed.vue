@@ -202,10 +202,10 @@
 	#poll-wrapper {
 		overflow: hidden;
 		border-radius: 6px;
-
+		height: 100%;
 
 		.feed {
-			height: 99%;
+			height: 100%;
 
 			.loading-spinner {
 				width: 100%;
