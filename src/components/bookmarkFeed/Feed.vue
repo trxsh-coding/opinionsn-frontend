@@ -1,6 +1,6 @@
 <template lang="html">
 
-    <div id="bookmark-feed" class="flex-column" :class="{ 'pt-58 pl-30 pr-20': mobile }">
+    <div id="bookmark-feed" class="flex-column" :class="{ 'pt-58 pl-30 pr-20': mobile, 'bg-white': !mobile }">
 
         <short-poll-reusable v-for="(poll, index) in filtered_polls" :class="{'mt-9': index > 0}" :poll="poll" width="100%" />
         <loader-reusable

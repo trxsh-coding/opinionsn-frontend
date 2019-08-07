@@ -48,7 +48,7 @@
 
 		<div
 				class="vote-instance-wrapper flex-column pb-12"
-				:class="{'desktop': !mobile, 'bg-white': !!items.length}">
+				:class="{'desktop bg-white': !mobile}">
 			<div
 					class="flex-column"
 					v-for="(item, index) in items">
