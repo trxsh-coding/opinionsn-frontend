@@ -1,8 +1,7 @@
 <template>
     <div class="profile-block" v-if="!!Object.keys(user).length">
-<!--    <div class="profile-block">-->
         <div class="profile-background-block">
-            <picture-reusable :img="publicPath + user.background_image" :width="288" :height="90"/>
+            <picture-reusable :img="publicPath + user.background_image" :width="288" :height="90" bor-rad="auto"/>
         </div>
         <div class="profile-annotation flex-column ">
             <picture-reusable
@@ -48,7 +47,8 @@
     .profile-block {
         height: 150px;
         background: #FFFFFF;
-        border-radius: 0 0 6px ;
+        border-radius: 6px;
+
         .profile-background-block {
             width: 288px;
             height: 90px;

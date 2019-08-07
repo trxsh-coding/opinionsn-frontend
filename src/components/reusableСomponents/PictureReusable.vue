@@ -63,7 +63,8 @@
 			},
 			rounded: Boolean,
 			borColor: {
-				type: String
+				type: String,
+				default: 'transparent'
 			},
 			bgColor: {
 				type: String
@@ -82,19 +83,24 @@
 					this.$router.push({name:'user',params:{id:this.id}})
 				}
 			},
-			handlePrecentValue(value) {
+			handleCssValue(value) {
 
-				if (value === undefined) return false;
+				switch (true) {
+					case `${value}`.slice(-1) === '%':
+						return value;
+					case !isNaN(value):
+						return value + 'px';
+					default:
+						return value;
+				}
 
-				return `${value}`.slice(-1) === '%' ? value : value + 'px';
-
-			}
+			},
 		},
 		computed: {
 
 			wrapperStyle() {
-				let { textLayout, width, handlePrecentValue, onlyPicture } = this;
-				width = (width && onlyPicture) ? {width: handlePrecentValue(width)} : {};
+				let { textLayout, width, handleCssValue, onlyPicture } = this;
+				width = (width && onlyPicture) ? {width: handleCssValue(width)} : {};
 
 				switch (textLayout) {
 					case 'top':
@@ -122,9 +128,9 @@
 				}
 			},
 			pictureWrapperStyle() {
-				let { borColor, borRad, rounded, handlePrecentValue, onlyPicture, width } = this;
-				borRad = handlePrecentValue(borRad);
-				width = handlePrecentValue(width);
+				let { borColor, borRad, rounded, handleCssValue, onlyPicture, width } = this;
+				borRad = handleCssValue(borRad);
+				width = handleCssValue(width);
 				if (rounded) borRad = "50%";
 
 				let style = {};
@@ -145,11 +151,11 @@
 				return style;
 			},
 			pictureStyle() {
-				let { size, borRad, img, width, height, rounded, handlePrecentValue, bgColor } = this;
-				borRad = handlePrecentValue(borRad);
-				width = handlePrecentValue(width);
-				height = handlePrecentValue(height);
-				size = handlePrecentValue(size);
+				let { size, borRad, img, width, height, rounded, handleCssValue, bgColor } = this;
+				borRad = handleCssValue(borRad);
+				width = handleCssValue(width);
+				height = handleCssValue(height);
+				size = handleCssValue(size);
 				bgColor = bgColor ? {backgroundColor: bgColor} : {};
 				img = img ? img : '';
 				if (rounded) borRad = "50%";
