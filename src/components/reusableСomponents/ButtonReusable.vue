@@ -7,9 +7,11 @@
 		<div
 				class="btn flex-align-center"
 				:class="{'active': active}"
-				:style="{fontSize: `${fontSize}px`}"
 				v-if="button_type === 'default'">
-			<lang-string v-if="!!description" :title="description"/>
+			<lang-string
+					v-if="!!description"
+					:title="description"
+					:style="{fontSize: `${fontSize}px`}"/>
 			<slot/>
 		</div>
 

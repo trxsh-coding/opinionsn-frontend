@@ -4,8 +4,15 @@
 			:class="{'desktop': !mobile, 'pr-20': mobile}"
 			ref="sectionRef">
 		<div class="notification-section flex-column" v-if="messages.length && !closed">
-
-
+			<button-reusable
+					class="mt-13 mb-20"
+					bg-color="#ffffff"
+					button_type="underline"
+					color="#1A1E22"
+					active-color="#4B97B4"
+					description="notifications"
+					:active="true"
+			/>
 
 			<div class="today flex-column flex-center" v-if="filtered_messages.today.length">
 				<notification-instance
@@ -76,10 +83,12 @@
 	import moment from "moment";
 	import ElementScrollHandler from "../mixins/ElementScrollHandler";
 	import LoaderReusable from "../reusableСomponents/LoaderReusable";
+	import ButtonReusable from "../reusableСomponents/ButtonReusable";
 
 	export default {
 		name: "notificationPage",
 		components: {
+			ButtonReusable,
 			LoaderReusable, NotificationInstance, feedBlock, langString
 		},
 		props: {
@@ -191,7 +200,17 @@
 		.notification-section {
 			background: #FFFFFF;
 			height: auto;
+			.button-reusable {
+				display: flex;
+				justify-content: center;
+				span {
+					font-family: Roboto;
+					font-style: normal;
+					font-size: 15px;
 
+
+				}
+			}
 			.title {
 				width: fit-content;
 				margin-right: auto;

@@ -2,6 +2,7 @@
     <div class="user-statistic pt-51">
        <div class="header-block pl-60 mb-15">
            <picture-reusable
+                   @click.native="userLink"
                    class="pointer"
                    :size="72"
                    :img="publicPath + user.path_to_avatar"
@@ -41,6 +42,9 @@
                     </li>
                 </template>
             </dropdown-list-reusable>
+        </div>
+        <div class="amount-block pl-69 mt-12">
+            <lang-string :title="'you_voted_in' + ' ' + statistic.totalAmountVoted + ' '  + types[typeId].value"/>
         </div>
         <div class="statistic-section">
             <apexchart  type="bar" :options="chartOptions" :series="series" />
@@ -116,10 +120,6 @@
                         categories: [],
                     },
                     yaxis: {
-                        min:0,
-                        max:10,
-                        decimalsInFloat: 1,
-                        floating: false,
                     },
                     fill: {
                         opacity: 1
@@ -209,10 +209,18 @@
 
 
             },
-            cXaxis(){
 
+            monthRanage(){
+            },
+
+            cXaxis(){
+                switch(this.periodId) {
+                    case 0 :
+                        return {categories: this.rangeInstance.reverse()};
+                    case 1:
+                        return {categories: ''}
+                }
                 return {
-                    categories: this.rangeInstance.reverse(),
                 }
 
             },
@@ -225,6 +233,9 @@
             },
         },
         methods: {
+            userLink(){
+                this.$router.push({name: 'user', params: {id: this.user_id}})
+            },
             setRange(index){
                 this.periodId = index;
             },
@@ -252,6 +263,11 @@
         },
         mounted(){
             this.getUserStatistic()
+            if(!this.users[this.user_id]){
+
+             this.$store.dispatch(`userPage/list`, {customUrl: `${process.env.VUE_APP_MAIN_API}/rest/v1/user/${this.user_id}`});
+
+            }
         }
 
     }
@@ -259,7 +275,16 @@
 
 <style lang="scss">
     .user-statistic {
+        .amount-block {
 
+            font-family: Helvetica Neue;
+            font-size: 10px;
+            line-height: 10px;
+
+            color: #BEC0C5;
+
+
+        }
         .avatar-username {
 
             font-family: Roboto;
