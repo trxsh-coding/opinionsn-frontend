@@ -51,6 +51,8 @@
 <script>
 	import InvolvedUsersPanel from "../pollFeed/layout/involvedUsersPanel";
 	import {mapState} from "vuex";
+	import {userVote, judgevote} from "../../EOSIO/eosio_impl";
+	import {mainUser} from "../../store/modules/mainUser";
 	export default {
 		name: "OptionReusable",
 		components: {InvolvedUsersPanel},
@@ -113,23 +115,23 @@
 					const runTimeout = () => {
 
 						if (this.accessCheck) {
-							let {poll_id, type_of_poll} = this;
+							let {poll_id, type_of_poll, mainUser} = this;
 							this.$root.timer_duration = 5000;
 
 							this.$root.timer_id = setTimeout(() => {
 
-								this.$store.dispatch(`${this.$route.name}/createVote`, {
-									data: {
-										selected_variable,
-										poll_id,
-										type_of_poll
-									}
-								})
-								.then(() => {
+								userVote(poll_id, selected_variable, mainUser.id)
+										.then(() =>this.$store.dispatch(`${this.$route.name}/createVote`, {
+											data: {
+												selected_variable,
+												poll_id,
+												type_of_poll
+											}
+										}))
+										.then(() => {
 									this.$root.timer_id = null;
 									this.$root.timer_duration = 0;
 								});
-
 							}, 5000);
 
 							this.$root.temp_selected_option = selected_variable;
@@ -143,8 +145,20 @@
 			},
 
 			setRightOption(option_id, poll_id){
-				this.$store.dispatch(`pollFeed/setRightOption`, {data: {option_id, poll_id }})
-
+				let {mainUser} = this
+				judgevote(poll_id, mainUser.id, option_id)
+						.then(() => this
+								.$store
+								.dispatch(
+										`pollFeed/setRightOption`,
+										{
+											data:
+													{
+														option_id, poll_id
+													}
+										})
+						)
+						.catch(() => console.log("Judgevote on EOSIO exception"));
 			},
 			trackTouchStart(e) {
 				let { clientX } = e.touches[0];
