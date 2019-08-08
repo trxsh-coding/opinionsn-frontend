@@ -18,6 +18,9 @@
 <script>
 
 	import SwitchComponent from "./reusableСomponents/switchComponent";
+	import { createForecast } from "../EOSIO/eosio_impl";
+
+	"../EOSIO/eosio_impl";
 
 
 	export default {
@@ -226,15 +229,18 @@
 
 							} else {
 
-								axios.post(`${process.env.VUE_APP_MAIN_API}/rest/admin/blockchain/create`, bodyFormData, config)
-									.then(response => {
-										if (response.status === 200) {
-											this.loading = false;
-											this.$router.push({name: 'pollFeed'})
-										}
-									})
-									.catch(err => console.log(err));
 
+								createForecast(pollForm.subject, pollForm.fund, this.mainUser.id)
+										.then(() =>
+											axios.post(`${process.env.VUE_APP_MAIN_API}/rest/admin/blockchain/create`, bodyFormData, config)
+												.then(response => {
+													if (response.status === 200) {
+														this.loading = false;
+														this.$router.push({name: 'pollFeed'})
+													}
+													})
+												.catch(err => console.log(err)))
+										.catch(() => console.log("EOSIO Forecast creation exception"));
 							}
 
 
