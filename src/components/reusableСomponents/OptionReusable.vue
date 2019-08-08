@@ -68,6 +68,7 @@
 			}
 		},
 		props: {
+			optionsVisible: Boolean,
 			accessCheck: Boolean,
 			voted: Boolean,
 			selected: Boolean,
@@ -108,7 +109,7 @@
 		methods: {
 			selectOption(selected_variable) {
 				
-				if (this.voted || !this.logged_in || this.expired) return;
+				if (this.voted || !this.logged_in || this.expired || this.optionsVisible === false) return;
 
 				if (!this.$root.timer_duration && !this.$root.timer_id) {
 
@@ -132,6 +133,7 @@
 									this.$root.timer_id = null;
 									this.$root.timer_duration = 0;
 								});
+
 							}, 5000);
 
 							this.$root.temp_selected_option = selected_variable;

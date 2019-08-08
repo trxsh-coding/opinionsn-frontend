@@ -87,6 +87,10 @@
 
 				});
 				
+				items = items.sort(({correct_answers: a}, {correct_answers: b}) => {
+					return b - a;
+				});
+				
 				return items;
 				
 			},

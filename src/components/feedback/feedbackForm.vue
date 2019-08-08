@@ -48,39 +48,39 @@
 					<div
 						class="picture-30x30"
 						:style="{ 'background-image': 'url(' + require('../images/facebook.png') + ')' } "
-					/>
+					></div>
 				</a>
 			</li>
 			<li>
-				<a href="https://twitter.com/opinionsn_com" target="_blank" rel="noopener noreferrer">
+				<a href="https://twitter.com/Opinionsncom" target="_blank" rel="noopener noreferrer">
 					<div
 						class="picture-30x30"
 						:style="{ 'background-image': 'url(' + require('../images/twitter.png') + ')' } "
-					/>
+					></div>
 				</a>
 			</li>
 			<li>
-				<a href="https://www.instagram.com/opinionsn_com/" target="_blank" rel="noopener noreferrer">
+				<a href="https://www.instagram.com/opinionsncom" target="_blank" rel="noopener noreferrer">
 					<div
 						class="picture-30x30"
 						:style="{ 'background-image': 'url(' + require('../images/instagram.png') + ')' } "
-					/>
+					></div>
 				</a>
 			</li>
 			<li>
-				<a href="https://t.me/opinionsn_com" target="_blank" rel="noopener noreferrer">
+				<a href="https://t.me/opinion_social_network" target="_blank" rel="noopener noreferrer">
 					<div
 						class="picture-30x30"
 						:style="{ 'background-image': 'url(' + require('../images/telegram.png') + ')' } "
-					/>
+					></div>
 				</a>
 			</li>
 			<li>
-				<a href="https://vk.com/opinion_social_network" target="_blank" rel="noopener noreferrer">
+				<a href="https://vk.com/opinionsncom" target="_blank" rel="noopener noreferrer">
 					<div
 						class="picture-30x30"
 						:style="{ 'background-image': 'url(' + require('../images/vk.png') + ')' } "
-					/>
+					></div>
 				</a>
 			</li>
 			<li>
@@ -92,7 +92,7 @@
 					<div
 						class="picture-30x30"
 						:style="{ 'background-image': 'url(' + require('../images/youtube.png') + ')' } "
-					/>
+					></div>
 				</a>
 			</li>
 		</ul>
@@ -117,7 +117,7 @@
 				this.pictures.push(file);
 			},
 			submitForm(formName) {
-				var bodyFormData = new FormData();
+				let bodyFormData = new FormData();
 				let { pictures } = this;
 				const form = new Blob([JSON.stringify(formName)], {
 					type: "application/json"
@@ -191,8 +191,8 @@
 			font-weight: 300;
 			font-size: 14px;
 			color: #152d3a;
-			padding-right: 6px;
 		}
+		
 		.form-section {
 			.el-input__inner,
 			.el-textarea__inner {
