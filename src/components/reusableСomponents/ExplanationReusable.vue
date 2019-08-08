@@ -9,7 +9,6 @@
 					avatar
 					v-if="!without_avatar"
 					class="mr-12 p-0 pointer"
-					:class="{'ml-21': mobile}"
 					pic-class="mb-5"
 					:img="fitExplain.avatar"
 					:size="27"

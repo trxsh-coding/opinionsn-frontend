@@ -21,12 +21,8 @@
         name: "pollAnotation",
         components:{langString, bookmark},
         computed: {
-            type_of_poll(){
-                if (this.poll.type_of_poll == 0){
-                    return 'poll'
-                } else {
-                    return 'prediction'
-                }
+            type_of_poll() {
+                return (this.poll.type_of_poll === 0) ? 'poll' : 'predict';
             }
         },
         methods: {

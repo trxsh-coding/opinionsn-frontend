@@ -1,7 +1,7 @@
 <template>
     <div class="aside-layout mr-19">
-        <profile />
-        <aside-navigation />
+        <profile class="mb-7"/>
+        <aside-navigation class="mt-2" />
    </div>
 </template>
 
@@ -18,7 +18,7 @@
 <style lang="scss">
     .aside-layout {
         min-width: 288px;
-        margin-top: 78px;
+        margin-top: 76px;
         position: fixed;
     }
 </style>

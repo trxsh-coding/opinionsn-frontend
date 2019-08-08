@@ -1,11 +1,11 @@
 <template>
-    <div class="navigation-aside-menu mt-9 ">
-        <div class="create-poll-block br-6 pointer flex-align-center" @click.prevent="routerPush('createPoll')">
+    <div class="navigation-aside-menu">
+        <div class="create-poll-block br-6 pl-12 py-10 pointer flex-align-center" @click.prevent="routerPush('createPoll')">
             <icon-base
                     fill="none"
                     class="mr-12 pointer"
-                    width="23"
-                    height="23"
+                    width="18"
+                    height="18"
                     viewBox="0 0 20 20"
                     icon-name="add"><icon-add-poll/>
             </icon-base>
@@ -15,13 +15,13 @@
         </div>
         <div class="nav-menu">
             <ul>
-                <li class="links pointer" @click="routerPush('pollFeed')">
+                <li class="links py-12 pointer" @click="routerPush('pollFeed')">
                     <icon-base
                             :class="{active : routeName === 'pollFeed'}"
-                            class="mr-12"
+                            class="mr-13"
                             fill="none"
-                            width="19"
-                            height="19"
+                            width="18"
+                            height="18"
                             viewBox="0 0 19 19"
                             icon-name="add"><icon-poll-feed/>
                     </icon-base>
@@ -30,13 +30,13 @@
 
                             :title="'main'" />
                 </li>
-                <li class="links pointer" @click="routerPush('voteFeed')">
+                <li class="links py-12 pointer" @click="routerPush('voteFeed')">
                     <icon-base
                             :class="{active : routeName === 'voteFeed'}"
                             class="mr-12"
                             fill="none"
-                            width="19"
-                            height="19"
+                            width="18"
+                            height="18"
                             viewBox="0 0 19 19"
                             icon-name="opinion"><icon-opinion/>
                     </icon-base>
@@ -44,14 +44,14 @@
                             :class="{active : routeName === 'voteFeed'}"
                             :title="'opinion'" />
                 </li>
-                <li class="links pointer" @click="routerPush('bookmarkFeed')">
+                <li class="links py-11 pointer" @click="routerPush('bookmarkFeed')">
                     <icon-base
                             :class="{active : routeName === 'bookmarkFeed'}"
-                            class="mr-19"
+                            class="mr-10"
                             fill="none"
-                            width="13"
-                            height="18"
-                            viewBox="-3 0 13 18"
+                            width="20"
+                            height="20"
+                            viewBox="1 0 13 18"
                             icon-name="add"><icon-bookmark/>
                     </icon-base>
                     <lang-string

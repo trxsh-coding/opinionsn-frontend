@@ -19,7 +19,7 @@
 
 		</div> -->
 		
-		<div class="feed relative flex-column pb-12">
+		<div class="feed relative flex-column pb-12" :class="{'bg-white': !mobile}">
 
 			<div v-for="item in items" class="poll-item">
 				<poll-instance :item="item"/>
@@ -207,7 +207,6 @@
 		overflow: hidden;
 		border-radius: 6px;
 		height: 100%;
-
 
 		.feed {
 			height: 100%;
