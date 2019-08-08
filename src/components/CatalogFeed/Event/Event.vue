@@ -22,17 +22,8 @@
 
             }),
 
-            poll: function () {
-
-                let {polls, item} = this;
-
-                let poll;
-
-                poll = polls[item.id]
-
-                return poll;
-
-
+            poll() {
+                return this.polls[this.item.id];
             },
 
             author: function(){
