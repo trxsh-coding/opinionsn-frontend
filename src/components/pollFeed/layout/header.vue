@@ -1,8 +1,8 @@
 <template>
-    <div id="poll-header" class="mb-3">
+    <div id="poll-header" class="mb-4">
         <author-headline
                 pic-class="mr-9"
-                class="mb-9 ml-60 pointer"
+                class="mb-12 ml-60 pointer"
                 avatar
                 :id="author.id"
                 :img="publicPath + imageUtil(author.path_to_avatar, 'S')"

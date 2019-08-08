@@ -1,16 +1,18 @@
 <template lang="html">
 
-    <div id="catalog-feed" :class="{mobile: 'mt-58'}">
+    <div id="catalog-feed" class="flex-column" :class="{'pt-58': mobile}">
+        
+<!--        <div class="category-background mb-10" :style="{ 'background-image': 'url(' + publicPath + category.path_to_image + ')' }" > -->
+<!--            <div class="category-subject">-->
+<!--                <lang-string :title="category.name" />-->
+<!--            </div>-->
+<!--        </div>-->
 
-        <div class="category-background mb-10" :style="{ 'background-image': 'url(' + publicPath + category.path_to_image + ')' } ">
-            <div class="category-subject">
-                <lang-string :title="category.name" />
-            </div>
+        <div :class="{'pl-51': !mobile, 'pl-21': mobile}" v-show="items.length">
+            <event v-for="item in items" class="mb-6" :item="item"/>
         </div>
-
-        <div v-for="item in items" class="mb-6" v-if="items.length">
-            <event :item="item"/>
-        </div>
+        
+        <loader-reusable class="mx-auto my-10" v-show="loading" />
 
     </div>
 
@@ -25,6 +27,7 @@
     import langString from '../langString'
     import IconBase from '../icons/IconBase'
     import IconBack from '../icons/IconBack'
+    import LoaderReusable from "@/components/reusableСomponents/LoaderReusable";
     export default {
         mixins:[langMixin],
         data(){
@@ -38,66 +41,33 @@
         computed: {
             ...mapState('catalogList', {
                 state: s => s,
-                items: s => s.items
+                items: s => s.items,
+                loading: s => s.loading
             }),
-
-            ...mapState('globalStore', {
-                polls: ({polls}) =>polls,
-                users: ({users}) =>users,
-                categories: ({categories}) => categories,
-
-            }),
-
-            poll: function () {
-
-                let {polls, id} = this;
-
-                let poll;
-
-                poll = polls[id]
-
-                return poll;
-
-
-            },
-
-            category: function () {
-
-                let {id, categories} = this;
-
-                let category;
-
-                category = categories[id];
-
-                return category;
-
-
-            }
+            
+            // ...mapState('globalStore', {
+            //     polls: ({polls}) =>polls,
+            //     users: ({users}) =>users,
+            //     categories: ({categories}) => categories,
+            // }),
+            //
+            // poll() { return this.polls[this.id] },
+            //
+            // category() { return this.categories[this.id] }
 
         },
         methods: {
 
-
-            backLink(){
-
-                this.$router.push({path: '/catalogList'})
-
-            }
-
+            backLink() { this.$router.push({path: '/catalogList'}) }
 
         },
 
-
-        mounted(){
-            this.$store.dispatch(`catalogList/list`, {customUrl: `${process.env.VUE_APP_MAIN_API}/rest/categories/${this.id}`});
-
+        mounted() {
+            this.$store.dispatch(`catalogList/list`, {customUrl: `${process.env.VUE_APP_MAIN_API}/rest/v1/categories/${this.id}`})
         },
-
-
-
-
-
+    
         components: {
+            LoaderReusable,
             event,
             langString,
             IconBase,
@@ -109,9 +79,7 @@
 <style lang="scss">
 
     .catalog__name {
-
-
-        font-family: Roboto;
+        font-family: Roboto, sans-serif;
         font-style: normal;
         font-weight: 500;
         font-size: 22px;
@@ -119,16 +87,13 @@
         text-align: center;
         color: #152D3A;
         font-variant-caps: all-small-caps;
-
-
-
     }
+    
     .icon-back {
         float: left;
+        
         g {
-
             fill:none;
-
         }
 
     }
@@ -136,12 +101,6 @@
         .category-mobile {
             margin-top: 6px;
             text-align: center;
-
-        }
-        .category-background {
-
-            display: none;
-
         }
 
 

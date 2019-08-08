@@ -8,7 +8,7 @@
                 class="mx-auto my-9"
                 v-show="loading" />
         
-        <lang-string v-show="!loading && !filtered_polls.length" class="finish-warning mx-auto mt-9" title="You_have_no_bookmarks" />
+        <lang-string v-show="!loading && !filtered_polls.length" class="finish-warning mx-auto my-9" title="You_have_no_bookmarks" />
 
     </div>
 

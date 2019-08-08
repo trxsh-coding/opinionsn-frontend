@@ -25,9 +25,9 @@
 				<poll-instance :item="item"/>
 			</div>
 
-			<loader-reusable class="m-auto" v-show="!is_finished && loading" />
+			<loader-reusable class="mx-auto my-10" v-show="!is_finished && loading" />
 			
-			<lang-string class="finish-warning mx-auto" v-show="is_finished" title="no_more_posts!"/>
+			<lang-string class="finish-warning mx-auto my-10" v-show="is_finished" title="no_more_posts!"/>
 
 		</div>
 
