@@ -181,7 +181,7 @@
 				if (clientX > block_width) clientX = block_width;
 				
 				let difference = clientX - initialCoord;
-				
+
 				switch (true) {
 					case this.transform_px > (block_width - 54):
 						this.transform_px = block_width - 54;
@@ -194,7 +194,6 @@
 				}
 
 				this.difference = difference;
-
 			},
 
 			trackTouchEnd(e) {
