@@ -1,19 +1,35 @@
 <template>
-	<div class="option-reusable" :style="[transform_shift, optionWrapper]">
+	<div class="option-reusable" ref="containerRef" :style="[transform_shift, optionWrapper]">
 		
 		<div v-if="bows && mobile"
-		     class="bows"
+		     class="bows-bar"
 		     ref="bowsRef"
 		     :class="{'invisible': !voted}"
-		     :style="{...optionStyle, backgroundColor: 'unset !important'}"
+		     :style="[optionStyle, bowsBarStyle, {backgroundColor: 'unset !important'}]"
 		     @touchstart="trackTouchStart"
 		     @touchmove="trackTouchMove"
 		     @touchend="trackTouchEnd">
 			
-			<slot v-if="Object.keys(bows).length > 2" name="badge"></slot>
-			<router-link v-for="(value, name) in bows" :to="'/user/' + name">
-				<div class="bow mx-2 h-21 w-21" :style="{backgroundImage: `url('${publicPath + value}')`}"></div>
-			</router-link>
+			<slot v-if="Object.keys(bows).length > 2 && !swiped" name="badge"></slot>
+			
+			<scroll-swiper-reusable
+					v-if="Object.keys(bows).length > 2"
+					height="100%"
+					:width="swiped ? '100%' : 'fit-content'"
+					class="bows-slider">
+				<div
+						v-for="(value, key, index) in bows" :to="'/user/' + key"
+						v-show="swiped || index === 0"
+						@click="swiped && $router.push({name: 'user', params: { id: key }})"
+						class="bow mx-2 h-21 w-21"
+						:style="{backgroundImage: `url('${publicPath + value}')`}"></div>
+			</scroll-swiper-reusable>
+			
+			<div
+					v-if="Object.keys(bows).length < 2"
+					@click="swiped && $router.push({name: 'user', params: { id: Object.keys(bows)[0] }})"
+					class="bow mx-2 h-21 w-21"
+					:style="{backgroundImage: `url('${publicPath + Object.values(bows)[0]}')`}"></div>
 		</div>
 		
 		<button @click="setRightOption(id, poll_id)" v-if="mainUser.authorities === 'ADMIN' && type_of_poll !== 0">✓</button>
@@ -54,10 +70,11 @@
 	import {mapState} from "vuex";
 	import {userVote, judgevote} from "../../EOSIO/eosio_impl";
 	import {mainUser} from "../../store/modules/mainUser";
+	import ScrollSwiperReusable from "@/components/reusableСomponents/ScrollSwiperReusable";
 	
 	export default {
 		name: "OptionReusable",
-		components: {InvolvedUsersPanel},
+		components: {ScrollSwiperReusable, InvolvedUsersPanel},
 		data() {
 			return {
 				publicPath: process.env.VUE_APP_MAIN_API,
@@ -66,7 +83,9 @@
 				block_width: null,
 				difference: 0,
 				transform_px: 0,
-				test: 0
+				transform_limit: undefined,
+				swiped: false,
+				swipe_in_progress: false
 			}
 		},
 		props: {
@@ -110,6 +129,8 @@
 		
 		methods: {
 			selectOption(selected_variable) {
+				
+				if (this.voted) this.resetBowsBar();
 				
 				if (this.voted || !this.logged_in || this.expired || this.optionsVisible === false) return;
 				
@@ -182,43 +203,66 @@
 				}
 
 			},
+			
+			resetBowsBar() {
+				
+				this.transform_px = 0;
+				
+				setTimeout(() => {
+					this.swiped = false;
+					this.swipe_in_progress = false;
+				}, 300)
+				
+			},
+			
 			trackTouchStart(e) {
-				let {clientX} = e.touches[0];
-				
-				if (clientX < 0) clientX = 0;
-				if (clientX > this.block_width) clientX = this.block_width;
-				
-				this.block_width = this.$refs.bowsRef.offsetWidth;
-				if (this.initialCoord === 0) this.initialCoord = clientX;
-				this.difference = clientX - this.initialCoord;
+				if (!this.swiped && Object.keys(this.bows).length > 2) {
+					this.swipe_in_progress = true;
+					
+					let {clientX} = e.touches[0];
+					
+					if (clientX < 0) clientX = 0;
+					if (clientX > this.block_width) clientX = this.block_width;
+					
+					this.transform_limit = this.$refs.containerRef.offsetWidth - 54;
+					
+					if (this.initialCoord === 0) this.initialCoord = clientX;
+					this.difference = clientX - this.initialCoord;
+				}
 			},
 			
 			trackTouchMove(e) {
-				let {initialCoord, block_width} = this;
-				let {clientX} = e.touches[0];
-				
-				if (clientX < Math.trunc(block_width * 0.1)) clientX = Math.trunc(block_width * 0.1);
-				if (clientX > block_width) clientX = block_width;
-				
-				let difference = clientX - initialCoord;
-				
-				switch (true) {
-					case this.transform_px > (block_width - 54):
-						this.transform_px = block_width - 54;
-						break;
-					case this.transform_px < 0:
-						this.transform_px = 0;
-						break;
-					default:
-						this.transform_px += difference - this.difference;
+				if (!this.swiped && Object.keys(this.bows).length > 2) {
+					
+					let {initialCoord, block_width, transform_limit} = this;
+					let {clientX} = e.touches[0];
+					
+					this.block_width = (25 * Object.keys(this.bows).length);
+					
+					if (clientX < Math.trunc(block_width * 0.1)) clientX = Math.trunc(block_width * 0.1);
+					if (clientX > block_width) clientX = block_width;
+					
+					let difference = clientX - initialCoord;
+					let transform_value = block_width - 54;
+					transform_limit = transform_limit - 54;
+					transform_value = (transform_value > transform_limit) ? transform_limit : transform_value;
+					
+					if (difference > 50) {
+						this.transform_px = transform_value;
+						this.swiped = true;
+						this.swipe_in_progress = false;
+					}
+					
+					this.difference = difference;
 				}
-				
-				this.difference = difference;
 			},
 			
 			trackTouchEnd(e) {
-				if (this.transform_px < 0) this.transform_px = 0;
-				if (this.transform_px > (this.block_width - 54)) this.transform_px = this.block_width - 54;
+				if (this.difference <= 50) {
+					this.swiped = false;
+					this.swipe_in_progress = false;
+					this.transform_px = 0;
+				}
 			}
 			
 		},
@@ -242,26 +286,36 @@
 					transform: `translateX(${this.transform_px}px)`
 				}
 			},
+			
 			optionWrapper() {
 				let {expired, correct, selected, type_of_poll} = this;
 				
+				let s = {};
+				
 				switch (type_of_poll == 1 && expired) {
 					case selected && correct:
-						return {
-							opacity: 1
-						};
+						s = {...s , opacity: '1'};
+						break;
 					case selected:
-						return {
-							opacity: 1
-						};
+						s = {...s , opacity: '1'};
+						break;
 					default:
-						return {
-							opacity: 0.4
-						}
+						s = {...s , opacity: '0.4'};
+						break;
 				}
 				
+				return s;
 				
 			},
+			
+			bowsBarStyle() {
+				let {transform_limit} = this;
+				
+				transform_limit = !!transform_limit ? { maxWidth: `${transform_limit}px` } : {};
+				
+				return transform_limit;
+			},
+			
 			filteredBows() {
 				
 				let {bows, enough_difference} = this;
@@ -279,6 +333,7 @@
 					}
 				}
 			},
+			
 			optionStyle() {
 				let {selected, temp_selected, correct, prediction, picture} = this;
 				
@@ -312,6 +367,7 @@
 						};
 				}
 			},
+			
 			progressBarStyle() {
 				let {selected, temp_selected, correct, percentage} = this;
 				
@@ -332,6 +388,7 @@
 						return width;
 				}
 			},
+			
 			pictureStyle() {
 				let {picture, pictureSize} = this;
 				
@@ -361,17 +418,17 @@
 		flex-wrap: wrap;
 		justify-content: flex-end;
 		align-items: stretch;
-		transition: 100ms;
-		
+		/*transition: 100ms;*/
 		width: 100%;
+		transition: 300ms;
 		
 		.desktop-bows {
 			flex: 0 0 calc(100% - 60px);
 		}
 		
-		.bows {
+		.bows-bar {
 			box-sizing: border-box;
-			padding: 12px 4px 12px 1px;
+			padding: 0 4px 0 1px;
 			border: 0.5px solid #BCBEC3;
 			border-radius: 6px;
 			
@@ -385,20 +442,13 @@
 			align-items: center;
 			flex-wrap: nowrap;
 			
-			a {
-				.bow {
-					width: 21px;
-					height: 21px;
-					background-repeat: no-repeat;
-					background-size: cover;
-					border-radius: 50%;
-					
-					
-				}
-				
-				/*&:last-child {*/
-				/*	margin: 0 3px;*/
-				/*}*/
+			.bow {
+				flex-shrink: 0;
+				width: 21px;
+				height: 21px;
+				background-repeat: no-repeat;
+				background-size: cover;
+				border-radius: 50%;
 			}
 		}
 		
