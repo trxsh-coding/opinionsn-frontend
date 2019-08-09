@@ -15,13 +15,11 @@ export class VuexStore {
 
         };
 
-
-
         commit('setLoading', true);
         return (isGet ? axios[method](url, axiosParams) : axios[method](url, requestData, axiosParams)).then(resp => {
 
             let {status, data} = resp;
-
+    
             if (status === 200){
 
                     commit('globalStore/updateStores', data, {root: true});
@@ -47,8 +45,11 @@ export class VuexStore {
 
             commit('setLoading', false);
 			commit('serviceWorker/CONNECTION_UNSTABLE', false, { root: true });
-
-        }).catch(error=> {
+			
+			return status;
+			
+        })
+        .catch(error=> {
         	let { message } = error;
 
         	if (message === "Network Error") {
@@ -60,7 +61,8 @@ export class VuexStore {
 				console.error(error);
 				commit('onError', error);
 			}
-
+        	
+        	return error.response.status;
         });
 
 
