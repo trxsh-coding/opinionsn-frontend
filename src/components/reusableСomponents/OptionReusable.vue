@@ -34,7 +34,10 @@
 		
 		<button @click="setRightOption(id, poll_id)" v-if="mainUser.authorities === 'ADMIN' && type_of_poll !== 0">✓</button>
 		
-		<div class="option-wrapper" :class="{'pointer': !voted}" @click="selectOption(id)">
+		<div
+				class="option-wrapper"
+				:class="{'pointer': !voted, 'with-button': mainUser.authorities === 'ADMIN' && type_of_poll !== 0}"
+				@click="selectOption(id)">
 			<div v-if="picture && picture.slice(-4) !== 'null'" class="picture" :style="pictureStyle"></div>
 			
 			<div class="option" :style="optionStyle">
@@ -455,7 +458,11 @@
 		.option-wrapper {
 			width: calc(100% - 60px);
 			display: flex;
-			/*flex-direction: column;*/
+			
+			&.with-button {
+				width: calc(100% - 82px);
+			}
+			
 			.picture {
 				background-repeat: no-repeat;
 				background-size: cover;
