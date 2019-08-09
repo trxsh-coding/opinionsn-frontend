@@ -11,7 +11,7 @@
         <headline-body :poll="poll" :item="item"/>
         <options-section
 		        @click.native="options_visible = true"
-		        :optionsVisible="options_visible"
+		        :optionsVisible="(combinedOptions.length <= 5) || options_visible"
 				:access-check="pollAccessCheck"
 				v-for="(option, index) in combinedOptions"
 				v-show="options_visible || index < 5"
