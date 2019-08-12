@@ -2,7 +2,7 @@
     <div id="poll-annotation"  class="flex-between">
         <div class="annotation-section flex">
             <div class="type-block mr-6 v-center">
-                <lang-string :title="type_of_poll"/>
+                <lang-string class="mr-2" :title="type_of_poll"/>
             </div>
             <div class="subject-block v-center pointer" @click="categoryLink(poll.categories)">
                 <lang-string :title="poll.subject_header"/>
@@ -42,25 +42,32 @@
         .type-block {
             background-color: #4B97B4;
             border-radius: 0 15px 15px 0;
-            padding: 1px 0;
-			width: 54px;
-			height: 15px;
+            width: 54px;
+            max-width: 54px;
         }
 
         .subject-block {
             background-color: #BCBEC3;
             border-radius: 15px;
-            padding: 1px 9px;
+            padding: 0 9px;
         }
-        .type-block, .subject-block {
-            font-family: Roboto;
+        
+        .type-block,
+        .subject-block {
+            font-family: Roboto, sans-serif;
             font-style: normal;
             font-weight: normal;
             font-size: 10px;
+            font-variant: small-caps;
             text-align: center;
             color: #FEFEFE;
             text-transform: uppercase;
-            height: fit-content;
+            height: 18px;
+    
+            // FOR Safari ≥ 9
+            @supports (-webkit-appearance:none) {
+                font-variant: normal;
+            }
         }
 
     }

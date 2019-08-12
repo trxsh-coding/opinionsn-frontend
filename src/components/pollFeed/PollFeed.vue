@@ -4,20 +4,20 @@
 		
 		<category-select @on-select="setCategory" :current="filter_id" :class="{'pl-60 pr-10': mobile, 'pb-13' : !mobile}"/>
 		
-<!--		<div class="filter-bar flex-reverse" :class="{'pl-60': mobile}">-->
-<!--			-->
-<!--			<button-reusable v-for="({name, id}) in localCategory"-->
-<!--			                 :active="id === filter_id"-->
-<!--			                 font-size="13"-->
-<!--			                 class="v-center py-3 px-9"-->
-<!--			                 bor-rad="6"-->
-<!--			                 active-color="#ffffff"-->
-<!--			                 bg-color="transparent"-->
-<!--			                 activeBgColor="#4B97B4"-->
-<!--			                 @click.native="setCategory({id})"-->
-<!--			                 :description="name"/>-->
+<!--	<div class="filter-bar flex-reverse" :class="{'pl-60': mobile}">
+			
+			<button-reusable v-for="({name, id}) in localCategory"
+			                 :active="id === filter_id"
+			                 font-size="13"
+			                 class="v-center py-3 px-9"
+			                 bor-rad="6"
+			                 active-color="#ffffff"
+			                 bg-color="transparent"
+			                 activeBgColor="#4B97B4"
+			                 @click.native="setCategory({id})"
+			                 :description="name"/>
 
-<!--		</div>-->
+		</div> -->
 		
 		<div class="feed relative flex-column pb-12" :class="{'bg-white': !mobile}">
 
@@ -25,7 +25,9 @@
 				<poll-instance :item="item"/>
 			</div>
 
-			<loader-reusable class="m-auto" v-show="!is_finished && loading" />
+			<loader-reusable class="mx-auto my-10" v-show="!is_finished && loading" />
+			
+			<lang-string class="finish-warning mx-auto my-10" v-show="is_finished" title="no_more_posts!"/>
 
 		</div>
 
@@ -45,7 +47,8 @@
 	import CatalogItem from "@/components/CatalogFeed/catalogItem";
 	import SwiperReusable from "@/components/reusableСomponents/swiperReusable";
 	import ButtonReusable from "@/components/reusableСomponents/ButtonReusable";
-
+	import langString from "../langString";
+	
 	export default {
 		data() {
 			return {
@@ -172,7 +175,8 @@
 			LoaderReusable,
 			SwiperCarousel,
 			filterComponent,
-			pollInstance
+			pollInstance,
+			langString
 		}
 	};
 </script>

@@ -10,7 +10,7 @@
 		/>
 		
 		<input :type="inputType"
-		       class="input TEST"
+		       class="input"
 		       v-if="input"
 		       v-model="value"
 		       @change="inputValue(arguments[0].target.value)"
@@ -226,7 +226,6 @@
 			},
 
 			inputValue(payload) {
-				console.log('hi');
 				this.$emit('change', payload);
 			},
 			

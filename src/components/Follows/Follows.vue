@@ -1,6 +1,6 @@
 <template lang="html">
 
-	<div class="follows-section" :class="{'bg-white pt-18': !mobile, 'mt-10': mobile}">
+	<div class="follows-section" :class="{'bg-white pt-18': !mobile, 'pt-12': mobile}">
 
 		<div class="follows-header mb-12" v-if="user">
 

@@ -66,6 +66,8 @@
 
 	    <div class="crimson-div pointer mb-20" @click="executeTimeout"></div>
 	    <div class="blue-div pointer mb-20" @click="showTimerId"></div>
+	    
+	    <div class="green-div pointer mb-20" @click="getUserRating"></div>
 
 	    <short-poll-reusable type-of-layout="column" :poll="polls[1727]"></short-poll-reusable>
 		<switch-component :height="21" :width="34"  :bor-rad="18" color="#B7B9BE"/>
@@ -99,7 +101,8 @@
 	import SwitchComponent from "./reusableСomponents/switchComponent";
 	import LoaderReusable from "./reusableСomponents/LoaderReusable";
 	import SwiperReusable from "@/components/reusableСomponents/swiperReusable";
-
+	import axios from "axios";
+	
 	export default {
         name: "testPlayground",
 		components: {
@@ -122,6 +125,7 @@
 		data() {
 			return {
 				timer_id: null,
+				statistic: undefined,
 				textarea_value: '',
 				bows: [
 					{
@@ -194,17 +198,26 @@
 			selectOption(id) {
 				console.log(id);
 			},
+			
 			handleDropdownList(isListVisible) {
 				console.log('isListVisible', isListVisible);
 			},
+			
 			showLog() {
 				console.log('===LOG===');
 			},
+			
 			calcHeight(el) {
 				el.style.height = 'auto';
 				let calculated = el.offsetHeight + el.scrollHeight - el.clientHeight;
 				el.style.height = calculated + 'px';
+			},
+			
+			getUserRating() {
+				axios.get(`${process.env.VUE_APP_MAIN_API}/rest/v1/user/rating/1?month=6&year=2019`)
+					.then(({data}) => { this.statistic = data })
 			}
+			
 		},
 	}
 </script>
@@ -225,6 +238,14 @@
 			width: 40px;
 			height: 40px;
 			background-color: blue;
+		}
+		
+		.green-div {
+			position: fixed;
+			left: 30%;
+			width: 40px;
+			height: 40px;
+			background-color: green;
 		}
 
 		.test-wrapper {

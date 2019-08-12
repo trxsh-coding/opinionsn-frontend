@@ -146,6 +146,7 @@
                 .avatar {
                     bottom: -24px;
                     left: -10px;
+                    position: absolute !important;
                 }
             }
 

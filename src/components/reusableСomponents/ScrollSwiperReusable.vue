@@ -25,20 +25,25 @@
 			}
 		},
 		methods: {
-			handlePrecentValue(value) {
-
-				if (value === undefined) return false;
-
-				return `${value}`.slice(-1) === '%' ? value : value + 'px';
-
-			}
+			handleCssValue(value) {
+				
+				switch (true) {
+					case `${value}`.slice(-1) === '%':
+						return value;
+					case !isNaN(value):
+						return value + 'px';
+					default:
+						return value;
+				}
+				
+			},
 		},
 		computed: {
 			swiperStyle() {
-				let { height, width, handlePrecentValue } = this;
+				let { height, width, handleCssValue } = this;
 
-				height = !!height ? {height: handlePrecentValue(height)} : {};
-				width = !!width ? {width: handlePrecentValue(width)} : {};
+				height = !!height ? {height: handleCssValue(height)} : {};
+				width = !!width ? {width: handleCssValue(width)} : {};
 
 
 				return {
@@ -59,6 +64,7 @@
 	.scroll-swiper-reusable {
 		position: relative;
 		display: flex;
+		align-items: center;
 		width: 100%;
 		overflow-y: hidden;
 		overflow-x: scroll;

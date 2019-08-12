@@ -20,7 +20,7 @@
 			
 			<icon-base
 					v-if="header_type === 'secondary'"
-					@click.native="$router.go(-1)"
+					@click.native="back"
 					class="arrow-icon pointer"
 					fill="#4B97B4"
 					width="23"
@@ -140,6 +140,13 @@
 			pushToCreatePoll() {
 				this.$router.push({name: 'createPoll'})
 				
+			},
+			back() {
+				if (window.history.length <= 2) {
+					this.$router.push({ name: 'pollFeed' })
+				} else {
+					this.$router.go(-1)
+				}
 			}
 		}
 		

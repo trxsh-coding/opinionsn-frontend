@@ -111,6 +111,12 @@ li {
 	margin-top: 78px;
 }
 
+.finish-warning {
+	font-family: Roboto, sans-serif;
+	font-size: 12px;
+	color: darkgray;
+}
+
 .margin-auto {
 	margin: 0 auto;
 }
@@ -571,7 +577,7 @@ li {
 }
 
 .absolute {
-	position: absolute;
+	position: absolute !important;
 }
 
 // WIDTH & HEIGHT

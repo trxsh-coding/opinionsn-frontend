@@ -1,5 +1,6 @@
 <template>
     <div class="navigation-aside-menu">
+        
         <div class="create-poll-block br-6 pl-12 py-10 pointer flex-align-center" @click.prevent="routerPush('createPoll')">
             <icon-base
                     fill="none"
@@ -13,6 +14,7 @@
                     :title="'create_poll'"
             />
         </div>
+        
         <div class="nav-menu">
             <ul>
                 <li class="links py-12 pointer" @click="routerPush('pollFeed')">
@@ -61,6 +63,21 @@
                 </li>
             </ul>
         </div>
+    
+        <div class="feedback-link br-6 mt-9 pl-12 py-10 pointer flex-align-center" @click.prevent="routerPush('feedback')">
+            <icon-base
+                    fill="white"
+                    class="mr-11 pointer"
+                    width="19"
+                    height="17"
+                    viewBox="0 0 21 19"
+                    icon-name="speaker"><icon-speaker/>
+            </icon-base>
+            <lang-string
+                    :title="'feedback'"
+            />
+        </div>
+        
     </div>
 </template>
 
@@ -70,7 +87,7 @@
     import IconPollFeed from "../../../icons/navigation/IconPollFeed";
     import IconOpinion from "../../../icons/navigation/IconOpinion";
     import IconBookmark from "../../../icons/navigation/IconBookmark";
-
+    import IconSpeaker from "../../../icons/IconSpeaker";
     import langString from "../../../langString"
     export default {
         name: "menu",
@@ -86,7 +103,7 @@
 
             }
         },
-        components: {iconAddPoll, IconBase, langString, IconPollFeed, IconOpinion, IconBookmark}
+        components: {iconAddPoll, IconBase, langString, IconPollFeed, IconOpinion, IconBookmark, IconSpeaker}
     }
 </script>
 
@@ -95,18 +112,30 @@
         .active {
                 opacity: 1 !important;
         }
+        
         .create-poll-block {
             padding: 7.5px 10.5px;
             background: #4B97B4;
+            
             span {
-
-                font-family: Roboto;
+                font-family: Roboto, sans-serif;
                 font-size: 13px;
                 color: #FFFFFF;
-
-
             }
+            
         }
+        
+        .feedback-link {
+            background: #BBBDC2;
+            
+            span {
+                font-family: Roboto, sans-serif;
+                font-size: 13px;
+                color: #FFFFFF;
+            }
+            
+        }
+        
         .nav-menu {
             border-radius: 6px;
             background: #FFFFFF;

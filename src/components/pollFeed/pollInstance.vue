@@ -10,6 +10,8 @@
 		</post-header>
         <headline-body :poll="poll" :item="item"/>
         <options-section
+		        @click.native="options_visible = true"
+		        :optionsVisible="(combinedOptions.length <= 5) || options_visible"
 				:access-check="pollAccessCheck"
 				v-for="(option, index) in combinedOptions"
 				v-show="options_visible || index < 5"
@@ -105,7 +107,8 @@
                 :comments="comments"
                 :options="options"
                 :users="users"/>
-		<span v-show="voted && !no_more_explains && combinedVotes.length > 5" class="explains-load-btn pointer mt-9" @click="loadMoreExplains">Загрузить ещё...</span>
+	    
+		<span v-show="voted && !no_more_explains && combinedVotes.length > 5" class="explains-load-btn pointer my-9" @click="loadMoreExplains">Загрузить ещё...</span>
 
     </div>
 </template>

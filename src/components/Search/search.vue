@@ -4,7 +4,7 @@
 				v-if="mobile"
 				v-model="keywords"
 				input-class="pr-28"
-				class="pl-60 pr-86"
+				class="search-input pl-60 pr-86"
 				width="100%"
 				input
 				height="33"
@@ -12,7 +12,8 @@
 				@keyup.enter.native="searchUsers"
 				with-action-buttons/>
 
-		<div class="button-panel flex pl-60" :class="{'mt-12': mobile}" >
+		<div class="button-panel flex pl-60" :class="{'mt-12': mobile}">
+			
 			<button-reusable
 					bg-color="#ffffff"
 					button_type="underline"
@@ -152,10 +153,16 @@
 <style lang="scss">
 	.search-wrapper {
 		border-radius: 6px;
-
-		.input-reusable {
+		
+		.search-input {
 			font-size: 15px;
 			color: #747474;
+			
+			.input-placeholder {
+				font-size: 15px;
+				transform: translateY(-50%);
+				top: 50%;
+			}
 		}
 
 	}

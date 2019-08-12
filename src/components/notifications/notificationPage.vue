@@ -3,7 +3,8 @@
 			class="notificationWrapper"
 			:class="{'desktop': !mobile, 'pr-20': mobile}"
 			ref="sectionRef">
-		<div class="notification-section flex-column" v-if="messages.length && !closed">
+
+        <div class="notification-section flex-column" v-if="!!Object.keys(messages).length && !closed">
 			<button-reusable
 					class="mt-13 mb-20"
 					bg-color="#ffffff"
@@ -67,7 +68,7 @@
 
 		</div>
 
-		<div class="nope" v-else-if="messages.length === 0">
+		<div class="nope" v-if="!Object.keys(messages).length && loaded">
 			<span>Уведомлений нет</span>
 		</div>
 

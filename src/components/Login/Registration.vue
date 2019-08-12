@@ -22,7 +22,7 @@
 				</icon-base>
 			</div>
 		</div>
-
+		
 		<div class="form-block mt-25" @keyup.enter.exact="submit(registrationForm)">
 
 			<popup-error-reusable :errors="{ login: lstr(errors.login) }" span-class="mt-3">
@@ -92,7 +92,7 @@
 
 				<div class="btns flex-align-center mt-10">
 
-					<a href="https://opinionsn.com/api/oauth2/vk">
+					<a :href="`https://opinionsn.com/api/oauth2/vk${refer}`">
 						<button-reusable
 								class="v-center soc-btn vk-btn py-12"
 								font-size="16"
@@ -111,7 +111,7 @@
 						</button-reusable>
 					</a>
 
-					<a href="https://opinionsn.com/api/oauth2/google">
+					<a :href="`https://opinionsn.com/api/oauth2/google${refer}`">
 						<button-reusable
 								class="v-center soc-btn google-btn py-8 ml-11"
 								font-size="16"
@@ -172,6 +172,10 @@
 			...mapState('lang',{
 				lang : state => state.locale
 			}),
+			
+			refer() {
+				return (!!this.$route.query.refer) ? `?refer=${this.$route.query.refer}` : ''
+			}
 		},
 
 		methods: {
@@ -191,7 +195,7 @@
 				registerFormData.append("pass", form.password);
 				registerFormData.append("passConfirm", form.conf_pass);
 				axios
-					.post(`${process.env.VUE_APP_MAIN_API}/auth/register`, registerFormData)
+					.post(`${process.env.VUE_APP_MAIN_API}/auth/register${this.refer}`, registerFormData)
 					.then(response => {
 						if (response.status === 200) {
 							this.$router.push({

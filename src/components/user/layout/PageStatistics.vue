@@ -3,7 +3,7 @@
 
 		<div class="section-head flex-between">
 			<lang-string class="title" :title="'statistics'" />
-			<lang-string @click.native="statisticRoutePush(id)" class="description" :title="'detailed_statistics'" />
+			<lang-string @click.native="statisticRoutePush(id)" class="description pointer" :title="'detailed_statistics'" />
 		</div>
 		<div class="statistic-cards mt-5">
 <!--			<div-->
@@ -85,6 +85,10 @@
 						total_amount_of_answers: totalAmountOfVoted
 					});
 
+				});
+				
+				items = items.sort(({correct_answers: a}, {correct_answers: b}) => {
+					return b - a;
 				});
 				
 				return items;

@@ -29,6 +29,7 @@
 			</div>
 
 			<button-reusable
+					v-if="!isMainUser"
 					class="ml-6 p-9 w-fit h-fit pointer"
 					:active="user.isLeader"
 					:font-size="11"
@@ -61,7 +62,7 @@
         },
         props: {
             user: Object,
-            required: true
+	        isMainUser: Boolean
         },
         data() {
             return {

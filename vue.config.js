@@ -25,7 +25,7 @@ module.exports = {
 			},
 
 			'/assets': {
-				target: 'http://eng.opinionsn.com:7070/assets/',
+				target: 'http://192.168.1.51:7070/assets/',
 				changeOrigin: true,
 				secure: false
 			}
