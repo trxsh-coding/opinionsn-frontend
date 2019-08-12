@@ -72,7 +72,7 @@ const initialState = () => {
 
 export const formManagment = {
     namespaced:true,
-    state: initialState,
+    state: initialState(),
     mutations: {
 
 

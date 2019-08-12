@@ -237,10 +237,7 @@
 
     export default {
         name: "CreatePoll",
-        mixins: [
-			langMixin,
-			ValidationMixin
-		],
+        mixins: [ langMixin, ValidationMixin ],
         data(){
             return {
                 swiperOption: {
@@ -253,29 +250,44 @@
                 subject:null,
                 subject_description:null,
 				additionalField: true,
+	            route_leave: false,
 				type:'POLL'
             }
         },
+	
+	    beforeRouteLeave (to, from, next) {
+        	this.route_leave = true;
+		    this.$store.commit('formManagment/CLEAR_FORM', 'create_poll_form');
+		    next();
+	    },
 
 		watch: {
 
 			values_with_rules() {
-				let {
-					verifyValues,
-					checkLength
-				} = this;
-
-				verifyValues('create_poll_form', this.values_with_rules, { checkLength });
+				if (!this.route_leave) {
+					
+					let {
+						verifyValues,
+						checkLength
+					} = this;
+					
+					verifyValues('create_poll_form', this.values_with_rules, { checkLength });
+				}
 			},
 
 			options_with_rules() {
-				let {
-					verifyValues,
-					checkLength,
-					checkUpload
-				} = this;
-
-				verifyValues('create_poll_form', this.options_with_rules, { checkLength, checkUpload });
+				
+				if (!this.route_leave) {
+					
+					let {
+						verifyValues,
+						checkLength,
+						checkUpload
+					} = this;
+					
+					verifyValues('create_poll_form', this.options_with_rules, { checkLength, checkUpload });
+				}
+				
 			},
 
 		},
@@ -349,6 +361,7 @@
 				}
 			}
 		},
+	 
 		methods: {
 			addSubjectPicture(){
 				this.$store.commit('formManagment/ADD_SUBJECT_PICTURE');
