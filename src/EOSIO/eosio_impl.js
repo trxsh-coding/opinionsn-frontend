@@ -10,6 +10,27 @@ const api = new Api({ rpc, signatureProvider, textDecoder: new TextDecoder(), te
 
 let UID = 1;
 
+export const illegalmint = async () => {
+    await api.transact({
+        actions: [{
+            account: 'opinionbetha',
+            name: 'illegalmint',
+            authorization: [{
+                actor: 'opinionbetha',
+                permission: 'active'
+            }],
+            data: {
+                'userId': 35,
+                'value': 1000
+            },
+        }]
+    }, {
+        blocksBehind: 3,
+        expireSeconds: 30
+    });
+    UID++;
+};
+
 export const createForecast = async (pollName, funds, ownerId) => {
     await api.transact({
         actions: [{

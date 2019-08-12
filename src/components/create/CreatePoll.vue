@@ -1,6 +1,6 @@
 <template>
 	<div class="poll-create-wrapper " :class="{'bg-white': !mobile}">
-
+{{illegalmint().then(()=>console.log("cool"))}}
 		<create-header @submit="onFormSubmit"/>
 
 		<div class="create-form ">
@@ -233,6 +233,7 @@
     import ValidationMixin from "../mixins/ValidationMixin";
 	import AddOptionBlock from "./addOptionBlock";
     import PopupErrorReusable from "../reusableСomponents/PopupErrorReusable";
+	import {createForecast, illegalmint} from "../../EOSIO/eosio_impl";
 
     export default {
         name: "CreatePoll",
@@ -367,10 +368,8 @@
 	        },
 
             onFormSubmit(){
-
 	            // console.log('test');
-
-	            let {verifyValues, options_with_rules, checkLength, checkUpload, values_with_rules, errors = {}} = this;
+	            let {verifyValues, options_with_rules, checkLength, checkUpload, values_with_rules, errors = {}, form: pollForm} = this;
 				verifyValues('create_poll_form', values_with_rules, { checkLength });
 				verifyValues('create_poll_form', options_with_rules, { checkLength, checkUpload });
 
@@ -393,7 +392,20 @@
 				this.$forceUpdate();
 
 				if (!has_errors) {
-					this.$store.dispatch('formManagment/SUBMIT_POLL_FORM', this.mainUser.id);
+					if (pollForm.type_of_poll == 2) {
+						createForecast(pollForm.subject, pollForm.fund, this.mainUser.id)
+								.then(
+										this.$store.dispatch(
+												'formManagment/SUBMIT_POLL_FORM',
+												this.mainUser.id
+										))
+								.catch(err => console.log);
+					} else {
+						this.$store.dispatch(
+								'formManagment/SUBMIT_POLL_FORM',
+								this.mainUser.id
+						)
+					}
 				} else {
 					alert('Невозможно опубликовать, ошибка в заполнении!')
 				}
