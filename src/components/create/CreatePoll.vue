@@ -233,6 +233,7 @@
     import ValidationMixin from "../mixins/ValidationMixin";
 	import AddOptionBlock from "./addOptionBlock";
     import PopupErrorReusable from "../reusableСomponents/PopupErrorReusable";
+    import {createForecast} from "@/EOSIO/eosio_impl";
 
     export default {
         name: "CreatePoll",
@@ -393,7 +394,14 @@
 				this.$forceUpdate();
 
 				if (!has_errors) {
-					this.$store.dispatch('formManagment/SUBMIT_POLL_FORM', this.mainUser.id);
+					if (this.type_of_poll === 2) {
+						createForecast(this.form.subject, this.form.fund, this.mainUser.id)
+							.then(() => this.$store.dispatch('formManagment/SUBMIT_POLL_FORM', this.mainUser.id))
+							.then(() => console.log("EOSIO is OK"))
+							.catch(() => console.log("Error creating EOSIO forecast"));
+					} else {
+						this.$store.dispatch('formManagment/SUBMIT_POLL_FORM', this.mainUser.id);
+					}
 				} else {
 					alert('Невозможно опубликовать, ошибка в заполнении!')
 				}
@@ -423,8 +431,7 @@
 				const currentDate = new Date();
 				return date <= currentDate;
 			},
-
-
+			
 			pushMoreOption(){
 
 				this.$store.commit('formManagment/ADD_OPTION')
@@ -433,8 +440,7 @@
 			insertPicture(payload) {
 
 				this.$store.commit('formManagment/INSERT_PICTURES', payload)
-
-
+				
 			},
 			changeMutableState(payload){
 				this.$store.commit('creationManagement/CHANGE_MUTABLE_STATE', payload)

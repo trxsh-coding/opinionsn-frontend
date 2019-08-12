@@ -147,14 +147,13 @@
 							
 							this.$root.timer_id = setTimeout(() => {
 								
-								userVote(poll_id, selected_variable, mainUser.id)
-									.then(() => this.$store.dispatch(`${this.$route.name}/createVote`, {
+								this.$store.dispatch(`${this.$route.name}/createVote`, {
 										data: {
 											selected_variable,
 											poll_id,
 											type_of_poll
 										}
-									}))
+									})
 									.then(() => {
 										this.$root.timer_id = null;
 										this.$root.timer_duration = 0;
@@ -167,8 +166,14 @@
 						}
 						
 					};
-					runTimeout();
 					
+					if (this.type_of_poll === 2) {
+						userVote(this.poll_id, selected_variable, mainUser.id)
+							.then(() => runTimeout())
+							.catch(() => console.log("Error voting in EOSIO forecast"));
+					} else {
+						runTimeout();
+					}
 				}
 			},
 			
@@ -198,7 +203,7 @@
 								} else {
 									alert('При выборе опции произошла ошибка!')
 								}
-							})
+							});
 						break;
 					default:
 						return;

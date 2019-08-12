@@ -130,6 +130,7 @@
 	import PollAnotation from "./layout/pollAnnotation";
     import moment from 'moment'
     import {localString} from '../../utils/localString'
+    import {finishEvent} from "@/EOSIO/eosio_impl";
 
     const pad = (num, len=2, char='0') => {
         let init = `${num}`;
@@ -283,9 +284,8 @@
         },
         methods: {
             getTime(){
-
                 let end = this.relativeEndDate;
-                let now = moment(new Date())
+                let now = moment(new Date());
                 let duration = moment.duration(end.diff(now));
 
                 if (duration.asDays() > 1){
@@ -296,10 +296,13 @@
                     this.currentTime = output;
 
                 } else {
-
+					
+                	if (this.pollType === 2)
+		                finishEvent(this.pollId)
+			                .then(this.currentTime = this.lstr('end'));
                     this.currentTime = this.lstr('end')
                 }
-
+                
                 return this.currentTime;
             },
 			loadMoreExplains() {
