@@ -54,9 +54,7 @@ export const notificationStore  =  {
             payload.forEach(item => {items[item.id]= item})
             state[mapName] = {...state[mapName], ...items}
 
-        }
-
-
+          }
         },
 
         prependToStores: function(state, payload){

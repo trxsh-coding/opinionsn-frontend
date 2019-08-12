@@ -134,7 +134,7 @@
 					tooltip: {
 						y: {
 							formatter: function (val) {
-								return "$ " + val + " thousands"
+								return val
 							}
 						}
 					}
@@ -191,8 +191,8 @@
 				];
 				if (typeId === 1) {
 
-					let correctAnswers = Object.values(pillarsPollDTO).map(({totalAmountCorrectAnswers}) => totalAmountCorrectAnswers);
-					let inCorrectAnswers = Object.values(pillarsPollDTO).map(({totalAmountIncorrectAnswers}) => totalAmountIncorrectAnswers);
+					let correctAnswers = Object.values(pillarsPollDTO).map(({totalAmountCorrectAnswers: n}) => (n === 0) ? null : n);
+					let inCorrectAnswers = Object.values(pillarsPollDTO).map(({totalAmountIncorrectAnswers: n}) => (n === 0) ? null : n);
 
 					series[0] = {
 						data: correctAnswers,
@@ -204,7 +204,7 @@
 					};
 
 				} else {
-					let pollAnsweredAmount = Object.values(pillarsPollDTO).map(({totalAmountVoted}) => totalAmountVoted);
+					let pollAnsweredAmount = Object.values(pillarsPollDTO).map(({totalAmountVoted: n}) => (n === 0) ? null : n);
 					series[0] = {
 						data: pollAnsweredAmount,
 						name: 'Voted'
@@ -218,9 +218,21 @@
 			},
 
 			cXaxis() {
-				return {
-					categories: this.rangeInstance.reverse(),
+				if(this.periodId > 1) {
+					return {
+
+						categories: this.calculatedRangeMonths()
+
+					}
+				} else {
+					return {
+						categories: this.rangeInstance.reverse(),
+					}
+
+
 				}
+
+
 			},
 
             lstr(str) {
@@ -235,6 +247,14 @@
 
 		methods: {
 
+			calculatedRangeMonths(){
+
+				let {pillarsPollDTO = {}} = this.statistic;
+
+				let monthArray =  Object.values(pillarsPollDTO).map(({month}) => month);
+
+				return Array.from(new Set(monthArray)).map( m => this.parseMonth(m))
+			},
 
 			parseMonth(num = '') {
 
@@ -281,7 +301,8 @@
                         return '';
                 }
 
-                return this.lstr(m);
+                // return this.lstr(m);
+                return m;
 			},
 
 			setRange(index) {

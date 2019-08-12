@@ -117,6 +117,7 @@
 					case 'catalogList':
 					case 'catalogFeed':
 					case 'statistic':
+					case 'rating':
 					case 'bookmarkFeed':
 					case 'search':
 						return 'secondary';

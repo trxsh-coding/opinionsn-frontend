@@ -196,8 +196,9 @@
                 switch (this.routeName) {
 
 					case "statistic":
-						return "статистика";
-
+						return "statistic";
+					case "rating":
+						return "rating";
                     case "add":
                         return "add_poll";
 
