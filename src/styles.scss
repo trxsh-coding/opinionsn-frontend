@@ -74,12 +74,12 @@ html {
 }
 
 body {
-	overflow: hidden;
+	//overflow: hidden;
 }
 
 #app {
 	height: 100vh;
-	overflow: scroll;
+	//overflow: scroll;
 	scroll-behavior: smooth;
 	-webkit-overflow-scrolling: touch !important;
 }
