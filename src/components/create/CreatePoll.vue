@@ -172,7 +172,7 @@
 						color="#FFFFFF"
 						active-color="#81B6CB"
 						:value="form.type_of_poll"
-						@select="updateField(arguments[0], 'type_off_poll')"
+						@select="(bool) => { !bool ? updateField(1, 'type_of_poll') : updateField(2, 'type_of_poll') }"
 						:active-description="lstr('BLOCKCHAIN')"
 						:inactive-description="lstr('OFF_CHAIN')"
 						text-layout="right"
@@ -233,13 +233,11 @@
     import ValidationMixin from "../mixins/ValidationMixin";
 	import AddOptionBlock from "./addOptionBlock";
     import PopupErrorReusable from "../reusableСomponents/PopupErrorReusable";
+    import {createForecast} from "@/EOSIO/eosio_impl";
 
     export default {
         name: "CreatePoll",
-        mixins: [
-			langMixin,
-			ValidationMixin
-		],
+        mixins: [ langMixin, ValidationMixin ],
         data(){
             return {
                 swiperOption: {
@@ -251,31 +249,45 @@
                 category:null,
                 subject:null,
                 subject_description:null,
-                mobile: this.$root.mobile,
 				additionalField: true,
+	            route_leave: false,
 				type:'POLL'
             }
         },
+	
+	    beforeRouteLeave (to, from, next) {
+        	this.route_leave = true;
+		    this.$store.commit('formManagment/CLEAR_FORM', 'create_poll_form');
+		    next();
+	    },
 
 		watch: {
 
 			values_with_rules() {
-				let {
-					verifyValues,
-					checkLength
-				} = this;
-
-				verifyValues('create_poll_form', this.values_with_rules, { checkLength });
+				if (!this.route_leave) {
+					
+					let {
+						verifyValues,
+						checkLength
+					} = this;
+					
+					verifyValues('create_poll_form', this.values_with_rules, { checkLength });
+				}
 			},
 
 			options_with_rules() {
-				let {
-					verifyValues,
-					checkLength,
-					checkUpload
-				} = this;
-
-				verifyValues('create_poll_form', this.options_with_rules, { checkLength, checkUpload });
+				
+				if (!this.route_leave) {
+					
+					let {
+						verifyValues,
+						checkLength,
+						checkUpload
+					} = this;
+					
+					verifyValues('create_poll_form', this.options_with_rules, { checkLength, checkUpload });
+				}
+				
 			},
 
 		},
@@ -298,6 +310,10 @@
             ...mapState("globalStore", {
                 mainUser: ({ mainUser }) => mainUser
             }),
+			
+			mobile() {
+				return this.$root.mobile;
+			},
 
 			values_with_rules() {
 				let { form } = this;
@@ -345,6 +361,7 @@
 				}
 			}
 		},
+	 
 		methods: {
 			addSubjectPicture(){
 				this.$store.commit('formManagment/ADD_SUBJECT_PICTURE');
@@ -393,7 +410,14 @@
 				this.$forceUpdate();
 
 				if (!has_errors) {
-					this.$store.dispatch('formManagment/SUBMIT_POLL_FORM', this.mainUser.id);
+					if (this.type_of_poll === 2) {
+						createForecast(this.form.subject, this.form.fund, this.mainUser.id)
+							.then(() => this.$store.dispatch('formManagment/SUBMIT_POLL_FORM', this.mainUser.id))
+							.then(() => console.log("EOSIO is OK"))
+							.catch(() => console.log("Error creating EOSIO forecast"));
+					} else {
+						this.$store.dispatch('formManagment/SUBMIT_POLL_FORM', this.mainUser.id);
+					}
 				} else {
 					alert('Невозможно опубликовать, ошибка в заполнении!')
 				}
@@ -423,8 +447,7 @@
 				const currentDate = new Date();
 				return date <= currentDate;
 			},
-
-
+			
 			pushMoreOption(){
 
 				this.$store.commit('formManagment/ADD_OPTION')
@@ -433,8 +456,7 @@
 			insertPicture(payload) {
 
 				this.$store.commit('formManagment/INSERT_PICTURES', payload)
-
-
+				
 			},
 			changeMutableState(payload){
 				this.$store.commit('creationManagement/CHANGE_MUTABLE_STATE', payload)

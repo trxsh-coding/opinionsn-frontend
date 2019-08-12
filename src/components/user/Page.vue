@@ -22,11 +22,6 @@
 
     export default {
         name: "userPage",
-	    data() {
-		    return {
-			    mobile: this.$root.mobile
-		    }
-	    },
         computed: {
             ...mapState('userPage', {
 				userPage: s => s,
@@ -35,6 +30,10 @@
 			...mapState('globalStore', {
 				users: ({users}) => users
 			}),
+	
+	        mobile() {
+		        return this.$root.mobile;
+	        },
 
             // beforeRouteLeave(to, from, next) {
 			//

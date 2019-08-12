@@ -139,9 +139,13 @@
 		data() {
 			return {
 				publicPath: process.env.VUE_APP_MAIN_API,
-				balance_popover: false,
-				mobile: this.$root.mobile
+				balance_popover: false
 			}
+		},
+		computed: {
+			mobile() {
+				return this.$root.mobile;
+			},
 		},
 		methods: {
 			subscribeActions(id) {

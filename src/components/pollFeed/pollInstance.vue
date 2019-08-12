@@ -130,6 +130,7 @@
 	import PollAnotation from "./layout/pollAnnotation";
     import moment from 'moment'
     import {localString} from '../../utils/localString'
+    import {finishEvent} from "@/EOSIO/eosio_impl";
 
     const pad = (num, len=2, char='0') => {
         let init = `${num}`;
@@ -167,7 +168,6 @@
 				EXPLAINS_LIMIT: 5,
 				explains_quantity: 5,
 				no_more_explains: false,
-	            mobile: this.$root.mobile,
                 currentTime:null,
                 procid:null,
             }
@@ -186,12 +186,17 @@
 	        ...mapState('pollFeed', {
 		        loading: ({loading}) =>loading
 	        }),
+	        
             ...mapState('lang',{
 
                 _lang : state => {return state.locale._lang},
                 lang : state => state.locale
 
             }),
+	
+	        mobile() {
+		        return this.$root.mobile;
+	        },
 
             lstr(){
                 return (str)=>localString(this.lang, str);
@@ -283,9 +288,8 @@
         },
         methods: {
             getTime(){
-
                 let end = this.relativeEndDate;
-                let now = moment(new Date())
+                let now = moment(new Date());
                 let duration = moment.duration(end.diff(now));
 
                 if (duration.asDays() > 1){
@@ -296,10 +300,13 @@
                     this.currentTime = output;
 
                 } else {
-
+					
+                	if (this.pollType === 2)
+		                finishEvent(this.pollId)
+			                .then(this.currentTime = this.lstr('end'));
                     this.currentTime = this.lstr('end')
                 }
-
+                
                 return this.currentTime;
             },
 			loadMoreExplains() {

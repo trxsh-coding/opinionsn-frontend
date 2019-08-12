@@ -6,7 +6,7 @@
 
         <options-carousel
                 v-if="!mobile && item.voted"
-                class="pl-60"
+                class="pl-60 pr-21"
                 :amount-of-slides="3"
                 :spaceBetween="9">
             <template #swiperAnnotation>
@@ -48,11 +48,11 @@
             optionsCarousel, ScrollSwiperReusable, bowsPanel, voteAnnotation, optionItem, PostHeader},
         props: ['item'],
         mixins:[storeMixin],
-        data() {
-            return {
-                mobile: this.$root.mobile
-            }
-        },
+	    computed: {
+		    mobile() {
+			    return this.$root.mobile;
+		    },
+	    },
         mounted() {
             // this.$store.dispatch(`userPage/list`, {customUrl: `${process.env.VUE_APP_MAIN_API}/rest/v1/user/${this.poll.author_id}`});
         }

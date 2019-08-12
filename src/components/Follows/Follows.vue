@@ -58,8 +58,7 @@
 		},
 		data() {
 			return {
-				publicPath: process.env.VUE_APP_MAIN_API,
-				mobile: this.$root.mobile
+				publicPath: process.env.VUE_APP_MAIN_API
 			}
 		},
 		computed: {
@@ -67,7 +66,10 @@
 			...mapState("globalStore", {
 				users: ({ users }) => users
 			}),
-
+			
+			mobile() {
+				return this.$root.mobile;
+			},
 
             id() {
 

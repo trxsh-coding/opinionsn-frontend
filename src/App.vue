@@ -1,23 +1,34 @@
 <template>
-	<div id="app" ref="app" @scroll="setScrollDifference($refs.app, 0, null, true)">
+	<div id="app">
 		<router-view/>
 	</div>
 </template>
 
 <script>
 	import ElementScrollHandler from "./components/mixins/ElementScrollHandler";
-
+	
 	export default {
 		mixins: [ElementScrollHandler],
+		methods: {
+			scrollEventFunc() {
+				this.setScrollDifference(document.documentElement, 0, null, true)
+			}
+		},
+		mounted() {
+			document.addEventListener('scroll', this.scrollEventFunc);
+		},
+		beforeDestroy() {
+			document.removeEventListener('scroll', this.scrollEventFunc);
+		}
 	}
 
 </script>
 
 <style lang="scss">
-
+	
 	#app {
-
-
+		
+		
 		@media screen and (max-width: 500px) {
 			
 			&::-webkit-scrollbar {
@@ -27,9 +38,9 @@
 				height: 0 !important;
 			}
 		}
-
+		
 	}
-
+	
 	.el-popover {
 		z-index: 999999 !important;
 	}

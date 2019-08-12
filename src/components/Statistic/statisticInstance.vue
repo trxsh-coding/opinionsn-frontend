@@ -67,7 +67,6 @@
 		data() {
 			return {
 				publicPath: process.env.VUE_APP_MAIN_API,
-				mobile: this.$root.mobile,
 				periods: [
 					{
 						value: 'week'
@@ -170,6 +169,11 @@
             ...mapState('lang',{
                 lang : state => state.locale
             }),
+
+
+			mobile() {
+				return this.$root.mobile;
+			},
 
 			user_id() {
 				return this.$route.params.id

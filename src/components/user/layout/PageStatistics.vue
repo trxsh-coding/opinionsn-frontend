@@ -48,8 +48,7 @@
 		data() {
 			return {
 				items: null,
-				hidden: true,
-				mobile: this.$root.mobile
+				hidden: true
 			}
 		},
 		computed: {
@@ -57,6 +56,10 @@
 			...mapState("globalStore", {
 				categories: ({ categories }) => categories
 			}),
+			
+			mobile() {
+				return this.$root.mobile;
+			},
 
         	id() {
         		return this.$route.params.id

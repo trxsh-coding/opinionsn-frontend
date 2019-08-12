@@ -30,7 +30,6 @@
 	export default {
 		data() {
 			return {
-                mobile: this.$root.mobile,
 				publicPath: process.env.VUE_APP_MAIN_API
 			};
 		},
@@ -47,6 +46,10 @@
 			...mapState("lang", {
 				lang: ({ locale }) => locale
 			}),
+            
+            mobile() {
+                return this.$root.mobile;
+            },
 
 			/* HERE COME THE GETTERS */
 

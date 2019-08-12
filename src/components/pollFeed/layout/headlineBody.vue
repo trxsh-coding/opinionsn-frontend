@@ -38,8 +38,7 @@
         data() {
             return {
 
-                publicPath: process.env.VUE_APP_MAIN_API,
-                mobile: this.$root.mobile
+                publicPath: process.env.VUE_APP_MAIN_API
 
             }
         },
@@ -50,10 +49,14 @@
             SwiperCarousel
         },
         computed: {
+            
             routeName(){
                 return this.$route.name
-
-            }
+            },
+    
+            mobile() {
+                return this.$root.mobile;
+            },
         },
         methods:{
             pushToPoll(id){
