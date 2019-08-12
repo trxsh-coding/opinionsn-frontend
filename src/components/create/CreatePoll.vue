@@ -172,7 +172,7 @@
 						color="#FFFFFF"
 						active-color="#81B6CB"
 						:value="form.type_of_poll"
-						@select="updateField(arguments[0], 'type_off_poll')"
+						@select="(bool) => { !bool ? updateField(1, 'type_of_poll') : updateField(2, 'type_of_poll') }"
 						:active-description="lstr('BLOCKCHAIN')"
 						:inactive-description="lstr('OFF_CHAIN')"
 						text-layout="right"
