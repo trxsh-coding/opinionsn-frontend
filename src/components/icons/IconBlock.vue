@@ -86,18 +86,18 @@
             return{
                 currentTime:null,
                 procid:null,
-                mobile: this.$root.mobile
             }
         },
         computed:{
 
-
             ...mapState('lang',{
-
                 _lang : state => {return state.locale.langSelector},
                 lang : state => state.locale
-
             }),
+    
+            mobile() {
+                return this.$root.mobile;
+            },
 
             lstr(){
                 return (str)=>localString(this.lang, str);

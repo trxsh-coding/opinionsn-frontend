@@ -48,11 +48,11 @@
             optionsCarousel, ScrollSwiperReusable, bowsPanel, voteAnnotation, optionItem, PostHeader},
         props: ['item'],
         mixins:[storeMixin],
-        data() {
-            return {
-                mobile: this.$root.mobile
-            }
-        },
+	    computed: {
+		    mobile() {
+			    return this.$root.mobile;
+		    },
+	    },
         mounted() {
             // this.$store.dispatch(`userPage/list`, {customUrl: `${process.env.VUE_APP_MAIN_API}/rest/v1/user/${this.poll.author_id}`});
         }

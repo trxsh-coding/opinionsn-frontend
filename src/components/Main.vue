@@ -103,7 +103,6 @@
 
 		data() {
 			return {
-				mobile: this.$root.mobile,
 				timer: 0,
 				temp_timer_id: null,
 				auth_bar: true
@@ -125,6 +124,10 @@
 
 		},
 		computed: {
+			
+			mobile() {
+				return this.$root.mobile;
+			},
 
 			...mapState('globalStore', {
 

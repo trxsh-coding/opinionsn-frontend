@@ -168,7 +168,6 @@
 				EXPLAINS_LIMIT: 5,
 				explains_quantity: 5,
 				no_more_explains: false,
-	            mobile: this.$root.mobile,
                 currentTime:null,
                 procid:null,
             }
@@ -187,12 +186,17 @@
 	        ...mapState('pollFeed', {
 		        loading: ({loading}) =>loading
 	        }),
+	        
             ...mapState('lang',{
 
                 _lang : state => {return state.locale._lang},
                 lang : state => state.locale
 
             }),
+	
+	        mobile() {
+		        return this.$root.mobile;
+	        },
 
             lstr(){
                 return (str)=>localString(this.lang, str);

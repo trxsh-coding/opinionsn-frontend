@@ -83,11 +83,6 @@
 		props: {
 			scrollDifference: Boolean
 		},
-		data() {
-			return {
-				mobile: this.$root.mobile
-			}
-		},
 		watch: {
 			scrolled_to_bottom(old) {
 				if (this.route_name === 'notifications') {
@@ -105,9 +100,11 @@
 			}
 		},
 		computed: {
+			
 			...mapState("notificationStore", {
 				messages: s => s.messages
 			}),
+			
 			...mapState('notificationPage', {
 				counter: state => state.counter,
 				page: state => state.page,
@@ -115,6 +112,10 @@
 				loading: state => state.loading,
 				spinner: state => state.spinner
 			}),
+			
+			mobile() {
+				return this.$root.mobile;
+			},
 
 			scrolled_to_bottom() {
 				return this.$root.scrolled_to_bottom;

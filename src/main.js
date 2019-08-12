@@ -113,8 +113,8 @@ export const vueApp = new Vue({
 	},
 	mixins: [ElementScrollHandler],
 	created() {
-		addEventListener('resize', () => {
-			this.mobile = innerWidth <= 500
+		window.addEventListener('resize', () => {
+			this.mobile = window.innerWidth <= 500;
 		});
 
 	},

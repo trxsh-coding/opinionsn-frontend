@@ -87,7 +87,6 @@
         data(){
             return {
                 link:this.$route.params,
-                mobile: this.$root.mobile,
                 avatarDialog:false,
                 location:null,
                 aboutMe:null,
@@ -114,7 +113,10 @@
                 mainUser: ({mainUser}) => mainUser
 
             }),
-
+    
+            mobile() {
+                return this.$root.mobile;
+            },
 
             route:  function () {
 

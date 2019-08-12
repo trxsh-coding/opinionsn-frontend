@@ -252,7 +252,6 @@
                 category:null,
                 subject:null,
                 subject_description:null,
-                mobile: this.$root.mobile,
 				additionalField: true,
 				type:'POLL'
             }
@@ -299,6 +298,10 @@
             ...mapState("globalStore", {
                 mainUser: ({ mainUser }) => mainUser
             }),
+			
+			mobile() {
+				return this.$root.mobile;
+			},
 
 			values_with_rules() {
 				let { form } = this;

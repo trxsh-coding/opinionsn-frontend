@@ -15,16 +15,17 @@
 	import languageChange from "../languageChange";
 
 	export default {
-		data() {
-			return {
-                mobile: this.$root.mobile
-			};
-		},
 		components: {
 			profile,
 			routebar,
 			languageChange
 		},
+        
+        computed: {
+            mobile() {
+                return this.$root.mobile;
+            },
+        },
 
 		mounted() {}
 	};

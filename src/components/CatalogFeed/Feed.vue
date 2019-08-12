@@ -32,7 +32,6 @@
         mixins:[langMixin],
         data(){
             return {
-                mobile: this.$root.mobile,
                 id: this.$route.params.id,
                 publicPath: process.env.VUE_APP_MAIN_API
 
@@ -44,6 +43,10 @@
                 items: s => s.items,
                 loading: s => s.loading
             }),
+    
+            mobile() {
+                return this.$root.mobile;
+            },
             
             // ...mapState('globalStore', {
             //     polls: ({polls}) =>polls,

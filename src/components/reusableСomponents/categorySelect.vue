@@ -43,7 +43,6 @@
         props:['current', 'isCurrentString'],
         data() {
             return {
-                mobile: this.$root.mobile,
                 localCategory: {
                     "18": {
                         id:-2,
@@ -66,6 +65,11 @@
                 categories: ({categories}) =>categories,
 
             }),
+    
+            mobile() {
+                return this.$root.mobile;
+            },
+            
             combinedCategories: function(){
                 let {localCategory, categories} = this;
                 const unordered ={...localCategory, ...categories}

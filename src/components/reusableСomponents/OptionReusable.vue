@@ -81,7 +81,6 @@
 		data() {
 			return {
 				publicPath: process.env.VUE_APP_MAIN_API,
-				mobile: this.$root.mobile,
 				initialCoord: 0,
 				block_width: null,
 				difference: 0,
@@ -279,6 +278,10 @@
 			...mapState("globalStore", {
 				mainUser: state => state.mainUser
 			}),
+			
+			mobile() {
+				return this.$root.mobile;
+			},
 			
 			logged_in() {
 				return !!Object.keys(this.mainUser).length;

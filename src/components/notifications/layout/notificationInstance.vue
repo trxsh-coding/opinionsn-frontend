@@ -62,6 +62,7 @@
                 polls: ({polls}) => polls
 
             }),
+            
             author(){
                 let {users, notification} = this;
 

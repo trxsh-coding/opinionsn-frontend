@@ -121,8 +121,7 @@
 		},
 		data() {
 			return {
-				publicPath: process.env.VUE_APP_MAIN_API,
-				mobile: this.$root.mobile
+				publicPath: process.env.VUE_APP_MAIN_API
 			}
 		},
 		methods: {
@@ -145,6 +144,10 @@
 			...mapState('globalStore', {
 				users: ({users}) => users,
 			}),
+			
+			mobile() {
+				return this.$root.mobile;
+			},
 
 			rowLayout() {
 				return this.typeOfLayout === 'row';
