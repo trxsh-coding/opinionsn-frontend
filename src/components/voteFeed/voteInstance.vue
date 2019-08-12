@@ -6,7 +6,7 @@
 
         <options-carousel
                 v-if="!mobile && item.voted"
-                class="pl-60"
+                class="pl-60 pr-21"
                 :amount-of-slides="3"
                 :spaceBetween="9">
             <template #swiperAnnotation>
