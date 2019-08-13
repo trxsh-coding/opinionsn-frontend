@@ -44,7 +44,7 @@ export const createForecast = async (pollName, funds, ownerId) => {
                 'pollId': UID,
                 'pollName': pollName,
                 'funds': funds,
-                'ownerId': ownerId
+                'ownerId': ownerIdc
             },
         }]
     }, {

@@ -78,7 +78,6 @@
 		data() {
 			return {
 				publicPath: process.env.VUE_APP_MAIN_API,
-				mobile: this.$root.mobile,
 				swiperOption: {
 					slidesPerView: 6,
 					spaceBetween: 3.5
@@ -95,6 +94,7 @@
 		},
 
 		computed: {
+			
 			...mapState("voteFeed", {
 				state: s => s,
 				items: ({ items }) => items,
@@ -102,6 +102,7 @@
 				loading: ({ loading }) => loading,
 				loaded: ({ loaded }) => loaded,
 			}),
+			
 			...mapState("followsPage", {
 				followings: s => s.items
 			}),
@@ -109,6 +110,10 @@
 			...mapState("globalStore", {
 				users: s => s.users
 			}),
+			
+			mobile() {
+				return this.$root.mobile;
+			},
 
 			scrolled_to_bottom() {
 				return this.$root.scrolled_to_bottom;

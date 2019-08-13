@@ -214,7 +214,9 @@
 			},
 			
 			getUserRating() {
-				axios.get(`${process.env.VUE_APP_MAIN_API}/rest/v1/user/rating/1?month=6&year=2019`)
+				// axios.get(`${process.env.VUE_APP_MAIN_API}/rest/v1/user/rating/1?month=6&year=2019`)
+				// 	.then(({data}) => { this.statistic = data })
+				axios.get(`${process.env.VUE_APP_MAIN_API}/rest/v1/user/rating/kek`)
 					.then(({data}) => { this.statistic = data })
 			}
 			

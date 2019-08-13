@@ -211,7 +211,6 @@
 		
 		data() {
 			return {
-				mobile: this.$root.mobile,
 				input_id: null,
 				input_type: null,
 				input_value: '',
@@ -392,6 +391,10 @@
 			...mapState('globalStore', {
 				main_user_id: s => s.mainUser.id
 			}),
+			
+			mobile() {
+				return this.$root.mobile;
+			},
 			
 			emojisNative() {
 				return packData;

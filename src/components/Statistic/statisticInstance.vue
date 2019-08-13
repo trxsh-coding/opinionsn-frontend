@@ -14,17 +14,17 @@
 				</template>
 			</picture-reusable>
 		</div>
-		
+
 		<category-select @on-select="setCategoryId" class="pl-60 pr-4" :class="{'mt-14': !mobile, 'mt-15': mobile}"
 		                 :current="categoryId"/>
-		
+
 		<div class="select-block pl-69" :class="{'mt-15': !mobile, 'mt-18': mobile}">
 			<dropdown-list-reusable with-arrow class="mr-22" listClass="w-max">
 				<template>
 					<lang-string :title="periods[periodId].value"/>
 				</template>
-				
-				
+
+
 				<template #items>
 					<li class="pointer" v-for="({value}, index) in periods" @click="setRange(index)" :key="index">
 						<lang-string :title="value"/>
@@ -35,8 +35,8 @@
 				<template>
 					<lang-string :title="types[typeId].value"/>
 				</template>
-				
-				
+
+
 				<template #items>
 					<li class="pointer" v-for="({value}, index) in types" @click="setType(index)">
 						<lang-string :title="value"/>
@@ -60,14 +60,13 @@
 	import DropdownListReusable from "../reusableСomponents/DropdownListReusable";
     import localString from "../../utils/localString";
     import axios from 'axios';
-	
+
 	export default {
 		name: "statisticInstance",
 		components: {DropdownListReusable, CategorySelect, PictureReusable, langString, apexchart: VueApexCharts},
 		data() {
 			return {
 				publicPath: process.env.VUE_APP_MAIN_API,
-				mobile: this.$root.mobile,
 				periods: [
 					{
 						value: 'week'
@@ -91,7 +90,7 @@
 				categoryId: 1,
 				typeId: 0,
 				statistic: [],
-				
+
 				chartOptions: {
 					chart: {
 						toolbar: {
@@ -116,7 +115,7 @@
 						width: 5,
 						colors: ['transparent']
 					},
-					
+
 					xaxis: {
 						categories: [],
 					},
@@ -128,13 +127,13 @@
 					},
 					fill: {
 						opacity: 1
-						
+
 					},
-					
+
 					tooltip: {
 						y: {
 							formatter: function (val) {
-								return "$ " + val + " thousands"
+								return val
 							}
 						}
 					}
@@ -142,7 +141,7 @@
 			}
 		},
 		watch: {
-			
+
 			cXaxis(current, newOne) {
 				this.chartOptions = {
 					...this.chartOptions,
@@ -160,26 +159,31 @@
 				console.log(current)
 				if (current !== newOne) this.getUserStatistic()
 			}
-			
+
 		},
 		computed: {
 			...mapState('globalStore', {
 				users: ({users}) => users,
 			}),
-            
+
             ...mapState('lang',{
                 lang : state => state.locale
             }),
-            
+
+
+			mobile() {
+				return this.$root.mobile;
+			},
+
 			user_id() {
 				return this.$route.params.id
 			},
-   
+
 			user() {
 				let {users, user_id} = this;
 				return users[user_id];
 			},
-   
+
 			series() {
 				let {pillarsPollDTO = {}} = this.statistic;
 				let {types, typeId} = this;
@@ -190,10 +194,10 @@
 					}
 				];
 				if (typeId === 1) {
-					
-					let correctAnswers = Object.values(pillarsPollDTO).map(({totalAmountCorrectAnswers}) => totalAmountCorrectAnswers);
-					let inCorrectAnswers = Object.values(pillarsPollDTO).map(({totalAmountIncorrectAnswers}) => totalAmountIncorrectAnswers);
-					
+
+					let correctAnswers = Object.values(pillarsPollDTO).map(({totalAmountCorrectAnswers: n}) => (n === 0) ? null : n);
+					let inCorrectAnswers = Object.values(pillarsPollDTO).map(({totalAmountIncorrectAnswers: n}) => (n === 0) ? null : n);
+
 					series[0] = {
 						data: correctAnswers,
 						name: 'correct answers'
@@ -202,44 +206,64 @@
 						data: inCorrectAnswers,
 						name: 'incorrect answers'
 					};
-					
+
 				} else {
-					let pollAnsweredAmount = Object.values(pillarsPollDTO).map(({totalAmountVoted}) => totalAmountVoted);
+					let pollAnsweredAmount = Object.values(pillarsPollDTO).map(({totalAmountVoted: n}) => (n === 0) ? null : n);
 					series[0] = {
 						data: pollAnsweredAmount,
 						name: 'Voted'
 					};
-					
+
 				}
-				
+
 				return series;
-				
-				
+
+
 			},
-			
+
 			cXaxis() {
-				return {
-					categories: this.rangeInstance.reverse(),
+				if(this.periodId > 1) {
+					return {
+
+						categories: this.calculatedRangeMonths()
+
+					}
+				} else {
+					return {
+						categories: this.rangeInstance.reverse(),
+					}
+
+
 				}
+
+
 			},
-            
+
             lstr(str) {
                 return localString(this.lang, str);
             },
-			
+
 			rangeInstance() {
 				let {pillarsPollDTO = {}} = this.statistic;
 				return Object.values(pillarsPollDTO).map(({day}) => day.toString());
 			},
 		},
-		
+
 		methods: {
-   
-   
+
+			calculatedRangeMonths(){
+
+				let {pillarsPollDTO = {}} = this.statistic;
+
+				let monthArray =  Object.values(pillarsPollDTO).map(({month}) => month);
+
+				return Array.from(new Set(monthArray)).map( m => this.parseMonth(m))
+			},
+
 			parseMonth(num = '') {
 
 			    let m = num;
-			    
+
 				switch (num) {
                     case 1:
                         m = 'january';
@@ -280,22 +304,23 @@
                     default:
                         return '';
                 }
-                
-                return this.lstr(m);
+
+                // return this.lstr(m);
+                return m;
 			},
-			
+
 			setRange(index) {
 				this.periodId = index;
 			},
-			
+
 			setType(index) {
 				this.typeId = index;
 			},
-			
+
 			setCategoryId({id}) {
 				this.categoryId = id;
 			},
-			
+
 			getUserStatistic() {
 				let {typeId, categoryId, periodId, types, user_id} = this;
 				axios.get(`${process.env.VUE_APP_MAIN_API}/rest/v1/user/statistic/detail/${types[typeId].value}/${user_id}`, {
@@ -307,7 +332,7 @@
 					.then(response => {
 						if (response.status === 200) {
 							this.statistic = response.data;
-							
+
 						}
 					})
 			}
@@ -315,14 +340,14 @@
 		mounted() {
 			this.getUserStatistic()
 		}
-		
+
 	}
 </script>
 
 <style lang="scss">
 	.user-statistic {
 		border-radius: 6px;
-		
+
 		.avatar-username {
 			font-family: Roboto;
 			font-style: normal;

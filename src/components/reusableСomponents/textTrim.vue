@@ -1,7 +1,5 @@
 <template>
     <div>
-        {{text.length}}
-        {{amountOfLetter}}
         <div v-if="!textIsHidden">
             <span>
                 {{trimmedText}}
@@ -45,7 +43,7 @@
             trimmedText() {
              let {text, amountOfLetter} = this;
              if(text.length > amountOfLetter){
-                  return text.substring(0, text.substring(0, amountOfLetter/2).lastIndexOf(' ')) + '... '
+                  return text.substring(0, text.substring(0, amountOfLetter).lastIndexOf(' ')) + '... '
             } else {
                 this.showMore = true
                 return text

@@ -283,13 +283,7 @@ export const pollActions = sc => class extends sc {
 
 
     resetFeedPage(state, payload) {
-
-
-        console.log(state)
-
         state.page = payload
-
-
     }
 
     onExplainSaved({commit, dispatch}, args){

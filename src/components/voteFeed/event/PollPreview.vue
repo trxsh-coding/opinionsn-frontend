@@ -109,12 +109,8 @@
 		data() {
 
 			return {
-
 				expanded: false,
-				mobile: this.$root.mobile,
 				publicPath: process.env.VUE_APP_MAIN_API
-
-
 			}
 
 		},
@@ -132,6 +128,10 @@
 					return state.locale.langSelector
 				}
 			}),
+			
+			mobile() {
+				return this.$root.mobile;
+			},
 
 			/**
 			 * Defines whether poll can expand (or even needs to)

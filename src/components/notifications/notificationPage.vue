@@ -3,8 +3,18 @@
 			class="notificationWrapper"
 			:class="{'desktop': !mobile, 'pr-20': mobile}"
 			ref="sectionRef">
-		<div class="notification-section flex-column" v-if="!!Object.keys(messages).length && !closed">
-			
+
+        <div class="notification-section flex-column" v-if="!!Object.keys(messages).length && !closed">
+			<button-reusable
+					class="mt-13 mb-20"
+					bg-color="#ffffff"
+					button_type="underline"
+					color="#1A1E22"
+					active-color="#4B97B4"
+					description="notifications"
+					:active="true"
+			/>
+
 			<div class="today flex-column flex-center" v-if="filtered_messages.today.length">
 				<notification-instance
 						class="notification-instance today pl-21"
@@ -74,19 +84,16 @@
 	import moment from "moment";
 	import ElementScrollHandler from "../mixins/ElementScrollHandler";
 	import LoaderReusable from "../reusableСomponents/LoaderReusable";
+	import ButtonReusable from "../reusableСomponents/ButtonReusable";
 
 	export default {
 		name: "notificationPage",
 		components: {
+			ButtonReusable,
 			LoaderReusable, NotificationInstance, feedBlock, langString
 		},
 		props: {
 			scrollDifference: Boolean
-		},
-		data() {
-			return {
-				mobile: this.$root.mobile
-			}
 		},
 		watch: {
 			scrolled_to_bottom(old) {
@@ -105,9 +112,11 @@
 			}
 		},
 		computed: {
+			
 			...mapState("notificationStore", {
 				messages: s => s.messages
 			}),
+			
 			...mapState('notificationPage', {
 				counter: state => state.counter,
 				page: state => state.page,
@@ -115,6 +124,10 @@
 				loading: state => state.loading,
 				spinner: state => state.spinner
 			}),
+			
+			mobile() {
+				return this.$root.mobile;
+			},
 
 			scrolled_to_bottom() {
 				return this.$root.scrolled_to_bottom;
@@ -189,7 +202,17 @@
 		.notification-section {
 			background: #FFFFFF;
 			height: auto;
+			.button-reusable {
+				display: flex;
+				justify-content: center;
+				span {
+					font-family: Roboto;
+					font-style: normal;
+					font-size: 15px;
 
+
+				}
+			}
 			.title {
 				width: fit-content;
 				margin-right: auto;

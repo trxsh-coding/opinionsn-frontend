@@ -42,7 +42,6 @@
 	export default {
 		data() {
 			return {
-				mobile: this.$root.mobile,
 				publicPath: process.env.VUE_APP_MAIN_API
 
 			};
@@ -69,10 +68,11 @@
 			...mapState("globalStore", {
 				mainUser: ({ mainUser }) => mainUser
 			}),
-			// author: function(){
-			//     return this.poll.author;
-			// },
-
+			
+			mobile() {
+				return this.$root.mobile;
+			},
+			
 			selected_option: function() {
 				let { item, option } = this;
 

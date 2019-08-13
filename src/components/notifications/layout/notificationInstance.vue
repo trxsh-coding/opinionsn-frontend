@@ -2,15 +2,6 @@
     <div
             v-show="!!pollName"
             class="notification-section pt-9 pr-13">
-        <button-reusable
-                font-size="13"
-                class="v-center py-5 mb-10"
-                bor-rad="50"
-                bg-color="#4b97b4"
-                color="#ffffff"
-                active-color="#4B97B4"
-                description="notifications"
-        />
         <picture-reusable
                 pic-class="mr-18 pointer"
                 avatar
@@ -62,6 +53,8 @@
                 polls: ({polls}) => polls
 
             }),
+
+
             author(){
                 let {users, notification} = this;
 
@@ -72,8 +65,22 @@
                 if (!polls[notification.targetId]) return false;
                 return  polls[notification.targetId].subject;
             },
+            pollType(){
+                let {notification, polls} = this;
+                if (!polls[notification.targetId]) return '';
+
+                switch (polls[notification.targetId].type_of_poll) {
+                    case 1 :
+                        return 'prediction' ;
+                    case 0 :
+                        return 'poll';
+                    default :
+                        return 'poll' ;
+                }
+
+            },
             eventCaption(){
-                let {notification} = this;
+                let {notification, polls} = this;
 
                 switch (notification.eventType) {
                     case "NEW_POLL":
@@ -86,13 +93,17 @@
                         return "explained";
 
                     case "NEW_COMMENT":
-                        return "сохраненное";
+                        return "commented";
 
                     case "SUBSCRIBE":
                         return "has_subscribed";
 
                     case "UNSUBSCRIBE":
                         return "has_unsubscribed";
+
+                    case "VOTED":
+                        return `voted_in_${this.pollType}`;
+
 
                     default:
                         return null;

@@ -132,7 +132,7 @@
 				borRad = handleCssValue(borRad);
 				width = handleCssValue(width);
 				if (rounded) borRad = "50%";
-				let border = borColor ? {border: `2px solid ${borColor}`} : {};
+				let border = borColor ? {border: `${borRad} solid ${borColor}`} : {};
 
 				let style = {};
 

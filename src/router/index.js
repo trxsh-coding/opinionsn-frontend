@@ -29,6 +29,7 @@ import PollTable from '../components/Admin/PollTable';
 import testPlayground from "../components/testPlayground";
 import Settings from "../components/pageSettings/index.vue";
 import Statistic from "../components/Statistic/statisticInstance";
+import Rating from "../components/Rating/ratingInstance";
 
 
 Vue.use(Router);
@@ -124,6 +125,12 @@ export const index = new Router({
 					path: 'statistic/:id',
 					name: 'statistic',
 					component: Statistic,
+					props: true
+				},
+				{
+					path: 'rating',
+					name: 'rating',
+					component: Rating,
 					props: true
 				},
 				{

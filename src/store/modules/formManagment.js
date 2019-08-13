@@ -43,7 +43,7 @@ const initialState = () => {
             subject: '',
             tags: '',
             description: '',
-            type_of_poll: '0',
+            type_of_poll: 0,
             end_date: '',
             end_time: '',
             fund: '',
@@ -72,7 +72,7 @@ const initialState = () => {
 
 export const formManagment = {
     namespaced:true,
-    state: initialState,
+    state: initialState(),
     mutations: {
 
 

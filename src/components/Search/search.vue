@@ -83,8 +83,7 @@
 
 				keywords: '',
 				type: 'USER',
-				contain: null,
-				mobile: this.$root.mobile
+				contain: null
 			}
 
 		},
@@ -103,6 +102,10 @@
 				items: s => s.items
 
 			}),
+			
+			mobile() {
+				return this.$root.mobile;
+			},
 
 			searchQuery(){
 				this.keywords = this.$route.query.keyword;

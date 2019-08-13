@@ -1,6 +1,6 @@
 <template lang="html">
 
-    <div id="bookmark-feed" class="flex-column" :class="{ 'pt-58 pl-30 pr-20': mobile, 'bg-white': !mobile }">
+    <div id="bookmark-feed" class="flex-column br-6 pr-20" :class="{ 'pt-58 pl-21 pr-20': mobile, 'bg-white pl-51': !mobile }">
 
         <short-poll-reusable v-for="(poll, index) in filtered_polls" :class="{'mt-9': index > 0}" :poll="poll" width="100%" />
         
@@ -23,11 +23,6 @@
     import langString from "../langString";
 
     export default {
-        data() {
-            return {
-                mobile: this.$root.mobile
-            }
-        },
 		components: {LoaderReusable, ShortPollReusable, langString},
 		computed: {
 
@@ -39,6 +34,10 @@
 			...mapState('globalStore', {
                 polls: ({polls}) => polls,
             }),
+            
+            mobile() {
+                return this.$root.mobile;
+            },
 
 			filtered_polls() {
             	return this.payload.map(({id}) => this.polls[id])

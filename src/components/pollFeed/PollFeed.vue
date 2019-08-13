@@ -54,7 +54,6 @@
 			return {
 				page: 1,
 				filtered: false,
-				mobile: this.$root.mobile,
 				localCategory: {
 					"20": {
 						name: 'all',
@@ -102,6 +101,7 @@
 		},
 
 		computed: {
+			
 			...mapState("pollFeed", {
 				state: s => s,
 				items: s => s.items,
@@ -110,6 +110,15 @@
 				filter_id: state => state.filter_id,
 				connectionUnstable: ({connectionUnstable}) => connectionUnstable
 			}),
+			
+			...mapState("globalStore", {
+				categories: ({categories}) => categories
+			}),
+			
+			mobile() {
+				return this.$root.mobile;
+			},
+			
 			combinedCategories: function(){
 				let {localCategory, categories} = this;
 				const unordered ={...localCategory, ...categories}
@@ -117,9 +126,6 @@
 				const ordered = array.reverse();
 				return ordered;
 			},
-			...mapState("globalStore", {
-				categories: ({categories}) => categories
-			}),
 
 			scrolled_to_bottom() {
 				return this.$root.scrolled_to_bottom;
