@@ -235,11 +235,10 @@ export const formManagment = {
 
 
 
-            axios.put(`${process.env.VUE_APP_MAIN_API}/rest/v1/poll`, bodyFormData, config)
+            return axios.put(`${process.env.VUE_APP_MAIN_API}/rest/v1/poll`, bodyFormData, config)
                 .then(response => {
                     if (response.status === 200) {
                         let poll_id = response.data.payload[0].id;
-                        console.log("coooooooooool")
                         return poll_id;
                         // vueApp.$router.push({name : 'singlePoll', params: {id : poll_id}})
                     }

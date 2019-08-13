@@ -170,8 +170,7 @@
                         :bor-rad="18"
                         color="#FFFFFF"
                         active-color="#81B6CB"
-                        :value="form.type_of_poll"
-                        @select="updateField(arguments[0], 'type_off_poll')"
+                        @select="(bool) => { bool ? updateField(2, 'type_of_poll') : updateField(1, 'type_of_poll') }"
                         :active-description="lstr('BLOCKCHAIN')"
                         :inactive-description="lstr('OFF_CHAIN')"
                         text-layout="right"
@@ -391,26 +390,19 @@
                 this.$forceUpdate();
 
                 if (!has_errors) {
-                    if (pollForm.type_of_poll === 2) {
-                        this.$store.dispatch(
-                            'formManagment/SUBMIT_POLL_FORM',
-                            this.mainUser.id
-                        )
-                            .then(poll_id => {
-								createForecast(poll_id, pollForm.subject, pollForm.fund, this.mainUser.id)
-										.then(() => console.log("EOSIO forecast created"));
-                                this.$router.push({
-                                    name: 'singlePoll',
-                                    params: {id: poll_id}
-                                });
-                            })
-                            .catch(err => console.log);
-                    } else {
-                        this.$store.dispatch(
-                            'formManagment/SUBMIT_POLL_FORM',
-                            this.mainUser.id
-                        )
-                    }
+
+	                this.$store.dispatch('formManagment/SUBMIT_POLL_FORM', this.mainUser.id)
+		                .then(poll_id => {
+			
+			                if (pollForm.type_of_poll === 2) {
+				                createForecast(poll_id, pollForm.subject, pollForm.fund, this.mainUser.id)
+					                .then(() => console.log("EOSIO forecast created"));
+			                }
+			                
+			                this.$router.push({name: 'singlePoll', params: {id: poll_id}});
+			
+		                })
+                  
                 } else {
                     alert('Невозможно опубликовать, ошибка в заполнении!')
                 }
