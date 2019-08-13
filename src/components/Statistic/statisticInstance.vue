@@ -26,7 +26,7 @@
 
 
 				<template #items>
-					<li class="pointer" v-for="({value}, index) in periods" @click="setRange(index)" :key="index">
+					<li class="ws-no-warp pointer" v-for="({value}, index) in periods" @click="setRange(index)" :key="index">
 						<lang-string :title="value"/>
 					</li>
 				</template>
@@ -38,7 +38,7 @@
 
 
 				<template #items>
-					<li class="pointer" v-for="({value}, index) in types" @click="setType(index)">
+					<li class="ws-no-warp pointer" v-for="({value}, index) in types" @click="setType(index)">
 						<lang-string :title="value"/>
 					</li>
 				</template>

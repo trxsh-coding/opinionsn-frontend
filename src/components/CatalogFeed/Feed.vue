@@ -8,7 +8,7 @@
 <!--            </div>-->
 <!--        </div>-->
 
-        <div :class="{'pl-51': !mobile, 'pl-21': mobile}" v-show="items.length">
+        <div class="pr-20" :class="{'pl-51': !mobile, 'pl-21': mobile}" v-show="items.length">
             <event v-for="item in items" class="mb-6" :item="item"/>
         </div>
         

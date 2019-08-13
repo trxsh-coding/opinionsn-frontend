@@ -4,7 +4,7 @@
 		<div v-if="bows && mobile"
 		     class="bows-bar"
 		     ref="bowsRef"
-		     :class="{'invisible': !voted}"
+		     :class="{'invisible': !voted, 'pl-8': swiped}"
 		     :style="[optionStyle, bowsBarStyle, {backgroundColor: 'unset !important'}]"
 		     @touchstart="trackTouchStart"
 		     @touchmove="trackTouchMove"
@@ -16,6 +16,7 @@
 					v-if="Object.keys(bows).length > 2"
 					height="100%"
 					:width="swiped ? '100%' : 'fit-content'"
+					:stub-length="swiped && 1"
 					class="bows-slider">
 				<div
 						v-for="(value, key, index) in bows" :to="'/user/' + key"
@@ -439,7 +440,8 @@
 		
 		.bows-bar {
 			box-sizing: border-box;
-			padding: 0 4px 0 1px;
+			padding-left: 3px;
+			padding-right: 6px;
 			border: 0.5px solid #BCBEC3;
 			border-radius: 6px;
 			
