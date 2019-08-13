@@ -1,23 +1,44 @@
 <template>
-    <div class="option-reusable" :style="[transform_shift, optionWrapper]">
+    <div class="option-reusable" ref="containerRef" :style="[transform_shift, optionWrapper]">
 
         <div v-if="bows && mobile"
-             class="bows"
+             class="bows-bar"
              ref="bowsRef"
-             :class="{'invisible': !voted}"
-             :style="{...optionStyle, backgroundColor: 'unset !important'}"
+             :class="{'invisible': !voted, 'pl-8': swiped}"
+             :style="[optionStyle, bowsBarStyle, {backgroundColor: 'unset !important'}]"
              @touchstart="trackTouchStart"
              @touchmove="trackTouchMove"
              @touchend="trackTouchEnd">
 
-            <slot v-if="Object.keys(bows).length > 2" name="badge"></slot>
-            <router-link v-for="(value, name) in bows" :to="'/user/' + name">
-                <div class="bow mx-2 h-21 w-21" :style="{backgroundImage: `url('${publicPath + value}')`}"></div>
-            </router-link>
+            <slot v-if="Object.keys(bows).length > 2 && !swiped" name="badge"></slot>
+
+            <scroll-swiper-reusable
+                    v-if="Object.keys(bows).length > 2"
+                    height="100%"
+                    :width="swiped ? '100%' : 'fit-content'"
+                    :stub-length="swiped && 1"
+                    class="bows-slider">
+                <div
+                        v-for="(value, key, index) in bows" :to="'/user/' + key"
+                        v-show="swiped || index === 0"
+                        @click="swiped && $router.push({name: 'user', params: { id: key }})"
+                        class="bow mx-2 h-21 w-21"
+                        :style="{backgroundImage: `url('${publicPath + value}')`}"></div>
+            </scroll-swiper-reusable>
+
+            <div
+                    v-if="Object.keys(bows).length < 2"
+                    @click="swiped && $router.push({name: 'user', params: { id: Object.keys(bows)[0] }})"
+                    class="bow mx-2 h-21 w-21"
+                    :style="{backgroundImage: `url('${publicPath + Object.values(bows)[0]}')`}"></div>
         </div>
 
-        <div class="option-wrapper" @click="selectOption(id)">
-            <button @click="setRightOption(id, poll_id)" v-if="mainUser.authorities === 'ADMIN' ">✓</button>
+        <button @click="setRightOption(id, poll_id)" v-if="mainUser.authorities === 'ADMIN' && type_of_poll !== 0">✓</button>
+
+        <div
+                class="option-wrapper"
+                :class="{'pointer': !voted, 'with-button': mainUser.authorities === 'ADMIN' && type_of_poll !== 0}"
+                @click="selectOption(id)">
             <div v-if="picture && picture.slice(-4) !== 'null'" class="picture" :style="pictureStyle"></div>
 
             <div class="option" :style="optionStyle">
@@ -53,19 +74,21 @@
     import {mapState} from "vuex";
     import {userVote, judgevote} from "../../EOSIO/eosio_impl";
     import {mainUser} from "../../store/modules/mainUser";
+    import ScrollSwiperReusable from "@/components/reusableСomponents/ScrollSwiperReusable";
 
     export default {
         name: "OptionReusable",
-        components: {InvolvedUsersPanel},
+        components: {ScrollSwiperReusable, InvolvedUsersPanel},
         data() {
             return {
                 publicPath: process.env.VUE_APP_MAIN_API,
-                mobile: this.$root.mobile,
                 initialCoord: 0,
                 block_width: null,
                 difference: 0,
                 transform_px: 0,
-                test: 0
+                transform_limit: undefined,
+                swiped: false,
+                swipe_in_progress: false
             }
         },
         props: {
@@ -110,6 +133,8 @@
         methods: {
             selectOption(selected_variable) {
 
+                if (this.voted) this.resetBowsBar();
+
                 if (this.voted || !this.logged_in || this.expired || this.optionsVisible === false) return;
 
                 if (!this.$root.timer_duration && !this.$root.timer_id) {
@@ -122,19 +147,18 @@
 
                             this.$root.timer_id = setTimeout(() => {
 
-                                userVote(poll_id, selected_variable, mainUser.id)
-                                    .then(() => this.$store.dispatch(`${this.$route.name}/createVote`, {
-                                        data: {
-                                            selected_variable,
-                                            poll_id,
-                                            type_of_poll
-                                        }
-                                    }))
+                                this.$store.dispatch(`${this.$route.name}/createVote`, {
+                                    data: {
+                                        selected_variable,
+                                        poll_id,
+                                        type_of_poll
+                                    }
+                                })
                                     .then(() => {
                                         this.$root.timer_id = null;
                                         this.$root.timer_duration = 0;
-                                    })
-                                    .catch(err => console.log);
+                                    });
+
                             }, 5000);
 
                             this.$root.temp_selected_option = selected_variable;
@@ -142,66 +166,111 @@
                         }
 
                     };
-                    runTimeout();
 
+                    if (this.type_of_poll === 2) {
+                        userVote(this.poll_id, selected_variable, mainUser.id)
+                            .then(() => runTimeout())
+                            .catch(() => console.log("Error voting in EOSIO forecast"));
+                    } else {
+                        runTimeout();
+                    }
                 }
             },
 
             setRightOption(option_id, poll_id) {
-                let {mainUser} = this
-                judgevote(poll_id, mainUser.id, option_id)
-                    .then(() => this
-                        .$store
-                        .dispatch(
-                            `pollFeed/setRightOption`,
-                            {
-                                data:
-                                    {
-                                        option_id, poll_id
-                                    }
+                let {mainUser, type_of_poll} = this;
+
+                switch (type_of_poll) {
+                    case 2:
+                        judgevote(poll_id, mainUser.id, option_id)
+                            .then(() => {
+                                this.$store.dispatch('pollFeed/setRightOption', {data: {option_id, poll_id} })
+                                    .then(status => {
+                                        if (status === 200) {
+                                            alert('Вариант выбран успешно!')
+                                        } else {
+                                            alert('При выборе опции произошла ошибка!')
+                                        }
+                                    })
                             })
-                    )
-                    .catch(() => console.log("Judgevote on EOSIO exception"));
+                            .catch(() => console.log("Judgevote on EOSIO exception"));
+                        break;
+                    case 1:
+                        this.$store.dispatch('pollFeed/setRightOption', {data: {option_id, poll_id} })
+                            .then(status => {
+                                if (status === 200) {
+                                    alert('Вариант выбран успешно!')
+                                } else {
+                                    alert('При выборе опции произошла ошибка!')
+                                }
+                            });
+                        break;
+                    default:
+                        return;
+
+                }
+
             },
+
+            resetBowsBar() {
+
+                this.transform_px = 0;
+
+                setTimeout(() => {
+                    this.swiped = false;
+                    this.swipe_in_progress = false;
+                }, 300)
+
+            },
+
             trackTouchStart(e) {
-                let {clientX} = e.touches[0];
+                if (!this.swiped && Object.keys(this.bows).length > 2) {
+                    this.swipe_in_progress = true;
 
-                if (clientX < 0) clientX = 0;
-                if (clientX > this.block_width) clientX = this.block_width;
+                    let {clientX} = e.touches[0];
 
-                this.block_width = this.$refs.bowsRef.offsetWidth;
-                if (this.initialCoord === 0) this.initialCoord = clientX;
-                this.difference = clientX - this.initialCoord;
+                    if (clientX < 0) clientX = 0;
+                    if (clientX > this.block_width) clientX = this.block_width;
+
+                    this.transform_limit = this.$refs.containerRef.offsetWidth - 54;
+
+                    if (this.initialCoord === 0) this.initialCoord = clientX;
+                    this.difference = clientX - this.initialCoord;
+                }
             },
 
             trackTouchMove(e) {
-                let {initialCoord, block_width} = this;
-                let {clientX} = e.touches[0];
+                if (!this.swiped && Object.keys(this.bows).length > 2) {
 
-                console.log(clientX);
+                    let {initialCoord, block_width, transform_limit} = this;
+                    let {clientX} = e.touches[0];
 
-                if (clientX < Math.trunc(block_width * 0.1)) clientX = Math.trunc(block_width * 0.1);
-                if (clientX > block_width) clientX = block_width;
+                    this.block_width = (25 * Object.keys(this.bows).length);
 
-                let difference = clientX - initialCoord;
+                    if (clientX < Math.trunc(block_width * 0.1)) clientX = Math.trunc(block_width * 0.1);
+                    if (clientX > block_width) clientX = block_width;
 
-                switch (true) {
-                    case this.transform_px > (block_width - 54):
-                        this.transform_px = block_width - 54;
-                        break;
-                    case this.transform_px < 0:
-                        this.transform_px = 0;
-                        break;
-                    default:
-                        this.transform_px += difference - this.difference;
+                    let difference = clientX - initialCoord;
+                    let transform_value = block_width - 54;
+                    transform_limit = transform_limit - 54;
+                    transform_value = (transform_value > transform_limit) ? transform_limit : transform_value;
+
+                    if (difference > 50) {
+                        this.transform_px = transform_value;
+                        this.swiped = true;
+                        this.swipe_in_progress = false;
+                    }
+
+                    this.difference = difference;
                 }
-
-                this.difference = difference;
             },
 
             trackTouchEnd(e) {
-                if (this.transform_px < 0) this.transform_px = 0;
-                if (this.transform_px > (this.block_width - 54)) this.transform_px = this.block_width - 54;
+                if (this.difference <= 50) {
+                    this.swiped = false;
+                    this.swipe_in_progress = false;
+                    this.transform_px = 0;
+                }
             }
 
         },
@@ -210,6 +279,10 @@
             ...mapState("globalStore", {
                 mainUser: state => state.mainUser
             }),
+
+            mobile() {
+                return this.$root.mobile;
+            },
 
             logged_in() {
                 return !!Object.keys(this.mainUser).length;
@@ -225,26 +298,36 @@
                     transform: `translateX(${this.transform_px}px)`
                 }
             },
+
             optionWrapper() {
                 let {expired, correct, selected, type_of_poll} = this;
 
+                let s = {};
+
                 switch (type_of_poll == 1 && expired) {
                     case selected && correct:
-                        return {
-                            opacity: 1
-                        };
+                        s = {...s , opacity: '1'};
+                        break;
                     case selected:
-                        return {
-                            opacity: 1
-                        };
+                        s = {...s , opacity: '1'};
+                        break;
                     default:
-                        return {
-                            opacity: 0.4
-                        }
+                        s = {...s , opacity: '0.4'};
+                        break;
                 }
 
+                return s;
 
             },
+
+            bowsBarStyle() {
+                let {transform_limit} = this;
+
+                transform_limit = !!transform_limit ? { maxWidth: `${transform_limit}px` } : {};
+
+                return transform_limit;
+            },
+
             filteredBows() {
 
                 let {bows, enough_difference} = this;
@@ -262,6 +345,7 @@
                     }
                 }
             },
+
             optionStyle() {
                 let {selected, temp_selected, correct, prediction, picture} = this;
 
@@ -295,6 +379,7 @@
                         };
                 }
             },
+
             progressBarStyle() {
                 let {selected, temp_selected, correct, percentage} = this;
 
@@ -315,6 +400,7 @@
                         return width;
                 }
             },
+
             pictureStyle() {
                 let {picture, pictureSize} = this;
 
@@ -344,17 +430,18 @@
         flex-wrap: wrap;
         justify-content: flex-end;
         align-items: stretch;
-        transition: 100ms;
-
+        /*transition: 100ms;*/
         width: 100%;
+        transition: 300ms;
 
         .desktop-bows {
             flex: 0 0 calc(100% - 60px);
         }
 
-        .bows {
+        .bows-bar {
             box-sizing: border-box;
-            padding: 12px 4px 12px 1px;
+            padding-left: 3px;
+            padding-right: 6px;
             border: 0.5px solid #BCBEC3;
             border-radius: 6px;
 
@@ -368,28 +455,24 @@
             align-items: center;
             flex-wrap: nowrap;
 
-            a {
-                .bow {
-                    width: 21px;
-                    height: 21px;
-                    background-repeat: no-repeat;
-                    background-size: cover;
-                    border-radius: 50%;
-
-
-                }
-
-                /*&:last-child {*/
-                /*	margin: 0 3px;*/
-                /*}*/
+            .bow {
+                flex-shrink: 0;
+                width: 21px;
+                height: 21px;
+                background-repeat: no-repeat;
+                background-size: cover;
+                border-radius: 50%;
             }
         }
 
         .option-wrapper {
             width: calc(100% - 60px);
             display: flex;
-            cursor: pointer;
-            /*flex-direction: column;*/
+
+            &.with-button {
+                width: calc(100% - 82px);
+            }
+
             .picture {
                 background-repeat: no-repeat;
                 background-size: cover;

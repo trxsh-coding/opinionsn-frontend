@@ -775,6 +775,10 @@ li {
 	word-break: break-word;
 }
 
+.ws-no-warp {
+	white-space: nowrap;
+}
+
 .trim {
 	white-space: nowrap;
 	overflow: hidden;
