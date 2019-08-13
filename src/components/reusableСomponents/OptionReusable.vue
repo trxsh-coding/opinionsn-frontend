@@ -158,13 +158,9 @@
                                         this.$root.timer_id = null;
                                         this.$root.timer_duration = 0;
                                     });
-
                             }, 5000);
-
                             this.$root.temp_selected_option = selected_variable;
-
                         }
-
                     };
 
                     if (this.type_of_poll === 2) {
@@ -207,20 +203,16 @@
                         break;
                     default:
                         return;
-
                 }
 
             },
 
             resetBowsBar() {
-
                 this.transform_px = 0;
-
                 setTimeout(() => {
                     this.swiped = false;
                     this.swipe_in_progress = false;
                 }, 300)
-
             },
 
             trackTouchStart(e) {

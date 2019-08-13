@@ -8,7 +8,6 @@ const rpc = new JsonRpc('http://jungle2.cryptolions.io:80', { fetch });
 
 const api = new Api({ rpc, signatureProvider, textDecoder: new TextDecoder(), textEncoder: new TextEncoder() });
 
-let UID = 1;
 
 export const illegalmint = async () => {
     await api.transact({
@@ -28,10 +27,9 @@ export const illegalmint = async () => {
         blocksBehind: 3,
         expireSeconds: 30
     });
-    UID++;
 };
 
-export const createForecast = async (pollName, funds, ownerId) => {
+export const createForecast = async (pollId, pollName, funds, ownerId) => {
     await api.transact({
         actions: [{
             account: 'opinionbetha',
@@ -41,10 +39,10 @@ export const createForecast = async (pollName, funds, ownerId) => {
                 permission: 'active'
             }],
             data: {
-                'pollId': UID,
+                'pollId': pollId,
                 'pollName': pollName,
                 'funds': funds,
-                'ownerId': ownerIdc
+                'ownerId': ownerId
             },
         }]
     }, {
@@ -60,14 +58,13 @@ export const createForecast = async (pollName, funds, ownerId) => {
                 permission: 'active'
             }],
             data: {
-                'pollId': '1'
+                'pollId': pollId
             },
         }]
     }, {
         blocksBehind: 3,
         expireSeconds: 30
     });
-    UID++;
 };
 
 export const createPoll = async (pollName, funds, ownerId) => {
@@ -90,7 +87,6 @@ export const createPoll = async (pollName, funds, ownerId) => {
         blocksBehind: 3,
         expireSeconds: 30
     });
-    UID++;
 };
 
 export const createLimitedPoll = async (pollName, funds, ownerId, maxUsers) => {
@@ -130,7 +126,6 @@ export const createLimitedPoll = async (pollName, funds, ownerId, maxUsers) => {
         blocksBehind: 3,
         expireSeconds: 30
     });
-    UID++;
 };
 
 export const addCourt = async (pollId, maxJudges, funds) => {
