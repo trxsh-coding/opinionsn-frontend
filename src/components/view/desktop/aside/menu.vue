@@ -78,6 +78,23 @@
             />
         </div>
         
+<!--        <div class="lang-switch">-->
+<!--            -->
+<!--        </div>-->
+        
+        <dropdown-list-reusable class="lang-switch br-6 v-center mt-9" width="100%" with-arrow>
+            <template>
+                <lang-string title="choose_language" />
+            </template>
+            
+            <template #items>
+                <ul class="flex-column">
+                    <li @click="changeLanguage(1)" class="py-5 pr-10 pointer v-center"><span>English</span></li>
+                    <li @click="changeLanguage(2)" class="mt-5 py-5 pr-10 pointer v-center"><span>Русский</span></li>
+                </ul>
+            </template>
+        </dropdown-list-reusable>
+        
     </div>
 </template>
 
@@ -89,6 +106,10 @@
     import IconBookmark from "../../../icons/navigation/IconBookmark";
     import IconSpeaker from "../../../icons/IconSpeaker";
     import langString from "../../../langString"
+    import DropdownListReusable from "@/components/reusableСomponents/DropdownListReusable";
+    import axios from "axios";
+
+    
     export default {
         name: "menu",
         computed: {
@@ -101,9 +122,17 @@
 
                 this.$router.push({name:`${linkName}`})
 
+            },
+            
+            changeLanguage(param) {
+                axios.post(`${process.env.VUE_APP_MAIN_API}/rest/v1/user/locale/${param}`).then(() => {
+                    this.$store.dispatch('lang/getLocaleString')
+                });
             }
         },
-        components: {iconAddPoll, IconBase, langString, IconPollFeed, IconOpinion, IconBookmark, IconSpeaker}
+        components: {
+            DropdownListReusable,
+            iconAddPoll, IconBase, langString, IconPollFeed, IconOpinion, IconBookmark, IconSpeaker}
     }
 </script>
 
@@ -134,6 +163,34 @@
                 color: #FFFFFF;
             }
             
+        }
+        
+        .lang-switch {
+            position: relative;
+            width: 100%;
+            height: 36px;
+            background: #ffffff;
+            
+            * {
+                font-family: Roboto;
+                font-size: 13px;
+                color: #1A1E22;
+            }
+            
+            .toggle-btn {
+                width: inherit;
+                padding: 0 10px;
+                display: flex;
+                justify-content: center;
+                
+                .lang-string {
+                    margin-left: auto;
+                }
+                
+                .icon-wrapper {
+                    margin-left: auto !important;
+                }
+            }
         }
         
         .nav-menu {

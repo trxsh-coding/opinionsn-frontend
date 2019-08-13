@@ -21,7 +21,7 @@ export default {
   },
   methods : {
     update(selected) {
-      axios.post(`${process.env.VUE_APP_MAIN_API}/rest/locale/change/${selected}`).then(() => {
+      axios.post(`${process.env.VUE_APP_MAIN_API}/rest/v1/user/locale/${selected}`).then(() => {
         this.$store.dispatch('lang/getLocaleString')
       });
     }

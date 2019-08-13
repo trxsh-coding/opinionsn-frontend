@@ -10,7 +10,7 @@
     import asideNavigation from './aside/menu'
 
     export default {
-        name: "aside",
+        name: "asideMenu",
         components: { profile, asideNavigation}
     }
 </script>
