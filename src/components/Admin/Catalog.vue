@@ -1,126 +1,157 @@
 <template>
-    <div class="catalog-wrapper">
-        <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="120px" class="demo-ruleForm" :label-position="labelPosition">
-            <el-form-item label="Название каталога" prop="form">
-                <el-input v-model="ruleForm.form"></el-input>
-            </el-form-item>
-
-            <el-form-item>
-                <el-button type="primary" @click="submitForm('ruleForm')">Создать</el-button>
-                <el-button @click="resetForm('ruleForm')">Очистить</el-button>
-            </el-form-item>
-
-        </el-form>
-        <el-upload
-                class="avatar-uploader"
-                :show-file-list="false"
-                action=""
-                :on-change="handleCatalogImage"
-                :auto-upload="false">
-            <img v-if="ruleForm.image" :src="ruleForm.image" class="avatar">
-            <i v-else class="el-icon-plus avatar-uploader-icon"></i>
-        </el-upload>
-        <el-button @click="check">Проверка</el-button>
-    </div>
+    <section class="add-catalog flex-column flex-align-center mx-auto mb-auto mt-100 px-20 py-30">
+    
+        <span class="headline">Добавить каталог</span>
+    
+        
+        <div class="inputs mt-20">
+            
+            <input-reusable class="mx-auto"
+                            :value="catalog_form.form"
+                            @change="updateField(arguments[0], 'form')"
+                            inputPlaceholder="Название каталога"
+                            width="100%"
+                            input
+                            with-underline/>
+    
+            <div class="catalog-bg mt-20" :style="{backgroundImage: `url('${catalog_form.url}')`}">
+        
+                <upload-reusable
+                        icon-photo
+                        fit
+                        height="100%"
+                        @upload="({file, url}) => {
+                            updateField(file, 'image');
+                            updateField(url, 'url');
+                        }" ></upload-reusable>
+        
+            </div>
+    
+            <button-reusable
+                    @click.native="submitForm"
+                    font-size="13"
+                    class="v-center mt-20 py-7 px-13"
+                    bor-rad="6"
+                    bg-color="#4b97b4"
+                    color="#ffffff"
+                    active-color="#4B97B4"
+                    description="save"/>
+    
+            <button-reusable
+                    @click.native="clearForm"
+                    font-size="13"
+                    class="v-center mt-10 py-7 px-13"
+                    bor-rad="6"
+                    bg-color="#BCBEC3"
+                    color="#ffffff"
+                    active-color="#4B97B4"
+                    description="clear"/>
+            
+        </div>
+    
+    </section>
 </template>
 
 <script>
     import axios from 'axios';
+    import InputReusable from "@/components/reusableСomponents/InputReusable";
+    import ButtonReusable from "@/components/reusableСomponents/ButtonReusable";
+    import UploadReusable from "@/components/reusableСomponents/UploadReusable";
     export default {
         name: "Catalog",
+        components: {UploadReusable, ButtonReusable, InputReusable},
         data() {
             return {
-                labelPosition: 'top',
-                ruleForm: {
-                    form: '',
+                catalog_form: {
+                    form: 'ruleForm',
                     image:'',
-                },
-                rules: {
-                    name: [
-                        { required: true, message: 'Впишите название темы', trigger: 'blur' },
-                        { min: 3, max: 20, message: 'Впишите от 3 до 20 символов', trigger: 'blur' }
-                    ],
+                    url: ''
                 }
             };
 
         },
         methods: {
-            check(){
-              console.log(this.ruleForm.image)
-                console.log(this.ruleForm.name)
-
+    
+            updateField(val, key) {
+                this.catalog_form[key] = val;
             },
-            handleCatalogImage(res, file) {
+            
+            submitForm() {
 
-                this.ruleForm.image = file[0].raw;
-
-            },
-            submitForm(formName) {
-                this.$refs[formName].validate((valid) => {
-                    if (valid) {
-                        var bodyFormData = new FormData();
-
-                        let formBlob = new Blob([JSON.stringify({name: this.ruleForm.form})], { type: "application/json"});
-
-                        bodyFormData.append('file', this.ruleForm.image);
-                        bodyFormData.append('form',formBlob);
-                        console.log(bodyFormData);
-
-                        const config = {
-                            headers: {
-                                'content-type': 'multipart/mixed'
-                            }
-                        }
-                        axios.post(`${process.env.VUE_APP_MAIN_API}/rest/admin/categories/create`, bodyFormData, config)
-                            .then(function(response){
-                                if (response.status === 200) {
-
-                                }
-                            }.bind(this))
-
-
-                    } else {
-                        console.log('error submit!!');
-                        return false;
+                let formData = new FormData();
+    
+                let formBlob = new Blob(
+                    [JSON.stringify({name: this.catalog_form.form})],
+                    { type: "application/json"}
+                );
+    
+                formData.append('file', this.catalog_form.image);
+                formData.append('form', formBlob);
+    
+                const config = {
+                    headers: {
+                        'content-type': 'multipart/mixed'
                     }
-                });
+                };
+                
+                axios.post(`${process.env.VUE_APP_MAIN_API}/rest/admin/categories/create`, formData, config)
+                    .then(({status}) => {
+                        if (status === 200) {
+                            alert("Успешно сохранено!");
+                            this.catalog_form = {
+                                form: 'ruleForm',
+                                image:'',
+                                url: ''
+                            };
+                        } else {
+                            alert("Ошибка!");
+                        }
+                    })
+
             },
-            resetForm(formName) {
-                this.$refs[formName].resetFields();
+            
+            clearForm() {
+                this.catalog_form = {
+                    form: 'ruleForm',
+                    image:'',
+                    url: ''
+                };
             }
+    
         }
     }
 </script>
 
 <style lang="scss">
-    .catalog-wrapper {
-        margin-top: 10px;
-        padding: 15px;
+    .add-catalog {
+    
+        position: relative;
+        width: 30%;
         background: #fff;
-		border-radius: 6px;
-		width: 50%;
-        .avatar-uploader .el-upload {
-            border: 1px dashed #d9d9d9;
-            border-radius: 6px;
-            cursor: pointer;
-            position: relative;
-            overflow: hidden;
-        }
-        .avatar-uploader .el-upload:hover {
-            border-color: #409EFF;
-        }
-        .avatar-uploader-icon {
+        border-radius: 6px;
+    
+        .headline {
+            font-family: Roboto;
+            font-style: normal;
+            font-weight: bold;
             font-size: 28px;
-            color: #8c939d;
-            width: 178px;
-            height: 178px;
-            line-height: 178px;
-            text-align: center;
+            color: #1A1E22;
         }
-        .avatar {
-            width: 178px;
-            height: 178px;
-            display: block;
+        
+        .inputs {
+            position: relative;
+            width: 200px;
+            
+            .catalog-bg {
+                height: 200px;
+                border: 1px solid #BCBEC3;
+                border-radius: 6px;
+                background-size: cover;
+                background-repeat: no-repeat;
+                background-position: center center;
+            }
+            
         }
+    
     }
 </style>
