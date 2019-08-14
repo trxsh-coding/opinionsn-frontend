@@ -76,7 +76,7 @@
 				return this.show ? {display: 'block', opacity: '1'} : {display: 'none', opacity: '0'};
 			},
 			iconStyle() {
-				return this.show ? {transform: "rotate(-180deg)"} : {};
+				return this.show ? {transform: "scale(-1) rotate(-180deg)"} : {transform: "scale(-1)"};
 			},
 			listWidth() {
 				let {width, handleCssValue} = this;
@@ -161,6 +161,7 @@
 				display: flex;
 				align-items: center;
 				transition: 300ms;
+				transform: scale(-1);
 			}
 
 		}

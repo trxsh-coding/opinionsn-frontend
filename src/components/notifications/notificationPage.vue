@@ -147,29 +147,33 @@
 					later: []
 				};
 
-				this.messages.forEach( ({date}, i) => {
-					let today = parseInt(moment(new Date()).format('DDDD'), 10),
-						current = parseInt(moment(date).format('DDDD'), 10),
-						difference = today - current;
-
-					switch (true) {
-						case difference === 0:
-							msgs.today.push(this.messages[i]);
-							break;
-						case difference === 1:
-							msgs.yesterday.push(this.messages[i]);
-							break;
-						case difference > 1 && difference <= 7:
-							msgs.week.push(this.messages[i]);
-							break;
-						case difference > 7 && difference <= 31:
-							msgs.month.push(this.messages[i]);
-							break;
-						default:
-							msgs.later.push(this.messages[i]);
-							break;
-					}
-				} );
+				if (!!Object.keys(this.messages).length) {
+					
+					this.messages.forEach( ({date}, i) => {
+						let today = parseInt(moment(new Date()).format('DDDD'), 10),
+							current = parseInt(moment(date).format('DDDD'), 10),
+							difference = today - current;
+						
+						switch (true) {
+							case difference === 0:
+								msgs.today.push(this.messages[i]);
+								break;
+							case difference === 1:
+								msgs.yesterday.push(this.messages[i]);
+								break;
+							case difference > 1 && difference <= 7:
+								msgs.week.push(this.messages[i]);
+								break;
+							case difference > 7 && difference <= 31:
+								msgs.month.push(this.messages[i]);
+								break;
+							default:
+								msgs.later.push(this.messages[i]);
+								break;
+						}
+					} );
+					
+				}
 
 				return msgs;
 			}
