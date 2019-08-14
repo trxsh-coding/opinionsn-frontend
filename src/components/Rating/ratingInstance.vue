@@ -1,12 +1,14 @@
 <template>
-    <div class="rating-instance" :class="{'bg-white pt-18': !mobile, 'pt-51': mobile}">
+    <div class="rating-instance" :class="{'bg-white': !mobile, 'pt-51': mobile}">
         <category-select
                 @on-select="setCategoryId"
                 class="pl-60 pr-4"
                 :class="{'mt-14': !mobile, 'mt-15': mobile}"
                 :current="categoryId"
         />
-        <button @click="getUserRating">check</button>
+
+        <rating-block v-for="(user_rating, index) in rating.muserRatings" :rating="user_rating" :index="index"/>
+
     </div>
 </template>
 
@@ -14,15 +16,22 @@
     import axios from 'axios';
     import {mapState} from 'vuex';
     import CategorySelect from "../reusableСomponents/categorySelect";
+    import RatingBlock from "./ratingBlock";
     export default {
         name: "raitingInstance",
-        components: {CategorySelect},
+        components: {RatingBlock, CategorySelect},
         data() {
             return {
                 categoryId : 1,
                 mobile:this.$root.mobile,
                 rating:'',
+                missingUsers:[]
 
+            }
+        },
+        watch: {
+            categoryId(current, newOne) {
+                if (current !== newOne) this.getUserRating()
             }
         },
         computed: {
@@ -37,7 +46,14 @@
                 this.categoryId = id;
             },
 
-
+            verifyStores(payload){
+                payload.forEach(({userId}) => {
+                    this.missingUsers = Array.from(new Set([...this.missingUsers, userId]));
+                });
+                let usersToVerify = {action: `userPage/getMissingUsers`,payload: this.missingUsers};
+                this.$store.dispatch(`globalStore/verifyStore`, {entries: usersToVerify, storeName: `users`}, {root: true});
+                console.log('checked');
+            },
 
             getUserRating() {
                 axios.get(`${process.env.VUE_APP_MAIN_API}/rest/v1/user/rating/${this.categoryId}`, {
@@ -46,8 +62,15 @@
                         month:6
                     }
                 })
-                    .then(({data}) => { this.rating = data })
+                    .then(({data}) => {
+                        this.rating = data;
+                        this.verifyStores(data.muserRatings);
+
+                    })
             }
+        },
+        mounted() {
+            this.getUserRating()
         }
     }
 </script>

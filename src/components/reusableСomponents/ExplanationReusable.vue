@@ -15,7 +15,7 @@
 					rounded
 					text-layout="bottom">
 				<template #description>
-					<time-trans short-time :time="fitExplain.timestamp"></time-trans>
+					<time-trans :short-time="true" :time="fitExplain.timestamp"></time-trans>
 				</template>
 			</picture-reusable>
 			
@@ -111,7 +111,7 @@
 						rounded
 						text-layout="bottom">
 					<template #description>
-						<time-trans short-time :time="comment.timestamp"></time-trans>
+						<time-trans :short-time="true" :time="comment.timestamp"></time-trans>
 					</template>
 				</picture-reusable>
 				

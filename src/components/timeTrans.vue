@@ -1,6 +1,6 @@
 <template>
     <div class="timestamp-block">
-        <span v-if="!shortTime">{{transformed_time}}</span>
+        <span v-if="transformedTime">{{transformed_time}}</span>
         <span v-if="shortTime">{{short_time}}</span>
         <span v-if="predictionTime">{{currentTime}}</span>
 
@@ -32,7 +32,10 @@
             },
             predictionTime: {
 			    type:Boolean
-            }
+            },
+            transformedTime: {
+                type:Boolean
+            },
 		},
         data() {
             return {
@@ -73,7 +76,7 @@
                 if (relTimeParts.length > 1){
                     const [count, title] = relTime.split(' ');
                     text = `${isNaN(Number(count)) ? '1' : count}${title.substring(0,1)}`;
-                } else if (relTime.length < 1){
+                } else if (relTime.length === 0){
                     text = 'now'
                 }
                 else {
@@ -83,7 +86,7 @@
 
 
 
-                let parsedTime = daysDiff > 1 ? mTime.fromNow('d') : text;
+                let parsedTime = daysDiff > 365 ? mTime.fromNow('d') : text;
 
 				return parsedTime;
 

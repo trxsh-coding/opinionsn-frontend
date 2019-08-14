@@ -76,6 +76,13 @@ export const globalStore  =  {
 
         },
 
+        appendToStores: function(state, {mapName, payload}){
+                let items = {}
+                payload.forEach(item => {items[item.id]= item})
+                state[mapName] = {...state[mapName], ...items}
+        },
+
+
         updateStores: function(state, payload){
             for (let name of globalStorageNames){
 
@@ -225,18 +232,21 @@ export const globalStore  =  {
 
 
         verifyStore: function({state, dispatch, commit}, payload){
-
             let {entries, storeName} = payload;
-
             let store = state[storeName];
-
-            for (let [id, {action, payload}] of Object.entries(entries)){
-                if (!store[id]){
-                    dispatch(action, payload, {root: true});
+            const missingOnes = [];
+            for (let id of entries.payload){
+                if(!store[id]){
+                    missingOnes.push(id);
+                    // dispatch(entries.action, payload, {root: true});
                 }
             }
+            if (missingOnes.length){
+                dispatch(entries.action, missingOnes, {root: true});
+                // Doesnt have these polls/users
+                // missingOnes
+            }
 
-            commit('notificationPage/setLoading', false, {root: true})
 
         }
 
