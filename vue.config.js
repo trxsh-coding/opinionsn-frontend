@@ -1,5 +1,5 @@
 module.exports = {
-	baseUrl: '/',
+	publicPath: '/',
 	indexPath: "index.html",
 	outputDir: "www",
 	devServer: {

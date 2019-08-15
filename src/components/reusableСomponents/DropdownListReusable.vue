@@ -3,18 +3,18 @@
 
 		<button class="toggle-btn" @click="show = !show">
 			<slot></slot>
-			<span class="icon-wrapper" :style="iconStyle">
+			<span v-if="icon" class="icon-wrapper ml-14" :style="withArrow && iconStyle">
 				<slot name="icon">
-				<icon-base
-						v-if="withArrow"
-						class="ml-14 mr-4"
-						fill="#023F52"
-						width="6"
-						height="10"
-						viewBox="0 0 6 10"
-						icon-name="drop-arrow">
-					<icon-drop-arrow />
-				</icon-base>
+					<icon-base
+							v-if="withArrow"
+							class="mr-4"
+							fill="#023F52"
+							width="6"
+							height="10"
+							viewBox="0 0 6 10"
+							icon-name="drop-arrow">
+						<icon-drop-arrow />
+					</icon-base>
 				</slot>
 			</span>
 		</button>
@@ -54,7 +54,11 @@
 			},
 			listClass: String,
 			clickClose: Boolean,
-			withArrow: Boolean
+			withArrow: Boolean,
+			icon: {
+				type: Boolean,
+				default: true
+			}
 		},
 		data() {
 			return {
@@ -72,7 +76,7 @@
 				return this.show ? {display: 'block', opacity: '1'} : {display: 'none', opacity: '0'};
 			},
 			iconStyle() {
-				return this.show ? {transform: "rotateX(180deg)", top: '2px'} : {};
+				return this.show ? {transform: "rotate(-180deg)"} : {};
 			},
 			listWidth() {
 				let {width, handleCssValue} = this;
@@ -156,6 +160,7 @@
 				position: relative;
 				display: flex;
 				align-items: center;
+				transition: 300ms;
 			}
 
 		}

@@ -19,26 +19,26 @@
 		                 :current="categoryId"/>
 
 		<div class="select-block pl-69" :class="{'mt-15': !mobile, 'mt-18': mobile}">
-			<dropdown-list-reusable with-arrow class="mr-22" listClass="w-max">
+			<dropdown-list-reusable with-arrow class="mr-22">
 				<template>
 					<lang-string :title="periods[periodId].value"/>
 				</template>
 
 
 				<template #items>
-					<li class="pointer" v-for="({value}, index) in periods" @click="setRange(index)" :key="index">
+					<li class="w-max ws-no-warp pointer" v-for="({value}, index) in periods" @click="setRange(index)" :key="index">
 						<lang-string :title="value"/>
 					</li>
 				</template>
 			</dropdown-list-reusable>
-			<dropdown-list-reusable with-arrow listClass="w-max">
+			<dropdown-list-reusable with-arrow>
 				<template>
 					<lang-string :title="types[typeId].value"/>
 				</template>
 
 
 				<template #items>
-					<li class="pointer" v-for="({value}, index) in types" @click="setType(index)">
+					<li class="w-max ws-no-warp pointer" v-for="({value}, index) in types" @click="setType(index)">
 						<lang-string :title="value"/>
 					</li>
 				</template>

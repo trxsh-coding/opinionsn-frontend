@@ -94,8 +94,8 @@
 	import mobileFooter from "./view/mobile/footer"
 	import IphoneAddToScreenComponent from "./pwaSnippets/IphoneAddToScreenComponent"
 	import Bowser from "bowser"
-	import DesktopHeader from "./view/desktop/header";
 	import asideDesktop from "./view/desktop/aside";
+	import DesktopHeader from "./view/desktop/header";
 	import langString from "./langString";
 	import ButtonReusable from "./reusableСomponents/ButtonReusable";
 

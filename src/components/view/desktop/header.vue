@@ -29,6 +29,7 @@
 				<dropdown-list-reusable
 						@scrollDifference="setListScrollDifference"
 						list-class="notification-list p-0"
+						:icon="false"
 						height="583"
 						width="376">
 					<icon-base
@@ -40,8 +41,6 @@
 							icon-name="notifications">
 						<icon-notifications/>
 					</icon-base>
-					<template #icon>
-					</template>
 					<template #items>
 						<notification-page
 								:scrollDifference="listScrollDifference"/>

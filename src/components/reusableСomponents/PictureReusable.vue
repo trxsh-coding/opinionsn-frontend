@@ -55,6 +55,12 @@
 					return '0';
 				}
 			},
+			border: {
+				type: [String, Number],
+				default: function () {
+					return '0';
+				}
+			},
 			avatar: {
         		type: Boolean
 			},
@@ -132,7 +138,7 @@
 				borRad = handleCssValue(borRad);
 				width = handleCssValue(width);
 				if (rounded) borRad = "50%";
-				let border = borColor ? {border: `${borRad} solid ${borColor}`} : {};
+				let border = borColor ? {border: `${this.border} solid ${borColor}`} : {};
 
 				let style = {};
 

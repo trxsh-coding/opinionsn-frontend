@@ -4,7 +4,7 @@
 		<div v-if="bows && mobile"
 		     class="bows-bar"
 		     ref="bowsRef"
-		     :class="{'invisible': !voted}"
+		     :class="{'invisible': !voted, 'pl-8': swiped}"
 		     :style="[optionStyle, bowsBarStyle, {backgroundColor: 'unset !important'}]"
 		     @touchstart="trackTouchStart"
 		     @touchmove="trackTouchMove"
@@ -16,6 +16,7 @@
 					v-if="Object.keys(bows).length > 2"
 					height="100%"
 					:width="swiped ? '100%' : 'fit-content'"
+					:stub-length="swiped && 1"
 					class="bows-slider">
 				<div
 						v-for="(value, key, index) in bows" :to="'/user/' + key"
@@ -32,7 +33,8 @@
 					:style="{backgroundImage: `url('${publicPath + Object.values(bows)[0]}')`}"></div>
 		</div>
 		
-		<button @click="setRightOption(id, poll_id)" v-if="mainUser.authorities === 'ADMIN' && type_of_poll !== 0">✓</button>
+		<button @click="setRightOption(id, poll_id)" v-if="mainUser.authorities === 'ADMIN' && type_of_poll !== 0">✓
+		</button>
 		
 		<div
 				class="option-wrapper"
@@ -147,27 +149,23 @@
 							this.$root.timer_id = setTimeout(() => {
 								
 								this.$store.dispatch(`${this.$route.name}/createVote`, {
-										data: {
-											selected_variable,
-											poll_id,
-											type_of_poll
-										}
-									})
+									data: {
+										selected_variable,
+										poll_id,
+										type_of_poll
+									}
+								})
 									.then(() => {
 										this.$root.timer_id = null;
 										this.$root.timer_duration = 0;
 									});
-								
 							}, 5000);
-							
 							this.$root.temp_selected_option = selected_variable;
-							
 						}
-						
 					};
 					
 					if (this.type_of_poll === 2) {
-						userVote(this.poll_id, selected_variable, mainUser.id)
+						userVote(this.poll_id, mainUser.id, selected_variable)
 							.then(() => runTimeout())
 							.catch(() => console.log("Error voting in EOSIO forecast"));
 					} else {
@@ -183,7 +181,7 @@
 					case 2:
 						judgevote(poll_id, mainUser.id, option_id)
 							.then(() => {
-								this.$store.dispatch('pollFeed/setRightOption', {data: {option_id, poll_id} })
+								this.$store.dispatch('pollFeed/setRightOption', {data: {option_id, poll_id}})
 									.then(status => {
 										if (status === 200) {
 											alert('Вариант выбран успешно!')
@@ -195,7 +193,7 @@
 							.catch(() => console.log("Judgevote on EOSIO exception"));
 						break;
 					case 1:
-						this.$store.dispatch('pollFeed/setRightOption', {data: {option_id, poll_id} })
+						this.$store.dispatch('pollFeed/setRightOption', {data: {option_id, poll_id}})
 							.then(status => {
 								if (status === 200) {
 									alert('Вариант выбран успешно!')
@@ -206,20 +204,16 @@
 						break;
 					default:
 						return;
-						
 				}
-
+				
 			},
 			
 			resetBowsBar() {
-				
 				this.transform_px = 0;
-				
 				setTimeout(() => {
 					this.swiped = false;
 					this.swipe_in_progress = false;
 				}, 300)
-				
 			},
 			
 			trackTouchStart(e) {
@@ -305,13 +299,13 @@
 				
 				switch (type_of_poll == 1 && expired) {
 					case selected && correct:
-						s = {...s , opacity: '1'};
+						s = {...s, opacity: '1'};
 						break;
 					case selected:
-						s = {...s , opacity: '1'};
+						s = {...s, opacity: '1'};
 						break;
 					default:
-						s = {...s , opacity: '0.4'};
+						s = {...s, opacity: '0.4'};
 						break;
 				}
 				
@@ -322,7 +316,7 @@
 			bowsBarStyle() {
 				let {transform_limit} = this;
 				
-				transform_limit = !!transform_limit ? { maxWidth: `${transform_limit}px` } : {};
+				transform_limit = !!transform_limit ? {maxWidth: `${transform_limit}px`} : {};
 				
 				return transform_limit;
 			},
@@ -439,7 +433,8 @@
 		
 		.bows-bar {
 			box-sizing: border-box;
-			padding: 0 4px 0 1px;
+			padding-left: 3px;
+			padding-right: 6px;
 			border: 0.5px solid #BCBEC3;
 			border-radius: 6px;
 			
