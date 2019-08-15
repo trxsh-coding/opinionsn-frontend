@@ -136,6 +136,22 @@
 			route_name() {
 				return this.$route.name;
 			},
+			//
+			// grouped_messages(){
+			// 	let {messages} = this;
+			// 	messages.forEach( (item) => {
+			// 		let {eventType, userId} = item;
+			//
+			// 		if(!combinedNotifies[eventType]) combinedNotifies[eventType] = [];
+			//
+			// 		combinedNotifies[eventType].push(item)
+			//
+			//
+			// 	});
+			//
+			// 	return Object.values(combinedNotifies)
+			//
+			// },
 
 			filtered_messages() {
 

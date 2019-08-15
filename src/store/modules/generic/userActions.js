@@ -103,6 +103,14 @@ export const userActions = sc => class extends sc {
 
     }
 
+
+    getMissingUsers({commit, dispatch}, payload={}){
+        let body = payload;
+        let {customUrl = `${process.env.VUE_APP_MAIN_API}/rest/v1/info/user/missing`, data=body, method=`post`} = payload;
+        sc.apiRequest(customUrl, data,{commit, dispatch, onSuccess: null, successType: `action`}, method);
+    }
+
+
     setMainUser({commit, dispatch, state, context}, args){
 
         let {responseData: data} = args;
@@ -172,7 +180,8 @@ export const userActions = sc => class extends sc {
             updateUser: this.updateUser,
             getFollowings: this.getFollowings,
             getFollowers: this.getFollowers,
-            setMainUser:this.setMainUser
+            setMainUser:this.setMainUser,
+            getMissingUsers: this.getMissingUsers
 
         }
     }

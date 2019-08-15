@@ -4,105 +4,131 @@
 			<span>
 				Вы находитесь на тестовой версии первой crowd wisdom платформы на основе технологии Blockchain.
 				<br>
-				<br>Opinion — это социальная сеть, где пользователи участвуют в опросах, делятся мнениями, предсказывают исход событий и получают вознаграждения за точные прогнозы.
+				<br><b>Opinion</b> — это социальная сеть, где пользователи участвуют в опросах, делятся мнениями, предсказывают исход событий и получают вознаграждения за точные прогнозы.
 				<br>
 				<br>Мы будем Вам благодарны за оставленный отзыв по работе системы или предложение по ее улучшению.
 				Отзыв можно оставить, заполнив форму или отправив нам сообщение в социальных сетях.
 			</span>
 		</div>
-		<div class="form-section mt-15">
-			<el-form v-model="feedbackForm" ref="feedbackForm">
-				<el-form-item>
-					<el-input placeholder="E-mail" v-model="feedbackForm.email"/>
-				</el-form-item>
 
-				<el-form-item>
-					<el-input
-						class="message"
-						placeholder="Текст сообщения"
-						type="textarea"
-						v-model="feedbackForm.description"
-					/>
-				</el-form-item>
+		<div class="form">
+			<span class="feedback-span">Обратная связь</span>
+			<div class="form-section mt-15">
+				<div class="form-block max-width">
 
-				<div class="button-section flex-space-start">
-					<el-button class="primary-btn" @click.prevent="submitForm(feedbackForm)" size="small">Отправить</el-button>
-					<el-upload
-						class="upload-demo"
-						multiple
-						:before-remove="beforeRemove"
-						:auto-upload="false"
-						:limit="3"
-						:on-change="handlePreview"
-						ref="upload"
-					>
-						<el-button type="primary" size="small">Прикрепить изображения</el-button>
-					</el-upload>
+
+					<input-reusable :value="feedbackForm.email"
+									input
+									class=" mb-12 flex-between"
+									width="100%"
+									:input-placeholder="'email'"/>
+
+					<input-reusable :value="feedbackForm.email"
+									textarea
+									class="mt-15 mb-12 flex-between"
+									width="100%"
+									:input-placeholder="'message_text'"/>
+					<span class="insert-pic-span">Прикрепить изображения</span>
+					<div class="picture-section flex">
+						<upload-reusable
+								class="pr-15"
+								description
+								image-preview
+								pre-width="60"
+								:pre-height="60"
+								:value="pictures"
+								@upload="({file}) => {updateArrayPictures(file, index)}">
+
+						</upload-reusable>
+						<add-reusable class="mt-15"/>
+					</div>
+					<button-reusable
+							class="v-center auth-btn mt-9 py-13 w-fit h-fit pl-3 pr-3"
+
+							description="send"
+							font-size="11"
+							bor-rad="6"
+							bg-color="#4B97B4"
+							color="#ffffff"/>
 				</div>
-			</el-form>
+
+
+			</div>
+
+
+		</div>
+		<div class="social-media">
+			<ul class="soc-media">
+				<li>
+					<a href="https://www.facebook.com/opinionsncom/" target="_blank" rel="noopener noreferrer">
+						<div
+								class="picture-30x30"
+								:style="{ 'background-image': 'url(' + require('../images/facebook.png') + ')' } "
+						></div>
+					</a>
+				</li>
+				<li>
+					<a href="https://twitter.com/Opinionsncom" target="_blank" rel="noopener noreferrer">
+						<div
+								class="picture-30x30"
+								:style="{ 'background-image': 'url(' + require('../images/twitter.png') + ')' } "
+						></div>
+					</a>
+				</li>
+				<li>
+					<a href="https://www.instagram.com/opinionsncom" target="_blank" rel="noopener noreferrer">
+						<div
+								class="picture-30x30"
+								:style="{ 'background-image': 'url(' + require('../images/instagram.png') + ')' } "
+						></div>
+					</a>
+				</li>
+				<li>
+					<a href="https://t.me/opinion_social_network" target="_blank" rel="noopener noreferrer">
+						<div
+								class="picture-30x30"
+								:style="{ 'background-image': 'url(' + require('../images/telegram.png') + ')' } "
+						></div>
+					</a>
+				</li>
+				<li>
+					<a href="https://vk.com/opinionsncom" target="_blank" rel="noopener noreferrer">
+						<div
+								class="picture-30x30"
+								:style="{ 'background-image': 'url(' + require('../images/vk.png') + ')' } "
+						></div>
+					</a>
+				</li>
+				<li>
+					<a
+							href="https://www.youtube.com/channel/UClapvCFqBLMO8vjAPv4KohQ?view_as=subscriber"
+							target="_blank"
+							rel="noopener noreferrer"
+					>
+						<div
+								class="picture-30x30"
+								:style="{ 'background-image': 'url(' + require('../images/youtube.png') + ')' } "
+						></div>
+					</a>
+				</li>
+			</ul>
 		</div>
 
-		<ul class="soc-media mt-5">
-			<li>
-				<a href="https://www.facebook.com/opinionsncom/" target="_blank" rel="noopener noreferrer">
-					<div
-						class="picture-30x30"
-						:style="{ 'background-image': 'url(' + require('../images/facebook.png') + ')' } "
-					></div>
-				</a>
-			</li>
-			<li>
-				<a href="https://twitter.com/Opinionsncom" target="_blank" rel="noopener noreferrer">
-					<div
-						class="picture-30x30"
-						:style="{ 'background-image': 'url(' + require('../images/twitter.png') + ')' } "
-					></div>
-				</a>
-			</li>
-			<li>
-				<a href="https://www.instagram.com/opinionsncom" target="_blank" rel="noopener noreferrer">
-					<div
-						class="picture-30x30"
-						:style="{ 'background-image': 'url(' + require('../images/instagram.png') + ')' } "
-					></div>
-				</a>
-			</li>
-			<li>
-				<a href="https://t.me/opinion_social_network" target="_blank" rel="noopener noreferrer">
-					<div
-						class="picture-30x30"
-						:style="{ 'background-image': 'url(' + require('../images/telegram.png') + ')' } "
-					></div>
-				</a>
-			</li>
-			<li>
-				<a href="https://vk.com/opinionsncom" target="_blank" rel="noopener noreferrer">
-					<div
-						class="picture-30x30"
-						:style="{ 'background-image': 'url(' + require('../images/vk.png') + ')' } "
-					></div>
-				</a>
-			</li>
-			<li>
-				<a
-					href="https://www.youtube.com/channel/UClapvCFqBLMO8vjAPv4KohQ?view_as=subscriber"
-					target="_blank"
-					rel="noopener noreferrer"
-				>
-					<div
-						class="picture-30x30"
-						:style="{ 'background-image': 'url(' + require('../images/youtube.png') + ')' } "
-					></div>
-				</a>
-			</li>
-		</ul>
 	</div>
 </template>
 
 <script>
 	import axios from "axios";
+	import InputReusable from "../reusableСomponents/InputReusable";
+	import ButtonReusable from "../reusableСomponents/ButtonReusable";
+	import IconBase from "../icons/IconBase";
+	import IconUpload from "../icons/create/IconUpload";
+	import UploadReusable from "../reusableСomponents/UploadReusable";
+	import AddOptionBlock from "../create/addOptionBlock";
+	import AddReusable from "../create/addReusable";
 	export default {
 		name: "feedbackForm",
+		components: {AddReusable, AddOptionBlock, UploadReusable, IconBase, IconUpload, ButtonReusable, InputReusable},
 		data() {
 			return {
 				pictures: [],
@@ -144,12 +170,6 @@
 								email: "",
 								description: ""
 							};
-
-							this.$message({
-								showClose: true,
-								message: "Сообщение отправлено!",
-								type: "success"
-							});
 						}
 					})
 					.catch(() => {
@@ -180,82 +200,69 @@
 
 <style lang="scss">
 	.feedback-form {
-		padding: 20px;
 		border-radius: 6px;
-		background: #ffffff;
-		text-align: center;
-
+		text-align: left;
+		.feedback-header {
+			padding: 15px;
+			border-radius: 6px;
+			background: #FFFFFF;
+		}
 		span {
+
 			font-family: Roboto;
 			font-style: normal;
-			font-weight: 300;
-			font-size: 14px;
-			color: #152d3a;
+			font-weight: normal;
+			font-size: 13px;
+
 		}
-		
-		.form-section {
-			.el-input__inner,
-			.el-textarea__inner {
-				border-radius: 24px !important;
+
+		.form {
+			margin-top: 15px;
+			background: #FFFFFF;
+			padding: 15px;
+			.insert-pic-span {
+				font-family: Roboto;
+				font-style: normal;
+				font-weight: normal;
+				font-size: 12px;
+				color: #8A9499;
+
+
 			}
+			.feedback-span {
+				font-family: Roboto;
+				font-style: normal;
+				font-weight: 500;
+				font-size: 14px;
+				color: #152D3A;
+				text-transform: uppercase;
 
-			.el-textarea__inner {
-				height: 160px;
-				resize: none;
+
 			}
-
-			.button-section {
-				min-height: 60px;
-
-				span {
-					font-family: Roboto;
-					font-style: normal;
-					font-weight: normal;
-					font-size: 14px;
-					letter-spacing: -0.1px;
-					color: #ffffff;
-					font-variant-caps: all-petite-caps;
-					border-radius: 6px;
-				}
-
-				.el-button {
-					border-radius: 24px !important;
-				}
-
-				.el-upload-list {
-					* {
-						z-index: 30000;
-					}
-				}
+			.form-section {
+				display: flex;
 			}
-
-			// @media only screen and (max-device-width: 700px) {
-			// 	.button-section {
-			// 		min-height: 195px;
-			// 		flex-direction: column;
-			// 		align-items: center;
-			// 		justify-content: flex-start;
-
-			// 		.upload-demo {
-			// 			margin-top: 14px;
-			// 		}
-			// 	}
-			// }
 		}
 
 		.soc-media {
 			margin: 0;
-			margin-top: 5px;
-			padding: 0;
-			display: flex;
 			width: max-content;
+			padding-left: 15px;
+			margin-top: 15px;
+			background: #FFFFFF;
+			display: flex;
+			width: 100%;
 			div {
-				border-radius: 50px;
+				border-radius: 6px;
+			}
+			ul {
+				display: flex;
 			}
 			li {
 				list-style-type: none;
 				margin-right: 15px;
-
+				padding-top: 10px;
+				padding-bottom: 10px;
 				&:last-child {
 					margin: 0;
 				}
