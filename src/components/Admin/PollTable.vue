@@ -1,64 +1,8 @@
-<template lang="html">
-<!--	<el-table-->
-<!--		class="mx-5"-->
-<!--		:data="tableData"-->
-<!--		border-->
-<!--		style="width: 100%"-->
-<!--		height="100%"-->
-<!--		ref="el_table">-->
-<!--		<el-table-column-->
-<!--			label="ID"-->
-<!--			prop="ID"-->
-<!--			width="60">-->
-<!--		</el-table-column>-->
-<!--		<el-table-column-->
-<!--			label="Дата"-->
-<!--			prop="date"-->
-<!--			width="210">-->
-<!--		</el-table-column>-->
-<!--		<el-table-column-->
-<!--			label="Название"-->
-<!--			width="230">-->
-<!--			<template slot-scope="scope">-->
-<!--				<el-popover-->
-<!--					placement="top"-->
-<!--					width="230"-->
-<!--					trigger="click">-->
-<!--					<div class="text-center">{{scope.row.name}}</div>-->
-<!--					<div slot="reference" class="pointer trim"><span slot="reference" class="trim">{{scope.row.name}}</span></div>-->
-<!--				</el-popover>-->
-<!--			</template>-->
-<!--		</el-table-column>-->
-<!--		<el-table-column-->
-<!--			label="Описание">-->
-<!--			<template slot-scope="scope">-->
-<!--				<el-popover-->
-<!--					placement="top"-->
-<!--					width="600"-->
-<!--					trigger="click">-->
-<!--					<div class="text-center">{{scope.row.description}}</div>-->
-<!--					<div slot="reference" class="pointer trim"><span class="trim">{{scope.row.description}}</span></div>-->
-<!--				</el-popover>-->
-<!--			</template>-->
-<!--		</el-table-column>-->
-<!--		<el-table-column type="expand">-->
-<!--			<template slot-scope="props">-->
-<!--				<div class="description-block">-->
-<!--					<div v-for="(option, i) in props.row.options" :key="i">-->
-<!--						<el-button type="primary" plain icon="el-icon-check" @click="setRightOption(option.id, props.row.ID)" class="mr-6"/>-->
-<!--						<span>{{ option.description }}</span>-->
-<!--					</div>-->
-<!--				</div>-->
-<!--			</template>-->
-<!--		</el-table-column>-->
-<!--		<template slot="append">-->
-<!--			<el-button type="primary" class="mt-15" @click="loadNextPage">Загрузить еще...</el-button>-->
-<!--		</template>-->
-<!--	</el-table>-->
+<template>
 	
-	<section class="prediction-table">
+	<section class="predictions">
 		<div class="flex-table">
-			<ul class="head">
+			<ul class="head f-row">
 				<li class="id">ID</li>
 				<li class="date">Дата</li>
 				<li class="name">Название</li>
@@ -77,9 +21,6 @@
 
 	export default {
         name: "PollTable",
-		components: {
-			MugenScroll
-		},
 		props: ['prediction_type'],
 		watch: {
 			prediction_type() {
@@ -97,7 +38,7 @@
 				pollOptions: ({ options }) => options
 			}),
 
-			tableData() {
+			table_data() {
 				moment.locale('ru');
 				let { payload, polls, pollOptions } = this;
 				let map = [];
@@ -105,7 +46,7 @@
 				payload.forEach(({ID}, index) => {
 					let { subject: name, description, date, options_id } = polls[ID];
 
-					date = moment(date).format('LLL');
+					date = moment(date).format('l');
 
 					let options = [];
 					options_id.forEach((ID, i) => {
@@ -121,7 +62,7 @@
 					}
 				});
 
-				return map || {};
+				return map || [];
 			}
 		},
 		methods: {
@@ -150,41 +91,78 @@
 
 <style lang="scss">
 
-	.admin-wrapper .el-table {
-		overflow: visible !important;
-
-		* {
-			text-align: center !important;
-		}
-
-		.el-table__expanded-cell {
-			.description-block {
-				display: flex;
-				flex-wrap: wrap;
-				justify-content: space-around;
-
-				& > * {
-					margin: 10px 0;
-					padding-right: 6px;
-					border: 1px solid #b7d5e1;
-					border-radius: 12px;
-					.el-button {
-						border: 1px solid #b7d5e1;
-						border-radius: 12px;
-					}
+	.predictions {
+		/*flex: 1;*/
+		width: 100%;
+		position: relative;
+		padding: 0 20px;
+		
+		.flex-table {
+			position: relative;
+			height: 100%;
+			width: 100%;
+			background: #fff;
+			border-radius: 6px;
+			padding: 20px;
+			
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			
+			.head {
+				font-family: Roboto;
+				font-style: normal;
+				font-weight: normal;
+				font-size: 18px;
+				color: #FEFEFE;
+				
+				li {
+					border-radius: 6px;
+					background: #4B97B4;
+					margin-right: 3px;
 				}
 			}
+			
+			.f-row {
+				display: flex;
+				width: 100%;
+				
+				li {
+					flex: 1;
+					padding: 10px 5px;
+					text-align: center;
+					
+					&:last-of-type {
+						border: none;
+					}
+				}
+				
+				.id {
+					flex: 0 0 60px;
+				}
+				
+				.date {
+					flex: 0 0 180px;
+				}
+				
+				.name {
+					flex: 4 0;
+				}
+				
+				.dropdown {
+					flex: 0 0 auto;
+				}
+			}
+			
+			.crimson {
+				background: crimson;
+			}
+			
+			.yellow {
+				background: #ffffad;
+			}
 		}
-
-	}
-
-	.loading-spinner {
-		width: 100%;
-		height: 80px;
-
-		* {
-			background-color: transparent;
-		}
+		
 	}
 
 

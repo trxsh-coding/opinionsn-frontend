@@ -1,5 +1,5 @@
 <template>
-	<div class="admin-page">
+	<div class="admin-page py-10">
 		
 		<ul class="menu p-12 flex-column">
 			<li @click="$router.push({ name: 'addTranslations' })" class="title px-10">Добавить переводы</li>
