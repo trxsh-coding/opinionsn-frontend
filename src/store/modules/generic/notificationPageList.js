@@ -87,13 +87,13 @@ export const notificationPageList = (sc, listUrl) => class extends sc {
 
     getNotificationPoll({commit, dispatch}, payload={}){
         let body = payload;
-        let {customUrl = `${process.env.VUE_APP_MAIN_API}/rest/v1/info/poll/notification`, data=body, method=`post`} = payload;
+        let {customUrl = `${process.env.VUE_APP_MAIN_API}/rest/v1/info/poll/missing`, data=body, method=`post`} = payload;
         sc.apiRequest(customUrl, data,{commit, dispatch, onSuccess:`appendToStore`, successType: `action`}, method);
     }
 
     getNotificationInitiator({commit, dispatch}, payload={}){
         let body = payload;
-        let {customUrl = `${process.env.VUE_APP_MAIN_API}/rest/v1/info/user/notification`, data=body, method=`post`, } = payload;
+        let {customUrl = `${process.env.VUE_APP_MAIN_API}/rest/v1/info/user/missing`, data=body, method=`post`, } = payload;
         sc.apiRequest(customUrl, data,{commit, dispatch, onSuccess: `appendToStore`, successType: `action`}, method);
 
     };
