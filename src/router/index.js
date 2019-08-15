@@ -94,8 +94,8 @@ export const index = new Router({
 					component: addTranslations
 				},
 				{
-					path: 'polls/:poll_type',
-					name: 'polls',
+					path: 'predictionsTable/:prediction_type',
+					name: 'predictionsTable',
 					component: PollTable,
 					props: true
 				},

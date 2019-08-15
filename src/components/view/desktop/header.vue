@@ -63,11 +63,11 @@
 						rounded/>
 				<dropdown-list-reusable
 						click-close
+						:icon="false"
 						list-class="nav-menu p-0 py-10">
-					<template #icon>
+					<template>
 						<icon-base
 								fill="none"
-								class="mr-25"
 								width="7"
 								height="4"
 								viewBox="0 0 7 4"

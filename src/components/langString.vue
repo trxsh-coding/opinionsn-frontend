@@ -8,6 +8,7 @@ import { mapState } from 'vuex';
 import {localString} from "../utils/localString";
 
 export default {
+  name: "LangString",
   data(){
     return {
     }

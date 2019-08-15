@@ -82,15 +82,19 @@
 <!--            -->
 <!--        </div>-->
         
-        <dropdown-list-reusable class="lang-switch br-6 v-center mt-9" width="100%" with-arrow>
+        <dropdown-list-reusable
+                class="lang-switch br-6 v-center mt-9"
+                list-class="drop-list"
+                width="100%"
+                with-arrow>
             <template>
                 <lang-string title="choose_language" />
             </template>
             
             <template #items>
                 <ul class="flex-column">
-                    <li @click="changeLanguage(1)" class="py-5 pr-10 pointer v-center"><span>English</span></li>
-                    <li @click="changeLanguage(2)" class="mt-5 py-5 pr-10 pointer v-center"><span>Русский</span></li>
+                    <li @click="changeLanguage(1)" class="option py-5 pr-10 pointer v-center"><span>English</span></li>
+                    <li @click="changeLanguage(2)" class="option mt-5 py-5 pr-10 pointer v-center"><span>Русский</span></li>
                 </ul>
             </template>
         </dropdown-list-reusable>
@@ -175,6 +179,12 @@
                 font-family: Roboto;
                 font-size: 13px;
                 color: #1A1E22;
+            }
+            
+            .drop-list {
+                .option:hover {
+                    background: #ebecef;
+                }
             }
             
             .toggle-btn {

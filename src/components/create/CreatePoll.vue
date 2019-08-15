@@ -165,7 +165,7 @@
                 <switch-component
                         class="mb-16"
                         type="button"
-                        :height="11"
+                        :height="12"
                         :width="20"
                         :bor-rad="18"
                         color="#FFFFFF"
