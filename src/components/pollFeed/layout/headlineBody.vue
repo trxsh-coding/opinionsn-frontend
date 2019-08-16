@@ -16,7 +16,9 @@
         <swiper-carousel :with-pagination="poll.urlPhotos.length > 1" v-else :amount-of-slides="1"  :space-between="10" :without-breakpoints="true"  >
             <template #swiperAnnotation>
                 <swiper-slide v-for="picture in poll.urlPhotos">
-                    <subject-picture  :img="publicPath + picture" width="100%" only-picture :height="mobile ? 190 : 303" textLayout="right" bor-rad="6"/>
+                    <reusable-modal >
+                        <subject-picture  :img="publicPath + picture" width="100%" only-picture :height="mobile ? 190 : 303" textLayout="right" bor-rad="6"/>
+                    </reusable-modal>
                 </swiper-slide>
             </template>
         </swiper-carousel>
@@ -31,6 +33,7 @@
     import bowsPanel from './involvedUsersPanel'
     import SwiperCarousel from "../../reusableСomponents/swiperCarousel";
     import TextTrim from "../../reusableСomponents/textTrim";
+    import ReusableModal from "../../reusableСomponents/reusableModal";
 
     export default {
         name: "headlineBody",
@@ -43,6 +46,7 @@
             }
         },
         components: {
+            ReusableModal,
             TextTrim,
             subjectPicture,
             bowsPanel,

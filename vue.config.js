@@ -32,6 +32,7 @@ module.exports = {
 			}
 		}
 	},
+
 	pwa: {
 		name: "OpinionSN",
 		themeColor: "#4b97b4",

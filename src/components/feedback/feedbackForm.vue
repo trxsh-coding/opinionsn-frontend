@@ -31,16 +31,20 @@
 					<span class="insert-pic-span">Прикрепить изображения</span>
 					<div class="picture-section flex">
 						<upload-reusable
+								@remove="onPictureRemove(index)"
+								with-close-btn
+								v-for="(picture, index) in pictures"
+								:key="index"
 								class="pr-15"
 								description
 								image-preview
 								pre-width="60"
 								:pre-height="60"
-								:value="pictures"
+								:value="picture.picture"
 								@upload="({file}) => {updateArrayPictures(file, index)}">
 
 						</upload-reusable>
-						<add-reusable class="mt-15"/>
+						<add-reusable class="mt-15" @click.native="addMorePictures"/>
 					</div>
 					<button-reusable
 							class="v-center auth-btn mt-9 py-13 w-fit h-fit pl-3 pr-3"
@@ -131,7 +135,11 @@
 		components: {AddReusable, AddOptionBlock, UploadReusable, IconBase, IconUpload, ButtonReusable, InputReusable},
 		data() {
 			return {
-				pictures: [],
+				pictures: [
+					{
+						picture: null,
+					},
+				],
 				feedbackForm: {
 					email: "",
 					description: ""
@@ -139,6 +147,18 @@
 			};
 		},
 		methods: {
+			onPictureRemove(index){
+				this.pictures.splice(index, 1)
+			},
+			addMorePictures(){
+				if(this.pictures.length < 6) {
+					this.pictures.push({
+						picture: null,
+						imgUrl: ''
+					})
+				}
+
+			},
 			handlePreview(file) {
 				this.pictures.push(file);
 			},
@@ -163,7 +183,6 @@
 					.then(response => {
 						console.log(response.status);
 						if (response.status === 200) {
-							this.loading = false;
 
 							this.pictures = [];
 							this.feedbackForm = {
@@ -173,7 +192,6 @@
 						}
 					})
 					.catch(() => {
-						this.loading = false;
 
 						this.pictures = [];
 						this.feedbackForm = {
@@ -217,6 +235,7 @@
 		}
 
 		.form {
+			border-radius: 6px;
 			margin-top: 15px;
 			background: #FFFFFF;
 			padding: 15px;
@@ -245,6 +264,7 @@
 		}
 
 		.soc-media {
+			border-radius: 6px;
 			margin: 0;
 			width: max-content;
 			padding-left: 15px;
