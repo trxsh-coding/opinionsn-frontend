@@ -14,59 +14,98 @@
 					description="notifications"
 					:active="true"
 			/>
+			<grouped-notification
 
+					v-for="notifications in filtered_messages.today "
+					:items="notifications"
+			/>
 			<div class="today flex-column flex-center" v-if="filtered_messages.today.length">
-				<notification-instance
-						class="notification-instance today pl-21"
-						v-for="(notification, index) in filtered_messages.today"
-						:notification="notification"
-						:key="index"
-				/>
-				<grouped-notification
 
-						v-for="notifications in filtered_messages.today "
-						:items="notifications"
-				/>
+				<div v-for="(notification, index) in filtered_messages.today">
+
+					<grouped-notification
+							v-if="Array.isArray(notification)"
+							:items="notification"
+					/>
+					<notification-instance
+							v-if="!Array.isArray(notification)"
+							class="notification-instance today pl-21"
+							:notification="notification"
+							:key="index"
+					/>
+				</div>
 			</div>
 
 			<div class="yesterday flex-column" v-if="filtered_messages.yesterday.length">
 				<lang-string class="title my-12 pl-60" title="yesterday"/>
-				<notification-instance
-						class="notification-instance yesterday pl-21"
-						v-for="(notification, index) in filtered_messages.yesterday"
-						:notification="notification"
-						:key="index"
-				/>
+
+				<div v-for="(notification, index) in filtered_messages.yesterday">
+
+					<grouped-notification
+							v-if="Array.isArray(notification)"
+							:items="notification"
+					/>
+					<notification-instance
+							v-if="!Array.isArray(notification)"
+							class="notification-instance yesterday pl-21"
+							:notification="notification"
+							:key="index"
+					/>
+				</div>
 			</div>
 
 			<div class="week flex-column" v-if="!!filtered_messages.week.length">
 				<lang-string class="title my-12 pl-60" title="week"/>
-				<notification-instance
-						class="notification-instance week pl-21"
-						v-for="(notification, index) in filtered_messages.week"
-						:notification="notification"
-						:key="index"
-				/>
+
+				<div v-for="(notification, index) in filtered_messages.week">
+
+					<grouped-notification
+							v-if="Array.isArray(notification)"
+							:items="notification"
+					/>
+					<notification-instance
+							v-if="!Array.isArray(notification)"
+							class="notification-instance week pl-21"
+							:notification="notification"
+							:key="index"
+					/>
+				</div>
 			</div>
 
 			<div class="month flex-column" v-if="!!filtered_messages.month.length">
 				<lang-string class="title my-12 pl-60" title="month"/>
-				<notification-instance
-						class="notification-instance month pl-21"
-						v-for="(notification, index) in filtered_messages.month"
-						:notification="notification"
-						:key="index"
-				/>
+
+				<div v-for="(notification, index) in filtered_messages.month">
+
+					<grouped-notification
+							v-if="Array.isArray(notification)"
+							:items="notification"
+					/>
+					<notification-instance
+							v-if="!Array.isArray(notification)"
+							class="notification-instance month pl-21"
+							:notification="notification"
+							:key="index"
+					/>
+				</div>
 			</div>
 
-			<div class="later flex-column" v-if="!!filtered_messages.month.length">
+			<div class="later flex-column" v-if="!!filtered_messages.later.length">
 				<lang-string class="title my-12 pl-60" title="later"/>
-				<notification-instance
-						class="notification-instance later pl-21"
-						v-for="(notification, index) in filtered_messages.later"
-						:notification="notification"
-						:key="index"
-				/>
+
+				<div v-for="(notification, index) in filtered_messages.later">
+
+					<grouped-notification
+							v-if="Array.isArray(notification)"
+							:items="notifications"
+					/>
+					<notification-instance
+							v-if="!Array.isArray(notification)"
+							class="notification-instance later pl-21"
+							:notification="notification"
+							:key="index"
+					/>
+				</div>
 			</div>
 
 			<loader-reusable class="mx-auto mt-auto" v-show="!loaded" />
@@ -272,7 +311,7 @@
 	}
 </script>
 
-<style lang="scss">
+<style lang="scss" >
 	.notificationWrapper {
 		width: 100%;
 
