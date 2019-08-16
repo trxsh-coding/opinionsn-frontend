@@ -21,7 +21,7 @@
                             v-if="notification.targetId"
                             @click="$router.push({ name: 'singlePoll', params: { id: notification.targetId } })"> "{{pollName}}"</span>
                 </span>
-                <time-trans class="date mt-4" :time="notification.date"/>
+                <time-trans class="date mt-4" transformed-time :time="notification.date"/>
                 <div class="notification-border mt-9"/>
             </template>
         </picture-reusable>
