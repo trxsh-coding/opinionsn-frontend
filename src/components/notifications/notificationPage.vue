@@ -22,6 +22,11 @@
 						:notification="notification"
 						:key="index"
 				/>
+				<grouped-notification
+
+						v-for="notifications in filtered_messages.today "
+						:items="notifications"
+				/>
 			</div>
 
 			<div class="yesterday flex-column" v-if="filtered_messages.yesterday.length">
@@ -34,7 +39,7 @@
 				/>
 			</div>
 
-			<div class="week flex-column" v-if="filtered_messages.week.length">
+			<div class="week flex-column" v-if="!!filtered_messages.week.length">
 				<lang-string class="title my-12 pl-60" title="week"/>
 				<notification-instance
 						class="notification-instance week pl-21"
@@ -44,7 +49,7 @@
 				/>
 			</div>
 
-			<div class="month flex-column" v-if="filtered_messages.month.length > 0">
+			<div class="month flex-column" v-if="!!filtered_messages.month.length">
 				<lang-string class="title my-12 pl-60" title="month"/>
 				<notification-instance
 						class="notification-instance month pl-21"
@@ -54,7 +59,7 @@
 				/>
 			</div>
 
-			<div class="later flex-column" v-if="filtered_messages.month.length > 0">
+			<div class="later flex-column" v-if="!!filtered_messages.month.length">
 				<lang-string class="title my-12 pl-60" title="later"/>
 				<notification-instance
 						class="notification-instance later pl-21"
@@ -85,10 +90,12 @@
 	import ElementScrollHandler from "../mixins/ElementScrollHandler";
 	import LoaderReusable from "../reusableСomponents/LoaderReusable";
 	import ButtonReusable from "../reusableСomponents/ButtonReusable";
+	import GroupedNotification from "./layout/groupedNotification";
 
 	export default {
 		name: "notificationPage",
 		components: {
+			GroupedNotification,
 			ButtonReusable,
 			LoaderReusable, NotificationInstance, feedBlock, langString
 		},
@@ -96,20 +103,22 @@
 			scrollDifference: Boolean
 		},
 		watch: {
-			scrolled_to_bottom(old) {
-				if (this.route_name === 'notifications') {
-					if (old === true) {
-						this.load();
-					}
-				}
-			},
-			scrollDifference(old) {
-				if (this.route_name !== 'notifications') {
-					if (old === true) {
-						this.load();
-					}
-				}
-			}
+			// scrolled_to_bottom(old) {
+			//
+			// 	if (this.route_name === 'notifications') {
+			// 		if (old === true && !this.loading) {
+			// 			console.log('===FIRED===');
+			// 			this.load();
+			// 		}
+			// 	}
+			// },
+			// scrollDifference(old) {
+			// 	if (this.route_name !== 'notifications') {
+			// 		if (old === true) {
+			// 			this.load();
+			// 		}
+			// 	}
+			// }
 		},
 		computed: {
 			
@@ -164,31 +173,83 @@
 				};
 
 				if (!!Object.keys(this.messages).length) {
-					
-					this.messages.forEach( ({date}, i) => {
+
+
+					function sortByDate(m) {
 						let today = parseInt(moment(new Date()).format('DDDD'), 10),
-							current = parseInt(moment(date).format('DDDD'), 10),
-							difference = today - current;
-						
+								current = parseInt(moment(m.date).format('DDDD'), 10),
+								difference = today - current;
+
 						switch (true) {
 							case difference === 0:
-								msgs.today.push(this.messages[i]);
+								msgs.today.push(m);
 								break;
 							case difference === 1:
-								msgs.yesterday.push(this.messages[i]);
+								msgs.yesterday.push(m);
 								break;
 							case difference > 1 && difference <= 7:
-								msgs.week.push(this.messages[i]);
+								msgs.week.push(m);
 								break;
 							case difference > 7 && difference <= 31:
-								msgs.month.push(this.messages[i]);
+								msgs.month.push(m);
 								break;
 							default:
-								msgs.later.push(this.messages[i]);
+								msgs.later.push(m);
 								break;
 						}
-					} );
-					
+					};
+
+					this.messages.forEach(m => { sortByDate(m) });
+
+					Object.keys(msgs).forEach(key => {
+
+						let sorted_msgs = msgs[key].sort(({initiatorId: a}, {initiatorId: b}) => {
+							if (a === b) {
+								return -1;
+							} else {
+								return 1;
+							}
+						});
+
+						let sorted_indexes = {};
+
+						if (!!sorted_msgs.length) {
+							sorted_msgs.reduce((a, b, index) => {
+
+								if (a.initiatorId === b.initiatorId) {
+									if (a.eventType === "VOTED" && b.eventType === "VOTED") {
+										if (!sorted_indexes[a.initiatorId]) sorted_indexes[a.initiatorId] = new Set();
+										sorted_indexes[a.initiatorId].add(index - 1);
+										sorted_indexes[a.initiatorId].add(index);
+									}
+								}
+
+								return b;
+							});
+
+							Object.values(sorted_indexes).reverse().forEach(set => {
+								set = Array.from(set);
+								let grouped_msgs = set.map(n => sorted_msgs[n]);
+								sorted_msgs.splice(set[0], set.length, grouped_msgs)
+								sorted_msgs[set[0]] = grouped_msgs;
+							});
+
+							// sorted_indexes = Object.values(sorted_indexes).map(set => Array.from(set));
+							//
+							// sorted_indexes.forEach(set => {
+							// 	sorted_msgs[set[0]] = set.map(n => sorted_msgs[n]);
+							// });
+							//
+							// sorted_indexes.forEach(set => {
+							// 	sorted_msgs.splice(set[1], set.length - 1)
+							// })
+
+						}
+
+						msgs[key] = sorted_msgs;
+
+					});
+
 				}
 
 				return msgs;
@@ -197,6 +258,7 @@
 		methods: {
 
 			load() {
+				console.log('FIRED')
 				this.$store.dispatch('notificationPage/list', {customUrl: `${process.env.VUE_APP_NOTIFICATION_API}/notification/${this.page}`});
 			},
 

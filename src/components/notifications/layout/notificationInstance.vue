@@ -1,6 +1,6 @@
 <template>
     <div
-            v-show="!!pollName"
+            v-if="!!notification.initiatorId && !!notification.targetId && !!pollName"
             class="notification-section pt-9 pr-13">
         <picture-reusable
                 pic-class="mr-18 pointer"
@@ -15,16 +15,17 @@
                     {{author.username}}
                 </span>
                 <span class="event__item">
-                    <lang-string class="event-span lowercase" :title="eventCaption" />
+                    <lang-string class="event-span lowercase" :title="eventCaption"/>
                     <span
                             class="poll-name pointer"
                             v-if="notification.targetId"
                             @click="$router.push({ name: 'singlePoll', params: { id: notification.targetId } })"> "{{pollName}}"</span>
                 </span>
-                <time-trans class="date mt-4" :time="notification.date" />
-                <div class="notification-border mt-9" />
+                <time-trans class="date mt-4" :time="notification.date"/>
+                <div class="notification-border mt-9"/>
             </template>
         </picture-reusable>
+
     </div>
 </template>
 
@@ -39,8 +40,8 @@
     export default {
         name: "notificationInstance",
         components: {ButtonReusable, TimeTrans, PictureReusable, langString},
-        props:['notification', 'index'],
-        mixins:[imageMixin],
+        props: ['notification'],
+        mixins: [imageMixin],
         data() {
             return {
                 publicPath: process.env.VUE_APP_MAIN_API
@@ -55,31 +56,31 @@
             }),
 
 
-            author(){
+            author() {
                 let {users, notification} = this;
 
                 return users[notification.initiatorId]
             },
-            pollName(){
+            pollName() {
                 let {polls, notification} = this;
                 if (!polls[notification.targetId]) return false;
-                return  polls[notification.targetId].subject;
+                return polls[notification.targetId].subject;
             },
-            pollType(){
+            pollType() {
                 let {notification, polls} = this;
                 if (!polls[notification.targetId]) return '';
 
                 switch (polls[notification.targetId].type_of_poll) {
                     case 1 :
-                        return 'prediction' ;
+                        return 'prediction';
                     case 0 :
                         return 'poll';
                     default :
-                        return 'poll' ;
+                        return 'poll';
                 }
 
             },
-            eventCaption(){
+            eventCaption() {
                 let {notification, polls} = this;
 
                 switch (notification.eventType) {
@@ -122,6 +123,7 @@
             font-size: 13px;
             color: #1A1E22;
         }
+
         .event-span {
             font-family: Roboto;
             font-style: normal;
@@ -129,6 +131,7 @@
             font-size: 13px;
             color: #76787A;
         }
+
         .picture-reusable {
             justify-content: flex-start;
             align-items: end;
@@ -140,9 +143,11 @@
             }
 
             .title {
+                min-height: 47px;
                 width: 100% !important;
             }
         }
+
         .poll-name {
 
             font-family: Roboto;
@@ -153,6 +158,7 @@
 
 
         }
+
         .date {
             font-family: Roboto;
             font-style: normal;

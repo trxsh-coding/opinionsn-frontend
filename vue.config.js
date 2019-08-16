@@ -9,6 +9,7 @@ module.exports = {
 		// http-proxy --port 3012 /messages=http://192.168.1.60:7071 /api=http://192.168.1.60:7070 /assets=http://192.168.1.60:7070/assets 8080 -v
 		// http-proxy --port 3012 /messages=http://192.168.1.51:7071 /api=http://192.168.1.51:7070 /assets=http://192.168.1.51:7070/assets 8080 -v
 		https:false,
+
 		proxy: {
 			'/api': {
 				target: 'http://192.168.1.51:7070/',

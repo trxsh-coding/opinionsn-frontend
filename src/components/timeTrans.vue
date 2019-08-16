@@ -8,6 +8,7 @@
 </template>
 
 <script>
+    import {localString} from "../utils/localString";
     import moment from 'moment'
     import langMixin from './mixins/langMixin'
     import {mapState} from 'vuex'
@@ -68,19 +69,52 @@
                 let isToday = now.format("YYYYMMDD") === mTime.format("YYYYMMDD");
 
                 const daysDiff = now.diff(mTime, 'days');
+                const secondsDiff = now.diff(mTime, 'seconds');
 
                 const relTime = mTime.fromNow('mm');
                 const relTimeParts = relTime.split(' ');
                 let text;
 
+
+                if (secondsDiff < 30) return this.lstr('now');
+
+                /**
+                 * Возвращает сокращенный вариант времени с учётом минут и месяцев
+                 * @param title
+                 * @param count
+                 * @returns {string|string}
+                 */
+                const getText = (title,count) => {
+                  const titles = {
+                      'minute': x=>`${x}min`,
+                      'минут' : x=>`${x}мин`,
+                      'now': x=>`now`,
+                      'сейчас': x=>`щас`
+                  };
+
+                  for (const [src, target] of Object.entries(titles)){
+
+                      if (title.toLowerCase().indexOf(src) !== -1){
+                          return target(count);
+                      }
+
+                  }
+
+                  return `${count}${title.substring(0,1)}`;
+
+                };
+
                 if (relTimeParts.length > 1){
                     const [count, title] = relTime.split(' ');
-                    text = `${isNaN(Number(count)) ? '1' : count}${title.substring(0,1)}`;
-                } else if (relTime.length === 0){
-                    text = 'now'
+
+
+                    text = getText(title, isNaN(Number(count)) ? '1' : count);
                 }
+
                 else {
-                    text = `${relTime.substr(0, 1).toUpperCase()}${relTime.substr(1, relTime.length)}`;
+
+                    text = getText(relTime, 1);
+                    //text = `${relTime.substr(0, 1).toUpperCase()}${relTime.substr(1, relTime.length)}`;
                 }
 
 
