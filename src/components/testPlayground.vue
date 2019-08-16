@@ -53,6 +53,7 @@
 
 		<hr>
 
+	 
 
 		<div class="test-wrapper">
 <!--			<explanation-reusable :explain="explain" :comments="comments"></explanation-reusable>-->
@@ -64,7 +65,7 @@
 			<circle-progress-bar-reusable :percent="100" bar-size="5" :size="78"/>
 		</div>
 
-	    <div class="crimson-div pointer mb-20" @click="executeTimeout"></div>
+	    <div class="crimson-div pointer mb-20" @click="createPopup"></div>
 	    <div class="blue-div pointer mb-20" @click="showTimerId"></div>
 	    
 	    <div class="green-div pointer mb-20" @click="getUserRating"></div>
@@ -84,7 +85,7 @@
 </template>
 
 <script>
-
+	import { Message } from 'element-ui';
 	import { mapState } from 'vuex';
     import PictureReusable from "./reusableСomponents/PictureReusable";
 	import OptionReusable from "./reusableСomponents/OptionReusable";
@@ -124,6 +125,7 @@
 		},
 		data() {
 			return {
+				message: undefined,
 				timer_id: null,
 				statistic: undefined,
 				textarea_value: '',
@@ -183,6 +185,10 @@
 
 		},
 		methods: {
+			
+			createPopup() {
+				document.querySelector('#app').appendChild(this.$el);
+			},
 
         	executeTimeout() {
 		        let runTimeout = () => {
@@ -224,7 +230,7 @@
 	}
 </script>
 
-<style scoped lang="scss">
+<style lang="scss">
 	.wrapper-box {
 		width: 100%;
 

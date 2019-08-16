@@ -11,21 +11,21 @@ module.exports = {
 		https:false,
 		proxy: {
 			'/api': {
-				target: 'http://192.168.1.60:7070/',
+				target: 'http://192.168.1.51:7070/',
 				pathRewrite: {'^/api': ''},
 				changeOrigin: true,
 				secure: false
 			},
 
 			'/messages': {
-				target: 'http://192.168.1.60:7071/',
+				target: 'http://192.168.1.51:7071/',
 				pathRewrite: {'^/messages': ''},
 				changeOrigin: true,
 				secure: false
 			},
 
 			'/assets': {
-				target: 'http://192.168.1.60:7070/assets/',
+				target: 'http://192.168.1.51:7070/assets/',
 				changeOrigin: true,
 				secure: false
 			}
