@@ -103,22 +103,21 @@
 			scrollDifference: Boolean
 		},
 		watch: {
-			// scrolled_to_bottom(old) {
-			//
-			// 	if (this.route_name === 'notifications') {
-			// 		if (old === true && !this.loading) {
-			// 			console.log('===FIRED===');
-			// 			this.load();
-			// 		}
-			// 	}
-			// },
-			// scrollDifference(old) {
-			// 	if (this.route_name !== 'notifications') {
-			// 		if (old === true) {
-			// 			this.load();
-			// 		}
-			// 	}
-			// }
+			scrolled_to_bottom(old) {
+
+				if (this.route_name === 'notifications') {
+					if (old === true && !this.loading) {
+						this.load();
+					}
+				}
+			},
+			scrollDifference(old) {
+				if (this.route_name !== 'notifications') {
+					if (old === true) {
+						this.load();
+					}
+				}
+			}
 		},
 		computed: {
 			
@@ -203,8 +202,8 @@
 
 					Object.keys(msgs).forEach(key => {
 
-						let sorted_msgs = msgs[key].sort(({initiatorId: a}, {initiatorId: b}) => {
-							if (a === b) {
+						let sorted_msgs = msgs[key].sort((a, b) => {
+							if (a.initiatorId === b.initiatorId && a.eventType === b.eventType) {
 								return -1;
 							} else {
 								return 1;
@@ -226,9 +225,10 @@
 
 								return b;
 							});
-
+							
 							Object.values(sorted_indexes).reverse().forEach(set => {
 								set = Array.from(set);
+								// console.log("test", set);
 								let grouped_msgs = set.map(n => sorted_msgs[n]);
 								sorted_msgs.splice(set[0], set.length, grouped_msgs)
 								sorted_msgs[set[0]] = grouped_msgs;
@@ -266,7 +266,7 @@
 
 		mounted() {
 			this.$store.dispatch('notificationPage/readInitialNotifications');
-			this.load();
+			if (!this.scrolled_to_bottom) this.load();
 		}
 
 	}

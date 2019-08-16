@@ -1,6 +1,6 @@
 <template>
     <div
-            v-if="!!notification.initiatorId && !!notification.targetId && !!pollName"
+            v-if="!!notification && !!notification.initiatorId && !!notification.targetId && !!pollName"
             class="notification-section pt-9 pr-13">
         <picture-reusable
                 pic-class="mr-18 pointer"
@@ -15,7 +15,7 @@
                     {{author.username}}
                 </span>
                 <span class="event__item">
-                    <lang-string class="event-span lowercase" :title="eventCaption"/>
+                    <lang-string v-if="eventCaption" class="event-span lowercase" :title="eventCaption"/>
                     <span
                             class="poll-name pointer"
                             v-if="notification.targetId"
@@ -63,11 +63,14 @@
             },
             pollName() {
                 let {polls, notification} = this;
+                
                 if (!polls[notification.targetId]) return false;
+                
                 return polls[notification.targetId].subject;
             },
             pollType() {
                 let {notification, polls} = this;
+    
                 if (!polls[notification.targetId]) return '';
 
                 switch (polls[notification.targetId].type_of_poll) {
@@ -82,7 +85,7 @@
             },
             eventCaption() {
                 let {notification, polls} = this;
-
+                
                 switch (notification.eventType) {
                     case "NEW_POLL":
                         return "created_new_poll";
