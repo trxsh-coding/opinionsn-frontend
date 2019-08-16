@@ -1,7 +1,7 @@
 <template>
     <div
             v-if="!!notification && !!notification.initiatorId && !!notification.targetId && !!pollName"
-            class="notification-section pt-9 pr-13">
+            class="notification-block pt-9 pr-13">
         <picture-reusable
                 pic-class="mr-18 pointer"
                 avatar
@@ -118,7 +118,7 @@
 </script>
 
 <style lang="scss">
-    .notification-section {
+    .notification-block {
         .author-name {
             font-family: Roboto;
             font-style: normal;
