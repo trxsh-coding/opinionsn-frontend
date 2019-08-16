@@ -43,6 +43,7 @@
 					</icon-base>
 					<template #items>
 						<notification-page
+								v-if="!mobile && $route.name !== 'notifications'"
 								:scrollDifference="listScrollDifference"/>
 					</template>
 				</dropdown-list-reusable>
@@ -118,7 +119,8 @@
 			return {
 				publicPath: process.env.VUE_APP_MAIN_API,
 				listScrollDifference: null,
-				keyword: ''
+				keyword: '',
+				mobile: this.$root.mobile
 			}
 		},
 		computed: {

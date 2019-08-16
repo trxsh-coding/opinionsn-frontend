@@ -52,7 +52,7 @@ export const notificationPageList = (sc, listUrl) => class extends sc {
 
     setLoading(state, payload) {
 
-        state.spinner = payload;
+        state.loading = payload;
 
     }
 

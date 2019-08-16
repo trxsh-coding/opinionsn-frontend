@@ -6,7 +6,7 @@ export default {
 	},
 	methods: {
 		setScrollDifference(ref, loader_height, emit_string = null, root) {
-			loader_height = loader_height ? loader_height : 0;
+			loader_height = loader_height ? loader_height : 50;
 			let scrollTop = root ? window.scrollY : ref.scrollTop;
 			let scroll_difference = scrollTop + ref.offsetHeight - ref.scrollHeight;
 			let scrolled_to_bottom = scroll_difference >= -loader_height;
