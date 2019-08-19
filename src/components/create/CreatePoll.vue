@@ -393,7 +393,6 @@
 
 	                this.$store.dispatch('formManagment/SUBMIT_POLL_FORM', this.mainUser.id)
 		                .then(poll_id => {
-			
 			                if (pollForm.type_of_poll === 2) {
 				                createForecast(poll_id, pollForm.subject, pollForm.fund, this.mainUser.id)
 					                .then(() => console.log("EOSIO forecast created"));
