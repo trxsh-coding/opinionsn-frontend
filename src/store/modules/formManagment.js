@@ -122,7 +122,7 @@ export const formManagment = {
                    imgUrl: ''
                })
            } else {
-               this.$popup.insert('messages', [{message: '12 фотографий максимум', type: 'error'}]);
+               vueApp.$popup.insert('messages', [{message: '12 фотографий максимум', type: 'warning'}]);
            }
         },
         [DELETE_OPTION](state, index){
