@@ -17,7 +17,9 @@
                         :active="type === 'POLL'"
                         @click.native="setTypeOfCreation('POLL')"
                 />
+                
                 <button-reusable
+                        v-if="mainUser.authorities === 'ADMIN'"
                         :active-font-size="20"
                         :font-size="15"
                         bg-color="#ffffff"
@@ -175,6 +177,7 @@
                         :inactive-description="lstr('OFF_CHAIN')"
                         text-layout="right"
                 />
+                
                 <switch-component
                         class="mb-18"
                         :boolean="withDate"
