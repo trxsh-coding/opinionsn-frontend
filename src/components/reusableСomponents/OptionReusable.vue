@@ -38,11 +38,10 @@
 		
 		<div
 				class="option-wrapper"
-				:class="{'pointer': !voted, 'with-button': mainUser.authorities === 'ADMIN' && type_of_poll !== 0}"
-				@click="selectOption(id)">
+				:class="{'pointer': !voted, 'with-button': mainUser.authorities === 'ADMIN' && type_of_poll !== 0}">
 				<div v-if="picture && picture.slice(-4) !== 'null'" class="picture" :style="pictureStyle" @click="onPictureClick"></div>
 
-			<div class="option" :style="optionStyle">
+			<div class="option" :style="optionStyle" @click="selectOption(id)">
 
 			<span class="text">
 				<slot></slot>
