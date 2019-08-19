@@ -141,6 +141,7 @@
     import {finishEvent} from "@/EOSIO/eosio_impl";
     import {addCourt} from "../../EOSIO/eosio_impl";
     import ReusableModal from "../reusableСomponents/reusableModal";
+    import {addCourt, addjudge} from "../../EOSIO/eosio_impl";
 
     const pad = (num, len = 2, char = '0') => {
         let init = `${num}`;
@@ -331,16 +332,21 @@
                 } else if (duration > 1 && duration.asHours() < 24) {
                     let output = `${pad(duration.hours())}:${pad(duration.minutes())}:${pad(duration.seconds())}`
                     this.currentTime = output;
-
                 } else {
-
-                    if (this.pollType === 2)
-                        finishEvent(this.pollId)
-                            .then(this.currentTime = this.lstr('end'))
-                            .then(() => addCourt(this.pollId, 1, this.fund)
-									.then(() => "EOSIO Court Added"))
-								.catch(err => console.log)
-                    this.currentTime = this.lstr('end')
+                    if (this.poll.type_of_poll === 2 && !this.poll)
+                        finishEvent(this.poll.id)
+                            .then(() => console.log(this.poll.id))
+                            .then(() => {this.currentTime = this.lstr('end')})
+                            .then(() => addCourt(this.poll.id, 1, this.poll.fund))
+                            .then(() => console.log("EOSIO Court Added"))
+                            .then(() => addCourt(this.poll.id, 1, this.poll.fund))
+                            .then(() => console.log("Court created"))
+                            .then(() => addjudge(this.poll.id, this.mainUser.id))
+                            .then(() => {this.poll.finished = true})
+                            .catch(err => console.log(err));
+                    else {
+                        this.currentTime = this.lstr('end')
+                    }
                 }
 
                 return this.currentTime;
@@ -373,7 +379,6 @@
 
         },
         mounted() {
-            this.getTime();
             this.procid = setInterval(() => {
                 this.getTime()
             }, 1 * 1000);

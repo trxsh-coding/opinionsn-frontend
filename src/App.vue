@@ -1,22 +1,28 @@
 <template>
 	<div id="app">
+		<popup-notifications id="popup-notifications" />
 		<router-view/>
 	</div>
 </template>
 
 <script>
 	import ElementScrollHandler from "./components/mixins/ElementScrollHandler";
+	import PopupNotifications from "@/components/PopupNotifications";
+	import Vue from 'vue'
 	
 	export default {
+		components: {PopupNotifications},
 		mixins: [ElementScrollHandler],
 		methods: {
 			scrollEventFunc() {
 				this.setScrollDifference(document.documentElement, 0, null, true)
 			}
 		},
+		
 		mounted() {
 			document.addEventListener('scroll', this.scrollEventFunc);
 		},
+		
 		beforeDestroy() {
 			document.removeEventListener('scroll', this.scrollEventFunc);
 		}
@@ -28,6 +34,7 @@
 	
 	#app {
 		
+		position: relative;
 		
 		@media screen and (max-width: 500px) {
 			
@@ -37,6 +44,14 @@
 				width: 0 !important;
 				height: 0 !important;
 			}
+		}
+		
+		#popup-notifications {
+			position: fixed;
+			top: 20px;
+			left: 50%;
+			transform: translateX(-50%);
+			z-index: 9999999;
 		}
 		
 	}

@@ -2,7 +2,6 @@
 node_modules
 /dist
 platforms
-plugins
 vuex
 /www
 

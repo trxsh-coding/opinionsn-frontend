@@ -28,11 +28,13 @@ import browserDetect from "vue-browser-detect-plugin";
 import * as firebase from "firebase";
 import DatePick from 'vue-date-pick';
 import 'vue-date-pick/dist/vueDatePick.css';
+import PopupPlugin from "./plugins/PopupPlugin";
+
 
 Vue.use(DatePick);
 Vue.use(browserDetect);
 Vue.use(VueAwesomeSwiper);
-Vue.use(VueTextareaAutosize)
+Vue.use(VueTextareaAutosize);
 Vue.use(PerfectScrollbar);
 Vue.use(VueTheMask);
 Vue.use(Croppa);
@@ -40,6 +42,9 @@ Vue.use(NProgress);
 locale.use(langRu);
 Vue.use(VueI18n);
 Vue.use(moment);
+Vue.use(PopupPlugin, {
+	store: new PopupPlugin.Store()
+});
 //*****************
 
 const i18n = new VueI18n({
@@ -108,7 +113,8 @@ export const vueApp = new Vue({
 			scroll_top: null,
 			timer_id: null,
 			timer_duration: 0,
-			temp_selected_option: null
+			temp_selected_option: null,
+			popup_notifications: []
 		}
 	},
 	mixins: [ElementScrollHandler],

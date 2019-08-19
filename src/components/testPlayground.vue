@@ -1,5 +1,83 @@
 <template>
     <div class="wrapper-box">
+	
+	    <template v-for="n in 2">
+		    <div class="popup-notify error mb-10">
+			    <icon-base
+					    class="mb-auto"
+					    fill="#3d3d3d"
+					    width="20"
+					    height="20"
+					    viewBox="0 0 174.239 174.239"
+					    icon-name="icon-error">
+				    <icon-error />
+			    </icon-base>
+			
+			    <span class="ml-10 mr-8">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Adipisci, ipsa!</span>
+			
+			    <icon-base
+					    class="mb-auto"
+					    fill="none"
+					    stroke="#3d3d3d"
+					    width="20"
+					    height="20"
+					    viewBox="0 0 19 19"
+					    icon-name="close">
+				    <icon-cross/>
+			    </icon-base>
+		    </div>
+		
+		    <div class="popup-notify success mb-10">
+			    <icon-base
+					    class="mb-auto"
+					    fill="#3d3d3d"
+					    width="20"
+					    height="20"
+					    viewBox="0 0 512 512"
+					    icon-name="icon-success">
+				    <icon-success />
+			    </icon-base>
+			
+			    <span class="ml-10 mr-8">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Autem est molestiae quas quidem recusandae?</span>
+			
+			    <icon-base
+					    class="mb-auto"
+					    fill="none"
+					    stroke="#3d3d3d"
+					    width="20"
+					    height="20"
+					    viewBox="0 0 19 19"
+					    icon-name="close">
+				    <icon-cross/>
+			    </icon-base>
+		    </div>
+		
+		    <div class="popup-notify warning mb-10">
+			    <icon-base
+					    class="mb-auto"
+					    fill="#3d3d3d"
+					    width="20"
+					    height="20"
+					    viewBox="0 0 330 330"
+					    icon-name="icon-warning">
+				    <icon-warning />
+			    </icon-base>
+			
+			    <span class="ml-10 mr-8">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Architecto magnam quibusdam sed? Cupiditate id illum sit.</span>
+			
+			    <icon-base
+					    class="mb-auto"
+					    fill="none"
+					    stroke="#3d3d3d"
+					    width="20"
+					    height="20"
+					    viewBox="0 0 19 19"
+					    icon-name="close">
+				    <icon-cross/>
+			    </icon-base>
+		    </div>
+	    </template>
+	    
 
 		<option-reusable :percentage="55" :bows="bows" correct :picture="picture" :id="123" @selectOption="selectOption">
 			<template>
@@ -66,7 +144,7 @@
 		</div>
 
 	    <div class="crimson-div pointer mb-20" @click="createPopup"></div>
-	    <div class="blue-div pointer mb-20" @click="showTimerId"></div>
+	    <div class="blue-div pointer mb-20" @click="removePopup"></div>
 	    
 	    <div class="green-div pointer mb-20" @click="getUserRating"></div>
 
@@ -102,6 +180,11 @@
 	import SwitchComponent from "./reusableСomponents/switchComponent";
 	import LoaderReusable from "./reusableСomponents/LoaderReusable";
 	import SwiperReusable from "@/components/reusableСomponents/swiperReusable";
+	import IconWarning from "./icons/IconWarning";
+	import IconError from "./icons/IconError";
+	import IconSuccess from "./icons/IconSuccess";
+	import IconCross from "./icons/IconCross";
+	
 	import axios from "axios";
 	
 	export default {
@@ -121,7 +204,11 @@
 			OptionReusable,
 			IconBase,
 			IconDropArrow,
-			loadingSpinner
+			loadingSpinner,
+			IconWarning,
+			IconError,
+			IconSuccess,
+			IconCross
 		},
 		data() {
 			return {
@@ -187,7 +274,11 @@
 		methods: {
 			
 			createPopup() {
-				document.querySelector('#app').appendChild(this.$el);
+				this.$popup.insert('messages', {message: 'ОШИБКА!!!', type: 'warning'});
+			},
+			
+			removePopup() {
+				this.$popup.clear('messages');
 			},
 
         	executeTimeout() {
@@ -233,6 +324,30 @@
 <style lang="scss">
 	.wrapper-box {
 		width: 100%;
+		
+		.popup-notify {
+			width: 380px;
+			min-height: 48px;
+			border-radius: 6px;
+			padding: 15px 10px;
+			display: flex;
+			align-items: center;
+			word-break: break-all;
+			color: #3d3d3d;
+			
+			&.error {
+				background: #ff000026;
+			}
+			
+			&.success {
+				background: #00ff2b26;
+			}
+			
+			&.warning {
+				background: #fafa0026;
+			}
+			
+		}
 
 		.crimson-div {
 			width: 40px;
@@ -241,8 +356,8 @@
 		}
 
 		.blue-div {
-			position: fixed;
-			left: 20%;
+			/*position: fixed;*/
+			/*left: 20%;*/
 			width: 40px;
 			height: 40px;
 			background-color: blue;
