@@ -16,6 +16,9 @@
                     icon-name="close">
                 <icon-close/>
             </icon-base>
+        <div class="modal-overlay">
+
+        </div>
         <div class="modal-wrapper" v-if="hideModal">
             <div class="modal-window">
                 <div class="picture-description" v-if="description">
