@@ -9,34 +9,39 @@
             </template>
         </post-header>
         <headline-body :poll="poll" :item="item"/>
-        <options-section
-                @click.native="options_visible = true"
-                :optionsVisible="(combinedOptions.length <= 5) || options_visible"
-                :access-check="pollAccessCheck"
-                v-for="(option, index) in combinedOptions"
-                v-show="options_visible || index < 5"
-                :bows="option.bows"
-                class="mt-12"
-                :id="option.id"
-                :percentage="voted && option.voted_percentage"
-                :type_of_poll="poll.type_of_poll"
-                :poll_id="poll.id"
-                :voted="voted"
-                :selected="item.selectedOption === option.id"
-                :correct="poll.correct_option === option.id"
-                :picture="option.picture ? publicPath + option.picture : null"
-                :loading="loading"
-                :expired="poll.votingOver"
-        >
-            <template #default>
-                {{option.description}}
-            </template>
+            <reusable-modal :pictures="combinedOptions" :show="true" :hide-modal="showModal" :picture="currentPicture" :description="currentDescription">
+                <options-section
+                        @picture-click="showCurrentPicture"
+                        @click.native="options_visible = true"
+                        :optionsVisible="(combinedOptions.length <= 5) || options_visible"
+                        :access-check="pollAccessCheck"
+                        v-for="(option, index) in combinedOptions"
+                        v-show="options_visible || index < 5"
+                        :bows="option.bows"
+                        class="mt-12"
+                        :id="option.id"
+                        :percentage="voted && option.voted_percentage"
+                        :type_of_poll="poll.type_of_poll"
+                        :poll_id="poll.id"
+                        :voted="voted"
+                        :selected="item.selectedOption === option.id"
+                        :correct="poll.correct_option === option.id"
+                        :picture="option.picture ? publicPath + option.picture : null"
+                        :loading="loading"
+                        :expired="poll.votingOver"
+                        :description="option.description"
+                >
+                    <template #default>
+                        {{option.description}}
+                    </template>
 
-            <template #badge>
-                <badge-reusable :counter="Object.keys(option.bows).length - 2" :size="21"></badge-reusable>
+                    <template #badge>
+                        <badge-reusable :counter="Object.keys(option.bows).length - 2" :size="21"></badge-reusable>
 
-            </template>
-        </options-section>
+                    </template>
+                </options-section>
+            </reusable-modal>
+
         <span v-show="!options_visible && combinedOptions.length > 5" class="options-load-btn pointer mt-9"
               @click="options_visible = true">Показать больше опций</span>
 
@@ -135,6 +140,7 @@
     import {localString} from '../../utils/localString'
     import {finishEvent} from "@/EOSIO/eosio_impl";
     import {addCourt} from "../../EOSIO/eosio_impl";
+    import ReusableModal from "../reusableСomponents/reusableModal";
 
     const pad = (num, len = 2, char = '0') => {
         let init = `${num}`;
@@ -150,6 +156,7 @@
         name: "layout",
         props: ['item'],
         components: {
+            ReusableModal,
             PollAnotation,
             TimeTrans,
             PictureReusable,
@@ -174,6 +181,9 @@
                 no_more_explains: false,
                 currentTime: null,
                 procid: null,
+                showModal:false,
+                currentPicture:null,
+                currentDescription:null
             }
         },
         computed: {
@@ -268,6 +278,15 @@
 
             },
 
+            combinedOptionsPicture: function (){
+
+                let {combinedOptions} = this;
+
+
+
+
+            },
+
 
             // VOTE GETTER
 
@@ -291,6 +310,16 @@
 
         },
         methods: {
+            showCurrentPicture(picture, description){
+                this.currentPicture = picture;
+                this.currentDescription = description;
+                this.openModal()
+            },
+            openModal() {
+                this.showModal = true;
+
+
+            },
             getTime() {
                 let end = this.relativeEndDate;
                 let now = moment(new Date());
