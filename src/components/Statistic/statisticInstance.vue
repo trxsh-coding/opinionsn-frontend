@@ -4,6 +4,8 @@
 			<picture-reusable
 					class="pointer"
 					:size="72"
+					avatar
+					:id="user.id"
 					:img="publicPath + user.path_to_avatar"
 					text-layout="right"
 					rounded>
