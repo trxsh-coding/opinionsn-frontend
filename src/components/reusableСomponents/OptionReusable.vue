@@ -38,10 +38,11 @@
 		
 		<div
 				class="option-wrapper"
-				:class="{'pointer': !voted, 'with-button': mainUser.authorities === 'ADMIN' && type_of_poll !== 0}">
-			<div v-if="picture && picture.slice(-4) !== 'null'" class="picture" :style="pictureStyle"></div>
-			
-			<div class="option" :style="optionStyle" @click="selectOption(id)">
+				:class="{'pointer': !voted, 'with-button': mainUser.authorities === 'ADMIN' && type_of_poll !== 0}"
+				@click="selectOption(id)">
+				<div v-if="picture && picture.slice(-4) !== 'null'" class="picture" :style="pictureStyle" @click="onPictureClick"></div>
+
+			<div class="option" :style="optionStyle">
 
 			<span class="text">
 				<slot></slot>
@@ -75,10 +76,11 @@
 	import {userVote, judgevote} from "../../EOSIO/eosio_impl";
 	import {mainUser} from "../../store/modules/mainUser";
 	import ScrollSwiperReusable from "@/components/reusableСomponents/ScrollSwiperReusable";
-	
+	import ReusableModal from "./reusableModal";
+
 	export default {
 		name: "OptionReusable",
-		components: {ScrollSwiperReusable, InvolvedUsersPanel},
+		components: {ReusableModal, ScrollSwiperReusable, InvolvedUsersPanel},
 		data() {
 			return {
 				publicPath: process.env.VUE_APP_MAIN_API,
@@ -88,7 +90,8 @@
 				transform_px: 0,
 				transform_limit: undefined,
 				swiped: false,
-				swipe_in_progress: false
+				swipe_in_progress: false,
+				showModal:false
 			}
 		},
 		props: {
@@ -102,6 +105,7 @@
 			percentage: [Number, Boolean],
 			picture: String,
 			expired: Boolean,
+			description:String,
 			pictureSize: {
 				type: Number,
 				default: function () {
@@ -131,7 +135,13 @@
 		},
 		
 		methods: {
-			
+			onPictureClick(){
+				this.$emit('picture-click', this.picture.slice(4, this.picture.length), this.description)
+			},
+			openModal(){
+				this.showModal = true
+			},
+
 			selectOption(selected_variable) {
 				
 				if (this.voted) this.resetBowsBar();
@@ -172,7 +182,7 @@
 						runTimeout();
 					}
 				}
-				
+
 			},
 			
 			setRightOption(option_id, poll_id) {
