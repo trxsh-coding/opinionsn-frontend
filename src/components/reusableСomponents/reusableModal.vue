@@ -25,7 +25,12 @@
                     <span>{{description}}</span>
                 </div>
                 <img :src="publicPath + imageUtil(picture, 'L')" />
+                <div class="pictures-section picture-description flex ">
+                    <img v-for="{picture} in pictures" width="100px" :src="publicPath + imageUtil(picture, 'S')" />
+                </div>
             </div>
+
+
         </div>
     </div>
 </template>

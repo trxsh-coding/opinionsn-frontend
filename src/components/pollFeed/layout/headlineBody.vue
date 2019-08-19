@@ -13,7 +13,7 @@
             <text-trim :text="poll.description" :amount-of-letter="mobile? 200 : 250"/>
         </div>
         <reusable-modal :picture="poll.picture" :hide-modal="showModal" @show="openModal" @close="close">
-            <subject-picture v-if="poll.picture" :img="publicPath + poll.picture" width="100%" only-picture :height="mobile ? 190 : 303" textLayout="right" bor-rad="6"/>
+            <subject-picture class="pointer" v-if="poll.picture" :img="publicPath + poll.picture" width="100%" only-picture :height="mobile ? 190 : 303" textLayout="right" bor-rad="6"/>
         </reusable-modal>
         <swiper-carousel v-if="!poll.picture" :with-pagination="poll.urlPhotos.length > 1"  :amount-of-slides="1"  :space-between="10" :without-breakpoints="true"  >
             <template #swiperAnnotation>

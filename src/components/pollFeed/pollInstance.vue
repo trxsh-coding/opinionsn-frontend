@@ -9,7 +9,7 @@
             </template>
         </post-header>
         <headline-body :poll="poll" :item="item"/>
-            <reusable-modal :pictures="combinedOptions" :show="true" :hide-modal="showModal" :picture="currentPicture" :description="currentDescription">
+            <reusable-modal :pictures="combinedOptions" @close="openModal(false)" :hide-modal="showModal" :picture="currentPicture" :description="currentDescription">
                 <options-section
                         @picture-click="showCurrentPicture"
                         @click.native="options_visible = true"
@@ -313,12 +313,11 @@
             showCurrentPicture(picture, description){
                 this.currentPicture = picture;
                 this.currentDescription = description;
-                this.openModal()
+                this.openModal(true)
             },
-            openModal() {
-                this.showModal = true;
-
-
+            openModal(payload) {
+                console.log(payload);
+                this.showModal = payload;
             },
             getTime() {
                 let end = this.relativeEndDate;

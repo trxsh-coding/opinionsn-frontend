@@ -1,36 +1,56 @@
 <template>
     <div id="poll-header" class="mb-4">
-        <author-headline
-                pic-class="mr-9"
-                class="mb-12 ml-60 pointer"
-                avatar
-                :id="author.id"
-                :img="publicPath + imageUtil(author.path_to_avatar, 'S')"
-                :size="36"
-                textLayout="right"
-                rounded>
-            <template #title>
+        <div class="top-section">
+            <author-headline
+                    pic-class="mr-9"
+                    class="mb-12 ml-60 pointer"
+                    avatar
+                    :id="author.id"
+                    :img="publicPath + imageUtil(author.path_to_avatar, 'S')"
+                    :size="36"
+                    textLayout="right"
+                    rounded>
+                <template #title>
                 <span class="username">
                     {{author.username}}
                 </span>
-                <span class="event__item">
+                    <span class="event__item">
                       <lang-string :title="user_caption" />
                 </span>
-				<slot>
+                    <slot>
 
-                </slot>
+                    </slot>
 
-			</template>
-            <template #description>
-                <div class="description flex">
+                </template>
+                <template #description>
+                    <div class="description flex">
                     <span v-show="!!author.location" class="pr-9">
                         {{author.location}}
                     </span>
-                    <time-trans v-show="!!poll.date" :time="poll.date"/>
-                </div>
-            </template>
-        </author-headline>
+                        <time-trans v-show="!!poll.date" :time="poll.date"/>
+                    </div>
+                </template>
+            </author-headline>
+            <div class="info-block">
+                <dropdown-list-reusable list-class="w-fit">
+                    <template #icon>
+                        <icon-base
+                                width="13"
+                                height="4"
+                                viewBox="0 0 13 4"
+                                icon-name="icon-more">
+                            <icon-more />
+                        </icon-base>
 
+                    </template>
+                    <template #items>
+                            <span class="dropdown-actions pointer"  @click="deletePoll(poll.id)">Удалить опрос</span>
+                    </template>
+                </dropdown-list-reusable>
+
+
+            </div>
+        </div>
         <slot name="annotation"></slot>
 
     </div>
@@ -43,15 +63,22 @@
     import pollAnnotation from "./pollAnnotation"
     import timeTrans from "../../timeTrans"
     import langMixin from "../../mixins/langMixin";
+    import IconBase from "../../icons/IconBase";
+    import IconMore from "../../icons/IconMore";
+    import DropdownListReusable from "../../reusableСomponents/DropdownListReusable";
+
     export default {
         name: "postHeader",
         props:['author', 'poll', 'eventType'],
         mixins:[imageMixin, langMixin],
         components: {
+            DropdownListReusable,
+            IconBase,
             authorHeadline,
             langString,
             pollAnnotation,
-            timeTrans
+            timeTrans,
+            IconMore
         },
         data() {
             return {
@@ -88,11 +115,22 @@
                 }
             }
         },
+        methods: {
+            deletePoll(poll_id){
+
+                this.$store.dispatch(`pollFeed/deletePoll`, poll_id );
+
+            }
+        }
     }
 </script>
 
 <style lang="scss">
     #poll-header {
+        .top-section {
+            display: flex;
+            justify-content: space-between;
+        }
         .event__item {
 
             font-family: Roboto;

@@ -21,7 +21,7 @@
 		                 :current="categoryId"/>
 
 		<div class="select-block pl-69" :class="{'mt-15': !mobile, 'mt-18': mobile}">
-			<dropdown-list-reusable with-arrow class="mr-22">
+			<dropdown-list-reusable with-arrow class="mr-22" click-close>
 				<template>
 					<lang-string :title="periods[periodId].value"/>
 				</template>
@@ -33,7 +33,7 @@
 					</li>
 				</template>
 			</dropdown-list-reusable>
-			<dropdown-list-reusable with-arrow>
+			<dropdown-list-reusable with-arrow click-close>
 				<template>
 					<lang-string :title="types[typeId].value"/>
 				</template>
@@ -74,10 +74,10 @@
 						value: 'week'
 					},
 					{
-						value: 'mounth'
+						value: 'month'
 					},
 					{
-						value: '3 mounth'
+						value: '3_months'
 					},
 				],
 				types: [
@@ -131,7 +131,7 @@
 						opacity: 1
 
 					},
-
+					colors:['#4B97B4', '#FF5454'],
 					tooltip: {
 						y: {
 							formatter: function (val) {
