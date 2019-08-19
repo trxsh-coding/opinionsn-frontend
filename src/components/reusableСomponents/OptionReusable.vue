@@ -38,11 +38,10 @@
 		
 		<div
 				class="option-wrapper"
-				:class="{'pointer': !voted, 'with-button': mainUser.authorities === 'ADMIN' && type_of_poll !== 0}"
-				@click="selectOption(id)">
+				:class="{'pointer': !voted, 'with-button': mainUser.authorities === 'ADMIN' && type_of_poll !== 0}">
 			<div v-if="picture && picture.slice(-4) !== 'null'" class="picture" :style="pictureStyle"></div>
 			
-			<div class="option" :style="optionStyle">
+			<div class="option" :style="optionStyle" @click="selectOption(id)">
 
 			<span class="text">
 				<slot></slot>
@@ -132,22 +131,23 @@
 		},
 		
 		methods: {
+			
 			selectOption(selected_variable) {
 				
 				if (this.voted) this.resetBowsBar();
-				
+
 				if (this.voted || !this.logged_in || this.expired || this.optionsVisible === false) return;
-				
+
 				if (!this.$root.timer_duration && !this.$root.timer_id) {
-					
+
 					const runTimeout = () => {
-						
+
 						if (this.accessCheck) {
 							let {poll_id, type_of_poll, mainUser} = this;
 							this.$root.timer_duration = 5000;
-							
+
 							this.$root.timer_id = setTimeout(() => {
-								
+
 								this.$store.dispatch(`${this.$route.name}/createVote`, {
 									data: {
 										selected_variable,
@@ -163,7 +163,7 @@
 							this.$root.temp_selected_option = selected_variable;
 						}
 					};
-					
+
 					if (this.type_of_poll === 2) {
 						userVote(this.poll_id, mainUser.id, selected_variable)
 							.then(() => runTimeout())
@@ -172,6 +172,7 @@
 						runTimeout();
 					}
 				}
+				
 			},
 			
 			setRightOption(option_id, poll_id) {
