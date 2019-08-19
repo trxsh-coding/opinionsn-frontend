@@ -156,6 +156,7 @@
 			align-items: center;
 			word-break: break-word;
 			color: #3d3d3d;
+			font-size: 15px;
 			
 			&.error {
 				background: #d9b2b2db;
