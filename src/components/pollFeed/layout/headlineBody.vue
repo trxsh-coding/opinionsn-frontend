@@ -12,11 +12,13 @@
         <div class="description__item mb-7">
             <text-trim :text="poll.description" :amount-of-letter="mobile? 200 : 250"/>
         </div>
-        <subject-picture v-if="poll.picture" :img="publicPath + poll.picture" width="100%" only-picture :height="mobile ? 190 : 303" textLayout="right" bor-rad="6"/>
-        <swiper-carousel :with-pagination="poll.urlPhotos.length > 1" v-else :amount-of-slides="1"  :space-between="10" :without-breakpoints="true"  >
+        <reusable-modal :picture="poll.picture" :hide-modal="showModal" @show="check">
+            <subject-picture v-if="poll.picture" :img="publicPath + poll.picture" width="100%" only-picture :height="mobile ? 190 : 303" textLayout="right" bor-rad="6"/>
+        </reusable-modal>
+        <swiper-carousel v-if="!poll.picture" :with-pagination="poll.urlPhotos.length > 1"  :amount-of-slides="1"  :space-between="10" :without-breakpoints="true"  >
             <template #swiperAnnotation>
                 <swiper-slide v-for="picture in poll.urlPhotos">
-                    <reusable-modal >
+                    <reusable-modal @show="check" >
                         <subject-picture  :img="publicPath + picture" width="100%" only-picture :height="mobile ? 190 : 303" textLayout="right" bor-rad="6"/>
                     </reusable-modal>
                 </swiper-slide>
@@ -41,7 +43,8 @@
         data() {
             return {
 
-                publicPath: process.env.VUE_APP_MAIN_API
+                publicPath: process.env.VUE_APP_MAIN_API,
+                showModal:false
 
             }
         },
@@ -63,6 +66,9 @@
             },
         },
         methods:{
+            check(){
+                this.showModal = true
+            },
             pushToPoll(id){
 
                 if(this.$route.name !== 'singlePoll'){
