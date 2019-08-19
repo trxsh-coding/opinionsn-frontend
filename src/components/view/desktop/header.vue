@@ -27,20 +27,24 @@
 			<div class="profile-annotation-block flex-align-center" v-if="!!Object.keys(user).length">
 
 				<dropdown-list-reusable
+						class="notifications-dropdown"
 						@scrollDifference="setListScrollDifference"
 						list-class="notification-list p-0"
 						:icon="false"
 						height="583"
 						width="376">
-					<icon-base
-							fill="none"
-							class="mr-22"
-							width="22"
-							height="22"
-							viewBox="0 0 22 22"
-							icon-name="notifications">
-						<icon-notifications/>
-					</icon-base>
+					<div @click="clearCounter" class="icon-wrapper mr-22">
+						<icon-base
+								fill="none"
+								width="22"
+								height="22"
+								viewBox="0 0 22 22"
+								icon-name="notifications">
+							<icon-notifications/>
+						</icon-base>
+						
+						<badge-reusable class="counter" v-show="counter" :size="12" color="#FF5454" :counter="counter" />
+					</div>
 					<template #items>
 						<notification-page
 								v-if="!mobile && $route.name !== 'notifications'"
@@ -111,6 +115,8 @@
 	import NotificationPage from "../../notifications/notificationPage";
 	import langString from "../../langString";
 	import axios from "axios";
+	import BadgeReusable from "@/components/reusableСomponents/BadgeReusable";
+	import {mapState} from "vuex";
 
 	export default {
 		name: "desktopHeader",
@@ -123,12 +129,23 @@
 				mobile: this.$root.mobile
 			}
 		},
+		
 		computed: {
+			
+			...mapState("notificationPage", {
+				counter: s => s.counter,
+			}),
+			
 			logged_in() {
 				return !!Object.keys(this.user).length;
 			}
 		},
+		
 		methods: {
+			
+			clearCounter() {
+				this.$store.dispatch('notificationPage/readInitialNotifications');
+			},
 
 			userLogout() {
 
@@ -159,7 +176,7 @@
 
 			routeOnChange(){
 
-				this.$router.push({name:'search', query: {keyword: this.keyword} })
+				this.$router.push({ name:'search', query: {keyword: this.keyword} })
 
 			},
 
@@ -178,7 +195,19 @@
 
 			},
 		},
+		
+		created() {
+			
+			axios.get(`${process.env.VUE_APP_NOTIFICATION_API}/notification/unReadCount`)
+				.then(response => {
+					this.$store.commit('notificationPage/setNotificationsCount', response.data)
+					
+				})
+			
+		},
+		
 		components: {
+			BadgeReusable,
 			NotificationPage,
 			DropdownListReusable,
 			PictureReusable,
@@ -253,10 +282,24 @@
 		}
 
 		.profile-annotation-block {
-			.notification-list {
-				overflow-y: scroll;
-				scrollbar-width: thin;
+			
+			.notifications-dropdown {
+				.notification-list {
+					overflow-y: scroll;
+					scrollbar-width: thin;
+					
+				}
+				
+				.icon-wrapper {
+					.counter {
+						position: absolute;
+						top: -3px;
+						right: -4px;
+					}
+				}
 			}
+			
+			
 		}
 	}
 	@media only screen

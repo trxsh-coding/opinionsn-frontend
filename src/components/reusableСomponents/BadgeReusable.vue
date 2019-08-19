@@ -1,7 +1,7 @@
 <template>
     <div class="badge-reusable" :style="badgeStyle">
 		<span v-if="counter">
-			+{{handledCounter}}
+			{{handledCounter}}
 		</span>
 		<slot v-else>
 
@@ -43,7 +43,7 @@
 			handledCounter() {
 				let { counter } = this;
 				if (counter) {
-					return counter > 9 ? 9 : counter;
+					return counter > 9 ? '+9' : counter;
 				}
 			},
 			badgeStyle() {
