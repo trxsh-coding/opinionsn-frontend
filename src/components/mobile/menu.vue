@@ -1,5 +1,5 @@
 <template lang="html">
-    <div class="sidebar px-10 pt-15 pl-60 pr-20" :class="{'bg-white': !mobile}">
+    <div class="pt-15 pl-60 pr-20" :class="{'bg-white': !mobile}">
         <profile v-if="mobile"/>
         <routebar/>
         <language-change/>
@@ -32,13 +32,6 @@
 </script>
 
 <style lang="scss">
-    .sidebar {
-        margin-top: 15px;
-        margin-left: 60px;
-        margin-right: 20px;
-        border-radius: 6px;
-
-    }
 	.copyright {
 		// padding: 0 10px;
 		span {
