@@ -122,7 +122,7 @@ export const formManagment = {
                    imgUrl: ''
                })
            } else {
-               alert('12 фотографий максимум')
+               this.$popup.insert('messages', [{message: '12 фотографий максимум', type: 'error'}]);
            }
         },
         [DELETE_OPTION](state, index){

@@ -185,9 +185,9 @@
 								this.$store.dispatch('pollFeed/setRightOption', {data: {option_id, poll_id}})
 									.then(status => {
 										if (status === 200) {
-											alert('Вариант выбран успешно!')
+											this.$popup.insert('messages', [{message: 'Вариант выбран успешно!', type: 'success'}]);
 										} else {
-											alert('При выборе опции произошла ошибка!')
+											this.$popup.insert('messages', [{message: 'При выборе опции произошла ошибка!', type: 'error'}]);
 										}
 									})
 							})
@@ -197,9 +197,9 @@
 						this.$store.dispatch('pollFeed/setRightOption', {data: {option_id, poll_id}})
 							.then(status => {
 								if (status === 200) {
-									alert('Вариант выбран успешно!')
+									this.$popup.insert('messages', [{message: 'Вариант выбран успешно!', type: 'success'}]);
 								} else {
-									alert('При выборе опции произошла ошибка!')
+									this.$popup.insert('messages', [{message: 'При выборе опции произошла ошибка!', type: 'error'}]);
 								}
 							});
 						break;

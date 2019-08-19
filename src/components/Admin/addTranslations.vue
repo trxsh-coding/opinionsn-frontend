@@ -87,14 +87,14 @@
 					.then(({status}) => {
 						
 						if (status === 200) {
-							alert("Сохранено успешно!");
+							this.$popup.insert('messages', [{message: 'Успешно сохранено!', type: 'success'}]);
 							this.form = {
 								...this.form,
 								key: "",
 								value: ""
 							};
 						} else {
-							alert("Ошибка при сохранении!");
+							this.$popup.insert('messages', [{message: 'Ошибка при сохранении!', type: 'error'}]);
 						}
 						
 					})

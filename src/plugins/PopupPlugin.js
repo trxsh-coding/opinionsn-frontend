@@ -26,9 +26,12 @@ class PopupPlugin {
 	remove(key, indexes) {
 		if (key && indexes.length) {
 			if (this.VM.$data[key]) {
-				indexes.forEach(x => { delete this.VM.$data[key][x] });
-				this.VM.$data[key] = this.VM.$data[key].filter(x => x !== undefined);
-				console.log(this);
+				indexes.sort((a, b) => b - a);
+				indexes.forEach(x => {
+					this.VM.$data[key].splice(x, 1);
+				});
+				// indexes.forEach(x => { delete this.VM.$data[key][x] });
+				// this.VM.$data[key] = this.VM.$data[key].filter(x => x !== undefined);
 			}
 		}
 	}

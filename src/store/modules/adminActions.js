@@ -4,8 +4,6 @@ export const adminActions = (sc, listUrl) => class extends sc {
 
 	appendPayloads({commit, state}, payload={}){
 
-	 alert('hi')
-
 
 	};
 	listItemsAction({commit, state}, payload={}){

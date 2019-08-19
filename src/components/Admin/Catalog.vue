@@ -97,14 +97,14 @@
                 axios.post(`${process.env.VUE_APP_MAIN_API}/rest/admin/categories/create`, formData, config)
                     .then(({status}) => {
                         if (status === 200) {
-                            alert("Успешно сохранено!");
+                            this.$popup.insert('messages', [{message: 'Успешно сохранено!', type: 'success'}]);
                             this.catalog_form = {
                                 form: 'ruleForm',
                                 image:'',
                                 url: ''
                             };
                         } else {
-                            alert("Ошибка!");
+                            this.$popup.insert('messages', [{message: 'Ошибка!', type: 'error'}]);
                         }
                     })
 

@@ -274,11 +274,12 @@
 		methods: {
 			
 			createPopup() {
-				this.$popup.insert('messages', {message: 'ОШИБКА!!!', type: 'warning'});
+				this.$popup.insert('messages', [{message: 'ОШИБКА!!!', type: 'error'}, {message: 'УСПЕХ!!!', type: 'success'}, {message: 'УВЕДОМЛЕНИЕ!!!', type: 'warning'}]);
 			},
 			
 			removePopup() {
-				this.$popup.clear('messages');
+				// this.$popup.clear('messages');
+				this.$popup.remove('messages', [0]);
 			},
 
         	executeTimeout() {

@@ -67,15 +67,15 @@
                     this.$store.dispatch('formManagment/SUBMIT_USERPAGE_FORM', this.form)
                         .then(res => {
                             if (res) {
-                                alert('Успешно!');
+                                this.$popup.insert('messages', [{message: 'Успешно!', type: 'success'}]);
                             } else {
-                                alert('Ошибка отправки!');
+                                this.$popup.insert('messages', [{message: 'Ошибка отправки!', type: 'error'}]);
                             }
                         });
                     
                 } else {
                     
-                    alert('Невозможно отредактировать, ошибка в заполнении!');
+                    this.$popup.insert('messages', [{message: 'Невозможно отредактировать, ошибка в заполнении!', type: 'error'}]);
                     
                 }
                 

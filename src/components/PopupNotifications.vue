@@ -1,7 +1,9 @@
 <template>
 	
-	<div v-if="items.length" class="popup-wrapper">
-		<template v-for="({message, type}) in items">
+	<transition-group name="popup-list" tag="div" class="popup-wrapper">
+		
+		<div v-for="({message, type}, index) in items" :key="'popup' + index">
+			
 			<div v-if="type === 'error'" class="popup-notify error mb-10">
 				<icon-base
 						class="mb-auto"
@@ -16,8 +18,9 @@
 				<span class="ml-10 mr-8">{{message}}</span>
 				
 				<icon-base
-						class="mb-auto ml-auto"
-						fill="none"
+						@click.native="closeMessage(index)"
+						class="close-icon mb-auto ml-auto pointer"
+						fill="#3d3d3d"
 						stroke="#3d3d3d"
 						width="20"
 						height="20"
@@ -41,8 +44,9 @@
 				<span class="ml-10 mr-8">{{message}}</span>
 				
 				<icon-base
-						class="mb-auto ml-auto"
-						fill="none"
+						@click.native="closeMessage(index)"
+						class="close-icon mb-auto ml-auto pointer"
+						fill="#3d3d3d"
 						stroke="#3d3d3d"
 						width="20"
 						height="20"
@@ -66,8 +70,9 @@
 				<span class="ml-10 mr-8">{{message}}</span>
 				
 				<icon-base
-						class="mb-auto ml-auto"
-						fill="none"
+						@click.native="closeMessage(index)"
+						class="close-icon mb-auto ml-auto pointer"
+						fill="#3d3d3d"
 						stroke="#3d3d3d"
 						width="20"
 						height="20"
@@ -76,9 +81,10 @@
 					<icon-cross/>
 				</icon-base>
 			</div>
-		</template>
-	</div>
-	
+		</div>
+		
+	</transition-group>
+		
 </template>
 
 <script>
@@ -97,23 +103,46 @@
 			IconSuccess,
 			IconWarning
 		},
-		// props: {
-		// 	items: {
-		// 		type: Array,
-		// 		required: true,
-		// 		default() { return [] }
-		// 	}
-		// }
+		data() {
+			return {
+				interval_id: null
+			}
+		},
+		watch: {
+			items() {
+				clearInterval(this.interval_id);
+				if (this.items.length) this.clearOldMessage();
+			}
+		},
 		computed: {
 			items() {
 				return this.$popup.messages;
 			}
 		},
+		methods: {
+			clearOldMessage() {
+				this.interval_id = setInterval(() => {
+					if (this.items.length) this.$popup.remove('messages', [0]);
+				}, 2000);
+			},
+			
+			closeMessage(index) {
+				clearInterval(this.interval_id);
+				this.$popup.remove('messages', [index]);
+				if (this.items.length) this.clearOldMessage();
+			}
+		}
 	}
 </script>
 
 <style lang="scss">
 	.popup-wrapper {
+		position: fixed;
+		top: 20px;
+		left: 50%;
+		transform: translateX(-50%);
+		z-index: 999999999999;
+		
 		display: flex;
 		flex-direction: column;
 		align-items: center;
@@ -125,21 +154,39 @@
 			padding: 15px 10px;
 			display: flex;
 			align-items: center;
-			word-break: break-all;
+			word-break: break-word;
 			color: #3d3d3d;
 			
 			&.error {
-				background: #ff000026;
+				background: #d9b2b2db;
 			}
 			
 			&.success {
-				background: #00ff2b26;
+				background: #a3dfaddb;
 			}
 			
 			&.warning {
-				background: #fafa0026;
+				background: #dfdf98db;
+			}
+			
+			@media only screen and (max-width: 400px) {
+				width: 90vw;
 			}
 			
 		}
+	}
+	
+	.popup-list-enter-active,
+	.popup-list-leave-active {
+		transition: all 0.5s;
+	}
+	
+	.popup-list-enter,
+	.popup-list-leave-to {
+		opacity: 0;
+	}
+	
+	.popup-list-move {
+		transition: transform 0.5s;
 	}
 </style>

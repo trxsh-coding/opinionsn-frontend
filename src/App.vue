@@ -46,14 +46,6 @@
 			}
 		}
 		
-		#popup-notifications {
-			position: fixed;
-			top: 20px;
-			left: 50%;
-			transform: translateX(-50%);
-			z-index: 9999999;
-		}
-		
 	}
 	
 	.el-popover {
