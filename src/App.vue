@@ -1,6 +1,6 @@
 <template>
 	<div id="app">
-		<popup-notifications id="popup-notifications" :items="$popup.messages" />
+		<popup-notifications id="popup-notifications" />
 		<router-view/>
 	</div>
 </template>

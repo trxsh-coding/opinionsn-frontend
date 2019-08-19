@@ -144,7 +144,7 @@
 		</div>
 
 	    <div class="crimson-div pointer mb-20" @click="createPopup"></div>
-	    <div class="blue-div pointer mb-20" @click="showTimerId"></div>
+	    <div class="blue-div pointer mb-20" @click="removePopup"></div>
 	    
 	    <div class="green-div pointer mb-20" @click="getUserRating"></div>
 
@@ -274,7 +274,11 @@
 		methods: {
 			
 			createPopup() {
-				this.$popup.insert('messages', {message: 'ОШИБКА!!!', type: 'warning'})
+				this.$popup.insert('messages', {message: 'ОШИБКА!!!', type: 'warning'});
+			},
+			
+			removePopup() {
+				this.$popup.clear('messages');
 			},
 
         	executeTimeout() {
@@ -352,8 +356,8 @@
 		}
 
 		.blue-div {
-			position: fixed;
-			left: 20%;
+			/*position: fixed;*/
+			/*left: 20%;*/
 			width: 40px;
 			height: 40px;
 			background-color: blue;

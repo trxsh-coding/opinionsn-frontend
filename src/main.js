@@ -42,7 +42,9 @@ Vue.use(NProgress);
 locale.use(langRu);
 Vue.use(VueI18n);
 Vue.use(moment);
-Vue.use(PopupPlugin);
+Vue.use(PopupPlugin, {
+	store: new PopupPlugin.Store()
+});
 //*****************
 
 const i18n = new VueI18n({

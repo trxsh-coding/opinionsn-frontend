@@ -1,7 +1,6 @@
 <template>
 	
 	<div v-if="items.length" class="popup-wrapper">
-		{{items}}
 		<template v-for="({message, type}) in items">
 			<div v-if="type === 'error'" class="popup-notify error mb-10">
 				<icon-base
@@ -98,13 +97,18 @@
 			IconSuccess,
 			IconWarning
 		},
-		props: {
-			items: {
-				type: Array,
-				required: true,
-				default() { return [] }
+		// props: {
+		// 	items: {
+		// 		type: Array,
+		// 		required: true,
+		// 		default() { return [] }
+		// 	}
+		// }
+		computed: {
+			items() {
+				return this.$popup.messages;
 			}
-		}
+		},
 	}
 </script>
 
