@@ -109,9 +109,12 @@
 			}
 		},
 		watch: {
-			items() {
+			items(val, oldVal) {
 				clearInterval(this.interval_id);
-				if (this.items.length) this.clearOldMessage();
+				if (val.length) {
+					if (val.length > 5) this.$popup.remove('messages', [0]);
+					this.clearOldMessage();
+				}
 			}
 		},
 		computed: {
