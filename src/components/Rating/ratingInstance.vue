@@ -57,10 +57,7 @@
 
             getUserRating() {
                 axios.get(`${process.env.VUE_APP_MAIN_API}/rest/v1/user/rating/${this.categoryId}`, {
-                    params: {
-                        year:2019,
-                        month:7
-                    }
+
                 })
                     .then(({data}) => {
                         this.rating = data;

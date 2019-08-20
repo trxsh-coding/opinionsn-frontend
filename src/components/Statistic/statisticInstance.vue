@@ -46,6 +46,14 @@
 				</template>
 			</dropdown-list-reusable>
 		</div>
+		<div class="amount-voted-block pl-69 mt-12 flex-between">
+			<div class="amount__item">
+				<lang-string :title="'you_voted_in'" /> <span> {{statistic.totalAmountVoted}}</span>  <lang-string :title="'polls'" />
+			</div>
+			<div class="leader-list pr-20">
+				<lang-string @click.native="$router.push({name: 'rating'})" :title="'leader_list'" />
+			</div>
+		</div>
 		<div class="statistic-section">
 			<apexchart type="bar" :options="chartOptions" :series="series"/>
 		</div>
@@ -349,7 +357,13 @@
 <style lang="scss">
 	.user-statistic {
 		border-radius: 6px;
+		.amount-voted-block {
+			font-family: Helvetica Neue;
+			font-size: 11px;
+			color: #BEC0C5;
 
+
+		}
 		.avatar-username {
 			font-family: Roboto;
 			font-style: normal;
@@ -357,5 +371,14 @@
 			font-size: 14px;
 			color: #1A1E22;
 		}
+
+		@media only screen and (max-width: 400px) {
+			.amount-voted-block {
+				span {
+					font-size: 10px;
+				}
+			}
+		}
+
 	}
 </style>

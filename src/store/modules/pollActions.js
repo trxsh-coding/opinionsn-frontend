@@ -105,7 +105,7 @@ export const pollActions = sc => class extends sc {
 
         let id = payload;
 
-        let {customUrl = `${process.env.VUE_APP_MAIN_API}/rest/admin/poll/delete/${id}`, data={}, method=`delete`, } = payload;
+        let {customUrl = `${process.env.VUE_APP_MAIN_API}/rest/v1/admin/poll/${id}`, data={}, method=`delete`, } = payload;
 
         sc.apiRequest(customUrl, data,{commit, dispatch, onSuccess: null, successType: `mutation`}, method);
 

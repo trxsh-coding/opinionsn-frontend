@@ -1,6 +1,6 @@
 <template>
-    <div>
-        <div v-if="!textIsHidden">
+    <span>
+        <span v-if="!textIsHidden">
             <span>
                 {{trimmedText}}
                 <lang-string
@@ -10,13 +10,13 @@
                         @click.native="expandText"
                 />
             </span>
-        </div>
-        <div v-if="textIsHidden">
+        </span>
+        <span v-if="textIsHidden">
             <span>
                 {{text}}
             </span>
-        </div>
-    </div>
+        </span>
+    </span>
 </template>
 
 <script>

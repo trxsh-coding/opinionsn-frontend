@@ -14,24 +14,17 @@
 					description="notifications"
 					:active="true"
 			/>
-			<grouped-notification
-
-					v-for="notifications in filtered_messages.today "
-					:items="notifications"
-			/>
 			<div class="today flex-column flex-center" v-if="filtered_messages.today.length">
 
 				<div v-for="(notification, index) in filtered_messages.today">
-
 					<grouped-notification
+							today
 							v-if="Array.isArray(notification)"
 							:items="notification"
 					/>
 					<notification-instance
-							v-if="!Array.isArray(notification)"
 							class="notification-instance today pl-21"
 							:notification="notification"
-							:key="index"
 					/>
 				</div>
 			</div>
@@ -97,7 +90,7 @@
 
 					<grouped-notification
 							v-if="Array.isArray(notification)"
-							:items="notifications"
+							:items="notification"
 					/>
 					<notification-instance
 							v-if="!Array.isArray(notification)"

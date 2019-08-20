@@ -4,7 +4,8 @@ class PopupPlugin {
 	constructor() {
 		this.VM = new Vue({
 			data: () => ({
-				messages: []
+				messages: [],
+				pictures:[]
 			})
 		});
 	}
@@ -12,7 +13,11 @@ class PopupPlugin {
 	get messages() {
 		return this.VM.$data.messages;
 	}
-	
+
+	get pictures() {
+		return this.VM.$data.pictures;
+	}
+
 	insert(key, item) {
 		if (key && item !== null) {
 			if (Array.isArray(item)) {
