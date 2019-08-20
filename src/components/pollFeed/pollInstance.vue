@@ -331,22 +331,9 @@
                 } else if (duration > 1 && duration.asHours() < 24) {
                     let output = `${pad(duration.hours())}:${pad(duration.minutes())}:${pad(duration.seconds())}`
                     this.currentTime = output;
-                } else {
-                    if (this.poll.type_of_poll === 2 && !this.poll.votingOver) {
-                        console.log(this.currentTime)
-                            // finishEvent(this.poll.id)
-                            // .then(() => console.log(this.poll.id))
-                            // .then(() => { this.currentTime = this.lstr('end')} )
-                            // .then(() => addCourt(this.poll.id, 1, this.poll.fund))
-                            // .then(() => console.log("EOSIO Court Added"))
-                            // .then(() => addCourt(this.poll.id, 1, this.poll.fund))
-                            // .then(() => console.log("Court created"))
-                            // .then(() => addjudge(this.poll.id, this.mainUser.id))
-                            // .catch(err => console.log(err));
-                        }
-                    else {
-                        this.currentTime = this.lstr('end')
-                    }
+                }
+                else {
+                    this.currentTime = this.lstr('end')
                 }
 
                 return this.currentTime;
