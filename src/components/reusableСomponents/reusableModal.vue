@@ -24,11 +24,11 @@
                     <span>{{description}}</span>
                 </div>
                 <img class="main-picture" :src="pictures[0]" />
-                <div v-if="pictures.length >= 2" class="pictures-section flex ">
-                    <img v-for="(picture, index) in pictures"  :key="index" :src="picture" :class="{borderedPicture : picture === pictures[0]}" @click="sortPicturesArray(picture)"/>
-                    <span class="white" style="{color:white}">{{pictures}}</span>
+<!--                <div v-if="pictures.length >= 2" class="pictures-section flex ">-->
+<!--                    <img v-for="(picture, index) in pictures"  :key="index" :src="picture" :class="{borderedPicture : picture === pictures[0]}" @click="sortPicturesArray(key)"/>-->
+<!--                    <span class="white" style="{color:white}">{{pictures}}</span>-->
 
-                </div>
+<!--                </div>-->
             </div>
 
         </div>
@@ -58,8 +58,8 @@
 
         },
         methods: {
-            sortPicturesArray(pic) {
-                this.pictures=[...this.pictures.splice(2, 1), ...this.pictures]
+            sortPicturesArray(key) {
+                this.pictures = [...this.pictures.splice(key, 1), ...this.pictures];
             },
             clearPictures(){
               this.$popup.clear('pictures')
