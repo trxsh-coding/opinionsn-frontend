@@ -217,12 +217,12 @@
             lstr() {
                 return (str) => localString(this.lang, str);
             },
+	        
             relativeEndDate() {
                 let {poll, _lang} = this;
                 let {end_date} = poll;
                 moment.locale(_lang);
-                var end = moment.utc(end_date);
-                return end;
+	            return moment.utc(end_date);
             },
             // POLL GETTER
 

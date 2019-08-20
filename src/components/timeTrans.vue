@@ -56,8 +56,7 @@
             },
             relativeEndDate(){
                 moment.locale(this._lang);
-                var end = moment.utc(this.time);
-                return end;
+                return moment.utc(this.time);
             },
             short_time:function () {
 
