@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import store from '../store/store'
+import {vueApp} from "../main";
 import axios from 'axios'
 import search from '../components/Search/search'
 import Main from '../components/Main'
@@ -264,8 +265,9 @@ index.beforeEach((to, from, next) => {
 				}
 			})
 			.catch(error => {
-
-				next(`/login`)
+				
+				vueApp.$popup.insert('messages', {message: 'Для выполнения действий необходимо авторизоваться!', type: 'warning'});
+				next(false);
 
 			})
 	}

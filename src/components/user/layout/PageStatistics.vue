@@ -6,14 +6,10 @@
 			<lang-string @click.native="statisticRoutePush(id)" class="description pointer" :title="'detailed_statistics'" />
 		</div>
 		<div class="statistic-cards mt-5">
-<!--			<div-->
-<!--				class="card flex-column flex-align-center mt-13"-->
-<!--				v-for="(item, index) in itemsSorted"-->
-<!--				v-show="!hidden || ((mobile && index < 3) ||  (!mobile && index < 4))"-->
-<!--			>-->
+
 			<div class="card flex-column flex-align-center mt-13"
 			     v-for="(item, index) in itemsSorted"
-			     v-show="((mobile && index < 3) ||  (!mobile && index < 4))">
+			     v-show="((mobile && index <= 3) ||  (!mobile && index <= 4))">
 				
 				<lang-string class="title px-9 py-2 my-auto" :title="item.title" />
 				<div class="flex-column flex-align-center pt-13">

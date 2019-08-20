@@ -137,15 +137,24 @@
 			onPictureClick(){
 				this.$emit('picture-click', this.picture.slice(4, this.picture.length), this.description)
 			},
+			
 			openModal(){
 				this.showModal = true
 			},
 
 			selectOption(selected_variable) {
 				
-				if (this.voted) this.resetBowsBar();
-
-				if (this.voted || !this.logged_in || this.expired || this.optionsVisible === false) return;
+				switch (true) {
+					case !this.logged_in:
+						this.$popup.insert('messages', {message: 'Для выполнения действий необходимо авторизоваться!', type: 'warning'});
+						return;
+					case this.voted:
+						this.resetBowsBar();
+						return;
+					case this.expired:
+					case !this.optionsVisible:
+						return;
+				}
 
 				if (!this.$root.timer_duration && !this.$root.timer_id) {
 

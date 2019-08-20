@@ -1,7 +1,7 @@
 <template>
 	<div id="mobile-header"
 	     class="flex-between flex-align-center"
-	     :class="{'hidden': ($root.scroll_top > 48)}"
+	     :class="{'hidden': hidden}"
 	     v-show="header_type !== 'hidden'">
 		<div
 				v-if="logged_in"
@@ -104,7 +104,26 @@
 			},
 		},
 		
+		data() {
+			return {
+				publicPath: process.env.VUE_APP_MAIN_API,
+				hidden: false
+			}
+		},
+		
+		watch: {
+			scroll_top(val, oldVal) {
+				if (val > oldVal) this.hidden = true;
+				if (val < oldVal) this.hidden = false;
+			}
+		},
+		
 		computed: {
+			
+			scroll_top() {
+				return this.$root.scroll_top
+			},
+			
 			header_type() {
 				let {name: route_name} = this.$route;
 				
@@ -132,11 +151,6 @@
 			}
 		},
 		
-		data() {
-			return {
-				publicPath: process.env.VUE_APP_MAIN_API
-			}
-		},
 		methods: {
 			pushToCreatePoll() {
 				this.$router.push({name: 'createPoll'})

@@ -7,7 +7,7 @@
 					v-if="iconPhoto">
 				<slot name="icon">
 					<icon-base
-							class="pointer"
+							class="pointer absolute-center"
 							v-show="!withCloseBtn | is_input_empty"
 							width="24"
 							height="21"
@@ -25,7 +25,7 @@
 					<icon-base
 							v-if="withCloseBtn && imgUrl"
 							class="pointer absolute-center"
-							fill="none"
+							fill="white"
 							width="22"
 							height="22"
 							viewBox="0 0 19 19"
@@ -42,6 +42,7 @@
 					v-if="imagePreview"
 					:style="previewStyle">
 				<icon-base
+						class="absolute-center"
 						v-if="!imgUrl"
 						fill="none"
 						width="21"
