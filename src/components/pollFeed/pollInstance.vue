@@ -9,7 +9,6 @@
             </template>
         </post-header>
         <headline-body :poll="poll" :item="item"/>
-            <reusable-modal :pictures="combinedOptions" @close="openModal(false)" :hide-modal="showModal" :picture="currentPicture" :description="currentDescription">
                 <options-section
                         @picture-click="showCurrentPicture"
                         @click.native="options_visible = true"
@@ -40,7 +39,6 @@
 
                     </template>
                 </options-section>
-            </reusable-modal>
 
         <span v-show="!options_visible && combinedOptions.length > 5" class="options-load-btn pointer mt-9"
               @click="options_visible = true">Показать больше опций</span>
