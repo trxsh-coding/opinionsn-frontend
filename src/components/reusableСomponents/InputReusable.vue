@@ -357,6 +357,7 @@
 			resize: none;
 			width: 100%;
 			margin-top: 24px;
+			overflow-x: hidden;
 			
 			&::-webkit-scrollbar {
 				display: none;

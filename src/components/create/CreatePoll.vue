@@ -38,7 +38,7 @@
 
             <div class="description-block pl-60">
                 <popup-error-reusable
-                        span-class="mt-3 flex-align-start"
+                        span-class="mt-3 flex-align-center"
                         :errors="form.errors.tags">
                     <input-reusable :value="form.tags"
                                     textarea
@@ -49,7 +49,7 @@
                 </popup-error-reusable>
 
                 <popup-error-reusable
-                        span-class="mt-3 flex-align-start"
+                        span-class="mt-3 flex-align-center"
                         :errors="form.errors.subject">
                     <input-reusable :value="form.subject"
                                     @change="updateField(arguments[0], 'subject')"
@@ -61,7 +61,7 @@
 
 
                 <popup-error-reusable
-                        span-class="mt-3 flex-align-start"
+                        span-class="mt-3 flex-align-center"
                         :errors="form.errors.description">
                     <input-reusable :value="form.description"
                                     @change="updateField(arguments[0], 'description')"
@@ -74,9 +74,8 @@
 
             <div class="picture-block flex-align-center">
 
-                <div class="icon__item pl-25 pr-25">
+                <div class="icon__item p-25 pointer" @click="addSubjectPicture">
                     <icon-base
-                            @click.native="addSubjectPicture"
                             width="11"
                             height="12"
                             viewBox="0 0 11 12"
@@ -105,7 +104,7 @@
             <popup-error-reusable
                     class="mb-10"
                     width="calc(100% - 60px)"
-                    span-class="ml-auto mt-3 flex-align-start"
+                    span-class="ml-auto mt-3 flex-align-center"
                     v-for="(option, index) in form.options" :key="index"
                     :errors="form.errors.options[index]">
 
