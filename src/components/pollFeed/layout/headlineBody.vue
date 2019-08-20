@@ -7,10 +7,9 @@
             <span>
                 {{poll.subject}}
             </span>
-
         </div>
         <div class="description__item mb-7">
-            <text-trim :text="poll.description" :amount-of-letter="mobile? 200 : 250"/>
+            <text-trim :text="poll.description" :amount-of-letter="mobile ? 200 : 250"/>
         </div>
         <reusable-modal :picture="poll.picture" :hide-modal="showModal" @show="openModal" @close="close">
             <subject-picture v-if="poll.picture" :img="publicPath + poll.picture" width="100%" only-picture :height="mobile ? 190 : 303" textLayout="right" bor-rad="6"/>
