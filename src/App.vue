@@ -1,6 +1,7 @@
 <template>
 	<div id="app">
 		<popup-notifications id="popup-notifications" />
+		<reusable-modal ></reusable-modal>
 		<router-view/>
 	</div>
 </template>
@@ -9,9 +10,10 @@
 	import ElementScrollHandler from "./components/mixins/ElementScrollHandler";
 	import PopupNotifications from "@/components/PopupNotifications";
 	import Vue from 'vue'
+	import ReusableModal from "./components/reusableСomponents/reusableModal";
 	
 	export default {
-		components: {PopupNotifications},
+		components: {ReusableModal, PopupNotifications},
 		mixins: [ElementScrollHandler],
 		methods: {
 			scrollEventFunc() {

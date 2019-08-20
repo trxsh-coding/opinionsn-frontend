@@ -11,15 +11,11 @@
         <div class="description__item mb-7">
             <text-trim :text="poll.description" :amount-of-letter="mobile ? 200 : 250"/>
         </div>
-        <reusable-modal :picture="poll.picture" :hide-modal="showModal" @show="openModal" @close="close">
-            <subject-picture v-if="poll.picture" :img="publicPath + poll.picture" width="100%" only-picture :height="mobile ? 190 : 303" textLayout="right" bor-rad="6"/>
-        </reusable-modal>
+            <subject-picture class="pointer" v-if="poll.picture" :img="publicPath + poll.picture" width="100%" only-picture :height="mobile ? 190 : 303" textLayout="right" bor-rad="6" @click.native="$popup.insert('pictures', poll.picture)"/>
         <swiper-carousel v-if="!poll.picture" :with-pagination="poll.urlPhotos.length > 1"  :amount-of-slides="1"  :space-between="10" :without-breakpoints="true"  >
             <template #swiperAnnotation>
                 <swiper-slide v-for="picture in poll.urlPhotos">
-                    <reusable-modal @show="check" >
-                        <subject-picture  :img="publicPath + picture" width="100%" only-picture :height="mobile ? 190 : 303" textLayout="right" bor-rad="6"/>
-                    </reusable-modal>
+                        <subject-picture  :img="publicPath + picture" width="100%" only-picture :height="mobile ? 190 : 303" textLayout="right" bor-rad="6" @click.native="$popup.insert('pictures',  poll.urlPhotos)"/>
                 </swiper-slide>
             </template>
         </swiper-carousel>

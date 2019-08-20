@@ -1,13 +1,12 @@
 <template>
-    <div class="modal-reusable">
+    <div class="modal-reusable" v-if="pictures.length">
         <div @click="onModalClick">
             <slot >
 
             </slot>
         </div>
             <icon-base
-                    v-if="hideModal"
-                    @click.native="onCloseAction"
+                    @click.native="clearPictures"
                     class="icon-close pointer"
                     fill="none"
                     width="40"
@@ -19,13 +18,18 @@
         <div class="modal-overlay">
 
         </div>
-        <div class="modal-wrapper" v-if="hideModal">
+        <div class="modal-wrapper" v-if="pictures.length">
             <div class="modal-window">
                 <div class="picture-description" v-if="description">
                     <span>{{description}}</span>
                 </div>
-                <img :src="publicPath + imageUtil(picture, 'L')" />
+                <img :src="pictures[0]" />
+                <div class="pictures-section  flex ">
+                    <img v-for="picture in pictures"  :src="picture" />
+                </div>
             </div>
+
+
         </div>
     </div>
 </template>
@@ -40,21 +44,26 @@
         name: "reusableModal",
         components: {IconBase, PictureReusable, IconClose},
         mixins:[ImageMixin],
-        props: {
-            picture: [Object, String],
-            hideModal: Boolean,
-            pictures: Array,
-            description:String
-        },
         data() {
             return {
                 publicPath: process.env.VUE_APP_MAIN_API,
             }
         },
+        computed: {
+
+            pictures(){
+                return this.$popup.pictures.map(pic => this.publicPath + this.imageUtil(pic, 'L'));
+            }
+
+        },
         methods: {
+            clearPictures(){
+              this.$popup.clear('pictures')
+            },
             onModalClick(){
                 this.$emit('show')
             },
+
             onCloseAction(){
                 this.$emit('close');
                 this.hideModal = false
@@ -65,6 +74,7 @@
 
 <style lang="scss">
     .modal-reusable {
+        position: relative;
         .modal-wrapper {
             position: fixed;
             z-index: 9999999;
@@ -73,6 +83,8 @@
             left: 0;
             bottom: 0;
             background: #000;
+            width: 100%;
+            height: 100%;
         }
         .icon-close {
             position: fixed;

@@ -8,7 +8,7 @@
        </div>
         <div class="right-column flex-between pt-13 pb-12">
             <div class="user-block">
-                <picture-reusable :size="36" :img="avatar" rounded>
+                <picture-reusable :size="36" :img="publicPath + user.path_to_avatar" @click.native="userLink(user.id)" rounded>
                     <template #title>
                         <span class="pl-9">{{user.username}}</span>
                     </template>
@@ -72,6 +72,13 @@
             mobile(){
              return this.$root.mobile
             }
+        },
+        methods: {
+            userLink(user_id){
+
+                this.$router.push({name: 'user', params: {id: user_id}})
+
+            },
         }
 
     }

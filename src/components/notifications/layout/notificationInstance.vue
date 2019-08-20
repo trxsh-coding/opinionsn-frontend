@@ -1,31 +1,32 @@
 <template>
-    <div
-            v-if="!!notification && !!notification.initiatorId && !!notification.targetId && !!pollName"
-            class="notification-block pt-9 pr-13">
-        <picture-reusable
-                pic-class="mr-18 pointer"
-                avatar
-                :id="author.id"
-                :img="publicPath + imageUtil(author.path_to_avatar, 'S')"
-                size="36"
-                textLayout="right"
-                rounded>
-            <template #title>
-                <span class="author-name pointer" @click="$router.push({ name: 'user', params: { id: author.id } })">
+    <div class="notification-block pt-9 pb-9 ">
+            <picture-reusable
+                    pic-class=" pointer"
+                    avatar
+                    :id="author.id"
+                    :img="publicPath + imageUtil(author.path_to_avatar, 'S')"
+                    size="36"
+                    textLayout="right"
+                    rounded>
+                <template #title>
+                <span class="author-name pointer " @click="$router.push({ name: 'user', params: { id: author.id } })">
                     {{author.username}}
                 </span>
-                <span class="event__item">
-                    <lang-string v-if="eventCaption" class="event-span lowercase" :title="eventCaption"/>
-                    <span
-                            class="poll-name pointer"
-                            v-if="notification.targetId"
-                            @click="$router.push({ name: 'singlePoll', params: { id: notification.targetId } })"> "{{pollName}}"</span>
-                </span>
-                <time-trans class="date mt-4" transformed-time :time="notification.date"/>
-                <div class="notification-border mt-9"/>
-            </template>
-        </picture-reusable>
+                    <span class="event__item">
+                         <lang-string v-if="eventCaption" class="event-span lowercase " :title="eventCaption"/>
+                        <span
+                                class="poll-name pointer"
+                                v-if="notification.targetId"
+                                @click="$router.push({ name: 'singlePoll', params: { id: notification.targetId } })">
 
+                                " <text-trim :text="pollName" :amount-of-letter="mobile? 50 : 100"/>"
+
+                        </span>
+                     </span>
+                    <time-trans class="date mt-4" transformed-time :time="notification.date"/>
+                </template>
+            </picture-reusable>
+        <div class="rounded-border ml-49 "></div>
     </div>
 </template>
 
@@ -36,10 +37,13 @@
     import langString from "../../langString"
     import TimeTrans from "../../timeTrans";
     import ButtonReusable from "../../reusableСomponents/ButtonReusable";
+    import IconBase from "../../icons/IconBase";
+    import IconArrow from '../../icons/create/IconArrow';
+    import TextTrim from "../../reusableСomponents/textTrim";
 
     export default {
         name: "notificationInstance",
-        components: {ButtonReusable, TimeTrans, PictureReusable, langString},
+        components: {TextTrim, IconBase, ButtonReusable, TimeTrans, PictureReusable, langString, IconArrow},
         props: ['notification'],
         mixins: [imageMixin],
         data() {
@@ -55,7 +59,9 @@
 
             }),
 
-
+            mobile(){
+              return this.$root.mobile
+            },
             author() {
                 let {users, notification} = this;
 
@@ -138,15 +144,13 @@
         .picture-reusable {
             justify-content: flex-start;
             align-items: end;
-            width: 100%;
 
             .text {
-                width: 100%;
-                margin-right: 0;
+                padding-left: 18px;
+                padding-right: 13px;
             }
 
             .title {
-                min-height: 47px;
                 width: 100% !important;
             }
         }
@@ -172,7 +176,7 @@
         }
 
         .notification-border {
-            border-bottom: 1px solid #BCBEC3;
+            border-bottom: 0.5px solid #BCBEC3;
             padding-left: 60px;
             width: 100%;
         }

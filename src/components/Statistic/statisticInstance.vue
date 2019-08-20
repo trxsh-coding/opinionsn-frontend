@@ -21,7 +21,7 @@
 		                 :current="categoryId"/>
 
 		<div class="select-block pl-69" :class="{'mt-15': !mobile, 'mt-18': mobile}">
-			<dropdown-list-reusable with-arrow class="mr-22">
+			<dropdown-list-reusable with-arrow class="mr-22" click-close>
 				<template>
 					<lang-string :title="periods[periodId].value"/>
 				</template>
@@ -33,7 +33,7 @@
 					</li>
 				</template>
 			</dropdown-list-reusable>
-			<dropdown-list-reusable with-arrow>
+			<dropdown-list-reusable with-arrow click-close>
 				<template>
 					<lang-string :title="types[typeId].value"/>
 				</template>
@@ -45,6 +45,14 @@
 					</li>
 				</template>
 			</dropdown-list-reusable>
+		</div>
+		<div class="amount-voted-block pl-69 mt-12 flex-between">
+			<div class="amount__item">
+				<lang-string :title="'you_voted_in'" /> <span> {{statistic.totalAmountVoted}}</span>  <lang-string :title="'polls'" />
+			</div>
+			<div class="leader-list pr-20">
+				<lang-string @click.native="$router.push({name: 'rating'})" :title="'leader_list'" />
+			</div>
 		</div>
 		<div class="statistic-section">
 			<apexchart type="bar" :options="chartOptions" :series="series"/>
@@ -74,10 +82,10 @@
 						value: 'week'
 					},
 					{
-						value: 'mounth'
+						value: 'month'
 					},
 					{
-						value: '3 mounth'
+						value: '3_months'
 					},
 				],
 				types: [
@@ -131,7 +139,7 @@
 						opacity: 1
 
 					},
-
+					colors:['#4B97B4', '#FF5454'],
 					tooltip: {
 						y: {
 							formatter: function (val) {
@@ -349,7 +357,13 @@
 <style lang="scss">
 	.user-statistic {
 		border-radius: 6px;
+		.amount-voted-block {
+			font-family: Helvetica Neue;
+			font-size: 11px;
+			color: #BEC0C5;
 
+
+		}
 		.avatar-username {
 			font-family: Roboto;
 			font-style: normal;
@@ -357,5 +371,14 @@
 			font-size: 14px;
 			color: #1A1E22;
 		}
+
+		@media only screen and (max-width: 400px) {
+			.amount-voted-block {
+				span {
+					font-size: 10px;
+				}
+			}
+		}
+
 	}
 </style>
