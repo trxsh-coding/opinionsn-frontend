@@ -27,14 +27,15 @@
 			<div class="profile-annotation-block flex-align-center" v-if="!!Object.keys(user).length">
 
 				<dropdown-list-reusable
-						class="notifications-dropdown"
+						class="notifications-dropdown mr-22"
 						@scrollDifference="setListScrollDifference"
 						list-class="notification-list p-0"
 						:icon="false"
 						height="583"
 						width="376">
-					<div @click="clearCounter" class="icon-wrapper mr-22">
+					<div @click="clearCounter" class="icon-wrapper">
 						<icon-base
+								class=""
 								fill="none"
 								width="22"
 								height="22"
@@ -53,7 +54,7 @@
 				</dropdown-list-reusable>
 				<icon-base
 						fill="none"
-						class="mr-25 pointer"
+						class="mr-22 pointer"
 						width="21"
 						height="21"
 						viewBox="0 0 21 21"
@@ -261,13 +262,13 @@
 				box-sizing: border-box;
 				border-radius: 6px;
 				height: 27px;
+				width: 239px;
 
 				&::placeholder {
 					font-family: Roboto;
 					font-style: normal;
 					font-weight: normal;
 					font-size: 12px;
-					line-height: 14px;
 					display: flex;
 					align-items: center;
 					color: #76787A;
