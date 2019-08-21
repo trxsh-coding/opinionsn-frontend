@@ -16,7 +16,6 @@ $--font-path: '~element-ui/lib/theme-chalk/fonts';
 		}
 		
 		margin: 0;
-		border: 5px solid black;
 	}
 }
 
@@ -889,3 +888,7 @@ li {
 	outline: 1px solid #e7e9eb;
 }
 
+.hr {
+	height: 1px;
+	border-bottom: 1px solid #bcbec3;
+}
