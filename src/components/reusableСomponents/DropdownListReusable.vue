@@ -68,6 +68,7 @@
 		watch: {
 			show() {
 				this.handleVisibility();
+				this.setScrollDifference(this.$refs.srollableBlockRef, 64, 'scrollDifference');
 			},
 
 		},

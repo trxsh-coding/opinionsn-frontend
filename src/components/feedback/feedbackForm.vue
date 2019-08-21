@@ -29,7 +29,7 @@
 									width="100%"
 									:input-placeholder="'message_text'"/>
 					<span class="insert-pic-span">Прикрепить изображения</span>
-					<div class="picture-section flex">
+					<div class="picture-section flex mt-15">
 						<upload-reusable
 								@remove="onPictureRemove(index)"
 								with-close-btn
@@ -44,11 +44,10 @@
 								@upload="({file}) => {updateArrayPictures(file, index)}">
 
 						</upload-reusable>
-						<add-reusable class="mt-15" @click.native="addMorePictures"/>
+						<add-reusable @click.native="addMorePictures"/>
 					</div>
 					<button-reusable
-							class="v-center auth-btn mt-9 py-13 w-fit h-fit pl-3 pr-3"
-
+							class="v-center auth-btn mt-9 p-9 w-fit h-fit pl-3 pr-3"
 							description="send"
 							font-size="11"
 							bor-rad="6"

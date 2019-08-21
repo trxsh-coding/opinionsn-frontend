@@ -9,36 +9,36 @@
             </template>
         </post-header>
         <headline-body :poll="poll" :item="item"/>
-                <options-section
-                        @picture-click="showCurrentPicture"
-                        @click.native="options_visible = true"
-                        :optionsVisible="(combinedOptions.length <= 5) || options_visible"
-                        :access-check="pollAccessCheck"
-                        v-for="(option, index) in combinedOptions"
-                        v-show="options_visible || index < 5"
-                        :bows="option.bows"
-                        class="mt-12"
-                        :id="option.id"
-                        :percentage="voted && option.voted_percentage"
-                        :type_of_poll="poll.type_of_poll"
-                        :poll_id="poll.id"
-                        :voted="voted"
-                        :selected="item.selectedOption === option.id"
-                        :correct="poll.correct_option === option.id"
-                        :picture="option.picture ? publicPath + option.picture : null"
-                        :loading="loading"
-                        :expired="poll.votingOver"
-                        :description="option.description"
-                >
-                    <template #default>
-                        {{option.description}}
-                    </template>
+            <options-section
+                    @picture-click="showCurrentPicture"
+                    @click.native="options_visible = true"
+                    :optionsVisible="(combinedOptions.length <= 5) || options_visible"
+                    :access-check="pollAccessCheck"
+                    v-for="(option, index) in combinedOptions"
+                    v-show="options_visible || index < 5"
+                    :bows="option.bows"
+                    class="mt-12"
+                    :id="option.id"
+                    :percentage="voted && option.voted_percentage"
+                    :type_of_poll="poll.type_of_poll"
+                    :poll_id="poll.id"
+                    :voted="voted"
+                    :selected="item.selectedOption === option.id"
+                    :correct="poll.correct_option === option.id"
+                    :picture="option.picture ? publicPath + option.picture : null"
+                    :loading="loading"
+                    :expired="poll.votingOver"
+                    :description="option.description"
+            >
+                <template #default>
+                    {{option.description}}
+                </template>
 
-                    <template #badge>
-                        <badge-reusable :counter="Object.keys(option.bows).length - 2" :size="21"></badge-reusable>
+                <template #badge>
+                    <badge-reusable :counter="Object.keys(option.bows).length - 2" :size="21"></badge-reusable>
 
-                    </template>
-                </options-section>
+                </template>
+            </options-section>
 
         <span v-show="!options_visible && combinedOptions.length > 5" class="options-load-btn pointer mt-9"
               @click="options_visible = true">Показать больше опций</span>
@@ -215,12 +215,12 @@
             lstr() {
                 return (str) => localString(this.lang, str);
             },
+	        
             relativeEndDate() {
                 let {poll, _lang} = this;
                 let {end_date} = poll;
                 moment.locale(_lang);
-                var end = moment.utc(end_date);
-                return end;
+	            return moment.utc(end_date);
             },
             // POLL GETTER
 

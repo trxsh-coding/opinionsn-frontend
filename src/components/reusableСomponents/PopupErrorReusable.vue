@@ -7,7 +7,7 @@
 					class="popup-error flex-column"
 					:class="spanClass"
 					:style="[computed_width]">
-				<span v-for="error in errors">{{error}}</span>
+				<span v-for="error in errors" v-show="typeof error === 'string'">{{error}}</span>
 			</div>
 		</transition>
 	</div>

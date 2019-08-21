@@ -1,6 +1,6 @@
 <template>
 	<div class="upload-block v-center relative" :style="blockStyle">
-		<label :style="wrapperStyle" class="relative label" :class="{'w-fit h-fit': fit}">
+		<label :style="wrapperStyle" class="relative label" :class="[{'w-fit h-fit': fit}, labelClass]">
 
 			<div
 					:class="{'w-fit h-fit': fit}"
@@ -38,7 +38,7 @@
 			<input ref="input_ref" type="file" @change="handlePicturePreview(arguments[0].target.files)">
 
 			<div
-					class="image-preview mt-15 flex-center flex-align-center pointer"
+					class="image-preview flex-center flex-align-center pointer"
 					v-if="imagePreview"
 					:style="previewStyle">
 				<icon-base
@@ -78,6 +78,10 @@
 			event: 'change',
 		},
 		props: {
+			labelClass: {
+				type: String,
+				default: ''
+			},
 			width: {
 				type: [String, Number]
 			},

@@ -3,8 +3,8 @@
 			class="notificationWrapper"
 			:class="{'desktop': !mobile, 'pr-20': mobile}"
 			ref="sectionRef">
-
-        <div class="notification-section flex-column" v-if="!!Object.keys(messages).length && !closed">
+		
+		<div class="notification-section flex-column" v-if="!!Object.keys(messages).length && !closed">
 			<button-reusable
 					class="mt-13 mb-20"
 					bg-color="#ffffff"
@@ -15,7 +15,7 @@
 					:active="true"
 			/>
 			<div class="today flex-column flex-center" v-if="filtered_messages.today.length">
-
+				
 				<div v-for="(notification, index) in filtered_messages.today">
 					<grouped-notification
 							today
@@ -28,12 +28,12 @@
 					/>
 				</div>
 			</div>
-
+			
 			<div class="yesterday flex-column" v-if="filtered_messages.yesterday.length">
 				<lang-string class="title my-12 pl-60" title="yesterday"/>
-
+				
 				<div v-for="(notification, index) in filtered_messages.yesterday">
-
+					
 					<grouped-notification
 							v-if="Array.isArray(notification)"
 							:items="notification"
@@ -46,12 +46,12 @@
 					/>
 				</div>
 			</div>
-
+			
 			<div class="week flex-column" v-if="!!filtered_messages.week.length">
 				<lang-string class="title my-12 pl-60" title="week"/>
-
+				
 				<div v-for="(notification, index) in filtered_messages.week">
-
+					
 					<grouped-notification
 							v-if="Array.isArray(notification)"
 							:items="notification"
@@ -64,12 +64,12 @@
 					/>
 				</div>
 			</div>
-
+			
 			<div class="month flex-column" v-if="!!filtered_messages.month.length">
 				<lang-string class="title my-12 pl-60" title="month"/>
-
+				
 				<div v-for="(notification, index) in filtered_messages.month">
-
+					
 					<grouped-notification
 							v-if="Array.isArray(notification)"
 							:items="notification"
@@ -82,12 +82,12 @@
 					/>
 				</div>
 			</div>
-
+			
 			<div class="later flex-column" v-if="!!filtered_messages.later.length">
 				<lang-string class="title my-12 pl-60" title="later"/>
-
+				
 				<div v-for="(notification, index) in filtered_messages.later">
-
+					
 					<grouped-notification
 							v-if="Array.isArray(notification)"
 							:items="notification"
@@ -100,15 +100,15 @@
 					/>
 				</div>
 			</div>
-
-			<loader-reusable class="mx-auto mt-auto" v-show="!loaded" />
-
+			
+			<loader-reusable class="mx-auto mt-auto" v-show="!loaded"/>
+		
 		</div>
-
+		
 		<div class="nope" v-if="!Object.keys(messages).length && loaded">
 			<span>Уведомлений нет</span>
 		</div>
-
+	
 	</div>
 </template>
 
@@ -123,7 +123,7 @@
 	import LoaderReusable from "../reusableСomponents/LoaderReusable";
 	import ButtonReusable from "../reusableСomponents/ButtonReusable";
 	import GroupedNotification from "./layout/groupedNotification";
-
+	
 	export default {
 		name: "notificationPage",
 		components: {
@@ -136,7 +136,7 @@
 		},
 		watch: {
 			scrolled_to_bottom(old) {
-
+				
 				if (this.route_name === 'notifications') {
 					if (old === true && !this.loading) {
 						this.load();
@@ -168,11 +168,11 @@
 			mobile() {
 				return this.$root.mobile;
 			},
-
+			
 			scrolled_to_bottom() {
 				return this.$root.scrolled_to_bottom;
 			},
-
+			
 			route_name() {
 				return this.$route.name;
 			},
@@ -192,9 +192,9 @@
 			// 	return Object.values(combinedNotifies)
 			//
 			// },
-
+			
 			filtered_messages() {
-
+				
 				let msgs = {
 					today: [],
 					yesterday: [],
@@ -202,15 +202,15 @@
 					month: [],
 					later: []
 				};
-
+				
 				if (!!Object.keys(this.messages).length) {
-
-
+					
+					
 					function sortByDate(m) {
 						let today = parseInt(moment(new Date()).format('DDDD'), 10),
-								current = parseInt(moment(m.date).format('DDDD'), 10),
-								difference = today - current;
-
+							current = parseInt(moment(m.date).format('DDDD'), 10),
+							difference = today - current;
+						
 						switch (true) {
 							case difference === 0:
 								msgs.today.push(m);
@@ -229,11 +229,13 @@
 								break;
 						}
 					};
-
-					this.messages.forEach(m => { sortByDate(m) });
-
+					
+					this.messages.forEach(m => {
+						sortByDate(m)
+					});
+					
 					Object.keys(msgs).forEach(key => {
-
+						
 						let sorted_msgs = msgs[key].sort((a, b) => {
 							if (a.initiatorId === b.initiatorId && a.eventType === b.eventType) {
 								return -1;
@@ -241,12 +243,12 @@
 								return 1;
 							}
 						});
-
+						
 						let sorted_indexes = {};
-
+						
 						if (!!sorted_msgs.length) {
 							sorted_msgs.reduce((a, b, index) => {
-
+								
 								if (a.initiatorId === b.initiatorId) {
 									if (a.eventType === "VOTED" && b.eventType === "VOTED") {
 										if (!sorted_indexes[a.initiatorId]) sorted_indexes[a.initiatorId] = new Set();
@@ -254,7 +256,7 @@
 										sorted_indexes[a.initiatorId].add(index);
 									}
 								}
-
+								
 								return b;
 							});
 							
@@ -265,7 +267,7 @@
 								sorted_msgs.splice(set[0], set.length, grouped_msgs)
 								sorted_msgs[set[0]] = grouped_msgs;
 							});
-
+							
 							// sorted_indexes = Object.values(sorted_indexes).map(set => Array.from(set));
 							//
 							// sorted_indexes.forEach(set => {
@@ -275,90 +277,93 @@
 							// sorted_indexes.forEach(set => {
 							// 	sorted_msgs.splice(set[1], set.length - 1)
 							// })
-
+							
 						}
-
+						
 						msgs[key] = sorted_msgs;
-
+						
 					});
-
+					
 				}
-
+				
 				return msgs;
 			}
 		},
 		methods: {
-
+			
 			load() {
 				console.log('FIRED')
 				this.$store.dispatch('notificationPage/list', {customUrl: `${process.env.VUE_APP_NOTIFICATION_API}/notification/${this.page}`});
 			},
-
+			
 		},
-
+		
 		mounted() {
 			this.$store.dispatch('notificationPage/readInitialNotifications');
 			if (!this.scrolled_to_bottom) this.load();
 		}
-
+		
 	}
 </script>
 
-<style lang="scss" >
+<style lang="scss">
 	.notificationWrapper {
 		width: 100%;
-
+		
 		&.desktop {
 			min-height: 619px;
 		}
-
-
+		
+		
 		.notification-section {
 			background: #FFFFFF;
 			height: auto;
+			
 			.button-reusable {
 				display: flex;
 				justify-content: center;
+				
 				span {
 					font-family: Roboto;
 					font-style: normal;
 					font-size: 15px;
-
-
+					
+					
 				}
 			}
+			
 			.title {
 				width: fit-content;
 				margin-right: auto;
-
+				
 				font-family: Roboto;
 				font-style: normal;
 				font-weight: 500;
 				font-size: 14px;
 				color: #1A1E22;
-
+				
 			}
-
+			
 			.notification-instance {
-
+				
 				&.today {
 					background-color: #e4f0f4;
 				}
-
+				
 			}
-
+			
 		}
-
+		
 		.nope {
-
+			
 			text-align: center;
-
+			
 			span {
-
+				
 				color: #69777F;
 				font-family: Roboto;
 				font-style: normal;
-
+				
 			}
 		}
 	}

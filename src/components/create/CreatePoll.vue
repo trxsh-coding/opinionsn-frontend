@@ -72,7 +72,7 @@
             </div>
             <lang-string class="label pl-60" :title="'add_pictures_to_poll'"/>
 
-            <div class="picture-block flex-align-center">
+            <div class="picture-block flex-align-center mt-15">
 
                 <div class="icon__item p-25 pointer" @click="addSubjectPicture">
                     <icon-base
@@ -88,11 +88,12 @@
                         <upload-reusable
                                 description
                                 image-preview
+                                with-close-btn
                                 pre-width="100%"
                                 :pre-height="mobile ? 190 : 371"
                                 :value="item.picture"
-                                @upload="({file}) => {updateArrayPictures(file, index)}">
-
+                                @upload="({file}) => {updateArrayPictures(file, index)}"
+                                @remove="() => { updateArrayPictures(null, index) }">
                         </upload-reusable>
                     </swiper-slide>
                     <div v-show="pictures.length > 1" class="swiper-pagination" slot="pagination"></div>
@@ -109,7 +110,7 @@
                     :errors="form.errors.options[index]">
 
                 <div class="options-section flex-align-center" :class="{'pl-60' : index < 2}">
-                    <div class="delete-block pl-25 pr-24" v-if="index > 1">
+                    <div class="delete-block pl-25 pr-24 pointer" v-if="index > 1">
                         <icon-base
                                 @click.native="deleteOption(index)"
                                 width="11"
@@ -126,24 +127,23 @@
                                 :value="option.description"
                                 :height="60"
                                 @change="updateArrayField(arguments[0], null, 'options', 'description', index)"
-                                class="flex-align-center pl-14 mt-1"
+                                class="flex-align-center pl-14"
                                 input-placeholder="answer_text"
                         />
 
                         <upload-reusable
-                                :pre-height="60"
-                                :pre-width="60"
+                                :label-class="{'br-6 br-error': (form.errors.options[index] && form.errors.options[index].checkUpload)}"
+                                :pre-height="(form.errors.options[index] && form.errors.options[index].checkUpload) ? 59 : 61"
+                                :pre-width="(form.errors.options[index] && form.errors.options[index].checkUpload) ? 59 : 61"
                                 image-preview
+                                with-close-btn
                                 image-layout="bottom"
                                 width="fit-content"
                                 :value="option.picture"
                                 @upload="({file, url}) => {updateArrayField(file, url, 'options', 'picture', index)}"
                                 @remove="() => {
-                            updateArrayField(null, '', 'options', 'picture', index);
-                             onOptionPictureRemove(index)}">
-                            <template #icon>
-
-                            </template>
+                                    updateArrayField(null, '', 'options', 'picture', index);
+                                    onOptionPictureRemove(index)}" >
                         </upload-reusable>
                     </div>
                 </div>

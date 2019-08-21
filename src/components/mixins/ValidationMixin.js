@@ -25,7 +25,7 @@ export default {
         checkUpload({index}, index_array){
             
             if (!!index_array.length) {
-                return (index_array.indexOf(index) === -1) ? 'ЗАГРУЗИ КАРТИНКУ' : null;
+                return (index_array.indexOf(index) === -1) ? true : null;
             } else return null;
             
         },
