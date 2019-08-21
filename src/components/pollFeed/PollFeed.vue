@@ -141,15 +141,15 @@
 				}
 			},
 
-			beforeRouteLeave(to, from, next) {
-				let {page} = this;
-
-				page = 0;
-
-				this.$store.commit("pollFeed/resetFeedPage", page).then(() => {
-					next();
-				});
-			}
+			// beforeRouteLeave(to, from, next) {
+			// 	let {page} = this;
+			//
+			// 	page = 0;
+			//
+			// 	this.$store.commit("pollFeed/resetFeedPage", page).then(() => {
+			// 		next();
+			// 	});
+			// }
 		},
 		methods: {
 			
@@ -168,9 +168,9 @@
 		},
 
 		mounted() {
-			this.$store.dispatch(`catalogList/list`);
-			this.$store.dispatch(`pollFeed/list`);
-			this.setCategory({id: -1});
+				this.$store.dispatch(`catalogList/list`);
+				this.$store.dispatch(`pollFeed/list`);
+				this.setCategory({id: -1});
 		},
 
 		components: {

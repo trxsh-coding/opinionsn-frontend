@@ -32,19 +32,39 @@ import Settings from "../components/pageSettings/index.vue";
 import Statistic from "../components/Statistic/statisticInstance";
 import Rating from "../components/Rating/ratingInstance";
 
+const scrollBehavior  = (to, from, savedPosition) => {
+	console.log(savedPosition);
+	return new Promise((resolve, reject) => {
+		setTimeout(() => {
+			if(savedPosition) {
+				resolve (savedPosition)
+			} else {
+
+				reject ({ x: 0, y: 0 })
+
+			}
+
+		}, 500)
+	})
+};
+
+// const scrollBehavior = (to, from, savedPosition) =>{
+// 	console.log(to);
+// 	console.log(from);
+// 	console.log(savedPosition);
+// 	if (savedPosition) {
+// 		return savedPosition
+// 	} else {
+// 		return { x: 0, y: 0 }
+// 	}
+// };
 
 Vue.use(Router);
 
 export const index = new Router({
-	base: '/',
 	mode: 'history',
-	scrollBehavior(to, from, savedPosition) {
-		if (savedPosition) {
-			return savedPosition
-		} else {
-			return { x: 0, y: 0 }
-		}
-	},
+	base: '/',
+	scrollBehavior,
 	routes: [
 
 		{

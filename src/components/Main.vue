@@ -11,8 +11,10 @@
 			</aside>
 			
 			<mobile-header :user="user" v-if="mobile"  />
-			
-			<router-view class="sub-container "/>
+			<keep-alive>
+				<router-view class="sub-container "/>
+
+			</keep-alive>
 
 			<div
 					v-if="routeName === 'pollFeed' || 'singlePoll'"
