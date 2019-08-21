@@ -24,10 +24,10 @@
                     <span>{{description}}</span>
                 </div>
                 <img class="main-picture" :src="(sorted_pictures && sorted_pictures[0]) || pictures[0]"/>
-                <div v-if="pictures.length >= 2" class="pictures-section flex ">
-                    <img v-for="(picture, index) in sorted_pictures || pictures"  :key="index" :src="picture" :class="{borderedPicture : picture === pictures[0]}" @click="sortPicturesArray(index)"/>
+<!--                <div v-if="pictures.length >= 2" class="pictures-section flex ">-->
+<!--                    <img class="preview-picture" v-for="(picture, index) in sorted_pictures || pictures"  :key="index" :src="picture" :class="{borderedPicture : picture === pictures[0]}" @click="sortPicturesArray(index)"/>-->
 
-                </div>
+<!--                </div>-->
             </div>
 
         </div>
@@ -133,7 +133,7 @@
             }
 
             .main-picture {
-                width: 50%;
+                width: 100%;
             }
 
             .pictures-section {
@@ -148,5 +148,14 @@
             transform: translate(-50%, -50%);
             width: fit-content;
         }
+
+        @media only screen and (max-width: 400px) {
+
+           .preview-picture {
+               width: 100px !important;
+           }
+
+        }
+
     }
 </style>

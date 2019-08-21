@@ -106,7 +106,9 @@
 			padding-left: 18px;
 			
 		}
-		
+		.notification__item {
+			min-height: 48px;
+		}
 		.event-span {
 			font-family: Roboto;
 			font-style: normal;
