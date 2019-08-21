@@ -116,6 +116,8 @@
 				if (oldVal > 48) {
 					if (val > oldVal) this.hidden = true;
 					if (val < oldVal) this.hidden = false;
+				} else {
+					this.hidden = false;
 				}
 			}
 		},
