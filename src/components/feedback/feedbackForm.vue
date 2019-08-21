@@ -46,6 +46,7 @@
 						</upload-reusable>
 						<add-reusable @click.native="addMorePictures"/>
 					</div>
+
 					<button-reusable
 							class="v-center auth-btn mt-9 p-9 w-fit h-fit pl-3 pr-3"
 							@click.native="submitForm"
