@@ -263,7 +263,7 @@
 					if (clientX > block_width) clientX = block_width;
 					
 					let difference = clientX - initialCoord;
-					let transform_value = block_width - 54;
+					let transform_value = block_width + 23 - 54;
 					transform_limit = transform_limit - 54;
 					transform_value = (transform_value > transform_limit) ? transform_limit : transform_value;
 					
@@ -340,23 +340,6 @@
 				return transform_limit;
 			},
 			
-			filteredBows() {
-				
-				let {bows, enough_difference} = this;
-				
-				if (bows) {
-					
-					if (enough_difference) return bows;
-					
-					if (Object.keys(bows).length > 2) {
-						let singleBow = {};
-						singleBow[Object.entries(bows)[0][0]] = Object.entries(bows)[0][1];
-						return singleBow;
-					} else {
-						return bows;
-					}
-				}
-			},
 			
 			optionStyle() {
 				let {selected, temp_selected, correct, prediction, picture} = this;
