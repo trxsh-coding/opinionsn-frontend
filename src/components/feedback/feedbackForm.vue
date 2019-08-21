@@ -17,13 +17,13 @@
 				<div class="form-block max-width">
 
 
-					<input-reusable :value="feedbackForm.email"
+					<input-reusable v-model="feedbackForm.email"
 									input
 									class=" mb-12 flex-between"
 									width="100%"
 									:input-placeholder="'email'"/>
 
-					<input-reusable :value="feedbackForm.email"
+					<input-reusable v-model="feedbackForm.description"
 									textarea
 									class="mt-15 mb-12 flex-between"
 									width="100%"
@@ -48,6 +48,7 @@
 					</div>
 					<button-reusable
 							class="v-center auth-btn mt-9 p-9 w-fit h-fit pl-3 pr-3"
+							@click.native="submitForm"
 							description="send"
 							font-size="11"
 							bor-rad="6"
@@ -146,14 +147,17 @@
 			};
 		},
 		methods: {
+			updateArrayPictures(file, index) {
+				this.pictures[index].picture = file;
+			},
 			onPictureRemove(index){
+				console.log(index)
 				this.pictures.splice(index, 1)
 			},
 			addMorePictures(){
 				if(this.pictures.length < 6) {
 					this.pictures.push({
 						picture: null,
-						imgUrl: ''
 					})
 				}
 
@@ -161,15 +165,15 @@
 			handlePreview(file) {
 				this.pictures.push(file);
 			},
-			submitForm(formName) {
+			submitForm() {
 				let bodyFormData = new FormData();
-				let { pictures } = this;
-				const form = new Blob([JSON.stringify(formName)], {
+				let { pictures, feedbackForm } = this;
+				const form = new Blob([JSON.stringify(feedbackForm)], {
 					type: "application/json"
 				});
 				bodyFormData.append("form", form);
-				for (let pic of pictures) {
-					bodyFormData.append("files[]", pic.raw);
+				for (let {picture} of pictures) {
+					bodyFormData.append("files[]", picture);
 				}
 				const config = {
 					headers: {
@@ -188,6 +192,8 @@
 								email: "",
 								description: ""
 							};
+							this.$popup.insert('messages', [{message: 'Успешно!', type: 'success'}]);
+
 						}
 					})
 					.catch(() => {
@@ -198,19 +204,10 @@
 							description: ""
 						};
 
-						this.$message.error({
-							showClose: true,
-							message: "Произошла ошибка при отправке!"
-						});
+
 					});
 			},
-			beforeRemove(azfile, fileList) {
-				let { uid } = file;
 
-				for (let i = 0; i < this.pictures.length; i++) {
-					if (this.pictures[i].uid === uid) this.pictures.splice(i, 1);
-				}
-			}
 		}
 	};
 </script>
