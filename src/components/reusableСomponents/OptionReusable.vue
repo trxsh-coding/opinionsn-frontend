@@ -1,7 +1,7 @@
 <template>
 	<div class="option-reusable" ref="containerRef" :style="[transform_shift, optionWrapper]">
 		
-		<div v-if="bows && mobile"
+		<div v-if="mobile"
 		     class="bows-bar"
 		     ref="bowsRef"
 		     :class="{'invisible': !voted, 'pl-8': swiped}"
@@ -10,27 +10,29 @@
 		     @touchmove="trackTouchMove"
 		     @touchend="trackTouchEnd">
 			
-			<slot v-if="Object.keys(bows).length > 2 && !swiped" name="badge"></slot>
-			
-			<scroll-swiper-reusable
-					v-if="Object.keys(bows).length > 2"
-					height="100%"
-					:width="swiped ? '100%' : 'fit-content'"
-					:stub-length="swiped && 1"
-					class="bows-slider">
+			<template v-if="bows">
+				<slot v-if="Object.keys(bows).length > 2 && !swiped" name="badge"></slot>
+				
+				<scroll-swiper-reusable
+						v-if="Object.keys(bows).length > 2"
+						height="100%"
+						:width="swiped ? '100%' : 'fit-content'"
+						:stub-length="swiped && 1"
+						class="bows-slider">
+					<div
+							v-for="(value, key, index) in bows" :to="'/user/' + key"
+							v-show="swiped || index === 0"
+							@click="swiped && $router.push({name: 'user', params: { id: key }})"
+							class="bow mx-2 h-21 w-21"
+							:style="{backgroundImage: `url('${publicPath + value}')`}"></div>
+				</scroll-swiper-reusable>
+				
 				<div
-						v-for="(value, key, index) in bows" :to="'/user/' + key"
-						v-show="swiped || index === 0"
-						@click="swiped && $router.push({name: 'user', params: { id: key }})"
+						v-if="Object.keys(bows).length < 2"
+						@click="swiped && $router.push({name: 'user', params: { id: Object.keys(bows)[0] }})"
 						class="bow mx-2 h-21 w-21"
-						:style="{backgroundImage: `url('${publicPath + value}')`}"></div>
-			</scroll-swiper-reusable>
-			
-			<div
-					v-if="Object.keys(bows).length < 2"
-					@click="swiped && $router.push({name: 'user', params: { id: Object.keys(bows)[0] }})"
-					class="bow mx-2 h-21 w-21"
-					:style="{backgroundImage: `url('${publicPath + Object.values(bows)[0]}')`}"></div>
+						:style="{backgroundImage: `url('${publicPath + Object.values(bows)[0]}')`}"></div>
+			</template>
 		</div>
 		
 		<button @click="setRightOption(id, poll_id)" v-if="mainUser.authorities === 'ADMIN' && type_of_poll !== 0">✓

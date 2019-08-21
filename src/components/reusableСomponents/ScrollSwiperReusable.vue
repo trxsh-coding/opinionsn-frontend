@@ -70,8 +70,17 @@
 		overflow-x: scroll;
 
 		scrollbar-width: none;
+		-ms-overflow-style: none;
+		overflow: -moz-scrollbars-none;
+		
+		* {
+			scrollbar-width: none;
+			-ms-overflow-style: none;
+			overflow: -moz-scrollbars-none;
+		}
 
-		&::-webkit-scrollbar {
+		&::-webkit-scrollbar,
+		*::-webkit-scrollbar {
 			display: none !important;
 			-webkit-appearance: none !important;
 			width: 0 !important;

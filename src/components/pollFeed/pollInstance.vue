@@ -35,9 +35,9 @@
                 </template>
 
                 <template #badge>
-                    <badge-reusable :counter="Object.keys(option.bows).length - 2" :size="21"></badge-reusable>
-
+                    <badge-reusable :counter="Object.keys(option.bows).length - 1" :size="21"></badge-reusable>
                 </template>
+                
             </options-section>
 
         <span v-show="!options_visible && combinedOptions.length > 5" class="options-load-btn pointer mt-9"
