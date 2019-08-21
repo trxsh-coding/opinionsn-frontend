@@ -210,11 +210,11 @@
 
 					series[0] = {
 						data: correctAnswers,
-						name: 'correct answers'
+						name: 'Верно'
 					};
 					series[1] = {
 						data: inCorrectAnswers,
-						name: 'incorrect answers'
+						name: 'Не верно'
 					};
 
 				} else {

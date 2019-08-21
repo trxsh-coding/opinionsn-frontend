@@ -46,6 +46,9 @@
 				</template>
 				<template #items>
 					<span class="dropdown-actions ws-no-warp pointer" @click="deletePoll(poll.id)">Удалить опрос</span>
+					<br>
+					<span class="dropdown-actions ws-no-warp pointer"  @click="linkShare(poll.id)">Поделиться в фейсбуке</span>
+
 				</template>
 			</dropdown-list-reusable>
 			
@@ -126,6 +129,9 @@
 				
 				this.$store.dispatch(`pollFeed/deletePoll`, poll_id);
 				
+			},
+			linkShare(poll_id){
+				window.location.href =`https://www.facebook.com/sharer.php?u=https://opinionsn.com/singlePoll/${poll_id}`
 			}
 		}
 	}

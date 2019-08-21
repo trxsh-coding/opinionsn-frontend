@@ -855,6 +855,12 @@ li {
 		max-width: 100%;
 		margin-top: 0 !important;
 	}
+	html {
+		*::-webkit-scrollbar {
+			display: none !important; /* Chrome Safari */
+			width: 0 !important;
+		}
+	}
 }
 
 
