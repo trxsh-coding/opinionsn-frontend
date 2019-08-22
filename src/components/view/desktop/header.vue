@@ -29,11 +29,12 @@
 				<dropdown-list-reusable
 						class="notifications-dropdown mr-22"
 						@scrollDifference="setListScrollDifference"
+						@visibile="visible => { if (visible) clearCounter() }"
 						list-class="notification-list p-0"
 						:icon="false"
 						height="583"
 						width="376">
-					<div @click="clearCounter" class="icon-wrapper">
+					<div class="icon-wrapper">
 						<icon-base
 								class=""
 								fill="none"

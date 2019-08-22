@@ -292,14 +292,13 @@
 		methods: {
 			
 			load() {
-				console.log('FIRED')
 				this.$store.dispatch('notificationPage/list', {customUrl: `${process.env.VUE_APP_NOTIFICATION_API}/notification/${this.page}`});
 			},
 			
 		},
 		
 		mounted() {
-			this.$store.dispatch('notificationPage/readInitialNotifications');
+			if (this.route_name === 'notifications') this.$store.dispatch('notificationPage/readInitialNotifications');
 			if (!this.scrolled_to_bottom) this.load();
 		}
 		
