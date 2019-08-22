@@ -29,7 +29,7 @@
                 </icon-base>
                 <lang-string :title="'search'"/>
             </li>
-            <li class="footer-icon" @click="routerPush('notifications')" :class="{active : routeName === 'notifications'}">
+            <li class="footer-icon notification-btn" @click="routerPush('notifications')" :class="{active : routeName === 'notifications'}">
                 <icon-base
                         width="21"
                         height="21"
@@ -37,6 +37,8 @@
                         icon-name="icon-notifications"><icon-notifications/>
                 </icon-base>
                 <lang-string :title="'notifications'"/>
+    
+                <badge-reusable class="counter" v-show="counter" :size="12" color="#FF5454" :counter="counter" />
             </li>
             <li class="footer-icon" @click="routerPush('menu')" :class="{active : routeName === 'menu'}">
                 <icon-base
@@ -60,17 +62,18 @@
     import IconSearch from '../../icons/footer/IconSearch'
     import langMixin from '../../mixins/langMixin'
     import langString from '../../langString'
+import { mapState } from 'vuex';
+    import BadgeReusable from "@/components/reusableСomponents/BadgeReusable";
 
     export default {
         name: "footer",
         mixins:[langMixin],
-        components:{IconBase, IconMain, IconMenu, IconNotifications, IconSearch, IconOpinion, langString},
-        data() {
-
-            return {
-            }
-        },
+        components:{BadgeReusable, IconBase, IconMain, IconMenu, IconNotifications, IconSearch, IconOpinion, langString},
         computed: {
+    
+            ...mapState("notificationPage", {
+                counter: s => s.counter,
+            }),
 
             routeName(){
 
@@ -85,6 +88,9 @@
                 this.$router.push({name:`${linkName}`})
 
             }
+        },
+        mounted () {
+            console.log('counter', this.counter);
         },
     }
 </script>
@@ -115,17 +121,31 @@
             width: 100%;
             display: inline-flex;
             justify-content: space-between;
+            
             li {
+                position: relative;
                 justify-content: space-between;
                 display: flex;
                 flex-direction: column;
                 align-items: center;
                 opacity: 0.3;
+                
                 span {
                     font-family: Helvetica Neue;
                     font-size: 10px;
                     line-height: 10px;
                     color: #1A1E22;
+                }
+                
+                
+            }
+            
+            .notification-btn {
+    
+                .counter {
+                    position: absolute;
+                    top: -2px;
+                    right: 16px;
                 }
             }
         }

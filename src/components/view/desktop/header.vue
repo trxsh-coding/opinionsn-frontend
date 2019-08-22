@@ -198,16 +198,6 @@
 			},
 		},
 		
-		created() {
-			
-			axios.get(`${process.env.VUE_APP_NOTIFICATION_API}/notification/unReadCount`)
-				.then(response => {
-					this.$store.commit('notificationPage/setNotificationsCount', response.data)
-					
-				})
-			
-		},
-		
 		components: {
 			BadgeReusable,
 			NotificationPage,

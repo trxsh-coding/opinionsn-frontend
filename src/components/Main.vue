@@ -100,6 +100,7 @@
 	import DesktopHeader from "./view/desktop/header";
 	import langString from "./langString";
 	import ButtonReusable from "./reusableСomponents/ButtonReusable";
+	import axios from 'axios';
 
 	export default {
 
@@ -261,7 +262,11 @@
 			this.$store.dispatch("userPage/getMainUser");
 			this.$store.dispatch("lang/getLocaleString");
             this.$store.dispatch("serviceWorker/CREATE_SUBSCRIPTION")
-
+			axios.get(`${process.env.VUE_APP_NOTIFICATION_API}/notification/unReadCount`)
+				.then(response => {
+					this.$store.commit('notificationPage/setNotificationsCount', response.data)
+					
+				})
         },
 		mounted() {
 			this.iosAddToHomeScreenSnippet();
