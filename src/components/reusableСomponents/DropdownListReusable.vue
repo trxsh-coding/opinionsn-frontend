@@ -1,5 +1,5 @@
 <template>
-	<div class="dropdown-list-reusable" ref="wrapperRef">
+	<div class="dropdown-list-reusable" :class="{'active': show}" ref="wrapperRef">
 
 		<button class="toggle-btn" @click="show = !show">
 			<slot></slot>

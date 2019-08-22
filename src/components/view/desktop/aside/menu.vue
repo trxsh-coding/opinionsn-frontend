@@ -78,23 +78,23 @@
             />
         </div>
         
-<!--        <div class="lang-switch">-->
-<!--            -->
-<!--        </div>-->
-        
         <dropdown-list-reusable
-                class="lang-switch br-6 v-center mt-9"
+                class="lang-switch br-6 flex-align-center mt-9"
                 list-class="drop-list"
                 width="100%"
                 with-arrow>
             <template>
-                <lang-string title="choose_language" />
+                <icon-base class="flag-icon" height="22" width="22" viewBox="0 0 24 24" style="enable-background:new 0 0 24 24;">
+                    <icon-flag />
+                </icon-base>
+                
+                <lang-string class="button-caption ml-10" title="choose_language" />
             </template>
             
             <template #items>
                 <ul class="flex-column">
-                    <li @click="changeLanguage(1)" class="option py-5 pr-10 pointer v-center"><span>English</span></li>
-                    <li @click="changeLanguage(2)" class="option mt-5 py-5 pr-10 pointer v-center"><span>Русский</span></li>
+                    <li @click="changeLanguage(1)" class="option py-5 pr-10 pl-32 pointer flex-align-center"><span>English</span></li>
+                    <li @click="changeLanguage(2)" class="option mt-5 py-5 pr-10 pl-32 pointer flex-align-center"><span>Русский</span></li>
                 </ul>
             </template>
         </dropdown-list-reusable>
@@ -112,6 +112,7 @@
     import langString from "../../../langString"
     import DropdownListReusable from "@/components/reusableСomponents/DropdownListReusable";
     import axios from "axios";
+    import IconFlag from "@/components/icons/IconFlag";
 
     
     export default {
@@ -135,6 +136,7 @@
             }
         },
         components: {
+            IconFlag,
             DropdownListReusable,
             iconAddPoll, IconBase, langString, IconPollFeed, IconOpinion, IconBookmark, IconSpeaker}
     }
@@ -159,7 +161,7 @@
         }
         
         .feedback-link {
-            background: #BBBDC2;
+            background: #4BB48E;
             
             span {
                 font-family: Roboto, sans-serif;
@@ -189,16 +191,33 @@
             
             .toggle-btn {
                 width: inherit;
+                height: inherit;
                 padding: 0 10px;
-                display: flex;
-                justify-content: center;
+                justify-content: flex-start;
                 
-                .lang-string {
-                    margin-left: auto;
-                }
                 
                 .icon-wrapper {
                     margin-left: auto !important;
+                }
+                
+                .flag-icon {
+                    stroke: #ADAFB3;
+                }
+    
+                .button-caption {
+                    font-family: Roboto;
+                    font-size: 13px;
+                    color: #ADAFB3;
+                }
+            }
+            
+            &.active {
+                .button-caption {
+                    color: #1A1E22;
+                }
+    
+                .flag-icon {
+                    stroke: #1A1E22;
                 }
             }
         }

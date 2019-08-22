@@ -4,7 +4,7 @@
                 :height="38"
                 width="100%"
                 :amount-of-slides="'auto'"
-                :spaceBetween="15"
+                :spaceBetween="10"
                 :swiper-type="mobile ? 'scroll' : 'usual'">
             <template #usual>
                 <swiper-slide

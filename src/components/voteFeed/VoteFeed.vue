@@ -9,7 +9,7 @@
 			<picture-reusable
 				v-for="{avatar, username, user_id} in followersData"
 				@click.native="filterFeed(user_id)"
-				class="mr-7 pointer"
+				class="user-bow mr-7 pointer"
 				pic-class="mb-9 p-2"
 				:size="66"
 				:img="avatar"
@@ -32,7 +32,7 @@
 					v-for="{avatar, username, user_id} in followersData">
 				<picture-reusable
 						@click.native="filterFeed(user_id)"
-						class="mr-7 pointer"
+						class="user-bow mr-7 pointer"
 						pic-class="mb-9 p-2"
 						:size="66"
 						:img="avatar"
@@ -174,6 +174,19 @@
 
 			&.desktop {
 				min-height: 619px;
+			}
+		}
+		
+		.user-bow {
+			.text {
+				.title {
+					width: 70px;
+					text-align: center;
+					
+					white-space: nowrap;
+					overflow: hidden;
+					text-overflow: ellipsis;
+				}
 			}
 		}
 
