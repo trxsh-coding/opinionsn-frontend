@@ -50,6 +50,7 @@
 	import langString from "../langString";
 	
 	export default {
+		name: 'PollFeed',
 		data() {
 			return {
 				page: 1,

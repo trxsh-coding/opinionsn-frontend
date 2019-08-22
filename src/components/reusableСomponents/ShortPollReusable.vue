@@ -1,6 +1,6 @@
 <template>
     <div class="short-poll-reusable" :class="{'column-layout': !rowLayout }" :style="pollWrapperStyle">
-		<div class="poll">
+		<div class="poll" :class="{'ml-9': poll.picture}">
 
 			<bookmark class="bookmark-btn pointer" :poll="poll"></bookmark>
 
@@ -218,7 +218,6 @@
 
 		.poll {
 			position: relative;
-			margin-left: 9px;
 			min-height: 84px;
 			background: #FFFFFF;
 			border: 0.5px solid #BCBEC3;

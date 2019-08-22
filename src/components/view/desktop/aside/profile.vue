@@ -1,5 +1,5 @@
 <template>
-    <div class="profile-block" v-if="!!Object.keys(user).length">
+    <div class="profile-block" v-if="appearanceConditions">
         <div class="profile-background-block">
             <picture-reusable :img="publicPath + user.background_image" :width="288" :height="90" bor-rad="auto"/>
         </div>
@@ -38,6 +38,13 @@
                 user: ({mainUser}) => mainUser
 
             }),
+            
+            appearanceConditions() {
+                let { user } = this;
+                return (Object.keys(user).length) ? !(this.$route.name === 'user' && this.$route.params.id === user.id) : false;
+            }
+            
+            
         },
         components: {PictureReusable},
     }

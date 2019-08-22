@@ -9,7 +9,6 @@
 
 		<page-feed class="mt-24" />
 
-
     </div>
 </template>
 

@@ -1,9 +1,10 @@
 <template>
 	<div id="poll-header" class="mb-4">
-		<div class="top-section">
+		<div class="top-section mb-12">
 			<author-headline
 					pic-class="mr-9"
-					class="mb-12 ml-60 pointer"
+					class="pointer"
+					:class="topSectionClass"
 					avatar
 					:id="author.id"
 					:img="publicPath + imageUtil(author.path_to_avatar, 'S')"
@@ -27,7 +28,7 @@
                     <span v-show="!!author.location" class="pr-9">
                         {{author.location}}
                     </span>
-						<time-trans v-show="!!poll.date" :time="poll.date"/>
+						<time-trans shortTime v-show="!!poll.date" :time="poll.date"/>
 					</div>
 				</template>
 			</author-headline>
@@ -72,7 +73,7 @@
 	
 	export default {
 		name: "postHeader",
-		props: ['author', 'poll', 'eventType'],
+		props: ['author', 'poll', 'eventType', 'topSectionClass'],
 		mixins: [imageMixin, langMixin],
 		components: {
 			DropdownListReusable,

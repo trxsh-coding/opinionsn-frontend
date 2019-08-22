@@ -3,7 +3,7 @@
             id="main-feed-layout"
             class="pt-12"
             :class="{'pr-20': mobile, 'pr-12': !mobile}">
-        <post-header :author="author" :poll="poll" :eventType="item.eventType">
+        <post-header top-section-class="ml-60" :author="author" :poll="poll" :eventType="item.eventType">
             <template #annotation>
                 <poll-anotation :poll="poll"/>
             </template>
@@ -15,6 +15,7 @@
                     :optionsVisible="(combinedOptions.length <= 5) || options_visible"
                     :access-check="pollAccessCheck"
                     v-for="(option, index) in combinedOptions"
+                    :key="index"
                     v-show="options_visible || index < 5"
                     :bows="option.bows"
                     class="mt-12"

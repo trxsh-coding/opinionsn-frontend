@@ -1,12 +1,11 @@
 <template>
-    <div id="opinion-feed-layout">
-        <post-header :author="author" :poll="poll" :eventType="item.eventType">
+    <div id="opinion-feed-layout" :class="{'p-0 pl-51 pr-30': !mobile, 'pl-21 pr-20': mobile}">
+        <post-header :class="{'ml-30': mobile}" :author="author" :poll="poll" :eventType="item.eventType">
 			<slot name="headAnnotation"></slot>
 		</post-header>
 
         <options-carousel
                 v-if="!mobile && item.voted"
-                class="pl-60 pr-21"
                 :amount-of-slides="3"
                 :spaceBetween="9">
             <template #swiperAnnotation>
@@ -16,11 +15,11 @@
             </template>
         </options-carousel>
 
-		<scroll-swiper-reusable class="pl-30" v-if="mobile" :stub-length="1">
+		<scroll-swiper-reusable v-if="mobile" :stub-length="1">
 			<option-item class="option mr-9" v-for="{option, isSelected} in sortedOptions" :selected="isSelected" :option="option" :width="180"  :height="45"/>
 		</scroll-swiper-reusable>
 
-        <vote-annotation class="pl-11 pr-20 mt-12" :class="{'p-0 pl-51 pr-30': !mobile, 'pl-21 pr-20': mobile, 'm-0 mt-12': !item.voted}" :poll="poll"  />
+        <vote-annotation class="mt-12" :class="{'m-0 mt-12': !item.voted}" :poll="poll"  />
 
         <!--<explanation-reusable-->
                 <!--v-if="item.voted"-->

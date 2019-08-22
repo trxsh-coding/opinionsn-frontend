@@ -11,9 +11,9 @@
 			</aside>
 			
 			<mobile-header :user="user" v-if="mobile"  />
-			<keep-alive>
-				<router-view class="sub-container "/>
-
+			
+			<keep-alive include="PollFeed">
+				<router-view class="sub-container"/>
 			</keep-alive>
 
 			<div
