@@ -17,8 +17,8 @@
 
 			<div class="text flex-column" :class="{'ml-9': !poll.picture || true}">
 
-				<span class="poll-timestamp mb-3" v-if="mobile">
-					<time-trans predictionTime :time="poll.date" />
+				<span class="poll-timestamp mb-3" v-if="withTimestamp">
+					<time-trans transformed-time :time="poll.date" />
 				</span>
 
 				<span class="poll-name pointer mb-3" @click="pollLink(poll.id)">{{poll.subject}}</span>
@@ -103,6 +103,12 @@
 				}
 			},
 			withDesc: {
+				type: Boolean,
+				default: function () {
+					return false;
+				}
+			},
+			withTimestamp: {
 				type: Boolean,
 				default: function () {
 					return false;

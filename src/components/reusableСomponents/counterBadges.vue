@@ -38,7 +38,7 @@
 				<icon-clocks></icon-clocks>
 			</icon-base>
 			<span class="ml-6">
-				<time-trans :time="poll.end_date"></time-trans>
+				<time-trans prediction-time :time="poll.end_date"></time-trans>
 			</span>
 
 		</div>
