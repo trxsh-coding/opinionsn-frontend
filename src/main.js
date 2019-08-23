@@ -1,5 +1,3 @@
-import ElementScrollHandler from "./components/mixins/ElementScrollHandler";
-
 require('./styles.scss');
 import Vue from 'vue'
 import App from './App'
@@ -23,6 +21,7 @@ import * as firebase from "firebase";
 import DatePick from 'vue-date-pick';
 import 'vue-date-pick/dist/vueDatePick.css';
 import PopupPlugin from "./plugins/PopupPlugin";
+import ElementScrollHandler from "./components/mixins/ElementScrollHandler";
 
 
 Vue.use(DatePick);
