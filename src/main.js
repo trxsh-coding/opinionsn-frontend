@@ -5,12 +5,6 @@ import Vue from 'vue'
 import App from './App'
 import router from './router/'
 import store from './store/store'
-import Element from 'element-ui'
-import 'element-ui/lib/theme-chalk/index.css';
-import 'element-ui/lib/theme-chalk/display.css';
-import locale from 'element-ui/lib/locale'
-import langRu from 'element-ui/lib/locale/lang/ru-RU'
-import langEng from 'element-ui/lib/locale/lang/en'
 import VueI18n from 'vue-i18n';
 import NProgress from 'vue-nprogress'
 import Croppa from 'vue-croppa'
@@ -39,29 +33,12 @@ Vue.use(PerfectScrollbar);
 Vue.use(VueTheMask);
 Vue.use(Croppa);
 Vue.use(NProgress);
-locale.use(langRu);
 Vue.use(VueI18n);
 Vue.use(moment);
 Vue.use(PopupPlugin, {
 	store: new PopupPlugin.Store()
 });
 //*****************
-
-const i18n = new VueI18n({
-	locale: 'en',
-	messages: {
-		ru: {
-			...langRu
-		},
-		en: {
-			...langEng
-		}
-	}
-});
-
-Vue.use(Element, {
-	i18n: (key, value) => i18n.t(key, value)
-});
 
 //*****************
 // var config = {
@@ -104,7 +81,6 @@ export const vueApp = new Vue({
 	router,
 	nprogress,
 	store,
-	i18n,
 	moment,
 	data() {
 		return {

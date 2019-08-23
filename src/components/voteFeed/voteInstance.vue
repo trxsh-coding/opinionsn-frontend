@@ -26,7 +26,7 @@
                 <!--:explain=""-->
                 <!--without_avatar />-->
 
-        <bows-panel class="mt-9 px-20" :class="{'p-0 pl-60 pr-30': !mobile, 'pl-30 pr-20': mobile}" v-show="!!Object.keys(poll.bows).length" :users="poll.bows"  />
+        <bows-panel class="mt-9 px-20" v-show="!!Object.keys(poll.bows).length" :users="poll.bows"  />
 
     </div>
 </template>

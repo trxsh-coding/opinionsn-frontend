@@ -2,7 +2,7 @@
     <div class="pt-15 pl-60 pr-20" :class="{'bg-white': !mobile}">
         <profile v-if="mobile"/>
         <routebar/>
-        <language-change/>
+<!--        <language-change/>-->
 		<div class="copyright flex-space-center mt-13">
             <span>© 2019 OPINION</span>
         </div>
@@ -12,13 +12,11 @@
 <script>
 	import routebar from "./routebar";
 	import profile from "./profile";
-	import languageChange from "../languageChange";
 
 	export default {
 		components: {
 			profile,
-			routebar,
-			languageChange
+			routebar
 		},
         
         computed: {
