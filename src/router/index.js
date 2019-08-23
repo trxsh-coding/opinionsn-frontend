@@ -32,7 +32,6 @@ import Statistic from "../components/Statistic/statisticInstance";
 import Rating from "../components/Rating/ratingInstance";
 
 const scrollBehavior  = (to, from, savedPosition) => {
-	console.log(savedPosition);
 	return new Promise((resolve, reject) => {
 		setTimeout(() => {
 			if(savedPosition) {

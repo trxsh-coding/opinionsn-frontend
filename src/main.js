@@ -89,7 +89,7 @@ export const vueApp = new Vue({
 			timer_id: null,
 			timer_duration: 0,
 			temp_selected_option: null,
-			popup_notifications: []
+			search_keyword: ''
 		}
 	},
 	mixins: [ElementScrollHandler],

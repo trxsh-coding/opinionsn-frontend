@@ -22,7 +22,14 @@
 						<icon-text-logo/>
 					</icon-base>
 				</div>
-				<input v-if="!!Object.keys(user).length" class="ml-27" type="text" placeholder="Поиск" v-model="keyword" @change="routeOnChange">
+				<input
+						v-if="Object.keys(user).length"
+						class="ml-27"
+						type="text"
+						placeholder="Поиск"
+						v-model="$root.search_keyword"
+						@keypress.enter="routerPush('search')"
+						@input="setSearchKeyword($event.target.value)">
 			</div>
 			<div class="profile-annotation-block flex-align-center" v-if="!!Object.keys(user).length">
 
@@ -127,7 +134,6 @@
 			return {
 				publicPath: process.env.VUE_APP_MAIN_API,
 				listScrollDifference: null,
-				keyword: '',
 				mobile: this.$root.mobile
 			}
 		},
@@ -176,9 +182,9 @@
 
 			},
 
-			routeOnChange(){
+			setSearchKeyword(keyword){
 
-				this.$router.push({ name:'search', query: {keyword: this.keyword} })
+				this.$root.search_keyword = keyword;
 
 			},
 

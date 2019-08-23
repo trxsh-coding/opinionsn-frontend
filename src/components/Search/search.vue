@@ -76,9 +76,10 @@
 
 			return {
 
-				keywords: '',
+				keywords: this.search_keyword || '',
 				type: 'USER',
-				contain: null
+				contain: null,
+				timer_id: null
 			}
 
 		},
@@ -86,7 +87,8 @@
 			keywords() {
 				this.searchUsers();
 			},
-			searchQuery() {
+			search_keyword(val) {
+				this.keywords = val;
 				this.searchUsers();
 			}
 		},
@@ -101,10 +103,9 @@
 			mobile() {
 				return this.$root.mobile;
 			},
-
-			searchQuery(){
-				this.keywords = this.$route.query.keyword;
-				return this.$route.query.keyword
+			
+			search_keyword(){
+				return this.$root.search_keyword
 			},
 
 		},
@@ -117,33 +118,43 @@
 
 			},
 			searchUsers() {
-				let type = this.type;
-				let contain = this.keywords;
-
-				if (this.type === 'POLL') {
-
-					this.$store.dispatch('searchUser/list', {
-						customUrl: `${process.env.VUE_APP_MAIN_API}/rest/v1/search/polls`,
-						params: {type, contain}
-					})
-
-
-				} else {
-
-					this.$store.dispatch('searchUser/list', {customUrl: `${process.env.VUE_APP_MAIN_API}/rest/v1/search/user/containing/${contain}`})
-
-
-				}
-
+				
+				clearTimeout(this.timer_id);
+				
+				this.timer_id = setTimeout(() => {
+					let type = this.type;
+					let contain = this.keywords;
+					
+					if (this.type === 'POLL') {
+						
+						this.$store.dispatch('searchUser/list', {
+							customUrl: `${process.env.VUE_APP_MAIN_API}/rest/v1/search/polls`,
+							params: {type, contain}
+						})
+						
+						
+					} else {
+						
+						this.$store.dispatch('searchUser/list', {customUrl: `${process.env.VUE_APP_MAIN_API}/rest/v1/search/user/containing/${contain}`})
+						
+						
+					}
+				}, 500);
 
 			},
 
 			clearForm() {
-
+				
+				this.$root.search_keyword = '';
 				this.keywords = '';
 
-			}
+			},
 
+		},
+		
+		beforeRouteLeave(to, from, next) {
+			this.clearForm();
+			next();
 		}
 	}
 </script>
