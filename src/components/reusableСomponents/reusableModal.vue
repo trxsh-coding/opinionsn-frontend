@@ -23,11 +23,54 @@
                 <div class="picture-description" v-if="description">
                     <span>{{description}}</span>
                 </div>
-                <img class="main-picture" :src="(sorted_pictures && sorted_pictures[0]) || pictures[0]"/>
-<!--                <div v-if="pictures.length >= 2" class="pictures-section flex ">-->
-<!--                    <img class="preview-picture" v-for="(picture, index) in sorted_pictures || pictures"  :key="index" :src="picture" :class="{borderedPicture : picture === pictures[0]}" @click="sortPicturesArray(index)"/>-->
+                <img class="main-picture pointer" :src="pictures[current_index]" @click="setNextPicture"/>
 
-<!--                </div>-->
+                <swiper-reusable
+                        class="pictures-section  flex"
+                        v-if="pictures.length >= 2"
+                        :height="150"
+                        width="100%"
+                        :amount-of-slides="'auto'"
+                        :spaceBetween="15"
+                        :swiper-type="mobile ? 'scroll' : 'usual'">
+                    <template #usual>
+                        <swiper-slide
+                                class="w-fit "
+                                v-for="(picture, index) in pictures">
+
+
+                            <picture-reusable
+                                    :key="index"
+                                    :src="picture"
+                                    :class="{borderedPicture : picture === pictures[current_index]}"
+                                    @click.native="setCurrentIndex(index)"
+                                    class="mr-12 p-0 pointer"
+                                    pic-class="mb-5"
+                                    :img=" picture"
+                                    :height="150"
+                                    :width="200"
+                                    text-layout="bottom">
+                            </picture-reusable>
+
+                        </swiper-slide>
+                    </template>
+                    <template #scroll>
+                        <picture-reusable
+                                v-for="(picture, index) in pictures"
+                                :key="index"
+                                :src="picture"
+                                :class="{borderedPicture : picture === pictures[current_index]}"
+                                @click.native="setCurrentIndex(index)"
+                                class="mr-12 p-0 pointer"
+                                pic-class="mb-5"
+                                :img=" picture"
+                                :height="100"
+                                :width="170"
+                                text-layout="bottom">
+                        </picture-reusable>
+                    </template>
+                </swiper-reusable>
+
             </div>
 
         </div>
@@ -39,19 +82,23 @@
     import IconBase from "../icons/IconBase";
     import IconClose from "../icons/modal/IconClose";
     import ImageMixin from "../mixins/imageMixin"
+    import SwiperReusable from "./swiperReusable";
 
     export default {
         name: "reusableModal",
-        components: {IconBase, PictureReusable, IconClose},
+        components: {SwiperReusable, IconBase, PictureReusable, IconClose},
         mixins: [ImageMixin],
         data() {
             return {
                 publicPath: process.env.VUE_APP_MAIN_API,
-                sorted_pictures: null
+                sorted_pictures: null,
+                current_index: 0
             }
         },
         computed: {
-
+            mobile(){
+              return this.$root.mobile
+            },
             pictures() {
                 return this.$popup.pictures.map(pic => this.publicPath + this.imageUtil(pic, 'L'));
             }
@@ -64,12 +111,32 @@
             },
             clearPictures() {
                 this.sorted_pictures = null;
+                this.current_index = 0;
                 this.$popup.clear('pictures');
             },
             onModalClick() {
                 this.$emit('show')
             },
 
+            setNextPicture(){
+              this.current_index += 1;
+
+              if (this.current_index >= this.pictures.length) this.clearPictures();
+
+            },
+            setCurrentIndex(index){
+
+                this.current_index = index;
+
+                // let {sorted_pictures, pictures} = this;
+                // if(sorted_pictures == null) {
+                //     pictures.push(pictures[0]);
+                //     pictures.splice(0, 1)
+                // } else {
+                //     sorted_pictures.push(sorted_pictures[0]);
+                //     sorted_pictures.splice(0, 1)
+                // }
+            },
             onCloseAction() {
                 this.$emit('close');
                 this.hideModal = false
@@ -96,6 +163,10 @@
             background: #000;
             width: 100%;
             height: 100%;
+            display: flex;
+            align-items: center;
+            flex-direction: row;
+            justify-content: center;
         }
 
         .icon-close {
@@ -127,9 +198,11 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-
+            height: 100%;
+            justify-content: center;
             .borderedPicture {
-                border: 1px solid #FFFFFF;
+                border: 1.3px solid #FFFFFF;
+                opacity: 0.7;
             }
 
             .main-picture {
@@ -137,9 +210,9 @@
             }
 
             .pictures-section {
-                img {
-                    width: 250px;
-                }
+                position: fixed;
+                bottom: 5px;
+
             }
 
             position: fixed;
@@ -152,7 +225,7 @@
         @media only screen and (max-width: 400px) {
 
            .preview-picture {
-               width: 100px !important;
+               width: 70px !important;
            }
 
         }

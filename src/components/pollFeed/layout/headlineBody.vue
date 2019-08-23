@@ -17,10 +17,10 @@
 		<swiper-carousel v-if="!poll.picture" :with-pagination="poll.urlPhotos.length > 1" :amount-of-slides="1"
 		                 :space-between="10" :without-breakpoints="true">
 			<template #swiperAnnotation>
-				<swiper-slide v-for="picture in poll.urlPhotos">
-					<subject-picture :img="publicPath + picture" width="100%" only-picture :height="mobile ? 190 : 303"
+				<swiper-slide v-for="(picture, index) in poll.urlPhotos">
+					<subject-picture :img="publicPath + picture" width="100%"  class="pointer" only-picture :height="mobile ? 190 : 303"
 					                 textLayout="right" bor-rad="6"
-					                 @click.native="$popup.insert('pictures',  poll.urlPhotos)"/>
+					                 @click.native="pushToPopup(poll.urlPhotos, index)"/>
 				</swiper-slide>
 			</template>
 		</swiper-carousel>
@@ -79,6 +79,11 @@
 					
 				}
 				
+			},
+
+			pushToPopup(arr, index) {
+				arr = [...arr];
+				this.$popup.insert('pictures',  [...arr.splice(index, 1), ...arr]);
 			}
 		}
 	}

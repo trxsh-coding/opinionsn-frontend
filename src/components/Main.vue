@@ -60,7 +60,7 @@
 								icon-name="close"><icon-close/>
 						</icon-base>
 					</span>
-						<router-link :to="{ path: 'login' }">
+						<router-link :to="{ path: 'sign' }">
 							<button-reusable
 									font-size="13"
 									class="v-center py-5 mb-10"
@@ -68,7 +68,7 @@
 									bg-color="#4b97b4"
 									color="#ffffff"
 									active-color="#4B97B4"
-									description="login"
+									description="sign"
 									@click.native="setTypeOfSearch('USER')"
 							/>
 						</router-link>

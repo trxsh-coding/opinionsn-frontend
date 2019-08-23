@@ -23,7 +23,7 @@
 							:items="notification"
 					/>
 					<notification-instance
-							class="notification-instance today pl-21"
+							class="notification-instance pl-21" :class="{'today' : !notification.read}"
 							:notification="notification"
 					/>
 				</div>
@@ -298,7 +298,19 @@
 		},
 		
 		mounted() {
-			if (this.route_name === 'notifications') this.$store.dispatch('notificationPage/readInitialNotifications');
+			if (this.route_name === 'notifications') {
+				setTimeout( () => {
+					this.$store.dispatch('notificationPage/readInitialNotifications').then(() => {
+						this.$store.commit('notificationStore/updateArrayChild',
+								{
+									mapName : 'messages',
+									childName : 'read',
+									payload : true
+								})
+					})
+				}, 8000);
+			}
+
 			if (!this.scrolled_to_bottom) this.load();
 		}
 		

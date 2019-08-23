@@ -1,6 +1,6 @@
 <template>
     <div class="aside-layout mr-19">
-        <profile class="mb-7"/>
+        <profile class="mb-7" v-if="$route.name !== 'user'"/>
         <aside-navigation class="mt-2" />
    </div>
 </template>
