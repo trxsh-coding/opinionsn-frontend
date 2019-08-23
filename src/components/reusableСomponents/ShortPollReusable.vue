@@ -1,13 +1,13 @@
 <template>
     <div class="short-poll-reusable" :class="{'column-layout': !rowLayout }" :style="pollWrapperStyle">
-		<div class="poll" :class="{'ml-9': poll.picture}">
+		<div class="poll" :class="{'ml-9': poll_picture}">
 
 			<bookmark class="bookmark-btn pointer" :poll="poll"></bookmark>
 
-			<div v-if="rowLayout && !!poll.picture" class="img-wrapper pointer" @click="pollLink(poll.id)">
+			<div v-if="rowLayout && !!poll_picture" class="img-wrapper pointer" @click="pollLink(poll.id)">
 
 				<picture-reusable
-					:img="publicPath + poll.picture"
+					:img="publicPath + poll_picture"
 					:size=" mobile ? 66 : 90"
 					bor-rad="6"
 					without-text
@@ -15,7 +15,7 @@
 
 			</div>
 
-			<div class="text flex-column" :class="{'ml-9': !poll.picture || true}">
+			<div class="text flex-column" :class="{'ml-9': !poll_picture || true}">
 
 				<span class="poll-timestamp mb-3" v-if="withTimestamp">
 					<time-trans transformed-time :time="poll.date" />
@@ -25,7 +25,7 @@
 
 				<span v-if="withDesc && rowLayout" class="poll-desc mb-3 pointer"  @click="pollLink(poll.id)">{{poll.description}}</span>
 
-				<div v-else-if="!rowLayout && !!poll.picture" class="main-img-wrapper pointer mb-3" @click="pollLink(poll.id)">
+				<div v-else-if="!rowLayout && !!poll_picture" class="main-img-wrapper pointer mb-3" @click="pollLink(poll.id)">
 
 					<picture-reusable
 						:img="publicPath + pollAuthor.path_to_avatar"
@@ -157,6 +157,10 @@
 
 			rowLayout() {
 				return this.typeOfLayout === 'row';
+			},
+			
+			poll_picture() {
+				return this.poll.picture || this.poll.urlPhotos[0];
 			},
 
 			pollAuthor(){
