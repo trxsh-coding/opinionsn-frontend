@@ -62,7 +62,7 @@
 								icon-name="close"><icon-close/>
 						</icon-base>
 					</span>
-						<router-link :to="{ path: 'sign' }">
+						<router-link :to="{ name: 'sign' }">
 							<button-reusable
 									font-size="13"
 									class="v-center py-5 mb-10"
@@ -75,7 +75,7 @@
 							/>
 						</router-link>
 						
-						<router-link :to="{ path: 'registration' }">
+						<router-link :to="{ name: 'registration' }">
 							<lang-string class="registration-span pointer" :title="'registration'"/>
 						</router-link>
 					</div>
