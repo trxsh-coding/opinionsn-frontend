@@ -16,7 +16,6 @@
 
 
 <script>
-    import event from './../pollFeed/event/Event.vue'
     import { mapState } from 'vuex';
     import pollInstance from "../pollFeed/pollInstance";
     export default {
@@ -53,8 +52,7 @@
 
 
         components: {
-            pollInstance,
-            event,
+            pollInstance
         }
     }
 </script>

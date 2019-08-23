@@ -3,42 +3,44 @@
 		<desktop-header
 				v-if="!mobile"
 				:user="user"/>
-
-		<section class="main-layout container pb-62" :style="(routeName === 'pollFeed' || routeName === 'voteFeed' || routeName === 'singlePoll') && mobile ? {paddingTop: '52px'} : {}">
-
+		
+		<section class="main-layout container pb-62"
+		         :style="(routeName === 'pollFeed' || routeName === 'voteFeed' || routeName === 'singlePoll') && mobile ? {paddingTop: '52px'} : {}">
+			
 			<aside v-if="!mobile">
-				<aside-desktop />
+				<aside-desktop/>
 			</aside>
 			
-			<mobile-header :user="user" v-if="mobile"  />
+			<mobile-header :user="user" v-if="mobile"/>
 			
 			<keep-alive include="PollFeed">
 				<router-view class="sub-container"/>
 			</keep-alive>
-
+			
 			<div
 					v-if="routeName === 'pollFeed' || 'singlePoll'"
 					id="undo-panel"
 					class="pointer"
 					:class="{'active': !!$root.timer_id, 'desktop': !mobile}"
 					@click="clearTimer">
-
-				<lang-string class="description" title="undo_choice" />
-
+				
+				<lang-string class="description" title="undo_choice"/>
+				
 				<span class="timer" v-show="timer !== null">{{timer}}</span>
-
+				
 				<div
 						class="undo-bar"
 						:class="{'active': !!$root.timer_id}"
 						:style="{transition: `${$root.timer_duration}ms`}"></div>
-				
+			
 			</div>
 			
 			<footer v-if="!Object.keys(user).length && auth_bar">
 				<div class="auth-block">
 					<div class="logo-block">
 						<div class="icon logo picture-25x25 mr-6"
-						     :style="{ 'background-image': 'url(' + require('./assets/icons/icon-logo.png') + ')' } "/>
+						     :style="{ 'background-image': 'url(' + require('./assets/icons/icon-logo.png') + ')' } ">
+						</div>
 						<icon-base
 								fill="none"
 								class="text-logo"
@@ -60,7 +62,7 @@
 								icon-name="close"><icon-close/>
 						</icon-base>
 					</span>
-						<router-link :to="{ path: 'sign' }">
+						<router-link :to="{ name: 'sign' }">
 							<button-reusable
 									font-size="13"
 									class="v-center py-5 mb-10"
@@ -73,20 +75,20 @@
 							/>
 						</router-link>
 						
-						<router-link :to="{ path: 'registration' }">
+						<router-link :to="{ name: 'registration' }">
 							<lang-string class="registration-span pointer" :title="'registration'"/>
 						</router-link>
 					</div>
 				</div>
 			</footer>
-
-			<mobile-footer  v-if="mobile && !!Object.keys(user).length"/>
+			
+			<mobile-footer v-if="mobile && !!Object.keys(user).length"/>
 		</section>
 	</section>
 </template>
 
 <script>
-
+	
 	import {mapState} from "vuex";
 	import IconBase from "./icons/IconBase";
 	import IconClose from "./icons/IconClose";
@@ -101,9 +103,9 @@
 	import langString from "./langString";
 	import ButtonReusable from "./reusableСomponents/ButtonReusable";
 	import axios from 'axios';
-
+	
 	export default {
-
+		
 		data() {
 			return {
 				timer: 0,
@@ -112,62 +114,65 @@
 			};
 		},
 		watch: {
-
+			
 			timer_id(old) {
 				if (old !== null) {
 					this.reverseTimeout();
 				}
 			},
-
+			
 			user(old) {
 				if (!!Object.keys(old).length) {
-					this.$store.commit('formManagment/SET_INITIAL_FORM', {form: 'edit_form', value: {...old, errors: {}} });
+					this.$store.commit('formManagment/SET_INITIAL_FORM', {
+						form: 'edit_form',
+						value: {...old, errors: {}}
+					});
 				}
 			}
-
+			
 		},
 		computed: {
 			
 			mobile() {
 				return this.$root.mobile;
 			},
-
+			
 			...mapState('globalStore', {
-
-				user: ({ mainUser }) => mainUser
-
+				
+				user: ({mainUser}) => mainUser
+				
 			}),
 			
 			test() {
 				return this.$root.timer_id
 			},
-
-			routeName: function(){
-
+			
+			routeName: function () {
+				
 				return this.$route.name
-
+				
 			},
-
+			
 			iosNotificationCloseCheck: function () {
-
+				
 				return window.localStorage.getItem('iosNotificationPwa' !== 'False');
 			},
-
+			
 			timer_id() {
 				return this.$root.timer_id;
 			}
-
+			
 		},
 		methods: {
-
+			
 			reverseTimeout() {
-
+				
 				if (!!this.$root.timer_duration) {
 					clearTimeout(this.temp_timer_id);
-
+					
 					this.timer = this.$root.timer_duration / 1000;
 					let reverseTimer = () => {
-
+						
 						let run = () => {
 							this.timer -= 1;
 							if (this.timer === 0) {
@@ -177,16 +182,16 @@
 								this.temp_timer_id = setTimeout(run, 1000);
 							}
 						};
-
+						
 						this.temp_timer_id = setTimeout(run, 1000);
-
+						
 					};
 					reverseTimer();
-
+					
 				}
-
+				
 			},
-
+			
 			clearTimer() {
 				clearTimeout(this.$root.timer_id);
 				clearTimeout(this.temp_timer_id);
@@ -194,53 +199,52 @@
 				this.$root.timer_duration = 0;
 				this.$root.temp_selected_option = null;
 			},
-
-			closeInstall(){
-
+			
+			closeInstall() {
+				
 				this.showInstallMessage = false;
 				window.localStorage.setItem('iosNotificationPwa', 'False');
-
+				
 			},
 			getPathWithPoll(name) {
-
+				
 				let [, pageName, pollId] = this.$route.path.split('/');
-
+				
 				if (pageName === 'singlePoll') {
 					return {name, query: {redirectToPoll: pollId}}
 				} else {
 					return {name}
 				}
-
+				
 			},
-
-
-
+			
+			
 			createSubscription() {
-
+				
 				this.$store.dispatch('serviceWorker/CREATE_SUBSCRIPTION')
-
+				
 			},
-
+			
 			toggleSubscription() {
-
+				
 				this.$store.dispatch('serviceWorker/TOGGLE_SUBSCRIPTION')
-
+				
 			},
-
+			
 			showNotification() {
 				this.$store.dispatch('serviceWorker/SHOW_NOTIFICATION')
 			},
 			getNotifications() {
 				this.$store.dispatch("notificationPage/list", {customUrl: `${process.env.VUE_APP_NOTIFICATION_API}/notification/${this.page}`});
 			},
-
-
+			
+			
 			goMain() {
 				this.$router.push({path: "/pollFeed"});
 			},
-
-			iosAddToHomeScreenSnippet(){
-
+			
+			iosAddToHomeScreenSnippet() {
+				
 				const isIos = () => {
 					const browser = Bowser.getParser(window.navigator.userAgent).getBrowserName();
 					return /Safari/.test(browser);
@@ -248,43 +252,42 @@
 				// Detects if device is in standalone mode
 				const isInStandaloneMode = () => (window.matchMedia('(display-mode: standalone)').matches);
 				console.log(isInStandaloneMode())
-
+				
 				// Checks if should display install popup notification:
 				if (isIos() && !isInStandaloneMode()) {
 					this.showInstallMessage = true
 				}
-
+				
 			},
-
+			
 		},
-
+		
 		created() {
 			this.$store.dispatch("userPage/getMainUser");
 			this.$store.dispatch("lang/getLocaleString");
-            this.$store.dispatch("serviceWorker/CREATE_SUBSCRIPTION")
+			this.$store.dispatch("serviceWorker/CREATE_SUBSCRIPTION")
 			axios.get(`${process.env.VUE_APP_NOTIFICATION_API}/notification/unReadCount`)
 				.then(response => {
 					this.$store.commit('notificationPage/setNotificationsCount', response.data)
 					
 				})
-        },
+		},
 		mounted() {
 			this.iosAddToHomeScreenSnippet();
 			this.getNotifications();
 			window.addEventListener("scroll", this.onScroll);
 			this.$store.commit("serviceWorker/SET_NOTIFICATION_SUPPORT")
-
+			
 		},
-
+		
 		beforeDestroy() {
 			window.removeEventListener("scroll", this.onScroll);
 		},
-
-
+		
+		
 		beforeCreate() {
-
-
-
+		
+		
 		},
 		components: {
 			ButtonReusable,
@@ -306,7 +309,7 @@
 		background: #F8F8F8;
 		margin: 0;
 	}
-
+	
 	#undo-panel {
 		position: fixed;
 		z-index: 6000;
@@ -318,7 +321,7 @@
 		display: flex;
 		align-items: stretch;
 		visibility: hidden;
-
+		
 		* {
 			font-family: Roboto, sans-serif;
 			font-style: normal;
@@ -326,11 +329,11 @@
 			font-size: 14px;
 			color: #FFFFFF;
 		}
-
+		
 		&.desktop {
 			bottom: 0;
 		}
-
+		
 		.timer {
 			position: absolute;
 			transform: translateY(-50%);
@@ -338,7 +341,7 @@
 			right: 20px;
 			z-index: 100;
 		}
-
+		
 		.description {
 			position: absolute;
 			transform: translate(-50%, -50%);
@@ -346,11 +349,11 @@
 			left: 50%;
 			z-index: 100;
 		}
-
+		
 		&.active {
 			visibility: visible;
 		}
-
+		
 		.undo-bar {
 			background-color: #4B97B4;
 			opacity: 0.75;
@@ -362,11 +365,12 @@
 			}
 		}
 	}
-
+	
 	.main-layout {
 		display: flex;
+		
 		section {
-
+		
 		}
 		
 		footer {
@@ -447,10 +451,8 @@
 			}
 		}
 	}
-
-	@media only screen
-	and (min-width: 300px)
-	and (max-width: 765px){
+	
+	@media only screen and (min-width: 300px) and (max-width: 765px) {
 		body {
 			margin: 0;
 			background: #ffffff;

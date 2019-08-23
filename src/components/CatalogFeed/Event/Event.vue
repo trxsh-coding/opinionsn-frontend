@@ -6,7 +6,6 @@
 
 <script>
     import { mapState } from 'vuex';
-    import pollBlock from '../../voteFeed/event/PollBlock'
     import ShortPollReusable from "../../reusableСomponents/ShortPollReusable";
     export default {
         name: "Event",
@@ -56,8 +55,7 @@
 
 
         components:{
-            ShortPollReusable,
-            pollBlock
+            ShortPollReusable
         }
     }
 </script>

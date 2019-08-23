@@ -14,10 +14,7 @@
 			<create-blockhain-prediction
 				class="flex-align-center"
 				:pollName="pollName"
-				v-if="
-					notification.eventType == 'BLOCKCHAIN_PREDICTION_FINISHED'
-				"
-			/>
+				v-if="notification.eventType == 'BLOCKCHAIN_PREDICTION_FINISHED'"/>
 			<new-blockchain-prediction
 				class="flex-align-center"
 				:pollName="pollName"

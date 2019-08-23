@@ -54,10 +54,7 @@
 	import IconClose from "../icons/IconZoomIn";
 	import langMixin from '../mixins/langMixin'
 	import langString from '../langString'
-	import Users from "./Event/users";
-	import Polls from "./Event/polls"
 	import {mapState} from 'vuex'
-	import {globalStoreMixin} from '../../store/modules/globalStore'
 	import InputReusable from "../reusableСomponents/InputReusable";
 	import VoteInstance from "../voteFeed/voteInstance";
 	import SearchInstance from "./searchInstance";
@@ -70,9 +67,7 @@
 			SearchInstance,
 			VoteInstance,
 			InputReusable,
-			Users,
 			langString,
-			Polls,
 			IconBase,
 			IconClose
 		},

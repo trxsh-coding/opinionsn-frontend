@@ -150,7 +150,6 @@
 
 	    <short-poll-reusable type-of-layout="column" :poll="polls[1727]"></short-poll-reusable>
 		<switch-component :height="21" :width="34"  :bor-rad="18" color="#B7B9BE"/>
-		<el-date-picker></el-date-picker>
 	    <loader-reusable></loader-reusable>
 
 	    <textarea v-model="textarea_value" ref="textareaRef"></textarea>
@@ -163,7 +162,6 @@
 </template>
 
 <script>
-	import { Message } from 'element-ui';
 	import { mapState } from 'vuex';
     import PictureReusable from "./reusableСomponents/PictureReusable";
 	import OptionReusable from "./reusableСomponents/OptionReusable";

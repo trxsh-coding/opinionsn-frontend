@@ -8,7 +8,6 @@ import Main from '../components/Main'
 import AuthPanel from '../components/Login/AuthPanel'
 import Password from '../components/Login/Password'
 import createPoll from '../components/create/CreatePoll'
-import createPrediction from '../components/create/CreatePrediction'
 import followers from '../components/Follows/Event/Followers'
 import followings from '../components/Follows/Event/Followings'
 import follows from '../components/Follows/Follows'
@@ -158,11 +157,6 @@ export const index = new Router({
 					path: 'createPoll',
 					name: 'createPoll',
 					component: createPoll,
-				},
-				{
-					path: `createPrediction`,
-					name: `createPrediction`,
-					component: createPrediction,
 				},
 				{
 					path: 'settings',

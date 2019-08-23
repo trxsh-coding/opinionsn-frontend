@@ -2,12 +2,6 @@
 
     <div id="catalog-feed" class="flex-column" :class="{'pt-58': mobile}">
         
-<!--        <div class="category-background mb-10" :style="{ 'background-image': 'url(' + publicPath + category.path_to_image + ')' }" > -->
-<!--            <div class="category-subject">-->
-<!--                <lang-string :title="category.name" />-->
-<!--            </div>-->
-<!--        </div>-->
-
         <div class="pr-20" :class="{'pl-51': !mobile, 'pl-21': mobile}" v-show="items.length">
             <event v-for="item in items" class="mb-6" :item="item"/>
         </div>
