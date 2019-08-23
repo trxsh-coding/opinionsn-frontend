@@ -299,6 +299,9 @@
 		
 		mounted() {
 			if (this.route_name === 'notifications') {
+
+				this.load();
+
 				setTimeout( () => {
 					this.$store.dispatch('notificationPage/readInitialNotifications').then(() => {
 						this.$store.commit('notificationStore/updateArrayChild',
@@ -309,9 +312,9 @@
 								})
 					})
 				}, 8000);
-			}
 
-			if (!this.scrolled_to_bottom) this.load();
+			} else if (!this.scrolled_to_bottom) this.load();
+
 		}
 		
 	}

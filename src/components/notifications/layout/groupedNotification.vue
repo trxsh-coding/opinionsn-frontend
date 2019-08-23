@@ -80,9 +80,7 @@
 </script>
 
 <style lang="scss">
-	.todayColor {
-		background: #e4f0f4;
-	}
+
 	
 	.grouped-notification {
 		flex-direction: column;
@@ -98,7 +96,7 @@
 		}
 		
 		.notification-block {
-			padding-left: 60px;
+			padding-left:42px;
 		}
 		
 		.text {
