@@ -18,7 +18,7 @@
 			<div class="text flex-column" :class="{'ml-9': !poll.picture || true}">
 
 				<span class="poll-timestamp mb-3" v-if="mobile">
-					<time-trans :time="poll.date" />
+					<time-trans predictionTime :time="poll.date" />
 				</span>
 
 				<span class="poll-name pointer mb-3" @click="pollLink(poll.id)">{{poll.subject}}</span>

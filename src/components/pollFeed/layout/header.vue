@@ -28,7 +28,7 @@
                     <span v-show="!!author.location" class="pr-9">
                         {{author.location}}
                     </span>
-						<time-trans shortTime v-show="!!poll.date" :time="poll.date"/>
+						<time-trans transformedTime v-show="!!poll.date" :time="poll.date"/>
 					</div>
 				</template>
 			</author-headline>

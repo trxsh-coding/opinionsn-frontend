@@ -55,7 +55,19 @@
                         </swiper-slide>
                     </template>
                     <template #scroll>
-
+                        <picture-reusable
+                                v-for="(picture, index) in pictures"
+                                :key="index"
+                                :src="picture"
+                                :class="{borderedPicture : picture === pictures[current_index]}"
+                                @click.native="setCurrentIndex(index)"
+                                class="mr-12 p-0 pointer"
+                                pic-class="mb-5"
+                                :img=" picture"
+                                :height="100"
+                                :width="170"
+                                text-layout="bottom">
+                        </picture-reusable>
                     </template>
                 </swiper-reusable>
 
@@ -84,7 +96,9 @@
             }
         },
         computed: {
-
+            mobile(){
+              return this.$root.mobile
+            },
             pictures() {
                 return this.$popup.pictures.map(pic => this.publicPath + this.imageUtil(pic, 'L'));
             }
@@ -197,7 +211,7 @@
 
             .pictures-section {
                 position: fixed;
-                bottom: 0;
+                bottom: 5px;
 
             }
 
@@ -211,7 +225,7 @@
         @media only screen and (max-width: 400px) {
 
            .preview-picture {
-               width: 100px !important;
+               width: 70px !important;
            }
 
         }

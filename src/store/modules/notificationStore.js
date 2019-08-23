@@ -64,6 +64,15 @@ export const notificationStore  =  {
         },
 
 
+        updateArrayChild: function (state, {mapName, childName, payload}) {
+            state[mapName].forEach((item =>{
+
+                item[childName] = payload;
+
+            } ))
+
+        },
+
         clearStores:function (state) {
 
             state.messages = [];
