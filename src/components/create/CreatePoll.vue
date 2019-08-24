@@ -243,6 +243,7 @@
         ],
         data() {
             return {
+                route_leaved: false,
                 swiperOption: {
                     pagination: {
                         el: '.swiper-pagination'
@@ -260,23 +261,27 @@
 
         watch: {
 
-            values_with_rules() {
-                let {
-                    verifyValues,
-                    checkLength
-                } = this;
+            values_with_rules(val) {
+                if (!this.route_leaved) {
+                    let {
+                        verifyValues,
+                        checkLength
+                    } = this;
 
-                verifyValues('create_poll_form', this.values_with_rules, {checkLength});
+                    verifyValues('create_poll_form', val, {checkLength});
+                }
             },
 
-            options_with_rules() {
-                let {
-                    verifyValues,
-                    checkLength,
-                    checkUpload
-                } = this;
+            options_with_rules(val) {
+                if (!this.route_leaved) {
+                    let {
+                        verifyValues,
+                        checkLength,
+                        checkUpload
+                    } = this;
 
-                verifyValues('create_poll_form', this.options_with_rules, {checkLength, checkUpload});
+                    verifyValues('create_poll_form', val, {checkLength, checkUpload});
+                }
             },
 
         },
@@ -499,7 +504,8 @@
         },
 
         beforeRouteLeave (to, from, next) {
-            this.$store.commit('formManagment/SET_INITIAL_FORM', 'create_poll_form');
+            this.route_leaved = true;
+            this.$store.commit('formManagment/CLEAR_FORM', 'create_poll_form');
             next();
         },
 

@@ -55,13 +55,13 @@ const initialState = () => {
                 {
                     optionImageUrl: '',
                     id: '',
-                    picture:null,
+                    picture: null,
                     description: ''
                 },
                 {
                     optionImageUrl: '',
                     id: '',
-                    picture:null,
+                    picture: null,
                     description: ''
                 },
             ]

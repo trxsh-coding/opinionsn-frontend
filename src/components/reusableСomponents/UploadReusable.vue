@@ -79,8 +79,8 @@
 		},
 		props: {
 			labelClass: {
-				type: String,
-				default: ''
+				type: [String, Object],
+				default() { return '' }
 			},
 			width: {
 				type: [String, Number]
