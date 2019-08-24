@@ -498,6 +498,11 @@
 
         },
 
+        beforeRouteLeave (to, from, next) {
+            this.$store.commit('formManagment/SET_INITIAL_FORM', 'create_poll_form');
+            next();
+        },
+
         components: {
             PopupErrorReusable,
             AddOptionBlock,
