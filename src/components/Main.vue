@@ -62,7 +62,7 @@
 								icon-name="close"><icon-close/>
 						</icon-base>
 					</span>
-						<router-link :to="{ name: 'sign' }">
+						<router-link :to="getPathWithPoll('sign')">
 							<button-reusable
 									font-size="13"
 									class="v-center py-5 mb-10"
@@ -74,8 +74,8 @@
 									@click.native="setTypeOfSearch('USER')"
 							/>
 						</router-link>
-						
-						<router-link :to="{ name: 'registration' }">
+
+						<router-link :to="getPathWithPoll('registration')">
 							<lang-string class="registration-span pointer" :title="'registration'"/>
 						</router-link>
 					</div>
@@ -206,19 +206,19 @@
 				window.localStorage.setItem('iosNotificationPwa', 'False');
 				
 			},
-			getPathWithPoll(name) {
+
+			getPathWithPoll(routeName) {
 				
-				let [, pageName, pollId] = this.$route.path.split('/');
-				
-				if (pageName === 'singlePoll') {
-					return {name, query: {redirectToPoll: pollId}}
+				let { name, params } = this.$route;
+
+				if (name === 'singlePoll') {
+					return {name: routeName, query: {redirectToPoll: params.id}}
 				} else {
-					return {name}
+					return {name: routeName}
 				}
 				
 			},
-			
-			
+
 			createSubscription() {
 				
 				this.$store.dispatch('serviceWorker/CREATE_SUBSCRIPTION')
