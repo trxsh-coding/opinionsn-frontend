@@ -116,10 +116,10 @@ export const vueApp = new Vue({
 			}
 		};
 
-		this.mobile = is_mobile_device.any();
+		this.mobile = is_mobile_device.any() || window.innerWidth <= 500;
 
 		window.addEventListener('resize', () => {
-			this.mobile = window.innerWidth <= 500 || is_mobile_device.any();
+			this.mobile = is_mobile_device.any() || window.innerWidth <= 500;
 		});
 
 	},
