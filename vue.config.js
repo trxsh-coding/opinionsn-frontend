@@ -1,5 +1,5 @@
 module.exports = {
-	publicPath: '/',
+	baseUrl: '/',
 	indexPath: "index.html",
 	outputDir: "www",
 	devServer: {
@@ -47,9 +47,6 @@ module.exports = {
 		msTileColor: '#000000',
 		appleMobileWebAppCapable: 'yes',
 		appleMobileWebAppStatusBarStyle: '#4b97b4',
-		workboxPluginMode: 'InjectManifest',
-		workboxOptions: {
-			swSrc: 'src/service-worker.js',
-		}
+		workboxPluginMode: 'GenerateSW'
 	}
 }
