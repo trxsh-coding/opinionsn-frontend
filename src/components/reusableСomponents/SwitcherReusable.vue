@@ -21,7 +21,7 @@
 					width: 30,
 					height: 15,
 					color: '#4A76A8',
-					active_color: '#43B05C',
+					// active_color: '#43B05C',
 					...this.params
 				}
 			}
@@ -61,17 +61,17 @@
 				return this.value
 					? {
 						right: '1px !important',
-						background: this.d_params.active_color,
+						background: this.d_params.active_color || this.d_params.color,
 						transition: '300ms'
 					}
 					: { transition: '300ms' }
 			},
 			
 			switcher_style() {
-				let {width, height} = this.d_params;
+				let {width, height, padding = "0", border = 'none'} = this.d_params;
 				width = this.handleCssValue(width);
 				height = this.handleCssValue(height);
-				return {width, height};
+				return {width, height, padding, border};
 			},
 			
 			indicator_style() {
