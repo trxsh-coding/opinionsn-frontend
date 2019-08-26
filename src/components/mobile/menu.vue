@@ -74,7 +74,7 @@
         .lang-switch {
             
             .trigger {
-                width: 100%;
+                width: 100% !important;
                 justify-content: flex-start;
                 font-family: Roboto;
                 font-style: normal;

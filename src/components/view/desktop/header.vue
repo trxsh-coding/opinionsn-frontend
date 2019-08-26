@@ -126,9 +126,11 @@
 	import axios from "axios";
 	import BadgeReusable from "@/components/reusableСomponents/BadgeReusable";
 	import {mapState} from "vuex";
+	import CookieMixin from "@/components/mixins/CookieMixin";
 
 	export default {
 		name: "desktopHeader",
+		mixins: [CookieMixin],
 		props: ['user'],
 		data() {
 			return {
@@ -154,32 +156,18 @@
 			clearCounter() {
 				this.$store.dispatch('notificationPage/readInitialNotifications');
 			},
-
+			
 			userLogout() {
-
-				axios.get(`${this.publicPath}/auth/logout`)
-					.then(() => {
-						this.$store.commit("authentication/setAuthenticated", false)
-						this.$store.commit("userPage/removeUser");
-						this.$store.commit("pollFeed/clearFeed");
-						this.$store.commit("globalStore/clearStores");
-						this.$store.commit("notificationStore/clearStores");
-						this.$store.commit("notificationPage/setDefaultPage");
-
-						//TODO доделать логаут
-					})
-
-					.catch((error) => {
-						this.$store.commit("authentication/setAuthenticated", false)
-						this.$store.commit("userPage/removeUser");
-						this.$store.commit("pollFeed/clearFeed");
-						this.$store.commit("globalStore/clearStores");
-						this.$store.commit("notificationStore/clearStores");
-						this.$store.commit("notificationPage/setDefaultPage");
-					});
-
-				this.$router.push('/login');
-
+				
+				this.deleteCookie('Auth-Token');
+				this.$store.commit("authentication/setAuthenticated", false);
+				this.$store.commit("userPage/removeUser");
+				this.$store.commit("pollFeed/clearFeed");
+				this.$store.commit("globalStore/clearStores");
+				this.$store.commit("notificationStore/clearStores");
+				this.$store.commit("notificationPage/setDefaultPage");
+				this.$router.push({name: 'sign'});
+				
 			},
 
 			setSearchKeyword(keyword){
