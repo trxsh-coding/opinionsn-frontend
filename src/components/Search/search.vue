@@ -1,5 +1,5 @@
 <template>
-	<div class="search-wrapper flex-column" :class="{'bg-white pt-21 pb-19': !mobile, 'pt-58': mobile}">
+	<div class="search-wrapper flex-column" :class="{'bg-white pt-21 pb-19': !mobile, 'pt-58': mobile, 'is_mobile_device': mobile}">
 		<input-reusable
 				v-if="mobile"
 				v-model="keywords"
@@ -11,7 +11,7 @@
 				input-placeholder="search"
 				@keyup.enter.native="searchUsers"
 				with-action-buttons/>
-
+		
 		<div class="button-panel flex pl-60" :class="{'mt-12': mobile}">
 			
 			<button-reusable
@@ -32,20 +32,20 @@
 					description="peoples"
 					@click.native="setTypeOfSearch('USER')"
 					:active="type === 'USER'"
-					 />
+			/>
 		</div>
-
+		
 		<div
 				class="links-section mt-15 mr-20 "
 				:class="{'ml-30': mobile, 'ml-60': !mobile}"
-		        v-show="keywords !== ''">
+				v-show="keywords !== ''">
 			<search-instance
 					class="mt-9"
 					v-for="item in items"
 					:item="item"
 					:type="type"/>
 		</div>
-
+	
 	</div>
 </template>
 
@@ -59,7 +59,7 @@
 	import VoteInstance from "../voteFeed/voteInstance";
 	import SearchInstance from "./searchInstance";
 	import ButtonReusable from "../reusableСomponents/ButtonReusable";
-
+	
 	export default {
 		mixins: [langMixin],
 		components: {
@@ -73,15 +73,15 @@
 		},
 		name: "search",
 		data() {
-
+			
 			return {
-
+				
 				keywords: this.search_keyword || '',
 				type: 'USER',
 				contain: null,
 				timer_id: null
 			}
-
+			
 		},
 		watch: {
 			keywords() {
@@ -93,29 +93,29 @@
 			}
 		},
 		computed: {
-
+			
 			...mapState('searchUser', {
 				state: s => s,
 				items: s => s.items
-
+				
 			}),
 			
 			mobile() {
 				return this.$root.mobile;
 			},
 			
-			search_keyword(){
+			search_keyword() {
 				return this.$root.search_keyword
 			},
-
+			
 		},
 		methods: {
 			setTypeOfSearch(payload) {
-
+				
 				this.type = payload;
 				this.clearForm();
 				this.searchUsers();
-
+				
 			},
 			searchUsers() {
 				
@@ -140,16 +140,16 @@
 						
 					}
 				}, 500);
-
+				
 			},
-
+			
 			clearForm() {
 				
 				this.$root.search_keyword = '';
 				this.keywords = '';
-
+				
 			},
-
+			
 		},
 		
 		beforeRouteLeave(to, from, next) {
@@ -173,13 +173,21 @@
 				top: 50%;
 			}
 		}
-
+		
+		&.is_mobile_device {
+			margin-top: 48px !important;
+			
+			.button-panel {
+				display: flex;
+			}
+		}
+		
 	}
-
+	
 	@media only screen and (min-width: 300px) and (max-width: 765px) {
 		.search-wrapper {
 			margin-top: 48px !important;
-
+			
 			.button-panel {
 				display: flex;
 			}

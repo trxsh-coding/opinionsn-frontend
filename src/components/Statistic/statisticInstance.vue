@@ -16,19 +16,20 @@
 				</template>
 			</picture-reusable>
 		</div>
-
+		
 		<category-select @on-select="setCategoryId" class="pl-60 pr-4" :class="{'mt-14': !mobile, 'mt-15': mobile}"
 		                 :current="categoryId"/>
-
+		
 		<div class="select-block pl-69" :class="{'mt-15': !mobile, 'mt-18': mobile}">
 			<dropdown-list-reusable with-arrow class="mr-22" click-close>
 				<template>
 					<lang-string :title="periods[periodId].value"/>
 				</template>
-
-
+				
+				
 				<template #items>
-					<li class="w-max ws-no-warp pointer" v-for="({value}, index) in periods" @click="setRange(index)" :key="index">
+					<li class="w-max ws-no-warp pointer" v-for="({value}, index) in periods" @click="setRange(index)"
+					    :key="index">
 						<lang-string :title="value"/>
 					</li>
 				</template>
@@ -37,8 +38,8 @@
 				<template>
 					<lang-string :title="types[typeId].value"/>
 				</template>
-
-
+				
+				
 				<template #items>
 					<li class="w-max ws-no-warp pointer" v-for="({value}, index) in types" @click="setType(index)">
 						<lang-string :title="value"/>
@@ -46,12 +47,14 @@
 				</template>
 			</dropdown-list-reusable>
 		</div>
-		<div class="amount-voted-block pl-69 mt-12 flex-between">
+		<div class="amount-voted-block pl-69 mt-12 flex-between" :class="{'is_mobile_device': mobile}">
 			<div class="amount__item">
-				<lang-string :title="'you_voted_in'" /> <span> {{statistic.totalAmountVoted}}</span>  <lang-string :title="'polls'" />
+				<lang-string :title="'you_voted_in'"/>
+				<span> {{statistic.totalAmountVoted}}</span>
+				<lang-string :title="'polls'"/>
 			</div>
 			<div class="leader-list pr-20">
-				<lang-string @click.native="$router.push({name: 'rating'})" :title="'leader_list'" />
+				<lang-string @click.native="$router.push({name: 'rating'})" :title="'leader_list'"/>
 			</div>
 		</div>
 		<div class="statistic-section">
@@ -68,9 +71,9 @@
 	import {mapState} from 'vuex'
 	import CategorySelect from "../reusableСomponents/categorySelect";
 	import DropdownListReusable from "../reusableСomponents/DropdownListReusable";
-    import localString from "../../utils/localString";
-    import axios from 'axios';
-
+	import localString from "../../utils/localString";
+	import axios from 'axios';
+	
 	export default {
 		name: "statisticInstance",
 		components: {DropdownListReusable, CategorySelect, PictureReusable, langString, apexchart: VueApexCharts},
@@ -100,7 +103,7 @@
 				categoryId: 1,
 				typeId: 0,
 				statistic: [],
-
+				
 				chartOptions: {
 					chart: {
 						toolbar: {
@@ -125,7 +128,7 @@
 						width: 5,
 						colors: ['transparent']
 					},
-
+					
 					xaxis: {
 						categories: [],
 					},
@@ -137,9 +140,9 @@
 					},
 					fill: {
 						opacity: 1
-
+						
 					},
-					colors:['#4B97B4', '#FF5454'],
+					colors: ['#4B97B4', '#FF5454'],
 					tooltip: {
 						y: {
 							formatter: function (val) {
@@ -151,7 +154,7 @@
 			}
 		},
 		watch: {
-
+			
 			cXaxis(current, newOne) {
 				this.chartOptions = {
 					...this.chartOptions,
@@ -169,31 +172,31 @@
 				console.log(current)
 				if (current !== newOne) this.getUserStatistic()
 			}
-
+			
 		},
 		computed: {
 			...mapState('globalStore', {
 				users: ({users}) => users,
 			}),
-
-            ...mapState('lang',{
-                lang : state => state.locale
-            }),
-
-
+			
+			...mapState('lang', {
+				lang: state => state.locale
+			}),
+			
+			
 			mobile() {
 				return this.$root.mobile;
 			},
-
+			
 			user_id() {
 				return this.$route.params.id
 			},
-
+			
 			user() {
 				let {users, user_id} = this;
 				return users[user_id];
 			},
-
+			
 			series() {
 				let {pillarsPollDTO = {}} = this.statistic;
 				let {types, typeId} = this;
@@ -204,10 +207,10 @@
 					}
 				];
 				if (typeId === 1) {
-
+					
 					let correctAnswers = Object.values(pillarsPollDTO).map(({totalAmountCorrectAnswers: n}) => (n === 0) ? null : n);
 					let inCorrectAnswers = Object.values(pillarsPollDTO).map(({totalAmountIncorrectAnswers: n}) => (n === 0) ? null : n);
-
+					
 					series[0] = {
 						data: correctAnswers,
 						name: 'Верно'
@@ -216,121 +219,121 @@
 						data: inCorrectAnswers,
 						name: 'Не верно'
 					};
-
+					
 				} else {
 					let pollAnsweredAmount = Object.values(pillarsPollDTO).map(({totalAmountVoted: n}) => (n === 0) ? null : n);
 					series[0] = {
 						data: pollAnsweredAmount,
 						name: 'Voted'
 					};
-
+					
 				}
-
+				
 				return series;
-
-
+				
+				
 			},
-
+			
 			cXaxis() {
-				if(this.periodId > 1) {
+				if (this.periodId > 1) {
 					return {
-
+						
 						categories: this.calculatedRangeMonths()
-
+						
 					}
 				} else {
 					return {
 						categories: this.rangeInstance.reverse(),
 					}
-
-
+					
+					
 				}
-
-
+				
+				
 			},
-
-            lstr(str) {
-                return localString(this.lang, str);
-            },
-
+			
+			lstr(str) {
+				return localString(this.lang, str);
+			},
+			
 			rangeInstance() {
 				let {pillarsPollDTO = {}} = this.statistic;
 				return Object.values(pillarsPollDTO).map(({day}) => day.toString());
 			},
 		},
-
+		
 		methods: {
-
-			calculatedRangeMonths(){
-
+			
+			calculatedRangeMonths() {
+				
 				let {pillarsPollDTO = {}} = this.statistic;
-
-				let monthArray =  Object.values(pillarsPollDTO).map(({month}) => month);
-
-				return Array.from(new Set(monthArray)).map( m => this.parseMonth(m))
+				
+				let monthArray = Object.values(pillarsPollDTO).map(({month}) => month);
+				
+				return Array.from(new Set(monthArray)).map(m => this.parseMonth(m))
 			},
-
+			
 			parseMonth(num = '') {
-
-			    let m = num;
-
+				
+				let m = num;
+				
 				switch (num) {
-                    case 1:
-                        m = 'january';
-                        break;
-                    case 2:
-                        m = 'february';
-                        break;
-                    case 3:
-                        m = 'march';
-                        break;
-                    case 4:
-                        m = 'april';
-                        break;
-                    case 5:
-                        m = 'may';
-                        break;
-                    case 6:
-                        m = 'june';
-                        break;
-                    case 7:
-                        m = 'july';
-                        break;
-                    case 8:
-                        m = 'august';
-                        break;
-                    case 9:
-                        m = 'september';
-                        break;
-                    case 10:
-                        m = 'october';
-                        break;
-                    case 11:
-                        m = 'november';
-                        break;
-                    case 12:
-                        m = 'december';
-                        break;
-                    default:
-                        return '';
-                }
-
-                // return this.lstr(m);
-                return m;
+					case 1:
+						m = 'january';
+						break;
+					case 2:
+						m = 'february';
+						break;
+					case 3:
+						m = 'march';
+						break;
+					case 4:
+						m = 'april';
+						break;
+					case 5:
+						m = 'may';
+						break;
+					case 6:
+						m = 'june';
+						break;
+					case 7:
+						m = 'july';
+						break;
+					case 8:
+						m = 'august';
+						break;
+					case 9:
+						m = 'september';
+						break;
+					case 10:
+						m = 'october';
+						break;
+					case 11:
+						m = 'november';
+						break;
+					case 12:
+						m = 'december';
+						break;
+					default:
+						return '';
+				}
+				
+				// return this.lstr(m);
+				return m;
 			},
-
+			
 			setRange(index) {
 				this.periodId = index;
 			},
-
+			
 			setType(index) {
 				this.typeId = index;
 			},
-
+			
 			setCategoryId({id}) {
 				this.categoryId = id;
 			},
-
+			
 			getUserStatistic() {
 				let {typeId, categoryId, periodId, types, user_id} = this;
 				axios.get(`${process.env.VUE_APP_MAIN_API}/rest/v1/user/statistic/detail/${types[typeId].value}/${user_id}`, {
@@ -342,7 +345,7 @@
 					.then(response => {
 						if (response.status === 200) {
 							this.statistic = response.data;
-
+							
 						}
 					})
 			}
@@ -350,20 +353,26 @@
 		mounted() {
 			this.getUserStatistic()
 		}
-
+		
 	}
 </script>
 
 <style lang="scss">
 	.user-statistic {
 		border-radius: 6px;
+		
 		.amount-voted-block {
 			font-family: Helvetica Neue;
 			font-size: 11px;
 			color: #BEC0C5;
-
-
+			
+			&.is_mobile_device {
+				span {
+					font-size: 10px;
+				}
+			}
 		}
+		
 		.avatar-username {
 			font-family: Roboto;
 			font-style: normal;
@@ -371,7 +380,7 @@
 			font-size: 14px;
 			color: #1A1E22;
 		}
-
+		
 		@media only screen and (max-width: 400px) {
 			.amount-voted-block {
 				span {
@@ -379,6 +388,6 @@
 				}
 			}
 		}
-
+		
 	}
 </style>

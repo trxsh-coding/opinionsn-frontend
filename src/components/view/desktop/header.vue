@@ -1,6 +1,6 @@
 <template>
 	<div class="desktop-header mb-17">
-		<div class="nav-container container flex-align-center">
+		<div class="nav-container container flex-align-center" :class="{'is_mobile_device': mobile}">
 			<div class="search-block flex-align-center" >
 				<div class="pointer" @click="$router.push({ name: 'pollFeed' })">
 					<icon-base
@@ -148,6 +148,10 @@
 			
 			logged_in() {
 				return !!Object.keys(this.user).length;
+			},
+			
+			mobile() {
+				return this.$root.mobile;
 			}
 		},
 		

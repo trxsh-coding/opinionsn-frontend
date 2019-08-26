@@ -4,7 +4,7 @@
 				v-if="!mobile"
 				:user="user"/>
 		
-		<section class="main-layout container pb-62"
+		<section class="main-layout container pb-62" :class="{'is_mobile_device': mobile}"
 		         :style="(routeName === 'pollFeed' || routeName === 'voteFeed' || routeName === 'singlePoll') && mobile ? {paddingTop: '52px'} : {}">
 			
 			<aside v-if="!mobile">
@@ -14,7 +14,7 @@
 			<mobile-header :user="user" v-if="mobile"/>
 			
 			<keep-alive include="PollFeed">
-				<router-view class="sub-container"/>
+				<router-view class="sub-container" :class="{is_mobile_device: mobile}"/>
 			</keep-alive>
 			
 			<div
@@ -36,7 +36,7 @@
 			</div>
 			
 			<footer v-if="!Object.keys(user).length && auth_bar">
-				<div class="auth-block">
+				<div class="auth-block" :class="{'is_mobile_device': mobile}">
 					<div class="logo-block">
 						<div class="icon logo picture-25x25 mr-6"
 						     :style="{ 'background-image': 'url(' + require('./assets/icons/icon-logo.png') + ')' } ">
@@ -400,6 +400,13 @@
 				padding-right: 34px !important;
 			}
 			
+			&.is_mobile_device {
+				box-sizing: border-box;
+				width: 100%;
+				padding-left: 10px;
+				padding-right: 34px !important;
+			}
+			
 			.buttons-block {
 				display: flex;
 				flex-direction: column;
@@ -457,6 +464,11 @@
 			margin: 0;
 			background: #ffffff;
 		}
+	}
+	
+	body .is_mobile_device {
+		margin: 0;
+		background: #ffffff;
 	}
 
 </style>

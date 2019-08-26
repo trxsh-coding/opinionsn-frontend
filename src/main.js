@@ -83,19 +83,43 @@ export const vueApp = new Vue({
 	moment,
 	data() {
 		return {
+			is_mobile_device: null,
 			mobile: window.innerWidth <= 500,
 			scrolled_to_bottom: null,
 			scroll_top: null,
 			timer_id: null,
 			timer_duration: 0,
 			temp_selected_option: null,
-			search_keyword: ''
+			search_keyword: '',
 		}
 	},
 	mixins: [ElementScrollHandler],
 	created() {
+		let is_mobile_device = {
+			Android() {
+				return !!navigator.userAgent.match(/Android/i);
+			},
+			BlackBerry() {
+				return !!navigator.userAgent.match(/BlackBerry/i);
+			},
+			iOS() {
+				return !!navigator.userAgent.match(/iPhone|iPad|iPod/i);
+			},
+			Opera() {
+				return !!navigator.userAgent.match(/Opera Mini/i);
+			},
+			Windows() {
+				return !!navigator.userAgent.match(/IEMobile/i);
+			},
+			any() {
+				return !!(this.Android() || this.BlackBerry() || this.iOS() || this.Opera() || this.Windows());
+			}
+		};
+
+		this.mobile = is_mobile_device.any();
+
 		window.addEventListener('resize', () => {
-			this.mobile = window.innerWidth <= 500;
+			this.mobile = window.innerWidth <= 500 || is_mobile_device.any();
 		});
 
 	},
