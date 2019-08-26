@@ -97,29 +97,29 @@ export const vueApp = new Vue({
 	created() {
 		let is_mobile_device = {
 			Android() {
-				return !!navigator.userAgent.match(/Android/i);
+				return navigator.userAgent.match(/Android/i);
 			},
 			BlackBerry() {
-				return !!navigator.userAgent.match(/BlackBerry/i);
+				return navigator.userAgent.match(/BlackBerry/i);
 			},
 			iOS() {
-				return !!navigator.userAgent.match(/iPhone|iPad|iPod/i);
+				return navigator.userAgent.match(/iPhone|iPad|iPod/i);
 			},
 			Opera() {
-				return !!navigator.userAgent.match(/Opera Mini/i);
+				return navigator.userAgent.match(/Opera Mini/i);
 			},
 			Windows() {
-				return !!navigator.userAgent.match(/IEMobile/i);
+				return navigator.userAgent.match(/IEMobile/i);
 			},
 			any() {
 				return !!(this.Android() || this.BlackBerry() || this.iOS() || this.Opera() || this.Windows());
 			}
 		};
 
-		this.mobile = is_mobile_device.any();
+		this.mobile = is_mobile_device.any() || window.innerWidth <= 500;
 
 		window.addEventListener('resize', () => {
-			this.mobile = window.innerWidth <= 500 || is_mobile_device.any();
+			this.mobile = is_mobile_device.any() || window.innerWidth <= 500;
 		});
 
 	},
