@@ -233,7 +233,7 @@
     import ValidationMixin from "../mixins/ValidationMixin";
     import AddOptionBlock from "./addOptionBlock";
     import PopupErrorReusable from "../reusableСomponents/PopupErrorReusable";
-    import {createForecast} from "../../EOSIO/eosio_impl";
+    import { createForecast, createPoll, createLimitedPoll } from "../../EOSIO/eosio_impl";
 
     export default {
         name: "CreatePoll",
@@ -374,7 +374,7 @@
 
             onFormSubmit() {
                 // console.log('test');
-                let {verifyValues, options_with_rules, checkLength, checkUpload, values_with_rules, errors = {}, form: pollForm} = this;
+                let { verifyValues, options_with_rules, checkLength, checkUpload, values_with_rules, errors = {}, form: pollForm } = this;
                 verifyValues('create_poll_form', values_with_rules, {checkLength});
                 verifyValues('create_poll_form', options_with_rules, {checkLength, checkUpload});
 
