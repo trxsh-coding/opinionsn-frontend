@@ -89,6 +89,7 @@ export const createPoll = async (pollName, funds, ownerId) => {
     });
 };
 
+
 export const createLimitedPoll = async (pollId, pollName, funds, ownerId, maxUsers) => {
     await api.transact({
         actions: [{
