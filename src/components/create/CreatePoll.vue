@@ -172,7 +172,7 @@
                         :params="{width: 16, height: 8, color: '#000000', padding: '4px 8px', border: '2px solid #000000'}"/>
 				
 				<switch-component
-						class="mb-18"
+						v-if="form.type_of_poll == 1 || form.type_of_poll == 2"
 						:boolean="withDate"
 						type="checkbox"
 						:value="withDate"
@@ -184,13 +184,14 @@
                         v-if="is_blockchain"
                         :value="form.fund"
 						input
-						class="mb-20"
+						class="mt-18"
 						@change="updateField(arguments[0], 'fund')"
 						input-placeholder="fund"
 				/>
     
 				<input-reusable
                         v-if="form.type_of_poll == 1 || form.type_of_poll == 2"
+                        class="mt-18"
 						:height="44"
 						:value="form.end_date"
 						withoutBlur="true"
