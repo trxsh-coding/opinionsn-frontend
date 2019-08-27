@@ -82,6 +82,8 @@
 				</div>
 			</footer>
 			
+			<IphoneAddToScreenComponent />
+			
 			<mobile-footer v-if="mobile && !!Object.keys(user).length"/>
 		</section>
 	</section>
@@ -97,7 +99,6 @@
 	import mobileHeader from "./view/mobile/header"
 	import mobileFooter from "./view/mobile/footer"
 	import IphoneAddToScreenComponent from "./pwaSnippets/IphoneAddToScreenComponent"
-	import Bowser from "bowser"
 	import asideDesktop from "./view/desktop/aside";
 	import DesktopHeader from "./view/desktop/header";
 	import langString from "./langString";
@@ -153,11 +154,6 @@
 				
 			},
 			
-			iosNotificationCloseCheck: function () {
-				
-				return window.localStorage.getItem('iosNotificationPwa' !== 'False');
-			},
-			
 			timer_id() {
 				return this.$root.timer_id;
 			}
@@ -199,13 +195,6 @@
 				this.$root.timer_duration = 0;
 				this.$root.temp_selected_option = null;
 			},
-			
-			closeInstall() {
-				
-				this.showInstallMessage = false;
-				window.localStorage.setItem('iosNotificationPwa', 'False');
-				
-			},
 
 			getPathWithPoll(routeName) {
 				
@@ -243,23 +232,6 @@
 				this.$router.push({path: "/pollFeed"});
 			},
 			
-			iosAddToHomeScreenSnippet() {
-				
-				const isIos = () => {
-					const browser = Bowser.getParser(window.navigator.userAgent).getBrowserName();
-					return /Safari/.test(browser);
-				}
-				// Detects if device is in standalone mode
-				const isInStandaloneMode = () => (window.matchMedia('(display-mode: standalone)').matches);
-				console.log(isInStandaloneMode())
-				
-				// Checks if should display install popup notification:
-				if (isIos() && !isInStandaloneMode()) {
-					this.showInstallMessage = true
-				}
-				
-			},
-			
 		},
 		
 		created() {
@@ -275,20 +247,10 @@
 		mounted() {
 			this.iosAddToHomeScreenSnippet();
 			this.getNotifications();
-			window.addEventListener("scroll", this.onScroll);
 			this.$store.commit("serviceWorker/SET_NOTIFICATION_SUPPORT")
 			
 		},
 		
-		beforeDestroy() {
-			window.removeEventListener("scroll", this.onScroll);
-		},
-		
-		
-		beforeCreate() {
-		
-		
-		},
 		components: {
 			ButtonReusable,
 			asideDesktop,
@@ -466,7 +428,7 @@
 		}
 	}
 	
-	body .is_mobile_device {
+	body.is_mobile_device {
 		margin: 0;
 		background: #ffffff;
 	}
