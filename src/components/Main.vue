@@ -430,7 +430,6 @@
 	
 	body.is_mobile_device {
 		margin: 0;
-		background: #ffffff;
 	}
 
 </style>
