@@ -72,6 +72,7 @@
     .mobile-menu {
     
         .lang-switch {
+            width: 100% !important;
             
             .trigger {
                 width: 100% !important;
