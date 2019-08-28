@@ -10,17 +10,17 @@
 		     @touchmove="trackTouchMove"
 		     @touchend="trackTouchEnd">
 			
-			<template v-if="bows">
-				<slot v-if="Object.keys(bows).length > 2 && !swiped" name="badge"></slot>
+			<template v-if="option.bows">
+				<slot v-if="Object.keys(option.bows).length > 2 && !swiped" name="badge"></slot>
 				
 				<scroll-swiper-reusable
-						v-if="Object.keys(bows).length > 2"
+						v-if="Object.keys(option.bows).length > 2"
 						height="100%"
 						:width="swiped ? '100%' : 'fit-content'"
 						:stub-length="swiped && 1"
 						class="bows-slider">
 					<div
-							v-for="(value, key, index) in bows" :to="'/user/' + key"
+							v-for="(value, key, index) in option.bows" :to="'/user/' + key"
 							v-show="swiped || index === 0"
 							@click="swiped && $router.push({name: 'user', params: { id: key }})"
 							class="bow mx-2 h-21 w-21"
@@ -28,30 +28,31 @@
 				</scroll-swiper-reusable>
 				
 				<div
-						v-if="Object.keys(bows).length < 2"
-						@click="swiped && $router.push({name: 'user', params: { id: Object.keys(bows)[0] }})"
+						v-if="Object.keys(option.bows).length < 2"
+						@click="swiped && $router.push({name: 'user', params: { id: Object.keys(option.bows)[0] }})"
 						class="bow mx-2 h-21 w-21"
-						:style="{backgroundImage: `url('${publicPath + Object.values(bows)[0]}')`}"></div>
+						:style="{backgroundImage: `url('${publicPath + Object.values(option.bows)[0]}')`}"></div>
 			</template>
 		</div>
 		
-		<button @click="setRightOption(id, poll_id)" v-if="mainUser.authorities === 'ADMIN' && type_of_poll !== 0">✓
+		<button @click="setRightOption"
+		        v-if="mainUser.authorities === 'ADMIN' && is_prediction">✓
 		</button>
 		
 		<div
 				class="option-wrapper"
-				:class="{'pointer': !voted, 'with-button': mainUser.authorities === 'ADMIN' && type_of_poll !== 0}">
-				<div v-if="picture && picture.slice(-4) !== 'null'" class="picture" :style="pictureStyle" @click="onPictureClick"></div>
+				:class="{'pointer': !voted, 'with-button': mainUser.authorities === 'ADMIN' && is_prediction}">
+			<div v-if="picture && picture.slice(-4) !== 'null'" class="picture" :style="pictureStyle"></div>
+			
+			<div class="option" :style="optionStyle" @click="selectOption">
 
-			<div class="option" :style="optionStyle" @click="selectOption(id)">
-
-			<span class="text">
-				<slot></slot>
-			</span>
-				
-				<span v-if="percentage" class="percentage-block">
-				{{percentage}}%
-			</span>
+				<span class="text">
+					<slot></slot>
+				</span>
+					
+					<span v-if="percentage" class="percentage-block">
+					{{percentage}}%
+				</span>
 				
 				<div class="progress-bar" :style="progressBarStyle"></div>
 			</div>
@@ -59,7 +60,7 @@
 		</div>
 		
 		<div class="desktop-bows" v-if="!mobile">
-			<involved-users-panel :users="bows" v-if="Object.keys(bows).length > 0">
+			<involved-users-panel :users="option.bows" v-if="Object.keys(option.bows).length > 0">
 				<template #description>
 					<div class="none">
 					
@@ -75,10 +76,9 @@
 	import InvolvedUsersPanel from "../pollFeed/layout/involvedUsersPanel";
 	import {mapState} from "vuex";
 	import {userVote, judgevote} from "../../EOSIO/eosio_impl";
-	import {mainUser} from "../../store/modules/mainUser";
 	import ScrollSwiperReusable from "@/components/reusableСomponents/ScrollSwiperReusable";
 	import ReusableModal from "./reusableModal";
-
+	
 	export default {
 		name: "ReOption",
 		components: {ReusableModal, ScrollSwiperReusable, InvolvedUsersPanel},
@@ -95,39 +95,16 @@
 			}
 		},
 		props: {
+			payload: Object,
+			poll: Object,
+			option: Object,
 			disabled: Boolean,
-			accessCheck: Boolean,
-			voted: Boolean,
-			selected: Boolean,
-			correct: Boolean,
-			prediction: Boolean,
-			loading: Boolean,
-			percentage: [Number, Boolean],
-			picture: String,
-			expired: Boolean,
-			description:String,
 			pictureSize: {
 				type: Number,
-				default: function () {
+				default() {
 					return 90;
 				}
 			},
-			id: {
-				type: Number,
-				required: true
-			},
-			
-			poll_id: {
-				type: Number,
-				required: true
-			},
-			type_of_poll: {
-				type: Number,
-				required: true
-			},
-			bows: {
-				type: Object
-			}
 		},
 		
 		beforeDestroy() {
@@ -135,19 +112,15 @@
 		},
 		
 		methods: {
-			onPictureClick(){
-				this.$emit('picture-click', this.picture.slice(4, this.picture.length), this.description)
-			},
 			
-			openModal(){
-				this.showModal = true
-			},
-
-			selectOption(selected_variable) {
+			selectOption() {
 				
 				switch (true) {
 					case !this.logged_in:
-						this.$popup.insert('messages', {message: 'Для выполнения действий необходимо авторизоваться!', type: 'warning'});
+						this.$popup.insert('messages', {
+							message: 'Для выполнения действий необходимо авторизоваться!',
+							type: 'warning'
+						});
 						return;
 					case this.voted:
 						this.resetBowsBar();
@@ -156,17 +129,19 @@
 					case !this.disabled:
 						return;
 				}
-
+				
 				if (!this.$root.timer_duration && !this.$root.timer_id) {
-
+					
+					let {id: poll_id, type_of_poll} = this.poll;
+					let selected_variable = this.option.id;
+					
 					const runTimeout = () => {
-
-						if (this.accessCheck) {
-							let {poll_id, type_of_poll, mainUser} = this;
+						
+						if (this.has_access) {
 							this.$root.timer_duration = 5000;
-
+							
 							this.$root.timer_id = setTimeout(() => {
-
+								
 								this.$store.dispatch(`${this.$route.name}/createVote`, {
 									data: {
 										selected_variable,
@@ -182,50 +157,63 @@
 							this.$root.temp_selected_option = selected_variable;
 						}
 					};
-
-					if (this.type_of_poll === 2) {
-						userVote(this.poll_id, mainUser.id, selected_variable)
+					
+					if (type_of_poll === 2) {
+						userVote(poll_id, mainUser.id, selected_variable)
 							.then(() => runTimeout())
 							.catch(() => console.log("Error voting in EOSIO forecast"));
 					} else {
 						runTimeout();
 					}
 				}
-
+				
 			},
 			
-			setRightOption(option_id, poll_id) {
-				let {mainUser, type_of_poll} = this;
+			setRightOption() {
+				let {mainUser} = this;
+				let selected_variable = this.option.id;
+				let {id: poll_id, type_of_poll} = this.poll;
 				
 				switch (type_of_poll) {
 					case 2:
-						judgevote(poll_id, mainUser.id, option_id)
+						judgevote(poll_id, mainUser.id, selected_variable)
 							.then(() => {
-								this.$store.dispatch('pollFeed/setRightOption', {data: {option_id, poll_id}})
+								this.$store.dispatch('pollFeed/setRightOption', {data: {selected_variable, poll_id}})
 									.then(status => {
 										if (status === 200) {
-											this.$popup.insert('messages', [{message: 'Вариант выбран успешно!', type: 'success'}]);
+											this.$popup.insert('messages', [{
+												message: 'Вариант выбран успешно!',
+												type: 'success'
+											}]);
 										} else {
-											this.$popup.insert('messages', [{message: 'При выборе опции произошла ошибка!', type: 'error'}]);
+											this.$popup.insert('messages', [{
+												message: 'При выборе опции произошла ошибка!',
+												type: 'error'
+											}]);
 										}
 									})
 							})
 							.catch(() => console.log("Judgevote on EOSIO exception"));
 						break;
 					case 1:
-						this.$store.dispatch('pollFeed/setRightOption', {data: {option_id, poll_id}})
+						this.$store.dispatch('pollFeed/setRightOption', {data: {selected_variable, poll_id}})
 							.then(status => {
 								if (status === 200) {
-									this.$popup.insert('messages', [{message: 'Вариант выбран успешно!', type: 'success'}]);
+									this.$popup.insert('messages', [{
+										message: 'Вариант выбран успешно!',
+										type: 'success'
+									}]);
 								} else {
-									this.$popup.insert('messages', [{message: 'При выборе опции произошла ошибка!', type: 'error'}]);
+									this.$popup.insert('messages', [{
+										message: 'При выборе опции произошла ошибка!',
+										type: 'error'
+									}]);
 								}
 							});
 						break;
 					default:
 						return;
 				}
-				
 			},
 			
 			resetBowsBar() {
@@ -293,10 +281,6 @@
 				mainUser: state => state.mainUser
 			}),
 			
-			c_settings() {
-					
-			},
-			
 			mobile() {
 				return this.$root.mobile;
 			},
@@ -305,8 +289,48 @@
 				return !!Object.keys(this.mainUser).length;
 			},
 			
+			is_prediction() {
+				return this.poll.type_of_poll === 1 || this.poll.type_of_poll === 2;
+			},
+			
+			has_access() {
+				switch (true) {
+					case this.logged_in:
+					case Number.isInteger(this.mainUser.id):
+					case !this.expired:
+					case !this.voted:
+						return true;
+					default:
+						return false;
+				}
+			},
+			
 			temp_selected() {
 				return this.$root.temp_selected_option === this.id;
+			},
+			
+			expired() {
+				return this.poll.votingOver
+			},
+			
+			voted() {
+				return this.payload.voted
+			},
+			
+			correct() {
+				return this.poll.correct_option === this.option.id
+			},
+			
+			selected() {
+				return this.payload.selectedOption === this.option.id
+			},
+			
+			picture() {
+				return this.option.picture ? this.publicPath + this.option.picture : null
+			},
+			
+			percentage() {
+				return this.voted ? this.option.voted_percentage : null
 			},
 			
 			transform_shift() {
@@ -317,11 +341,10 @@
 			},
 			
 			optionWrapper() {
-				let {expired, correct, selected, type_of_poll} = this;
-				
+				let {selected, expired, correct} = this;
 				let s = {};
 				
-				switch (type_of_poll == 1 && expired) {
+				switch (this.poll.type_of_poll == 1 && expired) {
 					case selected && correct:
 						s = {...s, opacity: '1'};
 						break;
@@ -347,35 +370,35 @@
 			
 			
 			optionStyle() {
-				let {selected, temp_selected, correct, prediction, picture} = this;
+				let {selected, temp_selected, correct, picture, prediction} = this;
 				
 				let opacity = prediction ? {opacity: '0.3'} : {};
-				let withPicture = picture ? {borderTopLeftRadius: '0', borderBottomLeftRadius: '0'} : {};
+				let with_picture = picture ? {borderTopLeftRadius: '0', borderBottomLeftRadius: '0'} : {};
 				
 				switch (true) {
 					case correct && (temp_selected || selected):
 						return {
 							backgroundColor: '#4BB48E',
 							color: '#fff',
-							...withPicture
+							...with_picture
 						};
 					case temp_selected || selected:
 						return {
 							backgroundColor: '#4B97B4',
 							color: '#fff',
-							...withPicture
+							...with_picture
 						};
 					case correct:
 						return {
 							backgroundColor: '#4BB48E',
 							color: '#fff',
 							...opacity,
-							...withPicture
+							...with_picture
 						};
 					default:
 						return {
 							...opacity,
-							...withPicture
+							...with_picture
 						};
 				}
 			},

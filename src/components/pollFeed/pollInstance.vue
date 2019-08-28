@@ -10,26 +10,11 @@
         </post-header>
         <headline-body :poll="poll" :item="item"/>
             <re-option
-                    @picture-click="showCurrentPicture"
-                    @click.native="options_visible = true"
-                    :disabled="(combinedOptions.length <= 5) || options_visible"
-                    :access-check="pollAccessCheck"
-                    v-for="(option, index) in combinedOptions"
-                    :key="index"
-                    v-show="options_visible || index < 5"
-                    :bows="option.bows"
                     class="mt-12"
-                    :id="option.id"
-                    :percentage="voted && option.voted_percentage"
-                    :type_of_poll="poll.type_of_poll"
-                    :poll_id="poll.id"
-                    :voted="voted"
-                    :selected="item.selectedOption === option.id"
-                    :correct="poll.correct_option === option.id"
-                    :picture="option.picture ? publicPath + option.picture : null"
-                    :loading="loading"
-                    :expired="poll.votingOver"
-                    :description="option.description"
+                    v-for="(option, index) in combinedOptions"
+                    v-bind="{payload: item, poll, option}"
+                    :disabled="(combinedOptions.length <= 5) || options_visible"
+                    @click.native="options_visible = true"
             >
                 <template #default>
                     {{option.description}}
