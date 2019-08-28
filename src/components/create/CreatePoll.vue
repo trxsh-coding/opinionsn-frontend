@@ -188,7 +188,20 @@
 						@change="updateField(arguments[0], 'fund')"
 						input-placeholder="fund"
 				/>
-    
+				
+				<popup-error-reusable
+						v-if="form.type_of_poll == 3"
+						span-class="mt-3 flex-align-center"
+						:errors="form.errors.max_participants_cap">
+					<input-reusable
+							:value="form.max_participants_cap"
+							input
+							class="mt-18"
+							@change="updateField(arguments[0], 'max_participants_cap')"
+							input-placeholder="max_participants_cap"
+					/>
+				</popup-error-reusable>
+				
 				<input-reusable
                         v-if="form.type_of_poll == 1 || form.type_of_poll == 2"
                         class="mt-18"
@@ -199,6 +212,7 @@
 						@date-pick="updateField(arguments[0], 'end_date')"
 						input-placeholder="closing_date"
 				/>
+
 			</div>
 		</div>
 	</div>
@@ -264,10 +278,11 @@
 				if (!this.route_leaved) {
 					let {
 						verifyValues,
-						checkLength
+						checkLength,
+						checkAmount
 					} = this;
 					
-					verifyValues('create_poll_form', val, {checkLength});
+					verifyValues('create_poll_form', val, {checkLength, checkAmount});
 				}
 			},
 			
@@ -276,10 +291,11 @@
 					let {
 						verifyValues,
 						checkLength,
-						checkUpload
+						checkUpload,
+						checkAmount
 					} = this;
 					
-					verifyValues('create_poll_form', val, {checkLength, checkUpload});
+					verifyValues('create_poll_form', val, {checkLength, checkUpload, checkAmount});
 				}
 			},
 			
@@ -323,6 +339,11 @@
 						value: form.description,
 						key: 'description',
 						rules: [{method_name: 'checkLength', args: [0, 650]}]
+					},
+					{
+						value: parseFloat(form.max_participants_cap),
+						key: 'max_participants_cap',
+						rules: [{method_name: 'checkAmount', args: [{lower_bound: 0}]}]
 					},
 				]
 			},
@@ -432,11 +453,11 @@
 				
 				switch (this.type) {
 					case "POLL":
-						type_of_poll = (bool) ? 3 : 0;
+						type_of_poll = bool ? 3 : 0;
 						this.updateField(type_of_poll, 'type_of_poll');
 						break;
 					case "PREDICTION":
-						type_of_poll = (bool) ? 2 : 1;
+						type_of_poll = bool ? 2 : 1;
                         this.updateField(type_of_poll, 'type_of_poll');
                         break;
 				}

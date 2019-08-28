@@ -84,7 +84,7 @@
 				Да, потому что киберпанк в моде
 			</template>
 			<template #badge>
-				<badge-reusable :counter="Object.keys(bows).length - 1" :size="21"></badge-reusable>
+				<re-badge :counter="Object.keys(bows).length - 1" :size="21"></re-badge>
 			</template>
 		</option-reusable>
 
@@ -164,8 +164,7 @@
 <script>
 	import { mapState } from 'vuex';
     import PictureReusable from "./reusableСomponents/PictureReusable";
-	import OptionReusable from "./reusableСomponents/OptionReusable";
-	import BadgeReusable from "./reusableСomponents/BadgeReusable";
+	import ReOption from "./reusableСomponents/ReOption";
 	import DropdownListReusable from "./reusableСomponents/DropdownListReusable";
 	import IconBase from "./icons/IconBase";
 	import IconDropArrow from "./icons/IconDropArrow";
@@ -184,10 +183,12 @@
 	import IconCross from "./icons/IconCross";
 	
 	import axios from "axios";
+	import ReBadge from "@/components/reusableСomponents/ReBadge";
 	
 	export default {
         name: "testPlayground",
 		components: {
+			ReBadge,
 			SwiperReusable,
 			LoaderReusable,
 			SwitchComponent,
@@ -197,9 +198,8 @@
 			ExplanationReusable,
 			ButtonReusable,
 			DropdownListReusable,
-			BadgeReusable,
 			PictureReusable,
-			OptionReusable,
+			ReOption,
 			IconBase,
 			IconDropArrow,
 			loadingSpinner,

@@ -15,17 +15,6 @@
 <script>
 	export default {
 		name: "SwitcherReusable",
-		data() {
-			return {
-				d_params: {
-					width: 30,
-					height: 15,
-					color: '#4A76A8',
-					// active_color: '#43B05C',
-					...this.params
-				}
-			}
-		},
 		props: {
 			value: Boolean,
 			caption: {
@@ -57,25 +46,35 @@
 			},
 		},
 		computed: {
+			
+			c_params() {
+				return {
+					width: 30,
+					height: 15,
+					color: '#4A76A8',
+					...this.params
+				}
+			},
+			
 			trigger() {
 				return this.value
 					? {
 						right: '1px !important',
-						background: this.d_params.active_color || this.d_params.color,
+						background: this.c_params.active_color || this.c_params.color,
 						transition: '300ms'
 					}
 					: { transition: '300ms' }
 			},
 			
 			switcher_style() {
-				let {width, height, padding = "0", border = 'none'} = this.d_params;
+				let {width, height, padding = "0", border = 'none'} = this.c_params;
 				width = this.handleCssValue(width);
 				height = this.handleCssValue(height);
 				return {width, height, padding, border};
 			},
 			
 			indicator_style() {
-				let {width, height, color} = this.d_params;
+				let {width, height, color} = this.c_params;
 				height = this.handleCssValue(height - 2);
 				width = this.handleCssValue(Math.round(width / 2) - 2);
 				return {

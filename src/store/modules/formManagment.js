@@ -47,6 +47,7 @@ const initialState = () => {
             end_date: '',
             end_time: '',
             fund: '',
+            max_participants_cap: '',
             judges: [],
             errors: {
                 options: {}

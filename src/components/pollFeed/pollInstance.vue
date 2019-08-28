@@ -9,10 +9,10 @@
             </template>
         </post-header>
         <headline-body :poll="poll" :item="item"/>
-            <options-section
+            <re-option
                     @picture-click="showCurrentPicture"
                     @click.native="options_visible = true"
-                    :optionsVisible="(combinedOptions.length <= 5) || options_visible"
+                    :disabled="(combinedOptions.length <= 5) || options_visible"
                     :access-check="pollAccessCheck"
                     v-for="(option, index) in combinedOptions"
                     :key="index"
@@ -36,10 +36,10 @@
                 </template>
 
                 <template #badge>
-                    <badge-reusable :counter="Object.keys(option.bows).length - 1" :size="21"></badge-reusable>
+                    <re-badge :counter="Object.keys(option.bows).length - 1" :size="21"></re-badge>
                 </template>
                 
-            </options-section>
+            </re-option>
 
         <span v-show="!options_visible && combinedOptions.length > 5" class="options-load-btn pointer mt-9"
               @click="options_visible = true">Показать больше опций</span>
@@ -125,8 +125,7 @@
     import postHeader from './layout/header'
     import headlineBody from './layout/headlineBody'
     import explainSection from "../reusableСomponents/ExplanationReusable";
-    import OptionsSection from "../reusableСomponents/OptionReusable";
-    import BadgeReusable from "../reusableСomponents/BadgeReusable";
+    import ReOption from "../reusableСomponents/ReOption";
     import PictureReusable from "../reusableСomponents/PictureReusable";
     import IconBase from "../icons/IconBase";
     import IconCheck from "../icons/IconCheck";
@@ -140,6 +139,7 @@
     import {finishEvent} from "../../EOSIO/eosio_impl";
     import ReusableModal from "../reusableСomponents/reusableModal";
     import {addCourt, addjudge} from "../../EOSIO/eosio_impl";
+    import ReBadge from "@/components/reusableСomponents/ReBadge";
 
     const pad = (num, len = 2, char = '0') => {
         let init = `${num}`;
@@ -155,12 +155,12 @@
         name: "layout",
         props: ['item'],
         components: {
+            ReBadge,
             ReusableModal,
             PollAnotation,
             TimeTrans,
             PictureReusable,
-            BadgeReusable,
-            OptionsSection,
+            ReOption,
             explainSection,
             postHeader,
             headlineBody,

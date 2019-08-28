@@ -52,7 +52,9 @@
 							<icon-notifications/>
 						</icon-base>
 						
-						<badge-reusable class="counter" v-show="counter" :size="12" color="#FF5454" :counter="counter" />
+						<re-badge class="counter" v-show="counter" :counter="counter" :size="12"
+						          :params="{background: '#FF5454'}"/>
+						
 					</div>
 					<template #items>
 						<notification-page
@@ -124,9 +126,9 @@
 	import NotificationPage from "../../notifications/notificationPage";
 	import langString from "../../langString";
 	import axios from "axios";
-	import BadgeReusable from "@/components/reusableСomponents/BadgeReusable";
 	import {mapState} from "vuex";
 	import CookieMixin from "@/components/mixins/CookieMixin";
+	import ReBadge from "@/components/reusableСomponents/ReBadge";
 
 	export default {
 		name: "desktopHeader",
@@ -197,7 +199,7 @@
 		},
 		
 		components: {
-			BadgeReusable,
+			ReBadge,
 			NotificationPage,
 			DropdownListReusable,
 			PictureReusable,

@@ -48,6 +48,30 @@ export default {
                     return null;
             }
 
+        },
+        
+        checkAmount(value, payload = {}) {
+    
+            if (typeof value !== 'number') throw new Error(`checkAmount: wrong value type: ${typeof value}`);
+            
+            let {lower_bound, upper_bound} = payload;
+            
+            let isNum = (num) => typeof num === 'number';
+            
+            if (!Number.isInteger(value)) return 'Введите целое число';
+            
+            if (isNum(lower_bound) && isNum(upper_bound)) {
+                if (value < lower_bound || value > upper_bound) {
+                    return `Введите значение от ${lower_bound} до ${upper_bound}`;
+                }
+            } else if (isNum(lower_bound) && value < lower_bound) {
+                return `Введите значение от ${lower_bound}`;
+            } else if (isNum(upper_bound) && value > upper_bound) {
+                return `Введите значение до ${upper_bound}`;
+            } else {
+                return null;
+            }
+            
         }
 
     }

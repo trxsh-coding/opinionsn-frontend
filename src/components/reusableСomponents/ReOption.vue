@@ -1,5 +1,5 @@
 <template>
-	<div class="option-reusable" ref="containerRef" :style="[transform_shift, optionWrapper]">
+	<div class="re-option" ref="containerRef" :style="[transform_shift, optionWrapper]">
 		
 		<div v-if="mobile"
 		     class="bows-bar"
@@ -80,7 +80,7 @@
 	import ReusableModal from "./reusableModal";
 
 	export default {
-		name: "OptionReusable",
+		name: "ReOption",
 		components: {ReusableModal, ScrollSwiperReusable, InvolvedUsersPanel},
 		data() {
 			return {
@@ -91,12 +91,11 @@
 				transform_px: 0,
 				transform_limit: undefined,
 				swiped: false,
-				swipe_in_progress: false,
-				showModal:false
+				swipe_in_progress: false
 			}
 		},
 		props: {
-			optionsVisible: Boolean,
+			disabled: Boolean,
 			accessCheck: Boolean,
 			voted: Boolean,
 			selected: Boolean,
@@ -154,7 +153,7 @@
 						this.resetBowsBar();
 						return;
 					case this.expired:
-					case !this.optionsVisible:
+					case !this.disabled:
 						return;
 				}
 
@@ -294,6 +293,10 @@
 				mainUser: state => state.mainUser
 			}),
 			
+			c_settings() {
+					
+			},
+			
 			mobile() {
 				return this.$root.mobile;
 			},
@@ -420,7 +423,7 @@
 		opacity: 1;
 	}
 	
-	.option-reusable {
+	.re-option {
 		position: relative;
 		right: 0;
 		display: flex;
