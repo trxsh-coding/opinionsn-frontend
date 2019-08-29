@@ -29,7 +29,7 @@
 					button_type="underline"
 					color="#1A1E22"
 					active-color="#4B97B4"
-					description="peoples"
+					description="people"
 					@click.native="setTypeOfSearch('USER')"
 					:active="type === 'USER'"
 			/>
