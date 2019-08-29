@@ -162,14 +162,14 @@
 					:boolean="additionalField"
 					@select="unhideAdds"/>
 			<div class="additional-fields pl-60" v-if="additionalField">
-                
-                <switcher-reusable
-                        class="blockchain-switcher flex-reverse"
-                        caption-class="caption ml-10"
-                        :value="is_blockchain"
-                        @input="setTypeOfPoll"
-                        :caption="is_blockchain ? lstr('BLOCKCHAIN') : lstr('OFF_CHAIN')"
-                        :params="{width: 16, height: 8, color: '#000000', padding: '4px 8px', border: '2px solid #000000'}"/>
+				
+				<switcher-reusable
+						class="blockchain-switcher flex-reverse"
+						caption-class="caption ml-10"
+						:value="is_blockchain"
+						@input="setTypeOfPoll"
+						:caption="is_blockchain ? lstr('BLOCKCHAIN') : lstr('OFF_CHAIN')"
+						:params="{width: 16, height: 8, color: '#000000', padding: '4px 8px', border: '2px solid #000000'}"/>
 				
 				<switch-component
 						v-if="form.type_of_poll == 1 || form.type_of_poll == 2"
@@ -181,8 +181,8 @@
 						@select="timeLimit"/>
 				
 				<input-reusable
-                        v-if="is_blockchain"
-                        :value="form.fund"
+						v-if="is_blockchain"
+						:value="form.fund"
 						input
 						class="mt-18"
 						@change="updateField(arguments[0], 'fund')"
@@ -203,8 +203,8 @@
 				</popup-error-reusable>
 				
 				<input-reusable
-                        v-if="form.type_of_poll == 1 || form.type_of_poll == 2"
-                        class="mt-18"
+						v-if="form.type_of_poll == 1 || form.type_of_poll == 2"
+						class="mt-18"
 						:height="44"
 						:value="form.end_date"
 						withoutBlur="true"
@@ -212,16 +212,16 @@
 						@date-pick="updateField(arguments[0], 'end_date')"
 						input-placeholder="closing_date"
 				/>
-
+			
 			</div>
 		</div>
 	</div>
 </template>
 
 <script>
-    
-    import SwitcherReusable from "../reusableСomponents/SwitcherReusable";
-    import SwitchComponent from "../reusableСomponents/switchComponent";
+	
+	import SwitcherReusable from "../reusableСomponents/SwitcherReusable";
+	import SwitchComponent from "../reusableСomponents/switchComponent";
 	import langString from "../langString"
 	import ButtonReusable from "../reusableСomponents/ButtonReusable";
 	import DropdownListReusable from "../reusableСomponents/DropdownListReusable";
@@ -246,7 +246,7 @@
 	import AddOptionBlock from "./addOptionBlock";
 	import PopupErrorReusable from "../reusableСomponents/PopupErrorReusable";
 	import {createForecast, createPoll, createLimitedPoll} from "../../EOSIO/eosio_impl";
-    import SwiperReusable from "@/components/reusableСomponents/swiperReusable";
+	import SwiperReusable from "@/components/reusableСomponents/swiperReusable";
 	
 	export default {
 		name: "CreatePoll",
@@ -323,13 +323,18 @@
 			values_with_rules() {
 				let {form} = this;
 				
+				let max_participants_cap = form.type_of_poll == 3 ? [{
+					value: parseInt(form.max_participants_cap),
+					key: 'max_participants_cap',
+					rules: [{method_name: 'checkAmount', args: [{lower_bound: 0}]}]
+				}] : [];
+				
 				return [
 					{
 						value: form.tags,
 						key: 'tags',
 						rules: [{method_name: 'checkLength', args: [0, 100]}]
 					},
-					
 					{
 						value: form.subject,
 						key: 'subject',
@@ -340,11 +345,7 @@
 						key: 'description',
 						rules: [{method_name: 'checkLength', args: [0, 650]}]
 					},
-					{
-						value: parseFloat(form.max_participants_cap),
-						key: 'max_participants_cap',
-						rules: [{method_name: 'checkAmount', args: [{lower_bound: 0}]}]
-					},
+					...max_participants_cap
 				]
 			},
 			
@@ -369,7 +370,8 @@
 			message: {
 				get() {
 					return this.end_date
-				},
+				}
+				,
 				set(value) {
 					this.$store.commit('formManagment/SET_DATE_TIME', value)
 				}
@@ -397,10 +399,9 @@
 			},
 			
 			onFormSubmit() {
-				// console.log('test');
-				let {verifyValues, options_with_rules, checkLength, checkUpload, values_with_rules, errors = {}, form: pollForm} = this;
-				verifyValues('create_poll_form', values_with_rules, {checkLength});
-				verifyValues('create_poll_form', options_with_rules, {checkLength, checkUpload});
+				let {verifyValues, options_with_rules, checkLength, checkUpload, checkAmount, values_with_rules, errors = {}, form: pollForm} = this;
+				verifyValues('create_poll_form', values_with_rules, {checkLength, checkAmount});
+				verifyValues('create_poll_form', options_with_rules, {checkLength, checkUpload, checkAmount});
 				
 				let errors_summary = Object.values(errors).flatMap(err => Object.values(err));
 				errors_summary = errors_summary.flatMap(err => {
@@ -458,8 +459,8 @@
 						break;
 					case "PREDICTION":
 						type_of_poll = bool ? 2 : 1;
-                        this.updateField(type_of_poll, 'type_of_poll');
-                        break;
+						this.updateField(type_of_poll, 'type_of_poll');
+						break;
 				}
 			},
 			
@@ -505,7 +506,6 @@
 			
 			deleteOption(index) {
 				this.$store.commit('formManagment/DELETE_OPTION', index)
-				
 			},
 			
 			setCategory({name}) {
@@ -551,7 +551,7 @@
 		},
 		
 		components: {
-            SwiperReusable,
+			SwiperReusable,
 			PopupErrorReusable,
 			AddOptionBlock,
 			TextareaReusable,
@@ -572,7 +572,7 @@
 			DatePick,
 			IconAdd,
 			IconMinus,
-            SwitcherReusable
+			SwitcherReusable
 		}
 		
 	}
