@@ -4,31 +4,44 @@
         
         <routebar/>
         
-        <dropdown-list-reusable
-                class="lang-switch flex-align-center"
-                list-class="drop-list"
-                button-class="trigger py-11 pl-7"
-                width="100%"
-                click-close
-                with-arrow>
-            <template>
-                <icon-base class="flag-icon" height="22" width="22" viewBox="0 0 24 24" style="enable-background:new 0 0 24 24;">
-                    <icon-flag />
-                </icon-base>
-            
-                <lang-string class="button-caption ml-15" title="choose_language" />
-            </template>
+<!--        <dropdown-list-reusable-->
+<!--                class="lang-switch flex-align-center"-->
+<!--                list-class="drop-list"-->
+<!--                button-class="trigger py-11 pl-7"-->
+<!--                width="100%"-->
+<!--                click-close-->
+<!--                with-arrow>-->
+<!--            <template>-->
+<!--                <icon-base class="flag-icon" height="22" width="22" viewBox="0 0 24 24" style="enable-background:new 0 0 24 24;">-->
+<!--                    <icon-flag />-->
+<!--                </icon-base>-->
+<!--            -->
+<!--                <lang-string class="button-caption ml-15" title="choose_language" />-->
+<!--            </template>-->
+<!--        -->
+<!--            <template #items>-->
+<!--                <ul class="flex-column list">-->
+<!--                    <li @click="changeLanguage(1)" class="option br-6 py-5 pr-10 pl-32 pointer flex-align-center"><span>English</span></li>-->
+<!--                    <li @click="changeLanguage(2)" class="option br-6 mt-5 py-5 pr-10 pl-32 pointer flex-align-center"><span>Русский</span></li>-->
+<!--                </ul>-->
+<!--            </template>-->
+<!--        </dropdown-list-reusable>-->
         
-            <template #items>
-                <ul class="flex-column list">
-                    <li @click="changeLanguage(1)" class="option br-6 py-5 pr-10 pl-32 pointer flex-align-center"><span>English</span></li>
-                    <li @click="changeLanguage(2)" class="option br-6 mt-5 py-5 pr-10 pl-32 pointer flex-align-center"><span>Русский</span></li>
-                </ul>
-            </template>
-        </dropdown-list-reusable>
+<!--        <ul class="lang-switch flex">-->
+<!--            <li class="switcher switcher-1 pointer" @click="changeLanguage(1)">-->
+<!--                <span>RUS</span>-->
+<!--                <lang-string :class="{active: feed_type === 1}" :title="'publications'" />-->
+<!--            </li>-->
+<!--            <li class="switcher switcher-2 pointer ml-18" @click="changeLanguage(2)">-->
+<!--                <span>ENG</span>-->
+<!--                <lang-string :class="{active: feed_type === 2}" :title="'reply_s'" />-->
+<!--            </li>-->
+<!--        </ul>-->
         
-		<div class="copyright flex-space-center mt-13">
-            <span>© 2019 OPINION</span>
+		<div class="caption mt-13">
+            <span class="copyright my-auto mr-auto">© 2019 OPINION</span>
+            <span @click="changeLanguage(2)" class="switch" :class="{'active': lang === 'ru'}">RUS</span>
+            <span @click="changeLanguage(1)" class="switch ml-18" :class="{'active': lang === 'en'}">ENG</span>
         </div>
     </div>
 </template>
@@ -41,6 +54,7 @@
     import IconBase from "@/components/icons/IconBase";
     import IconFlag from "@/components/icons/IconFlag";
     import LangString from "@/components/langString";
+    import {mapState} from "vuex";
     
     export default {
 		components: {
@@ -53,6 +67,11 @@
 		},
         
         computed: {
+		    
+		    ...mapState('lang', {
+                lang: s => s.locale._lang
+            }),
+		    
             mobile() {
                 return this.$root.mobile;
             },
@@ -96,15 +115,36 @@
             }
         }
     
-        .copyright {
+        .caption {
+            display: flex;
+            justify-content: flex-end;
             // padding: 0 10px;
-            span {
+            .copyright {
                 font-family: Roboto;
                 font-style: normal;
                 font-weight: normal;
                 font-size: 11px;
                 letter-spacing: -0.3px;
                 color: rgba(56, 56, 56, 0.7);
+            }
+    
+            .switch {
+                position: relative;
+                top: 2px;
+                
+                font-weight: normal;
+                font-size: 13px;
+                color: #1A1E22;
+        
+                padding-bottom: 3px;
+                border-bottom: 2px solid transparent;
+        
+                user-select: none;
+        
+                &.active {
+                    color: #4B97B4;
+                    border-bottom: 2px solid #4B97B4;
+                }
             }
         }
     }
