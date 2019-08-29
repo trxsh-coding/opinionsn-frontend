@@ -35,7 +35,7 @@ module.exports = {
 	},
 
 	pwa: {
-		name: "OpinionSN",
+		name: "Opinion",
 		themeColor: "#4b97b4",
 		iconPaths: {
 			favicon16: 'img/icons/favicon-16x16.png',
