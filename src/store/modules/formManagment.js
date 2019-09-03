@@ -50,6 +50,7 @@ const initialState = () => {
 			fund: '',
 			max_participants_cap: null,
 			judges: [],
+			with_time_limit: false,
 			errors: {
 				options: {}
 			},
@@ -86,13 +87,13 @@ export const formManagment = {
 			state.form.end_date = payload;
 			
 		},
+		
 		[CHANGE_MUTABLE_STATE](state, payload) {
 			state[key] = payload;
 		},
+		
 		[SET_TIME_LIMIT](state, payload) {
-			state.isTimeLimit = payload;
-			
-			
+			state.create_poll_form.with_time_limit = payload;
 		},
 		
 		[UPDATE_ARRAY_FIELD](state, {value, arrayName, index, keyName, form}) {

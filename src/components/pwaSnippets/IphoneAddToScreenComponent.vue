@@ -67,7 +67,7 @@
 			isAvailable() {
 				this.available = ((window.localStorage.getItem('iOSPwaAdviceHidden') === null)
 					&& /Safari/.test(Bowser.getParser(window.navigator.userAgent).getBrowserName())
-					&& !(window.matchMedia('(display-mode: standalone)').matches));
+					&& this.$root.is_mobile_device);
 			},
 			
 		},

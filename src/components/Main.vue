@@ -245,10 +245,8 @@
 				})
 		},
 		mounted() {
-			this.iosAddToHomeScreenSnippet();
 			this.getNotifications();
 			this.$store.commit("serviceWorker/SET_NOTIFICATION_SUPPORT")
-			
 		},
 		
 		components: {

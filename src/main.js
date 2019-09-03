@@ -1,8 +1,9 @@
 require('./styles.scss');
 import Vue from 'vue'
 import App from './App'
-import router from './router/'
+import router from './router/index'
 import store from './store/store'
+import './registerServiceWorker'
 import VueI18n from 'vue-i18n';
 import NProgress from 'vue-nprogress'
 import Croppa from 'vue-croppa'
@@ -15,9 +16,8 @@ import 'vue2-perfect-scrollbar/dist/vue2-perfect-scrollbar.css'
 import VueAwesomeSwiper from 'vue-awesome-swiper'
 import VueTextareaAutosize from 'vue-textarea-autosize'
 import 'swiper/dist/css/swiper.css'
-import './registerServiceWorker'
 import browserDetect from "vue-browser-detect-plugin";
-import * as firebase from "firebase";
+// import * as firebase from "firebase";
 import DatePick from 'vue-date-pick';
 import 'vue-date-pick/dist/vueDatePick.css';
 import PopupPlugin from "./plugins/PopupPlugin";
