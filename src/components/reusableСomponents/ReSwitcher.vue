@@ -14,7 +14,7 @@
 
 <script>
 	export default {
-		name: "SwitcherReusable",
+		name: "ReSwitcher",
 		props: {
 			value: Boolean,
 			caption: {
@@ -102,6 +102,7 @@
 			font-size: 16px;
 			color: #333333;
 			height: fit-content;
+			user-select: none;
 		}
 		
 		.label-switcher {

@@ -37,41 +37,33 @@
 			<category-select :is-current-string="true" :current="form.subject_header" @on-select="setCategory"
 			                 class="pl-60"/>
 			
-			<div class="description-block pl-60">
+			<div class="description-block mt-20 pl-60">
 				<popup-error-reusable
 						span-class="mt-3 flex-align-center"
 						:errors="form.errors.tags">
-					<input-reusable :value="form.tags"
-					                textarea
-					                @change="updateField(arguments[0], 'tags')"
-					                class="mt-20 mb-12 flex-between"
-					                width="100%"
-					                :input-placeholder="'tags'"/>
+					<re-input textarea :preset="2" input-class="mt-24"
+					          placeholder="tags" :params="{width: '100%'}"
+					          :value="form.tags" @input="updateField(arguments[0], 'tags')" />
 				</popup-error-reusable>
 				
 				<popup-error-reusable
 						span-class="mt-3 flex-align-center"
 						:errors="form.errors.subject">
-					<input-reusable :value="form.subject"
-					                @change="updateField(arguments[0], 'subject')"
-					                class=" flex-between"
-					                :class="{'TEST': checkError('subject_header')}"
-					                textarea
-					                :input-placeholder="'heading'"/>
+					<re-input textarea :preset="2" class="mt-12" input-class="mt-24"
+					          placeholder="heading" :params="{width: '100%'}"
+					          :value="form.subject" @input="updateField(arguments[0], 'subject')" />
 				</popup-error-reusable>
-				
 				
 				<popup-error-reusable
 						span-class="mt-3 flex-align-center"
 						:errors="form.errors.description">
-					<input-reusable :value="form.description"
-					                @change="updateField(arguments[0], 'description')"
-					                class="mt-12 mb-12 flex-between"
-					                textarea
-					                :input-placeholder="'description'"/>
+					<re-input textarea :preset="2" class="mt-12" input-class="mt-24"
+					          placeholder="description" :params="{width: '100%'}"
+					          :value="form.description" @input="updateField(arguments[0], 'description')" />
 				</popup-error-reusable>
 			</div>
-			<lang-string class="label pl-60" :title="'add_pictures_to_poll'"/>
+			
+			<lang-string class="label flex mt-12 pl-60" :title="'add_pictures_to_poll'"/>
 			
 			<div class="picture-block flex-align-center mt-15">
 				
@@ -123,14 +115,10 @@
 					</div>
 					<div class="options-block">
 						
-						<input-reusable
-								textarea
-								:value="option.description"
-								:height="60"
-								@change="updateArrayField(arguments[0], null, 'options', 'description', index)"
-								class="flex-align-center pl-14"
-								input-placeholder="answer_text"
-						/>
+						<re-input textarea class="input-label px-14" input-class="my-auto"
+						          :params="{width: '100%'}"
+						          placeholder="answer_text" :value="option.description"
+						          @input="updateArrayField(arguments[0], null, 'options', 'description', index)" />
 						
 						<upload-reusable
 								:label-class="{'br-6 br-error': (form.errors.options[index] && form.errors.options[index].checkUpload)}"
@@ -161,9 +149,10 @@
 					:inactive-description="lstr('additional_settings')"
 					:boolean="additionalField"
 					@select="unhideAdds"/>
+			
 			<div class="additional-fields pl-60" v-if="additionalField">
 				
-				<switcher-reusable
+				<re-switcher
 						class="blockchain-switcher flex-reverse"
 						caption-class="caption ml-10"
 						:value="is_blockchain"
@@ -171,35 +160,22 @@
 						:caption="is_blockchain ? lstr('BLOCKCHAIN') : lstr('OFF_CHAIN')"
 						:params="{width: 16, height: 8, color: '#000000', padding: '4px 8px', border: '2px solid #000000'}"/>
 				
-				<switch-component
-						v-if="form.type_of_poll == 1 || form.type_of_poll == 2"
-						:boolean="withDate"
-						type="checkbox"
-						:value="withDate"
-						:active-description="lstr('no_time_limit')"
-						:inactive-description="lstr('time_limit')"
-						@select="timeLimit"/>
+				<re-checkbox class="time-limit-checkbox flex-reverse mt-12" caption-class="caption ml-10"
+				             :value="with_time_limit" @input="setTimeLimit"
+				             :size="20" v-if="form.type_of_poll == 1 || form.type_of_poll == 2"
+				             :caption="with_time_limit ? lstr('time_limit') : lstr('no_time_limit')" />
 				
-				<input-reusable
-						v-if="is_blockchain"
-						:value="form.fund"
-						input
-						class="mt-18"
-						@change="updateField(arguments[0], 'fund')"
-						input-placeholder="fund"
-				/>
+				<re-input v-if="is_blockchain" :preset="2" class="mt-12" input-class="mt-24" :params="{width: '100%'}"
+				          placeholder="fund" :value="form.fund" @input="updateField(arguments[0], 'fund')" />
 				
 				<popup-error-reusable
+						class="mt-12"
 						v-if="form.type_of_poll == 3"
 						span-class="mt-3 flex-align-center"
 						:errors="form.errors.max_participants_cap">
-					<input-reusable
-							:value="form.max_participants_cap"
-							input
-							class="mt-18"
-							@change="updateField(arguments[0], 'max_participants_cap')"
-							input-placeholder="max_participants_cap"
-					/>
+					<re-input v-if="is_blockchain" :preset="2" input-class="mt-24" :params="{width: '100%'}"
+					          placeholder="max_participants_cap" :value="form.max_participants_cap"
+					          @input="updateField(arguments[0], 'max_participants_cap')" />
 				</popup-error-reusable>
 				
 				<input-reusable
@@ -220,7 +196,7 @@
 
 <script>
 	
-	import SwitcherReusable from "../reusableСomponents/SwitcherReusable";
+	import ReSwitcher from "../reusableСomponents/ReSwitcher";
 	import SwitchComponent from "../reusableСomponents/switchComponent";
 	import langString from "../langString"
 	import ButtonReusable from "../reusableСomponents/ButtonReusable";
@@ -247,6 +223,8 @@
 	import PopupErrorReusable from "../reusableСomponents/PopupErrorReusable";
 	import {createForecast, createPoll, createLimitedPoll} from "../../EOSIO/eosio_impl";
 	import SwiperReusable from "@/components/reusableСomponents/swiperReusable";
+	import ReCheckbox from "@/components/reusableСomponents/ReCheckbox";
+	import ReInput from "@/components/reusableСomponents/ReInput";
 	
 	export default {
 		name: "CreatePoll",
@@ -310,7 +288,7 @@
 				pictures: s => s.pictures,
 				enablePicture: s => s.withPicture,
 				errors: s => s.create_poll_form.errors,
-				withDate: s => s.isTimeLimit,
+				with_time_limit: s => s.create_poll_form.with_time_limit,
 				state: s => s
 				
 			}),
@@ -497,11 +475,8 @@
 				this.$store.commit('creationManagement/CHANGE_MUTABLE_STATE', payload)
 				
 			},
-			timeLimit(payload) {
-				
-				this.$store.commit('creationManagement/SET_TIME_LIMIT', payload)
-				
-				
+			setTimeLimit(payload) {
+				this.$store.commit('formManagment/SET_TIME_LIMIT', payload)
 			},
 			
 			deleteOption(index) {
@@ -551,6 +526,8 @@
 		},
 		
 		components: {
+			ReInput,
+			ReCheckbox,
 			SwiperReusable,
 			PopupErrorReusable,
 			AddOptionBlock,
@@ -572,7 +549,7 @@
 			DatePick,
 			IconAdd,
 			IconMinus,
-			SwitcherReusable
+			ReSwitcher
 		}
 		
 	}
@@ -637,12 +614,15 @@
 			border: 0.5px solid #BCBEC3;
 			display: flex;
 			flex-direction: row-reverse;
-			align-items: center;
+			align-items: stretch;
 			
 			
-			textarea {
-				border: none !important;
-				margin-top: 0;
+			.input-label {
+				flex: 1;
+				
+				textarea {
+					max-height: 62px;
+				}
 			}
 			
 			/*&:first-of-type {*/
@@ -676,6 +656,14 @@
 		.additional-fields {
 			* {
 				transition: 300ms;
+			}
+			
+			.time-limit-checkbox .caption {
+				font-family: Roboto;
+				font-style: normal;
+				font-weight: normal;
+				font-size: 13px;
+				color: #152D3A;
 			}
 			
 			.blockchain-switcher {

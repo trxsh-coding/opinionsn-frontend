@@ -28,25 +28,17 @@
 		<div class="form-block mt-58" @keyup.enter.exact="submit(signForm)">
 
 			<popup-error-reusable :errors="{field_email: lstr(errors.field_email)}" span-class="mt-3">
-				<input-reusable class="mx-auto"
-				                :value="signForm.email"
-				                @change="updateField(arguments[0], 'email')"
-				                inputPlaceholder="username"
-				                width="271"
-				                input
-				                with-underline/>
+				<re-input :preset="2" placeholder="username" class="mx-auto" input-class="pb-5"
+				          :params="{flex: 1, fontSize: 16, label: { width: 271 }}"
+				          :value="signForm.email" @input="updateField(arguments[0], 'email')"/>
 			</popup-error-reusable>
 
 
 			<popup-error-reusable :errors="{field_password: lstr(errors.field_password)}" span-class="mt-3">
-				<input-reusable class="mx-auto mt-30"
-				                input-type="password"
-				                :value="signForm.password"
-				                @change="updateField(arguments[0], 'password')"
-				                inputPlaceholder="password"
-				                width="271"
-				                input
-				                with-underline/>
+				<re-input class="mt-30 mx-auto" input-class="pb-5"
+				          :params="{flex: 1, fontSize: 16, label: { width: 271 }}"
+				          :preset="2" placeholder="password" type="password"
+				          :value="signForm.password" @input="updateField(arguments[0], 'password')"/>
 			</popup-error-reusable>
 
 		</div>
@@ -140,6 +132,7 @@
 	import ButtonReusable from "@/components/reusableСomponents/ButtonReusable";
 	import PopupErrorReusable from "../reusableСomponents/PopupErrorReusable";
 	import {mapState} from "vuex";
+	import ReInput from "@/components/reusableСomponents/ReInput";
 	
 	export default {
 		data() {
@@ -238,6 +231,7 @@
 		
 		mixins: [langMixin],
 		components: {
+			ReInput,
 			PopupErrorReusable,
 			ButtonReusable,
 			InputReusable,
@@ -250,7 +244,3 @@
 		}
 	};
 </script>
-
-<style lang="scss">
-
-</style>
