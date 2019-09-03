@@ -21,6 +21,7 @@
 	import VoteInstance from "../voteFeed/voteInstance";
 	import langString from "../langString";
 	import LoaderReusable from "../reusableСomponents/LoaderReusable";
+	const getUserFeedStore = () => import('../../store/modules/userFeed');
 
 	export default {
 		name: "userFeed",
@@ -94,6 +95,12 @@
 				});
 				this.$forceUpdate();
 			}
+		},
+		
+		created() {
+			getUserFeedStore().then(({userFeed}) => {
+				this.$store.registerModule('userFeed', userFeed);
+			});
 		},
 
 		mounted() {

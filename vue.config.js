@@ -48,5 +48,17 @@ module.exports = {
 		appleMobileWebAppCapable: 'yes',
 		appleMobileWebAppStatusBarStyle: '#4b97b4',
 		workboxPluginMode: 'GenerateSW'
+	},
+	
+	configureWebpack: {
+		optimization: {
+			splitChunks: {
+				chunks: 'all'
+			}
+		}
+	},
+	
+	chainWebpack: (config) => {
+		config.plugins.delete('prefetch')
 	}
 }

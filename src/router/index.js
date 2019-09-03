@@ -1,61 +1,47 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import store from '../store/store'
-import {vueApp} from "../main";
 import axios from 'axios'
-import search from '../components/Search/search'
-import Main from '../components/Main'
-import AuthPanel from '../components/Login/AuthPanel'
-import Password from '../components/Login/Password'
-import createPoll from '../components/create/CreatePoll'
-import followers from '../components/Follows/Event/Followers'
-import followings from '../components/Follows/Event/Followings'
-import follows from '../components/Follows/Follows'
-import VoteFeed from '../components/voteFeed/VoteFeed';
-import PollFeed from '../components/pollFeed/PollFeed';
-import Poll from '../components/singlePoll/feed';
-import Admin from '../components/Admin/Admin';
-import Catalog from '../components/Admin/Catalog';
-import addTranslations from '../components/Admin/addTranslations';
-import CatalogList from '../components/CatalogFeed/Catalog';
-import bookmarkFeed from '../components/bookmarkFeed/Feed';
-import CatalogFeed from '../components/CatalogFeed/Feed';
-import feedBack from '../components/feedback/feedbackForm';
-import user from '../components/user/Page';
-import sidebar from '../components/mobile/menu';
-import { nprogress } from '../main.js';
-import notificationPage from '../components/notifications/notificationPage';
-import PollTable from '../components/Admin/PollTable';
-import testPlayground from "../components/testPlayground";
-import Settings from "../components/pageSettings/index.vue";
-import Statistic from "../components/Statistic/statisticInstance";
-import Rating from "../components/Rating/ratingInstance";
 
-const scrollBehavior  = (to, from, savedPosition) => {
+const search = () => import('../components/Search/search');
+const Main = () => import('../components/Main');
+const AuthPanel = () => import('../components/Login/AuthPanel');
+const Password = () => import('../components/Login/Password');
+const createPoll = () => import('../components/create/CreatePoll');
+const followers = () => import('../components/Follows/Event/Followers');
+const followings = () => import('../components/Follows/Event/Followings');
+const follows = () => import('../components/Follows/Follows');
+const VoteFeed = () => import('../components/voteFeed/VoteFeed');
+const PollFeed = () => import('../components/pollFeed/PollFeed');
+const Poll = () => import('../components/singlePoll/feed');
+const Admin = () => import('../components/Admin/Admin');
+const Catalog = () => import('../components/Admin/Catalog');
+const addTranslations = () => import('../components/Admin/addTranslations');
+const CatalogList = () => import('../components/CatalogFeed/Catalog');
+const bookmarkFeed = () => import('../components/bookmarkFeed/Feed');
+const CatalogFeed = () => import('../components/CatalogFeed/Feed');
+const feedBack = () => import('../components/feedback/feedbackForm');
+const user = () => import('../components/user/Page');
+const sidebar = () => import('../components/mobile/menu');
+const notificationPage = () => import('../components/notifications/notificationPage');
+const PollTable = () => import('../components/Admin/PollTable');
+const testPlayground = () => import("../components/testPlayground");
+const Settings = () => import("../components/pageSettings/index.vue");
+const Statistic = () => import("../components/Statistic/statisticInstance");
+const Rating = () => import("../components/Rating/ratingInstance");
+import {nprogress} from '../main.js';
+import {searchUser} from "@/store/modules/searchUser";
+
+const scrollBehavior = (to, from, savedPosition) => {
 	return new Promise((resolve, reject) => {
 		setTimeout(() => {
-			if(savedPosition) {
-				resolve (savedPosition)
+			if (savedPosition) {
+				resolve(savedPosition)
 			} else {
-
-				reject ({ x: 0, y: 0 })
-
+				reject({x: 0, y: 0})
 			}
-
 		}, 500)
 	})
 };
-
-// const scrollBehavior = (to, from, savedPosition) =>{
-// 	console.log(to);
-// 	console.log(from);
-// 	console.log(savedPosition);
-// 	if (savedPosition) {
-// 		return savedPosition
-// 	} else {
-// 		return { x: 0, y: 0 }
-// 	}
-// };
 
 Vue.use(Router);
 
@@ -130,9 +116,9 @@ export const index = new Router({
 			name: 'opinion',
 			component: Main,
 			redirect:
-			{
-				name: 'pollFeed'
-			},
+				{
+					name: 'pollFeed'
+				},
 			children: [
 				{
 					path: 'user/:id',
@@ -192,31 +178,31 @@ export const index = new Router({
 					name: 'follows',
 					component: follows,
 					redirect:
-					{
-						name: 'followers'
-					},
+						{
+							name: 'followers'
+						},
 					children: [
 						{
 							path: 'followings/:id',
 							name: 'followings',
 							component: followings,
-							props: { isFollowing: true }
+							props: {isFollowing: true}
 						},
 						{
 							path: 'followers/:id',
 							name: 'followers',
 							component: followers,
-							props: { isFollowing: false }
+							props: {isFollowing: false}
 						},
-
+					
 					]
 				},
 				{
 					path: 'pollFeed',
 					name: 'pollFeed',
 					component: PollFeed,
-					props: { feed: true }
-
+					props: {feed: true}
+					
 				},
 				{
 					path: 'catalogList',
@@ -237,7 +223,7 @@ export const index = new Router({
 					path: 'singlePoll/:id',
 					name: 'singlePoll',
 					component: Poll,
-					props: { feed: false }
+					props: {feed: false}
 				},
 			]
 		},
@@ -249,41 +235,67 @@ index.beforeResolve((to, from, next) => {
 	if (to.path) {
 		nprogress.start()
 	}
-	next()
-});
-
-index.afterEach(() => {
-	nprogress.done()
-});
-index.beforeEach((to, from, next) => {
-	const publicPages = [`/login`];
 	next();
 });
 
+index.afterEach(() => {
+	nprogress.done();
+	let appPlaceholder = document.getElementById('app-placeholder');
+	if (appPlaceholder) appPlaceholder.parentNode.removeChild(appPlaceholder);
+});
+
+const dynamicModules = new Map([
+	['searchUser', () => import('../store/modules/searchUser')],
+	['bookmarkFeed', () => import('../store/modules/bookmarkFeed')],
+	['followsPage', () => import('../store/modules/Follows')],
+	['notificationStore', () => import('../store/modules/notificationStore')],
+	['adminPage', () => import('../store/modules/adminPage')],
+	['formManagment', () => import('../store/modules/formManagment')]
+]);
+
 index.beforeEach((to, from, next) => {
-	if (to.path === `/sign` || to.path === `/registration` || to.path === `/login` || to.path === `/restore` || to.name === `token` || to.path === `/pollFeed` || to.name === `singlePoll` || to.name === `feedBack`) {
-		next({
-			query: { redirect: to.fullPath }
-		});
-	} else {
+	
 		axios.get(`${process.env.VUE_APP_MAIN_API}/rest/v1/user/status`)
-
-			.then(response => {
-
-				if (response.status === 200) {
-
-
-					next();
-
+			
+			.then(({status}) => {
+				if (status === 200) {
+					let dynamicModulesKeys = [...dynamicModules.keys()],
+						storeModulesKeys = Object.keys(index.app.$store.state);
+					
+					if (dynamicModulesKeys.every(val => storeModulesKeys.includes(val))) {
+						next();
+					} else {
+						Promise.all(dynamicModulesKeys.map((key) =>
+							dynamicModules.get(key)().then(m => {
+								index.app.$store.registerModule(key, m[key]);
+							})
+						)).then(() => {
+							next();
+						})
+					}
 				}
 			})
-			.catch(error => {
-				
-				vueApp.$popup.insert('messages', {message: 'Для выполнения действий необходимо авторизоваться!', type: 'warning'});
-				next(false);
-
+			.catch(() => {
+				switch (to.name) {
+					case 'sign':
+					case 'registration':
+					case 'login':
+					case 'restore':
+					case 'token':
+					case 'pollFeed':
+					case 'singlePoll':
+					case 'feedback':
+						next();
+						break;
+					default:
+						index.app.$popup.insert('messages', {
+							message: 'Для выполнения действий необходимо авторизоваться!',
+							type: 'warning'
+						});
+						next(false);
+				}
 			})
-	}
+	
 });
 
 export default index
