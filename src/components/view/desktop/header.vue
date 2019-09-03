@@ -103,6 +103,11 @@
 									class="menu-item py-10 px-20 pointer"
 									title="topics" />
 							<lang-string
+									v-if="is_admin"
+									@click.native="$router.push({name: 'admin'})"
+									class="menu-item py-10 px-20 pointer"
+									title="admin_panel" />
+							<lang-string
 									@click.native="userLogout"
 									class="menu-item py-10 px-20 pointer"
 									title="exit" />
@@ -146,6 +151,10 @@
 			
 			...mapState("notificationPage", {
 				counter: s => s.counter,
+			}),
+			
+			...mapState("globalStore", {
+				is_admin: s => s.mainUser.authorities === 'ADMIN'
 			}),
 			
 			logged_in() {
