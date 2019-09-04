@@ -250,7 +250,8 @@ const dynamicModules = new Map([
 	['followsPage', () => import('../store/modules/Follows')],
 	['notificationStore', () => import('../store/modules/notificationStore')],
 	['adminPage', () => import('../store/modules/adminPage')],
-	['formManagment', () => import('../store/modules/formManagment')]
+	['formManagment', () => import('../store/modules/formManagment')],
+	['userFeed', () => import('../store/modules/userFeed')],
 ]);
 
 index.beforeEach((to, from, next) => {
