@@ -7,10 +7,10 @@
 
 			<ul class="switcher-list mt-9 flex">
 				<li class="switcher switcher-1 pointer" @click="setFeedType(1)">
-					<lang-string :class="{active: feed_type === 1}" :title="'publications'" />
+					<lang-string :class="{active: feed_type === 1}" :title="'questions'" />
 				</li>
 				<li class="switcher switcher-2 pointer ml-18" @click="setFeedType(2)">
-					<lang-string :class="{active: feed_type === 2}" :title="'reply_s'" />
+					<lang-string :class="{active: feed_type === 2}" :title="'opinions'" />
 				</li>
 				<li class="switcher switcher-3 pointer ml-18 display__hidden" @click="setFeedType(3)">
 					<lang-string :class="{active: feed_type === 3}" :title="'bookmarked'" />

@@ -19,7 +19,7 @@
 					button_type="underline"
 					color="#1A1E22"
 					active-color="#4B97B4"
-					description="polls"
+					description="questions"
 					@click.native="setTypeOfSearch('POLL')"
 					:active="type === 'POLL'"
 			/>
