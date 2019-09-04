@@ -42,7 +42,8 @@
 		<div
 				class="option-wrapper"
 				:class="{'pointer': !voted, 'with-button': mainUser.authorities === 'ADMIN' && is_prediction}">
-			<div v-if="picture && picture.slice(-4) !== 'null'" class="picture" :style="pictureStyle"></div>
+			<div v-if="picture && picture.slice(-4) !== 'null'" @click="$emit('onPictureClick')"
+			     class="picture" :style="pictureStyle"></div>
 			
 			<div class="option" :style="optionStyle" @click="selectOption">
 
@@ -126,7 +127,7 @@
 						this.resetBowsBar();
 						return;
 					case this.expired:
-					case !this.disabled:
+					case this.disabled:
 						return;
 				}
 				
@@ -429,6 +430,7 @@
 				
 				return {
 					backgroundImage: `url('${picture}')`,
+					flex: `0 0 ${pictureSize}px`,
 					width: `${pictureSize}px`,
 					height: `${pictureSize}px`
 				}
@@ -507,7 +509,7 @@
 			
 			.option {
 				width: 100%;
-				word-break: break-all;
+				/*word-break: break-all;*/
 				
 				position: relative;
 				padding: 14.5px 9px 14.5px 12px;

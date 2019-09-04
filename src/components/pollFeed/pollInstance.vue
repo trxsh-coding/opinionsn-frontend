@@ -11,10 +11,12 @@
         <headline-body :poll="poll" :item="item"/>
             <re-option
                     class="mt-12"
-                    v-for="(option, index) in combinedOptions"
+                    v-for="(option, index) in combined_options"
                     v-bind="{payload: item, poll, option}"
-                    :disabled="(combinedOptions.length <= 5) || options_visible"
+                    v-show="options_visible || index < 5"
+                    :disabled="combined_options.length > 5 && !options_visible"
                     @click.native="options_visible = true"
+                    @onPictureClick="!$root.timer_id && pushToPopup(index)"
             >
                 <template #default>
                     {{option.description}}
@@ -26,7 +28,7 @@
                 
             </re-option>
 
-        <span v-show="!options_visible && combinedOptions.length > 5" class="options-load-btn pointer mt-9"
+        <span v-if="!options_visible && combined_options.length > 5" class="options-load-btn pointer mt-9"
               @click="options_visible = true">Показать больше опций</span>
 
         <div class="counter-badges flex pl-60 my-12">
@@ -69,7 +71,7 @@
                 </icon-base>
 
                 <span class="ml-6">
-                    {{currentTime}}
+                    {{poll.votingOver ? lstr('end') : currentTime}}
 				</span>
             </div>
 
@@ -99,8 +101,8 @@
                 :options="options"
                 :users="users"/>
 
-        <span v-show="voted && !no_more_explains && combinedVotes.length > 5" class="explains-load-btn pointer my-9"
-              @click="loadMoreExplains">Загрузить ещё...</span>
+<!--        <span v-show="voted && !no_more_explains && combinedVotes.length > 5" class="explains-load-btn pointer my-9"-->
+<!--              @click="loadMoreExplains">Загрузить ещё...</span>-->
 
     </div>
 </template>
@@ -125,6 +127,7 @@
     import ReusableModal from "../reusableСomponents/reusableModal";
     import {addCourt, addjudge} from "../../EOSIO/eosio_impl";
     import ReBadge from "@/components/reusableСomponents/ReBadge";
+    import langString from "@/components/langString";
 
     const pad = (num, len = 2, char = '0') => {
         let init = `${num}`;
@@ -139,6 +142,7 @@
     export default {
         name: "layout",
         props: ['item'],
+        mixins: [langString],
         components: {
             ReBadge,
             ReusableModal,
@@ -208,68 +212,30 @@
                 moment.locale(_lang);
 	            return moment.utc(end_date);
             },
-            // POLL GETTER
-
-            poll: function () {
+            
+            poll() {
                 let {item, polls} = this;
 
                 return polls[item.id];
 
             },
 
-            pollAccessCheck() {
-                let {mainUser, poll, voted} = this;
-
-                if (mainUser) {
-
-                    switch (true) {
-                        case !!mainUser.id:
-                        case !poll.votingOver:
-                        case !voted:
-                            return true;
-                        default:
-                            return false;
-                    }
-
-                } else {
-                    return false;
-                }
-
-
-            },
-
-            // USER GETTER
-
-            author: function () {
+            author() {
 
                 let {poll, users} = this;
 
                 return users[poll.author_id];
             },
-            // OPTION GETTER
 
-            combinedOptions: function () {
-
-                let {poll, options} = this;
-
-                let options_id = poll.options_id;
-
-                return options_id.map(option_id => {
-
-                    return options[option_id]
-
+            combined_options() {
+                return this.poll.options_id.map(option_id => {
+                    return this.options[option_id]
                 });
-
             },
-
-            combinedOptionsPicture: function (){
-
-                let {combinedOptions} = this;
-
-
-
-
-            },
+    
+            // options_pictures_with(){
+            //    return this.combined_options.map(({picture}) => picture)
+            // },
 
 
             // VOTE GETTER
@@ -294,26 +260,27 @@
 
         },
         methods: {
-            showCurrentPicture(picture, description){
-                this.currentPicture = picture;
-                this.currentDescription = description;
-                this.openModal(true)
+    
+            pushToPopup(index = 0) {
+                let pics = this.combined_options.map(({picture, description}) => ({picture, description}));
+                pics = [...pics.splice(index, 1), ...pics];
+                this.$popup.insert('pictures', pics);
             },
+            
             openModal(payload) {
                 console.log(payload);
                 this.showModal = payload;
             },
+            
             getTime() {
                 let end = this.relativeEndDate;
                 let now = moment(new Date());
                 let duration = moment.duration(end.diff(now));
 
                 if (duration.asDays() > 1) {
-                    let output = `${Math.floor(duration.asDays())} ${this.lstr('days')}`;
-                    this.currentTime = output;
+                    this.currentTime = `${Math.floor(duration.asDays())} ${this.lstr('days')}`;
                 } else if (duration > 1 && duration.asHours() < 24) {
-                    let output = `${pad(duration.hours())}:${pad(duration.minutes())}:${pad(duration.seconds())}`
-                    this.currentTime = output;
+                    this.currentTime = `${pad(duration.hours())}:${pad(duration.minutes())}:${pad(duration.seconds())}`;
                 }
                 else {
                     this.currentTime = this.lstr('end')
@@ -349,9 +316,11 @@
 
         },
         mounted() {
-            this.procid = setInterval(() => {
-                this.getTime()
-            }, 1 * 1000);
+            if (!this.poll.votingOver) {
+                this.procid = setInterval(() => {
+                    this.getTime()
+                }, 1 * 1000);
+            }
         },
         beforeDestroy() {
             clearInterval(this.procid);

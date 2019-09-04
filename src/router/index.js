@@ -261,46 +261,56 @@ const dynamicModules = new Map([
 
 index.beforeEach((to, from, next) => {
 	
-		axios.get(`${process.env.VUE_APP_MAIN_API}/rest/v1/user/status`)
-			
-			.then(({status}) => {
-				if (status === 200) {
-					let dynamicModulesKeys = [...dynamicModules.keys()],
-						storeModulesKeys = Object.keys(index.app.$store.state);
-					
-					if (dynamicModulesKeys.every(val => storeModulesKeys.includes(val))) {
-						next();
-					} else {
-						Promise.all(dynamicModulesKeys.map((key) =>
-							dynamicModules.get(key)().then(m => {
-								index.app.$store.registerModule(key, m[key]);
-							})
-						)).then(() => {
-							next();
+	// Очистка поисковой строки везде, кроме совпадающих роутов
+	switch (to.name) {
+		case 'singlePoll':
+		case 'user':
+		case 'search':
+			break;
+		default:
+			index.app.$root.search_keyword = '';
+	}
+	
+	axios.get(`${process.env.VUE_APP_MAIN_API}/rest/v1/user/status`)
+		
+		.then(({status}) => {
+			if (status === 200) {
+				let dynamicModulesKeys = [...dynamicModules.keys()],
+					storeModulesKeys = Object.keys(index.app.$store.state);
+				
+				if (dynamicModulesKeys.every(val => storeModulesKeys.includes(val))) {
+					next();
+				} else {
+					Promise.all(dynamicModulesKeys.map((key) =>
+						dynamicModules.get(key)().then(m => {
+							index.app.$store.registerModule(key, m[key]);
 						})
-					}
-				}
-			})
-			.catch(() => {
-				switch (to.name) {
-					case 'sign':
-					case 'registration':
-					case 'login':
-					case 'restore':
-					case 'token':
-					case 'pollFeed':
-					case 'singlePoll':
-					case 'feedback':
+					)).then(() => {
 						next();
-						break;
-					default:
-						index.app.$popup.insert('messages', {
-							message: 'Для выполнения действий необходимо авторизоваться!',
-							type: 'warning'
-						});
-						next(false);
+					})
 				}
-			})
+			}
+		})
+		.catch(() => {
+			switch (to.name) {
+				case 'sign':
+				case 'registration':
+				case 'login':
+				case 'restore':
+				case 'token':
+				case 'pollFeed':
+				case 'singlePoll':
+				case 'feedback':
+					next();
+					break;
+				default:
+					index.app.$popup.insert('messages', {
+						message: 'Для выполнения действий необходимо авторизоваться!',
+						type: 'warning'
+					});
+					next(false);
+			}
+		})
 	
 });
 

@@ -225,7 +225,7 @@
 
 <style lang="scss">
 	.desktop-header {
-		z-index: 99999999;
+		z-index: 9999;
 		margin-bottom: 78px;
 		position: fixed;
 		background: #FFFFFF;

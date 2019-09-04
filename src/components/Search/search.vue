@@ -75,9 +75,8 @@
 		data() {
 			
 			return {
-				
-				keywords: this.search_keyword || '',
-				type: 'USER',
+				keywords: this.$root.search_keyword || '',
+				type: 'POLL',
 				contain: null,
 				timer_id: null
 			}
@@ -113,7 +112,6 @@
 			setTypeOfSearch(payload) {
 				
 				this.type = payload;
-				this.clearForm();
 				this.searchUsers();
 				
 			},
@@ -143,18 +141,14 @@
 				
 			},
 			
-			clearForm() {
-				
-				this.$root.search_keyword = '';
-				this.keywords = '';
-				
-			},
-			
 		},
 		
 		beforeRouteLeave(to, from, next) {
-			this.clearForm();
 			next();
+		},
+		
+		mounted() {
+			this.searchUsers();
 		}
 	}
 </script>
