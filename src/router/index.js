@@ -50,7 +50,12 @@ export const index = new Router({
 	base: '/',
 	scrollBehavior,
 	routes: [
-
+		
+		{
+			path: '/mailing',
+			component: () => import('../Mailing'),
+			name: 'mailing',
+		},
 		{
 			path: '/login',
 			component: AuthPanel,
