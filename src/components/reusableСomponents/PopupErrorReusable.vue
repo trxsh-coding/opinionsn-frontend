@@ -3,7 +3,7 @@
 		<slot></slot>
 		<transition name="error">
 			<div
-					v-if="Object.values(errors).some(error => !!error)"
+					v-if="has_error"
 					class="popup-error flex-column"
 					:class="spanClass"
 					:style="[computed_width]">
@@ -36,12 +36,6 @@
 				}
 			}
 		},
-		
-		data() {
-			return {
-				has_error: false
-			}
-		},
 
 		methods: {
 			handleCssValue(value) {
@@ -62,6 +56,10 @@
 				return {
 					width: `${this.handleCssValue(this.width)}`
 				}
+			},
+			
+			has_error() {
+				return Object.values(this.errors).some(error => error)
 			}
 			
 		},

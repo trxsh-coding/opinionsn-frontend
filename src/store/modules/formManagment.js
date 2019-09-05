@@ -105,7 +105,8 @@ export const formManagment = {
 			state.pictures[index].picture = file
 		},
 		[UPDATE_FIELD](state, {form, key, value}) {
-			state[form][key] = value
+			if (!state[form][key]) Vue.set(state[form], key, {});
+			Vue.set(state[form], key, value);
 		},
 		
 		[CLEAR_STATE](state) {
@@ -141,17 +142,18 @@ export const formManagment = {
 		},
 		
 		[UPDATE_ERROR_FIELD](state, {form, key, value, error_key, array_key}) {
-			if (!state[form].errors) state[form].errors = {};
+			// Vue.set(object, propertyName, value)
+			if (!state[form].errors) Vue.set(state[form], 'errors', {});
 			
 			if (!array_key) {
-				if (!state[form].errors[key]) state[form].errors[key] = {};
-				state[form].errors[key][error_key] = value;
+				if (!state[form].errors[key]) Vue.set(state[form].errors, key, {});
+				Vue.set(state[form].errors[key], error_key, value);
 			} else {
 				// console.log({form, key, value, error_key, array_key});
-				if (!state[form].errors[array_key]) state[form].errors[array_key] = {};
-				if (!state[form].errors[array_key][key]) state[form].errors[array_key][key] = {};
+				if (!state[form].errors[array_key]) Vue.set(state[form].errors, array_key, {});
+				if (!state[form].errors[array_key][key]) Vue.set(state[form].errors[array_key], key, {});
 				// Vue.set(state[form].errors[array_key][key], `${[error_key]}`, value)
-				state[form].errors[array_key][key][error_key] = value;
+				Vue.set(state[form].errors[array_key][key], error_key, value);
 				// console.log(state[form].errors[array_key]);
 			}
 		},
@@ -193,10 +195,8 @@ export const formManagment = {
 		[SUBMIT_USERPAGE_FORM]({state, commit, dispatch}, payload) {
 			
 			return axios.post(`${process.env.VUE_APP_MAIN_API}/rest/v1/user`, {...payload})
-				.then(({status}) => status === 200)
-				.catch(err => {
-					console.error(err)
-				});
+				.then(response => response)
+				.catch(({response}) => response);
 			
 		},
 		
@@ -207,7 +207,7 @@ export const formManagment = {
 			state.create_poll_form.judges = [payload];
 			
 			
-			var bodyFormData = new FormData();
+			let bodyFormData = new FormData();
 			
 			
 			const config = {
@@ -222,7 +222,7 @@ export const formManagment = {
 				
 				bodyFormData.append('files[]', picture);
 				
-				delete item.picture;
+				// delete item.picture;
 				
 			}
 			
@@ -231,23 +231,19 @@ export const formManagment = {
 				
 				bodyFormData.append('mainPictures[]', picture);
 				
-				delete item.picture;
+				// delete item.picture;
 				
 			}
 			const form = new Blob([JSON.stringify(state.create_poll_form)], {type: "application/json"});
 			
 			bodyFormData.append('form', form);
 			
-			
 			return axios.put(`${process.env.VUE_APP_MAIN_API}/rest/v1/poll`, bodyFormData, config)
 				.then(response => {
 					if (response.status === 200) {
-						let poll_id = response.data.payload[0].id;
-						return poll_id;
-						// vueApp.$router.push({name : 'singlePoll', params: {id : poll_id}})
+						return response.data.payload[0].id;
 					}
 				})
-			
 			
 		}
 		

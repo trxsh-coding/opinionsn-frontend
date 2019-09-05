@@ -35,7 +35,7 @@
 				</slot>
 			</div>
 
-			<input ref="input_ref" type="file" @change="handlePicturePreview(arguments[0].target.files)">
+			<input ref="input_ref" type="file" @input="handlePicturePreview(arguments[0].target.files)">
 
 			<div
 					class="image-preview flex-center flex-align-center pointer"

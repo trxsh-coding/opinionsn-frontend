@@ -411,6 +411,10 @@
 							this.$router.push({name: 'singlePoll', params: {id: poll_id}});
 							
 						})
+						.catch(() => this.$popup.insert('messages', [{
+							message: 'Ошибка при отправке!',
+							type: 'error'
+						}]))
 					
 				} else {
 					this.$popup.insert('messages', [{

@@ -42,42 +42,48 @@
 
             sendForm() {
     
-                let { errors = {} } = this.form;
-    
-                let errors_summary = Object.values(errors).flatMap(err => Object.values(err));
-                errors_summary = errors_summary.flatMap(err => {
-        
-                    switch (true) {
-                        case err === null:
-                            return err;
-                        case typeof err === 'object':
-                            return Object.values(err);
-                        default:
-                            return err;
-                    }
-        
-                });
-    
-                let has_errors = errors_summary.some(err => err !== null);
-    
+                // let { errors = {} } = this.form;
+                //
+                // let errors_summary = Object.values(errors).flatMap(err => Object.values(err));
+                // errors_summary = errors_summary.flatMap(err => {
+                //
+                //     switch (true) {
+                //         case err === null:
+                //             return err;
+                //         case typeof err === 'object':
+                //             return Object.values(err);
+                //         default:
+                //             return err;
+                //     }
+                //
+                // });
+                //
+                // let has_errors = errors_summary.some(err => err !== null);
+                //
                 this.$forceUpdate();
     
-                if (!has_errors) {
-                    
-                    this.$store.dispatch('formManagment/SUBMIT_USERPAGE_FORM', this.form)
-                        .then(res => {
-                            if (res) {
-                                this.$popup.insert('messages', [{message: 'Успешно!', type: 'success'}]);
-                            } else {
-                                this.$popup.insert('messages', [{message: 'Ошибка отправки!', type: 'error'}]);
-                            }
-                        });
-                    
-                } else {
-                    
-                    this.$popup.insert('messages', [{message: 'Невозможно отредактировать, ошибка в заполнении!', type: 'error'}]);
-                    
-                }
+                this.$store.dispatch('formManagment/SUBMIT_USERPAGE_FORM', this.form)
+                    .then(res => {
+                        if (res.status === 200) {
+                            this.$store.commit('formManagment/UPDATE_FIELD', {
+                                form: 'edit_form',
+                                key: 'errors',
+                                value: {}
+                            });
+                            this.$popup.insert('messages', [{message: 'Успешно!', type: 'success'}]);
+                        } else {
+                            // Если есть ошибки с сервера - затолкаем их в стор.
+                            res.data.forEach(({field, errorCode, msg}) => {
+                                this.$store.commit('formManagment/UPDATE_ERROR_FIELD', {
+                                    form: 'edit_form',
+                                    key: field,
+                                    error_key: errorCode,
+                                    value: msg
+                                });
+                            });
+                            this.$popup.insert('messages', [{message: 'Невозможно отредактировать, ошибка в заполнении!', type: 'error'}]);
+                        }
+                    });
                 
             }
 
