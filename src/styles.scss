@@ -793,6 +793,10 @@ li {
 	white-space: nowrap;
 }
 
+.text-deselect {
+	user-select: none !important;
+}
+
 .trim {
 	white-space: nowrap;
 	overflow: hidden;
