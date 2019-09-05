@@ -35,7 +35,7 @@
 			
 			</div>
 			
-			<footer v-if="!Object.keys(user).length && auth_bar">
+			<footer v-if="!Object.keys(user).length">
 				<div class="auth-block" :class="{'is_mobile_device': mobile}">
 					<div class="logo-block">
 						<div class="icon logo picture-25x25 mr-6"
@@ -52,16 +52,6 @@
 						</icon-base>
 					</div>
 					<div class="buttons-block mr-10">
-					<span class="icon-exit pointer" @click="auth_bar = !auth_bar">
-						<icon-base
-								fill="none"
-								class="icon-close"
-								width="17"
-								height="17"
-								viewBox="0 0 17 17"
-								icon-name="close"><icon-close/>
-						</icon-base>
-					</span>
 						<router-link :to="getPathWithPoll('sign')">
 							<button-reusable
 									font-size="13"
@@ -110,8 +100,7 @@
 		data() {
 			return {
 				timer: 0,
-				temp_timer_id: null,
-				auth_bar: true
+				temp_timer_id: null
 			};
 		},
 		watch: {
