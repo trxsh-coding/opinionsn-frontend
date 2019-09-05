@@ -28,6 +28,7 @@ const testPlayground = () => import("../components/testPlayground");
 const Settings = () => import("../components/pageSettings/index.vue");
 const Statistic = () => import("../components/Statistic/statisticInstance");
 const Rating = () => import("../components/Rating/ratingInstance");
+const ReferralsPage = () => import("../components/ReferralsPage");
 import {nprogress} from '../main.js';
 import {searchUser} from "@/store/modules/searchUser";
 
@@ -125,6 +126,11 @@ export const index = new Router({
 					name: 'pollFeed'
 				},
 			children: [
+				{
+					path: 'ReferralsPage',
+					name: 'ReferralsPage',
+					component: ReferralsPage
+				},
 				{
 					path: 'user/:id',
 					name: 'user',
@@ -249,6 +255,7 @@ index.afterEach(() => {
 	if (appPlaceholder) appPlaceholder.parentNode.removeChild(appPlaceholder);
 });
 
+// Мапа из динамически-подгружаемых модулей
 const dynamicModules = new Map([
 	['searchUser', () => import('../store/modules/searchUser')],
 	['bookmarkFeed', () => import('../store/modules/bookmarkFeed')],
@@ -261,13 +268,13 @@ const dynamicModules = new Map([
 
 index.beforeEach((to, from, next) => {
 	
-	// Очистка поисковой строки везде, кроме совпадающих роутов
 	switch (to.name) {
 		case 'singlePoll':
 		case 'user':
 		case 'search':
 			break;
 		default:
+			// Очистка поисковой строки везде, кроме совпадающих роутов
 			index.app.$root.search_keyword = '';
 	}
 	
