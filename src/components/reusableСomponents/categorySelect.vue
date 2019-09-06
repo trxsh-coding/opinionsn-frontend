@@ -3,7 +3,7 @@
         <swiper-reusable
                 :height="38"
                 width="100%"
-                :amount-of-slides="'auto'"
+                :amount-of-slides="4"
                 :spaceBetween="10"
                 :swiper-type="mobile ? 'scroll' : 'usual'">
             <template #usual>

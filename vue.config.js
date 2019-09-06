@@ -20,7 +20,7 @@ module.exports = {
 			},
 
 			'/messages': {
-				target: 'http://api2.opinionsn.com:7071/',
+				target: 'http://api2.opinionsn.com:7071',
 				pathRewrite: {'^/messages': ''},
 				changeOrigin: true,
 				secure: false
@@ -33,7 +33,6 @@ module.exports = {
 			}
 		}
 	},
-
 	pwa: {
 		name: "Opinion",
 		themeColor: "#4b97b4",
@@ -47,8 +46,10 @@ module.exports = {
 		msTileColor: '#000000',
 		appleMobileWebAppCapable: 'yes',
 		appleMobileWebAppStatusBarStyle: '#4b97b4',
-		workboxPluginMode: 'GenerateSW'
-	},
+		workboxPluginMode: 'GenerateSW',
+		workboxOptions: { skipWaiting: true },
+
+},
 	
 	configureWebpack: {
 		optimization: {

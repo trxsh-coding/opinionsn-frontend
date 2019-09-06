@@ -2,6 +2,7 @@
 	<div class="register-section">
 		<div class="navbar-brand">
 			<div class="navbar__item navbar__item-1">
+
 				<icon-base
 						fill="none"
 						class="icon"
@@ -22,7 +23,7 @@
 				</icon-base>
 			</div>
 		</div>
-		
+
 		<div class="form-block mt-25" @keyup.enter.exact="submit(registrationForm)">
 
 			<popup-error-reusable :errors="{ login: lstr(errors.login) }" span-class="mt-3">
@@ -69,6 +70,17 @@
 			</popup-error-reusable>
 
 		</div>
+		<popup-error-reusable :errors="{passConfirm: lstr(errors.passConfirm) }" span-class="mt-3">
+
+		<vue-recaptcha
+				class="recaptcha mt-20"
+				ref="recaptcha"
+				:sitekey="sitekey"
+				@verify="setCurrentTOken(arguments[0])"
+				@expired="onCaptchaExpired"
+				:loadRecaptchaScript="true"
+		/>
+		</popup-error-reusable>
 
 		<div class="buttons-block mt-23">
 
@@ -152,11 +164,14 @@
 	import IconVk from "../icons/IconVk";
 	import IconGoogle from "../icons/IconGoogle";
 	import PopupErrorReusable from "../reusableСomponents/PopupErrorReusable";
+	import VueRecaptcha from 'vue-recaptcha'
 
 	export default {
 		data() {
 			return {
 				error: false,
+				sitekey: '6Ld7BbcUAAAAAMRiV7C5mb0Co0KUpKKau6f3jky6',
+				token:null,
 				registrationForm: {
 					username: '',
 					email: '',
@@ -172,7 +187,7 @@
 			...mapState('lang',{
 				lang : state => state.locale
 			}),
-			
+
 			refer() {
 				return (!!this.$route.query.refer) ? `?refer=${this.$route.query.refer}` : ''
 			}
@@ -180,6 +195,13 @@
 
 		methods: {
 
+			onCaptchaExpired () {
+				this.$refs.recaptcha.reset()
+			},
+			setCurrentTOken(recaptchaToken) {
+				console.log(recaptchaToken);
+				this.token = recaptchaToken;
+			},
 			lstr(str) {
 				localString(this.lang, str);
 			},
@@ -187,13 +209,17 @@
 			updateField(val, key) {
 				this.registrationForm[key] = val;
 			},
-
+			validate(){
+				this.$refs.recaptcha.execute();
+			},
 			submit(form) {
 				let registerFormData = new FormData();
 				registerFormData.append("login", form.username);
 				registerFormData.append("email", form.email);
 				registerFormData.append("pass", form.password);
 				registerFormData.append("passConfirm", form.conf_pass);
+				registerFormData.append("recaptcha", this.token);
+
 				axios
 					.post(`${process.env.VUE_APP_MAIN_API}/auth/register${this.refer}`, registerFormData)
 					.then(response => {
@@ -216,6 +242,7 @@
 		},
 		mixins: [langMixin],
 		components: {
+			VueRecaptcha,
 			PopupErrorReusable,
 			ButtonReusable,
 			InputReusable,
