@@ -204,12 +204,10 @@
 							});
 						}
 					})
-
 					.catch(error => {
 						this.error = true;
 						let er = this.errors;
-						for (let { field: f, errorCode: v } of error.response
-							.data) {
+						for (let { field: f, errorCode: v } of error.response.data) {
 							er[f] = v;
 						}
 						this.$forceUpdate();

@@ -46,7 +46,7 @@
 				<re-badge class="counter" v-show="counter" :counter="counter" :size="12"
 				          :params="{background: '#FF5454'}"/>
 			</li>
-			<li class="footer-icon" @click="routerPush('menu')" :class="{active : routeName === 'menu'}">
+			<li class="footer-icon" @click="(routeName === 'menu') ? $router.go(-1) : routerPush('menu')" :class="{active : routeName === 'menu'}">
 				<icon-base
 						width="24"
 						height="24"
