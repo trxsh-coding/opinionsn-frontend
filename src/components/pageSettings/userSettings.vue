@@ -72,7 +72,7 @@
 						<span>Мужчина</span>
 						<input
 								class="radio-input m-0 ml-10"
-								:value="0"
+								:value="1"
 								v-model="form.gender"
 								type="radio">
 					</label>
@@ -81,7 +81,7 @@
 						<span>Женщина</span>
 						<input
 								class="radio-input m-0 ml-10"
-								:value="1"
+								:value="2"
 								v-model="form.gender"
 								type="radio">
 					</label>
