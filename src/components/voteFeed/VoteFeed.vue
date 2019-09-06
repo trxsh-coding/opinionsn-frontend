@@ -73,7 +73,6 @@
 	import loadingSpinner from "../reusableСomponents/loadingSpinner"
 	import ScrollSwiperReusable from "../reusableСomponents/ScrollSwiperReusable";
 	import LoaderReusable from "../reusableСomponents/LoaderReusable";
-	const getVoteFeedStore = () => import('../../store/modules/voteFeed');
 	
 	export default {
 		data() {
@@ -153,18 +152,12 @@
 			loadingSpinner
 		},
 		created() {
-			getVoteFeedStore().then(({voteFeed}) => {
-				this.$store.registerModule('voteFeed', voteFeed);
-				this.$store.commit('voteFeed/clearFilter');
-				this.$store.dispatch('voteFeed/list');
-			});
 			this.$store.dispatch('followsPage/getMyFollowings');
-			// this.$store.commit('voteFeed/clearFilter');
-			// this.$store.dispatch('voteFeed/list');
+			this.$store.commit('voteFeed/clearFilter');
+			this.$store.dispatch('voteFeed/list');
 		},
 		beforeDestroy() {
 			this.$store.commit('voteFeed/clearFilter');
-			// this.$store.unregisterModule('voteFeed');
 		}
 	};
 </script>
