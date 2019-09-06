@@ -11,7 +11,7 @@
 						size="36"
 						rounded
 						without-text
-						@click.native="$router.push({name: 'user', params: {id: user.id} })"
+						@click.native="user.id && $router.push({name: 'user', params: {id: user.id} })"
 				/>
 
 			</div>
@@ -20,7 +20,7 @@
 
 				<span class="username">{{user.username}}</span>
 
-				<span class="status mt-3">{{user.aboutMe === 'About me' ? '' : user.aboutMe}}</span>
+				<span v-if="user.aboutMe" class="status mt-3">{{user.aboutMe === 'About me' ? '' : user.aboutMe}}</span>
 
 				<!--					   NOTE: ждем от Артура статистику в каждом экземпляре юзера -->
 				<!--					   <div class="statistics mt-7 flex"></div>-->

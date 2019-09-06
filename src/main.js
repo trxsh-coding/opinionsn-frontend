@@ -1,8 +1,9 @@
 require('./styles.scss');
 import Vue from 'vue'
 import App from './App'
-import router from './router/'
+import router from './router/index'
 import store from './store/store'
+import './registerServiceWorker'
 import VueI18n from 'vue-i18n';
 import NProgress from 'vue-nprogress'
 import Croppa from 'vue-croppa'
@@ -15,9 +16,8 @@ import 'vue2-perfect-scrollbar/dist/vue2-perfect-scrollbar.css'
 import VueAwesomeSwiper from 'vue-awesome-swiper'
 import VueTextareaAutosize from 'vue-textarea-autosize'
 import 'swiper/dist/css/swiper.css'
-import './registerServiceWorker'
 import browserDetect from "vue-browser-detect-plugin";
-import * as firebase from "firebase";
+// import * as firebase from "firebase";
 import DatePick from 'vue-date-pick';
 import 'vue-date-pick/dist/vueDatePick.css';
 import PopupPlugin from "./plugins/PopupPlugin";
@@ -83,19 +83,43 @@ export const vueApp = new Vue({
 	moment,
 	data() {
 		return {
+			is_mobile_device: null,
 			mobile: window.innerWidth <= 500,
 			scrolled_to_bottom: null,
 			scroll_top: null,
 			timer_id: null,
 			timer_duration: 0,
 			temp_selected_option: null,
-			popup_notifications: []
+			search_keyword: '',
 		}
 	},
 	mixins: [ElementScrollHandler],
 	created() {
+		let is_mobile_device = {
+			Android() {
+				return navigator.userAgent.match(/Android/i);
+			},
+			BlackBerry() {
+				return navigator.userAgent.match(/BlackBerry/i);
+			},
+			iOS() {
+				return navigator.userAgent.match(/iPhone|iPad|iPod/i);
+			},
+			Opera() {
+				return navigator.userAgent.match(/Opera Mini/i);
+			},
+			Windows() {
+				return navigator.userAgent.match(/IEMobile/i);
+			},
+			any() {
+				return !!(this.Android() || this.BlackBerry() || this.iOS() || this.Opera() || this.Windows());
+			}
+		};
+
+		this.mobile = is_mobile_device.any() || window.innerWidth <= 500;
+
 		window.addEventListener('resize', () => {
-			this.mobile = window.innerWidth <= 500;
+			this.mobile = is_mobile_device.any() || window.innerWidth <= 500;
 		});
 
 	},

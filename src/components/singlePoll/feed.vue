@@ -19,11 +19,6 @@
     import { mapState } from 'vuex';
     import pollInstance from "../pollFeed/pollInstance";
     export default {
-        data(){
-            return {
-
-            }
-        },
         props:['feed'],
         computed: {
             ...mapState('singlePoll', {

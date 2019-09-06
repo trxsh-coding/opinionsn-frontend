@@ -4,22 +4,96 @@
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport"
-		  content="width=device-width, initial-scale=1, shrink-to-fit=no, maximum-scale=1.0, user-scalable=0">
-	<link rel="apple-touch-startup-image" media="(device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 3)" href="/img/splash-screens/apple-launch-1242x2688.png">
-	<link rel="apple-touch-startup-image" media="(device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 2)" href="/img/splash-screens/apple-launch-828x1792.png">
-	<link rel="apple-touch-startup-image" media="(device-width: 375px) and (device-height: 812px) and (-webkit-device-pixel-ratio: 3)" href="/img/splash-screens/apple-launch-1125x2436.png">
-	<link rel="apple-touch-startup-image" media="(device-width: 414px) and (device-height: 736px) and (-webkit-device-pixel-ratio: 3)" href="/img/splash-screens/apple-launch-1242x2208.png">
-	<link rel="apple-touch-startup-image" media="(device-width: 375px) and (device-height: 667px) and (-webkit-device-pixel-ratio: 2)" href="/img/splash-screens/apple-launch-750x1334.png">
-	<link rel="apple-touch-startup-image" media="(device-width: 1024px) and (device-height: 1366px) and (-webkit-device-pixel-ratio: 2)" href="/img/splash-screens/apple-launch-2048x2732.png">
-	<link rel="apple-touch-startup-image" media="(device-width: 834px) and (device-height: 1194px) and (-webkit-device-pixel-ratio: 2)" href="/img/splash-screens/apple-launch-1668x2388.png">
-	<link rel="apple-touch-startup-image" media="(device-width: 834px) and (device-height: 1112px) and (-webkit-device-pixel-ratio: 2)" href="/img/splash-screens/apple-launch-1668x2224.png">
-	<link rel="apple-touch-startup-image" media="(device-width: 768px) and (device-height: 1024px) and (-webkit-device-pixel-ratio: 2)" href="/img/splash-screens/apple-launch-1536x2048.png">
+	      content="width=device-width, initial-scale=1, shrink-to-fit=no, maximum-scale=1.0, user-scalable=0">
+	<link rel="apple-touch-startup-image"
+	      media="(device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 3)"
+	      href="/img/splash-screens/apple-launch-1242x2688.png">
+	<link rel="apple-touch-startup-image"
+	      media="(device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 2)"
+	      href="/img/splash-screens/apple-launch-828x1792.png">
+	<link rel="apple-touch-startup-image"
+	      media="(device-width: 375px) and (device-height: 812px) and (-webkit-device-pixel-ratio: 3)"
+	      href="/img/splash-screens/apple-launch-1125x2436.png">
+	<link rel="apple-touch-startup-image"
+	      media="(device-width: 414px) and (device-height: 736px) and (-webkit-device-pixel-ratio: 3)"
+	      href="/img/splash-screens/apple-launch-1242x2208.png">
+	<link rel="apple-touch-startup-image"
+	      media="(device-width: 375px) and (device-height: 667px) and (-webkit-device-pixel-ratio: 2)"
+	      href="/img/splash-screens/apple-launch-750x1334.png">
+	<link rel="apple-touch-startup-image"
+	      media="(device-width: 1024px) and (device-height: 1366px) and (-webkit-device-pixel-ratio: 2)"
+	      href="/img/splash-screens/apple-launch-2048x2732.png">
+	<link rel="apple-touch-startup-image"
+	      media="(device-width: 834px) and (device-height: 1194px) and (-webkit-device-pixel-ratio: 2)"
+	      href="/img/splash-screens/apple-launch-1668x2388.png">
+	<link rel="apple-touch-startup-image"
+	      media="(device-width: 834px) and (device-height: 1112px) and (-webkit-device-pixel-ratio: 2)"
+	      href="/img/splash-screens/apple-launch-1668x2224.png">
+	<link rel="apple-touch-startup-image"
+	      media="(device-width: 768px) and (device-height: 1024px) and (-webkit-device-pixel-ratio: 2)"
+	      href="/img/splash-screens/apple-launch-1536x2048.png">
 	<link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&amp;subset=cyrillic,cyrillic-ext"
-		  rel="stylesheet">
-	<script src="https://www.google.com/recaptcha/api.js?onload=vueRecaptchaApiLoaded&render=explicit" async defer></script>
+	      rel="stylesheet">
 	<title>Opinion social network</title>
+	<style>
+		@keyframes fade_in {
+			from {opacity: 0;}
+			to {opacity: 1;}
+		}
+		
+		#app-placeholder {
+			width: 100vw;
+			height: 100vh;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			animation-name: fade_in;
+			animation-duration: 4s;
+		}
+		
+		body {
+			margin: 0;
+			padding: 0;
+		}
+	</style>
 </head>
 <body>
+<div id="app-placeholder">
+	<svg width="180" height="258" viewBox="0 0 90 129" fill="none" xmlns="http://www.w3.org/2000/svg">
+		<path fill-rule="evenodd" clip-rule="evenodd" d="M0 89.9999H26.0479V44.9775H0V89.9999Z" fill="url(#paint0_linear)"/>
+		<path fill-rule="evenodd" clip-rule="evenodd" d="M63.9521 44.9778H90.0001V0H63.9521V44.9778Z"
+		      fill="url(#paint1_linear)"/>
+		<path fill-rule="evenodd" clip-rule="evenodd"
+		      d="M90 28.6466V44.4423L63.8174 31.9931V4.41748C75.8084 9.68273 84.7006 18.5623 90 28.6466Z" fill="#086782"/>
+		<path fill-rule="evenodd" clip-rule="evenodd"
+		      d="M0 44.9775H24.9251L26.0479 89.9999H24.7904C10.1497 81.6558 0 64.6553 0 44.9775Z" fill="#086782"/>
+		<path fill-rule="evenodd" clip-rule="evenodd"
+		      d="M45 26.1479C55.4641 26.1479 63.9521 34.5812 63.9521 44.9778C63.9521 55.3745 55.4641 63.8078 45 63.8078C34.5359 63.8078 26.0479 55.3745 26.0479 44.9778C26.0479 34.5812 34.5359 26.1479 45 26.1479ZM45 0.267822C69.7904 0.267822 90 20.3472 90 44.9778C90 69.6085 69.7904 89.6879 45 89.6879C20.0749 89.6879 0 69.6531 0 44.9778C0 20.3025 20.0749 0.267822 45 0.267822Z"
+		      fill="url(#paint2_linear)"/>
+		<path fill-rule="evenodd" clip-rule="evenodd"
+		      d="M46.6616 28.1109C51.8263 28.1109 56.4071 30.2081 59.9101 33.3761C56.4071 29.0925 50.973 26.326 44.9999 26.326C34.5359 26.326 26.0479 34.6255 26.0479 45.0222C26.0479 50.2874 28.2934 55.1065 31.7514 58.5869C29.2365 55.4188 27.7095 51.2691 27.7095 46.9409C27.7095 36.5442 36.2425 28.1109 46.6616 28.1109Z"
+		      fill="#086782"/>
+		<path d="M1.06884 111.434C1.73687 110.383 2.60531 109.567 3.67415 108.983C4.72629 108.35 5.87864 108.05 7.06439 108.05C8.21674 108.05 9.36908 108.317 10.488 108.9C11.5736 109.383 12.4587 110.167 13.1768 111.283C13.8783 112.367 14.2624 113.634 14.2624 115.034C14.2624 116.084 13.9952 117.15 13.5109 118.234C13.0265 119.351 12.2416 120.284 11.2062 121.067C10.7218 121.434 10.1206 121.734 9.48599 121.967C8.85136 122.151 8.25014 122.267 7.61551 122.267C6.49657 122.267 5.49452 122.117 4.62609 121.817C3.77435 121.517 2.98942 121.001 2.23789 120.284C1.48636 119.584 0.935238 118.751 0.51772 117.9C0.183707 117 0 116.034 0 115.067V115C0.0167007 113.667 0.350713 112.484 1.06884 111.434ZM2.62201 114.934C2.62201 116.317 2.98942 117.467 3.74095 118.434C4.44238 119.401 5.64483 119.884 7.2481 119.884C8.06643 119.884 8.81796 119.701 9.48599 119.367C10.154 119.034 10.6717 118.467 11.0559 117.734C11.44 117 11.607 115.984 11.607 114.834C11.607 113.934 11.3899 113.2 10.9389 112.534C10.5715 111.867 10.0371 111.35 9.33568 110.967C8.63425 110.633 7.88272 110.45 7.13119 110.45C5.71163 110.45 4.59269 110.933 3.80775 111.867C3.47374 112.284 3.13973 112.8 2.90592 113.35C2.73891 113.85 2.62201 114.384 2.62201 114.934ZM16.35 128.118V115.167C16.35 114.384 16.4168 113.684 16.6172 113.05C16.7675 112.417 17.0681 111.784 17.4689 111.15C18.1035 110.1 18.9553 109.333 20.0074 108.8C21.0596 108.317 22.095 108.05 23.1805 108.05C24.717 108.05 26.0197 108.417 27.1386 109.133C28.2576 109.883 29.0759 110.767 29.5602 111.85C30.0779 112.934 30.3117 114 30.3117 115.05C30.3117 115.65 30.3117 116.1 30.2449 116.467C30.2115 116.8 30.128 117.1 30.0612 117.317C30.0278 117.534 29.9109 117.834 29.7606 118.167C29.3431 119.167 28.6751 120.101 27.7064 120.917C26.8046 121.584 25.5187 122.151 23.8319 122.251C23.0803 122.301 22.429 122.117 21.7777 122.034C20.7423 121.884 19.5064 121.417 18.8718 121.051V118.451C18.8718 118.451 19.8905 119.084 20.9928 119.367C21.26 119.434 21.9948 119.701 22.3455 119.767C22.6461 119.817 23.5313 119.884 23.5313 119.884C24.8339 119.884 25.836 119.401 26.6209 118.467C27.4392 117.534 27.8066 116.417 27.8066 115.05C27.8066 113.684 27.3557 112.517 26.4205 111.667C25.4852 110.817 24.4498 110.367 23.2474 110.367C22.4624 110.367 21.7944 110.55 21.1598 110.917C20.5585 111.283 20.0074 111.884 19.5565 112.7C19.0722 113.55 18.8551 114.567 18.8551 115.75V128.118H16.35ZM33.7187 121.967V108.317H36.2238V121.967H33.7187ZM40.2152 121.967V113.634C40.2152 112.7 40.4825 111.817 41.0002 110.917C41.5179 110.067 42.236 109.35 43.1212 108.8C43.6055 108.533 44.023 108.35 44.3904 108.25C44.8079 108.183 45.0919 108.1 45.3591 108.067C45.5762 108.033 45.8434 108 46.144 108C46.8955 108 47.7139 108.183 48.599 108.55C49.4841 108.917 50.2691 109.6 50.9538 110.517C51.6385 111.434 51.9558 112.567 51.9558 113.867V121.984H49.4507V113.95C49.4507 113.1 49.1167 112.284 48.4821 111.534C47.8475 110.783 47.0625 110.383 46.1273 110.383C45.1587 110.383 44.3737 110.717 43.7391 111.35C43.1045 111.984 42.7705 112.767 42.7705 113.734V122.001H40.2152V121.967ZM55.8805 121.967V108.317H58.3856V121.967H55.8805ZM62.8447 111.434C63.5127 110.383 64.3811 109.567 65.45 108.983C66.5021 108.35 67.6545 108.05 68.8736 108.05C69.9926 108.05 71.1449 108.317 72.2639 108.9C73.3494 109.383 74.2345 110.167 74.9527 111.283C75.7042 112.367 76.0382 113.634 76.0382 115.034C76.0382 116.084 75.8211 117.15 75.2867 118.234C74.8024 119.351 74.0174 120.284 72.982 121.067C72.4977 121.434 71.9299 121.734 71.2618 121.967C70.6606 122.151 70.026 122.267 69.3913 122.267C68.2724 122.267 67.3038 122.117 66.4019 121.817C65.5502 121.517 64.7653 121.001 64.0137 120.284C63.2622 119.567 62.7111 118.751 62.3437 117.9C61.9762 117 61.7925 116.034 61.7925 115.067V115C61.8092 113.667 62.1432 112.484 62.8447 111.434ZM64.4145 114.934C64.4145 116.317 64.782 117.467 65.5335 118.434C66.2349 119.401 67.4374 119.884 69.0406 119.884C69.859 119.884 70.6105 119.701 71.2785 119.367C71.9466 119.034 72.4643 118.467 72.8818 117.734C73.2158 116.984 73.3995 115.984 73.3995 114.834C73.3995 113.934 73.1824 113.2 72.7649 112.534C72.3474 111.867 71.8296 111.333 71.1282 110.95C70.4268 110.617 69.7087 110.433 68.9237 110.433C67.5042 110.433 66.3852 110.917 65.6003 111.85C65.2663 112.267 64.9657 112.784 64.6985 113.334C64.5314 113.85 64.4145 114.384 64.4145 114.934ZM78.2427 121.967V113.634C78.2427 112.7 78.5099 111.817 79.0276 110.917C79.512 110.067 80.2635 109.35 81.1486 108.8C81.5995 108.533 82.0505 108.35 82.4179 108.25C82.8354 108.183 83.1193 108.1 83.3531 108.067C83.6203 108.033 83.8708 108 84.1381 108C84.923 108 85.7413 108.183 86.6432 108.55C87.545 108.917 88.3132 109.6 88.998 110.517C89.6827 111.434 90 112.567 90 113.867V121.984H87.4949V113.95C87.4949 113.1 87.1609 112.284 86.5263 111.534C85.8916 110.783 85.1067 110.383 84.1381 110.383C83.2028 110.383 82.4179 110.717 81.7499 111.35C81.1152 111.984 80.8146 112.767 80.8146 113.734V122.001H78.2427V121.967Z"
+		      fill="#363636"/>
+		<defs>
+		<linearGradient id="paint0_linear" x1="10.1276" y1="86.5461" x2="12.2878" y2="40.867" gradientUnits="userSpaceOnUse">
+		<stop stop-color="#016986"/>
+		<stop offset="0.4784" stop-color="#078EB4"/>
+		<stop offset="1" stop-color="#89E1F9"/>
+		</linearGradient>
+		<linearGradient id="paint1_linear" x1="73.9613" y1="40.8874" x2="76.1227" y2="-2.63587" gradientUnits="userSpaceOnUse">
+		<stop stop-color="#016986"/>
+		<stop offset="0.4784" stop-color="#078EB4"/>
+		<stop offset="1" stop-color="#89E1F9"/>
+		</linearGradient>
+		<linearGradient id="paint2_linear" x1="68.3441" y1="77.7307" x2="16.243" y2="3.44434" gradientUnits="userSpaceOnUse">
+		<stop stop-color="#013C4E"/>
+		<stop offset="0.4784" stop-color="#0190B2"/>
+		<stop offset="1" stop-color="#A6E3FB"/>
+		</linearGradient>
+		</defs>
+	</svg>
+</div>
 <div id="app"></div>
 <!-- Yandex.Metrika counter -->
 <script type="text/javascript">
@@ -31,7 +105,7 @@
 		k = e.createElement(t), a = e.getElementsByTagName(t)[0], k.async = 1, k.src = r, a.parentNode.insertBefore(k, a)
 	})
 	(window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym");
-
+	
 	ym(53480629, "init", {
 		clickmap: true,
 		trackLinks: true,

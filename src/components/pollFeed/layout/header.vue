@@ -25,10 +25,10 @@
 				</template>
 				<template #description>
 					<div class="description flex">
-                    <span v-show="!!author.location" class="pr-9">
-                        {{author.location}}
-                    </span>
-						<time-trans transformedTime v-show="!!poll.date" :time="poll.date"/>
+	                    <span v-show="!!author.location" class="pr-9">
+	                        {{author.location}}
+	                    </span>
+						<time-trans transformedTime v-show="description_timestamp" :time="description_timestamp"/>
 					</div>
 				</template>
 			</author-headline>
@@ -73,7 +73,7 @@
 	
 	export default {
 		name: "postHeader",
-		props: ['author', 'poll', 'eventType', 'topSectionClass'],
+		props: ['author', 'poll', 'payloadTimeStamp', 'eventType', 'topSectionClass'],
 		mixins: [imageMixin, langMixin],
 		components: {
 			DropdownListReusable,
@@ -122,6 +122,10 @@
 							return ""
 					}
 				}
+			},
+			
+			description_timestamp() {
+				return this.payloadTimeStamp ? this.payloadTimeStamp : this.poll.date;
 			}
 		},
 		methods: {

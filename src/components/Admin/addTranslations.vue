@@ -3,21 +3,11 @@
 	<section class="translations flex-column flex-align-center mx-auto mb-auto mt-100 px-20 py-30">
 		<span class="headline">Добавить переводы</span>
 		
-		<input-reusable class="mx-auto my-20"
-		                :value="form.key"
-		                @change="updateField(arguments[0], 'key')"
-		                inputPlaceholder="Ключ"
-		                width="100%"
-		                input
-		                with-underline/>
+		<re-input :params="{width: '100%', label: { width: '100%' }}" input-class="mt-7"
+		          :preset="2" placeholder="Ключ" v-model="form.key" />
 		
-		<input-reusable class="mx-auto my-20"
-		                :value="form.value"
-		                @change="updateField(arguments[0], 'value')"
-		                inputPlaceholder="Значение"
-		                width="100%"
-		                input
-		                with-underline/>
+		<re-input :params="{width: '100%', label: { width: '100%' }}" class="mt-20" input-class="mt-7"
+		          :preset="2" placeholder="Значение" v-model="form.value" />
 		
 		<div class="btns flex mt-20">
 			<button-reusable
@@ -40,7 +30,7 @@
 					active-color="#4B97B4"
 					description="clear"/>
 			
-			<switcher-reusable
+			<re-switcher
 					class="switch flex-reverse ml-30"
 					caption-class="ml-15"
 					v-model="form.lang"
@@ -54,13 +44,14 @@
 
 <script>
 	import axios from "axios";
-	import SwitcherReusable from "@/components/reusableСomponents/SwitcherReusable";
+	import ReSwitcher from "@/components/reusableСomponents/ReSwitcher";
 	import InputReusable from "@/components/reusableСomponents/InputReusable";
 	import ButtonReusable from "@/components/reusableСomponents/ButtonReusable";
+	import ReInput from "@/components/reusableСomponents/ReInput";
 
 	export default {
 		name: "addTranslations",
-		components: {ButtonReusable, InputReusable, SwitcherReusable},
+		components: {ReInput, ButtonReusable, InputReusable, ReSwitcher},
 		data() {
 			return {
 				form: {
@@ -71,10 +62,6 @@
 			};
 		},
 		methods: {
-			
-			updateField(val, key) {
-				this.form[key] = val;
-			},
 			
 			onSubmit() {
 				let { key, value } = this.form;

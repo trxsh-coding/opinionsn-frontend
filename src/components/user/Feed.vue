@@ -95,7 +95,7 @@
 				this.$forceUpdate();
 			}
 		},
-
+		
 		mounted() {
 			this.changeTypeOfFeed();
 		},

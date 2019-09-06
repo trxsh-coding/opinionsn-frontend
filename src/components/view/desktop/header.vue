@@ -1,6 +1,6 @@
 <template>
 	<div class="desktop-header mb-17">
-		<div class="nav-container container flex-align-center">
+		<div class="nav-container container flex-align-center" :class="{'is_mobile_device': mobile}">
 			<div class="search-block flex-align-center" >
 				<div class="pointer" @click="$router.push({ name: 'pollFeed' })">
 					<icon-base
@@ -22,7 +22,14 @@
 						<icon-text-logo/>
 					</icon-base>
 				</div>
-				<input v-if="!!Object.keys(user).length" class="ml-27" type="text" placeholder="Поиск" v-model="keyword" @change="routeOnChange">
+				<input
+						v-if="Object.keys(user).length"
+						class="ml-27"
+						type="text"
+						placeholder="Поиск"
+						v-model="$root.search_keyword"
+						@keypress.enter="routerPush('search')"
+						@input="setSearchKeyword($event.target.value)">
 			</div>
 			<div class="profile-annotation-block flex-align-center" v-if="!!Object.keys(user).length">
 
@@ -45,7 +52,9 @@
 							<icon-notifications/>
 						</icon-base>
 						
-						<badge-reusable class="counter" v-show="counter" :size="12" color="#FF5454" :counter="counter" />
+						<re-badge class="counter" v-show="counter" :counter="counter" :size="12"
+						          :params="{background: '#FF5454'}"/>
+						
 					</div>
 					<template #items>
 						<notification-page
@@ -94,6 +103,11 @@
 									class="menu-item py-10 px-20 pointer"
 									title="topics" />
 							<lang-string
+									v-if="is_admin"
+									@click.native="$router.push({name: 'admin'})"
+									class="menu-item py-10 px-20 pointer"
+									title="admin_panel" />
+							<lang-string
 									@click.native="userLogout"
 									class="menu-item py-10 px-20 pointer"
 									title="exit" />
@@ -117,17 +131,18 @@
 	import NotificationPage from "../../notifications/notificationPage";
 	import langString from "../../langString";
 	import axios from "axios";
-	import BadgeReusable from "@/components/reusableСomponents/BadgeReusable";
 	import {mapState} from "vuex";
+	import CookieMixin from "@/components/mixins/CookieMixin";
+	import ReBadge from "@/components/reusableСomponents/ReBadge";
 
 	export default {
 		name: "desktopHeader",
+		mixins: [CookieMixin],
 		props: ['user'],
 		data() {
 			return {
 				publicPath: process.env.VUE_APP_MAIN_API,
 				listScrollDifference: null,
-				keyword: '',
 				mobile: this.$root.mobile
 			}
 		},
@@ -138,8 +153,16 @@
 				counter: s => s.counter,
 			}),
 			
+			...mapState("globalStore", {
+				is_admin: s => s.mainUser.authorities === 'ADMIN'
+			}),
+			
 			logged_in() {
 				return !!Object.keys(this.user).length;
+			},
+			
+			mobile() {
+				return this.$root.mobile;
 			}
 		},
 		
@@ -148,37 +171,23 @@
 			clearCounter() {
 				this.$store.dispatch('notificationPage/readInitialNotifications');
 			},
-
+			
 			userLogout() {
-
-				axios.get(`${this.publicPath}/auth/logout`)
-					.then(() => {
-						this.$store.commit("authentication/setAuthenticated", false)
-						this.$store.commit("userPage/removeUser");
-						this.$store.commit("pollFeed/clearFeed");
-						this.$store.commit("globalStore/clearStores");
-						this.$store.commit("notificationStore/clearStores");
-						this.$store.commit("notificationPage/setDefaultPage");
-
-						//TODO доделать логаут
-					})
-
-					.catch((error) => {
-						this.$store.commit("authentication/setAuthenticated", false)
-						this.$store.commit("userPage/removeUser");
-						this.$store.commit("pollFeed/clearFeed");
-						this.$store.commit("globalStore/clearStores");
-						this.$store.commit("notificationStore/clearStores");
-						this.$store.commit("notificationPage/setDefaultPage");
-					});
-
-				this.$router.push('/login');
-
+				
+				this.deleteCookie('Auth-Token');
+				this.$store.commit("authentication/setAuthenticated", false);
+				this.$store.commit("userPage/removeUser");
+				this.$store.commit("pollFeed/clearFeed");
+				this.$store.commit("globalStore/clearStores");
+				this.$store.commit("notificationStore/clearStores");
+				this.$store.commit("notificationPage/setDefaultPage");
+				this.$router.push({name: 'sign'});
+				
 			},
 
-			routeOnChange(){
+			setSearchKeyword(keyword){
 
-				this.$router.push({ name:'search', query: {keyword: this.keyword} })
+				this.$root.search_keyword = keyword;
 
 			},
 
@@ -199,7 +208,7 @@
 		},
 		
 		components: {
-			BadgeReusable,
+			ReBadge,
 			NotificationPage,
 			DropdownListReusable,
 			PictureReusable,
@@ -216,7 +225,7 @@
 
 <style lang="scss">
 	.desktop-header {
-		z-index: 99999999;
+		z-index: 9999;
 		margin-bottom: 78px;
 		position: fixed;
 		background: #FFFFFF;

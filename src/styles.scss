@@ -27,10 +27,9 @@ html, body, #app, section.section {
 	* {
 		box-sizing: border-box !important;
 	}
-
+	
 	
 }
-
 
 
 .el-button {
@@ -103,6 +102,10 @@ li {
 .container {
 	max-width: 850px;
 	margin: 0 auto;
+	
+	&.is_mobile_device {
+		max-width: 100%;
+	}
 }
 
 .sub-container {
@@ -110,6 +113,11 @@ li {
 	width: 100%;
 	margin-left: auto;
 	margin-top: 78px;
+	
+	&.is_mobile_device {
+		max-width: 100%;
+		margin-top: 0 !important;
+	}
 }
 
 .finish-warning {
@@ -237,6 +245,10 @@ li {
 	display: flex;
 	align-items: start;
 	
+}
+
+.fx-1 {
+	flex: 1 0;
 }
 
 .subscribition {
@@ -781,6 +793,10 @@ li {
 	white-space: nowrap;
 }
 
+.text-deselect {
+	user-select: none !important;
+}
+
 .trim {
 	white-space: nowrap;
 	overflow: hidden;
@@ -861,6 +877,19 @@ li {
 		}
 	}
 }
+
+//@media screen and (orientation: landscape) {
+//	html {
+//		transform: rotate(-90deg);
+//		transform-origin: left top;
+//		width: 100vh;
+//		height: 100vw;
+//		overflow-x: hidden;
+//		position: absolute;
+//		top: 100%;
+//		left: 0;
+//	}
+//}
 
 
 //Colors

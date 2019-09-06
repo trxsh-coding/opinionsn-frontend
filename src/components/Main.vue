@@ -4,7 +4,7 @@
 				v-if="!mobile"
 				:user="user"/>
 		
-		<section class="main-layout container pb-62"
+		<section class="main-layout container pb-62" :class="{'is_mobile_device': mobile}"
 		         :style="(routeName === 'pollFeed' || routeName === 'voteFeed' || routeName === 'singlePoll') && mobile ? {paddingTop: '52px'} : {}">
 			
 			<aside v-if="!mobile">
@@ -14,7 +14,7 @@
 			<mobile-header :user="user" v-if="mobile"/>
 			
 			<keep-alive include="PollFeed">
-				<router-view class="sub-container"/>
+				<router-view class="sub-container" :class="{is_mobile_device: mobile}"/>
 			</keep-alive>
 			
 			<div
@@ -35,8 +35,8 @@
 			
 			</div>
 			
-			<footer v-if="!Object.keys(user).length && auth_bar">
-				<div class="auth-block">
+			<footer v-if="!Object.keys(user).length">
+				<div class="auth-block" :class="{'is_mobile_device': mobile}">
 					<div class="logo-block">
 						<div class="icon logo picture-25x25 mr-6"
 						     :style="{ 'background-image': 'url(' + require('./assets/icons/icon-logo.png') + ')' } ">
@@ -52,17 +52,7 @@
 						</icon-base>
 					</div>
 					<div class="buttons-block mr-10">
-					<span class="icon-exit pointer" @click="auth_bar = !auth_bar">
-						<icon-base
-								fill="none"
-								class="icon-close"
-								width="17"
-								height="17"
-								viewBox="0 0 17 17"
-								icon-name="close"><icon-close/>
-						</icon-base>
-					</span>
-						<router-link :to="{ name: 'sign' }">
+						<router-link :to="getPathWithPoll('sign')">
 							<button-reusable
 									font-size="13"
 									class="v-center py-5 mb-10"
@@ -74,13 +64,15 @@
 									@click.native="setTypeOfSearch('USER')"
 							/>
 						</router-link>
-						
-						<router-link :to="{ name: 'registration' }">
+
+						<router-link :to="getPathWithPoll('registration')">
 							<lang-string class="registration-span pointer" :title="'registration'"/>
 						</router-link>
 					</div>
 				</div>
 			</footer>
+			
+			<IphoneAddToScreenComponent />
 			
 			<mobile-footer v-if="mobile && !!Object.keys(user).length"/>
 		</section>
@@ -97,7 +89,6 @@
 	import mobileHeader from "./view/mobile/header"
 	import mobileFooter from "./view/mobile/footer"
 	import IphoneAddToScreenComponent from "./pwaSnippets/IphoneAddToScreenComponent"
-	import Bowser from "bowser"
 	import asideDesktop from "./view/desktop/aside";
 	import DesktopHeader from "./view/desktop/header";
 	import langString from "./langString";
@@ -109,8 +100,7 @@
 		data() {
 			return {
 				timer: 0,
-				temp_timer_id: null,
-				auth_bar: true
+				temp_timer_id: null
 			};
 		},
 		watch: {
@@ -151,11 +141,6 @@
 				
 				return this.$route.name
 				
-			},
-			
-			iosNotificationCloseCheck: function () {
-				
-				return window.localStorage.getItem('iosNotificationPwa' !== 'False');
 			},
 			
 			timer_id() {
@@ -199,26 +184,19 @@
 				this.$root.timer_duration = 0;
 				this.$root.temp_selected_option = null;
 			},
-			
-			closeInstall() {
+
+			getPathWithPoll(routeName) {
 				
-				this.showInstallMessage = false;
-				window.localStorage.setItem('iosNotificationPwa', 'False');
-				
-			},
-			getPathWithPoll(name) {
-				
-				let [, pageName, pollId] = this.$route.path.split('/');
-				
-				if (pageName === 'singlePoll') {
-					return {name, query: {redirectToPoll: pollId}}
+				let { name, params } = this.$route;
+
+				if (name === 'singlePoll') {
+					return {name: routeName, query: {redirectToPoll: params.id}}
 				} else {
-					return {name}
+					return {name: routeName}
 				}
 				
 			},
-			
-			
+
 			createSubscription() {
 				
 				this.$store.dispatch('serviceWorker/CREATE_SUBSCRIPTION')
@@ -243,23 +221,6 @@
 				this.$router.push({path: "/pollFeed"});
 			},
 			
-			iosAddToHomeScreenSnippet() {
-				
-				const isIos = () => {
-					const browser = Bowser.getParser(window.navigator.userAgent).getBrowserName();
-					return /Safari/.test(browser);
-				}
-				// Detects if device is in standalone mode
-				const isInStandaloneMode = () => (window.matchMedia('(display-mode: standalone)').matches);
-				console.log(isInStandaloneMode())
-				
-				// Checks if should display install popup notification:
-				if (isIos() && !isInStandaloneMode()) {
-					this.showInstallMessage = true
-				}
-				
-			},
-			
 		},
 		
 		created() {
@@ -273,22 +234,10 @@
 				})
 		},
 		mounted() {
-			this.iosAddToHomeScreenSnippet();
 			this.getNotifications();
-			window.addEventListener("scroll", this.onScroll);
 			this.$store.commit("serviceWorker/SET_NOTIFICATION_SUPPORT")
-			
 		},
 		
-		beforeDestroy() {
-			window.removeEventListener("scroll", this.onScroll);
-		},
-		
-		
-		beforeCreate() {
-		
-		
-		},
 		components: {
 			ButtonReusable,
 			asideDesktop,
@@ -400,6 +349,13 @@
 				padding-right: 34px !important;
 			}
 			
+			&.is_mobile_device {
+				box-sizing: border-box;
+				width: 100%;
+				padding-left: 10px;
+				padding-right: 34px !important;
+			}
+			
 			.buttons-block {
 				display: flex;
 				flex-direction: column;
@@ -457,6 +413,10 @@
 			margin: 0;
 			background: #ffffff;
 		}
+	}
+	
+	body.is_mobile_device {
+		margin: 0;
 	}
 
 </style>

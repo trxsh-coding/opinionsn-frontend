@@ -89,7 +89,8 @@ export const createPoll = async (pollName, funds, ownerId) => {
     });
 };
 
-export const createLimitedPoll = async (pollName, funds, ownerId, maxUsers) => {
+
+export const createLimitedPoll = async (pollId, pollName, funds, ownerId, maxUsers) => {
     await api.transact({
         actions: [{
             account: 'opinionbetha',
@@ -99,7 +100,7 @@ export const createLimitedPoll = async (pollName, funds, ownerId, maxUsers) => {
                 permission: 'active'
             }],
             data: {
-                'pollId': UID,
+                'pollId': pollId,
                 'pollName': pollName,
                 'funds': funds,
                 'ownerId': ownerId
@@ -118,7 +119,7 @@ export const createLimitedPoll = async (pollName, funds, ownerId, maxUsers) => {
                 permission: 'active'
             }],
             data: {
-                'pollId': UID,
+                'pollId': pollId,
                 'maxUsers': maxUsers
             },
         }]

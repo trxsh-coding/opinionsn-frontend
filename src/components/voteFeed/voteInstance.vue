@@ -1,6 +1,6 @@
 <template>
     <div id="opinion-feed-layout" :class="{'p-0 pl-51 pr-30': !mobile, 'pl-21 pr-20': mobile}">
-        <post-header :class="{'ml-30': mobile}" :author="author" :poll="poll" :eventType="item.eventType">
+        <post-header :class="{'ml-30': mobile}" :author="author" :poll="poll" :payload-time-stamp="item.timestamp" :eventType="item.eventType">
 			<slot name="headAnnotation"></slot>
 		</post-header>
 
