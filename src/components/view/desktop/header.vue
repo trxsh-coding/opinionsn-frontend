@@ -103,7 +103,12 @@
 									class="menu-item py-10 px-20 pointer"
 									title="topics" />
 							<lang-string
-									v-if="is_admin"
+									v-if="mainUser.referCode"
+									@click.native="$router.push({name: 'ReferralsPage'})"
+									class="menu-item py-10 px-20 pointer"
+									title="referrals_page" />
+							<lang-string
+									v-if="mainUser.authorities === 'ADMIN'"
 									@click.native="$router.push({name: 'admin'})"
 									class="menu-item py-10 px-20 pointer"
 									title="admin_panel" />
@@ -154,7 +159,7 @@
 			}),
 			
 			...mapState("globalStore", {
-				is_admin: s => s.mainUser.authorities === 'ADMIN'
+				mainUser: s => s.mainUser
 			}),
 			
 			logged_in() {

@@ -64,7 +64,7 @@
 									@click.native="setTypeOfSearch('USER')"
 							/>
 						</router-link>
-
+						
 						<router-link :to="getPathWithPoll('registration')">
 							<lang-string class="registration-span pointer" :title="'registration'"/>
 						</router-link>
@@ -72,7 +72,7 @@
 				</div>
 			</footer>
 			
-			<IphoneAddToScreenComponent />
+			<IphoneAddToScreenComponent/>
 			
 			<mobile-footer v-if="mobile && !!Object.keys(user).length"/>
 		</section>
@@ -184,11 +184,11 @@
 				this.$root.timer_duration = 0;
 				this.$root.temp_selected_option = null;
 			},
-
+			
 			getPathWithPoll(routeName) {
 				
-				let { name, params } = this.$route;
-
+				let {name, params} = this.$route;
+				
 				if (name === 'singlePoll') {
 					return {name: routeName, query: {redirectToPoll: params.id}}
 				} else {
@@ -196,7 +196,7 @@
 				}
 				
 			},
-
+			
 			createSubscription() {
 				
 				this.$store.dispatch('serviceWorker/CREATE_SUBSCRIPTION')
@@ -236,6 +236,20 @@
 		mounted() {
 			this.getNotifications();
 			this.$store.commit("serviceWorker/SET_NOTIFICATION_SUPPORT")
+		},
+		
+		beforeRouteUpdate(to, from, next) {
+			switch (to.name) {
+				case 'ReferralsPage':
+					if (this.user.referCode) {
+						next();
+					} else {
+						next(false);
+					}
+					break;
+				default:
+					next();
+			}
 		},
 		
 		components: {

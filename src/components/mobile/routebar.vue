@@ -75,6 +75,14 @@
 			</li>
 			<li
 					class="link relative pointer"
+					@click="$router.push({ name: 'ReferralsPage' })">
+				<icon-user width="22" height="22" fill="#1a1e22" :style="{position: 'relative', left: '-3px'}"/>
+				<lang-string :title="'referrals_page'">
+				
+				</lang-string>
+			</li>
+			<li
+					class="link relative pointer"
 					@click="$router.push({ name: 'settings' })">
 				<icon-base
 						fill="none"
@@ -136,6 +144,7 @@
 	import IconSettings from '../icons/menu/IconSettings'
 	import langString from '../langString'
     import CookieMixin from "@/components/mixins/CookieMixin";
+	import IconUser from "@/components/icons/IconUser";
 	
 	export default {
 		data() {
@@ -144,6 +153,7 @@
             }
 		},
 		components: {
+			IconUser,
 			IconBase,
 			IconBookmark,
 			IconCatalog,
