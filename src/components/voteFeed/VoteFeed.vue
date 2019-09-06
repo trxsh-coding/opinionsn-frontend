@@ -73,6 +73,7 @@
 	import loadingSpinner from "../reusableСomponents/loadingSpinner"
 	import ScrollSwiperReusable from "../reusableСomponents/ScrollSwiperReusable";
 	import LoaderReusable from "../reusableСomponents/LoaderReusable";
+	const getVoteFeedStore = () => import('../../store/modules/voteFeed');
 	
 	export default {
 		data() {
@@ -151,7 +152,7 @@
 			PictureReusable,
 			loadingSpinner
 		},
-		created() {
+		mounted() {
 			this.$store.dispatch('followsPage/getMyFollowings');
 			this.$store.commit('voteFeed/clearFilter');
 			this.$store.dispatch('voteFeed/list');

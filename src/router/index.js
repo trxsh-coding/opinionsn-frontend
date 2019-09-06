@@ -264,6 +264,7 @@ const dynamicModules = new Map([
 	['adminPage', () => import('../store/modules/adminPage')],
 	['formManagment', () => import('../store/modules/formManagment')],
 	['userFeed', () => import('../store/modules/userFeed')],
+	['voteFeed', () => import('../store/modules/voteFeed')],
 ]);
 
 index.beforeEach((to, from, next) => {
