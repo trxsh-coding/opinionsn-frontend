@@ -166,7 +166,7 @@
 			handleTouchMove({touches}) {
 				let difference = touches[0].screenY - this.init_coord;
 				if (this.$root.scroll_top === 0 && difference > 0 && this.is_loader_active) {
-					document.body.style.overflowY = 'hidden';
+					document.body.style.cssText = 'overflow-y: hidden;';
 					this.difference = difference;
 				}
 			},
@@ -178,7 +178,7 @@
 					this.$store.dispatch(`pollFeed/list`);
 				}
 				
-				document.body.style.overflowY = 'scroll';
+				document.body.style.cssText = '';
 				this.is_loader_active = false;
 				this.init_coord = 0;
 				this.difference = 0;
@@ -190,6 +190,17 @@
 			this.$store.dispatch(`catalogList/list`);
 			this.$store.dispatch(`pollFeed/list`);
 			this.setCategory({id: -1});
+			
+		},
+		
+		beforeRouteEnter (to, from, next) {
+			document.body.classList.add('is_active');
+			next();
+		},
+
+		beforeRouteLeave (to, from, next) {
+			document.body.classList.remove('is_active');
+			next();
 		},
 		
 		components: {
@@ -208,6 +219,11 @@
 
 <style lang="scss">
 	
+	body {
+		&.is_active {
+			overscroll-behavior: contain;
+		}
+	}
 	
 	.ps__thumb-x {
 		background: #4b97b4 !important;
