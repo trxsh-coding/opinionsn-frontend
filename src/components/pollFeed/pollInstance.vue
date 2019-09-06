@@ -101,8 +101,8 @@
                 :options="options"
                 :users="users"/>
 
-<!--        <span v-show="voted && !no_more_explains && combinedVotes.length > 5" class="explains-load-btn pointer my-9"-->
-<!--              @click="loadMoreExplains">Загрузить ещё...</span>-->
+        <span v-show="voted && !no_more_explains && combinedVotes.length > 5" class="explains-load-btn pointer my-9"
+              @click="loadMoreExplains">Загрузить ещё...</span>
 
     </div>
 </template>
