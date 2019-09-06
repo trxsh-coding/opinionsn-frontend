@@ -1,7 +1,7 @@
 <template>
 	<div class="modal-reusable" v-if="pictures.length">
   
-		<div class="modal-overlay pl-63 pr-20 flex-align-center">
+		<div class="modal-overlay pl-56 pr-20 flex-align-center">
             <span class="option-text text-center fx-1">
                 {{pictures[current_index].description}}
             </span>
@@ -10,8 +10,8 @@
 					@click.native="clearPictures"
 					class="ml-10 pointer"
 					fill="aqua"
-					width="33"
-					height="35"
+					width="26"
+					height="28"
 					viewBox="0 0 13 14"
 					icon-name="close">
 				<icon-close/>
@@ -40,10 +40,10 @@
 								:class="{borderedPicture : picture === pictures[current_index].picture}"
 								@click.native="setCurrentIndex(index)"
 								class="mr-12 p-0 pointer"
-								pic-class="mb-5"
 								:img="picture"
-								:height="150"
-								:width="200"
+								:height="75"
+								:width="100"
+								without-text
 								text-layout="bottom">
 						</picture-reusable>
 					</swiper-slide>
@@ -57,10 +57,10 @@
 							:class="{borderedPicture : picture === pictures[current_index].picture}"
 							@click.native="setCurrentIndex(index)"
 							class="mr-12 p-0 pointer"
-							pic-class="mb-5"
 							:img="picture"
-							:height="100"
+							:height="auto"
 							:width="170"
+							without-text
 							text-layout="bottom">
 					</picture-reusable>
 				</template>
@@ -103,7 +103,6 @@
 				return this.$root.mobile
 			},
 			pictures() {
-				// return this.$popup.pictures.map(pic => this.publicPath + this.imageUtil(pic, 'L'));
 				if (!this.$popup.pictures.some((x) => typeof x !== 'string')) {
 					return this.$popup.pictures.map(picture => ({picture: this.publicPath + this.imageUtil(picture, 'L')}))
 				} else {
