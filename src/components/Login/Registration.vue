@@ -191,7 +191,6 @@
 
 		methods: {
 
-
 			onCaptchaExpired () {
 				this.$refs.recaptcha.reset()
 			},
