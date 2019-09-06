@@ -42,6 +42,7 @@
 								:key="index"
 								:src="picture"
 								:class="{borderedPicture : picture === pictures[current_index].picture}"
+								@click.native="setCurrentIndex(index)"
 								class="mr-12 p-0 pointer"
 								:img="picture"
 								:height="75"
@@ -62,6 +63,7 @@
 							:img="picture"
 							:height="auto"
 							:width="170"
+							@click.native="setCurrentIndex(index)"
 							without-textout="bottom">
 					</picture-reusable>
 				</template>
@@ -146,6 +148,7 @@
    
 			setCurrentIndex(index) {
 				this.current_index = index;
+				this.$refs.modalSwiper.swiper.activeIndex = index;
 			},
    
 		},
