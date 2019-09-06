@@ -19,10 +19,11 @@
 		</div>
   
 		<div class="modal-window">
-			<swiper>
-				<img class=" " v-for=" ({picture}) in pictures" :src="picture" @click="setNextPicture"/>
+			<swiper :options="swiperOptions" class="modal-swiper" @slideChange="changeSwiperIndex" ref="modalSwiper">
+				<swiper-slide v-for="({picture}) in pictures">
+					<div class="main-picture" :style="{backgroundImage: `url('${picture}')`}" />
+				</swiper-slide>
 			</swiper>
-
 			<swiper-reusable
 					class="pictures-section  flex"
 					v-if="pictures.length >= 2"
@@ -35,7 +36,7 @@
 					<swiper-slide
 							class="w-fit "
 							v-for="({picture}, index) in pictures">
-						
+
 						<picture-reusable
 								:key="index"
 								:src="picture"
@@ -50,14 +51,13 @@
 						</picture-reusable>
 					</swiper-slide>
 				</template>
-    
+
 				<template #scroll>
 					<picture-reusable
 							v-for="({picture}, index) in pictures"
 							:key="index"
 							:src="picture"
 							:class="{borderedPicture : picture === pictures[current_index].picture}"
-							@click.native="setCurrentIndex(index)"
 							class="mr-12 p-0 pointer"
 							:img="picture"
 							:height="auto"
@@ -88,7 +88,12 @@
 			return {
 				publicPath: process.env.VUE_APP_MAIN_API,
 				sorted_pictures: null,
-				current_index: 0
+				current_index: 0,
+				swiperOptions: {
+					authoHeight:true,
+					spaceBetween:100
+				}
+
 			}
 		},
         watch: {
@@ -118,6 +123,9 @@
 			
 		},
 		methods: {
+			changeSwiperIndex(args){
+				this.current_index = this.$refs.modalSwiper.swiper.activeIndex;
+			},
 			clearPictures() {
 				this.sorted_pictures = null;
 				this.current_index = 0;
@@ -190,16 +198,27 @@
 			display: flex;
 			flex-direction: column;
 			align-items: center;
+			width: 100%;
 			height: 100%;
 			justify-content: center;
-			
+			.modal-swiper {
+				width: 1000px;
+				height: auto;
+				.swiper-slide {
+
+				}
+			}
 			.borderedPicture {
 				border: 1.3px solid #FFFFFF;
 				opacity: 0.7;
 			}
 			
 			.main-picture {
-				width: 100%;
+				background-position: center;
+				background-size: contain;
+				background-repeat: no-repeat;
+				width: 1000px;
+				height: 80vh;
 			}
 			
 			.pictures-section {
@@ -220,6 +239,14 @@
 			
 			.preview-picture {
 				width: 70px !important;
+			}
+			.main-picture {
+				height: 30vh !important;
+			}
+			.pictures-section {
+				.picture {
+					height: 100px;
+				}
 			}
 			
 		}
