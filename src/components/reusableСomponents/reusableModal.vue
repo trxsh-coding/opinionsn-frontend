@@ -20,7 +20,7 @@
   
 		<div class="modal-window">
 			<img class="main-picture pointer" :src="pictures[current_index].picture" @click="setNextPicture"/>
-			
+
 			<swiper-reusable
 					class="pictures-section  flex"
 					v-if="pictures.length >= 2"

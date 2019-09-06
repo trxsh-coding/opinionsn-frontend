@@ -2,6 +2,7 @@
 	<div class="register-section">
 		<div class="navbar-brand">
 			<div class="navbar__item navbar__item-1">
+
 				<icon-base
 						fill="none"
 						class="icon"
@@ -69,15 +70,17 @@
 			</popup-error-reusable>
 
 		</div>
-
+		<vue-recaptcha
+				class="recaptcha"
+				size="invisible"
+				ref="recaptcha"
+				:sitekey="sitekey"
+				@verify="submit(arguments[0], registrationForm)"
+				@expired="onCaptchaExpired"
+				:loadRecaptchaScript="true"
+		/>
 		<div class="buttons-block mt-23">
-			<vue-recaptcha
-					ref="recaptcha"
-					size="invisible"
-					:sitekey="sitekey"
-					@verify="tryToVerify"
-					@expired="onCaptchaExpired"
-			/>
+
 			<button-reusable
 					@click.native="validate"
 					class="v-center reg-btn py-13"
@@ -190,9 +193,7 @@
 			check(){
 			alert('hi')
 			},
-			tryToVerify(){
-				console.log('das')
-			},
+
 			onCaptchaExpired () {
 				this.$refs.recaptcha.reset()
 			},
