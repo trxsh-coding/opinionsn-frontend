@@ -72,7 +72,6 @@
 		</div>
 		<vue-recaptcha
 				class="recaptcha"
-				size="invisible"
 				ref="recaptcha"
 				:sitekey="sitekey"
 				@verify="submit(arguments[0], registrationForm)"
