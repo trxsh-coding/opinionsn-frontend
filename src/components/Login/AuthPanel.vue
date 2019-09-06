@@ -1,5 +1,5 @@
-<template lang="html">
-	<div class="auth-panel">
+<template>
+	<div class="auth-panel py-15">
 		<login class="section" v-if="$route.path === '/login'"/>
 		<registration class="section" v-if="$route.path === '/registration'"/>
 		<sign class="section" v-if="$route.path === '/sign'"/>
