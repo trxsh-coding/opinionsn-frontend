@@ -166,7 +166,7 @@
 		data() {
 			return {
 				error: false,
-				sitekey: '6LdVFrUUAAAAAK88gXgLNbNPTzN-p_ynuZIY8S3r',
+				sitekey: '6Ld7BbcUAAAAAMRiV7C5mb0Co0KUpKKau6f3jky6',
 				registrationForm: {
 					username: '',
 					email: '',
