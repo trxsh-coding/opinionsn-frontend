@@ -67,13 +67,19 @@
 				                input
 				                with-underline/>
 			</popup-error-reusable>
-
+			<vue-recaptcha
+					ref="recaptcha"
+					size="invisible"
+					:sitekey="sitekey"
+					@verify="submit(arguments[0], registrationForm)"
+					@expired="onCaptchaExpired"
+			/>
 		</div>
 
 		<div class="buttons-block mt-23">
 
 			<button-reusable
-					@click.native="submit(registrationForm)"
+					@click.native="validate"
 					class="v-center reg-btn py-13"
 					description="registration"
 					font-size="16"
@@ -152,11 +158,13 @@
 	import IconVk from "../icons/IconVk";
 	import IconGoogle from "../icons/IconGoogle";
 	import PopupErrorReusable from "../reusableСomponents/PopupErrorReusable";
+	import VueRecaptcha from 'vue-recaptcha'
 
 	export default {
 		data() {
 			return {
 				error: false,
+				sitekey: '6LdVFrUUAAAAAK88gXgLNbNPTzN-p_ynuZIY8S3r',
 				registrationForm: {
 					username: '',
 					email: '',
@@ -179,6 +187,9 @@
 		},
 
 		methods: {
+			onCaptchaExpired () {
+				this.$refs.recaptcha.reset()
+			},
 
 			lstr(str) {
 				localString(this.lang, str);
@@ -187,13 +198,16 @@
 			updateField(val, key) {
 				this.registrationForm[key] = val;
 			},
-
-			submit(form) {
+			validate(){
+				this.$refs.recaptcha.execute();
+			},
+			submit(recaptchaToken, form) {
 				let registerFormData = new FormData();
 				registerFormData.append("login", form.username);
 				registerFormData.append("email", form.email);
 				registerFormData.append("pass", form.password);
 				registerFormData.append("passConfirm", form.conf_pass);
+
 				axios
 					.post(`${process.env.VUE_APP_MAIN_API}/auth/register${this.refer}`, registerFormData)
 					.then(response => {
@@ -218,6 +232,7 @@
 		},
 		mixins: [langMixin],
 		components: {
+			VueRecaptcha,
 			PopupErrorReusable,
 			ButtonReusable,
 			InputReusable,

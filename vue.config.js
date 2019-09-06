@@ -12,14 +12,14 @@ module.exports = {
 
 		proxy: {
 			'/api': {
-				target: 'http://api2.opinionsn.com:7070',
+				target: 'http://192.168.1.62:7070',
 				pathRewrite: {'^/api': ''},
 				changeOrigin: true,
 				secure: false
 			},
 
 			'/messages': {
-				target: 'http://api2.opinionsn.com:7071/',
+				target: 'http://192.168.1.62:7070',
 				pathRewrite: {'^/messages': ''},
 				changeOrigin: true,
 				secure: false
