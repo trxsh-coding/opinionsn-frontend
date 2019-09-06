@@ -19,7 +19,9 @@
 		</div>
   
 		<div class="modal-window">
-			<img class="main-picture pointer" :src="pictures[current_index].picture" @click="setNextPicture"/>
+			<swiper>
+				<img class=" " v-for=" ({picture}) in pictures" :src="picture" @click="setNextPicture"/>
+			</swiper>
 
 			<swiper-reusable
 					class="pictures-section  flex"
