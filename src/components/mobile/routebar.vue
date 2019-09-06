@@ -73,7 +73,7 @@
 				
 				</lang-string>
 			</li>
-			<li
+			<li		v-if="mainUser.referCode"
 					class="link relative pointer"
 					@click="$router.push({ name: 'ReferralsPage' })">
 				<icon-user width="22" height="22" fill="#1a1e22" :style="{position: 'relative', left: '-3px'}"/>
@@ -149,7 +149,10 @@
 	export default {
 		data() {
 			return {
-                publicPath: process.env.VUE_APP_MAIN_API
+                publicPath: process.env.VUE_APP_MAIN_API,
+				...mapState("globalStore", {
+					mainUser: ({ mainUser }) => mainUser
+				}),
             }
 		},
 		components: {

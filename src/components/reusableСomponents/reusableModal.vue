@@ -35,13 +35,13 @@
 				<template #usual>
 					<swiper-slide
 							class="w-fit "
-							v-for="({picture}, index) in pictures">
+
+																																																																																														v-for="({picture}, index) in pictures">
 
 						<picture-reusable
 								:key="index"
 								:src="picture"
 								:class="{borderedPicture : picture === pictures[current_index].picture}"
-								@click.native="setCurrentIndex(index)"
 								class="mr-12 p-0 pointer"
 								:img="picture"
 								:height="75"
@@ -62,8 +62,7 @@
 							:img="picture"
 							:height="auto"
 							:width="170"
-							without-text
-							text-layout="bottom">
+							without-textout="bottom">
 					</picture-reusable>
 				</template>
 			</swiper-reusable>
