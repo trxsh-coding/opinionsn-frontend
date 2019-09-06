@@ -22,7 +22,7 @@
 				</icon-base>
 			</div>
 		</div>
-		
+
 		<div class="form-block mt-25" @keyup.enter.exact="submit(registrationForm)">
 
 			<popup-error-reusable :errors="{ login: lstr(errors.login) }" span-class="mt-3">
@@ -67,17 +67,17 @@
 				                input
 				                with-underline/>
 			</popup-error-reusable>
+
+		</div>
+
+		<div class="buttons-block mt-23">
 			<vue-recaptcha
 					ref="recaptcha"
 					size="invisible"
 					:sitekey="sitekey"
-					@verify="submit(arguments[0], registrationForm)"
+					@verify="tryToVerify"
 					@expired="onCaptchaExpired"
 			/>
-		</div>
-
-		<div class="buttons-block mt-23">
-
 			<button-reusable
 					@click.native="validate"
 					class="v-center reg-btn py-13"
@@ -180,13 +180,19 @@
 			...mapState('lang',{
 				lang : state => state.locale
 			}),
-			
+
 			refer() {
 				return (!!this.$route.query.refer) ? `?refer=${this.$route.query.refer}` : ''
 			}
 		},
 
 		methods: {
+			check(){
+			alert('hi')
+			},
+			tryToVerify(){
+				console.log('das')
+			},
 			onCaptchaExpired () {
 				this.$refs.recaptcha.reset()
 			},
@@ -202,6 +208,7 @@
 				this.$refs.recaptcha.execute();
 			},
 			submit(recaptchaToken, form) {
+				alert('ho')
 				let registerFormData = new FormData();
 				registerFormData.append("login", form.username);
 				registerFormData.append("email", form.email);

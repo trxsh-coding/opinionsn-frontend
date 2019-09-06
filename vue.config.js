@@ -13,14 +13,14 @@ module.exports = {
 
 		proxy: {
 			'/api': {
-				target: 'http://192.168.1.62:7070',
+				target: 'http://api2.opinionsn.com:7070',
 				pathRewrite: {'^/api': ''},
 				changeOrigin: true,
 				secure: false
 			},
 
 			'/messages': {
-				target: 'http://192.168.1.62:7070',
+				target: 'http://api2.opinionsn.com:7071',
 				pathRewrite: {'^/messages': ''},
 				changeOrigin: true,
 				secure: false
@@ -33,7 +33,6 @@ module.exports = {
 			}
 		}
 	},
-	workboxOptions: { skipWaiting: true },
 	pwa: {
 		name: "Opinion",
 		themeColor: "#4b97b4",
@@ -47,8 +46,10 @@ module.exports = {
 		msTileColor: '#000000',
 		appleMobileWebAppCapable: 'yes',
 		appleMobileWebAppStatusBarStyle: '#4b97b4',
-		workboxPluginMode: 'GenerateSW'
-	},
+		workboxPluginMode: 'GenerateSW',
+		workboxOptions: { skipWaiting: true },
+
+},
 	
 	configureWebpack: {
 		optimization: {
