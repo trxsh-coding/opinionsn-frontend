@@ -190,9 +190,7 @@
 		},
 
 		methods: {
-			check(){
-			alert('hi')
-			},
+
 
 			onCaptchaExpired () {
 				this.$refs.recaptcha.reset()
@@ -209,7 +207,6 @@
 				this.$refs.recaptcha.execute();
 			},
 			submit(recaptchaToken, form) {
-				alert('ho')
 				let registerFormData = new FormData();
 				registerFormData.append("login", form.username);
 				registerFormData.append("email", form.email);
