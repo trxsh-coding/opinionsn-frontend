@@ -33,7 +33,7 @@ module.exports = {
 			}
 		}
 	},
-
+	workboxOptions: { skipWaiting: true },
 	pwa: {
 		name: "Opinion",
 		themeColor: "#4b97b4",
