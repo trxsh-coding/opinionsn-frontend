@@ -30,9 +30,9 @@
 <style lang="scss">
 	.auth-panel {
 		background: #ffffff !important;
-		width: 100%;
 		display: flex;
-		height: 100%;
+		margin: auto;
+		height: fit-content;
 		justify-content: center;
 		align-items: center;
 
@@ -42,6 +42,7 @@
 		}
 
 		.section {
+			padding: 15px 0;
 			display: flex;
 			flex-direction: column;
 			justify-content: center;

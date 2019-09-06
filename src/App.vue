@@ -34,6 +34,7 @@
 <style lang="scss">
 	#app {
 		position: relative;
+		display: flex;
 
 		@media screen and (max-width: 500px) {
 			&::-webkit-scrollbar {
