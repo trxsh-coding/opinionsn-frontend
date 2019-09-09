@@ -23,7 +23,12 @@
 			Restore,
 			Sign,
 			Token
-		}
+		},
+	    
+	    beforeRouteLeave (to, from, next) {
+		    this.$popup.clear('messages');
+		    next();
+	    }
     }
 </script>
 

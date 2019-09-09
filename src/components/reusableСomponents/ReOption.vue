@@ -118,12 +118,23 @@
 				
 				switch (true) {
 					case !this.logged_in:
-						this.$router.push({name: 'sign'}, () => {
-							this.$popup.insert('messages', {
-								message: 'Для выполнения действий необходимо авторизоваться!',
-								type: 'warning'
+						if (this.$route.name === 'singlePoll') {
+							this.$router.push({name: 'sign', query: {redirectToPoll: this.$route.params.id}}, () => {
+								this.$popup.insert('messages', {
+									message: `Авторизуйтесь чтобы проголосовать в опросе: "${this.poll.subject}"`,
+									type: 'warning',
+									timeless: true
+								});
 							});
-						});
+						} else {
+							this.$router.push({name: 'sign'}, () => {
+								this.$popup.insert('messages', {
+									message: 'Для выполнения действий необходимо авторизоваться!',
+									type: 'warning',
+									timeless: true
+								});
+							});
+						}
 						return;
 					case this.voted:
 						this.resetBowsBar();

@@ -125,7 +125,15 @@
 		methods: {
 			clearOldMessage() {
 				this.interval_id = setInterval(() => {
-					if (this.items.length) this.$popup.remove('messages', [0]);
+					// Удаляем по одному сообщению, кроме тех что имеют параметр timeless
+					if (this.items.length) {
+						this.items.some(({timeless}, index) => {
+							if (!timeless) {
+								this.$popup.remove('messages', [index]);
+								return true
+							}
+						})
+					}
 				}, 2000);
 			},
 			
