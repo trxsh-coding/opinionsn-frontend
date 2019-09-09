@@ -161,12 +161,6 @@
 			lstr(str) {
 				localString(this.lang, str);
 			},
-
-			pollNotify() {
-				this.$message(
-					"Чтобы поучаствовать в опросе, необходимо зарегистрироваться"
-				);
-			},
 			
 			updateField(val, key) {
 				this.signForm[key] = val;
@@ -224,9 +218,9 @@
 		},
 		
 		mounted() {
-			if (this.$route.query.redirectToPoll) {
-				this.pollNotify();
-			}
+			// if (this.$route.query.redirectToPoll) {
+			// 	this.$popup.insert('messages', {message: 'Для выполнения действий необходимо авторизоваться!', type: 'warning'})
+			// }
 		},
 		
 		mixins: [langMixin],

@@ -118,9 +118,11 @@
 				
 				switch (true) {
 					case !this.logged_in:
-						this.$popup.insert('messages', {
-							message: 'Для выполнения действий необходимо авторизоваться!',
-							type: 'warning'
+						this.$router.push({name: 'sign'}, () => {
+							this.$popup.insert('messages', {
+								message: 'Для выполнения действий необходимо авторизоваться!',
+								type: 'warning'
+							});
 						});
 						return;
 					case this.voted:
