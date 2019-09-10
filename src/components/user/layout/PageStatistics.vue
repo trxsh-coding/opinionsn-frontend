@@ -13,7 +13,7 @@
 				
 				<lang-string class="title px-9 py-2 my-auto" :title="item.title" />
 				<div class="flex-column flex-align-center pt-13">
-					<circle-progress-bar-reusable :percent="item.percent" :size="78" bar-size="4"/>
+					<CircleProgressBar :percent="item.percent" :size="78" bar-size="4"/>
 					<span class="description mt-9"><span>{{item.correct_answers}}</span>/{{item.total_amount_of_answers}}</span>
 
 				</div>
@@ -32,13 +32,13 @@
 <script>
 	import langString from "../../langString";
 	import axios from 'axios'
-	import CircleProgressBarReusable from "../../reusableСomponents/CircleProgressBarReusable";
+	import CircleProgressBar from "../../reusableСomponents/CircleProgressBar";
 	import {mapState} from "vuex";
 
 	export default {
         name: "PageStatistics",
 		components: {
-        	CircleProgressBarReusable,
+			CircleProgressBar,
 			langString
 		},
 		data() {

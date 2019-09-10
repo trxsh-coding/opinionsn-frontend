@@ -2,19 +2,19 @@
 	
 	<div>
 		<div
-				v-if="swiperType === 'scroll'"
+				v-if="type === 'scroll'"
 				class="swiper-reusable scroll"
 				:class="swiperClass"
-				:style="swiperStyle">
+				:style="scroll_swiper_style">
 			<slot name="scroll"></slot>
-			<span class="stub-block">{{stubContent}}</span>
+			<span class="stub-block">{{stub_content}}</span>
 		</div>
 		
 		<swiper
-				v-if="swiperType === 'usual'"
+				v-if="type === 'usual'"
 				class="swiper-reusable usual"
 				:class="swiperClass"
-				:options="swiperOption">
+				:options="usual_swiper_options">
 			<slot name="usual"></slot>
 			<div class="swiper-pagination" slot="pagination"></div>
 		</swiper>
@@ -25,33 +25,10 @@
 <script>
 	
 	export default {
-		name: "swiperReusable",
+		name: "ReSwiper",
 		props: {
-			height: {
-				type: [String, Number]
-			},
-			width: {
-				type: [String, Number]
-			},
-			amountOfSlides: {
-				type: [Number, String]
-			},
-			spaceBetween: {
-				type: Number
-			},
-			withoutBreakpoints: {
-				type: Boolean,
-				default() {
-					return false;
-				}
-			},
-			stubLength: {
-				type: Number,
-				default() {
-					return 0;
-				}
-			},
-			swiperType: {
+			params: Object,
+			type: {
 				type: String,
 				validator(value) {
 					// Значение должно соответствовать одной из этих строк
@@ -61,40 +38,49 @@
 					return 'usual'
 				}
 			},
-			swiperClass: {
-				type: String,
-				default() {
-					return ''
-				}
-			}
+			swiperClass: String
 		},
 		methods: {
-			handlePrecentValue(value) {
+			handleCssValue(value) {
 				
-				if (value === undefined) return false;
+				switch (true) {
+					case `${value}`.slice(-1) === '%':
+						return value;
+					case !isNaN(value):
+						return value + 'px';
+					default:
+						return value;
+				}
 				
-				return `${value}`.slice(-1) === '%' ? value : value + 'px';
-				
-			}
+			},
 		},
 		computed: {
-			swiperStyle() {
-				let { height, width, handlePrecentValue } = this;
-				
-				height = !!height ? {height: handlePrecentValue(height)} : {};
-				width = !!width ? {width: handlePrecentValue(width)} : {};
-				
+			c_params() {
+				return {
+					height: 'auto',
+					width: 'auto',
+					amountOfSlides: 3,
+					slidesPerView: 1,
+					spaceBetween: 100,
+					stubLength: 0,
+					breakpoints: true,
+					pagination: false,
+					...this.params
+				}
+			},
+			
+			scroll_swiper_style() {
 				
 				return {
-					...width,
-					...height
+					width: this.handleCssValue(this.c_params.width),
+					height: this.handleCssValue(this.c_params.height)
 				};
 				
 			},
 			
-			swiperOption() {
+			usual_swiper_options() {
 				
-				let breakpoints = this.withoutBreakpoints ? {} : {
+				let breakpoints = this.c_params.breakpoints ? {
 					breakpoints: {
 						1024: {
 							slidesPerView: 1,
@@ -113,17 +99,24 @@
 							spaceBetween: 10
 						}
 					}
-				};
+				} : {};
+				
+				let pagination = this.c_params.pagination ? {
+					pagination: {
+						el: '.swiper-pagination'
+					}
+				} : {};
 				
 				return {
-					slidesPerView: this.amountOfSlides,
-					spaceBetween: this.spaceBetween,
-					...breakpoints
+					slidesPerView: this.c_params.amountOfSlides,
+					spaceBetween: this.c_params.spaceBetween,
+					...breakpoints,
+					...pagination
 				};
 			},
 			
-			stubContent() {
-				return '='.repeat(this.stubLength);
+			stub_content() {
+				return '='.repeat(this.c_params.stubLength);
 			}
 		},
 	}
@@ -132,6 +125,10 @@
 <style lang="scss">
 	
 	.swiper-reusable {
+		
+		.swiper-pagination-bullet-active {
+			background: #4B96B3 !important;
+		}
 		
 		&.scroll {
 			position: relative;

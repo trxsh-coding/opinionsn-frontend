@@ -34,16 +34,15 @@
 
 <script>
 
-	import LoaderReusable from "./LoaderReusable";
 	import ElementScrollHandler from "../mixins/ElementScrollHandler";
 	import IconBase from "../icons/IconBase";
 	import IconDropArrow from "../icons/IconDropArrow"
 	export default {
 		name: "DropdownListReusable",
 		components: {
-			LoaderReusable,
 			IconDropArrow,
-			IconBase},
+			IconBase
+		},
 		mixins: [ElementScrollHandler],
 		props: {
 			width: {

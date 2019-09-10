@@ -1,17 +1,17 @@
 <template>
     <div class="search-instance">
-        <short-poll-reusable :poll="poll"  v-if="type === 'POLL'"/>
-        <short-user-reusable :user="user" v-if="type === 'USER'"/>
+        <ShortPoll :poll="poll"  v-if="type === 'POLL'"/>
+        <ShortUser :user="user" v-if="type === 'USER'"/>
     </div>
 </template>
 
 <script>
     import {mapState} from 'vuex'
-    import ShortPollReusable from "../reusableСomponents/ShortPollReusable";
-    import ShortUserReusable from "../reusableСomponents/ShortUserReusable";
+    import ShortPoll from "../reusableСomponents/ShortPoll";
+    import ShortUser from "../reusableСomponents/ShortUser";
     export default {
         name: "searchInstance",
-        components: {ShortUserReusable, ShortPollReusable},
+        components: {ShortUser, ShortPoll},
         props:['item', 'type'],
         computed: {
             ...mapState('globalStore', {

@@ -66,7 +66,7 @@
 	import langString from '../langString'
 
 	export default {
-		name: "UploadReusable",
+		name: "ReUpload",
 		components: {
 			IconBase,
 			IconUpload,

@@ -138,7 +138,7 @@
 		},
 		data() {
 			return {
-				publicPath: process.env.VUE_APP_MAIN_API,
+				publicPath: process.env.VUE_APP_ASSETS,
 				balance_popover: false
 			}
 		},

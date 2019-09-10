@@ -6,7 +6,7 @@
             <event v-for="item in items" class="mb-6" :item="item"/>
         </div>
         
-        <loader-reusable class="mx-auto my-10" v-show="loading" />
+        <Loader class="mx-auto my-10" v-show="loading" />
 
     </div>
 
@@ -21,13 +21,13 @@
     import langString from '../langString'
     import IconBase from '../icons/IconBase'
     import IconBack from '../icons/IconBack'
-    import LoaderReusable from "@/components/reusableСomponents/LoaderReusable";
+    import Loader from "@/components/reusableСomponents/Loader";
     export default {
         mixins:[langMixin],
         data(){
             return {
                 id: this.$route.params.id,
-                publicPath: process.env.VUE_APP_MAIN_API
+                publicPath: process.env.VUE_APP_ASSETS,
 
             }
         },
@@ -64,7 +64,7 @@
         },
     
         components: {
-            LoaderReusable,
+            Loader,
             event,
             langString,
             IconBase,

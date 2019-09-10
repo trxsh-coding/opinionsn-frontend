@@ -16,14 +16,14 @@
     
             <div class="catalog-bg mt-20" :style="{backgroundImage: `url('${catalog_form.url}')`}">
         
-                <upload-reusable
+                <ReUpload
                         icon-photo
                         fit
                         height="100%"
                         @upload="({file, url}) => {
                             updateField(file, 'image');
                             updateField(url, 'url');
-                        }" ></upload-reusable>
+                        }" ></ReUpload>
         
             </div>
     
@@ -56,10 +56,10 @@
     import axios from 'axios';
     import InputReusable from "@/components/reusableСomponents/InputReusable";
     import ButtonReusable from "@/components/reusableСomponents/ButtonReusable";
-    import UploadReusable from "@/components/reusableСomponents/UploadReusable";
+    import ReUpload from "@/components/reusableСomponents/ReUpload";
     export default {
         name: "Catalog",
-        components: {UploadReusable, ButtonReusable, InputReusable},
+        components: {ReUpload, ButtonReusable, InputReusable},
         data() {
             return {
                 catalog_form: {

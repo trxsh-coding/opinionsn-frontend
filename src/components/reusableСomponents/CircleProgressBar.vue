@@ -17,7 +17,7 @@
 
 <script>
     export default {
-        name: "CircleProgressBarReusable",
+        name: "CircleProgressBar",
 		props: {
         	percent: {
         		type: Number,

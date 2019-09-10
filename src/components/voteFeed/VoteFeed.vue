@@ -1,7 +1,7 @@
 <template lang="html">
 
     <section class="vote-feed" :class="{'pt-16': !mobile}">
-		<scroll-swiper-reusable
+		<ScrollSwiper
 				v-if="mobile"
 				class="followers-swiper mb-15 pl-30"
 				:stub-length="2">
@@ -21,7 +21,7 @@
 				</template>
 			</picture-reusable>
 
-		</scroll-swiper-reusable>
+		</ScrollSwiper>
 
 		<swiper
 				v-else
@@ -57,7 +57,7 @@
 						class="py-12" />
 				<hr class="m-0 mt-13" v-show="index !== items.length - 1">
 			</div>
-			<loader-reusable class="m-auto" v-show="!loaded && loading" />
+			<Loader class="m-auto" v-show="!loaded && loading" />
 		</div>
 
     </section>
@@ -70,15 +70,14 @@
 	import { mapState } from "vuex";
 	import PictureReusable from "../reusableСomponents/PictureReusable";
 	import VoteInstance from "./voteInstance";
-	import loadingSpinner from "../reusableСomponents/loadingSpinner"
-	import ScrollSwiperReusable from "../reusableСomponents/ScrollSwiperReusable";
-	import LoaderReusable from "../reusableСomponents/LoaderReusable";
+	import ScrollSwiper from "../reusableСomponents/ScrollSwiper";
+	import Loader from "../reusableСomponents/Loader";
 	const getVoteFeedStore = () => import('../../store/modules/voteFeed');
 	
 	export default {
 		data() {
 			return {
-				publicPath: process.env.VUE_APP_MAIN_API,
+				publicPath: process.env.VUE_APP_ASSETS,
 				swiperOption: {
 					slidesPerView: 6,
 					spaceBetween: 3.5
@@ -146,11 +145,10 @@
 			}
 		},
 		components: {
-			LoaderReusable,
-			ScrollSwiperReusable,
+			Loader,
+			ScrollSwiper,
 			VoteInstance,
 			PictureReusable,
-			loadingSpinner
 		},
 		mounted() {
 			this.$store.dispatch('followsPage/getMyFollowings');

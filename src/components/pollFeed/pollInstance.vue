@@ -90,7 +90,7 @@
 
         </div>
 
-        <explain-section
+        <Explanation
                 v-for="(explain, index) in combinedVotes"
                 v-show="index < explains_quantity"
                 :explain="explain"
@@ -111,7 +111,7 @@
     import {mapState} from 'vuex'
     import postHeader from './layout/header'
     import headlineBody from './layout/headlineBody'
-    import explainSection from "../reusableСomponents/ExplanationReusable";
+    import Explanation from "../reusableСomponents/Explanation";
     import ReOption from "../reusableСomponents/ReOption";
     import PictureReusable from "../reusableСomponents/PictureReusable";
     import IconBase from "../icons/IconBase";
@@ -124,7 +124,6 @@
     import moment from 'moment'
     import {localString} from '../../utils/localString'
     import {finishEvent} from "../../EOSIO/eosio_impl";
-    import ReusableModal from "../reusableСomponents/reusableModal";
     import {addCourt, addjudge} from "../../EOSIO/eosio_impl";
     import ReBadge from "@/components/reusableСomponents/ReBadge";
     import langString from "@/components/langString";
@@ -145,12 +144,11 @@
         mixins: [langString],
         components: {
             ReBadge,
-            ReusableModal,
             PollAnotation,
             TimeTrans,
             PictureReusable,
             ReOption,
-            explainSection,
+            Explanation,
             postHeader,
             headlineBody,
             IconBase,
@@ -161,7 +159,7 @@
         },
         data() {
             return {
-                publicPath: process.env.VUE_APP_MAIN_API,
+                publicPath: process.env.VUE_APP_ASSETS,
                 options_visible: false,
                 explain_page: 1,
                 EXPLAINS_LIMIT: 5,

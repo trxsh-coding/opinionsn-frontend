@@ -6,7 +6,7 @@
 		</div>
 		<span class="bow-username" v-if="routeName === 'voteFeed'">
               {{username}}
-            </span>
+        </span>
 	</div>
 </template>
 
@@ -28,7 +28,7 @@
 		},
 		data() {
 			return {
-				publicPath: process.env.VUE_APP_MAIN_API
+				publicPath: process.env.VUE_APP_ASSETS,
 			}
 		},
 		computed: {

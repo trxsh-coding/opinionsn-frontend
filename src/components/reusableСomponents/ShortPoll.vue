@@ -73,10 +73,8 @@
 	import IconBookmark from "../icons/IconBookmark";
 	import Bookmark from "../icons/bookmark";
 
-
-
 	export default {
-        name: "ShortPollReusable",
+        name: "ShortPoll",
 		components: {
 			Bookmark,
         	CounterBadges,
@@ -127,7 +125,7 @@
 		},
 		data() {
 			return {
-				publicPath: process.env.VUE_APP_MAIN_API
+				publicPath: process.env.VUE_APP_ASSETS,
 			}
 		},
 		methods: {

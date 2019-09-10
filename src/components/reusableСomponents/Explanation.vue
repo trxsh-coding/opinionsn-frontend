@@ -1,9 +1,7 @@
 <template>
 	<div class="explanation-reusable">
 		
-		<div
-				:class="{'pl-18': !mobile, 'pl-20': mobile}"
-				class="explain mb-9">
+		<div class="explain mb-9" :class="{'pl-18': !mobile, 'pl-20': mobile}">
 			<picture-reusable
 					:id="fitExplain.author_id"
 					avatar
@@ -199,7 +197,7 @@
 	import {mapState} from "vuex";
 	
 	export default {
-		name: "ExplanationReusable",
+		name: "Explanation",
 		components: {
 			PictureReusable,
 			IconBase,
@@ -219,7 +217,7 @@
 				comment_page: 1,
 				COMMENTS_LIMIT: 5,
 				comments_quantity: 5,
-				publicPath: process.env.VUE_APP_MAIN_API
+				publicPath: process.env.VUE_APP_ASSETS,
 			}
 		},
 		props: {

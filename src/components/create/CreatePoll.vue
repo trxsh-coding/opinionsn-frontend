@@ -78,7 +78,7 @@
 				</div>
 				<swiper :options="swiperOption" class="mb-12">
 					<swiper-slide v-for="(item, index) in pictures" :key="index">
-						<upload-reusable
+						<ReUpload
 								description
 								image-preview
 								with-close-btn
@@ -87,7 +87,7 @@
 								:value="item.picture"
 								@upload="({file}) => {updateArrayPictures(file, index)}"
 								@remove="() => { updateArrayPictures(null, index) }">
-						</upload-reusable>
+						</ReUpload>
 					</swiper-slide>
 					<div v-show="pictures.length > 1" class="swiper-pagination" slot="pagination"></div>
 				</swiper>
@@ -120,7 +120,7 @@
 						          placeholder="answer_text" :value="option.description"
 						          @input="updateArrayField(arguments[0], null, 'options', 'description', index)" />
 						
-						<upload-reusable
+						<ReUpload
 								:label-class="{'br-6 br-error': (form.errors.options[index] && form.errors.options[index].checkUpload)}"
 								:pre-height="(form.errors.options[index] && form.errors.options[index].checkUpload) ? 59 : 61"
 								:pre-width="(form.errors.options[index] && form.errors.options[index].checkUpload) ? 59 : 61"
@@ -133,7 +133,7 @@
 								@remove="() => {
                                     updateArrayField(null, '', 'options', 'picture', index);
                                     onOptionPictureRemove(index)}">
-						</upload-reusable>
+						</ReUpload>
 					</div>
 				</div>
 			
@@ -141,16 +141,7 @@
 			
 			<add-option-block class="ml-60" @click.native="pushMoreOption"/>
 			
-			<switch-component
-					class="mb-20 pl-60"
-					text-layout="right"
-					type="arrow"
-					:active-description="lstr('additional_settings')"
-					:inactive-description="lstr('additional_settings')"
-					:boolean="additionalField"
-					@select="unhideAdds"/>
-			
-			<div class="additional-fields pl-60" v-if="additionalField">
+			<div class="additional-fields mt-20 pl-60" v-if="additionalField">
 				
 				<re-switcher
 						class="blockchain-switcher flex-reverse"
@@ -197,14 +188,13 @@
 <script>
 	
 	import ReSwitcher from "../reusableСomponents/ReSwitcher";
-	import SwitchComponent from "../reusableСomponents/switchComponent";
 	import langString from "../langString"
 	import ButtonReusable from "../reusableСomponents/ButtonReusable";
 	import DropdownListReusable from "../reusableСomponents/DropdownListReusable";
 	import ReusableSelect from "../reusableСomponents/reusableSelect";
 	import CatalogDropdown from "../create/CatalogDropdown";
 	import InputReusable from "../reusableСomponents/InputReusable";
-	import UploadReusable from "../reusableСomponents/UploadReusable";
+	import ReUpload from "../reusableСomponents/ReUpload";
 	import IconBase from "../icons/IconBase";
 	import IconAdd from "../icons/create/IconAdd";
 	import IconMinus from "../icons/create/IconMinus";
@@ -212,17 +202,14 @@
 	import {mapState} from "vuex"
 	import langMixin from "../mixins/langMixin";
 	import CategorySelect from "../reusableСomponents/categorySelect";
-	import CheckboxReusable from "../reusableСomponents/checkboxReusable";
 	import DatePick from 'vue-date-pick';
 	import 'vue-date-pick/dist/vueDatePick.css';
 	import Header from "../view/mobile/header";
 	import CreateHeader from "./createHeader";
-	import TextareaReusable from "../reusableСomponents/textareaReusable";
 	import ValidationMixin from "../mixins/ValidationMixin";
 	import AddOptionBlock from "./addOptionBlock";
 	import PopupErrorReusable from "../reusableСomponents/PopupErrorReusable";
 	import {createForecast, createPoll, createLimitedPoll} from "../../EOSIO/eosio_impl";
-	import SwiperReusable from "@/components/reusableСomponents/swiperReusable";
 	import ReCheckbox from "@/components/reusableСomponents/ReCheckbox";
 	import ReInput from "@/components/reusableСomponents/ReInput";
 	
@@ -532,22 +519,18 @@
 		components: {
 			ReInput,
 			ReCheckbox,
-			SwiperReusable,
 			PopupErrorReusable,
 			AddOptionBlock,
-			TextareaReusable,
 			CreateHeader,
 			Header,
-			CheckboxReusable,
 			CategorySelect,
 			IconBase,
-			UploadReusable,
+			ReUpload,
 			InputReusable,
 			CatalogDropdown,
 			ReusableSelect,
 			DropdownListReusable,
 			ButtonReusable,
-			SwitchComponent,
 			langString,
 			IconUploadPhoto,
 			DatePick,

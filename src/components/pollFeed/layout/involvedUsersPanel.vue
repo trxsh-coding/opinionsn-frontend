@@ -9,7 +9,7 @@
 		</slot>
 		
 		
-		<scroll-swiper-reusable class="mt-9" :stub-length="1">
+		<ScrollSwiper class="mt-9" :stub-length="1">
 			
 			<router-link v-for="(value, key) in users" :to="'/user/' + key">
 				<bow-reusable :width="27" :height="27" :img="value" :id="key">
@@ -17,7 +17,7 @@
 				</bow-reusable>
 			</router-link>
 		
-		</scroll-swiper-reusable>
+		</ScrollSwiper>
 	
 	</div>
 </template>
@@ -25,7 +25,7 @@
 <script>
 	import langString from '../../langString'
 	import imageMixin from '../../mixins/imageMixin'
-	import ScrollSwiperReusable from "../../reusableСomponents/ScrollSwiperReusable";
+	import ScrollSwiper from "../../reusableСomponents/ScrollSwiper";
 	import BowReusable from "../../reusableСomponents/bowReusable";
 	
 	export default {
@@ -33,7 +33,7 @@
 		mixins: [imageMixin],
 		data() {
 			return {
-				publicPath: process.env.VUE_APP_MAIN_API,
+				publicPath: process.env.VUE_APP_ASSETS,
 				swiperOption: {
 					slidesPerView: 2.7,
 					spaceBetween: 10,
@@ -51,7 +51,7 @@
 		
 		components: {
 			BowReusable,
-			ScrollSwiperReusable,
+			ScrollSwiper,
 			langString
 		}
 	}

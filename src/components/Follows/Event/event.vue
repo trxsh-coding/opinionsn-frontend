@@ -31,14 +31,14 @@
 
 	   <ul class="subs-list mt-6 flex-column">
 
-		   <short-user-reusable
+		   <ShortUser
 				   class="mt-12 mx-20"
 				   :user="user"
 				   v-for="(user, index) in users_from_payload"
 				   :is-main-user="user.id === mainUser.id"
 				   :key="index" />
 
-		   <loader-reusable v-show="!is_finished" class="mx-auto my-9" />
+		   <Loader v-show="!is_finished" class="mx-auto my-9" />
 
 		   <lang-string
 				   class="mx-auto my-9 empty-payload"
@@ -58,8 +58,8 @@
     import IconClose from '../../icons/IconZoomIn'
     import axios from 'axios'
     import langMixin from "../../mixins/langMixin";
-    import ShortUserReusable from "../../reusableСomponents/ShortUserReusable";
-    import LoaderReusable from "../../reusableСomponents/LoaderReusable";
+    import ShortUser from "../../reusableСomponents/ShortUser";
+    import Loader from "../../reusableСomponents/Loader";
 
 
 
@@ -68,11 +68,11 @@
         props:['id', 'isFollowing'],
         mixins:[langMixin],
         components:{
-	        LoaderReusable,
+	        Loader,
 			langString,
 			IconBase,
 			IconClose,
-	        ShortUserReusable
+	        ShortUser
 		},
         data(){
             return {
@@ -82,7 +82,7 @@
 	            is_empty: false,
 				keyword: "",
 				filteredUsers: null,
-				publicPath: process.env.VUE_APP_MAIN_API
+	            publicPath: process.env.VUE_APP_ASSETS,
 
             }
         },
