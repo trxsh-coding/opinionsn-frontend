@@ -6,7 +6,7 @@
 		</div>
 		<span class="bow-username" v-if="routeName === 'voteFeed'">
               {{username}}
-            </span>
+        </span>
 	</div>
 </template>
 

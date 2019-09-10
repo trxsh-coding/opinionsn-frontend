@@ -90,7 +90,7 @@
 
         </div>
 
-        <explain-section
+        <Explanation
                 v-for="(explain, index) in combinedVotes"
                 v-show="index < explains_quantity"
                 :explain="explain"
@@ -111,7 +111,7 @@
     import {mapState} from 'vuex'
     import postHeader from './layout/header'
     import headlineBody from './layout/headlineBody'
-    import explainSection from "../reusableСomponents/ExplanationReusable";
+    import Explanation from "../reusableСomponents/Explanation";
     import ReOption from "../reusableСomponents/ReOption";
     import PictureReusable from "../reusableСomponents/PictureReusable";
     import IconBase from "../icons/IconBase";
@@ -150,7 +150,7 @@
             TimeTrans,
             PictureReusable,
             ReOption,
-            explainSection,
+            Explanation,
             postHeader,
             headlineBody,
             IconBase,

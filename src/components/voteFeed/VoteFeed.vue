@@ -57,7 +57,7 @@
 						class="py-12" />
 				<hr class="m-0 mt-13" v-show="index !== items.length - 1">
 			</div>
-			<loader-reusable class="m-auto" v-show="!loaded && loading" />
+			<Loader class="m-auto" v-show="!loaded && loading" />
 		</div>
 
     </section>
@@ -70,9 +70,8 @@
 	import { mapState } from "vuex";
 	import PictureReusable from "../reusableСomponents/PictureReusable";
 	import VoteInstance from "./voteInstance";
-	import loadingSpinner from "../reusableСomponents/loadingSpinner"
 	import ScrollSwiperReusable from "../reusableСomponents/ScrollSwiperReusable";
-	import LoaderReusable from "../reusableСomponents/LoaderReusable";
+	import Loader from "../reusableСomponents/Loader";
 	const getVoteFeedStore = () => import('../../store/modules/voteFeed');
 	
 	export default {
@@ -146,11 +145,10 @@
 			}
 		},
 		components: {
-			LoaderReusable,
+			Loader,
 			ScrollSwiperReusable,
 			VoteInstance,
 			PictureReusable,
-			loadingSpinner
 		},
 		mounted() {
 			this.$store.dispatch('followsPage/getMyFollowings');

@@ -10,14 +10,14 @@
 			
 			<div class="reload-indicator-wrapper v-center" ref="reload_indicator"
 			     :style="difference && {height: difference + 'px'}">
-				<loader-reusable />
+				<Loader />
 			</div>
 			
 			<div v-for="item in items" class="poll-item">
 				<poll-instance :item="item"/>
 			</div>
 			
-			<loader-reusable class="mx-auto my-10" v-show="!is_finished && loading"/>
+			<Loader class="mx-auto my-10" v-show="!is_finished && loading"/>
 			
 			<lang-string class="finish-warning mx-auto my-10" v-show="is_finished" title="no_more_posts!"/>
 		
@@ -34,7 +34,7 @@
 	import filterComponent from "./layout/filterComponent.vue";
 	import {mapState} from "vuex";
 	import SwiperCarousel from "../reusableСomponents/swiperCarousel";
-	import LoaderReusable from "../reusableСomponents/LoaderReusable";
+	import Loader from "../reusableСomponents/Loader";
 	import CategorySelect from "../reusableСomponents/categorySelect";
 	import CatalogItem from "@/components/CatalogFeed/catalogItem";
 	import SwiperReusable from "@/components/reusableСomponents/swiperReusable";
@@ -208,7 +208,7 @@
 			SwiperReusable,
 			CatalogItem,
 			CategorySelect,
-			LoaderReusable,
+			Loader,
 			SwiperCarousel,
 			filterComponent,
 			pollInstance,

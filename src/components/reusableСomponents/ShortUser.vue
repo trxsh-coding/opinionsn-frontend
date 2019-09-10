@@ -55,7 +55,7 @@
 
 
     export default {
-        name: "ShortUserReusable",
+        name: "ShortUser",
         components: {
             PictureReusable,
             ButtonReusable

@@ -73,10 +73,8 @@
 	import IconBookmark from "../icons/IconBookmark";
 	import Bookmark from "../icons/bookmark";
 
-
-
 	export default {
-        name: "ShortPollReusable",
+        name: "ShortPoll",
 		components: {
 			Bookmark,
         	CounterBadges,

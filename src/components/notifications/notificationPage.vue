@@ -101,7 +101,7 @@
 				</div>
 			</div>
 			
-			<loader-reusable class="mx-auto mt-auto" v-show="!loaded"/>
+			<Loader class="mx-auto mt-auto" v-show="!loaded"/>
 		
 		</div>
 		
@@ -120,7 +120,7 @@
 	import NotificationInstance from "./layout/notificationInstance"
 	import moment from "moment";
 	import ElementScrollHandler from "../mixins/ElementScrollHandler";
-	import LoaderReusable from "../reusableСomponents/LoaderReusable";
+	import Loader from "../reusableСomponents/Loader";
 	import ButtonReusable from "../reusableСomponents/ButtonReusable";
 	import GroupedNotification from "./layout/groupedNotification";
 	
@@ -129,7 +129,7 @@
 		components: {
 			GroupedNotification,
 			ButtonReusable,
-			LoaderReusable, NotificationInstance, feedBlock, langString
+			Loader, NotificationInstance, feedBlock, langString
 		},
 		props: {
 			scrollDifference: Boolean

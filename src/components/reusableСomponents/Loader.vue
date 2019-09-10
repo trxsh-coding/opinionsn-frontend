@@ -9,7 +9,7 @@
 
 <script>
 	export default {
-		name: "LoaderReusable",
+		name: "Loader",
 		// props: {
 		// 	size: Number, String
 		// },

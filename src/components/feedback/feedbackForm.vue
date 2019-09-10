@@ -30,7 +30,7 @@
 					                :input-placeholder="'message_text'"/>
 					<span class="insert-pic-span">Прикрепить изображения</span>
 					<div class="picture-section flex mt-15">
-						<upload-reusable
+						<ReUpload
 								@remove="onPictureRemove(index)"
 								with-close-btn
 								v-for="(picture, index) in pictures"
@@ -43,7 +43,7 @@
 								:value="picture.picture"
 								@upload="({file}) => {updateArrayPictures(file, index)}">
 						
-						</upload-reusable>
+						</ReUpload>
 						<add-reusable @click.native="addMorePictures"/>
 					</div>
 					
@@ -128,13 +128,13 @@
 	import ButtonReusable from "../reusableСomponents/ButtonReusable";
 	import IconBase from "../icons/IconBase";
 	import IconUpload from "../icons/create/IconUpload";
-	import UploadReusable from "../reusableСomponents/UploadReusable";
+	import ReUpload from "../reusableСomponents/ReUpload";
 	import AddOptionBlock from "../create/addOptionBlock";
 	import AddReusable from "../create/addReusable";
 	
 	export default {
 		name: "feedbackForm",
-		components: {AddReusable, AddOptionBlock, UploadReusable, IconBase, IconUpload, ButtonReusable, InputReusable},
+		components: {AddReusable, AddOptionBlock, ReUpload, IconBase, IconUpload, ButtonReusable, InputReusable},
 		data() {
 			return {
 				pictures: [

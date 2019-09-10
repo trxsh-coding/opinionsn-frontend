@@ -40,7 +40,7 @@
 				</div>
 			</template>
 			
-			<loader-reusable v-show="is_loading" class="mx-auto my-9"/>
+			<Loader v-show="is_loading" class="mx-auto my-9"/>
 			
 			<span class="empty-payload" v-show="payload_status">{{payload_status}}</span>
 		
@@ -52,8 +52,7 @@
 	import IconBase from "./icons/IconBase";
 	import IconArrowLeft from "./icons/IconArrowLeft";
 	import langMixin from "@/components/mixins/langMixin";
-	import ShortUserReusable from "@/components/reusableСomponents/ShortUserReusable";
-	import LoaderReusable from "@/components/reusableСomponents/LoaderReusable";
+	import Loader from "@/components/reusableСomponents/Loader";
 	import {mapState} from "vuex";
 	import IconUser from "@/components/icons/IconUser";
 	import axios from "axios";
@@ -61,7 +60,7 @@
 	
 	export default {
 		name: "ReferralsPage",
-		components: {TimeTrans, IconUser, LoaderReusable, ShortUserReusable, IconBase, IconArrowLeft},
+		components: {TimeTrans, IconUser, Loader, IconBase, IconArrowLeft},
 		mixins: [langMixin],
 		data() {
 			return {

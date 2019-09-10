@@ -1,12 +1,12 @@
 <template>
     <div class="category-list-wrapper ">
-        <short-poll-reusable :poll="poll" />
+        <ShortPoll :poll="poll" />
     </div>
 </template>
 
 <script>
     import { mapState } from 'vuex';
-    import ShortPollReusable from "../../reusableСomponents/ShortPollReusable";
+    import ShortPoll from "../../reusableСomponents/ShortPoll";
     export default {
         name: "Event",
         props:['item'],
@@ -25,37 +25,18 @@
                 return this.polls[this.item.id];
             },
 
-            author: function(){
-                let {poll, users} = this;
-
-                let author_id;
-
-                author_id = poll.author_id;
-
-                return users[author_id];
-
+            author(){
+                return this.users[this.poll.author_id];
             },
 
-            category: function () {
-
-                let {poll, categories} = this;
-
-                let category;
-
-                category = categories[poll.categories];
-
-                return category;
-
-
+            category() {
+                return this.categories[this.poll.categories];
             }
-
 
         },
 
-
-
-        components:{
-            ShortPollReusable
+        components: {
+            ShortPoll
         }
     }
 </script>

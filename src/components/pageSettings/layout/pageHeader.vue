@@ -3,12 +3,12 @@
 
         <div class="background" :style="{backgroundImage: `url('${background_image}')`}">
 
-            <upload-reusable
+            <ReUpload
                     icon-photo
                     fit
                     height="100%"
                     @upload="({file, url}) => { UPLOAD_IMAGE(file, 'background') }" >
-            </upload-reusable>
+            </ReUpload>
 
             <picture-reusable
                     class="avatar absolute"
@@ -18,12 +18,12 @@
                     rounded
                     without-text>
                 <template #innerPicture>
-                    <upload-reusable
+                    <ReUpload
                             icon-photo
                             fit
                             height="100%"
                             @upload="({file, url}) => { UPLOAD_IMAGE(file, 'avatar') }" >
-                    </upload-reusable>
+                    </ReUpload>
                 </template>
             </picture-reusable>
         </div>
@@ -33,7 +33,7 @@
 
 <script>
     import PictureReusable from "../../reusableСomponents/PictureReusable";
-    import UploadReusable from "../../reusableСomponents/UploadReusable";
+    import ReUpload from "../../reusableСomponents/ReUpload";
     import {mapState} from "vuex";
     import axios from 'axios'
     import IconBase from "../../icons/IconBase";
@@ -43,7 +43,7 @@
     export default {
         name: "pageHeader",
         components: {
-            UploadReusable,
+            ReUpload,
             PictureReusable,
             IconBase,
             IconUploadPhoto,

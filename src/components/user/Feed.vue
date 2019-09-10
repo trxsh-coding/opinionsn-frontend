@@ -5,7 +5,7 @@
 			<vote-instance class="mt-12" :item="item" :key="index" />
 			<!-- <div :key="index + 'hr'" class="hr mt-12"></div> -->
 		</template>
-		<loader-reusable class="mx-auto my-9" v-show="!is_finished && loading" />
+		<Loader class="mx-auto my-9" v-show="!is_finished && loading" />
 		<lang-string
 			class="empty-payload pl-60 mx-auto"
 			v-show="is_finished && !items.length"
@@ -17,18 +17,16 @@
 <script>
 	import { mapState } from "vuex";
 	import MugenScroll from "vue-mugen-scroll";
-	import ShortPollReusable from "../reusableСomponents/ShortPollReusable";
 	import VoteInstance from "../voteFeed/voteInstance";
 	import langString from "../langString";
-	import LoaderReusable from "../reusableСomponents/LoaderReusable";
+	import Loader from "../reusableСomponents/Loader";
 
 	export default {
 		name: "userFeed",
 
 		components: {
-			LoaderReusable,
+			Loader,
 			VoteInstance,
-			ShortPollReusable,
 			MugenScroll,
 			langString
 		},
