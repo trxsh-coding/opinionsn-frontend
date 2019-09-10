@@ -124,7 +124,6 @@
     import moment from 'moment'
     import {localString} from '../../utils/localString'
     import {finishEvent} from "../../EOSIO/eosio_impl";
-    import ReusableModal from "../reusableСomponents/reusableModal";
     import {addCourt, addjudge} from "../../EOSIO/eosio_impl";
     import ReBadge from "@/components/reusableСomponents/ReBadge";
     import langString from "@/components/langString";
@@ -145,7 +144,6 @@
         mixins: [langString],
         components: {
             ReBadge,
-            ReusableModal,
             PollAnotation,
             TimeTrans,
             PictureReusable,
@@ -161,7 +159,7 @@
         },
         data() {
             return {
-                publicPath: process.env.VUE_APP_MAIN_API,
+                publicPath: process.env.VUE_APP_ASSETS,
                 options_visible: false,
                 explain_page: 1,
                 EXPLAINS_LIMIT: 5,

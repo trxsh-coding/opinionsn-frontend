@@ -28,7 +28,7 @@
 		},
 		data() {
 			return {
-				publicPath: process.env.VUE_APP_MAIN_API
+				publicPath: process.env.VUE_APP_ASSETS,
 			}
 		},
 		computed: {

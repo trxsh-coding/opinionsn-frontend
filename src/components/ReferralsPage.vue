@@ -66,7 +66,7 @@
 			return {
 				payload_status: null,
 				is_loading: true,
-				publicPath: process.env.VUE_APP_MAIN_API,
+				publicPath: process.env.VUE_APP_ASSETS,
 				users_from_payload: []
 			}
 		},

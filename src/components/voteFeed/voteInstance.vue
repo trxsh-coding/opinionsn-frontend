@@ -3,21 +3,19 @@
         <post-header :class="{'ml-30': mobile}" :author="author" :poll="poll" :payload-time-stamp="item.timestamp" :eventType="item.eventType">
 			<slot name="headAnnotation"></slot>
 		</post-header>
-
-        <options-carousel
-                v-if="!mobile && item.voted"
-                :amount-of-slides="3"
-                :spaceBetween="9">
-            <template #swiperAnnotation>
-                <swiper-slide v-for="{option, isSelected} in sortedOptions">
-                    <option-item class="option mr-9"  :selected="isSelected" :option="option" :width="180"  :height="45"/>
-                </swiper-slide>
-            </template>
-        </options-carousel>
-
-		<scroll-swiper-reusable v-if="mobile" :stub-length="1">
-			<option-item class="option mr-9" v-for="{option, isSelected} in sortedOptions" :selected="isSelected" :option="option" :width="180"  :height="45"/>
-		</scroll-swiper-reusable>
+	 
+	    <ReSwiper v-if="!mobile && item.voted" :type="mobile ? 'scroll' : 'usual'"
+	              :params="{stubLength: 1, amountOfSlides: 3, spaceBetween: 9}">
+			<template #usual>
+				<swiper-slide v-for="{option, isSelected} in sortedOptions">
+					<option-item class="option mr-9"  :selected="isSelected" :option="option" :width="180"  :height="45"/>
+				</swiper-slide>
+			</template>
+		    
+		    <template #scroll>
+			    <option-item class="option mr-9" v-for="{option, isSelected} in sortedOptions" :selected="isSelected" :option="option" :width="180"  :height="45"/>
+		    </template>
+	    </ReSwiper>
 
         <ShortPoll class="mt-12" :class="{'m-0 mt-12': !item.voted}" :poll="poll"  />
 
@@ -37,14 +35,14 @@
     import optionItem from "./layout/optionItem";
     import ShortPoll from "../reusableСomponents/ShortPoll";
     import bowsPanel from "../pollFeed/layout/involvedUsersPanel";
-	import ScrollSwiperReusable from "../reusableСomponents/ScrollSwiperReusable";
-    import optionsCarousel from "../reusableСomponents/swiperCarousel";
     import Explanation from "../reusableСomponents/Explanation";
+    import ReSwiper from "@/components/reusableСomponents/ReSwiper";
     export default {
         name: "voteInstance",
         components: {
+	        ReSwiper,
             Explanation,
-            optionsCarousel, ScrollSwiperReusable, bowsPanel, ShortPoll, optionItem, PostHeader},
+            bowsPanel, ShortPoll, optionItem, PostHeader},
         props: ['item'],
         mixins:[storeMixin],
 	    computed: {

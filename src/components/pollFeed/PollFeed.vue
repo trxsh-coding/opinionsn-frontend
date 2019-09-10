@@ -33,11 +33,9 @@
 	import pollInstance from "./pollInstance.vue";
 	import filterComponent from "./layout/filterComponent.vue";
 	import {mapState} from "vuex";
-	import SwiperCarousel from "../reusableСomponents/swiperCarousel";
 	import Loader from "../reusableСomponents/Loader";
 	import CategorySelect from "../reusableСomponents/categorySelect";
 	import CatalogItem from "@/components/CatalogFeed/catalogItem";
-	import SwiperReusable from "@/components/reusableСomponents/swiperReusable";
 	import ButtonReusable from "@/components/reusableСomponents/ButtonReusable";
 	import langString from "../langString";
 	
@@ -205,11 +203,9 @@
 		
 		components: {
 			ButtonReusable,
-			SwiperReusable,
 			CatalogItem,
 			CategorySelect,
 			Loader,
-			SwiperCarousel,
 			filterComponent,
 			pollInstance,
 			langString

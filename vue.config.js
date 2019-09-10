@@ -27,7 +27,8 @@ module.exports = {
 			},
 
 			'/assets': {
-				target: 'http://api2.opinionsn.com:7070/assets/',
+				target: 'https://osn-pictures.fra1.digitaloceanspaces.com/dev/',
+				pathRewrite: {'^/assets': ''},
 				changeOrigin: true,
 				secure: false
 			}

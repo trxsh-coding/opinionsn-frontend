@@ -210,7 +210,6 @@
 	import AddOptionBlock from "./addOptionBlock";
 	import PopupErrorReusable from "../reusableСomponents/PopupErrorReusable";
 	import {createForecast, createPoll, createLimitedPoll} from "../../EOSIO/eosio_impl";
-	import SwiperReusable from "@/components/reusableСomponents/swiperReusable";
 	import ReCheckbox from "@/components/reusableСomponents/ReCheckbox";
 	import ReInput from "@/components/reusableСomponents/ReInput";
 	
@@ -520,7 +519,6 @@
 		components: {
 			ReInput,
 			ReCheckbox,
-			SwiperReusable,
 			PopupErrorReusable,
 			AddOptionBlock,
 			CreateHeader,

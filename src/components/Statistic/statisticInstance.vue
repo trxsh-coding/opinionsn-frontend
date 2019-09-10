@@ -79,7 +79,7 @@
 		components: {DropdownListReusable, CategorySelect, PictureReusable, langString, apexchart: VueApexCharts},
 		data() {
 			return {
-				publicPath: process.env.VUE_APP_MAIN_API,
+				publicPath: process.env.VUE_APP_ASSETS,
 				periods: [
 					{
 						value: 'week'

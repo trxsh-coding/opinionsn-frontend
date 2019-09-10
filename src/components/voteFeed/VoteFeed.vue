@@ -1,7 +1,7 @@
 <template lang="html">
 
     <section class="vote-feed" :class="{'pt-16': !mobile}">
-		<scroll-swiper-reusable
+		<ScrollSwiper
 				v-if="mobile"
 				class="followers-swiper mb-15 pl-30"
 				:stub-length="2">
@@ -21,7 +21,7 @@
 				</template>
 			</picture-reusable>
 
-		</scroll-swiper-reusable>
+		</ScrollSwiper>
 
 		<swiper
 				v-else
@@ -70,14 +70,14 @@
 	import { mapState } from "vuex";
 	import PictureReusable from "../reusableСomponents/PictureReusable";
 	import VoteInstance from "./voteInstance";
-	import ScrollSwiperReusable from "../reusableСomponents/ScrollSwiperReusable";
+	import ScrollSwiper from "../reusableСomponents/ScrollSwiper";
 	import Loader from "../reusableСomponents/Loader";
 	const getVoteFeedStore = () => import('../../store/modules/voteFeed');
 	
 	export default {
 		data() {
 			return {
-				publicPath: process.env.VUE_APP_MAIN_API,
+				publicPath: process.env.VUE_APP_ASSETS,
 				swiperOption: {
 					slidesPerView: 6,
 					spaceBetween: 3.5
@@ -146,7 +146,7 @@
 		},
 		components: {
 			Loader,
-			ScrollSwiperReusable,
+			ScrollSwiper,
 			VoteInstance,
 			PictureReusable,
 		},

@@ -217,7 +217,7 @@
 				comment_page: 1,
 				COMMENTS_LIMIT: 5,
 				comments_quantity: 5,
-				publicPath: process.env.VUE_APP_MAIN_API
+				publicPath: process.env.VUE_APP_ASSETS,
 			}
 		},
 		props: {

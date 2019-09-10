@@ -24,20 +24,11 @@
 					<div class="main-picture" :style="{backgroundImage: `url('${picture}')`}" />
 				</swiper-slide>
 			</swiper>
-			<swiper-reusable
-					class="pictures-section  flex"
-					v-if="pictures.length >= 2"
-					:height="150"
-					width="100%"
-					:amount-of-slides="'auto'"
-					:spaceBetween="15"
-					:swiper-type="mobile ? 'scroll' : 'usual'">
+			<ReSwiper class="pictures-section flex" v-if="pictures.length >= 2" :type="mobile ? 'scroll' : 'usual'"
+			          :params="{height: 150, width: '100%', amountOfSlides: 'auto', spaceBetween: 15}">
 				<template #usual>
 					<swiper-slide
-							class="w-fit "
-
-																																																																																														v-for="({picture}, index) in pictures">
-
+							class="w-fit" v-for="({picture}, index) in pictures">
 						<picture-reusable
 								:key="index"
 								:src="picture"
@@ -67,7 +58,7 @@
 							without-textout="bottom">
 					</picture-reusable>
 				</template>
-			</swiper-reusable>
+			</ReSwiper>
 		
 		</div>
 	
@@ -79,15 +70,15 @@
 	import IconBase from "../icons/IconBase";
 	import IconClose from "../icons/modal/IconClose";
 	import ImageMixin from "../mixins/imageMixin"
-	import SwiperReusable from "./swiperReusable";
+	import ReSwiper from "@/components/reusableСomponents/ReSwiper";
 	
 	export default {
-		name: "reusableModal",
-		components: {SwiperReusable, IconBase, PictureReusable, IconClose},
+		name: "ModalWindow",
+		components: {ReSwiper, IconBase, PictureReusable, IconClose},
 		mixins: [ImageMixin],
 		data() {
 			return {
-				publicPath: process.env.VUE_APP_MAIN_API,
+				publicPath: process.env.VUE_APP_ASSETS,
 				sorted_pictures: null,
 				current_index: 0,
 				swiperOptions: {

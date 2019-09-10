@@ -1,11 +1,7 @@
 <template>
     <div class="category-block">
-        <swiper-reusable
-                :height="38"
-                width="100%"
-                :amount-of-slides="4"
-                :spaceBetween="10"
-                :swiper-type="mobile ? 'scroll' : 'usual'">
+        <ReSwiper :type="mobile ? 'scroll' : 'usual'"
+                  :params="{height: 38, width: '100%', amountOfSlides: 4, spaceBetween: 10}">
             <template #usual>
                 <swiper-slide
                         class="w-fit"
@@ -25,7 +21,7 @@
                         :current="current"
                         @click.native="onCategorySelect(category.id, category.name)" />
             </template>
-        </swiper-reusable>
+        </ReSwiper>
         
     </div>
 </template>
@@ -34,11 +30,11 @@
     import { mapState } from 'vuex'
     import langMixin from '../mixins/langMixin'
     import CatalogItem from "../CatalogFeed/catalogItem";
-    import swiperReusable from "./swiperReusable";
+    import ReSwiper from "./ReSwiper";
     
     export default {
         name: "categorySelect",
-        components: {swiperReusable, CatalogItem},
+        components: {ReSwiper, CatalogItem},
         mixins:[langMixin],
         props:['current', 'isCurrentString'],
         data() {

@@ -14,16 +14,18 @@
 		<subject-picture class="pointer" v-if="poll.picture" :img="publicPath + poll.picture" width="100%" only-picture
 		                 :height="mobile ? 190 : 303" textLayout="right" bor-rad="6"
 		                 @click.native="$popup.insert('pictures', poll.picture)"/>
-		<swiper-carousel v-if="!poll.picture" :with-pagination="poll.urlPhotos.length > 1" :amount-of-slides="1"
-		                 :space-between="10" :without-breakpoints="true">
-			<template #swiperAnnotation>
+		
+		<ReSwiper v-if="!poll.picture" type="usual"
+		          :params="{amountOfSlides: 1, spaceBetween: 10, pagination: poll.urlPhotos.length > 1, breakpoints: false}">
+			<template #usual>
 				<swiper-slide v-for="(picture, index) in poll.urlPhotos">
 					<subject-picture :img="publicPath + picture" width="100%"  class="pointer" only-picture :height="mobile ? 190 : 303"
 					                 textLayout="right" bor-rad="6"
 					                 @click.native="pushToPopup(poll.urlPhotos, index)"/>
 				</swiper-slide>
 			</template>
-		</swiper-carousel>
+		</ReSwiper>
+		
 		<bows-panel class="mt-9" :users="poll.bows" v-show="!item.voted && Object.keys(poll.bows).length > 0"/>
 	
 	</div>
@@ -33,9 +35,8 @@
 <script>
 	import subjectPicture from '../../reusableСomponents/PictureReusable'
 	import bowsPanel from './involvedUsersPanel'
-	import SwiperCarousel from "../../reusableСomponents/swiperCarousel";
 	import TextTrim from "../../reusableСomponents/textTrim";
-	import ReusableModal from "../../reusableСomponents/reusableModal";
+	import ReSwiper from "@/components/reusableСomponents/ReSwiper";
 	
 	export default {
 		name: "headlineBody",
@@ -43,17 +44,16 @@
 		data() {
 			return {
 				
-				publicPath: process.env.VUE_APP_MAIN_API,
+				publicPath: process.env.VUE_APP_ASSETS,
 				showModal: false
 				
 			}
 		},
 		components: {
-			ReusableModal,
+			ReSwiper,
 			TextTrim,
 			subjectPicture,
 			bowsPanel,
-			SwiperCarousel
 		},
 		computed: {
 			

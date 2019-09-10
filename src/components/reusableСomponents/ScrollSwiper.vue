@@ -9,7 +9,7 @@
 
 <script>
     export default {
-        name: "ScrollSwiperReusable",
+        name: "ScrollSwiper",
 		props: {
         	height: {
         		type: [String, Number]
