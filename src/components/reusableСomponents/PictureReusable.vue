@@ -259,7 +259,7 @@
 				font-style: normal;
 				font-weight: normal;
 				color: #ADAFB3;
-				padding-top: 5px;
+				/*padding-top: 5px;*/
 
 			}
 

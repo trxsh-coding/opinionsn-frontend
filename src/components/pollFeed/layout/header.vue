@@ -9,6 +9,8 @@
 					:id="author.id"
 					:img="publicPath + imageUtil(author.path_to_avatar, 'S')"
 					:size="36"
+					border="1px"
+					bor-color="#bcbec3"
 					textLayout="right"
 					rounded>
 				<template #title>
@@ -22,7 +24,7 @@
 				
 				</template>
 				<template #description>
-					<div class="description flex">
+					<div class="mt-4 flex">
 	                    <span v-if="has_location" v-show="author.location" class="pr-9">
 	                        {{author.location}}
 	                    </span>

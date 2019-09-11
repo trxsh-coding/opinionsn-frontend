@@ -178,7 +178,7 @@
 		background: #f8f8f8;
 		border-bottom: 1px solid #BEC0C5;
 		z-index: 999999;
-		padding: 8px 20px 12px 20px;
+		padding: 10px 20px;
 		transition: 300ms;
 		
 		&.hidden {
