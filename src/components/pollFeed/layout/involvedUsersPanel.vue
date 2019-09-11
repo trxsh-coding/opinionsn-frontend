@@ -8,16 +8,13 @@
 			</lang-string>
 		</slot>
 		
-		
-		<ScrollSwiper class="mt-9" :stub-length="1">
-			
+		<ReSwiper type="scroll" class="mt-9" :params="{stubLength: 1}">
 			<router-link v-for="(value, key) in users" :to="'/user/' + key">
 				<bow-reusable :width="27" :height="27" :img="imageUtil(value, 'S')" :id="key">
 				
 				</bow-reusable>
 			</router-link>
-		
-		</ScrollSwiper>
+		</ReSwiper>
 	
 	</div>
 </template>
@@ -25,8 +22,8 @@
 <script>
 	import langString from '../../langString'
 	import imageMixin from '../../mixins/imageMixin'
-	import ScrollSwiper from "../../reusableСomponents/ScrollSwiper";
 	import BowReusable from "../../reusableСomponents/bowReusable";
+	import ReSwiper from "@/components/reusableСomponents/ReSwiper";
 	
 	export default {
 		name: "involvedUsersPanel",
@@ -50,8 +47,8 @@
 		props: ['users'],
 		
 		components: {
+			ReSwiper,
 			BowReusable,
-			ScrollSwiper,
 			langString
 		}
 	}

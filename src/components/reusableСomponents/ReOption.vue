@@ -13,19 +13,17 @@
 			<template v-if="option.bows">
 				<slot v-if="Object.keys(option.bows).length > 2 && !swiped" name="badge"></slot>
 				
-				<ScrollSwiper
-						v-if="Object.keys(option.bows).length > 2"
-						height="100%"
-						:width="swiped ? '100%' : 'fit-content'"
-						:stub-length="swiped && 1"
-						class="bows-slider">
-					<div
-							v-for="(value, key, index) in option.bows" :to="'/user/' + key"
-							v-show="swiped || index === 0"
-							@click="swiped && $router.push({name: 'user', params: { id: key }})"
-							class="bow mx-2 h-21 w-21"
-							:style="{backgroundImage: `url('${publicPath + value}')`}"></div>
-				</ScrollSwiper>
+				<ReSwiper v-if="Object.keys(option.bows).length > 2" type="scroll" class="bows-slider"
+				          :params="{height: '100%', width: swiped ? '100%' : 'fit-content', stubLength: swiped && 1}">
+					<template #scroll>
+						<div
+								v-for="(value, key, index) in option.bows" :to="'/user/' + key"
+								v-show="swiped || index === 0"
+								@click="swiped && $router.push({name: 'user', params: { id: key }})"
+								class="bow mx-2 h-21 w-21"
+								:style="{backgroundImage: `url('${publicPath + value}')`}"></div>
+					</template>
+				</ReSwiper>
 				
 				<div
 						v-if="Object.keys(option.bows).length < 2"
@@ -77,11 +75,11 @@
 	import InvolvedUsersPanel from "../pollFeed/layout/involvedUsersPanel";
 	import {mapState} from "vuex";
 	import {userVote, judgevote} from "../../EOSIO/eosio_impl";
-	import ScrollSwiper from "@/components/reusableСomponents/ScrollSwiper";
+	import ReSwiper from "@/components/reusableСomponents/ReSwiper";
 	
 	export default {
 		name: "ReOption",
-		components: {ScrollSwiper, InvolvedUsersPanel},
+		components: {ReSwiper, InvolvedUsersPanel},
 		data() {
 			return {
 				publicPath: process.env.VUE_APP_ASSETS,
