@@ -223,6 +223,7 @@
 				axios
 					.post(`${process.env.VUE_APP_MAIN_API}/auth/register${this.refer}`, registerFormData)
 					.then(response => {
+						if (this.$route.query.refer) delete this.$route.query.refer;
 						if (response.status === 200) {
 							this.$router.push({
 								name: "sign",
