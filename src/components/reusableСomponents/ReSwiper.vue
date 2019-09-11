@@ -59,9 +59,8 @@
 				return {
 					height: 'auto',
 					width: 'auto',
-					amountOfSlides: 3,
 					slidesPerView: 1,
-					spaceBetween: 100,
+					spaceBetween: 0,
 					stubLength: 0,
 					breakpoints: true,
 					pagination: false,
@@ -108,7 +107,7 @@
 				} : {};
 				
 				return {
-					slidesPerView: this.c_params.amountOfSlides,
+					slidesPerView: this.c_params.slidesPerView,
 					spaceBetween: this.c_params.spaceBetween,
 					...breakpoints,
 					...pagination

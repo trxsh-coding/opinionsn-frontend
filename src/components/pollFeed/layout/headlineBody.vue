@@ -16,7 +16,7 @@
 		                 @click.native="$popup.insert('pictures', poll.picture)"/>
 		
 		<ReSwiper v-if="!poll.picture" type="usual"
-		          :params="{amountOfSlides: 1, spaceBetween: 10, pagination: poll.urlPhotos.length > 1, breakpoints: false}">
+		          :params="{slidesPerView: 1, spaceBetween: 10, pagination: poll.urlPhotos.length > 1, breakpoints: false}">
 			<template #usual>
 				<swiper-slide v-for="(picture, index) in poll.urlPhotos">
 					<subject-picture :img="publicPath + picture" width="100%"  class="pointer" only-picture :height="mobile ? 190 : 303"
