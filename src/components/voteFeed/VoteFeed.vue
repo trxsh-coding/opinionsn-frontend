@@ -65,7 +65,6 @@
 	import {mapState} from "vuex";
 	import PictureReusable from "../reusableСomponents/PictureReusable";
 	import VoteInstance from "./voteInstance";
-	import ScrollSwiper from "../reusableСomponents/ScrollSwiper";
 	import Loader from "../reusableСomponents/Loader";
 	import ReSwiper from "@/components/reusableСomponents/ReSwiper";
 	
@@ -143,7 +142,6 @@
 		components: {
 			ReSwiper,
 			Loader,
-			ScrollSwiper,
 			VoteInstance,
 			PictureReusable,
 		},
