@@ -238,7 +238,7 @@
 			},
 			
 			trackTouchStart(e) {
-				if (!this.swiped && Object.keys(this.bows).length > 2) {
+				if (!this.swiped && Object.keys(this.option.bows).length > 2) {
 					this.swipe_in_progress = true;
 					
 					let {clientX} = e.touches[0];
@@ -254,12 +254,12 @@
 			},
 			
 			trackTouchMove(e) {
-				if (!this.swiped && Object.keys(this.bows).length > 2) {
+				if (!this.swiped && Object.keys(this.option.bows).length > 2) {
 					
 					let {initialCoord, block_width, transform_limit} = this;
 					let {clientX} = e.touches[0];
 					
-					this.block_width = (25 * Object.keys(this.bows).length);
+					this.block_width = (25 * Object.keys(this.option.bows).length);
 					
 					if (clientX < Math.trunc(block_width * 0.1)) clientX = Math.trunc(block_width * 0.1);
 					if (clientX > block_width) clientX = block_width;
