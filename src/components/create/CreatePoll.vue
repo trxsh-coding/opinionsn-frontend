@@ -513,6 +513,7 @@
 		beforeRouteLeave(to, from, next) {
 			this.route_leaved = true;
 			this.$store.commit('formManagment/CLEAR_FORM', 'create_poll_form');
+			this.$store.commit('formManagment/CLEAR_FORM', 'pictures');
 			next();
 		},
 		
