@@ -23,7 +23,7 @@
 					</icon-base>
 				</div>
 				<input
-						v-if="Object.keys(user).length"
+						v-if="logged_in"
 						class="ml-27"
 						type="text"
 						placeholder="Поиск"
@@ -31,7 +31,7 @@
 						@keypress.enter="routerPush('search')"
 						@input="setSearchKeyword($event.target.value)">
 			</div>
-			<div class="profile-annotation-block flex-align-center" v-if="!!Object.keys(user).length">
+			<div class="profile-annotation-block flex-align-center" v-if="logged_in">
 
 				<dropdown-list-reusable
 						class="notifications-dropdown mr-22"
