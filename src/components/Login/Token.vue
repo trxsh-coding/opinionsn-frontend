@@ -27,24 +27,15 @@
 		<div class="form-block mt-58" @keyup.enter.exact="submit(passwordForm)">
 
 			<popup-error-reusable :errors="{ }" span-class="mt-3">
-				<input-reusable class="mx-auto"
-				                :value="passwordForm.password"
-				                @change="updateField(arguments[0], 'password')"
-				                inputPlaceholder="password"
-				                width="271"
-				                input
-				                with-underline/>
+				<re-input :preset="2" type="password" placeholder="password" class="mx-auto" input-class="pb-5"
+				          :params="{flex: 1, fontSize: 16, label: { width: 271 }}"
+				          :value="passwordForm.password" @input="updateField(arguments[0], 'password')"/>
 			</popup-error-reusable>
 
-			<popup-error-reusable :errors="{ }" span-class="mt-3">
-				<input-reusable class="mx-auto mt-30"
-				                input-type="password"
-				                :value="passwordForm.password_confirm"
-				                @change="updateField(arguments[0], 'password_confirm')"
-				                inputPlaceholder="confirm_password"
-				                width="271"
-				                input
-				                with-underline/>
+			<popup-error-reusable :errors="{ }" class="mt-30" span-class="mt-3">
+				<re-input :preset="2" type="password" placeholder="confirm_password" class="mx-auto" input-class="pb-5"
+				          :params="{flex: 1, fontSize: 16, label: { width: 271 }}"
+				          :value="passwordForm.password_confirm" @input="updateField(arguments[0], 'password_confirm')"/>
 			</popup-error-reusable>
 
 		</div>
@@ -75,8 +66,8 @@
     import {mapState} from 'vuex'
     import axios from 'axios'
     import ButtonReusable from "../reusableСomponents/ButtonReusable";
-    import InputReusable from "../reusableСomponents/InputReusable";
     import PopupErrorReusable from "../reusableСomponents/PopupErrorReusable";
+    import ReInput from "@/components/reusableСomponents/ReInput";
 
     export default {
         data() {
@@ -103,23 +94,19 @@
 
             submit(form){
                 let resetFormData = new FormData();
-                console.log(form)
                 resetFormData.append('code', form.code);
                 resetFormData.append('password', form.password);
                 resetFormData.append('passwordConfirm', form.password_confirm);
                 axios.post(`${process.env.VUE_APP_MAIN_API}/auth/password/reset/`, resetFormData)
-                    .then(response => {
-                        if (response.status === 200) {
+                    .then(({status}) => {
+                        if (status === 200) {
+	                        this.$popup.insert('messages', [{message: 'Пароль успешно изменен!', type: 'success'}]);
                             this.$router.push({ name: 'login'})
                         }
-
                     })
 
                     .catch((error) => {
-
-
-                        console.log(error.response.data);
-
+	                    this.$popup.insert('messages', [{message: 'При попытке изменить пароль произошла ошибка!', type: 'error'}]);
                         let er = this.errors;
                         for (let {field: f, errorCode: v} of error.response.data){
                             er[f] = v
@@ -166,8 +153,8 @@
         },
         mixins:[langMixin],
         components: {
+	        ReInput,
 	        PopupErrorReusable,
-	        InputReusable,
 	        ButtonReusable,
             IconBase,
             IconLogo,

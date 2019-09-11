@@ -28,26 +28,16 @@
 		<div class="form-block mt-58" @keyup.enter.exact="submit(resetForm)">
 
 			<popup-error-reusable :errors="{ }" span-class="mt-3">
-				<input-reusable class="mx-auto"
-				                :value="resetForm.email"
-				                @change="updateField(arguments[0], 'email')"
-				                inputPlaceholder="email"
-				                width="271"
-				                input
-				                with-underline/>
+				<re-input :preset="2" placeholder="email" class="mx-auto" input-class="pb-5"
+				          :params="{flex: 1, fontSize: 16, label: { width: 271 }}"
+				          :value="resetForm.email" @input="updateField(arguments[0], 'email')"/>
 			</popup-error-reusable>
 
-			<popup-error-reusable :errors="{ }" span-class="mt-3">
-				<input-reusable class="mx-auto mt-30"
-				                input-type="password"
-				                :value="resetForm.email_confirm"
-				                @change="updateField(arguments[0], 'email_confirm')"
-				                inputPlaceholder="confirm_email"
-				                width="271"
-				                input
-				                with-underline/>
+			<popup-error-reusable :errors="{ }" class="mt-30" span-class="mt-3">
+				<re-input :preset="2" type="password" placeholder="confirm_email" class="mx-auto" input-class="pb-5"
+				          :params="{flex: 1, fontSize: 16, label: { width: 271 }}"
+				          :value="resetForm.email_confirm" @input="updateField(arguments[0], 'email_confirm')"/>
 			</popup-error-reusable>
-
 
 		</div>
 
@@ -79,6 +69,7 @@
 	import ButtonReusable from "../reusableСomponents/ButtonReusable";
 	import InputReusable from "../reusableСomponents/InputReusable";
 	import PopupErrorReusable from "../reusableСomponents/PopupErrorReusable";
+	import ReInput from "@/components/reusableСomponents/ReInput";
 
 	export default {
 		data() {
@@ -106,15 +97,16 @@
 				loginFormData.append('email', form.email);
 				loginFormData.append('emailConfirm', form.email_confirm);
 				axios.post(`${process.env.VUE_APP_MAIN_API}/auth/password/reset/code`, loginFormData)
-					.then(response => {
-						if (response.status === 200) {
+					.then(({status}) => {
+						if (status === 200) {
+							this.$popup.insert('messages', [{message: 'Ссылка для изменения пароля отправлена вам на почту!', type: 'success'}]);
 							this.$router.push({name: 'login'})
 						}
-
 					})
 
 					.catch((error) => {
-						this.errors = error.response.data.errorCode
+						this.$popup.insert('messages', [{message: 'Ошибка отправки', type: 'error'}]);
+						this.errors = error.response.data.errorCode;
 						this.$forceUpdate();
 					});
 
@@ -140,6 +132,7 @@
 		},
 		mixins: [langMixin],
 		components: {
+			ReInput,
 			PopupErrorReusable,
 			InputReusable,
 			ButtonReusable,

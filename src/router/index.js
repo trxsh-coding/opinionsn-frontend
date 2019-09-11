@@ -5,7 +5,6 @@ import axios from 'axios'
 const search = () => import('../components/Search/search');
 const Main = () => import('../components/Main');
 const AuthPanel = () => import('../components/Login/AuthPanel');
-const Password = () => import('../components/Login/Password');
 const createPoll = () => import('../components/create/CreatePoll');
 const followers = () => import('../components/Follows/Event/Followers');
 const followings = () => import('../components/Follows/Event/Followings');
@@ -81,13 +80,6 @@ export const index = new Router({
 			path: '/token',
 			name: 'token',
 			component: AuthPanel,
-			children: [
-				{
-					path: 'password',
-					name: 'password',
-					component: Password
-				},
-			]
 		},
 		{
 			path: '/admin',
