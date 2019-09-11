@@ -12,7 +12,7 @@
 		<ScrollSwiper class="mt-9" :stub-length="1">
 			
 			<router-link v-for="(value, key) in users" :to="'/user/' + key">
-				<bow-reusable :width="27" :height="27" :img="value" :id="key">
+				<bow-reusable :width="27" :height="27" :img="imageUtil(value, 'S')" :id="key">
 				
 				</bow-reusable>
 			</router-link>

@@ -7,7 +7,7 @@
 				<picture-reusable
 						class="mr-auto pointer"
 						pic-class="mb-auto"
-						:img="publicPath + user.path_to_avatar"
+						:img="publicPath + imageUtil(user.path_to_avatar, 'S')"
 						size="36"
 						rounded
 						without-text
@@ -52,6 +52,7 @@
 <script>
     import PictureReusable from "./PictureReusable";
     import ButtonReusable from "./ButtonReusable";
+    import imageMixin from "@/components/mixins/imageMixin";
 
 
     export default {
@@ -60,6 +61,7 @@
             PictureReusable,
             ButtonReusable
         },
+	    mixins: [imageMixin],
         props: {
             user: Object,
 	        isMainUser: Boolean

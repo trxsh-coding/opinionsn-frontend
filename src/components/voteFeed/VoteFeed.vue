@@ -72,9 +72,9 @@
 	import VoteInstance from "./voteInstance";
 	import ScrollSwiper from "../reusableСomponents/ScrollSwiper";
 	import Loader from "../reusableСomponents/Loader";
-	const getVoteFeedStore = () => import('../../store/modules/voteFeed');
 	
 	export default {
+		name: 'VoteFeed',
 		data() {
 			return {
 				publicPath: process.env.VUE_APP_ASSETS,

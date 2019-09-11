@@ -24,14 +24,14 @@
 							v-show="swiped || index === 0"
 							@click="swiped && $router.push({name: 'user', params: { id: key }})"
 							class="bow mx-2 h-21 w-21"
-							:style="{backgroundImage: `url('${publicPath + value}')`}"></div>
+							:style="{backgroundImage: `url('${publicPath + imageUtil(value, 'S')}')`}"></div>
 				</ScrollSwiper>
 				
 				<div
 						v-if="Object.keys(option.bows).length < 2"
 						@click="swiped && $router.push({name: 'user', params: { id: Object.keys(option.bows)[0] }})"
 						class="bow mx-2 h-21 w-21"
-						:style="{backgroundImage: `url('${publicPath + Object.values(option.bows)[0]}')`}"></div>
+						:style="{backgroundImage: `url('${publicPath + imageUtil(Object.values(option.bows)[0], 'S')}')`}"></div>
 			</template>
 		</div>
 		
@@ -78,10 +78,12 @@
 	import {mapState} from "vuex";
 	import {userVote, judgevote} from "../../EOSIO/eosio_impl";
 	import ScrollSwiper from "@/components/reusableСomponents/ScrollSwiper";
+	import imageMixin from "@/components/mixins/imageMixin";
 	
 	export default {
 		name: "ReOption",
 		components: {ScrollSwiper, InvolvedUsersPanel},
+		mixins: [imageMixin],
 		data() {
 			return {
 				publicPath: process.env.VUE_APP_ASSETS,
