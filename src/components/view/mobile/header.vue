@@ -31,11 +31,9 @@
 			</icon-base>
 		</div>
 		
-		<div
-				@click="$router.push({ name: 'pollFeed' })"
-				v-if="header_type === 'primary'"
-				class="main-logo-icon-block pointer">
-    
+		<div v-if="header_type === 'primary'" @click="$router.push({ name: 'pollFeed' })"
+		     class="main-logo-icon-block pointer" :class="{'mx-auto': !logged_in}">
+			
 			<icon-base
 					fill="none"
 					class="icon"
@@ -45,7 +43,7 @@
 					icon-name="logo">
 				<icon-logo/>
 			</icon-base>
-   
+			
 			<icon-base
 					class="ml-6 mb-1"
 					fill="none"
@@ -162,7 +160,7 @@
 			},
 			back() {
 				if (window.history.length <= 2) {
-					this.$router.push({ name: 'pollFeed' })
+					this.$router.push({name: 'pollFeed'})
 				} else {
 					this.$router.go(-1)
 				}
@@ -174,13 +172,13 @@
 
 <style lang="scss">
 	#mobile-header {
-		
 		width: 100%;
 		position: fixed;
 		top: 0;
-		background: #ffffff;
+		background: #f8f8f8;
+		border-bottom: 1px solid #BEC0C5;
 		z-index: 999999;
-		padding: 8px 20px 13px 20px;
+		padding: 8px 20px 12px 20px;
 		transition: 300ms;
 		
 		&.hidden {

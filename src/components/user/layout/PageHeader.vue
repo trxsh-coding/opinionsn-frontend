@@ -85,9 +85,10 @@
 				bor-rad="30"
 				:bg-color="user.isLeader ? '#BCBEC3' : '#4B97B4'"
 				@click.native="subscribeActions(user.id)"
+				:description="user.isLeader ? 'unfollow' : 'follow'"
 			>
 				<icon-base
-					class="user-check"
+					class="user-check ml-7"
 					fill="none"
 					width="18"
 					height="18"

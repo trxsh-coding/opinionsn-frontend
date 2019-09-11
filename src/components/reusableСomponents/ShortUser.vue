@@ -41,6 +41,7 @@
 					@click.native="subscribeActions(user.id, user.isLeader)"
 					:description="!user.isLeader ? 'follow' : 'unfollow'"
 			/>
+			
 
 		</div>
 

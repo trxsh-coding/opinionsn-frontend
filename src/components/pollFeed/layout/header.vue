@@ -15,9 +15,7 @@
                 <span class="username">
                     {{author.username}}
                 </span>
-					<span class="event__item">
-                      <lang-string :title="user_caption"/>
-                </span>
+				<lang-string v-if="has_event_type" class="event__item" :title="user_caption"/>
 					<slot>
 					
 					</slot>
@@ -25,7 +23,7 @@
 				</template>
 				<template #description>
 					<div class="description flex">
-	                    <span v-show="!!author.location" class="pr-9">
+	                    <span v-if="has_location" v-show="author.location" class="pr-9">
 	                        {{author.location}}
 	                    </span>
 						<time-trans transformedTime v-show="description_timestamp" :time="description_timestamp"/>
@@ -33,7 +31,8 @@
 				</template>
 			</author-headline>
 			
-			<dropdown-list-reusable v-if="mainUser.authorities === 'ADMIN'" class="h-fit py-6 mr-2 info-block" list-class="post-settings-list">
+			<dropdown-list-reusable v-if="mainUser.authorities === 'ADMIN'" class="h-fit py-6 mr-2 info-block"
+			                        list-class="post-settings-list">
 				<template #icon>
 					<icon-base
 							width="13"
@@ -47,13 +46,14 @@
 				<template #items>
 					<span class="dropdown-actions ws-no-warp pointer" @click="deletePoll(poll.id)">Удалить опрос</span>
 					<br>
-					<span class="dropdown-actions ws-no-warp pointer"  @click="linkShare(poll.id)">Поделиться в фейсбуке</span>
-
+					<span class="dropdown-actions ws-no-warp pointer"
+					      @click="linkShare(poll.id)">Поделиться в фейсбуке</span>
+				
 				</template>
 			</dropdown-list-reusable>
-			
-			
-			</div>
+		
+		
+		</div>
 		<slot name="annotation"></slot>
 	
 	</div>
@@ -92,8 +92,28 @@
 		computed: {
 			
 			...mapState("globalStore", {
-				mainUser: ({ mainUser }) => mainUser
+				mainUser: ({mainUser}) => mainUser
 			}),
+			
+			has_location() {
+				switch (this.$route.name) {
+					case 'pollFeed':
+					case 'singlePoll':
+						return false;
+					default:
+						return true;
+				}
+			},
+			
+			has_event_type() {
+				switch (this.$route.name) {
+					case 'pollFeed':
+					case 'singlePoll':
+						return false;
+					default:
+						return true;
+				}
+			},
 			
 			user_caption() {
 				let {eventType} = this,
@@ -134,8 +154,8 @@
 				this.$store.dispatch(`pollFeed/deletePoll`, poll_id);
 				
 			},
-			linkShare(poll_id){
-				window.location.href =`https://www.facebook.com/sharer.php?u=https://opinionsn.com/singlePoll/${poll_id}`
+			linkShare(poll_id) {
+				window.location.href = `https://www.facebook.com/sharer.php?u=https://opinionsn.com/singlePoll/${poll_id}`
 			}
 		}
 	}
@@ -146,14 +166,14 @@
 		.top-section {
 			display: flex;
 			justify-content: space-between;
-            
-            .info-block {
-                .post-settings-list {
-                    left: unset;
-                    transform: unset;
-                    right: -5px;
-                }
-            }
+			
+			.info-block {
+				.post-settings-list {
+					left: unset;
+					transform: unset;
+					right: -5px;
+				}
+			}
 		}
 		
 		.event__item {
