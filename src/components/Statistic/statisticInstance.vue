@@ -17,8 +17,8 @@
 			</picture-reusable>
 		</div>
 		
-		<category-select @on-select="setCategoryId" class="pl-60 pr-4" :class="{'mt-14': !mobile, 'mt-15': mobile}"
-		                 :current="categoryId"/>
+		<category-select class="pl-60 pr-4" :class="{'mt-14': !mobile, 'mt-15': mobile}" :slides-per-view="3.7"
+		                 :current="categoryId" @on-select="setCategoryId"/>
 		
 		<div class="select-block pl-69" :class="{'mt-15': !mobile, 'mt-18': mobile}">
 			<dropdown-list-reusable with-arrow class="mr-22" click-close>

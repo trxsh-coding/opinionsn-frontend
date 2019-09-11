@@ -1,7 +1,7 @@
 <template>
     <div class="category-block">
         <ReSwiper :type="mobile ? 'scroll' : 'usual'"
-                  :params="{height: 38, width: '100%', slidesPerView: 4, spaceBetween: 10}">
+                  :params="{height: 38, width: '100%', slidesPerView, spaceBetween: 10}">
             <template #usual>
                 <swiper-slide
                         class="w-fit"
@@ -36,7 +36,7 @@
         name: "categorySelect",
         components: {ReSwiper, CatalogItem},
         mixins:[langMixin],
-        props:['current', 'isCurrentString'],
+        props:['current', 'isCurrentString', 'slidesPerView'],
         data() {
             return {
                 localCategory: {

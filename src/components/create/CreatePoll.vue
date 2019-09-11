@@ -35,7 +35,7 @@
 			</div>
 			
 			<category-select :is-current-string="true" :current="form.subject_header" @on-select="setCategory"
-			                 class="pl-60"/>
+			                 class="pl-60" :slides-per-view="3.6"/>
 			
 			<div class="description-block mt-20 pl-60">
 				<popup-error-reusable

@@ -2,7 +2,7 @@
 	
 	<div id="poll-wrapper">
 		
-		<category-select @on-select="setCategory" :current="filter_id"
+		<category-select @on-select="setCategory" :current="filter_id" :slides-per-view="4.3"
 		                 :class="{'pl-60 pr-10': mobile, 'pb-13' : !mobile}"/>
 		
 		<div class="feed relative flex-column pb-12" :class="{'bg-white': !mobile}"
