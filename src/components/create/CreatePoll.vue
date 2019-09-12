@@ -30,7 +30,6 @@
 						description="prediction"
 						:active="type === 'PREDICTION'"
 						@click.native="setTypeOfCreation('PREDICTION')"
-				
 				/>
 			</div>
 			
