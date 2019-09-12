@@ -73,7 +73,6 @@ export const user  =  {
             .then(function(response){
               if (response.status === 200) {
                 store.state.user.setUser = response.data;
-                console.log(response)
                 commit("reactiveUser", response.data)
               }
           }.bind(this))

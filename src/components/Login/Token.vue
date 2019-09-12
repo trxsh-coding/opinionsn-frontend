@@ -146,11 +146,6 @@
 
 
         },
-        mounted(){
-
-            console.log(this.$route)
-
-        },
         mixins:[langMixin],
         components: {
 	        ReInput,

@@ -153,7 +153,6 @@
 				this.pictures[index].picture = file;
 			},
 			onPictureRemove(index) {
-				console.log(index)
 				this.pictures.splice(index, 1)
 			},
 			addMorePictures() {
@@ -186,7 +185,6 @@
 				axios
 					.post(`${process.env.VUE_APP_MAIN_API}/feedback`, bodyFormData, config)
 					.then(response => {
-						console.log(response.status);
 						if (response.status === 200) {
 							
 							this.pictures = [];

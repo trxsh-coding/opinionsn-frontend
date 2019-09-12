@@ -199,7 +199,6 @@
 				this.$refs.recaptcha.reset()
 			},
 			setCurrentTOken(recaptchaToken) {
-				console.log(recaptchaToken);
 				this.token = recaptchaToken;
 			},
 			lstr(str) {

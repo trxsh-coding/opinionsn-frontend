@@ -57,7 +57,6 @@ export const notificationStore  =  {
         },
 
         updateStores: function (state, payload) {
-            console.log(payload)
             state.messages = [...payload.messages];
 
 
@@ -84,7 +83,6 @@ export const notificationStore  =  {
 
         verifyStore: function({state, dispatch, commit}, payload){
             let {entries, storeName} = payload;
-            console.log(entries)
             let store = state[storeName];
                 const missingOnes = [];
                 for (let id of entries.payload){

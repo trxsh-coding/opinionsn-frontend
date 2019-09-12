@@ -67,7 +67,6 @@ export const notificationPageList = (sc, listUrl) => class extends sc {
     }
 
     listItemsAction({state, commit, dispatch}, payload={}){
-        console.log(payload)
 
         let {customUrl, data={}, method=`get`, onSuccess = `onListReceived`, params} = payload;
 

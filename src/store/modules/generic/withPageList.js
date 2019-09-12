@@ -32,6 +32,7 @@ export const StoreWithPageList = (sc, listUrl, additionalUrl) => {
 
 		listItemsAction({commit, state}, payload={}){
 
+		    
             let  {page = 0} = payload;
 
             commit('setPageNumber', page);

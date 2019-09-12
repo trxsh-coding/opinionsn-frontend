@@ -57,16 +57,13 @@ export default  {
     },
     pushOtherExplains(state, payload){
 
-      console.log(payload)
       let quizID = payload.index.quizID;
       let cell = payload.index.cell;
       let explains = payload.response.data
-      console.log(cell)
       for (let item of explains){
         state.quiz[cell].explain.push(item)
       }
       state.quizPage +=1
-      console.log('hello')
     },
     updateExplains(state, key){
       state.quiz[key.index].explanation = key.updatedValue
@@ -75,7 +72,6 @@ export default  {
       state.quiz[key.index].explain[key.indexExplain].comment = key.updatedValue
     },
     switchCommentForm(state, pl){
-      console.log(pl)
       let {index, indexExplain} = pl;
       Vue.set(state.quiz[index], 'explainedIndex', indexExplain);
 

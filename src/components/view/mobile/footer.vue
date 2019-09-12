@@ -98,9 +98,6 @@
 				
 			}
 		},
-		mounted() {
-			console.log('counter', this.counter);
-		},
 	}
 </script>
 

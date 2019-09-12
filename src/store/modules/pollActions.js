@@ -221,7 +221,6 @@ export const pollActions = sc => class extends sc {
     onShowMoreComments({commit, dispatch,state, context}, args){
         let {responseData: data, requestData: explain_id} = args;
 
-        console.log(explain_id)
 
         let id_explain = explain_id.id
 
@@ -289,7 +288,6 @@ export const pollActions = sc => class extends sc {
     onExplainSaved({commit, dispatch}, args){
         let {responseData: data} = args;
 
-        console.log(data)
 
         let {id} = data.payload[0];
 
@@ -326,7 +324,6 @@ export const pollActions = sc => class extends sc {
     onCommentSaved({commit}, args){
         let {responseData: data, requestData: payload} = args;
 
-        console.log('addChildTo', data);
 
         let poll_id = payload.poll_id
         let {id} = data.payload[0];
@@ -370,7 +367,6 @@ export const pollActions = sc => class extends sc {
     /* MUTATIONS */
 
     clearFeed(state){
-        console.log(state)
         state.items = []
 
 

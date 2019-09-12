@@ -110,7 +110,6 @@ export default  {
                 }
           }.bind(this))
             .catch((error) => {
-                console.log(this.state)
                 let er = this.state.Login.errors;
                 for (let {field: f, errorCode: v} of error.response.data){
                     er[f] = v

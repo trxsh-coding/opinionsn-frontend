@@ -266,7 +266,6 @@
             },
             
             openModal(payload) {
-                console.log(payload);
                 this.showModal = payload;
             },
             

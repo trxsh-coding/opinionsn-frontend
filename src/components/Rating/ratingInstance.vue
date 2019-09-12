@@ -52,7 +52,6 @@
                 });
                 let usersToVerify = {action: `userPage/getMissingUsers`,payload: this.missingUsers};
                 this.$store.dispatch(`globalStore/verifyStore`, {entries: usersToVerify, storeName: `users`}, {root: true});
-                console.log('checked');
             },
 
             getUserRating() {

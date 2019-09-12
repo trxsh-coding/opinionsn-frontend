@@ -37,7 +37,6 @@ export default  {
 		},
 
         [SERVICE_WORKER_REGISTRATION](state, payload){
-            console.log(payload)
             state.serviceWorkerRegistation = payload;
 
 
@@ -62,9 +61,7 @@ export default  {
         },
 
         [SET_NOTIFICATION_SUPPORT](state){
-            console.log('AGAIN')
             if ('Notification' in window && 'serviceWorker' in navigator) {
-                console.log('say_hi');
                 state.notificationsSupported = true
             }
         }
@@ -86,12 +83,10 @@ export default  {
 
                         .then(result => {
                             // if granted, create new subscription
-                            console.log('granted');
 
                             if (result === 'granted') {
                                 dispatch('CREATE_SUBSCRIPTION')
                                     .then(sub => {
-                                        console.log('subscription created on the client', sub);
                                         commit('SET_SUBSCRIPTION', sub)
                                     })
                                     .then(() => {
@@ -100,13 +95,11 @@ export default  {
                                     })
                                     .catch(err => { console.log(err.message) })
                             } else {
-                                console.log('User did not granted permission')
                             }
                         })
                 } else {
                     // Destroy subscription
                     //TODO
-                    console.log('Disable subscription');
 
                 }
             }
@@ -114,15 +107,12 @@ export default  {
 
 
         [CREATE_SUBSCRIPTION]({state, commit, dispatch}) {
-            console.log('ask for active service worker registration');
             if (state.serviceWorkerRegistation.pushManager === undefined) {
                 return navigator.serviceWorker.ready // returns a Promise, the active SW registration
                     .then(swreg => {
-                        console.log(swreg)
                         commit('SERVICE_WORKER_REGISTRATION', swreg)
                         dispatch('SUBSCRIBE', swreg)
 
-                        console.log("subscribed");
                     })
             } else {
                return dispatch('SUBSCRIBE', state.serviceWorkerRegistation)
@@ -132,7 +122,6 @@ export default  {
 
         [SUBSCRIBE]({state}){
 
-            console.log(state)
             return state.serviceWorkerRegistation.pushManager.subscribe({
                 userVisibleOnly: true
             })
@@ -142,15 +131,12 @@ export default  {
 
 
         [GET_SUBSCRIPTION](state) {
-            console.log('ask for available subscription');
-            console.log(state)
             state.serviceWorkerRegistation.pushManager.getSubscription()
         },
 
         [FIND_SUBSCRIPTION]({state, commit, dispatch}){
             return navigator.serviceWorker.ready
                 .then(swreg => {
-                    console.log('haal active subscription op');
                     commit('SERVICE_WORKER_REGISTRATION', swreg)
                     dispatch('GET_SUBSCRIPTION', state.serviceWorkerRegistation)
                 })
@@ -171,12 +157,10 @@ export default  {
 
                 if (sub === null) {
 
-                    console.log('no active subscription found on the client', sub);
                     commit('ENABLE_NOTIFICATION', false, false)
 
                 } else {
 
-                    console.log('Active subscription found', sub);
                     // retrieve user info from API
                     commit('ENABLE_NOTIFICATION', false, true)
                     commit('SET_SUBSCRIPTION', sub)

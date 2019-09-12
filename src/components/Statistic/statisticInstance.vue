@@ -165,11 +165,9 @@
 				if (current !== newOne) this.getUserStatistic()
 			},
 			periodId(current, newOne) {
-				console.log(current)
 				if (current !== newOne) this.getUserStatistic()
 			},
 			categoryId(current, newOne) {
-				console.log(current)
 				if (current !== newOne) this.getUserStatistic()
 			}
 			
