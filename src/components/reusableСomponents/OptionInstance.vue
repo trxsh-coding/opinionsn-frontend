@@ -1,5 +1,5 @@
 <template>
-	<div class="re-option" ref="containerRef" :style="[transform_shift, optionWrapper]">
+	<div class="option-instance" ref="containerRef" :style="[transform_shift, optionWrapper]">
 		
 		<div v-if="mobile"
 		     class="bows-bar"
@@ -11,10 +11,20 @@
 		     @touchend="trackTouchEnd">
 			
 			<template v-if="option.bows">
-				<slot v-if="Object.keys(option.bows).length > 2 && !swiped" name="badge"></slot>
 				
-				<ReSwiper v-if="Object.keys(option.bows).length > 2" type="scroll" class="bows-slider"
-				          :params="{height: '100%', width: swiped ? '100%' : 'fit-content', stubLength: swiped && 1}">
+				<template v-if="!swiped">
+					<div v-if="bows_length <= 2" @click="$router.push({name: 'user', params: { id: Object.keys(option.bows)[0] }})" class="bow bow-1 mx-2 h-21 w-21"
+					     :style="{backgroundImage: `url('${publicPath + Object.values(option.bows)[0]}')`}"></div>
+					
+					<div v-if="bows_length === 2" @click="$router.push({name: 'user', params: { id: Object.keys(option.bows)[1] }})" class="bow mx-2 h-21 w-21"
+					     :style="{backgroundImage: `url('${publicPath + Object.values(option.bows)[1]}')`}"></div>
+					
+					<slot v-if="bows_length > 2" name="badge"></slot>
+					
+				</template>
+				
+				<ReSwiper v-if="bows_length > 2" type="scroll" class="bows-slider"
+				          :params="{height: '100%', width: swiped ? '100%' : 'fit-content', stubLength: swiped && 1, reverse: true}">
 					<template #scroll>
 						<div
 								v-for="(value, key, index) in option.bows" :to="'/user/' + key"
@@ -25,11 +35,6 @@
 					</template>
 				</ReSwiper>
 				
-				<div
-						v-if="Object.keys(option.bows).length < 2"
-						@click="swiped && $router.push({name: 'user', params: { id: Object.keys(option.bows)[0] }})"
-						class="bow mx-2 h-21 w-21"
-						:style="{backgroundImage: `url('${publicPath + Object.values(option.bows)[0]}')`}"></div>
 			</template>
 		</div>
 		
@@ -78,7 +83,7 @@
 	import ReSwiper from "@/components/reusableСomponents/ReSwiper";
 	
 	export default {
-		name: "ReOption",
+		name: "OptionInstance",
 		components: {ReSwiper, InvolvedUsersPanel},
 		data() {
 			return {
@@ -252,6 +257,7 @@
 			},
 			
 			trackTouchMove(e) {
+				e.preventDefault();
 				if (!this.swiped && Object.keys(this.option.bows).length > 2) {
 					
 					let {initialCoord, block_width, transform_limit} = this;
@@ -342,6 +348,10 @@
 			
 			percentage() {
 				return this.voted ? this.option.voted_percentage : null
+			},
+			
+			bows_length() {
+				return Object.keys(this.option.bows).length
 			},
 			
 			transform_shift() {
@@ -458,7 +468,7 @@
 		opacity: 1;
 	}
 	
-	.re-option {
+	.option-instance {
 		position: relative;
 		right: 0;
 		display: flex;
@@ -497,6 +507,10 @@
 				background-repeat: no-repeat;
 				background-size: cover;
 				border-radius: 50%;
+			}
+			
+			.bow-1 {
+				order: 1;
 			}
 		}
 		

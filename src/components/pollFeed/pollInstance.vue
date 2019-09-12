@@ -9,7 +9,7 @@
             </template>
         </post-header>
         <headline-body :poll="poll" :item="item"/>
-            <re-option
+            <OptionInstance
                     class="mt-12"
                     v-for="(option, index) in combined_options"
                     v-bind="{payload: item, poll, option}"
@@ -26,7 +26,7 @@
                     <re-badge :counter="Object.keys(option.bows).length - 1" :size="21"></re-badge>
                 </template>
                 
-            </re-option>
+            </OptionInstance>
 
         <span v-if="!options_visible && combined_options.length > 5" class="options-load-btn pointer mt-9"
               @click="options_visible = true">Показать больше опций</span>
@@ -112,7 +112,7 @@
     import postHeader from './layout/header'
     import headlineBody from './layout/headlineBody'
     import Explanation from "../reusableСomponents/Explanation";
-    import ReOption from "../reusableСomponents/ReOption";
+    import OptionInstance from "../reusableСomponents/OptionInstance";
     import PictureReusable from "../reusableСomponents/PictureReusable";
     import IconBase from "../icons/IconBase";
     import IconCheck from "../icons/IconCheck";
@@ -147,7 +147,7 @@
             PollAnotation,
             TimeTrans,
             PictureReusable,
-            ReOption,
+            OptionInstance,
             Explanation,
             postHeader,
             headlineBody,
@@ -336,6 +336,7 @@
         width: 100%;
         display: flex;
         flex-direction: column;
+        overflow: hidden;
 
         .option-reusable, #headline-body, .poll-header {
             /*padding-left: 10%;*/

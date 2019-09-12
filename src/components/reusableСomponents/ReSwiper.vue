@@ -4,10 +4,10 @@
 		<div
 				v-if="type === 'scroll'"
 				class="swiper-reusable scroll"
-				:class="swiperClass"
+				:class="[swiperClass, {'flex-reverse': c_params.reverse}]"
 				:style="scroll_swiper_style">
 			<slot name="scroll"></slot>
-			<span class="stub-block">{{stub_content}}</span>
+			<span class="stub-block" :style="c_params.reverse && {order: '-1'}">{{stub_content}}</span>
 		</div>
 		
 		<swiper
@@ -62,6 +62,7 @@
 					slidesPerView: 1,
 					spaceBetween: 0,
 					stubLength: 0,
+					reverse: false,
 					breakpoints: true,
 					pagination: false,
 					...this.params
