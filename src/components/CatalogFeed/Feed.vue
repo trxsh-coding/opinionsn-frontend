@@ -28,30 +28,38 @@
             return {
                 id: this.$route.params.id,
                 publicPath: process.env.VUE_APP_ASSETS,
-
+                page: 1,
+                items: []
+            }
+        },
+        watch: {
+            payload_items(newValue, oldValue) {
+                if (Object.keys(newValue).length) {
+                    this.items = [...this.items, ...newValue]
+                }
+            },
+    
+            scrolled_to_bottom(newValue) {
+                if (newValue) {
+                    this.page++;
+                    this.$store.dispatch(`catalogList/list`, {customUrl: `${process.env.VUE_APP_MAIN_API}/rest/v1/feed/page/${this.page}?categories_id=${this.id}`})
+                }
             }
         },
         computed: {
             ...mapState('catalogList', {
                 state: s => s,
-                items: s => s.items,
+                payload_items: s => s.items,
                 loading: s => s.loading
             }),
     
             mobile() {
                 return this.$root.mobile;
             },
-            
-            // ...mapState('globalStore', {
-            //     polls: ({polls}) =>polls,
-            //     users: ({users}) =>users,
-            //     categories: ({categories}) => categories,
-            // }),
-            //
-            // poll() { return this.polls[this.id] },
-            //
-            // category() { return this.categories[this.id] }
-
+    
+            scrolled_to_bottom() {
+                return this.$root.scrolled_to_bottom;
+            },
         },
         methods: {
 
@@ -60,7 +68,13 @@
         },
 
         mounted() {
-            this.$store.dispatch(`catalogList/list`, {customUrl: `${process.env.VUE_APP_MAIN_API}/rest/v1/categories/${this.id}`})
+            this.$store.dispatch(`catalogList/list`, {customUrl: `${process.env.VUE_APP_MAIN_API}/rest/v1/feed/page/${this.page}?categories_id=${this.id}`})
+                    .then(status => {
+                        if (status === 200) {
+                            this.page++;
+                            this.$store.dispatch(`catalogList/list`, {customUrl: `${process.env.VUE_APP_MAIN_API}/rest/v1/feed/page/${this.page}?categories_id=${this.id}`})
+                        }
+                    })
         },
     
         components: {
