@@ -11,7 +11,7 @@ export const pollActions = sc => class extends sc {
 
         if (payload.data.type_of_poll >= 2) {
 
-            typeOfVote = `${process.env.VUE_APP_MAIN_API}/rest/v1/blockchain/vote/create/`
+            typeOfVote = `${process.env.VUE_APP_MAIN_API}/rest/v1/blockchain/vote/`
 
         } else {
 
