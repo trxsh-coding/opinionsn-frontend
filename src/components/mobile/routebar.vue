@@ -73,14 +73,14 @@
 				
 				</lang-string>
 			</li>
-			<li		v-if="mainUser.referCode"
-					class="link relative pointer"
-					@click="$router.push({ name: 'ReferralsPage' })">
+			
+			<li v-if="mainUser.referCode" class="link relative pointer" @click="$router.push({ name: 'ReferralsPage' })">
 				<icon-user width="22" height="22" fill="#1a1e22" :style="{position: 'relative', left: '-3px'}"/>
 				<lang-string :title="'referrals_page'">
 				
 				</lang-string>
 			</li>
+			
 			<li
 					class="link relative pointer"
 					@click="$router.push({ name: 'settings' })">
@@ -143,17 +143,14 @@
 	import IconJudgement from '../icons/menu/IconJudgement'
 	import IconSettings from '../icons/menu/IconSettings'
 	import langString from '../langString'
-    import CookieMixin from "@/components/mixins/CookieMixin";
+	import CookieMixin from "@/components/mixins/CookieMixin";
 	import IconUser from "@/components/icons/IconUser";
 	
 	export default {
 		data() {
 			return {
 				publicPath: process.env.VUE_APP_ASSETS,
-				...mapState("globalStore", {
-					mainUser: ({ mainUser }) => mainUser
-				}),
-            }
+			}
 		},
 		components: {
 			IconUser,
@@ -173,7 +170,7 @@
 			
 			...mapState('globalStore', {
 				
-				mainUser: ({mainUser}) => mainUser
+				mainUser: s => s.mainUser
 				
 			}),
 			
@@ -181,15 +178,15 @@
 		methods: {
 			
 			userLogout() {
-			    
+				
 				this.deleteCookie('Auth-Token');
-                this.$store.commit("authentication/setAuthenticated", false);
-                this.$store.commit("userPage/removeUser");
-                this.$store.commit("pollFeed/clearFeed");
-                this.$store.commit("globalStore/clearStores");
-                this.$store.commit("notificationStore/clearStores");
-                this.$store.commit("notificationPage/setDefaultPage");
-                this.$router.push({name: 'sign'});
+				this.$store.commit("authentication/setAuthenticated", false);
+				this.$store.commit("userPage/removeUser");
+				this.$store.commit("pollFeed/clearFeed");
+				this.$store.commit("globalStore/clearStores");
+				this.$store.commit("notificationStore/clearStores");
+				this.$store.commit("notificationPage/setDefaultPage");
+				this.$router.push({name: 'sign'});
 				
 			},
 			
