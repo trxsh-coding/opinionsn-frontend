@@ -15,7 +15,7 @@
 	import {mapState} from 'vuex'
 	
 	export default {
-		name: "bowReusable",
+		name: "ReBow",
 		mixins: [imageMixin],
 		props: {
 			width: Number,

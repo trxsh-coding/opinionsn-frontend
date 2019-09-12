@@ -11,9 +11,7 @@
 		<ReSwiper type="scroll" class="mt-9" :params="{stubLength: 1}">
 			<template #scroll>
 				<router-link v-for="(value, key) in users" :to="'/user/' + key">
-					<bow-reusable :width="27" :height="27" :img="value" :id="key">
-					
-					</bow-reusable>
+					<ReBow :width="27" :height="27" :img="value" :id="key" />
 				</router-link>
 			</template>
 		</ReSwiper>
@@ -24,7 +22,7 @@
 <script>
 	import langString from '../../langString'
 	import imageMixin from '../../mixins/imageMixin'
-	import BowReusable from "../../reusableСomponents/bowReusable";
+	import ReBow from "../../reusableСomponents/ReBow";
 	import ReSwiper from "@/components/reusableСomponents/ReSwiper";
 	
 	export default {
@@ -50,7 +48,7 @@
 		
 		components: {
 			ReSwiper,
-			BowReusable,
+			ReBow,
 			langString
 		}
 	}
