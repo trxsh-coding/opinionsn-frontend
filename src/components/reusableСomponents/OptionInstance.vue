@@ -79,7 +79,7 @@
 <script>
 	import InvolvedUsersPanel from "../pollFeed/layout/involvedUsersPanel";
 	import {mapState} from "vuex";
-	import {userVote, judgevote} from "../../EOSIO/eosio_impl";
+	import {userVote, judgeVote} from "../../EOSIO/eosio_impl_light";
 	import ReSwiper from "@/components/reusableСomponents/ReSwiper";
 	
 	export default {
@@ -175,7 +175,7 @@
 					};
 					
 					if (type_of_poll === 2) {
-						userVote(poll_id, mainUser.id, selected_variable)
+						userVote(poll_id, this.mainUser.id, this.option.description)
 							.then(() => runTimeout())
 							.catch(() => console.log("Error voting in EOSIO forecast"));
 					} else {
@@ -186,13 +186,12 @@
 			},
 			
 			setRightOption() {
-				let {mainUser} = this;
 				let selected_variable = this.option.id;
 				let {id: poll_id, type_of_poll} = this.poll;
 				
 				switch (type_of_poll) {
 					case 2:
-						judgevote(poll_id, mainUser.id, selected_variable)
+						judgeVote(poll_id, this.mainUser.id, this.option.description)
 							.then(() => {
 								this.$store.dispatch('pollFeed/setRightOption', {data: {selected_variable, poll_id}})
 									.then(status => {

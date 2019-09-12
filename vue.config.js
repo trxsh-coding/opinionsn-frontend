@@ -13,21 +13,21 @@ module.exports = {
 
 		proxy: {
 			'/api': {
-				target: 'http://api2.opinionsn.com:7070',
+				target: "http://api2.opinionsn.com:7070",
 				pathRewrite: {'^/api': ''},
 				changeOrigin: true,
 				secure: false
 			},
 
 			'/messages': {
-				target: 'http://api2.opinionsn.com:7071',
+				target: "http://api2.opinionsn.com:7071",
 				pathRewrite: {'^/messages': ''},
 				changeOrigin: true,
 				secure: false
 			},
 
 			'/assets': {
-				target: 'https://osn-pictures.fra1.digitaloceanspaces.com/dev',
+				target: "https://osn-pictures.fra1.digitaloceanspaces.com/dev",
 				pathRewrite: {'^/assets': ''},
 				changeOrigin: true,
 				secure: false

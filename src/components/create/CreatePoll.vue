@@ -30,7 +30,6 @@
 						description="prediction"
 						:active="type === 'PREDICTION'"
 						@click.native="setTypeOfCreation('PREDICTION')"
-				
 				/>
 			</div>
 			
@@ -209,7 +208,7 @@
 	import ValidationMixin from "../mixins/ValidationMixin";
 	import AddOptionBlock from "./addOptionBlock";
 	import PopupErrorReusable from "../reusableСomponents/PopupErrorReusable";
-	import {createForecast, createPoll, createLimitedPoll} from "../../EOSIO/eosio_impl";
+	import {createForecast} from "../../EOSIO/eosio_impl_light";
 	import ReCheckbox from "@/components/reusableСomponents/ReCheckbox";
 	import ReInput from "@/components/reusableСomponents/ReInput";
 	
@@ -391,8 +390,16 @@
 					this.$store.dispatch('formManagment/SUBMIT_POLL_FORM', this.mainUser.id)
 						.then(poll_id => {
 							if (pollForm.type_of_poll === 2) {
-								createForecast(poll_id, pollForm.subject, pollForm.fund, this.mainUser.id)
-									.then(() => console.log("EOSIO forecast created"));
+                                let desc_arr = pollForm.options.map(({description}) => description);
+                                console.log(desc_arr);
+							    createForecast(
+                                    poll_id,
+                                    this.mainUser.id,
+                                    pollForm.subject,
+                                    desc_arr
+                                )
+									.then(() => console.log("EOSIO forecast created"))
+                                    .catch(err => console.log(err));
 							}
 							
 							this.$router.push({name: 'singlePoll', params: {id: poll_id}});
