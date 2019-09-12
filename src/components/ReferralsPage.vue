@@ -18,7 +18,7 @@
 					<span class="description text-deselect">{{lstr('your_referral_link') + ':'}}</span>
 					<div class="ref-link-panel flex mt-6 p-5">
 						<input ref="refLink" type="text" readonly="readonly" class="link"
-						       :value="`https://opinionsn.com/register?refer=${mainUser.referCode}`">
+						       :value="`https://opinionsn.com/registration?refer=${mainUser.referCode}`">
 						<button @click="copyToClipboard($refs.refLink)" class="ml-5">{{lstr('copy')}}</button>
 						<div class="counter v-center br-6 p-5 ml-5" @click="getUserList">
 							<icon-user width="22" height="22"/>
