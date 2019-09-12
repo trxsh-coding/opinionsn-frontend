@@ -23,8 +23,7 @@
 			img: String,
 			size: Number,
 			value: Object,
-			id: Object
-			
+			id: [Number, String]
 		},
 		data() {
 			return {

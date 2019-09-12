@@ -2,7 +2,7 @@
 	
 	<section class="vote-feed" :class="{'pt-16': !mobile}">
 		
-		<ReSwiper :type="mobile ? 'scroll' : 'usual'" class="mb-15" :swiper-class="{'pl-30': mobile}"
+		<ReSwiper :type="mobile ? 'scroll' : 'usual'" class="mb-15" :swiper-class="mobile ? 'pl-30' : ''"
 		          :params="{stubLength: 2, slidesPerView: 6, spaceBetween: 3.5}">
 			<template #usual>
 				<swiper-slide

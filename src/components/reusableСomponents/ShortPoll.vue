@@ -113,7 +113,7 @@
 				}
 			},
 			typeOfLayout: {
-				type: Number,
+				type: String,
 				default: function () {
 					return 'row';
 				},

@@ -69,6 +69,7 @@
 	import TimeTrans from "../timeTrans";
 	import {mapState} from 'vuex'
 	import moment from 'moment'
+	import langMixin from "@/components/mixins/langMixin";
 
 	const pad = (num, len=2, char='0') => {
 		let init = `${num}`;
@@ -83,6 +84,7 @@
 
     export default {
         name: "counterBadges",
+	    mixins: [langMixin],
 		props: {
         	poll: {
         		type: Object,
@@ -110,9 +112,6 @@
 
 			}),
 
-			lstr(){
-				return (str)=>localString(this.lang, str);
-			},
 			relativeEndDate(){
 				let {poll, _lang} = this;
 				let {end_date} = poll;

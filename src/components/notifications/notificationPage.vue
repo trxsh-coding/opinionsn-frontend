@@ -4,7 +4,7 @@
 			:class="{'desktop': !mobile, 'pr-20': mobile}"
 			ref="sectionRef">
 		
-		<div class="notification-section flex-column" v-if="!!Object.keys(messages).length && !closed">
+		<div class="notification-section flex-column" v-if="Object.keys(messages).length">
 			<button-reusable
 					class="mt-13 mb-20"
 					bg-color="#ffffff"

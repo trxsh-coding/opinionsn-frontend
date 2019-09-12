@@ -1,5 +1,5 @@
 <template>
-    <div class="notification-block pt-9 pb-9 ">
+    <div class="notification-block pt-9 pb-9 " v-if="author">
             <picture-reusable
                     pic-class=" pointer"
                     avatar
@@ -62,6 +62,7 @@
             mobile(){
               return this.$root.mobile
             },
+            
             author() {
                 let {users, notification} = this;
 

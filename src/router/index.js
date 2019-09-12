@@ -37,7 +37,7 @@ const scrollBehavior = (to, from, savedPosition) => {
 			if (savedPosition) {
 				resolve(savedPosition)
 			} else {
-				reject({x: 0, y: 0})
+				resolve({x: 0, y: 0})
 			}
 		}, 500)
 	})

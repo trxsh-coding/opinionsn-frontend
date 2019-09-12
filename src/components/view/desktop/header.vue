@@ -147,8 +147,7 @@
 		data() {
 			return {
 				publicPath: process.env.VUE_APP_ASSETS,
-				listScrollDifference: null,
-				mobile: this.$root.mobile
+				listScrollDifference: null
 			}
 		},
 		

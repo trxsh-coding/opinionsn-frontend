@@ -1,5 +1,5 @@
 <template>
-	<div class="grouped-notification pl-21 flex pointer" @click="showGrouped(true)" :class="{todayColor : today}">
+	<div class="grouped-notification pl-21 flex pointer" @click="showGrouped(true)" :class="{todayColor : today}" v-if="author">
 		<div class="notification__item flex-between flex-align-center">
 			<picture-reusable
 					avatar

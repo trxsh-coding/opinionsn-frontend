@@ -23,7 +23,7 @@ export default  {
         notificationsSupported: false,
         notificationsEnabled: false,
         buttonDisabled: false,
-        serviceWorkerRegistation: null,
+        serviceWorkerRegistation: {},
         subscription: null,
         message: null,
 		connectionUnstable: false,

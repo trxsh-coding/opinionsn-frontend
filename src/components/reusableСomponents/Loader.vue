@@ -1,5 +1,5 @@
 <template>
-	<div class="lds-ring" :style="size">
+	<div class="lds-ring">
 		<div></div>
 		<div></div>
 		<div></div>
@@ -10,9 +10,6 @@
 <script>
 	export default {
 		name: "Loader",
-		// props: {
-		// 	size: Number, String
-		// },
 		methods: {
 			handleCssValue(value) {
 				switch (true) {
@@ -24,17 +21,6 @@
 						return value;
 				}
 			}
-		},
-		computed: {
-			// size() {
-			// 	let {size, handleCssValue} = this;
-			// 	if (size) {
-			// 		size = handleCssValue(size);
-			// 		return {width: size, height: size}
-			// 	} else {
-			// 		return {};
-			// 	}
-			// }
 		},
 	}
 </script>
