@@ -53,6 +53,7 @@ module.exports = {
 },
 	
 	configureWebpack: {
+		// devtool: 'source-map',
 		optimization: {
 			splitChunks: {
 				chunks: 'all'
