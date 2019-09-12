@@ -210,7 +210,7 @@ export const addjudge = async (pollId, userId) => {
     });
 };
 
-export const judgevote = async (pollId, userId, optionId) => {
+export const judgeVote = async (pollId, userId, optionId) => {
     await api.transact({
         actions: [{
             account: 'opinionbetha',
