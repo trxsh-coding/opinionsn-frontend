@@ -391,11 +391,16 @@
 					this.$store.dispatch('formManagment/SUBMIT_POLL_FORM', this.mainUser.id)
 						.then(poll_id => {
 							if (pollForm.type_of_poll === 2) {
-								createForecast(
-										poll_id, this.mainUser.id,
-										pollForm.subject,
-										pollForm.options.map(({description}) => description))
-									.then(() => console.log("EOSIO forecast created"));
+                                let desc_arr = pollForm.options.map(({description}) => description);
+                                console.log(desc_arr);
+							    createForecast(
+                                    poll_id,
+                                    this.mainUser.id,
+                                    pollForm.subject,
+                                    desc_arr
+                                )
+									.then(() => console.log("EOSIO forecast created"))
+                                    .catch(err => console.log(err));
 							}
 							
 							this.$router.push({name: 'singlePoll', params: {id: poll_id}});

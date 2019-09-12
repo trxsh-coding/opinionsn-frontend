@@ -175,7 +175,7 @@
 					};
 					
 					if (type_of_poll === 2) {
-						userVote(poll_id, mainUser.id, this.option.description)
+						userVote(poll_id, this.mainUser.id, this.option.description)
 							.then(() => runTimeout())
 							.catch(() => console.log("Error voting in EOSIO forecast"));
 					} else {
@@ -186,13 +186,12 @@
 			},
 			
 			setRightOption() {
-				let {mainUser} = this;
 				let selected_variable = this.option.id;
 				let {id: poll_id, type_of_poll} = this.poll;
 				
 				switch (type_of_poll) {
 					case 2:
-						judgeVote(poll_id, mainUser.id, this.option.description)
+						judgeVote(poll_id, this.mainUser.id, this.option.description)
 							.then(() => {
 								this.$store.dispatch('pollFeed/setRightOption', {data: {selected_variable, poll_id}})
 									.then(status => {

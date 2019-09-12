@@ -5,7 +5,7 @@ import {user} from "../store/modules/user";
 const defaultPrivateKey = "5JRJmrSBxmVW6MyFsqDeQB5pXzDdjXk7KvbM8p51xrMfpNQR7sS";
 const signatureProvider = new JsSignatureProvider([defaultPrivateKey]);
 
-const rpc = new JsonRpc('http://jungle2.cryptolions.io:80', { fetch });
+const rpc = new JsonRpc('https://jungle2.cryptolions.io:443', { fetch });
 
 const api = new Api({ rpc, signatureProvider, textDecoder: new TextDecoder(), textEncoder: new TextEncoder() });
 
@@ -16,14 +16,14 @@ export const createForecast = async (pollId, ownerId, pollName, options) => {
             account: 'opinionblock',
             name: 'initforecast',
             authorization: [{
-                actor: 'opinionblock',
+                actor: 'opinionbetha',
                 permission: 'active'
             }],
             data: {
                 'pollId': pollId,
                 'ownerId': ownerId,
                 'pollName': pollName,
-                'options': options
+                'pollOptions': options
             },
         }]
     }, {
@@ -38,7 +38,7 @@ export const addCourt = async (pollId, maxJudges) => {
             account: 'opinionblock',
             name: 'initcourt',
             authorization: [{
-                actor: 'opinionblock',
+                actor: 'opinionbetha',
                 permission: 'active'
             }],
             data: {
@@ -58,7 +58,7 @@ export const userVote = async (pollId, userId, option) => {
             account: 'opinionblock',
             name: 'uservote',
             authorization: [{
-                actor: 'opinionblock',
+                actor: 'opinionbetha',
                 permission: 'active'
             }],
             data: {
@@ -79,7 +79,7 @@ export const judgeVote = async (pollId, userId, option) => {
             account: 'opinionblock',
             name: 'judgevote',
             authorization: [{
-                actor: 'opinionblock',
+                actor: 'opinionbetha',
                 permission: 'active'
             }],
             data: {
