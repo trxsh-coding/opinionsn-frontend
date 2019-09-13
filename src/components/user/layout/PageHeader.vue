@@ -118,12 +118,10 @@
         name: "PageHeader",
 		props: {
         	user: {
-        		type: Object,
-				required: true
+        		type: Object
 			},
 			mainUser: {
-        		type: Object,
-				required: true
+        		type: Object
 			}
 		},
 		components: {
