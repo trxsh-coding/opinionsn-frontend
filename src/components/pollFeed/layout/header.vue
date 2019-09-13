@@ -101,6 +101,7 @@
 				switch (this.$route.name) {
 					case 'pollFeed':
 					case 'singlePoll':
+					case 'voteFeed':
 						return false;
 					default:
 						return true;

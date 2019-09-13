@@ -49,7 +49,7 @@ export const followsActions = sc => class extends sc {
 
         let {customUrl = `${process.env.VUE_APP_MAIN_API}/rest/v1/search/user/opinion`, data={}, method='get', } = payload;
 
-        sc.apiRequest(customUrl, data,{commit, dispatch, onSuccess: 'onListReceived', successType: 'mutation'}, method);
+        return sc.apiRequest(customUrl, data,{commit, dispatch, onSuccess: 'onListReceived', successType: 'mutation'}, method);
 
     };
 
