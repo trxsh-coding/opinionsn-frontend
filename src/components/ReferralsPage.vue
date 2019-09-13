@@ -79,18 +79,6 @@
 				mainUser: s => s.mainUser
 			})
 		},
-		watch: {
-			mainUser: {
-				handler(val, oldVal) {
-					if (val.referCode === null) {
-						this.$router.push({name: 'pollFeed'})
-					} else {
-						this.getUserList();
-					}
-				},
-				deep: true
-			}
-		},
 		methods: {
 			copyToClipboard(elem) {
 				if (elem) {
@@ -107,20 +95,33 @@
 					window.getSelection().removeAllRanges();
 				}
 			},
-			getUserList() {
-				axios.get(`${process.env.VUE_APP_MAIN_API}/rest/v1/search/user/referrals`)
-					.then(({status, data}) => {
-						if (status === 200) {
-							this.users_from_payload = data;
-							if (!data.length) this.payload_status = 'you_have_no_referrals'
-						}
-					})
-					.catch(err => this.payload_status = 'loading_error')
-					.finally(() => this.is_loading = false)
+			async getUserList() {
+				try {
+					let {status, data} = await axios.get(`${process.env.VUE_APP_MAIN_API}/rest/v1/search/user/referrals`);
+					if (status === 200) {
+						this.users_from_payload = data;
+						if (!data.length) this.payload_status = 'you_have_no_referrals'
+					}
+				} catch (e) {
+					this.payload_status = 'loading_error'
+				} finally {
+					this.is_loading = false
+				}
 			}
 		},
-		mounted() {
-			if (this.mainUser.referCode) this.getUserList();
+		async mounted() {
+			// Если юзер уже залогигнен
+			if (Object.keys(this.mainUser).length && this.mainUser.referCode) {
+				this.getUserList();
+			} else {
+				// Иначе делаем запрос на юзера
+				try {
+					await this.$store.dispatch("userPage/getMainUser");
+					if (this.mainUser.referCode) this.getUserList();
+				} catch (e) {
+					this.$router.push({name: 'pollFeed'})
+				}
+			}
 		}
 	}
 </script>

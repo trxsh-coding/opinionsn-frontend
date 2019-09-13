@@ -7,7 +7,7 @@ export const userActions = sc => class extends sc {
         let {customUrl = `${process.env.VUE_APP_MAIN_API}/rest/v1/user`, data={}, method='get', } = payload;
 
 
-        sc.apiRequest(customUrl, data,{commit, dispatch, onSuccess: 'setMainUser', successType: 'action'}, method);
+        return sc.apiRequest(customUrl, data,{commit, dispatch, onSuccess: 'setMainUser', successType: 'action'}, method);
 
     };
 
