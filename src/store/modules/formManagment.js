@@ -226,6 +226,7 @@ export const formManagment = {
 				
 			}
 			
+			
 			for (let item of state.pictures) {
 				let {picture} = item;
 				
@@ -234,7 +235,12 @@ export const formManagment = {
 				// delete item.picture;
 				
 			}
-			const form = new Blob([JSON.stringify(state.create_poll_form)], {type: "application/json"});
+			
+			// Создаем копию формы без картинок в опциях
+			let create_poll_form = {...state.create_poll_form};
+			create_poll_form.options.forEach(option => void(delete option.picture));
+			
+			const form = new Blob([JSON.stringify(create_poll_form)], {type: "application/json"});
 			
 			bodyFormData.append('form', form);
 			
