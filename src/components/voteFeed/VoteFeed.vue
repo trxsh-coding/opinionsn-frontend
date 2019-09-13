@@ -1,14 +1,33 @@
 <template lang="html">
 	
-	<section class="vote-feed" :class="{'pt-16': !mobile}">
+	<section class="vote-feed flex-column" :class="{'pt-16': !mobile}">
 		
-		<ReSwiper :type="mobile ? 'scroll' : 'usual'" class="mb-15" :swiper-class="mobile ? 'pl-30' : ''"
-		          :params="{stubLength: 2, slidesPerView: 6, spaceBetween: 3.5}">
-			<template #usual>
-				<swiper-slide
-						class="avatar-wrapper"
-						v-for="{avatar, username, user_id} in followersData">
+		<template v-if="data_received">
+			<ReSwiper :type="mobile ? 'scroll' : 'usual'" class="mb-15" :swiper-class="mobile ? 'pl-30' : ''"
+			          :params="{stubLength: 2, slidesPerView: 6, spaceBetween: 3.5}">
+				<template #usual>
+					<swiper-slide
+							class="avatar-wrapper"
+							v-for="{avatar, username, user_id} in followersData">
+						<picture-reusable
+								@click.native="filterFeed(user_id)"
+								class="user-bow mr-7 pointer"
+								pic-class="mb-9 p-2"
+								:size="66"
+								:img="avatar"
+								text-layout="bottom"
+								bor-color="#BCBEC3"
+								rounded>
+							<template #title>
+								{{username}}
+							</template>
+						</picture-reusable>
+					</swiper-slide>
+				</template>
+				
+				<template #scroll>
 					<picture-reusable
+							v-for="{avatar, username, user_id} in followersData"
 							@click.native="filterFeed(user_id)"
 							class="user-bow mr-7 pointer"
 							pic-class="mb-9 p-2"
@@ -21,40 +40,25 @@
 							{{username}}
 						</template>
 					</picture-reusable>
-				</swiper-slide>
-			</template>
+				</template>
+			</ReSwiper>
 			
-			<template #scroll>
-				<picture-reusable
-						v-for="{avatar, username, user_id} in followersData"
-						@click.native="filterFeed(user_id)"
-						class="user-bow mr-7 pointer"
-						pic-class="mb-9 p-2"
-						:size="66"
-						:img="avatar"
-						text-layout="bottom"
-						bor-color="#BCBEC3"
-						rounded>
-					<template #title>
-						{{username}}
-					</template>
-				</picture-reusable>
-			</template>
-		</ReSwiper>
-		
-		<div
-				class="vote-instance-wrapper flex-column pb-12"
-				:class="{'desktop bg-white': !mobile}">
 			<div
-					class="flex-column"
-					v-for="(item, index) in items">
-				<vote-instance
-						:item="item"
-						class="py-12"/>
-				<hr class="m-0 mt-13" v-show="index !== items.length - 1">
+					class="vote-instance-wrapper flex-column pb-12"
+					:class="{'desktop bg-white': !mobile}">
+				<div
+						class="flex-column"
+						v-for="(item, index) in items">
+					<vote-instance
+							:item="item"
+							class="py-12"/>
+					<hr class="m-0 mt-13" v-show="index !== items.length - 1">
+				</div>
+				<Loader class="m-auto" v-show="!loaded && loading"/>
 			</div>
-			<Loader class="m-auto" v-show="!loaded && loading"/>
-		</div>
+		</template>
+		
+		<Loader class="m-auto" v-show="!data_received"/>
 	
 	</section>
 
@@ -77,6 +81,7 @@
 					slidesPerView: 6,
 					spaceBetween: 3.5
 				},
+				data_received: false
 			};
 		},
 		
@@ -115,18 +120,11 @@
 			},
 			
 			followersData() {
-				let {followings, users} = this;
-				let data = [];
-				followings.forEach(({id}, index) => {
-					data[index] = {
-						avatar: this.publicPath + users[id].path_to_avatar,
-						username: users[id].username,
-						user_id: id
-					}
-				});
-				
-				return data;
-				
+				return this.followings.map(({id}, index) => ({
+					avatar: this.publicPath + this.users[id].path_to_avatar,
+					username: this.users[id].username,
+					user_id: id
+				}));
 			}
 			
 		},
@@ -145,10 +143,18 @@
 			VoteInstance,
 			PictureReusable,
 		},
-		mounted() {
-			this.$store.dispatch('followsPage/getMyFollowings');
-			this.$store.commit('voteFeed/clearFilter');
-			this.$store.dispatch('voteFeed/list');
+		async mounted() {
+			try {
+				this.$store.commit('voteFeed/clearFilter');
+				await Promise.all([
+					this.$store.dispatch('followsPage/getMyFollowings'),
+					this.$store.dispatch('voteFeed/list')
+				])
+			} catch (e) {
+				throw new Error(`Failed to received data in VoteFeed, error msg: ${e.message}`);
+			} finally {
+				this.data_received = true;
+			}
 		},
 		beforeDestroy() {
 			this.$store.commit('voteFeed/clearFilter');
