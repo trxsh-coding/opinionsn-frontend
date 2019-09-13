@@ -58,7 +58,9 @@
 					{{percentage}}%
 				</span>
 				
-				<div class="progress-bar" :style="progressBarStyle"></div>
+				<div class="progress-bar flex">
+					<div class="line" :style="progressBarStyle"></div>
+				</div>
 			</div>
 		
 		</div>
@@ -426,7 +428,7 @@
 			progressBarStyle() {
 				let {selected, temp_selected, correct, percentage} = this;
 				
-				let width = percentage ? {width: `calc(${percentage}% - 21px)`} : {width: '0'};
+				let width = percentage ? {flex: `0 0 ${percentage}%`} : {display: 'none'};
 				
 				switch (true) {
 					case temp_selected || selected:
@@ -570,7 +572,11 @@
 					position: absolute;
 					bottom: 0;
 					height: 4px;
-					background-color: #BCBEC3;
+					width: calc(100% - 21px);
+					
+					.line {
+						background-color: #BCBEC3;
+					}
 				}
 			}
 			

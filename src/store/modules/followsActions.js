@@ -47,7 +47,7 @@ export const followsActions = sc => class extends sc {
 
     getMyFollowings({commit, dispatch}, payload={}){
 
-        let {customUrl = `${process.env.VUE_APP_MAIN_API}/rest/v1/opinion/feed/leaders`, data={}, method='get', } = payload;
+        let {customUrl = `${process.env.VUE_APP_MAIN_API}/rest/v1/search/user/opinion`, data={}, method='get', } = payload;
 
         sc.apiRequest(customUrl, data,{commit, dispatch, onSuccess: 'onListReceived', successType: 'mutation'}, method);
 
