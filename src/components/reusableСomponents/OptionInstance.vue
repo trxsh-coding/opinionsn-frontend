@@ -196,7 +196,7 @@
 						judgeVote(poll_id, this.mainUser.id, this.option.description)
 							.then(() => {
 								this.$store.dispatch('pollFeed/setRightOption', {data: {selected_variable, poll_id}})
-									.then(status => {
+									.then(({status}) => {
 										if (status === 200) {
 											this.$popup.insert('messages', [{
 												message: 'Вариант выбран успешно!',
@@ -214,7 +214,7 @@
 						break;
 					case 1:
 						this.$store.dispatch('pollFeed/setRightOption', {data: {selected_variable, poll_id}})
-							.then(status => {
+							.then(({status}) => {
 								if (status === 200) {
 									this.$popup.insert('messages', [{
 										message: 'Вариант выбран успешно!',

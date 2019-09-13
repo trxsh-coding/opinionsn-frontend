@@ -46,7 +46,7 @@ export class VuexStore {
             commit('setLoading', false);
 			commit('serviceWorker/CONNECTION_UNSTABLE', false, { root: true });
 			
-			return status;
+			return resp;
 			
         })
         .catch(error=> {
@@ -62,7 +62,7 @@ export class VuexStore {
 				commit('onError', error);
 			}
         	
-        	return error.response.status;
+        	return error.response;
         });
 
 

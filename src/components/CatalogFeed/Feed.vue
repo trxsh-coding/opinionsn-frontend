@@ -69,7 +69,7 @@
 
         mounted() {
             this.$store.dispatch(`catalogList/list`, {customUrl: `${process.env.VUE_APP_MAIN_API}/rest/v1/feed/page/${this.page}?categories_id=${this.id}`})
-                    .then(status => {
+                    .then(({status}) => {
                         if (status === 200) {
                             this.page++;
                             this.$store.dispatch(`catalogList/list`, {customUrl: `${process.env.VUE_APP_MAIN_API}/rest/v1/feed/page/${this.page}?categories_id=${this.id}`})
