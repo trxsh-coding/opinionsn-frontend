@@ -5,15 +5,15 @@
 	     v-show="header_type !== 'hidden'">
 		<div
 				v-if="logged_in"
-				class="icon-wrapper">
+				class="icon-wrapper h-24">
 			<icon-base
 					@click.native="pushToCreatePoll"
 					v-if="header_type === 'primary'"
 					class="add-poll"
 					fill="#152D3A"
 					width="24"
-					height="25"
-					viewBox="0 0 24 25"
+					height="24"
+					viewBox="0 0 25 24"
 					icon-name="add-poll">
 				<icon-add-poll/>
 			</icon-base>
@@ -32,7 +32,7 @@
 		</div>
 		
 		<div v-if="header_type === 'primary'" @click="$router.push({ name: 'pollFeed' })"
-		     class="main-logo-icon-block pointer" :class="{'mx-auto': !logged_in}">
+		     class="main-logo-icon-block h-25 pointer" :class="{'mx-auto': !logged_in}">
 			
 			<icon-base
 					fill="none"
