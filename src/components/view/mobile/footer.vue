@@ -1,8 +1,8 @@
 <template>
 	<div class="mobile-footer">
 		<ul>
-			<li class="footer-icon" :class="{active : routeName === 'pollFeed'}">
-				<router-link :to="{name: 'pollFeed'}">
+			<li class="footer-icon">
+				<router-link class="btn" active-class="active" :to="{name: 'pollFeed'}">
 					<icon-base
 							width="24"
 							height="25"
@@ -14,8 +14,8 @@
 				</router-link>
 			</li>
 			
-			<li class="footer-icon" :class="{active : routeName === 'voteFeed'}">
-				<router-link :to="{name: 'voteFeed'}">
+			<li class="footer-icon">
+				<router-link class="btn" active-class="active" :to="{name: 'voteFeed'}">
 					<icon-base
 							width="24"
 							height="25"
@@ -27,8 +27,8 @@
 				</router-link>
 			</li>
 			
-			<li class="footer-icon" :class="{active : routeName === 'search'}">
-				<router-link :to="{name: 'search'}">
+			<li class="footer-icon">
+				<router-link class="btn" active-class="active" :to="{name: 'search'}">
 					<icon-base
 							width="20"
 							height="21"
@@ -40,8 +40,8 @@
 				</router-link>
 			</li>
 			
-			<li class="footer-icon notification-btn" :class="{active : routeName === 'notifications'}">
-				<router-link :to="{name: 'notifications'}">
+			<li class="footer-icon notification-btn">
+				<router-link class="btn" active-class="active" :to="{name: 'notifications'}">
 					<icon-base
 							width="21"
 							height="21"
@@ -56,8 +56,8 @@
 				          :params="{background: '#FF5454'}"/>
 			</li>
 			
-			<li class="footer-icon" :class="{active : routeName === 'menu'}">
-				<div @click="(routeName === 'menu') ? $router.go(-1) : $router.push('menu')">
+			<li class="footer-icon">
+				<div class="btn" :class="{active : routeName === 'menu'}" @click="(routeName === 'menu') ? $router.go(-1) : $router.push('menu')">
 					<icon-base
 							width="24"
 							height="24"
@@ -113,6 +113,7 @@
 	}
 </script>
 
+
 <style lang="scss" scoped>
 	.mobile-footer {
 		box-sizing: border-box;
@@ -125,9 +126,7 @@
 		padding: 5px 24px 4px 24px;
 		
 		.active {
-			
 			opacity: 1 !important;
-			
 		}
 		
 		svg {
@@ -147,11 +146,10 @@
 				display: flex;
 				flex-direction: column;
 				align-items: center;
-				opacity: 0.3;
 				
-				& > a,
-				& > div {
+				.btn {
 					all: inherit;
+					opacity: 0.3;
 				}
 				
 				span {
