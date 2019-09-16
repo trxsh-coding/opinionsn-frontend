@@ -14,9 +14,9 @@
 					textLayout="right"
 					rounded>
 				<template #title>
-                <span class="username">
+                <router-link :to="{name:'user', params: {id: author.id}}" class="username">
                     {{author.username}}
-                </span>
+                </router-link>
 				<lang-string v-if="has_event_type" class="event__item" :title="user_caption"/>
 					<slot>
 					
