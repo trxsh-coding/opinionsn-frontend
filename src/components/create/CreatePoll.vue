@@ -20,7 +20,7 @@
 				/>
 				
 				<button-reusable
-						v-if="mainUser.authorities === 'ADMIN'"
+						v-if="is_admin"
 						:active-font-size="20"
 						:font-size="15"
 						bg-color="#ffffff"
@@ -140,7 +140,7 @@
 			
 			<add-option-block class="ml-60" @click.native="pushMoreOption"/>
 			
-			<div class="additional-fields mt-20 pl-60" v-if="additionalField">
+			<div class="additional-fields mt-20 pl-60" v-if="is_admin">
 				
 				<re-switcher
 						class="blockchain-switcher flex-reverse"
@@ -231,7 +231,6 @@
 				subject: null,
 				subject_description: null,
 				mobile: this.$root.mobile,
-				additionalField: true,
 				type: 'POLL'
 			}
 		},
@@ -281,7 +280,8 @@
 			
 			
 			...mapState("globalStore", {
-				mainUser: ({mainUser}) => mainUser
+				mainUser: ({mainUser}) => mainUser,
+				is_admin: ({mainUser}) => mainUser.authorities === 'ADMIN'
 			}),
 			
 			values_with_rules() {
