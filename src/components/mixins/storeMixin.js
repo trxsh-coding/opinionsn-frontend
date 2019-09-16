@@ -13,7 +13,7 @@ export default {
             mainUser: ({mainUser}) => mainUser,
         }),
 
-        vote: function () {
+        vote() {
 
             let {item, votes} = this;
 
@@ -21,19 +21,11 @@ export default {
 
         },
 
-        poll: function () {
+        poll() {
 
             let {vote, polls, item} = this;
 
-            if (item.eventType === "POLL_CREATED") {
-            	return polls[item.id]
-			} else  if(item.eventType === null){
-            	return polls[item.id]
-
-			} else {
-                return polls[vote.poll_id]
-
-            }
+            return polls[vote.poll_id]
 
         },
 
@@ -74,10 +66,6 @@ export default {
         routeName(){
             return this.$route.name
         },
-
-        test() {
-            return 'T_E_S_T'
-        }
 
     }
 
