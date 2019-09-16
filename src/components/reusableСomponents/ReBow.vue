@@ -4,9 +4,9 @@
 		     :class="{'is_mobile_device': $root.mobile}">
 		
 		</div>
-		<span class="bow-username" v-if="routeName === 'voteFeed'">
-              {{username}}
-        </span>
+<!--		<span class="bow-username" v-if="routeName === 'voteFeed'">-->
+<!--              {{username}}-->
+<!--        </span>-->
 	</div>
 </template>
 
@@ -40,9 +40,9 @@
 			routeName() {
 				return this.$route.name
 			},
-			username() {
-				return this.users[this.id].username
-			},
+			// username() {
+			// 	return this.users[this.id].username
+			// },
 			pictureStyle() {
 				let {width, height, img} = this;
 				return {
