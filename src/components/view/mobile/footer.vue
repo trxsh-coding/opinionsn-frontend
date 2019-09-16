@@ -1,60 +1,72 @@
 <template>
 	<div class="mobile-footer">
 		<ul>
-			<li class="footer-icon" @click="routerPush('pollFeed')" :class="{active : routeName === 'pollFeed'}">
-				<icon-base
-						width="24"
-						height="25"
-						viewBox="0 0 24 25"
-						icon-name="icon-main">
-					<icon-main/>
-				</icon-base>
-				<lang-string :title="'main'"/>
+			<li class="footer-icon" :class="{active : routeName === 'pollFeed'}">
+				<router-link :to="{name: 'pollFeed'}">
+					<icon-base
+							width="24"
+							height="25"
+							viewBox="0 0 24 25"
+							icon-name="icon-main">
+						<icon-main/>
+					</icon-base>
+					<lang-string :title="'main'"/>
+				</router-link>
+			</li>
 			
+			<li class="footer-icon" :class="{active : routeName === 'voteFeed'}">
+				<router-link :to="{name: 'voteFeed'}">
+					<icon-base
+							width="24"
+							height="25"
+							viewBox="0 0 24 25"
+							icon-name="icon-opinion">
+						<icon-opinion/>
+					</icon-base>
+					<lang-string :title="'opinion'"/>
+				</router-link>
 			</li>
-			<li class="footer-icon" @click="routerPush('voteFeed')" :class="{active : routeName === 'voteFeed'}">
-				<icon-base
-						width="24"
-						height="25"
-						viewBox="0 0 24 25"
-						icon-name="icon-opinion">
-					<icon-opinion/>
-				</icon-base>
-				<lang-string :title="'opinion'"/>
+			
+			<li class="footer-icon" :class="{active : routeName === 'search'}">
+				<router-link :to="{name: 'search'}">
+					<icon-base
+							width="20"
+							height="21"
+							viewBox="0 0 20 21"
+							icon-name="icon-search">
+						<icon-search/>
+					</icon-base>
+					<lang-string :title="'search'"/>
+				</router-link>
 			</li>
-			<li class="footer-icon" @click="routerPush('search')" :class="{active : routeName === 'search'}">
-				<icon-base
-						width="20"
-						height="21"
-						viewBox="0 0 20 21"
-						icon-name="icon-search">
-					<icon-search/>
-				</icon-base>
-				<lang-string :title="'search'"/>
-			</li>
-			<li class="footer-icon notification-btn" @click="routerPush('notifications')"
-			    :class="{active : routeName === 'notifications'}">
-				<icon-base
-						width="21"
-						height="21"
-						viewBox="0 0 21 21"
-						icon-name="icon-notifications">
-					<icon-notifications/>
-				</icon-base>
-				<lang-string :title="'notifications'"/>
+			
+			<li class="footer-icon notification-btn" :class="{active : routeName === 'notifications'}">
+				<router-link :to="{name: 'notifications'}">
+					<icon-base
+							width="21"
+							height="21"
+							viewBox="0 0 21 21"
+							icon-name="icon-notifications">
+						<icon-notifications/>
+					</icon-base>
+					<lang-string :title="'notifications'"/>
+				</router-link>
 				
 				<re-badge class="counter" v-show="counter" :counter="counter" :size="12"
 				          :params="{background: '#FF5454'}"/>
 			</li>
-			<li class="footer-icon" @click="(routeName === 'menu') ? $router.go(-1) : routerPush('menu')" :class="{active : routeName === 'menu'}">
-				<icon-base
-						width="24"
-						height="24"
-						viewBox="0 0 24 24"
-						icon-name="icon-main">
-					<icon-menu/>
-				</icon-base>
-				<lang-string :title="'menu'"/>
+			
+			<li class="footer-icon" :class="{active : routeName === 'menu'}">
+				<div @click="(routeName === 'menu') ? $router.go(-1) : $router.push('menu')">
+					<icon-base
+							width="24"
+							height="24"
+							viewBox="0 0 24 24"
+							icon-name="icon-main">
+						<icon-menu/>
+					</icon-base>
+					<lang-string title="menu"/>
+				</div>
 			</li>
 		</ul>
 	</div>
@@ -136,6 +148,11 @@
 				flex-direction: column;
 				align-items: center;
 				opacity: 0.3;
+				
+				& > a,
+				& > div {
+					all: inherit;
+				}
 				
 				span {
 					font-family: Helvetica Neue;

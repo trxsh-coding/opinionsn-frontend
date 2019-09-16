@@ -1,20 +1,18 @@
 <template lang="html">
 	<div class="links-section">
 		<ul>
-			<li
-					class="link relative pointer"
-					@click="$router.push({ name: 'createPoll' })">
-				<icon-base
-						fill="none"
-						width="23"
-						height="23"
-						viewBox="3 0 23 23"
-						icon-name="add">
-					<icon-add-poll/>
-				</icon-base>
-				<lang-string :title="'add_poll'">
-				
-				</lang-string>
+			<li class="relative pointer">
+				<router-link class="link" :to="{name: 'createPoll'}">
+					<icon-base
+							fill="none"
+							width="23"
+							height="23"
+							viewBox="3 0 23 23"
+							icon-name="add">
+						<icon-add-poll/>
+					</icon-base>
+					<lang-string :title="'add_poll'" />
+				</router-link>
 			</li>
 			
 			<li class="link relative pointer">
@@ -26,25 +24,23 @@
 						icon-name="pocket">
 					<icon-pocket/>
 				</icon-base>
-				<lang-string :title="'pocket'">
-				
-				</lang-string>
+				<lang-string :title="'pocket'" />
 			</li>
-			<li
-					class="link relative pointer"
-					@click="$router.push({ name: 'bookmarkFeed' })">
-				<icon-base
-						fill="none"
-						width="15"
-						height="22"
-						viewBox="3 0 11 22"
-						icon-name="add">
-					<icon-bookmark/>
-				</icon-base>
-				<lang-string :title="'bookmarks'">
-				
-				</lang-string>
+			
+			<li class="relative pointer">
+				<router-link class="link" :to="{name: 'bookmarkFeed'}">
+					<icon-base
+							fill="none"
+							width="15"
+							height="22"
+							viewBox="3 0 11 22"
+							icon-name="add">
+						<icon-bookmark/>
+					</icon-base>
+					<lang-string :title="'bookmarks'" />
+				</router-link>
 			</li>
+			
 			<li class="link relative pointer">
 				<icon-base
 						fill="none"
@@ -54,67 +50,59 @@
 						icon-name="add">
 					<icon-judgement/>
 				</icon-base>
-				<lang-string :title="'judgement'">
-				
-				</lang-string>
-			</li>
-			<li
-					class="link relative pointer"
-					@click="$router.push({ name: 'catalogList' })">
-				<icon-base
-						fill="none"
-						width="21"
-						height="22"
-						viewBox="3 0 21 22"
-						icon-name="catalog">
-					<icon-catalog/>
-				</icon-base>
-				<lang-string :title="'topics'">
-				
-				</lang-string>
+				<lang-string :title="'judgement'" />
 			</li>
 			
-			<li v-if="mainUser.referCode" class="link relative pointer" @click="$router.push({ name: 'ReferralsPage' })">
-				<icon-user width="22" height="22" fill="#1a1e22" :style="{position: 'relative', left: '-3px'}"/>
-				<lang-string :title="'referrals_page'">
-				
-				</lang-string>
+			<li class="relative pointer">
+				<router-link class="link" :to="{name: 'catalogList'}">
+					<icon-base
+							fill="none"
+							width="21"
+							height="22"
+							viewBox="3 0 21 22"
+							icon-name="catalog">
+						<icon-catalog/>
+					</icon-base>
+					<lang-string :title="'topics'" />
+				</router-link>
 			</li>
 			
-			<li
-					class="link relative pointer"
-					@click="$router.push({ name: 'settings' })">
-				<icon-base
-						fill="none"
-						width="21"
-						height="21"
-						viewBox="3 0 21 21"
-						icon-name="add">
-					<icon-settings/>
-				</icon-base>
-				<lang-string :title="'settings'">
-				
-				</lang-string>
-			</li>
-			<li
-					class="link relative pointer"
-					@click="$router.push({ name: 'feedback' })">
-				<icon-base
-						fill="none"
-						width="21"
-						height="21"
-						viewBox="4 0 21 21"
-						icon-name="feedback">
-					<icon-feedback/>
-				</icon-base>
-				<lang-string :title="'feedback'">
-				
-				</lang-string>
+			<li v-if="mainUser.referCode" class="relative pointer">
+				<router-link class="link" :to="{name: 'ReferralsPage'}">
+					<icon-user width="22" height="22" fill="#1a1e22" :style="{position: 'relative', left: '-3px'}"/>
+					<lang-string :title="'referrals_page'" />
+				</router-link>
 			</li>
 			
-			<li
-					class="link relative pointer"
-					@click="userLogout">
+			<li class="relative pointer">
+				<router-link class="link" :to="{name: 'settings'}">
+					<icon-base
+							fill="none"
+							width="21"
+							height="21"
+							viewBox="3 0 21 21"
+							icon-name="add">
+						<icon-settings/>
+					</icon-base>
+					<lang-string :title="'settings'" />
+				</router-link>
+			</li>
+			
+			<li class="relative pointer">
+				<router-link class="link" :to="{name: 'feedback'}">
+					<icon-base
+							fill="none"
+							width="21"
+							height="21"
+							viewBox="4 0 21 21"
+							icon-name="feedback">
+						<icon-feedback/>
+					</icon-base>
+					<lang-string :title="'feedback'" />
+				</router-link>
+			</li>
+			
+			<li class="link relative pointer" @click="userLogout">
 				<icon-base
 						fill="none"
 						width="21"
@@ -152,6 +140,7 @@
 				publicPath: process.env.VUE_APP_ASSETS,
 			}
 		},
+		
 		components: {
 			IconUser,
 			IconBase,
@@ -165,7 +154,9 @@
 			langString,
 			IconPocket
 		},
+		
 		mixins: [langMixin, CookieMixin],
+		
 		computed: {
 			
 			...mapState('globalStore', {
@@ -175,7 +166,12 @@
 			}),
 			
 		},
+		
 		methods: {
+			
+			routerPush(name, additionalOptions) {
+				this.$router.push({name, ...additionalOptions})
+			},
 			
 			userLogout() {
 				
@@ -205,7 +201,7 @@
 		
 		ul {
 			
-			li {
+			.link {
 				height: 45px;
 				display: flex;
 				padding: 11px 0 11px 7px;

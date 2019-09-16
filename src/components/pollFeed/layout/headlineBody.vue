@@ -3,14 +3,18 @@
 		<div class="tags__item mb-4">
 			{{poll.tags}}
 		</div>
-		<div class="subject__item " @click="pushToPoll(poll.id)" :class="{'pointer' : routeName !== 'singlePoll'}">
-            <span>
+		
+		<router-link class="subject__item" :class="{'pointer' : routeName !== 'singlePoll'}"
+		             :to="{name: 'singlePoll', params: {id: poll.id}}">
+			<span>
                 {{poll.subject}}
             </span>
-		</div>
+		</router-link>
+		
 		<div class="description__item mb-7">
 			<text-trim :text="poll.description" :amount-of-letter="mobile ? 200 : 250"/>
 		</div>
+		
 		<subject-picture class="pointer" v-if="poll.picture" :img="publicPath + poll.picture" width="100%" only-picture
 		                 :height="mobile ? 190 : 303" textLayout="right" bor-rad="6"
 		                 @click.native="$popup.insert('pictures', poll.picture)"/>

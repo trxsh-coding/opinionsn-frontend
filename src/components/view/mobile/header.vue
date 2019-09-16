@@ -6,21 +6,23 @@
 		<div
 				v-if="logged_in"
 				class="icon-wrapper h-24">
-			<icon-base
-					@click.native="pushToCreatePoll"
-					v-if="header_type === 'primary'"
-					class="add-poll"
-					fill="#152D3A"
-					width="24"
-					height="24"
-					viewBox="0 0 25 24"
-					icon-name="add-poll">
-				<icon-add-poll/>
-			</icon-base>
+			<router-link :to="{name: 'createPoll'}">
+				<icon-base
+						@click.native="pushToCreatePoll"
+						v-if="header_type === 'primary'"
+						class="add-poll"
+						fill="#152D3A"
+						width="24"
+						height="24"
+						viewBox="0 0 25 24"
+						icon-name="add-poll">
+					<icon-add-poll/>
+				</icon-base>
+			</router-link>
 			
 			<icon-base
 					v-if="header_type === 'secondary'"
-					@click.native="back"
+					@click.native="goBack"
 					class="arrow-icon pointer"
 					fill="#4B97B4"
 					width="23"
@@ -29,11 +31,11 @@
 					icon-name="arrow">
 				<icon-arrow-left/>
 			</icon-base>
+			
 		</div>
 		
-		<div v-if="header_type === 'primary'" @click="$router.push({ name: 'pollFeed' })"
-		     class="main-logo-icon-block h-25 pointer" :class="{'mx-auto': !logged_in}">
-			
+		<router-link class="main-logo-icon-block h-25 pointer" :class="{'mx-auto': !logged_in}"
+		              v-if="header_type === 'primary'" :to="{name: 'pollFeed'}">
 			<icon-base
 					fill="none"
 					class="icon"
@@ -53,7 +55,7 @@
 					icon-name="text-logo">
 				<icon-text-logo/>
 			</icon-base>
-		</div>
+		</router-link>
 		
 		<lang-string
 				v-if="header_type === 'secondary'"
@@ -154,11 +156,8 @@
 		},
 		
 		methods: {
-			pushToCreatePoll() {
-				this.$router.push({name: 'createPoll'})
-				
-			},
-			back() {
+
+			goBack() {
 				if (window.history.length <= 2) {
 					this.$router.push({name: 'pollFeed'})
 				} else {

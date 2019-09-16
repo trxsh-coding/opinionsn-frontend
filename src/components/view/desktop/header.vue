@@ -2,7 +2,7 @@
 	<div class="desktop-header mb-17">
 		<div class="nav-container container flex-align-center" :class="{'is_mobile_device': mobile}">
 			<div class="search-block flex-align-center" >
-				<div class="pointer" @click="$router.push({ name: 'pollFeed' })">
+				<router-link class="pointer" :to="{name: 'pollFeed'}">
 					<icon-base
 							class="mr-5"
 							fill="none"
@@ -21,7 +21,8 @@
 							icon-name="text">
 						<icon-text-logo/>
 					</icon-base>
-				</div>
+				</router-link>
+				
 				<input
 						v-if="logged_in"
 						class="ml-27"
@@ -94,28 +95,25 @@
 
 					<template #items>
 						<div class="nav-menu-items flex-column">
-							<lang-string
-									@click.native="$router.push({name: 'followings', params: {id: user.id}})"
-									class="menu-item py-10 px-20 pointer"
-									title="followings" />
-							<lang-string
-									@click.native="$router.push({name: 'catalogList'})"
-									class="menu-item py-10 px-20 pointer"
-									title="topics" />
-							<lang-string
-									v-if="mainUser.referCode"
-									@click.native="$router.push({name: 'ReferralsPage'})"
-									class="menu-item py-10 px-20 pointer"
-									title="referrals_page" />
-							<lang-string
-									v-if="mainUser.authorities === 'ADMIN'"
-									@click.native="$router.push({name: 'admin'})"
-									class="menu-item py-10 px-20 pointer"
-									title="admin_panel" />
-							<lang-string
-									@click.native="userLogout"
-									class="menu-item py-10 px-20 pointer"
-									title="exit" />
+							
+							<router-link class="menu-item py-10 px-20 pointer" :to="{name: 'followings', params: {id: user.id}}">
+								<lang-string title="followings" />
+							</router-link>
+							
+							<router-link class="menu-item py-10 px-20 pointer" :to="{name: 'catalogList'}">
+								<lang-string title="topics" />
+							</router-link>
+							
+							<router-link class="menu-item py-10 px-20 pointer" v-if="mainUser.referCode" :to="{name: 'ReferralsPage'}">
+								<lang-string title="referrals_page" />
+							</router-link>
+							
+							<router-link class="menu-item py-10 px-20 pointer" v-if="is_admin" :to="{name: 'admin'}">
+								<lang-string title="admin_panel" />
+							</router-link>
+							
+							<lang-string class="menu-item py-10 px-20 pointer" @click.native="userLogout" title="exit" />
+							
 						</div>
 					</template>
 				</dropdown-list-reusable>
@@ -158,7 +156,8 @@
 			}),
 			
 			...mapState("globalStore", {
-				mainUser: s => s.mainUser
+				mainUser: s => s.mainUser,
+				is_admin: s => s.mainUser.authorities === 'ADMIN'
 			}),
 			
 			logged_in() {

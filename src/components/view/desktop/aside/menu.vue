@@ -1,7 +1,7 @@
 <template>
     <div class="navigation-aside-menu">
         
-        <div class="create-poll-block br-6 pl-12 py-10 pointer flex-align-center" @click.prevent="routerPush('createPoll')">
+        <router-link class="create-poll-block br-6 pl-12 py-10 pointer flex-align-center" :to="{name: 'createPoll'}">
             <icon-base
                     fill="none"
                     class="mr-12 pointer"
@@ -13,58 +13,50 @@
             <lang-string
                     :title="'create_poll'"
             />
-        </div>
+        </router-link>
         
-        <div class="nav-menu">
-            <ul>
-                <li class="links py-12 pointer" @click="routerPush('pollFeed')">
-                    <icon-base
-                            :class="{active : routeName === 'pollFeed'}"
-                            class="mr-13"
-                            fill="none"
-                            width="18"
-                            height="18"
-                            viewBox="0 0 19 19"
-                            icon-name="add"><icon-poll-feed/>
-                    </icon-base>
-                    <lang-string
-                            :class="{active : routeName === 'pollFeed'}"
-
-                            :title="'main'" />
-                </li>
-                <li class="links py-12 pointer" @click="routerPush('voteFeed')">
-                    <icon-base
-                            :class="{active : routeName === 'voteFeed'}"
-                            class="mr-12"
-                            fill="none"
-                            width="18"
-                            height="18"
-                            viewBox="0 0 19 19"
-                            icon-name="opinion"><icon-opinion/>
-                    </icon-base>
-                    <lang-string
-                            :class="{active : routeName === 'voteFeed'}"
-                            :title="'opinion'" />
-                </li>
-                <li class="links py-11 pointer" @click="routerPush('bookmarkFeed')">
-                    <icon-base
-                            :class="{active : routeName === 'bookmarkFeed'}"
-                            class="mr-10"
-                            fill="none"
-                            width="20"
-                            height="20"
-                            viewBox="1 0 13 18"
-                            icon-name="add"><icon-bookmark/>
-                    </icon-base>
-                    <lang-string
-
-                            :class="{active : routeName === 'bookmarkFeed'}"
-                            :title="'bookmark'" />
-                </li>
-            </ul>
+        <div class="nav-menu py-2">
+            <router-link class="links py-12 px-12 pointer" :to="{name: 'pollFeed'}">
+                <icon-base
+                        :class="{active : routeName === 'pollFeed'}"
+                        class="mr-13"
+                        fill="none"
+                        width="18"
+                        height="18"
+                        viewBox="0 0 19 19"
+                        icon-name="add"><icon-poll-feed/>
+                </icon-base>
+                <lang-string :class="{active : routeName === 'pollFeed'}" title="main" />
+            </router-link>
+            
+            <router-link class="links py-12 px-12 pointer"  :to="{name: 'voteFeed'}">
+                <icon-base
+                        :class="{active : routeName === 'voteFeed'}"
+                        class="mr-12"
+                        fill="none"
+                        width="18"
+                        height="18"
+                        viewBox="0 0 19 19"
+                        icon-name="opinion"><icon-opinion/>
+                </icon-base>
+                <lang-string :class="{active : routeName === 'voteFeed'}" title="opinion" />
+            </router-link>
+            
+            <router-link class="links py-11 px-12 pointer" :to="{name: 'bookmarkFeed'}">
+                <icon-base
+                        :class="{active : routeName === 'bookmarkFeed'}"
+                        class="mr-10"
+                        fill="none"
+                        width="20"
+                        height="20"
+                        viewBox="1 0 13 18"
+                        icon-name="add"><icon-bookmark/>
+                </icon-base>
+                <lang-string :class="{active : routeName === 'bookmarkFeed'}" title="bookmark" />
+            </router-link>
         </div>
     
-        <div class="feedback-link br-6 mt-9 pl-12 py-10 pointer flex-align-center" @click.prevent="routerPush('feedback')">
+        <router-link class="feedback-link br-6 mt-9 pl-12 py-10 pointer flex-align-center" :to="{name: 'feedback'}">
             <icon-base
                     fill="white"
                     class="mr-11 pointer"
@@ -73,10 +65,8 @@
                     viewBox="0 0 21 19"
                     icon-name="speaker"><icon-speaker/>
             </icon-base>
-            <lang-string
-                    :title="'feedback'"
-            />
-        </div>
+            <lang-string title="feedback"/>
+        </router-link>
         
         <dropdown-list-reusable
                 class="lang-switch br-6 flex-align-center mt-9"
@@ -227,35 +217,31 @@
             background: #FFFFFF;
             margin-top: 9px;
 
-            ul {
-
-                padding: 2px 12px;
-                li {
-                    border-bottom-width: 0.5px;
-                    border-bottom-color: #CECFD3;
-                    border-bottom-style: solid;
-                    display: flex;
-                    align-items: center;
-                    &:nth-child(even){
-                        padding: 9px 0px;
-                    }
-                    &:nth-child(odd){
-                        padding: 12px 0;
-                    }
-                    &:last-of-type {
-                        border-bottom: none;
-                    }
+            a {
+                border-bottom-width: 0.5px;
+                border-bottom-color: #CECFD3;
+                border-bottom-style: solid;
+                display: flex;
+                align-items: center;
+                &:nth-child(even){
+                    padding: 9px 0px;
                 }
-
-                span, svg {
-                    opacity: 0.4;
-
+                &:nth-child(odd){
+                    padding: 12px 0;
                 }
-                span {
-                    font-family: Roboto;
-                    font-size: 13px;
-                    color: #1A1E22;
+                &:last-of-type {
+                    border-bottom: none;
                 }
+            }
+    
+            span, svg {
+                opacity: 0.4;
+        
+            }
+            span {
+                font-family: Roboto;
+                font-size: 13px;
+                color: #1A1E22;
             }
         }
     }
