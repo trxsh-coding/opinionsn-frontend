@@ -2,7 +2,7 @@
 	<div class="poll-create-wrapper" :class="{'bg-white': !mobile, 'blockchain': is_blockchain}">
 		<create-header @submit="onFormSubmit"/>
 		
-		<div class="create-form ">
+		<div class="create-form">
 			<div class="button-block mb-18 pl-60">
 				
 				<button-reusable
@@ -221,6 +221,7 @@
 		data() {
 			return {
 				route_leaved: false,
+				send_in_process: false,
 				swiperOption: {
 					pagination: {
 						el: '.swiper-pagination'
@@ -362,7 +363,9 @@
 				return !!form.errors[key] && Object.values(form.errors[key]).some(error => !!error)
 			},
 			
-			onFormSubmit() {
+			async onFormSubmit() {
+				if (this.send_in_process) return;
+				
 				let {verifyValues, options_with_rules, checkLength, checkUpload, checkAmount, values_with_rules, errors = {}, form: pollForm} = this;
 				verifyValues('create_poll_form', values_with_rules, {checkLength, checkAmount});
 				verifyValues('create_poll_form', options_with_rules, {checkLength, checkUpload, checkAmount});
@@ -387,28 +390,30 @@
 				
 				if (!has_errors) {
 					
-					this.$store.dispatch('formManagment/SUBMIT_POLL_FORM', this.mainUser.id)
-						.then(poll_id => {
-							if (pollForm.type_of_poll === 2) {
-                                let desc_arr = pollForm.options.map(({description}) => description);
-                                console.log(desc_arr);
-							    createForecast(
-                                    poll_id,
-                                    this.mainUser.id,
-                                    pollForm.subject,
-                                    desc_arr
-                                )
-									.then(() => console.log("EOSIO forecast created"))
-                                    .catch(err => console.log(err));
+					try {
+						this.send_in_process = true;
+						let poll_id = await this.$store.dispatch('formManagment/SUBMIT_POLL_FORM', this.mainUser.id);
+						
+						if (pollForm.type_of_poll === 2) {
+							let desc_arr = pollForm.options.map(({description}) => description);
+							console.log(desc_arr);
+							
+							try {
+								await createForecast(poll_id, this.mainUser.id, pollForm.subject, desc_arr);
+								console.log("EOSIO forecast created");
+							} catch (e) {
+								console.error(e);
 							}
 							
-							this.$router.push({name: 'singlePoll', params: {id: poll_id}});
-							
-						})
-						.catch(() => this.$popup.insert('messages', [{
-							message: 'Ошибка при отправке!',
-							type: 'error'
-						}]))
+						}
+						
+						this.$router.push({name: 'singlePoll', params: {id: poll_id}});
+						
+					} catch (e) {
+						this.$popup.insert('messages', [{message: 'Ошибка при отправке!', type: 'error'}])
+					} finally {
+						this.send_in_process = false;
+					}
 					
 				} else {
 					this.$popup.insert('messages', [{
