@@ -4,8 +4,7 @@
 			<slot name="headAnnotation"></slot>
 		</post-header>
 	 
-	    <ReSwiper v-if="!mobile && item.voted" :type="mobile ? 'scroll' : 'usual'"
-	              :params="{stubLength: 1, slidesPerView: 3, spaceBetween: 9}">
+	    <ReSwiper :type="mobile ? 'scroll' : 'usual'" :params="{stubLength: 1, slidesPerView: 3, spaceBetween: 9}">
 			<template #usual>
 				<swiper-slide v-for="{option, isSelected} in sortedOptions">
 					<option-item class="option mr-9"  :selected="isSelected" :option="option" :width="180"  :height="45"/>
