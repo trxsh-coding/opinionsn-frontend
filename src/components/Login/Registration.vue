@@ -211,33 +211,52 @@
 			validate(){
 				this.$refs.recaptcha.execute();
 			},
-			submit(form) {
-				let registerFormData = new FormData();
-				registerFormData.append("login", form.username);
-				registerFormData.append("email", form.email);
-				registerFormData.append("pass", form.password);
-				registerFormData.append("passConfirm", form.conf_pass);
-				registerFormData.append("recaptcha", this.token);
-
-				axios
-					.post(`${process.env.VUE_APP_MAIN_API}/auth/register${this.refer}`, registerFormData)
-					.then(response => {
+			async submit(form) {
+				
+				try {
+					let registerFormData = new FormData();
+					registerFormData.append("login", form.username);
+					registerFormData.append("email", form.email);
+					registerFormData.append("pass", form.password);
+					registerFormData.append("passConfirm", form.conf_pass);
+					registerFormData.append("recaptcha", this.token);
+					
+					let {status} = await axios.post(`${process.env.VUE_APP_MAIN_API}/auth/register${this.refer}`, registerFormData);
+					
+					if (status === 200) {
 						if (this.$route.query.refer) delete this.$route.query.refer;
-						if (response.status === 200) {
-							this.$router.push({
-								name: "sign",
-								query: this.$route.query
-							});
+						
+						try {
+							let loginFormData = new FormData();
+							loginFormData.append("field_email", form.email);
+							loginFormData.append("field_password", form.password);
+							let {status} = await axios.post(`${process.env.VUE_APP_MAIN_API}/auth/login`, loginFormData);
+							
+							if (status === 200) {
+								this.$store.commit("authentication/setAuthenticated", true);
+								
+								if (this.$route.query.redirectToPoll) {
+									this.$router.push({name: "singlePoll", params: {id: this.$route.query.redirectToPoll}});
+								} else {
+									this.$router.push({path: "/"});
+								}
+							}
+						} catch (e) {
+							console.error('Error sending sign form: ', e);
 						}
-					})
-					.catch(error => {
-						this.error = true;
-						let er = this.errors;
-						for (let { field: f, errorCode: v } of error.response.data) {
-							er[f] = v;
-						}
-						this.$forceUpdate();
-					});
+						
+					}
+				} catch (e) {
+					console.error('Error sending registration form: ', e);
+					
+					this.error = true;
+					let er = this.errors;
+					for (let { field: f, errorCode: v } of error.response.data) {
+						er[f] = v;
+					}
+					this.$forceUpdate();
+				}
+				
 			}
 		},
 		mixins: [langMixin],
