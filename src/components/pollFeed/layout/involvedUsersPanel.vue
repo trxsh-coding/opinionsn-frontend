@@ -1,7 +1,7 @@
 <template>
 	<div class="involved_users-panel">
 		<slot name="description">
-			<lang-string class="panel-caption" :title="'friends_who_voted_in_this_poll'">
+			<lang-string class="panel-caption" :title="'already_voted'">
 				<template #text>
 					:
 				</template>
@@ -62,7 +62,7 @@
 			font-style: normal;
 			font-weight: normal;
 			font-size: 13px;
-			color: #828D92;
+			color: #1A1E22;
 		}
 		
 		.user-picture-wrapper {

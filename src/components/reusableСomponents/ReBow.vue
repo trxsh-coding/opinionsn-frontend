@@ -2,8 +2,9 @@
 	<div class="bow-reusable mr-12">
 		<div class="user-picture pointer rounded" :style="pictureStyle"
 		     :class="{'is_mobile_device': $root.mobile}">
-		
+
 		</div>
+		<span class="bow-username">{{img.username}}</span>
 <!--		<span class="bow-username" v-if="routeName === 'voteFeed'">-->
 <!--              {{username}}-->
 <!--        </span>-->
@@ -23,7 +24,12 @@
 			img: String,
 			size: Number,
 			value: Object,
-			id: [Number, String]
+			id: {
+				type: Number || String,
+				default(){
+					return Number
+				}
+			}
 		},
 		data() {
 			return {
@@ -40,6 +46,10 @@
 			routeName() {
 				return this.$route.name
 			},
+			// userName() {
+			// 	let id = Number(this.id);
+			// 	return this.users
+			// },
 			// username() {
 			// 	return this.users[this.id].username
 			// },
@@ -49,7 +59,7 @@
 					width: `${width}px`,
 					height: `${height}px`,
 					borderRadius: `50%`,
-					backgroundImage: `url('${this.publicPath + img}')`,
+					backgroundImage: `url('${this.publicPath + img.pathToAvatar}')`,
 				};
 			}
 		}
@@ -58,16 +68,17 @@
 
 <style lang="scss">
 	.bow-reusable {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
 		.bow-username {
-			
-			
 			font-family: Roboto;
 			font-style: normal;
 			font-weight: normal;
-			font-size: 11px;
+			font-size: 8px;
+			text-transform: lowercase;
 			color: #1A1E22;
-			
-			
+
 		}
 		
 		.user-picture {

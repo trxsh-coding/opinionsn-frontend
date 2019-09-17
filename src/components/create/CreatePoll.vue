@@ -61,10 +61,26 @@
 					          :value="form.description" @input="updateField(arguments[0], 'description')" />
 				</popup-error-reusable>
 			</div>
-			
-			<lang-string class="label flex mt-12 pl-60" :title="'add_pictures_to_poll'"/>
-			
-			<div class="picture-block flex-align-center mt-15">
+
+			<re-switcher
+					class="blockchain-switcher flex-reverse ml-60"
+					caption-class="caption ml-10"
+					:value="is_youtube"
+					@input="setTypeOfSubjectHeader"
+					:caption="is_youtube ? lstr('youtube_video') : lstr('picture')"
+					:params="{width: 16, height: 8, color: '#000000', padding: '4px 8px', border: '2px solid #000000'}"
+			/>
+			<lang-string class="label flex mt-12 pl-60" :title=" is_youtube ? 'add_youtube_to_poll' :'add_pictures_to_poll'"/>
+
+				<re-input input :preset="2" v-if="is_youtube" class="ml-60 mt-12" input-class="mt-24"
+						  placeholder="link"
+						  :params="{width: '100%'}"
+						  :value="form.youtube_link"
+						  @input="updateField(arguments[0], 'youtube_link')"
+				/>
+				<re-youtube v-if="is_youtube && form.youtube_link" class="ml-60" :link="form.youtube_link" height="371px" width="471px"/>
+
+			<div class="picture-block flex-align-center mt-15" v-if="!is_youtube">
 				
 				<div class="icon__item p-25 pointer" @click="addSubjectPicture">
 					<icon-base
@@ -75,6 +91,8 @@
 						<icon-add/>
 					</icon-base>
 				</div>
+
+
 				<swiper :options="swiperOption" class="mb-12">
 					<swiper-slide v-for="(item, index) in pictures" :key="index">
 						<ReUpload
@@ -148,7 +166,8 @@
 						:value="is_blockchain"
 						@input="setTypeOfPoll"
 						:caption="is_blockchain ? lstr('BLOCKCHAIN') : lstr('OFF_CHAIN')"
-						:params="{width: 16, height: 8, color: '#000000', padding: '4px 8px', border: '2px solid #000000'}"/>
+						:params="{width: 16, height: 8, color: '#000000', padding: '4px 8px', border: '2px solid #000000'}"
+				/>
 				
 				<re-checkbox class="time-limit-checkbox flex-reverse mt-12" caption-class="caption ml-10"
 				             :value="with_time_limit" @input="setTimeLimit"
@@ -211,6 +230,7 @@
 	import {createForecast} from "../../EOSIO/eosio_impl_light";
 	import ReCheckbox from "@/components/reusableСomponents/ReCheckbox";
 	import ReInput from "@/components/reusableСomponents/ReInput";
+	import ReYoutube from "../reusableСomponents/reYoutube";
 	
 	export default {
 		name: "CreatePoll",
@@ -232,7 +252,9 @@
 				subject: null,
 				subject_description: null,
 				mobile: this.$root.mobile,
-				type: 'POLL'
+				type: 'POLL',
+				subject_type:'PICTURE',
+				is_youtube:false,
 			}
 		},
 		
@@ -429,7 +451,9 @@
 				this.enabledPictureIndex.pop(index);
 				
 			},
-			
+			setTypeOfSubjectHeader(bool) {
+				this.is_youtube = bool
+			},
 			setTypeOfPoll(bool) {
 				let type_of_poll;
 				
@@ -530,6 +554,7 @@
 		},
 		
 		components: {
+			ReYoutube,
 			ReInput,
 			ReCheckbox,
 			PopupErrorReusable,

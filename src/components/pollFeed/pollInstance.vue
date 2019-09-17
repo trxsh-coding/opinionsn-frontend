@@ -2,13 +2,13 @@
     <div
             id="main-feed-layout"
             class="pt-12"
-            :class="{'pr-20': mobile, 'pr-12': !mobile}">
-        <post-header top-section-class="ml-60" :author="author" :poll="poll" :eventType="item.eventType">
+            >
+        <post-header top-section-class="ml-60" :class="{'pr-20': mobile, 'pr-12': !mobile}" :author="author" :poll="poll" :eventType="item.eventType">
             <template #annotation>
                 <poll-anotation :poll="poll"/>
             </template>
         </post-header>
-        <headline-body :poll="poll" :item="item"/>
+        <headline-body :poll="poll" :item="item" :class="{'pr-20': mobile, 'pr-12': !mobile}"/>
             <OptionInstance
                     class="mt-12"
                     v-for="(option, index) in combined_options"
@@ -89,17 +89,65 @@
             </div>
 
         </div>
+        <re-explain v-if="item.voted && !item.haveExplain " :user="mainUser" :poll_id="item.id"/>
+        <div class="explains-section">
+            <div class="explain-header ml-60 mt-7 mb-7">
+                <lang-string :title="'Opinions'" />
+            </div>
+            <div class="explains-filter-block ml-60 flex mb-9">
+                <button-reusable
+                        text-transform="capitalize"
+                        class="mr-15 "
+                        :active-font-size="13"
+                        :font-size="13"
+                        bg-color="#ffffff"
+                        button_type="underline"
+                        color="#1A1E22"
+                        active-color="#4B97B4"
+                        description="all"
+                        :active="type_of_explanations === 'DEFAULT'"
+                        @click.native="setTypeOfExplanations('DEFAULT')"
+                />
+                <button-reusable
+                        text-transform="capitalize"
+                        class="mr-15 "
+                        :active-font-size="13"
+                        :font-size="13"
+                        bg-color="#ffffff"
+                        button_type="underline"
+                        color="#1A1E22"
+                        active-color="#4B97B4"
+                        description="friends"
+                        :active="type_of_explanations === 'FRIENDS'"
+                        @click.native="setTypeOfExplanations('FRIENDS')"
+                />
+                <button-reusable
+                        text-transform="capitalize"
+                        class="mr-15"
+                        :active-font-size="13"
+                        :font-size="13"
+                        bg-color="#ffffff"
+                        button_type="underline"
+                        color="#1A1E22"
+                        active-color="#4B97B4"
+                        description="Mine"
+                        :active="type_of_explanations === 'MINE'"
+                        @click.native="setTypeOfExplanations('MINE')"
+                />
+            </div>
+            <Explanation
+                    v-for="(explain, index) in explanationsFilter"
+                    v-show="index < explains_quantity"
+                    :explain="explain"
+                    :poll-id="poll.id"
+                    :poll-type="poll.type_of_poll"
+                    :author_picture="publicPath + author.path_to_avatar"
+                    :comments="comments"
+                    :options="options"
+                    :users="users"
+            />
+        </div>
 
-        <Explanation
-                v-for="(explain, index) in combinedVotes"
-                v-show="index < explains_quantity"
-                :explain="explain"
-                :poll-id="poll.id"
-                :poll-type="poll.type_of_poll"
-                :author_picture="publicPath + author.path_to_avatar"
-                :comments="comments"
-                :options="options"
-                :users="users"/>
 
         <span v-show="voted && !no_more_explains && combinedVotes.length > 5" class="explains-load-btn pointer my-9"
               @click="loadMoreExplains">Загрузить ещё...</span>
@@ -127,6 +175,9 @@
     import {addCourt, addjudge} from "../../EOSIO/eosio_impl";
     import ReBadge from "@/components/reusableСomponents/ReBadge";
     import langString from "@/components/langString";
+    import ReExplain from "../reusableСomponents/ReExplain";
+    import ButtonReusable from "../reusableСomponents/ButtonReusable";
+    import LangString from "../langString";
 
     const pad = (num, len = 2, char = '0') => {
         let init = `${num}`;
@@ -143,6 +194,9 @@
         props: ['item'],
         mixins: [langString],
         components: {
+            LangString,
+            ButtonReusable,
+            ReExplain,
             ReBadge,
             PollAnotation,
             TimeTrans,
@@ -169,7 +223,8 @@
                 procid: null,
                 showModal:false,
                 currentPicture:null,
-                currentDescription:null
+                currentDescription:null,
+                type_of_explanations:'DEFAULT'
             }
         },
         computed: {
@@ -230,7 +285,22 @@
                     return this.options[option_id]
                 });
             },
-    
+            explanationsFilter(){
+                let {type_of_explanations, users, mainUser} = this;
+                let filtered_epxlanations = this.combinedVotes;
+                switch (type_of_explanations) {
+                    case "MINE":
+                        return filtered_epxlanations.filter(explain => explain.author_id === mainUser.id);
+
+                    case "FRIENDS":
+                        return filtered_epxlanations.filter(explain => users[explain.author_id].isLeader === true);
+
+                    case "DEFAULT":
+                        return  filtered_epxlanations
+                }
+
+
+            },
             // options_pictures_with(){
             //    return this.combined_options.map(({picture}) => picture)
             // },
@@ -258,7 +328,9 @@
 
         },
         methods: {
-    
+            setTypeOfExplanations(type){
+                this.type_of_explanations = type;
+            },
             pushToPopup(index = 0) {
                 let pics = this.combined_options.map(({picture, description}) => ({picture, description}));
                 pics = [...pics.splice(index, 1), ...pics];
@@ -350,7 +422,15 @@
             box-shadow: 0px 0px 15px rgba(56, 56, 56, 0.05);
             border-radius: 2px;
         }
-
+        .explain-header {
+            span {
+                font-family: Roboto;
+                font-style: normal;
+                font-weight: 500;
+                font-size: 16px;
+                color: #1A1E22;
+            }
+        }
         .counter-badges {
 
             svg {

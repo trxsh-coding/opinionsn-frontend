@@ -9,7 +9,8 @@
                     class="user-avatar pointer"
                     :img="publicPath + user.path_to_avatar"
                     :size="42"
-                    bor-rad="50%"/>
+                    bor-rad="50%"
+            />
 
             <span class="profile-username">
                 {{user.username}}

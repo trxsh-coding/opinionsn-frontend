@@ -1,6 +1,6 @@
 <template>
 	<div class="explanation-reusable">
-		
+
 		<div class="explain mb-9" :class="{'pl-18': !mobile, 'pl-20': mobile}">
 			<picture-reusable
 					:id="fitExplain.author_id"
@@ -195,10 +195,12 @@
 	import VEmojiPicker from "v-emoji-picker";
 	import packData from "v-emoji-picker/data/emojis.json";
 	import {mapState} from "vuex";
+	import ButtonReusable from "./ButtonReusable";
 	
 	export default {
 		name: "Explanation",
 		components: {
+			ButtonReusable,
 			PictureReusable,
 			IconBase,
 			IconReplyArrow,
@@ -218,6 +220,7 @@
 				COMMENTS_LIMIT: 5,
 				comments_quantity: 5,
 				publicPath: process.env.VUE_APP_ASSETS,
+				type_of_explanations:'DEFAULT',
 			}
 		},
 		props: {
@@ -245,7 +248,7 @@
 			
 		},
 		methods: {
-			
+
 			newline() {
 				this.input_value = `${this.input_value}\n`;
 			},

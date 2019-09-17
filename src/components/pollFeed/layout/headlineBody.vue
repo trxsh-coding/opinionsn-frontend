@@ -14,11 +14,14 @@
 		<div class="description__item mb-7">
 			<text-trim :text="poll.description" :amount-of-letter="mobile ? 200 : 250"/>
 		</div>
-		
+		<bows-panel class="mt-5 mb-6" :users="poll.bows" v-show="!item.voted && Object.keys(poll.bows).length > 0"/>
+
+		<re-youtube v-if="poll.content"  :link="poll.content[0].url" :height="mobile? '190px' : '371px'" width="100%"/>
+
 		<subject-picture class="pointer" v-if="poll.picture" :img="publicPath + poll.picture" width="100%" only-picture
 		                 :height="mobile ? 190 : 303" textLayout="right" bor-rad="6"
 		                 @click.native="$popup.insert('pictures', poll.picture)"/>
-		
+
 		<ReSwiper v-if="!poll.picture" type="usual"
 		          :params="{slidesPerView: 1, spaceBetween: 10, pagination: poll.urlPhotos.length > 1, breakpoints: false}">
 			<template #usual>
@@ -29,9 +32,6 @@
 				</swiper-slide>
 			</template>
 		</ReSwiper>
-		
-		<bows-panel class="mt-9" :users="poll.bows" v-show="!item.voted && Object.keys(poll.bows).length > 0"/>
-	
 	</div>
 </template>
 
@@ -41,6 +41,8 @@
 	import bowsPanel from './involvedUsersPanel'
 	import TextTrim from "../../reusableСomponents/textTrim";
 	import ReSwiper from "@/components/reusableСomponents/ReSwiper";
+	import ReYoutube from "../../reusableСomponents/reYoutube";
+	import ReExplain from "../../reusableСomponents/ReExplain";
 	
 	export default {
 		name: "headlineBody",
@@ -54,6 +56,8 @@
 			}
 		},
 		components: {
+			ReExplain,
+			ReYoutube,
 			ReSwiper,
 			TextTrim,
 			subjectPicture,
