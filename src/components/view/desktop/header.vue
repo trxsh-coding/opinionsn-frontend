@@ -184,7 +184,7 @@
 				this.$store.commit("globalStore/clearStores");
 				this.$store.commit("notificationStore/clearStores");
 				this.$store.commit("notificationPage/setDefaultPage");
-				this.$router.push({name: 'sign'});
+				this.$router.push({name: 'sign', query: {logout: 'true'}});
 				
 			},
 

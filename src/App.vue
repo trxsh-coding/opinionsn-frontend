@@ -10,20 +10,36 @@
 	import ElementScrollHandler from "./components/mixins/ElementScrollHandler";
 	import PopupNotifications from "@/components/PopupNotifications";
 	import ModalWindow from "./components/reusableСomponents/ModalWindow";
+	import {mapState} from "vuex";
 
 	export default {
 		components: { ModalWindow, PopupNotifications },
 		mixins: [ElementScrollHandler],
+		computed: {
+			...mapState('globalStore', {
+				referCode: s => s.mainUser.referCode
+			}),
+			
+		},
+		
+		watch: {
+			referCode(newValue) {
+				if (typeof newValue === 'string') {
+					this.$router.replace({query: {refer: newValue}})
+				}
+			}
+		},
+		
 		methods: {
 			scrollEventFunc() {
 				this.setScrollDifference(document.documentElement, 0, null, true);
 			}
 		},
-
+		
 		mounted() {
 			document.addEventListener("scroll", this.scrollEventFunc);
 		},
-
+		
 		beforeDestroy() {
 			document.removeEventListener("scroll", this.scrollEventFunc);
 		}

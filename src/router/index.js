@@ -317,7 +317,7 @@ index.beforeEach((to, from, next) => {
 index.beforeEach((to, from, next) => {
 	// Сохранение query между роутами
 	function transitQueryParams(key) {
-		if (from.query[key] && !to.query[key]) {
+		if (from.query[key] && !to.query[key] && !to.query.logout) {
 			next({path: to.path, query: {[key]: from.query[key]}});
 		} else {
 			next();
