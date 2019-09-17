@@ -247,7 +247,7 @@ export const formManagment = {
 			return axios.put(`${process.env.VUE_APP_MAIN_API}/rest/v1/poll`, bodyFormData, config)
 				.then(response => {
 					if (response.status === 200) {
-						return response.data.payload[0].id;
+						return response.data;
 					}
 				})
 			
