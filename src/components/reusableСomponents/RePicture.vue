@@ -1,7 +1,9 @@
 <template>
 	<img class="re-picture img" v-if="type === 'img'" :src="url" :style="[cSize, cBorRad, cClip, styles]">
 	<div class="re-picture background" v-else-if="type === 'background'"
-	     :style="[cSize, cBorRad, cClip, styles, {backgroundImage: `url('${url}')`}]"></div>
+	     :style="[cSize, cBorRad, cClip, styles, {backgroundImage: `url('${url}')`}]">
+		<slot />
+	</div>
 </template>
 
 <script>
