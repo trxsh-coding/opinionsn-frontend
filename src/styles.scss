@@ -239,6 +239,13 @@ li {
 	
 }
 
+.flex-align-baseline {
+	
+	display: flex;
+	align-items: baseline;
+	
+}
+
 .flex-align-start {
 	
 	display: flex;
@@ -479,6 +486,22 @@ li {
 	background-repeat: no-repeat;
 	background-size: cover;
 	margin-right: 9px;
+}
+
+.bold-caption-14 {
+	font-family: Roboto;
+	font-style: normal;
+	font-weight: 500;
+	font-size: 14px;
+	color: #1A1E22;
+}
+
+.bold-caption-13 {
+	font-family: Roboto;
+	font-style: normal;
+	font-weight: 500;
+	font-size: 13px;
+	color: #1A1E22;
 }
 
 .opacity {

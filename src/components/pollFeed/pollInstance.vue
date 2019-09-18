@@ -3,7 +3,7 @@
             id="main-feed-layout"
             class="pt-12"
             :class="{'pr-20': mobile, 'pr-12': !mobile}">
-        <post-header top-section-class="ml-60" :author="author" :poll="poll" :eventType="item.eventType">
+        <post-header subject-class="ml-60" :author="author" :poll="poll" :eventType="item.eventType">
             <template #annotation>
                 <poll-anotation :poll="poll"/>
             </template>
@@ -113,7 +113,6 @@
     import headlineBody from './layout/headlineBody'
     import Explanation from "../reusableСomponents/Explanation";
     import OptionInstance from "../reusableСomponents/OptionInstance";
-    import PictureReusable from "../reusableСomponents/PictureReusable";
     import IconBase from "../icons/IconBase";
     import IconCheck from "../icons/IconCheck";
     import IconBaloon from "../icons/IconBaloon";
@@ -146,7 +145,6 @@
             ReBadge,
             PollAnotation,
             TimeTrans,
-            PictureReusable,
             OptionInstance,
             Explanation,
             postHeader,

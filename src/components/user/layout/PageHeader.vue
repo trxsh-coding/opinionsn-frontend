@@ -35,7 +35,7 @@
 		</ul>
 
 		<ul class="btns-panel btns-panel-2 pl-21 pt-10" v-if="(user.id != mainUser.id) && mobile">
-			<li class="btn btn-1 pointer" @click="$router.go(-1)">
+			<li class="btn btn-1 w-fit pointer" @click="$router.go(-1)">
 				<icon-base
 					class="arrow-icon"
 					fill="#4B97B4"
@@ -46,30 +46,19 @@
 				</icon-base>
 			</li>
 
-			<router-link
-					tag="li"
-					class="btn btn-2 mt-15 pointer"
-					:to="{ name: 'user', params: { id: mainUser.id } }">
-				<picture-reusable
-					class="avatar"
-					:img="publicPath + mainUser.path_to_avatar"
-					size="27"
-					rounded without-text />
-			</router-link>
+			<li class="btn btn-2 w-fit mt-15">
+				<router-link class="flex pointer" :to="{ name: 'user', params: { id: mainUser.id } }">
+					<RePicture :url="publicPath + mainUser.path_to_avatar" size="27" rounded/>
+				</router-link>
+			</li>
 
 		</ul>
 
 		<div class="user-card flex-column">
-
-			<div class="background" :style="{backgroundImage: `url('${publicPath + user.background_image}')`}">
-
-				<picture-reusable
-					class="avatar"
-					:img="publicPath + user.path_to_avatar"
-					size="72"
-					rounded without-text />
-
-			</div>
+			
+			<RePicture class="fx-1" type="background" :url="publicPath + user.background_image" size="auto">
+				<RePicture class="avatar" :url="publicPath + user.path_to_avatar" size="72" rounded />
+			</RePicture>
 
 			<button-reusable
 					@click.native="$router.push({name: 'settings'})"
@@ -109,10 +98,10 @@
 	import IconPocket from "../../icons/IconPocket";
 	import ButtonReusable from "../../reusableСomponents/ButtonReusable";
 	import langString from "../../langString";
-	import PictureReusable from "../../reusableСomponents/PictureReusable";
 	import IconArrowLeft from "../../icons/IconArrowLeft";
 	import IconUserCheck from "../../icons/IconUserCheck";
 	import PopoverReusable from "../../reusableСomponents/PopoverReusable";
+	import RePicture from "@/components/reusableСomponents/RePicture";
 
 	export default {
         name: "PageHeader",
@@ -125,8 +114,8 @@
 			}
 		},
 		components: {
+			RePicture,
 			PopoverReusable,
-			PictureReusable,
 			ButtonReusable,
 			IconBase,
 			IconAddPoll,

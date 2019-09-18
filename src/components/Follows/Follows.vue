@@ -19,17 +19,11 @@
 
 			</ul>
 
-			<div class="user-info">
-				<picture-reusable
-						pic-class="mr-15"
-						:img="publicPath + user.path_to_avatar"
-						size="72"
-						rounded
-						text-layout="right">
-					<template #title>
-						{{user.username}}
-					</template>
-				</picture-reusable>
+			<div class="user-info flex-align-center">
+				
+				<RePicture class="avatar" :url="publicPath + user.path_to_avatar" size="72" rounded />
+				<span class="username ml-15">{{user.username}}</span>
+				
 			</div>
 
 		</div>
@@ -45,13 +39,13 @@
 <script>
     import event from './Event/event.vue'
 	import {mapState} from "vuex";
-	import PictureReusable from "../reusableСomponents/PictureReusable";
 	import IconBase from "../icons/IconBase";
 	import IconArrowLeft from "../icons/IconArrowLeft";
+    import RePicture from "@/components/reusableСomponents/RePicture";
 
 	export default {
 		components: {
-			PictureReusable,
+			RePicture,
 			event,
 			IconBase,
 			IconArrowLeft
@@ -110,6 +104,14 @@
 
 			.user-info {
 				flex: 1;
+				
+				.username {
+					font-family: Roboto;
+					font-style: normal;
+					font-weight: 500;
+					font-size: 14px;
+					color: #1A1E22;
+				}
 			}
 
 		}

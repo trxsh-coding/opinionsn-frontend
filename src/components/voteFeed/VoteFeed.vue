@@ -6,40 +6,21 @@
 			<ReSwiper :type="mobile ? 'scroll' : 'usual'" class="mb-15" :swiper-class="mobile ? 'pl-30' : ''"
 			          :params="{stubLength: 2, slidesPerView: 6, spaceBetween: 3.5}">
 				<template #usual>
-					<swiper-slide
-							class="avatar-wrapper"
-							v-for="{avatar, username, user_id} in followersData">
-						<picture-reusable
-								@click.native="filterFeed(user_id)"
-								class="user-bow mr-7 pointer"
-								pic-class="mb-9 p-2"
-								:size="66"
-								:img="avatar"
-								text-layout="bottom"
-								bor-color="#BCBEC3"
-								rounded>
-							<template #title>
-								{{username}}
-							</template>
-						</picture-reusable>
+					<swiper-slide class="avatar-wrapper"
+					              v-for="{avatar, username, user_id} in followersData">
+						<div class="slide w-fit flex-column flex-align-center pointer" @click="filterFeed(user_id)">
+							<RePicture :url="avatar" size="66" rounded />
+							<span class="caption text-center mt-10">{{username}}</span>
+						</div>
 					</swiper-slide>
 				</template>
 				
 				<template #scroll>
-					<picture-reusable
-							v-for="{avatar, username, user_id} in followersData"
-							@click.native="filterFeed(user_id)"
-							class="user-bow mr-7 pointer"
-							pic-class="mb-9 p-2"
-							:size="66"
-							:img="avatar"
-							text-layout="bottom"
-							bor-color="#BCBEC3"
-							rounded>
-						<template #title>
-							{{username}}
-						</template>
-					</picture-reusable>
+					<div v-for="{avatar, username, user_id} in followersData"
+					     class="slide mr-7 w-fit flex-column flex-align-center pointer" @click="filterFeed(user_id)">
+						<RePicture :url="avatar" size="66" rounded />
+						<span class="caption text-center mt-10">{{username}}</span>
+					</div>
 				</template>
 			</ReSwiper>
 			
@@ -67,10 +48,10 @@
 
 <script>
 	import {mapState} from "vuex";
-	import PictureReusable from "../reusableСomponents/PictureReusable";
 	import VoteInstance from "./voteInstance";
 	import Loader from "../reusableСomponents/Loader";
 	import ReSwiper from "@/components/reusableСomponents/ReSwiper";
+	import RePicture from "@/components/reusableСomponents/RePicture";
 	
 	export default {
 		name: 'VoteFeed',
@@ -138,10 +119,10 @@
 			}
 		},
 		components: {
+			RePicture,
 			ReSwiper,
 			Loader,
 			VoteInstance,
-			PictureReusable,
 		},
 		async mounted() {
 			try {
@@ -177,16 +158,20 @@
 			}
 		}
 		
-		.user-bow {
-			.text {
-				.title {
-					width: 70px;
-					text-align: center;
-					
-					white-space: nowrap;
-					overflow: hidden;
-					text-overflow: ellipsis;
-				}
+		.slide {
+			.caption {
+				width: 70px;
+				text-align: center;
+				
+				font-family: Roboto;
+				font-style: normal;
+				font-weight: 500;
+				font-size: 14px;
+				color: #1a1e22;
+				
+				white-space: nowrap;
+				overflow: hidden;
+				text-overflow: ellipsis;
 			}
 		}
 		

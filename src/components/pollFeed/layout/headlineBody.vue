@@ -15,17 +15,16 @@
 			<text-trim :text="poll.description" :amount-of-letter="mobile ? 200 : 250"/>
 		</div>
 		
-		<subject-picture class="pointer" v-if="poll.picture" :img="publicPath + poll.picture" width="100%" only-picture
-		                 :height="mobile ? 190 : 303" textLayout="right" bor-rad="6"
-		                 @click.native="$popup.insert('pictures', poll.picture)"/>
+		<RePicture v-if="poll.picture" @click.native="$popup.insert('pictures', poll.picture)"
+		           class="pointer" :url="publicPath + poll.picture"
+		           width="100%" :height="mobile ? 190 : 303" bor-rad="6"/>
 		
 		<ReSwiper v-if="!poll.picture" type="usual"
 		          :params="{slidesPerView: 1, spaceBetween: 10, pagination: poll.urlPhotos.length > 1, breakpoints: false}">
 			<template #usual>
 				<swiper-slide v-for="(picture, index) in poll.urlPhotos">
-					<subject-picture :img="publicPath + picture" width="100%"  class="pointer" only-picture :height="mobile ? 190 : 303"
-					                 textLayout="right" bor-rad="6"
-					                 @click.native="pushToPopup(poll.urlPhotos, index)"/>
+					<RePicture @click.native="pushToPopup(poll.urlPhotos, index)" class="pointer"
+					           :url="publicPath + picture" width="100%" :height="mobile ? 190 : 303" bor-rad="6"/>
 				</swiper-slide>
 			</template>
 		</ReSwiper>
@@ -37,10 +36,10 @@
 
 
 <script>
-	import subjectPicture from '../../reusableСomponents/PictureReusable'
 	import bowsPanel from './involvedUsersPanel'
 	import TextTrim from "../../reusableСomponents/textTrim";
 	import ReSwiper from "@/components/reusableСomponents/ReSwiper";
+	import RePicture from "@/components/reusableСomponents/RePicture";
 	
 	export default {
 		name: "headlineBody",
@@ -54,9 +53,9 @@
 			}
 		},
 		components: {
+			RePicture,
 			ReSwiper,
 			TextTrim,
-			subjectPicture,
 			bowsPanel,
 		},
 		computed: {
@@ -73,9 +72,11 @@
 			openModal() {
 				this.showModal = true
 			},
+			
 			close() {
 				this.showModal = false
 			},
+			
 			pushToPoll(id) {
 				
 				if (this.$route.name !== 'singlePoll') {
@@ -84,10 +85,10 @@
 				}
 				
 			},
-
+			
 			pushToPopup(arr, index) {
 				arr = [...arr];
-				this.$popup.insert('pictures',  [...arr.splice(index, 1), ...arr]);
+				this.$popup.insert('pictures', [...arr.splice(index, 1), ...arr]);
 			}
 		}
 	}

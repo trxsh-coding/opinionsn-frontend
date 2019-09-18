@@ -1,20 +1,13 @@
 <template>
 	<div class="user-statistic" :class="{'bg-white pt-18': !mobile, 'pt-51': mobile}">
-		<div class="header-block pl-60">
-			<picture-reusable
-					class="pointer"
-					:size="72"
-					avatar
-					:id="user.id"
-					:img="publicPath + user.path_to_avatar"
-					text-layout="right"
-					rounded>
-				<template #title>
-                  <span class="avatar-username pl-15">
-                       {{user.username}}
-                  </span>
-				</template>
-			</picture-reusable>
+		<div class="header-block flex-align-center pl-60">
+			
+			<router-link class="pointer flex" :to="{name: 'user', params: {id: user.id}}">
+				<RePicture :url="publicPath + user.path_to_avatar" size="72" rounded />
+			</router-link>
+			
+			<span class="bold-caption-14 ml-15">{{user.username}}</span>
+			
 		</div>
 		
 		<category-select class="pl-60 pr-4" :class="{'mt-14': !mobile, 'mt-15': mobile}" :slides-per-view="3.7"
@@ -67,16 +60,16 @@
 <script>
 	import VueApexCharts from 'vue-apexcharts'
 	import langString from "../langString";
-	import PictureReusable from "../reusableСomponents/PictureReusable";
 	import {mapState} from 'vuex'
 	import CategorySelect from "../reusableСomponents/categorySelect";
 	import DropdownListReusable from "../reusableСomponents/DropdownListReusable";
 	import localString from "../../utils/localString";
 	import axios from 'axios';
+	import RePicture from "@/components/reusableСomponents/RePicture";
 	
 	export default {
 		name: "statisticInstance",
-		components: {DropdownListReusable, CategorySelect, PictureReusable, langString, apexchart: VueApexCharts},
+		components: {RePicture, DropdownListReusable, CategorySelect, langString, apexchart: VueApexCharts},
 		data() {
 			return {
 				publicPath: process.env.VUE_APP_ASSETS,

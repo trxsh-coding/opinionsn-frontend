@@ -1,50 +1,41 @@
 <template>
     <div class="header">
-
-        <div class="background" :style="{backgroundImage: `url('${background_image}')`}">
-
+        
+        <RePicture type="background" height="132" :url="background_image">
             <ReUpload
                     icon-photo
                     fit
                     height="100%"
-                    @upload="({file, url}) => { UPLOAD_IMAGE(file, 'background') }" >
+                    @upload="({file}) => { UPLOAD_IMAGE(file, 'background') }" >
             </ReUpload>
-
-            <picture-reusable
-                    class="avatar absolute"
-                    size="72"
-                    :img="avatar"
-                    bg-color="#ADAFB3"
-                    rounded
-                    without-text>
-                <template #innerPicture>
-                    <ReUpload
-                            icon-photo
-                            fit
-                            height="100%"
-                            @upload="({file, url}) => { UPLOAD_IMAGE(file, 'avatar') }" >
-                    </ReUpload>
-                </template>
-            </picture-reusable>
-        </div>
-
+    
+            <RePicture type="background" class="avatar absolute" :url="avatar" size="72" rounded>
+                <ReUpload
+                        icon-photo
+                        fit
+                        height="100%"
+                        @upload="({file}) => { UPLOAD_IMAGE(file, 'avatar') }" >
+                </ReUpload>
+            </RePicture>
+            
+        </RePicture>
+        
     </div>
 </template>
 
 <script>
-    import PictureReusable from "../../reusableСomponents/PictureReusable";
     import ReUpload from "../../reusableСomponents/ReUpload";
     import {mapState} from "vuex";
-    import axios from 'axios'
     import IconBase from "../../icons/IconBase";
     import IconUploadPhoto from "../../icons/create/IconUploadPhoto";
     import IconCross from "../../icons/IconCross";
+    import RePicture from "@/components/reusableСomponents/RePicture";
 
     export default {
         name: "pageHeader",
         components: {
+            RePicture,
             ReUpload,
-            PictureReusable,
             IconBase,
             IconUploadPhoto,
             IconCross
@@ -54,23 +45,6 @@
             return {
                 publicPath: process.env.VUE_APP_ASSETS,
             }
-        },
-
-        watch: {
-            // mainUser({background_image, path_to_avatar}) {
-            //     if (background_image && path_to_avatar) {
-            //         this.background_image = this.publicPath + background_image;
-            //         this.avatar = this.publicPath + path_to_avatar;
-            //     }
-            // },
-            //
-            // form({background_image, path_to_avatar}) {
-            //     let {background_image: init_bg, path_to_avatar: init_avatar} = this.mainUser;
-            //     if (background_image === init_bg && path_to_avatar === init_avatar) {
-            //         this.background_image = this.publicPath + background_image;
-            //         this.avatar = this.publicPath + path_to_avatar;
-            //     }
-            // }
         },
 
         computed: {
@@ -95,10 +69,6 @@
         },
 
         methods: {
-
-            UPDATE_FIELD(value, key){
-                this.$store.commit('formManagment/UPDATE_FIELD', { form: 'edit_form', key, value })
-            },
 
             UPLOAD_IMAGE(file, type) {
                 if (file) {
@@ -135,13 +105,9 @@
                 }
             }
 
-            .background {
+            & > .background {
                 position: relative;
-                height: 132px;
                 background-color: #ADAFB3;
-                background-size: cover;
-                background-repeat: no-repeat;
-                background-position: center center;
 
                 .avatar {
                     bottom: -24px;

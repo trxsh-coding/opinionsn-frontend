@@ -62,14 +62,10 @@
 				class="route-title"
 				:title="$route.name.toLowerCase()"/>
 		
-		<avatar
-				v-if="logged_in"
-				@click.native="$router.push({ name: 'user', params: { id: user.id } })"
-				class="pointer"
-				:img="publicPath + imageUtil(user.path_to_avatar, 'S')"
-				:size="27"
-				without-text
-				rounded/>
+		<router-link v-if="logged_in" class="pointer flex"
+		             :to="{ name: 'user', params: { id: user.id } }">
+			<RePicture :url="publicPath + imageUtil(user.path_to_avatar, 'S')" size="27" rounded />
+		</router-link>
 	
 	</div>
 </template>
@@ -79,21 +75,21 @@
 	import IconAddPoll from '../../icons/IconAddPoll'
 	import IconLogo from '../../icons/IconLogo'
 	import IconTextLogo from '../../icons/IconTextLogo'
-	import avatar from '../../reusableСomponents/PictureReusable'
 	import imageMixin from "../../mixins/imageMixin";
 	import IconArrowLeft from "../../icons/IconArrowLeft";
 	import langString from "../../langString";
 	import ButtonReusable from "../../reusableСomponents/ButtonReusable";
+	import RePicture from "@/components/reusableСomponents/RePicture";
 	
 	export default {
 		name: "header",
 		components: {
+			RePicture,
 			ButtonReusable,
 			IconBase,
 			IconAddPoll,
 			IconLogo,
 			IconTextLogo,
-			avatar,
 			IconArrowLeft,
 			langString
 		},

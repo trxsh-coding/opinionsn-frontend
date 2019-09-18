@@ -1,23 +1,31 @@
 <template>
-	<div class="grouped-notification pl-21 flex pointer" @click="showGrouped(true)" :class="{todayColor : today}" v-if="author">
+	<div class="grouped-notification pl-21 flex pointer" @click="hide = !hide" :class="{todayColor : today}"
+	     v-if="author">
 		<div class="notification__item flex-between flex-align-center">
-			<picture-reusable
-					avatar
-					class=" p-0 pointer mr-3"
-					pic-class="mb-5"
-					:img="publicPath + author.path_to_avatar"
-					:size="36"
-					rounded
-					text-layout="bottom">
-				<template #title>
-					<span> {{author.username}} <lang-string class="event-span lowercase" :title="'participated_in'"/> {{items.length}} <lang-string
-							class=" lowercase event-span" :title="'events'"/></span>
-				</template>
-				<template #description>
-					<time-trans class="  date mt-4" transformed-time :time="items[0].date"/>
-				</template>
 			
-			</picture-reusable>
+			<div class="item flex">
+				<router-link class="flex avatar pointer" :to="{name: 'user', params: { id: author.id }}">
+					<RePicture :url="publicPath + author.path_to_avatar" size="36" rounded/>
+				</router-link>
+				
+				<div class="caption flex-column ml-18">
+					<span class="flex-align-baseline">
+						<router-link class="flex username pointer" :to="{name: 'user', params: { id: author.id }}">
+							{{author.username}}
+						</router-link>
+						
+						<lang-string class="event-span lowercase mx-3" :title="'participated_in'"/>
+						
+						<span class="counter">{{items.length}}</span>
+						
+						<lang-string class="lowercase event-span ml-3" title="events"/>
+					</span>
+					
+					<time-trans class="timestamp mt-4" transformed-time :time="items[0].date"/>
+				</div>
+			
+			</div>
+			
 			<icon-base
 					:class="{translate : hide}"
 					fill="none"
@@ -40,16 +48,16 @@
 
 <script>
 	import NotificationInstance from "./notificationInstance";
-	import PictureReusable from "../../reusableСomponents/PictureReusable";
 	import TimeTrans from "../../timeTrans";
 	import {mapState} from 'vuex';
 	import LangString from "../../langString";
 	import IconBase from "../../icons/IconBase";
 	import IconArrow from '../../icons/create/IconArrow';
+	import RePicture from "@/components/reusableСomponents/RePicture";
 	
 	export default {
 		name: "groupedNotification",
-		components: {LangString, TimeTrans, PictureReusable, NotificationInstance, IconArrow, IconBase},
+		components: {RePicture, LangString, TimeTrans, NotificationInstance, IconArrow, IconBase},
 		props: {
 			items: Array,
 			today: Boolean
@@ -69,22 +77,16 @@
 			author() {
 				return this.users[this.items[0].initiatorId]
 			}
-			
-		},
-		methods: {
-			showGrouped(payload) {
-				this.hide = !this.hide
-			}
 		}
 	}
 </script>
 
 <style lang="scss">
-
+	
 	
 	.grouped-notification {
 		flex-direction: column;
-        transform-origin: center center;
+		transform-origin: center center;
 		
 		.translate {
 			transform: rotateX(180deg);
@@ -95,37 +97,36 @@
 			
 		}
 		
-		.notification-block {
-			padding-left:42px;
-		}
-		
-		.text {
-			width: 100%;
-			padding-left: 18px;
-			
-		}
 		.notification__item {
 			min-height: 48px;
-		}
-		.event-span {
-			font-family: Roboto;
-			font-style: normal;
-			font-weight: normal;
-			font-size: 13px;
-			color: #76787A;
+			
+			.item {
+				.caption {
+					font-family: Roboto;
+					font-style: normal;
+					
+					.username, .counter {
+						font-weight: 500;
+						font-size: 14px;
+						color: #1a1e22;
+					}
+					
+					.timestamp {
+						font-size: 12px;
+						font-weight: 400;
+						color: #adafb3;
+					}
+					
+					.event-span {
+						font-family: Roboto;
+						font-style: normal;
+						font-weight: normal;
+						font-size: 13px;
+						color: #76787A;
+					}
+				}
+			}
 		}
 		
-		.picture-reusable {
-			flex-direction: row !important;
-			width: auto;
-			
-			.text {
-			
-			}
-			
-			.picture-wrapper {
-			
-			}
-		}
 	}
 </style>

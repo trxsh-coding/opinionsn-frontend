@@ -72,12 +72,11 @@
 						icon-name="pocket">
 					<icon-pocket/>
 				</icon-base>
-				<picture-reusable
-						class="pointer mr-5"
-						@click.native="userLink(user.id)"
-						:img="publicPath + user.path_to_avatar"
-						:size="27"
-						rounded/>
+
+				<router-link class="pointer flex mr-5" :to="{name: 'user', params: { id: user.id }}">
+					<RePicture :url="publicPath + user.path_to_avatar" size="27" rounded />
+				</router-link>
+				
 				<dropdown-list-reusable
 						click-close
 						:icon="false"
@@ -129,14 +128,13 @@
 	import IconNotifications from "../../icons/header/IconNotifications";
 	import IconPocket from "../../icons/header/IconPocket";
 	import IconDropdown from "../../icons/header/IconDropdown";
-	import PictureReusable from "../../reusableСomponents/PictureReusable";
 	import DropdownListReusable from "../../reusableСomponents/DropdownListReusable";
 	import NotificationPage from "../../notifications/notificationPage";
 	import langString from "../../langString";
-	import axios from "axios";
 	import {mapState} from "vuex";
 	import CookieMixin from "@/components/mixins/CookieMixin";
 	import ReBadge from "@/components/reusableСomponents/ReBadge";
+	import RePicture from "@/components/reusableСomponents/RePicture";
 
 	export default {
 		name: "desktopHeader",
@@ -211,10 +209,10 @@
 		},
 		
 		components: {
+			RePicture,
 			ReBadge,
 			NotificationPage,
 			DropdownListReusable,
-			PictureReusable,
 			IconBase,
 			IconTextLogo,
 			IconLogo,

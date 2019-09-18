@@ -1,37 +1,24 @@
 <template>
 	<div id="poll-header" class="mb-4">
-		<div class="top-section mb-12">
-			<author-headline
-					pic-class="mr-9"
-					class="pointer"
-					:class="topSectionClass"
-					avatar
-					:id="author.id"
-					:img="publicPath + imageUtil(author.path_to_avatar, 'S')"
-					:size="36"
-					border="1px"
-					bor-color="#bcbec3"
-					textLayout="right"
-					rounded>
-				<template #title>
-                <router-link :to="{name:'user', params: {id: author.id}}" class="username">
-                    {{author.username}}
-                </router-link>
-				<lang-string v-if="has_event_type" class="event__item" :title="user_caption"/>
-					<slot>
-					
-					</slot>
+		<div class="subject mb-12" :class="subjectClass">
+			
+			<div class="headline flex">
+				<router-link class="flex pointer" :to="{name: 'user', params: { id: author.id }}">
+					<RePicture :url="publicPath + imageUtil(author.path_to_avatar, 'S')" size="36" rounded />
+				</router-link>
 				
-				</template>
-				<template #description>
-					<div class="mt-4 flex">
-	                    <span v-if="has_location" v-show="author.location" class="pr-9">
-	                        {{author.location}}
-	                    </span>
+				<div class="caption flex-column ml-9">
+					<span class="title">
+						<router-link class="username pointer" :to="{name:'user', params: {id: author.id}}">{{author.username}}</router-link>
+						<lang-string v-if="has_event_type" class="event__item" :title="user_caption"/>
+					</span>
+					
+					<span class="description mt-4 flex">
+						<span v-if="has_location" v-show="author.location" class="pr-9">{{author.location}}</span>
 						<time-trans transformedTime v-show="description_timestamp" :time="description_timestamp"/>
-					</div>
-				</template>
-			</author-headline>
+					</span>
+				</div>
+			</div>
 			
 			<dropdown-list-reusable v-if="mainUser.authorities === 'ADMIN'" class="h-fit py-6 mr-2 info-block"
 			                        list-class="post-settings-list">
@@ -62,7 +49,6 @@
 </template>
 
 <script>
-	import authorHeadline from '../../reusableСomponents/PictureReusable'
 	import langString from '../../langString'
 	import imageMixin from "../../mixins/imageMixin";
 	import pollAnnotation from "./pollAnnotation"
@@ -72,15 +58,16 @@
 	import IconMore from "../../icons/IconMore";
 	import DropdownListReusable from "../../reusableСomponents/DropdownListReusable";
 	import {mapState} from "vuex";
+	import RePicture from "@/components/reusableСomponents/RePicture";
 	
 	export default {
 		name: "postHeader",
-		props: ['author', 'poll', 'payloadTimeStamp', 'eventType', 'topSectionClass'],
+		props: ['author', 'poll', 'payloadTimeStamp', 'eventType', 'subjectClass'],
 		mixins: [imageMixin, langMixin],
 		components: {
+			RePicture,
 			DropdownListReusable,
 			IconBase,
-			authorHeadline,
 			langString,
 			pollAnnotation,
 			timeTrans,
@@ -151,9 +138,21 @@
 
 <style lang="scss">
 	#poll-header {
-		.top-section {
+		.subject {
 			display: flex;
 			justify-content: space-between;
+			
+			.headline {
+				.caption {
+					.description {
+						font-size: 12px;
+						font-family: Roboto;
+						font-style: normal;
+						font-weight: normal;
+						color: #ADAFB3;
+					}
+				}
+			}
 			
 			.info-block {
 				.post-settings-list {

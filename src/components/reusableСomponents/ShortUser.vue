@@ -3,16 +3,10 @@
 
 		<div class="flex">
 			<div class="avatar-wrapper flex">
-
-				<picture-reusable
-						class="mr-auto pointer"
-						pic-class="mb-auto"
-						:img="publicPath + imageUtil(user.path_to_avatar, 'S')"
-						size="36"
-						rounded
-						without-text
-						@click.native="user.id && $router.push({name: 'user', params: {id: user.id} })"
-				/>
+				
+				<router-link class="mr-auto pointer" :to="{name: 'user', params: {id: user.id} }">
+					<RePicture :url="publicPath + imageUtil(user.path_to_avatar, 'S')" size="36" rounded />
+				</router-link>
 
 			</div>
 
@@ -51,15 +45,14 @@
 </template>
 
 <script>
-    import PictureReusable from "./PictureReusable";
     import ButtonReusable from "./ButtonReusable";
     import imageMixin from "@/components/mixins/imageMixin";
-
+    import RePicture from "@/components/reusableСomponents/RePicture";
 
     export default {
         name: "ShortUser",
         components: {
-            PictureReusable,
+	        RePicture,
             ButtonReusable
         },
 	    mixins: [imageMixin],
