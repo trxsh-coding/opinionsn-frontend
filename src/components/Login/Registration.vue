@@ -70,17 +70,18 @@
 			</popup-error-reusable>
 
 		</div>
-		<popup-error-reusable :errors="{passConfirm: lstr(errors.passConfirm) }" span-class="mt-3">
+		
+<!--		<popup-error-reusable :errors="{passConfirm: lstr(errors.passConfirm) }" span-class="mt-3">-->
 
-		<vue-recaptcha
-				class="recaptcha mt-20"
-				ref="recaptcha"
-				:sitekey="sitekey"
-				@verify="setCurrentTOken(arguments[0])"
-				@expired="onCaptchaExpired"
-				:loadRecaptchaScript="true"
-		/>
-		</popup-error-reusable>
+<!--			<vue-recaptcha-->
+<!--					class="recaptcha mt-20"-->
+<!--					ref="recaptcha"-->
+<!--					:sitekey="sitekey"-->
+<!--					@verify="setCurrentTOken(arguments[0])"-->
+<!--					@expired="onCaptchaExpired"-->
+<!--					:loadRecaptchaScript="true"-->
+<!--			/>-->
+<!--		</popup-error-reusable>-->
 
 		<div class="buttons-block mt-23">
 
@@ -219,7 +220,7 @@
 					registerFormData.append("email", form.email);
 					registerFormData.append("pass", form.password);
 					registerFormData.append("passConfirm", form.conf_pass);
-					registerFormData.append("recaptcha", this.token);
+					// registerFormData.append("recaptcha", this.token);
 					
 					let {status} = await axios.post(`${process.env.VUE_APP_MAIN_API}/auth/register${this.refer}`, registerFormData);
 					
