@@ -14,7 +14,7 @@ export const createForecast = async (pollId, ownerId, pollName, options) => {
     await api.transact({
         actions: [{
             account: 'opinionblock',
-            name: 'initforecast',
+            name: 'eventcreated',
             authorization: [{
                 actor: 'opinionbetha',
                 permission: 'active'
@@ -23,27 +23,9 @@ export const createForecast = async (pollId, ownerId, pollName, options) => {
                 'pollId': pollId,
                 'ownerId': ownerId,
                 'pollName': pollName,
-                'pollOptions': options
-            },
-        }]
-    }, {
-        blocksBehind: 3,
-        expireSeconds: 30
-    });
-};
-
-export const addCourt = async (pollId, maxJudges) => {
-    await api.transact({
-        actions: [{
-            account: 'opinionblock',
-            name: 'initcourt',
-            authorization: [{
-                actor: 'opinionbetha',
-                permission: 'active'
-            }],
-            data: {
-                'baseForecastId': pollId,
-                'maxJudges': maxJudges
+                'eventType' : "Прогноз",
+                'pollOptions': options,
+                'memo': 'q' + pollId + pollName + 'user' + ownerId
             },
         }]
     }, {
@@ -56,7 +38,7 @@ export const userVote = async (pollId, userId, option) => {
     await api.transact({
         actions: [{
             account: 'opinionblock',
-            name: 'uservote',
+            name: 'uservoted',
             authorization: [{
                 actor: 'opinionbetha',
                 permission: 'active'
@@ -64,7 +46,8 @@ export const userVote = async (pollId, userId, option) => {
             data: {
                 'pollId': pollId,
                 'userId': userId,
-                'option': option
+                'option': option,
+                'memo':  'q' + pollId + 'user' + userId + 'option' + option
             },
         }]
     }, {
@@ -77,7 +60,7 @@ export const judgeVote = async (pollId, userId, option) => {
     await api.transact({
         actions: [{
             account: 'opinionblock',
-            name: 'judgevote',
+            name: 'judgevoted',
             authorization: [{
                 actor: 'opinionbetha',
                 permission: 'active'
@@ -85,7 +68,8 @@ export const judgeVote = async (pollId, userId, option) => {
             data: {
                 'courtId': pollId,
                 'judgeId' : userId,
-                'option' : option
+                'option' : option,
+                'memo' : "q" + pollId + "judge" + userId + "verdict" + option
             },
         }]
     }, {
