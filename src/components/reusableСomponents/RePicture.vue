@@ -24,8 +24,18 @@
 				required: true
 			},
 			size: [Number, String],
-			width: [Number, String],
-			height: [Number, String],
+			width: {
+				type: [Number, String],
+				default() {
+					return 'auto'
+				}
+			},
+			height: {
+				type: [Number, String],
+				default() {
+					return 'auto'
+				}
+			},
 			borRad: [Number, String],
 			clip: {
 				type: String,
@@ -55,10 +65,10 @@
 				width = this.handleCssValue(width);
 				height = this.handleCssValue(height);
 				return {
-					width: width || size,
-					height: height || size,
-					minWidth: width || size,
-					minHeight: height || size
+					width: size || width,
+					height: size || height,
+					minWidth: size || width,
+					minHeight: size || height
 				}
 			},
 			cBorRad() {
