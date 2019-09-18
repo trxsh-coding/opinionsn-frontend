@@ -90,9 +90,9 @@
 
         </div>
         <re-explain v-if="item.voted && !item.haveExplain " :user="mainUser" :poll_id="item.id"/>
-        <div class="explains-section">
+        <div v-show="voted" class="explains-section">
             <div class="explain-header ml-60 mt-7 mb-7">
-                <lang-string :title="'Opinions'" />
+                <lang-string :title="'opinions'" />
             </div>
             <div class="explains-filter-block ml-60 flex mb-9">
                 <button-reusable
