@@ -3,13 +3,8 @@
     <ul id="category-list" class="pb-26 pl-60 pr-21" :class="{'bg-white pt-21': !mobile, 'pt-58': mobile}">
 
         <div class="category-block flex-column flex-center pointer p-15" v-for="{path_to_image, name, id} in categories"  @click="categoryLink(id)">
-            <picture-reusable
-                    pic-class="mb-9 mr-auto"
-                    text-layout="bottom"
-                    :img="publicPath + path_to_image"
-                    size="30">
-                <template #title>{{cropCategoryName(name)}}</template>
-            </picture-reusable>
+            <RePicture class="icon mr-auto" type="background" size="30" :url="publicPath + path_to_image" clip="contain" />
+            <span class="caption mt-9">{{cropCategoryName(name)}}</span>
         </div>
 
     </ul>
@@ -26,7 +21,7 @@
     import IconClose from "../icons/IconZoomIn";
     import { localString } from "../../utils/localString";
     import imageMixin from "../mixins/imageMixin";
-    import PictureReusable from "../reusableСomponents/PictureReusable";
+    import RePicture from "@/components/reusableСomponents/RePicture";
 	export default {
 		data() {
 			return {
@@ -77,7 +72,7 @@
 		},
 
 		components: {
-            PictureReusable,
+            RePicture,
 			langMixin,
 			langString,
             IconBase,
@@ -120,7 +115,7 @@
             border-radius: 6px;
             border: 0.5px solid #BCBEC3;
 
-            .title {
+            .caption {
                 font-weight: normal;
                 font-size: 15px;
                 color: #747474;
@@ -130,11 +125,11 @@
                 background-color: #4B96B3;
                 border: none;
 
-                .picture {
+                .icon {
                     filter: brightness(40);
                 }
 
-                .title {
+                .caption {
                     color: #fff;
                 }
             }
