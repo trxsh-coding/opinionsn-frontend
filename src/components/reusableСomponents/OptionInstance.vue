@@ -10,14 +10,13 @@
 		     @touchmove="trackTouchMove"
 		     @touchend="trackTouchEnd">
 			
-			<template v-if="option.bows">
-				
+			<template v-if="bows_length">
 				<template v-if="!swiped">
-					<div v-if="bows_length <= 2" @click="$router.push({name: 'user', params: { id: Object.keys(option.bows)[0] }})" class="bow bow-1 mx-2 h-21 w-21"
-					     :style="{backgroundImage: `url('${publicPath + Object.values(option.bows)[0]}')`}"></div>
+					<div v-if="bows_length" @click="$router.push({name: 'user', params: { id: Object.values(option.bows)[0].id }})" class="bow bow-1 mx-2 h-21 w-21"
+					     :style="{backgroundImage: `url('${publicPath + Object.values(option.bows)[0].pathToAvatar}')`}"></div>
 					
-					<div v-if="bows_length === 2" @click="$router.push({name: 'user', params: { id: Object.keys(option.bows)[1] }})" class="bow mx-2 h-21 w-21"
-					     :style="{backgroundImage: `url('${publicPath + Object.values(option.bows)[1]}')`}"></div>
+					<div v-if="bows_length === 2" @click="$router.push({name: 'user', params: { id: Object.values(option.bows)[1].id }})" class="bow mx-2 h-21 w-21"
+					     :style="{backgroundImage: `url('${publicPath + Object.values(option.bows)[1].pathToAvatar}')`}"></div>
 					
 					<slot v-if="bows_length > 2" name="badge"></slot>
 					
@@ -27,11 +26,11 @@
 				          :params="{height: '100%', width: swiped ? '100%' : 'fit-content', stubLength: swiped && 1, reverse: true}">
 					<template #scroll>
 						<div
-								v-for="(value, key, index) in option.bows" :to="'/user/' + key"
+								v-for="({id, pathToAvatar}, index) in option.bows" :to="'/user/' + id"
 								v-show="swiped || index === 0"
-								@click="swiped && $router.push({name: 'user', params: { id: key }})"
+								@click="swiped && $router.push({name: 'user', params: { id: id }})"
 								class="bow mx-2 h-21 w-21"
-								:style="{backgroundImage: `url('${publicPath + value}')`}"></div>
+								:style="{backgroundImage: `url('${publicPath + pathToAvatar}')`}"></div>
 					</template>
 				</ReSwiper>
 				
@@ -114,6 +113,10 @@
 		
 		beforeDestroy() {
 			this.$root.temp_selected_option = null;
+		},
+		
+		mounted() {
+			console.log(this.option.bows)
 		},
 		
 		methods: {

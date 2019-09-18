@@ -10,8 +10,8 @@
 		
 		<ReSwiper type="scroll" class="mt-9" :params="{stubLength: 1}">
 			<template #scroll>
-				<router-link v-for="(value, key) in users" :to="'/user/' + key">
-					<ReBow :width="27" :height="27" :img="value" :id="key" />
+				<router-link v-for="({id, pathToAvatar}) in users" :to="'/user/' + id">
+					<ReBow :width="27" :height="27" :img="pathToAvatar" :id="id" />
 				</router-link>
 			</template>
 		</ReSwiper>
