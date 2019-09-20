@@ -4,21 +4,21 @@
 
 		<div class="explains-block flex-align-center mr-9">
 			
-			<IconCheck fill="BEC0C5" width="13" height="10" />
+			<IconCheck :fill="badgesColor" width="13" height="10" />
 			<span class="ml-6">{{poll.total_amount_of_votes}}</span>
 			
 		</div>
 
 		<div v-if="!short" class="comments-block flex-align-center mr-9">
 			
-			<IconBaloon height="13" width="13" fill="BEC0C5" />
+			<IconBaloon height="13" width="13" :fill="badgesColor" />
 			<span class="ml-6">{{poll.total_amount_of_comments}}</span>
 			
 		</div>
 
 		<div v-if="poll.type_of_poll === 1 || poll.type_of_poll === 2" class="comments-block flex-align-center mr-9">
 
-			<IconClocks height="13" width="13" fill="BEC0C5" />
+			<IconClocks height="13" width="13" :fill="badgesColor" />
 			<span class="ml-6">
 				<time-trans prediction-time :time="poll.end_date"></time-trans>
 			</span>
@@ -27,7 +27,7 @@
 
 		<div v-if="!short && poll.type_of_poll === 2" class="comments-block flex-align-center">
 			<icon-base
-				fill="BEC0C5"
+				:fill="badgesColor"
 				width="13"
 				height="15"
 				viewBox="0 0 13 15"
@@ -77,7 +77,8 @@
 				default: function () {
 					return false;
 				}
-			}
+			},
+			badgesColor: String
 		},
 		data() {
 			return {
