@@ -3,40 +3,22 @@
 	<div class="counter-badges flex">
 
 		<div class="explains-block flex-align-center mr-9">
-			<icon-base
-				fill="BEC0C5"
-				width="13"
-				height="10"
-				viewBox="0 0 13 10"
-				icon-name="check">
-				<icon-check></icon-check>
-			</icon-base>
-
+			
+			<IconCheck fill="BEC0C5" width="13" height="10" />
 			<span class="ml-6">{{poll.total_amount_of_votes}}</span>
+			
 		</div>
 
 		<div v-if="!short" class="comments-block flex-align-center mr-9">
-			<icon-base
-				fill="BEC0C5"
-				width="13"
-				height="13"
-				viewBox="0 0 13 13"
-				icon-name="baloon">
-				<icon-baloon></icon-baloon>
-			</icon-base>
-
+			
+			<IconBaloon height="13" width="13" fill="BEC0C5" />
 			<span class="ml-6">{{poll.total_amount_of_comments}}</span>
+			
 		</div>
 
 		<div v-if="poll.type_of_poll === 1 || poll.type_of_poll === 2" class="comments-block flex-align-center mr-9">
-			<icon-base
-				fill="BEC0C5"
-				width="13"
-				height="13"
-				viewBox="0 0 13 13"
-				icon-name="clocks">
-				<icon-clocks></icon-clocks>
-			</icon-base>
+
+			<IconClocks height="13" width="13" fill="BEC0C5" />
 			<span class="ml-6">
 				<time-trans prediction-time :time="poll.end_date"></time-trans>
 			</span>
