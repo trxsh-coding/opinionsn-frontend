@@ -1,16 +1,12 @@
 <template>
 	<div class="involved_users-panel">
 		<slot name="description">
-			<lang-string class="panel-caption" :title="'friends_who_voted_in_this_poll'">
-				<template #text>
-					:
-				</template>
-			</lang-string>
+			<span class="panel-caption">{{lstr('already_voted')}}:</span>
 		</slot>
 		
-		<ReSwiper type="scroll" class="mt-9" :params="{stubLength: 1}">
+		<ReSwiper type="scroll" class="mt-5" :params="{stubLength: 1}">
 			<template #scroll>
-				<router-link v-for="({id, pathToAvatar}) in users" :to="'/user/' + id">
+				<router-link class="mr-12" v-for="({id, pathToAvatar}) in users" :to="'/user/' + id">
 					<ReBow :width="27" :height="27" :img="pathToAvatar" :id="id" />
 				</router-link>
 			</template>
@@ -20,14 +16,14 @@
 </template>
 
 <script>
-	import langString from '../../langString'
 	import imageMixin from '../../mixins/imageMixin'
 	import ReBow from "../../reusableСomponents/ReBow";
 	import ReSwiper from "@/components/reusableСomponents/ReSwiper";
+	import langMixin from "@/components/mixins/langMixin";
 	
 	export default {
 		name: "involvedUsersPanel",
-		mixins: [imageMixin],
+		mixins: [imageMixin, langMixin],
 		data() {
 			return {
 				publicPath: process.env.VUE_APP_ASSETS,
@@ -49,7 +45,6 @@
 		components: {
 			ReSwiper,
 			ReBow,
-			langString
 		}
 	}
 </script>
@@ -62,7 +57,7 @@
 			font-style: normal;
 			font-weight: normal;
 			font-size: 13px;
-			color: #828D92;
+			color: #1A1E22;
 		}
 		
 		.user-picture-wrapper {

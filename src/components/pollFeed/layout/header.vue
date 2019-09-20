@@ -1,6 +1,30 @@
 <template>
-	<div id="poll-header" class="mb-4">
-		<div class="subject mb-12" :class="subjectClass">
+	<div id="poll-header">
+		<div class="subject flex-align-stretch pt-12" :class="subjectClass">
+			
+			<div class="w-60 v-center">
+				<dropdown-list-reusable v-if="mainUser.authorities === 'ADMIN'" class="h-fit info-block"
+				                        list-class="post-settings-list">
+					<template>
+						<icon-base
+								class="ml-6"
+								width="13"
+								height="4"
+								viewBox="0 0 13 4"
+								icon-name="icon-more">
+							<icon-more/>
+						</icon-base>
+					
+					</template>
+					<template #items>
+						<span class="dropdown-actions ws-no-warp pointer" @click="deletePoll(poll.id)">Удалить опрос</span>
+						<br>
+						<span class="dropdown-actions ws-no-warp pointer"
+						      @click="linkShare(poll.id)">Поделиться в фейсбуке</span>
+					
+					</template>
+				</dropdown-list-reusable>
+			</div>
 			
 			<div class="headline flex">
 				<router-link class="flex pointer" :to="{name: 'user', params: { id: author.id }}">
@@ -20,30 +44,9 @@
 				</div>
 			</div>
 			
-			<dropdown-list-reusable v-if="mainUser.authorities === 'ADMIN'" class="h-fit py-6 mr-2 info-block"
-			                        list-class="post-settings-list">
-				<template #icon>
-					<icon-base
-							width="13"
-							height="4"
-							viewBox="0 0 13 4"
-							icon-name="icon-more">
-						<icon-more/>
-					</icon-base>
-				
-				</template>
-				<template #items>
-					<span class="dropdown-actions ws-no-warp pointer" @click="deletePoll(poll.id)">Удалить опрос</span>
-					<br>
-					<span class="dropdown-actions ws-no-warp pointer"
-					      @click="linkShare(poll.id)">Поделиться в фейсбуке</span>
-				
-				</template>
-			</dropdown-list-reusable>
-		
+			<Bookmark class="bookmark ml-auto" :poll="poll" />
 		
 		</div>
-		<slot name="annotation"></slot>
 	
 	</div>
 </template>
@@ -59,12 +62,24 @@
 	import DropdownListReusable from "../../reusableСomponents/DropdownListReusable";
 	import {mapState} from "vuex";
 	import RePicture from "@/components/reusableСomponents/RePicture";
+	import Bookmark from "@/components/icons/bookmark";
+	
+	const pad = (num, len=2, char='0') => {
+		let init = `${num}`;
+		
+		while (init.length < (len*char.length)){
+			init = `${char}${init}`
+		}
+		
+		return init;
+	};
 	
 	export default {
 		name: "postHeader",
 		props: ['author', 'poll', 'payloadTimeStamp', 'eventType', 'subjectClass'],
 		mixins: [imageMixin, langMixin],
 		components: {
+			Bookmark,
 			RePicture,
 			DropdownListReusable,
 			IconBase,
@@ -139,8 +154,17 @@
 <style lang="scss">
 	#poll-header {
 		.subject {
-			display: flex;
-			justify-content: space-between;
+			/*overflow: hidden;*/
+			
+			.post-settings-list {
+				right: unset;
+				left: 90px;
+			}
+			
+			.bookmark {
+				position: relative;
+				top: -13px;
+			}
 			
 			.headline {
 				.caption {
@@ -154,13 +178,6 @@
 				}
 			}
 			
-			.info-block {
-				.post-settings-list {
-					left: unset;
-					transform: unset;
-					right: -5px;
-				}
-			}
 		}
 		
 		.event__item {
