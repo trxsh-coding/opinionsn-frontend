@@ -14,18 +14,17 @@ export const createForecast = async (pollId, ownerId, pollName, options) => {
     await api.transact({
         actions: [{
             account: 'opinionblock',
-            name: 'eventcreated',
+            name: 'pollcreate',
             authorization: [{
                 actor: 'opinionbetha',
                 permission: 'active'
             }],
             data: {
-                'pollId': pollId,
-                'ownerId': ownerId,
-                'pollName': pollName,
-                'eventType' : "Прогноз",
-                'pollOptions': options,
-                'memo': 'q' + pollId + pollName + 'user' + ownerId
+                'from': ownerId,
+                'to': ownerId,
+                'pollType': "Прогноз",
+                'pollName' : pollName,
+                'option': options
             },
         }]
     }, {
@@ -38,16 +37,15 @@ export const userVote = async (pollId, userId, option) => {
     await api.transact({
         actions: [{
             account: 'opinionblock',
-            name: 'uservoted',
+            name: 'uservote',
             authorization: [{
                 actor: 'opinionbetha',
                 permission: 'active'
             }],
             data: {
-                'pollId': pollId,
-                'userId': userId,
-                'option': option,
-                'memo':  'q' + pollId + 'user' + userId + 'option' + option
+                'from': userId,
+                'to': pollId,
+                'option': option
             },
         }]
     }, {
@@ -60,16 +58,15 @@ export const judgeVote = async (pollId, userId, option) => {
     await api.transact({
         actions: [{
             account: 'opinionblock',
-            name: 'judgevoted',
+            name: 'judgevote',
             authorization: [{
                 actor: 'opinionbetha',
                 permission: 'active'
             }],
             data: {
-                'courtId': pollId,
-                'judgeId' : userId,
-                'option' : option,
-                'memo' : "q" + pollId + "judge" + userId + "verdict" + option
+                'from': userId,
+                'to' : pollId,
+                'option' : option
             },
         }]
     }, {
