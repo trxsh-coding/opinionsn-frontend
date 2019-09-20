@@ -1,5 +1,5 @@
 <template>
-	<div class="bow-reusable mr-12">
+	<div class="bow-reusable">
 		<div class="user-picture pointer rounded" :style="pictureStyle"
 		     :class="{'is_mobile_device': $root.mobile}">
 		
