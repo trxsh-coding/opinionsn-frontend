@@ -115,10 +115,6 @@
 			this.$root.temp_selected_option = null;
 		},
 		
-		mounted() {
-			console.log(this.option.bows)
-		},
-		
 		methods: {
 			
 			selectOption() {
@@ -159,22 +155,19 @@
 					const runTimeout = () => {
 						
 						if (this.has_access) {
-							this.$root.timer_duration = 5000;
+							this.$root.timer_duration = 3000;
 							
-							this.$root.timer_id = setTimeout(() => {
+							this.$root.timer_id = setTimeout(async () => {
 								
-								this.$store.dispatch(`${this.$route.name}/createVote`, {
-									data: {
-										selected_variable,
-										poll_id,
-										type_of_poll
-									}
-								})
-									.then(() => {
-										this.$root.timer_id = null;
-										this.$root.timer_duration = 0;
-									});
-							}, 5000);
+								try {
+									await this.$store.dispatch(`${this.$route.name}/createVote`, {data: {selected_variable, poll_id, type_of_poll}});
+									this.$root.timer_id = null;
+									this.$root.timer_duration = 0;
+								} catch (e) {
+									console.error(e);
+								}
+								
+							}, this.$root.timer_duration);
 							this.$root.temp_selected_option = selected_variable;
 						}
 					};
