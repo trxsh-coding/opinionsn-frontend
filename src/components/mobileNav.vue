@@ -113,7 +113,7 @@
 			<li class="nav__item pointer">
 				<avatar class="avatar-25x25"></avatar>
 			</li>
-			<li class="nav__item pointer" @click="$route.path !== '/menu' ? link('menu') : $router.go(-1) ">
+			<li class="nav__item pointer" @click="$route.name !== 'menu' ? link('menu') : $router.go(-1) ">
 				<icon-base width="25" height="22" viewBox="0 0 25 22" icon-name="menu">
 					<icon-menu/>
 				</icon-base>
