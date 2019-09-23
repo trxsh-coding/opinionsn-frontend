@@ -1,6 +1,7 @@
 <template>
 	<section class="comments-section">
-		<div v-if="!haveExplain" class="input-panel text-deselect px-15 py-10 mt-12 flex-align-center">
+		<div v-if="!haveExplain" class="input-panel text-deselect px-15 py-10 mt-12 flex-align-center"
+		     :style="{width: `calc(100% + ${$root.mobile ? '20px' : '12px'})`}">
 			
 			<router-link v-if="isAuthorized" class="flex w-30 mr-15 pointer" :to="getUserLink(mainUser.id)">
 				<RePicture :url="publicPath + mainUser.path_to_avatar" size="30" rounded/>
@@ -47,7 +48,7 @@
 			</div>
 			
 			<div class="feed flex-column mt-6">
-				<div class="item flex-column mt-11" v-for="(e, index) in filteredExplainsWithComments"
+				<div class="item flex-column mt-15" v-for="(e, index) in filteredExplainsWithComments"
 				     v-show="index <= amountOfVisibleComments" :key="e.id">
 					<div class="explain flex">
 						<div class="avatar-wrapper w-60 flex-column pt-3">
