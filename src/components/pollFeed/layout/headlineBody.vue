@@ -22,7 +22,7 @@
 		           width="100%" :height="mobile ? 190 : 303" bor-rad="6" />
 		
 		<ReSwiper v-if="!poll.picture" type="usual" class="mt-6"
-		          :params="{slidesPerView: 1, spaceBetween: 10, pagination: poll.urlPhotos.length > 1, breakpoints: false}">
+		          :usual-swiper-options="{slidesPerView: 1, spaceBetween: 10, pagination: poll.urlPhotos.length > 1, breakpoints: false}">
 			<template #usual>
 				<swiper-slide v-for="(picture, index) in poll.urlPhotos">
 					<RePicture @click.native="pushToPopup(poll.urlPhotos, index)"

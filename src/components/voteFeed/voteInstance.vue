@@ -6,8 +6,8 @@
 	    
 	    <PostHeader v-bind="postHeaderProps" />
 	    
-	    <ReSwiper class="mt-9" :type="mobile ? 'scroll' : 'usual'"
-	              :params="{stubLength: 1, slidesPerView: 3, spaceBetween: 9}">
+	    <ReSwiper class="mt-9" :type="mobile ? 'scroll' : 'usual'" :params="{stubLength: 1}"
+	              :usual-swiper-options="{slidesPerView: 3, spaceBetween: 9}">
 			<template #usual>
 				<swiper-slide v-for="{option, isSelected} in sortedOptions">
 					<option-item class="option mr-9"  :selected="isSelected" :option="option" :width="180"  :height="45"/>

@@ -38,7 +38,13 @@
 					return 'usual'
 				}
 			},
-			swiperClass: String
+			swiperClass: String,
+			usualSwiperOptions: {
+				type: Object,
+				default() {
+					return {}
+				}
+			}
 		},
 		methods: {
 			handleCssValue(value) {
@@ -59,12 +65,8 @@
 				return {
 					height: 'auto',
 					width: 'auto',
-					slidesPerView: 1,
-					spaceBetween: 0,
 					stubLength: 0,
 					reverse: false,
-					breakpoints: true,
-					pagination: false,
 					...this.params
 				}
 			},
@@ -80,7 +82,14 @@
 			
 			usual_swiper_options() {
 				
-				let breakpoints = this.c_params.breakpoints ? {
+				let init = {
+					slidesPerView: 1,
+					spaceBetween: 0,
+				};
+				
+				let {usualSwiperOptions: o} = this;
+				
+				let breakpoints = o.breakpoints ? {
 					breakpoints: {
 						1024: {
 							slidesPerView: 1,
@@ -101,15 +110,15 @@
 					}
 				} : {};
 				
-				let pagination = this.c_params.pagination ? {
+				let pagination = o.pagination ? {
 					pagination: {
 						el: '.swiper-pagination'
 					}
 				} : {};
 				
 				return {
-					slidesPerView: this.c_params.slidesPerView,
-					spaceBetween: this.c_params.spaceBetween,
+					...init,
+					...o,
 					...breakpoints,
 					...pagination
 				};

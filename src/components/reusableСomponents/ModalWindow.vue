@@ -25,7 +25,7 @@
 				</swiper-slide>
 			</swiper>
 			<ReSwiper class="pictures-section flex" v-if="pictures.length >= 2" :type="mobile ? 'scroll' : 'usual'"
-			          :params="{height: 150, width: '100%', slidesPerView: 'auto', spaceBetween: 15}">
+			          :params="{height: 150, width: '100%'}" :usual-swiper-options="{slidesPerView: 'auto', spaceBetween: 15}">
 				<template #usual>
 					<swiper-slide
 							class="w-fit" v-for="({picture}, index) in pictures">

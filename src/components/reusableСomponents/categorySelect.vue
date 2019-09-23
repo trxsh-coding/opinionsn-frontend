@@ -1,7 +1,7 @@
 <template>
 	<div class="category-block">
 		<ReSwiper :type="mobile ? 'scroll' : 'usual'"
-		          :params="{height: 38, width: '100%', slidesPerView, spaceBetween: 10, breakpoints: false}">
+		          :params="{height: 38, width: '100%'}" :usual-swiper-options="{spaceBetween: 10, breakpoints: false}">
 			<template #usual>
 				<swiper-slide
 						class="w-fit"
