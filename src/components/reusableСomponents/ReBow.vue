@@ -4,7 +4,7 @@
 		     :class="{'is_mobile_device': $root.mobile}">
 
 		</div>
-		<span class="bow-username">{{img.username}}</span>
+<!--		<span class="bow-username">{{img.username}}</span>-->
 <!--		<span class="bow-username" v-if="routeName === 'voteFeed'">-->
 <!--              {{username}}-->
 <!--        </span>-->
@@ -55,11 +55,14 @@
 			// },
 			pictureStyle() {
 				let {width, height, img} = this;
+				let bg = img.pathToAvatar
+					? {backgroundImage: `url('${this.publicPath + img.pathToAvatar}')`}
+					: {background: '#e2e3e4'};
 				return {
 					width: `${width}px`,
 					height: `${height}px`,
 					borderRadius: `50%`,
-					backgroundImage: `url('${this.publicPath + img.pathToAvatar}')`,
+					...bg
 				};
 			}
 		}
