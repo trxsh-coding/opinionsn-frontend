@@ -312,9 +312,7 @@
 			min-height: 50px;
 			background: #eaebec;
 			border-radius: 0 6px 6px 0;
-		}
-		
-		.input-label {
+			
 			span {
 				font-family: Roboto;
 				font-style: normal;
@@ -322,6 +320,9 @@
 				font-size: 13px;
 				color: #6F747F;
 			}
+		}
+		
+		.input-label {
 			
 			.input {
 				background: #FFFFFF;
