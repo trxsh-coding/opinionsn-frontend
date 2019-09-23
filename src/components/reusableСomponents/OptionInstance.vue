@@ -8,12 +8,12 @@
 			
 			<template v-if="bows_length">
 				
-				<router-link v-show="!swiped && bows_length" class="flex pointer bow bow-1 mx-2"
-				             :to="getUserLink(Object.values(option.bows)[0].id)">
+				<router-link v-show="!swiped && bows_length" :event="!swiped && bows_length > 2 ? '' : 'click'"
+				             class="flex pointer bow bow-1 mx-2" :to="getUserLink(Object.values(option.bows)[0].id)">
 					<RePicture :url="publicPath + Object.values(option.bows)[0].pathToAvatar" size="21" rounded />
 				</router-link>
 				
-				<router-link class="flex pointer bow bow-2 mx-2"
+				<router-link class="flex pointer bow bow-2 mx-2" :event="!swiped && bows_length > 2 ? '' : 'click'"
 				             :to="getUserLink(Object.values(option.bows)[1].id)">
 					<RePicture v-show="!swiped && bows_length === 2" :url="publicPath + Object.values(option.bows)[1].pathToAvatar" size="21" rounded />
 				</router-link>
@@ -94,7 +94,8 @@
 				transform_px: 0,
 				transform_limit: undefined,
 				swiped: false,
-				swipe_in_progress: false
+				swipe_in_progress: false,
+				timerId: null
 			}
 		},
 		props: {
@@ -244,6 +245,7 @@
 			},
 			
 			trackInteractionStart(e) {
+				
 				if (!this.swiped && Object.keys(this.option.bows).length > 2) {
 					this.swipe_in_progress = true;
 					
@@ -260,7 +262,13 @@
 			},
 			
 			trackInteraction(e) {
-				// e.preventDefault();
+				
+				// Keep swiped if interaction end timeout is exist
+				if (Number.isInteger(this.timerId)) {
+					clearTimeout(this.timerId);
+					this.timerId = null;
+				}
+				
 				if (!this.swiped && Object.keys(this.option.bows).length > 2) {
 					
 					// Get panel width
@@ -269,16 +277,8 @@
 					// Set transform value
 					let transform_value = this.block_width + 23 - 54;
 					
-					if (e instanceof MouseEvent) {
-						
-						// add short delay for smooth behavior
-						setTimeout(() => {
-							this.transform_px = transform_value;
-							this.swiped = true;
-							this.swipe_in_progress = false;
-						}, 150);
-						
-					} else {
+					// Touch event check
+					if (e.type === 'touchmove') {
 						
 						let {initialCoord, block_width, transform_limit} = this;
 						
@@ -300,6 +300,14 @@
 						
 						this.difference = difference;
 						
+					} else {
+						
+						if (!this.mobile) {
+							this.transform_px = transform_value;
+							this.swiped = true;
+							this.swipe_in_progress = false;
+						}
+						
 					}
 					
 				}
@@ -307,18 +315,19 @@
 			
 			trackInteractionEnd(e) {
 				
-				if (e instanceof MouseEvent) {
+				// Touch event check
+				if (e.type === 'touchend') {
 					
-					// add short delay for smooth behavior
-					setTimeout(() => {
-						this.resetBowsBar()
-					}, 150);
+					if (this.difference <= 50) {
+						this.swiped = false;
+						this.swipe_in_progress = false;
+						this.transform_px = 0;
+					}
 					
 				} else {
 					
-					if (this.difference <= 50) {
-						this.resetBowsBar();
-					}
+					// add short delay for smooth behavior
+					this.timerId = setTimeout(this.resetBowsBar, 300);
 					
 				}
 				
