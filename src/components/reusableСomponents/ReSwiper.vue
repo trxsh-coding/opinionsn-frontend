@@ -13,6 +13,7 @@
 			v-else-if="type === 'usual'"
 			class="swiper-reusable usual"
 			:class="swiperClass"
+			:style="scroll_swiper_style"
 			:options="usual_swiper_options">
 		<slot name="usual"></slot>
 		<div class="swiper-pagination" slot="pagination"></div>
