@@ -1,5 +1,5 @@
 <template>
-    <div id="main-feed-layout" class="flex-column pt-12" :class="{'pr-20': mobile, 'pr-12': !mobile}">
+    <div id="main-feed-layout" class="flex-column pt-12 pb-9" :class="{'pr-20': mobile, 'pr-12': !mobile}">
         
         <post-header :author="author" :poll="poll" :eventType="item.eventType" />
     
