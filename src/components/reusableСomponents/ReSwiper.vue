@@ -1,24 +1,22 @@
 <template>
 	
-	<div>
-		<div
-				v-if="type === 'scroll'"
-				class="swiper-reusable scroll"
-				:class="[swiperClass, {'flex-reverse': c_params.reverse}]"
-				:style="scroll_swiper_style">
-			<slot name="scroll"></slot>
-			<span class="stub-block" :style="c_params.reverse && {order: '-1'}">{{stub_content}}</span>
-		</div>
-		
-		<swiper
-				v-if="type === 'usual'"
-				class="swiper-reusable usual"
-				:class="swiperClass"
-				:options="usual_swiper_options">
-			<slot name="usual"></slot>
-			<div class="swiper-pagination" slot="pagination"></div>
-		</swiper>
+	<div
+			v-if="type === 'scroll'"
+			class="swiper-reusable scroll"
+			:class="[swiperClass, {'flex-reverse': c_params.reverse}]"
+			:style="scroll_swiper_style">
+		<slot name="scroll"></slot>
+		<span class="stub-block" :style="c_params.reverse && {order: '-1'}">{{stub_content}}</span>
 	</div>
+	
+	<swiper
+			v-else-if="type === 'usual'"
+			class="swiper-reusable usual"
+			:class="swiperClass"
+			:options="usual_swiper_options">
+		<slot name="usual"></slot>
+		<div class="swiper-pagination" slot="pagination"></div>
+	</swiper>
 	
 </template>
 
