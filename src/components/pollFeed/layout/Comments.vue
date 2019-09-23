@@ -311,8 +311,10 @@
 		.input-panel {
 			min-height: 50px;
 			background: #eaebec;
-			border-radius: 0px 6px 6px 0px;
-			
+			border-radius: 0 6px 6px 0;
+		}
+		
+		.input-label {
 			span {
 				font-family: Roboto;
 				font-style: normal;
@@ -337,8 +339,8 @@
 				border-left: none;
 				border-radius: 0 6px 6px 0;
 			}
-			
 		}
+		
 		
 		.comments-block {
 			font-family: Roboto;
