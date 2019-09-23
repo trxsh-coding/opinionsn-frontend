@@ -55,6 +55,9 @@
     import IconTopArrow from "@/components/icons/IconTopArrow";
     import RePicture from "@/components/reusableСomponents/RePicture";
     import Comments from "@/components/pollFeed/layout/Comments";
+    import ReExplain from "../reusableСomponents/ReExplain";
+    import ButtonReusable from "../reusableСomponents/ButtonReusable";
+    import LangString from "../langString";
 
     const pad = (num, len = 2, char = '0') => {
         let init = `${num}`;

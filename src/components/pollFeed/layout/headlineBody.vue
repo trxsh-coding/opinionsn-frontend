@@ -40,6 +40,8 @@
 	import bowsPanel from './involvedUsersPanel'
 	import TextTrim from "../../reusableСomponents/textTrim";
 	import ReSwiper from "@/components/reusableСomponents/ReSwiper";
+	import ReYoutube from "../../reusableСomponents/reYoutube";
+	import ReExplain from "../../reusableСomponents/ReExplain";
 	import RePicture from "@/components/reusableСomponents/RePicture";
 	
 	export default {
@@ -55,6 +57,8 @@
 		},
 		components: {
 			RePicture,
+			ReExplain,
+			ReYoutube,
 			ReSwiper,
 			TextTrim,
 			bowsPanel,

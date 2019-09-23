@@ -51,6 +51,7 @@ const initialState = () => {
 			max_participants_cap: null,
 			judges: [],
 			with_time_limit: false,
+			youtube_link:'',
 			errors: {
 				options: {}
 			},
