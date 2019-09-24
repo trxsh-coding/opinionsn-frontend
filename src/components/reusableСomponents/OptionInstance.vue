@@ -164,7 +164,7 @@
 							this.$root.timer_id = setTimeout(async () => {
 								
 								try {
-									await this.$store.dispatch(`${this.$route.name}/createVote`, {data: {selected_variable, poll_id, type_of_poll}});
+									await this.$store.dispatch(`${this.$route.name === 'user' ? 'userFeed' : this.$route.name}/createVote`, {data: {selected_variable, poll_id, type_of_poll}});
 									this.$root.timer_id = null;
 									this.$root.timer_duration = 0;
 								} catch (e) {
