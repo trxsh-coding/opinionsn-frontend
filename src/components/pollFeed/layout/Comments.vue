@@ -91,8 +91,8 @@
 						</div>
 					</div>
 					
-					<div class="comment-list mt-15 ml-45">
-						<div class="comment flex" v-for="c in e.comments" :key="c.id">
+					<div class="comment-list ml-45">
+						<div class="comment flex mt-15" v-for="c in e.comments" :key="c.id">
 							<div class="avatar-wrapper w-60 flex-column pt-3">
 								<router-link class="flex mx-auto pointer" :to="getUserLink(c.author.id)">
 									<RePicture :url="publicPath + c.author.avatar" size="30" rounded/>
@@ -323,22 +323,18 @@
 		}
 		
 		.input-label {
-			
+			border: 1px solid #BCBEC3;
+			border-radius: 6px;
+			background: #FFFFFF;
+
 			.input {
-				background: #FFFFFF;
-				border: 1px solid #BCBEC3;
-				border-top-right-radius: 0;
-				border-bottom-right-radius: 0;
-				border-right: none;
+				outline: none;
+				border: none;
 			}
-			
+
 			.send-button {
 				all: unset;
 				cursor: pointer;
-				background: #FFFFFF;
-				border: 1px solid #BCBEC3;
-				border-left: none;
-				border-radius: 0 6px 6px 0;
 			}
 		}
 		
