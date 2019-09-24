@@ -13,14 +13,14 @@ module.exports = {
 
 		proxy: {
 			'/api': {
-				target: "http://192.168.1.35:7070",
+				target: "http://api2.opinionsn.com:7070",
 				pathRewrite: {'^/api': ''},
 				changeOrigin: true,
 				secure: false
 			},
 
 			'/messages': {
-				target: "http://192.168.1.35:7071",
+				target: "http://api2.opinionsn.com:7071",
 				pathRewrite: {'^/messages': ''},
 				changeOrigin: true,
 				secure: false
@@ -52,7 +52,7 @@ module.exports = {
 		workboxOptions: { skipWaiting: true },
 
 },
-	
+
 	configureWebpack: {
 		// devtool: 'source-map',
 		optimization: {
@@ -61,7 +61,7 @@ module.exports = {
 			}
 		}
 	},
-	
+
 	chainWebpack: (config) => {
 		config.plugins.delete('prefetch')
 	}
