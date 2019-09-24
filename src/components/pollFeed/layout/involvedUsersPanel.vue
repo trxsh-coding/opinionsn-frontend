@@ -6,9 +6,13 @@
 		
 		<ReSwiper type="scroll" class="mt-5" :params="{stubLength: 1}">
 			<template #scroll>
-				<router-link class="mr-12" v-for="({id, pathToAvatar}) in users" :to="'/user/' + id">
-					<ReBow :width="27" :height="27" :img="pathToAvatar" :id="id" />
-				</router-link>
+				<div class="flex-column mr-12" v-for="({id, pathToAvatar, username}) in users">
+					<router-link class="mx-auto flex pointer" :to="'/user/' + id">
+						<RePicture :url="assetsPath + pathToAvatar" size="27" rounded />
+					</router-link>
+					
+					<span class="bow-caption mt-1 text-center">{{username | trim}}</span>
+				</div>
 			</template>
 		</ReSwiper>
 	
@@ -17,16 +21,16 @@
 
 <script>
 	import imageMixin from '../../mixins/imageMixin'
-	import ReBow from "../../reusableСomponents/ReBow";
 	import ReSwiper from "@/components/reusableСomponents/ReSwiper";
 	import langMixin from "@/components/mixins/langMixin";
+	import RePicture from "@/components/reusableСomponents/RePicture";
 	
 	export default {
 		name: "involvedUsersPanel",
 		mixins: [imageMixin, langMixin],
 		data() {
 			return {
-				publicPath: process.env.VUE_APP_ASSETS,
+				assetsPath: process.env.VUE_APP_ASSETS,
 				swiperOption: {
 					slidesPerView: 2.7,
 					spaceBetween: 10,
@@ -40,11 +44,18 @@
 				}
 			}
 		},
+		
+		filters: {
+			trim: function (value) {
+				return (value.length > 9) ? value.slice(0, 6) + '...' : value;
+			}
+		},
+		
 		props: ['users'],
 		
 		components: {
+			RePicture,
 			ReSwiper,
-			ReBow,
 		}
 	}
 </script>
@@ -57,6 +68,15 @@
 			font-style: normal;
 			font-weight: normal;
 			font-size: 13px;
+			color: #1A1E22;
+		}
+		
+		.bow-caption {
+			font-family: Roboto;
+			font-style: normal;
+			font-weight: normal;
+			font-size: 10px;
+			text-transform: lowercase;
 			color: #1A1E22;
 		}
 		
