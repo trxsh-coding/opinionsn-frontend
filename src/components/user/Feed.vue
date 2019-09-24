@@ -7,7 +7,7 @@
 			<!-- <div :key="index + 'hr'" class="hr mt-12"></div> -->
 		</template>
 
-		<div class="v-center h-60 my-9">
+		<div v-if="!is_finished && loading || is_finished && !items.length" class="v-center h-60 my-9">
 			<Loader class="mx-auto" v-show="!is_finished && loading" />
 			<lang-string
 					class="empty-payload mx-auto"
