@@ -22,8 +22,9 @@ import DatePick from 'vue-date-pick';
 import 'vue-date-pick/dist/vueDatePick.css';
 import PopupPlugin from "./plugins/PopupPlugin";
 import ElementScrollHandler from "./components/mixins/ElementScrollHandler";
+import VueYoutube from 'vue-youtube'
 
-
+Vue.use(VueYoutube);
 Vue.use(DatePick);
 Vue.use(browserDetect);
 Vue.use(VueAwesomeSwiper);

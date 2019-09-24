@@ -5,7 +5,7 @@
 		<category-select @on-select="setCategory" :current="filter_id" :slides-per-view="4.3"
 		                 :class="{'pl-60 pr-10': mobile, 'pb-13' : !mobile}"/>
 		
-		<div class="feed relative flex-column pb-12" :class="{'bg-white': !mobile}"
+		<div class="feed relative flex-column pb-12"
 		     @touchstart="handleTouchStart" @touchmove="handleTouchMove" @touchend="handleTouchEnd">
 			
 			<div class="reload-indicator-wrapper v-center" ref="reload_indicator"
@@ -13,7 +13,7 @@
 				<Loader />
 			</div>
 			
-			<div v-for="item in items" class="poll-item">
+			<div v-for="item in items" class="poll-item mb-9">
 				<poll-instance :item="item"/>
 			</div>
 			
@@ -234,8 +234,7 @@
 	}
 	
 	.poll-item {
-		border-bottom: 1px solid #BCBEC3;
-		
+
 	}
 	
 	.poll-item:nth-last-child(-n+2) {

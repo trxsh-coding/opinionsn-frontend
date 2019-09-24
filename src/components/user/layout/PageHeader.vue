@@ -77,7 +77,7 @@
 				:description="user.isLeader ? 'unfollow' : 'follow'"
 			>
 				<icon-base
-					class="user-check ml-7"
+					class="user-check mr-7"
 					fill="none"
 					width="18"
 					height="18"
@@ -214,6 +214,11 @@
 
 			.edit-btn {
 
+				.btn {
+					display: flex;
+					flex-direction: row-reverse;
+				}
+				
 				span {
 					font-family: Roboto;
 					font-style: normal;

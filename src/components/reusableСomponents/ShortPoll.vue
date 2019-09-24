@@ -53,7 +53,7 @@
 						</picture-reusable>
 					</span>
 
-					<counter-badges short :poll="poll"></counter-badges>
+					<counter-badges short badges-color="#DADADA" :poll="poll"></counter-badges>
 
 				</div>
 
@@ -238,7 +238,7 @@
 
 			.bookmark-btn {
 				position: absolute;
-				top: 0;
+				top: -1px;
 				right: 6px;
 			}
 

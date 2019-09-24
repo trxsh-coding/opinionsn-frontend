@@ -1,36 +1,44 @@
 <template>
 	<div class="option-instance" ref="containerRef" :style="[transform_shift, optionWrapper]">
 		
-		<div v-if="mobile"
-		     class="bows-bar"
-		     ref="bowsRef"
-		     :class="{'invisible': !voted, 'pl-8': swiped}"
+		<div class="bows-bar text-deselect" ref="bowsRef" :class="{'invisible': !voted, 'pl-8': swiped}"
 		     :style="[optionStyle, bowsBarStyle, {backgroundColor: 'unset !important'}]"
-		     @touchstart="trackTouchStart"
-		     @touchmove="trackTouchMove"
-		     @touchend="trackTouchEnd">
+		     @touchstart="trackInteractionStart" @touchmove="trackInteraction" @touchend="trackInteractionEnd"
+		     @mouseover="trackInteraction" @mouseleave="trackInteractionEnd">
 			
 			<template v-if="bows_length">
-				<template v-if="!swiped">
-					<div v-if="bows_length" @click="$router.push({name: 'user', params: { id: Object.values(option.bows)[0].id }})" class="bow bow-1 mx-2 h-21 w-21"
-					     :style="{backgroundImage: `url('${publicPath + Object.values(option.bows)[0].pathToAvatar}')`}"></div>
-					
-					<div v-if="bows_length === 2" @click="$router.push({name: 'user', params: { id: Object.values(option.bows)[1].id }})" class="bow mx-2 h-21 w-21"
-					     :style="{backgroundImage: `url('${publicPath + Object.values(option.bows)[1].pathToAvatar}')`}"></div>
-					
-					<slot v-if="bows_length > 2" name="badge"></slot>
-					
-				</template>
 				
-				<ReSwiper v-if="bows_length > 2" type="scroll" class="bows-slider"
-				          :params="{height: '100%', width: swiped ? '100%' : 'fit-content', stubLength: swiped && 1, reverse: true}">
+				<router-link v-show="!swiped && bows_length" :event="!swiped && bows_length > 2 ? '' : 'click'"
+				             class="flex pointer bow bow-1 mx-2" :to="getUserLink(Object.values(option.bows)[0].id)">
+					<RePicture :url="publicPath + Object.values(option.bows)[0].pathToAvatar" size="21" rounded />
+				</router-link>
+				
+				<router-link class="flex pointer bow bow-2 mx-2" :event="!swiped && bows_length > 2 ? '' : 'click'"
+				             :to="getUserLink(Object.values(option.bows)[1].id)">
+					<RePicture v-show="!swiped && bows_length === 2" :url="publicPath + Object.values(option.bows)[1].pathToAvatar" size="21" rounded />
+				</router-link>
+				
+				<div v-show="!swiped && bows_length > 2">
+					<slot name="badge" />
+				</div>
+				
+				<ReSwiper v-if="bows_length > 2" :type="mobile ? 'scroll' : 'usual'" :class="{'pr-10': !mobile && swiped}"
+				          :params="{height: 'fit-content', width: swiped ? '100%' : 'fit-content', stubLength: swiped && 1, reverse: true}"
+				          :usual-swiper-options="{slidesPerView: 'auto'}">
 					<template #scroll>
-						<div
-								v-for="({id, pathToAvatar}, index) in option.bows" :to="'/user/' + id"
-								v-show="swiped || index === 0"
-								@click="swiped && $router.push({name: 'user', params: { id: id }})"
-								class="bow mx-2 h-21 w-21"
-								:style="{backgroundImage: `url('${publicPath + pathToAvatar}')`}"></div>
+						<router-link v-for="({id, pathToAvatar}, index) in option.bows" :key="'scroll_bow_id-' + index"
+						             v-show="swiped || index === 0" :to="getUserLink(id)" class="bow mx-2 flex pointer">
+							<RePicture type="background" :url="publicPath + pathToAvatar" size="21" rounded />
+						</router-link>
+					</template>
+					
+					<template #usual>
+						<swiper-slide v-for="({id, pathToAvatar}, index) in option.bows" class="fit mx-2"
+						              v-show="swiped || index === 0" :key="'usual_bow_id-' + index">
+							<router-link :to="getUserLink(id)" class="bow flex pointer">
+								<RePicture :url="publicPath + pathToAvatar" size="21" rounded />
+							</router-link>
+						</swiper-slide>
 					</template>
 				</ReSwiper>
 				
@@ -63,16 +71,6 @@
 			</div>
 		
 		</div>
-		
-		<div class="desktop-bows" v-if="!mobile">
-			<involved-users-panel :users="option.bows" v-if="Object.keys(option.bows).length > 0">
-				<template #description>
-					<div class="none">
-					
-					</div>
-				</template>
-			</involved-users-panel>
-		</div>
 	
 	</div>
 </template>
@@ -82,10 +80,11 @@
 	import {mapState} from "vuex";
 	import {userVote, judgeVote} from "../../EOSIO/eosio_impl_light";
 	import ReSwiper from "@/components/reusableСomponents/ReSwiper";
+	import RePicture from "@/components/reusableСomponents/RePicture";
 	
 	export default {
 		name: "OptionInstance",
-		components: {ReSwiper, InvolvedUsersPanel},
+		components: {RePicture, ReSwiper, InvolvedUsersPanel},
 		data() {
 			return {
 				publicPath: process.env.VUE_APP_ASSETS,
@@ -95,7 +94,8 @@
 				transform_px: 0,
 				transform_limit: undefined,
 				swiped: false,
-				swipe_in_progress: false
+				swipe_in_progress: false,
+				timerId: null
 			}
 		},
 		props: {
@@ -115,11 +115,11 @@
 			this.$root.temp_selected_option = null;
 		},
 		
-		mounted() {
-			console.log(this.option.bows)
-		},
-		
 		methods: {
+			
+			getUserLink(id) {
+				return {name: 'user', params: {id}}
+			},
 			
 			selectOption() {
 				
@@ -159,22 +159,19 @@
 					const runTimeout = () => {
 						
 						if (this.has_access) {
-							this.$root.timer_duration = 5000;
+							this.$root.timer_duration = 3000;
 							
-							this.$root.timer_id = setTimeout(() => {
+							this.$root.timer_id = setTimeout(async () => {
 								
-								this.$store.dispatch(`${this.$route.name}/createVote`, {
-									data: {
-										selected_variable,
-										poll_id,
-										type_of_poll
-									}
-								})
-									.then(() => {
-										this.$root.timer_id = null;
-										this.$root.timer_duration = 0;
-									});
-							}, 5000);
+								try {
+									await this.$store.dispatch(`${this.$route.name === 'user' ? 'userFeed' : this.$route.name}/createVote`, {data: {selected_variable, poll_id, type_of_poll}});
+									this.$root.timer_id = null;
+									this.$root.timer_duration = 0;
+								} catch (e) {
+									console.error(e);
+								}
+								
+							}, this.$root.timer_duration);
 							this.$root.temp_selected_option = selected_variable;
 						}
 					};
@@ -237,14 +234,18 @@
 			},
 			
 			resetBowsBar() {
+				
 				this.transform_px = 0;
+				this.swipe_in_progress = true;
 				setTimeout(() => {
 					this.swiped = false;
 					this.swipe_in_progress = false;
-				}, 300)
+				}, 150)
+				
 			},
 			
-			trackTouchStart(e) {
+			trackInteractionStart(e) {
+				
 				if (!this.swiped && Object.keys(this.option.bows).length > 2) {
 					this.swipe_in_progress = true;
 					
@@ -260,40 +261,77 @@
 				}
 			},
 			
-			trackTouchMove(e) {
-				e.preventDefault();
+			trackInteraction(e) {
+				
+				// Keep swiped if interaction end timeout is exist
+				if (Number.isInteger(this.timerId)) {
+					clearTimeout(this.timerId);
+					this.timerId = null;
+				}
+				
 				if (!this.swiped && Object.keys(this.option.bows).length > 2) {
 					
-					let {initialCoord, block_width, transform_limit} = this;
-					let {clientX} = e.touches[0];
-					
+					// Get panel width
 					this.block_width = (25 * Object.keys(this.option.bows).length);
 					
-					if (clientX < Math.trunc(block_width * 0.1)) clientX = Math.trunc(block_width * 0.1);
-					if (clientX > block_width) clientX = block_width;
+					// Set transform value
+					let transform_value = this.block_width + 23 - 54;
 					
-					let difference = clientX - initialCoord;
-					let transform_value = block_width + 23 - 54;
-					transform_limit = transform_limit - 54;
-					transform_value = (transform_value > transform_limit) ? transform_limit : transform_value;
-					
-					if (difference > 50) {
-						this.transform_px = transform_value;
-						this.swiped = true;
-						this.swipe_in_progress = false;
+					// Touch event check
+					if (e.type === 'touchmove') {
+						
+						let {initialCoord, block_width, transform_limit} = this;
+						
+						let {clientX} = e.touches[0];
+						
+						if (clientX < Math.trunc(block_width * 0.1)) clientX = Math.trunc(block_width * 0.1);
+						if (clientX > block_width) clientX = block_width;
+						
+						let difference = clientX - initialCoord;
+						
+						transform_limit = transform_limit - 54;
+						transform_value = (transform_value > transform_limit) ? transform_limit : transform_value;
+						
+						if (difference > 50) {
+							this.transform_px = transform_value;
+							this.swiped = true;
+							this.swipe_in_progress = false;
+						}
+						
+						this.difference = difference;
+						
+					} else {
+						
+						if (!this.mobile) {
+							this.transform_px = transform_value;
+							this.swiped = true;
+							this.swipe_in_progress = false;
+						}
+						
 					}
 					
-					this.difference = difference;
 				}
 			},
 			
-			trackTouchEnd(e) {
-				if (this.difference <= 50) {
-					this.swiped = false;
-					this.swipe_in_progress = false;
-					this.transform_px = 0;
+			trackInteractionEnd(e) {
+				
+				// Touch event check
+				if (e.type === 'touchend') {
+					
+					if (this.difference <= 50) {
+						this.swiped = false;
+						this.swipe_in_progress = false;
+						this.transform_px = 0;
+					}
+					
+				} else {
+					
+					// add short delay for smooth behavior
+					this.timerId = setTimeout(this.resetBowsBar, 300);
+					
 				}
-			}
+				
+			},
 			
 		},
 		computed: {
@@ -506,11 +544,6 @@
 			
 			.bow {
 				flex-shrink: 0;
-				width: 21px;
-				height: 21px;
-				background-repeat: no-repeat;
-				background-size: cover;
-				border-radius: 50%;
 			}
 			
 			.bow-1 {

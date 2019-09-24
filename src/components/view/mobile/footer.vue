@@ -52,7 +52,7 @@
 					<lang-string :title="'notifications'"/>
 				</router-link>
 				
-				<re-badge class="counter" v-show="counter" :counter="counter" :size="12"
+				<re-badge class="counter" v-show="counter" :size="12"
 				          :params="{background: '#FF5454'}"/>
 			</li>
 			

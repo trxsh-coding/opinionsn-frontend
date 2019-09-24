@@ -26,6 +26,7 @@ module.exports = {
 				secure: false
 			},
 
+
 			'/assets': {
 				target: "https://osn-pictures.fra1.digitaloceanspaces.com/dev",
 				pathRewrite: {'^/assets': ''},
@@ -51,7 +52,7 @@ module.exports = {
 		workboxOptions: { skipWaiting: true },
 
 },
-	
+
 	configureWebpack: {
 		// devtool: 'source-map',
 		optimization: {
@@ -60,7 +61,7 @@ module.exports = {
 			}
 		}
 	},
-	
+
 	chainWebpack: (config) => {
 		config.plugins.delete('prefetch')
 	}

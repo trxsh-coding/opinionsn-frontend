@@ -216,7 +216,7 @@ li {
 .flex-reverse {
 	display: flex;
 	flex-direction: row-reverse;
-	justify-content: flex-end;
+	//justify-content: flex-end;
 }
 
 .display__hidden {
@@ -237,6 +237,11 @@ li {
 	display: flex;
 	align-items: center;
 	
+}
+
+.flex-align-stretch {
+	display: flex;
+	align-items: stretch;
 }
 
 .flex-align-baseline {
@@ -625,6 +630,11 @@ li {
 	.h-#{$i} {
 		height: $i + px !important;
 	}
+}
+
+.fit {
+	width: fit-content !important;
+	height: fit-content !important;
 }
 
 .w-fit {

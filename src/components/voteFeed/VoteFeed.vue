@@ -4,11 +4,11 @@
 		
 		<template v-if="data_received">
 			<ReSwiper :type="mobile ? 'scroll' : 'usual'" class="mb-15" :swiper-class="mobile ? 'pl-30' : ''"
-			          :params="{stubLength: 2, slidesPerView: 6, spaceBetween: 3.5}">
+			          :params="{stubLength: 2, width: '100%'}" :usual-swiper-options="{slidesPerView: 6, spaceBetween: 3.5}">
 				<template #usual>
 					<swiper-slide class="avatar-wrapper"
 					              v-for="{avatar, username, user_id} in followersData">
-						<div class="slide w-fit flex-column flex-align-center pointer" @click="filterFeed(user_id)">
+						<div class="slide flex-column flex-align-center pointer" @click="filterFeed(user_id)">
 							<RePicture :url="avatar" size="66" rounded />
 							<span class="caption text-center mt-10">{{username}}</span>
 						</div>

@@ -244,7 +244,10 @@ index.beforeResolve((to, from, next) => {
 index.afterEach(() => {
 	nprogress.done();
 	let appPlaceholder = document.getElementById('app-placeholder');
-	if (appPlaceholder) appPlaceholder.parentNode.removeChild(appPlaceholder);
+	if (appPlaceholder) {
+		document.body.style.overflow = null;
+		appPlaceholder.parentNode.removeChild(appPlaceholder);
+	}
 });
 
 // Мапа из динамически-подгружаемых модулей

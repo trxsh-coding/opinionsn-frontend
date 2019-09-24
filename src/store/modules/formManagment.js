@@ -14,8 +14,9 @@ import {
 	SET_INITIAL_FORM,
 	UPDATE_ARRAY_PICTURES,
 	ADD_SUBJECT_PICTURE,
-	DELETE_OPTION
-	
+	DELETE_OPTION,
+	CLEAR_PICTURE
+
 } from "../types/mutation-types";
 
 import {
@@ -51,6 +52,7 @@ const initialState = () => {
 			max_participants_cap: null,
 			judges: [],
 			with_time_limit: false,
+			youtube_link:'',
 			errors: {
 				options: {}
 			},
@@ -77,28 +79,28 @@ export const formManagment = {
 	namespaced: true,
 	state: initialState(),
 	mutations: {
-		
-		
+
+
 		[UPLOAD_FILE](state, payload) {
-		
+
 		},
-		
+
 		[SET_DATE_TIME](state, payload) {
 			state.form.end_date = payload;
-			
+
 		},
-		
+
 		[CHANGE_MUTABLE_STATE](state, payload) {
 			state[key] = payload;
 		},
-		
+
 		[SET_TIME_LIMIT](state, payload) {
 			state.create_poll_form.with_time_limit = payload;
 		},
-		
+
 		[UPDATE_ARRAY_FIELD](state, {value, arrayName, index, keyName, form}) {
 			state[form][arrayName][index][keyName] = value
-			
+
 		},
 		[UPDATE_ARRAY_PICTURES](state, payload) {
 			let {index, file} = payload
@@ -108,14 +110,27 @@ export const formManagment = {
 			if (!state[form][key]) Vue.set(state[form], key, {});
 			Vue.set(state[form], key, value);
 		},
-		
+
 		[CLEAR_STATE](state) {
 			const init_state = initialState();
 			Object.keys(initialState).forEach(key => {
 				state[key] = init_state[key]
 			});
 		},
-		
+		[CLEAR_PICTURE](state, payload){
+			if(payload){
+
+				state.pictures=[
+					{
+						picture: null,
+						imgUrl: ''
+					},
+				];
+
+			} else {
+				state.form.youtube_link ='';
+			}
+		},
 		[ADD_OPTION](state) {
 			state.create_poll_form.options.push({id: '', picture: null, description: ''})
 		},
@@ -136,15 +151,15 @@ export const formManagment = {
 		[SET_CATEGORY_NAME](state, payload) {
 			state.create_poll_form.subject_header = payload
 		},
-		
+
 		[INSERT_PICTURES](state, payload) {
 			state.withPicture = payload;
 		},
-		
+
 		[UPDATE_ERROR_FIELD](state, {form, key, value, error_key, array_key}) {
 			// Vue.set(object, propertyName, value)
 			if (!state[form].errors) Vue.set(state[form], 'errors', {});
-			
+
 			if (!array_key) {
 				if (!state[form].errors[key]) Vue.set(state[form].errors, key, {});
 				Vue.set(state[form].errors[key], error_key, value);
@@ -157,21 +172,21 @@ export const formManagment = {
 				// console.log(state[form].errors[array_key]);
 			}
 		},
-		
+
 		[CLEAR_FORM](state, form) {
 			const init_state = initialState();
 			state[form] = init_state[form];
 		},
-		
+
 		[SET_INITIAL_FORM](state, {form, value}) {
 			state[form] = value;
 		}
-		
+
 	},
-	
-	
+
+
 	actions: {
-		
+
 		[UPDATE_AVATAR]({state, commit, dispatch}, {file, type}) {
 			var bodyFormData = new FormData();
 			const config = {
@@ -183,76 +198,76 @@ export const formManagment = {
 			axios.post(`${process.env.VUE_APP_MAIN_API}/rest/v1/user/${type}`, bodyFormData, config)
 				.then(function (response) {
 					if (response.status === 200) {
-						
+
 						commit('globalStore/updateStores', response.data, {root: true});
-						
-						
+
+
 					}
 				}.bind(this))
-			
+
 		},
-		
+
 		[SUBMIT_USERPAGE_FORM]({state, commit, dispatch}, payload) {
-			
+
 			return axios.post(`${process.env.VUE_APP_MAIN_API}/rest/v1/user`, {...payload})
 				.then(response => response)
 				.catch(({response}) => response);
-			
+
 		},
-		
+
 		[SUBMIT_POLL_FORM]({state, commit, dispatch}, payload) {
-			
+
 			let valid = Object.keys(state.create_poll_form.errors)
-			
+
 			state.create_poll_form.judges = [payload];
-			
-			
+
+
 			let bodyFormData = new FormData();
-			
-			
+
+
 			const config = {
 				headers: {
 					'content-type': 'multipart/mixed'
 				}
 			};
-			
+
 			for (let item of state.create_poll_form.options) {
-				
+
 				let {picture} = item;
-				
+
 				bodyFormData.append('files[]', picture);
-				
+
 				// delete item.picture;
-				
+
 			}
-			
-			
+
+
 			for (let item of state.pictures) {
 				let {picture} = item;
-				
+
 				bodyFormData.append('mainPictures[]', picture);
-				
+
 				// delete item.picture;
-				
+
 			}
-			
+
 			// Создаем копию формы без картинок в опциях
 			let create_poll_form = {...state.create_poll_form};
 			create_poll_form.options.forEach(option => void(delete option.picture));
-			
+
 			const form = new Blob([JSON.stringify(create_poll_form)], {type: "application/json"});
-			
+
 			bodyFormData.append('form', form);
-			
+
 			return axios.put(`${process.env.VUE_APP_MAIN_API}/rest/v1/poll`, bodyFormData, config)
 				.then(response => {
 					if (response.status === 200) {
 						return response.data;
 					}
 				})
-			
+
 		}
-		
+
 	},
 	getters: {}
 }

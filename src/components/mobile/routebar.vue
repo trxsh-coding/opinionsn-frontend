@@ -29,14 +29,7 @@
 			
 			<li class="relative pointer">
 				<router-link class="link" :to="{name: 'bookmarkFeed'}">
-					<icon-base
-							fill="none"
-							width="15"
-							height="22"
-							viewBox="3 0 11 22"
-							icon-name="add">
-						<icon-bookmark/>
-					</icon-base>
+					<IconBookmark width="18" height="24" />
 					<lang-string :title="'bookmarks'" />
 				</router-link>
 			</li>
@@ -124,7 +117,6 @@
 	import IconBase from '../icons/IconBase'
 	import IconPocket from '../icons/IconPocket'
 	import IconAddPoll from '../icons/IconAddPoll'
-	import IconBookmark from '../icons/menu/IconBookmark'
 	import IconCatalog from '../icons/menu/IconCatalog'
 	import IconExit from '../icons/menu/IconExit'
 	import IconFeedback from '../icons/menu/IconFeedback'
@@ -133,6 +125,7 @@
 	import langString from '../langString'
 	import CookieMixin from "@/components/mixins/CookieMixin";
 	import IconUser from "@/components/icons/IconUser";
+	import IconBookmark from "@/components/icons/IconBookmark";
 	
 	export default {
 		data() {
@@ -142,9 +135,9 @@
 		},
 		
 		components: {
+			IconBookmark,
 			IconUser,
 			IconBase,
-			IconBookmark,
 			IconCatalog,
 			IconExit,
 			IconFeedback,

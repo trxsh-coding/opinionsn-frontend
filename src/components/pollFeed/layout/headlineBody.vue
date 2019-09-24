@@ -11,25 +11,28 @@
             </span>
 		</router-link>
 		
-		<div class="description__item mb-7">
+		<div class="description__item">
 			<text-trim :text="poll.description" :amount-of-letter="mobile ? 200 : 250"/>
 		</div>
 		
+		<bows-panel class="mt-5" :users="poll.bows" v-show="!item.voted && Object.keys(poll.bows).length > 0"/>
+
+		<re-youtube v-if="poll.content.length" :link="poll.content[0].url" height="371px" width="480px"/>
+
 		<RePicture v-if="poll.picture" @click.native="$popup.insert('pictures', poll.picture)"
-		           class="pointer" :url="publicPath + poll.picture"
-		           width="100%" :height="mobile ? 190 : 303" bor-rad="6"/>
+		           class="pointer mt-6" :url="publicPath + poll.picture" type="background"
+		           width="100%" :height="mobile ? 190 : 303" bor-rad="6" />
 		
-		<ReSwiper v-if="!poll.picture" type="usual"
-		          :params="{slidesPerView: 1, spaceBetween: 10, pagination: poll.urlPhotos.length > 1, breakpoints: false}">
+		<ReSwiper v-if="!poll.picture" type="usual" class="mt-6"
+		          :usual-swiper-options="{slidesPerView: 1, spaceBetween: 10, pagination: poll.urlPhotos.length > 1, breakpoints: false}">
 			<template #usual>
 				<swiper-slide v-for="(picture, index) in poll.urlPhotos">
-					<RePicture @click.native="pushToPopup(poll.urlPhotos, index)" class="pointer"
-					           :url="publicPath + picture" width="100%" :height="mobile ? 190 : 303" bor-rad="6"/>
+					<RePicture @click.native="pushToPopup(poll.urlPhotos, index)"
+					           class="pointer" :url="publicPath + picture" type="background"
+					           width="100%" :height="mobile ? 190 : 303" bor-rad="6" />
 				</swiper-slide>
 			</template>
 		</ReSwiper>
-		
-		<bows-panel class="mt-9" :users="poll.bows" v-show="!item.voted && Object.keys(poll.bows).length > 0"/>
 	
 	</div>
 </template>
@@ -39,6 +42,8 @@
 	import bowsPanel from './involvedUsersPanel'
 	import TextTrim from "../../reusableСomponents/textTrim";
 	import ReSwiper from "@/components/reusableСomponents/ReSwiper";
+	import ReYoutube from "../../reusableСomponents/reYoutube";
+	import ReExplain from "../../reusableСomponents/ReExplain";
 	import RePicture from "@/components/reusableСomponents/RePicture";
 	
 	export default {
@@ -54,6 +59,8 @@
 		},
 		components: {
 			RePicture,
+			ReExplain,
+			ReYoutube,
 			ReSwiper,
 			TextTrim,
 			bowsPanel,
@@ -72,11 +79,9 @@
 			openModal() {
 				this.showModal = true
 			},
-			
 			close() {
 				this.showModal = false
 			},
-			
 			pushToPoll(id) {
 				
 				if (this.$route.name !== 'singlePoll') {
@@ -85,10 +90,10 @@
 				}
 				
 			},
-			
+
 			pushToPopup(arr, index) {
 				arr = [...arr];
-				this.$popup.insert('pictures', [...arr.splice(index, 1), ...arr]);
+				this.$popup.insert('pictures',  [...arr.splice(index, 1), ...arr]);
 			}
 		}
 	}

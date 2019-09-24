@@ -43,15 +43,7 @@
             </router-link>
             
             <router-link class="links py-11 px-12 pointer" :to="{name: 'bookmarkFeed'}">
-                <icon-base
-                        :class="{active : routeName === 'bookmarkFeed'}"
-                        class="mr-10"
-                        fill="none"
-                        width="20"
-                        height="20"
-                        viewBox="1 0 13 18"
-                        icon-name="add"><icon-bookmark/>
-                </icon-base>
+                <IconBookmark width="14" height="20" class="mr-15 ml-1" :class="{active : routeName === 'bookmarkFeed'}" />
                 <lang-string :class="{active : routeName === 'bookmarkFeed'}" title="bookmark" />
             </router-link>
         </div>
@@ -97,12 +89,12 @@
     import iconAddPoll from "../../../icons/navigation/iconAddPoll";
     import IconPollFeed from "../../../icons/navigation/IconPollFeed";
     import IconOpinion from "../../../icons/navigation/IconOpinion";
-    import IconBookmark from "../../../icons/navigation/IconBookmark";
     import IconSpeaker from "../../../icons/IconSpeaker";
     import langString from "../../../langString"
     import DropdownListReusable from "@/components/reusableСomponents/DropdownListReusable";
     import axios from "axios";
     import IconFlag from "@/components/icons/IconFlag";
+    import IconBookmark from "@/components/icons/IconBookmark";
 
     
     export default {
@@ -126,9 +118,10 @@
             }
         },
         components: {
+            IconBookmark,
             IconFlag,
             DropdownListReusable,
-            iconAddPoll, IconBase, langString, IconPollFeed, IconOpinion, IconBookmark, IconSpeaker}
+            iconAddPoll, IconBase, langString, IconPollFeed, IconOpinion, IconSpeaker}
     }
 </script>
 

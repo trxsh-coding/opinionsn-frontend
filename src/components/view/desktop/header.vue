@@ -44,7 +44,6 @@
 						width="376">
 					<div class="icon-wrapper">
 						<icon-base
-								class=""
 								fill="none"
 								width="22"
 								height="22"
@@ -53,7 +52,7 @@
 							<icon-notifications/>
 						</icon-base>
 						
-						<re-badge class="counter" v-show="counter" :counter="counter" :size="12"
+						<re-badge class="counter" v-show="counter" :size="12"
 						          :params="{background: '#FF5454'}"/>
 						
 					</div>
