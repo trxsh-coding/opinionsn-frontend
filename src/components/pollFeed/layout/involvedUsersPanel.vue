@@ -6,8 +6,8 @@
 		
 		<ReSwiper type="scroll" class="mt-5" :params="{stubLength: 1}">
 			<template #scroll>
-				<router-link class="mr-12" v-for="({id, pathToAvatar}) in users" :to="'/user/' + id">
-					<ReBow :width="27" :height="27" :img="pathToAvatar" :id="id" />
+				<router-link class="flex pointer mr-12" v-for="({id, pathToAvatar}) in users" :to="'/user/' + id">
+					<RePicture :url="assetsPath + pathToAvatar" size="27" rounded />
 				</router-link>
 			</template>
 		</ReSwiper>
@@ -17,16 +17,16 @@
 
 <script>
 	import imageMixin from '../../mixins/imageMixin'
-	import ReBow from "../../reusableСomponents/ReBow";
 	import ReSwiper from "@/components/reusableСomponents/ReSwiper";
 	import langMixin from "@/components/mixins/langMixin";
+	import RePicture from "@/components/reusableСomponents/RePicture";
 	
 	export default {
 		name: "involvedUsersPanel",
 		mixins: [imageMixin, langMixin],
 		data() {
 			return {
-				publicPath: process.env.VUE_APP_ASSETS,
+				assetsPath: process.env.VUE_APP_ASSETS,
 				swiperOption: {
 					slidesPerView: 2.7,
 					spaceBetween: 10,
@@ -43,8 +43,8 @@
 		props: ['users'],
 		
 		components: {
+			RePicture,
 			ReSwiper,
-			ReBow,
 		}
 	}
 </script>
