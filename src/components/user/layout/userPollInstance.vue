@@ -1,29 +1,34 @@
 <template>
-    <div class="user-poll-feed">
+    <div class="user-poll-instance">
         <post-header :author="author" :poll="poll" :eventType="item.eventType" class="mr-12" />
+        
         <headline-body class="mt-7 mr-12" :poll="poll" :item="item" />
+        
         <OptionInstance
                 class="mt-12 mr-12"
                 v-for="(option, index) in combined_options"
                 v-bind="{payload: item, poll, option}"
-                v-show="options_visible || index < 5"
-                :disabled="combined_options.length > 5 && !options_visible"
-                @click.native="options_visible = true"
                 @onPictureClick="!$root.timer_id && pushToPopup(index)"
         >
             <template #default>
                 {{option.description}}
             </template>
+    
+            <template #badge>
+                <re-badge :counter="Object.keys(option.bows).length - 1" :size="21"></re-badge>
+            </template>
 
         </OptionInstance>
+        
         <div class="show-comment-block flex-align-center">
             <span class="options-load-btn pointer mt-12 mx-auto uppercase"
                   v-if="!showComments " @click="showComments = true">
-            <IconBottomArrow class="mr-4" />
-            Показать комментарии
-        </span>
+                <IconBottomArrow class="mr-4" />
+                Показать комментарии
+            </span>
         </div>
-        <Comments v-bind="{isVoted, haveExplain, mainUser, explainsWithComments, pollId: item.id}" />
+        
+        <Comments v-if="showComments" v-bind="{isVoted, haveExplain, mainUser, explainsWithComments, pollId: item.id}" />
     </div>
 </template>
 <script>
@@ -33,9 +38,10 @@
     import OptionInstance from "../../reusableСomponents/OptionInstance";
     import Comments from "../../pollFeed/layout/Comments";
     import IconBottomArrow from "../../icons/IconBottomArrow";
+    import ReBadge from "@/components/reusableСomponents/ReBadge";
     export default {
         name: "userPollFeed",
-        components: {IconBottomArrow, Comments, OptionInstance, HeadlineBody, PostHeader},
+        components: {ReBadge, IconBottomArrow, Comments, OptionInstance, HeadlineBody, PostHeader},
         props:['item'],
         data() {
             return {
@@ -140,7 +146,8 @@
 </script>
 
 <style lang="scss">
-    .user-poll-feed {
+    .user-poll-instance {
+        overflow-x: hidden;
         .options-load-btn {
             font-family: Roboto;
             font-style: normal;
