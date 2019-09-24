@@ -32,7 +32,9 @@ html, body, #app, section.section {
 }
 
 a {
-	all: unset;
+	color: initial;
+	text-decoration: initial;
+	cursor: auto;
 }
 
 
