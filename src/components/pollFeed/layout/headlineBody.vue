@@ -17,7 +17,7 @@
 		
 		<bows-panel class="mt-5" :users="poll.bows" v-show="!item.voted && Object.keys(poll.bows).length > 0"/>
 
-		<re-youtube v-if="poll.content.length" :link="poll.content[0].url" height="371px" width="480px"/>
+		<re-youtube class="mt-6" v-if="poll.content.length" :link="poll.content[0].url" :height="$root.mobile ? '200px' : '371px'" width="100%"/>
 
 		<RePicture v-if="poll.picture" @click.native="$popup.insert('pictures', poll.picture)"
 		           class="pointer mt-6" :url="publicPath + poll.picture" type="background"
@@ -101,6 +101,7 @@
 
 <style lang="scss">
 	#headline-body {
+		position: relative;
 		.tags__item {
 			
 			font-family: Roboto;

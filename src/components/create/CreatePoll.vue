@@ -78,7 +78,7 @@
 						  :value="form.youtube_link"
 						  @input="updateField(arguments[0], 'youtube_link')"
 				/>
-				<re-youtube v-if="is_youtube && form.youtube_link" class="ml-60 mb-15" :link="form.youtube_link" height="371px" width="471px"/>
+				<re-youtube v-if="is_youtube && form.youtube_link" class="pl-60 mb-15" :link="form.youtube_link" :height="$root.mobile ? '200px' : '371px'" width="100%"/>
 
 			<div class="picture-block flex-align-center mt-15" v-if="!is_youtube">
 
