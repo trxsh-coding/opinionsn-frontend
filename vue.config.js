@@ -26,6 +26,7 @@ module.exports = {
 				secure: false
 			},
 
+
 			'/assets': {
 				target: "https://osn-pictures.fra1.digitaloceanspaces.com/dev",
 				pathRewrite: {'^/assets': ''},
