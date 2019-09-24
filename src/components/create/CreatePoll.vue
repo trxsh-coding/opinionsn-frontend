@@ -452,7 +452,18 @@
 				
 			},
 			setTypeOfSubjectHeader(bool) {
+				console.log(bool);
 				this.is_youtube = bool
+				// if(bool) {
+				//
+				// 	this.$store.commit('formManagment/UPDATE_FIELD', {'value', key, form: 'create_poll_form'})
+				//
+				// } else {
+				//
+				// 	this.$store.commit('formManagment/UPDATE_FIELD', {value, key, form: 'create_poll_form'})
+				//
+				// }
+
 			},
 			setTypeOfPoll(bool) {
 				let type_of_poll;

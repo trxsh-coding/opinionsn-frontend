@@ -10,7 +10,7 @@
 					<lang-string :class="{active: feed_type === 2}" :title="'opinions'" />
 				</li>
 				<li class="switcher switcher-1 pointer ml-18" @click="setFeedType(1)">
-					<lang-string :class="{active: feed_type === 1}" :title="'questions'" />
+					<lang-string :class="{active: feed_type === 1}" :title="'publications'" />
 				</li>
 				<li class="switcher switcher-3 pointer ml-18 display__hidden" @click="setFeedType(3)">
 					<lang-string :class="{active: feed_type === 3}" :title="'bookmarked'" />

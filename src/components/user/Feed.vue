@@ -2,7 +2,8 @@
 	<div class="feed flex-column">
 		<!-- <vote-instance class="mt-12" v-for="(item, index) in items" :item="item" :key="index" /> -->
 		<template v-for="(item, index) in items">
-			<vote-instance class="mt-12" :item="item" :key="index" />
+			<vote-instance class="mt-12" :item="item" :key="index" v-if="feed_type === 2"/>
+			<user-poll-feed :item="item" v-if="feed_type === 1"/>
 			<!-- <div :key="index + 'hr'" class="hr mt-12"></div> -->
 		</template>
 		<Loader class="mx-auto my-9" v-show="!is_finished && loading" />
@@ -20,11 +21,13 @@
 	import VoteInstance from "../voteFeed/voteInstance";
 	import langString from "../langString";
 	import Loader from "../reusableСomponents/Loader";
+	import UserPollFeed from "./layout/userPollInstance";
 
 	export default {
 		name: "userFeed",
 
 		components: {
+			UserPollFeed,
 			Loader,
 			VoteInstance,
 			MugenScroll,

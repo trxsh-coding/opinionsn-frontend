@@ -21,7 +21,7 @@
 						<br>
 						<span class="dropdown-actions ws-no-warp pointer"
 						      @click="linkShare(poll.id)">Поделиться в фейсбуке</span>
-					
+
 					</template>
 				</dropdown-list-reusable>
 			</div>
