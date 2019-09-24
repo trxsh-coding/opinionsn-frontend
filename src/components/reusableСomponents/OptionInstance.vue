@@ -8,17 +8,17 @@
 			
 			<template v-if="bows_length">
 				
-				<router-link v-show="!swiped && bows_length" :event="swiped ? '' : 'click'"
+				<router-link v-if="bows_length" v-show="!swiped" :event="swiped ? '' : 'click'"
 				             class="flex pointer bow bow-1 mx-2" :to="getUserLink(Object.values(option.bows)[0].id)">
 					<RePicture :url="publicPath + Object.values(option.bows)[0].pathToAvatar" size="21" rounded />
 				</router-link>
 				
-				<router-link class="flex pointer bow bow-2 mx-2" :event="swiped ? '' : 'click'"
+				<router-link v-if="bows_length === 2" class="flex pointer bow bow-2 mx-2" :event="swiped ? '' : 'click'"
 				             :to="getUserLink(Object.values(option.bows)[1].id)">
-					<RePicture v-show="!swiped && bows_length === 2" :url="publicPath + Object.values(option.bows)[1].pathToAvatar" size="21" rounded />
+					<RePicture v-show="!swiped" :url="publicPath + Object.values(option.bows)[1].pathToAvatar" size="21" rounded />
 				</router-link>
 				
-				<div v-show="!swiped && bows_length > 2">
+				<div v-if="bows_length > 2" v-show="!swiped">
 					<slot name="badge" />
 				</div>
 				
