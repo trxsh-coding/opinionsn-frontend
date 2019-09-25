@@ -3,22 +3,12 @@
         
         <router-link class="create-poll-block br-6 pl-12 py-10 pointer flex-align-center" :to="{name: 'createPoll'}">
             <IconAddPoll height="18" width="18" class="mr-12"/>
-            <lang-string
-                    :title="'create_poll'"
-            />
+            <lang-string title="create_poll"/>
         </router-link>
         
         <div class="nav-menu py-2">
             <router-link class="links py-12 px-12 pointer" :to="{name: 'pollFeed'}">
-                <icon-base
-                        :class="{active : routeName === 'pollFeed'}"
-                        class="mr-13"
-                        fill="none"
-                        width="18"
-                        height="18"
-                        viewBox="0 0 19 19"
-                        icon-name="add"><icon-poll-feed/>
-                </icon-base>
+                <IconPollFeed class="mr-13" fill="#1A1E22" />
                 <lang-string :class="{active : routeName === 'pollFeed'}" title="main" />
             </router-link>
             
@@ -79,7 +69,6 @@
 
 <script>
     import IconBase from "../../../icons/IconBase";
-    import IconPollFeed from "../../../icons/navigation/IconPollFeed";
     import IconOpinion from "../../../icons/navigation/IconOpinion";
     import IconSpeaker from "../../../icons/IconSpeaker";
     import langString from "../../../langString"
@@ -88,6 +77,7 @@
     import IconFlag from "@/components/icons/IconFlag";
     import IconBookmark from "@/components/icons/IconBookmark";
     import IconAddPoll from "@/components/icons/IconAddPoll";
+    import IconPollFeed from "@/components/icons/navigation/IconPollFeed";
 
     
     export default {
@@ -111,11 +101,12 @@
             }
         },
         components: {
+            IconPollFeed,
             IconAddPoll,
             IconBookmark,
             IconFlag,
             DropdownListReusable,
-            IconBase, langString, IconPollFeed, IconOpinion, IconSpeaker}
+            IconBase, langString, IconOpinion, IconSpeaker}
     }
 </script>
 
