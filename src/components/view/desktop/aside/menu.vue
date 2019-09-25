@@ -134,6 +134,7 @@
 		}
 		
 		.menu-caption {
+			background: transparent;
 			& > * {
 				font-family: Roboto;
 				font-style: normal;
