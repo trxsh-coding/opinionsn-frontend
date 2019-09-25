@@ -9,20 +9,12 @@
         <div class="nav-menu py-2">
             <router-link class="links py-12 px-12 pointer" :to="{name: 'pollFeed'}">
                 <IconPollFeed class="mr-13" fill="#1A1E22" />
-                <lang-string :class="{active : routeName === 'pollFeed'}" title="main" />
+                <lang-string title="main" />
             </router-link>
             
             <router-link class="links py-12 px-12 pointer"  :to="{name: 'voteFeed'}">
-                <icon-base
-                        :class="{active : routeName === 'voteFeed'}"
-                        class="mr-12"
-                        fill="none"
-                        width="18"
-                        height="18"
-                        viewBox="0 0 19 19"
-                        icon-name="opinion"><icon-opinion/>
-                </icon-base>
-                <lang-string :class="{active : routeName === 'voteFeed'}" title="opinion" />
+                <IconOpinion class="mr-12"/>
+                <lang-string title="opinion" />
             </router-link>
             
             <router-link class="links py-11 px-12 pointer" :to="{name: 'bookmarkFeed'}">
@@ -69,7 +61,6 @@
 
 <script>
     import IconBase from "../../../icons/IconBase";
-    import IconOpinion from "../../../icons/navigation/IconOpinion";
     import IconSpeaker from "../../../icons/IconSpeaker";
     import langString from "../../../langString"
     import DropdownListReusable from "@/components/reusableСomponents/DropdownListReusable";
@@ -78,6 +69,7 @@
     import IconBookmark from "@/components/icons/IconBookmark";
     import IconAddPoll from "@/components/icons/IconAddPoll";
     import IconPollFeed from "@/components/icons/navigation/IconPollFeed";
+    import IconOpinion from "@/components/icons/footer/IconOpinion";
 
     
     export default {
@@ -101,12 +93,13 @@
             }
         },
         components: {
+            IconOpinion,
             IconPollFeed,
             IconAddPoll,
             IconBookmark,
             IconFlag,
             DropdownListReusable,
-            IconBase, langString, IconOpinion, IconSpeaker}
+            IconBase, langString, IconSpeaker}
     }
 </script>
 
