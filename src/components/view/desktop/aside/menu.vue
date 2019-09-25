@@ -17,21 +17,15 @@
                 <lang-string title="opinion" />
             </router-link>
             
-            <router-link class="links py-11 px-12 pointer" :to="{name: 'bookmarkFeed'}">
-                <IconBookmark width="14" height="20" class="mr-15 ml-1" :class="{active : routeName === 'bookmarkFeed'}" />
-                <lang-string :class="{active : routeName === 'bookmarkFeed'}" title="bookmark" />
+            <router-link class="links py-11 pl-13 pr-12 pointer" :to="{name: 'bookmarkFeed'}">
+                <IconBookmark width="13" height="18" class="mr-15 ml-1" />
+                <lang-string title="bookmark" />
             </router-link>
+    
         </div>
     
         <router-link class="feedback-link br-6 mt-9 pl-12 py-10 pointer flex-align-center" :to="{name: 'feedback'}">
-            <icon-base
-                    fill="white"
-                    class="mr-11 pointer"
-                    width="19"
-                    height="17"
-                    viewBox="0 0 21 19"
-                    icon-name="speaker"><icon-speaker/>
-            </icon-base>
+            <IconSpeaker class="mr-11" />
             <lang-string title="feedback"/>
         </router-link>
         
