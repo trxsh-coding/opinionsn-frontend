@@ -151,7 +151,7 @@
         }
 
         .subject-block {
-            background-color: #BCBEC3;
+            background-color: #4B97B4;
             border-radius: 15px;
             padding: 0 9px;
         }

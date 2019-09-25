@@ -1,17 +1,19 @@
 <template>
-	<div class="feed flex-column">
-		<!-- <vote-instance class="mt-12" v-for="(item, index) in items" :item="item" :key="index" /> -->
+	<div class="user-feed flex-column">
+		
 		<template v-for="(item, index) in items">
-			<vote-instance class="mt-12" :item="item" :key="index" v-if="feed_type === 2"/>
-			<user-poll-feed :item="item" v-if="feed_type === 1"/>
-			<!-- <div :key="index + 'hr'" class="hr mt-12"></div> -->
+			<vote-instance class="mt-12 br-6" :item="item" :key="index" v-if="feed_type === 2"/>
+			<user-poll-feed class="mt-12 br-6" :item="item" v-if="feed_type === 1"/>
 		</template>
-		<Loader class="mx-auto my-9" v-show="!is_finished && loading" />
-		<lang-string
-			class="empty-payload pl-60 mx-auto"
-			v-show="is_finished && !items.length"
-			:title="(feed_type === 1) ? 'you_have_not_created_any_posts_yet' : 'you_have_not_yet_responded_to_any_publication'"
-		/>
+		
+		<div class="flex-column-center">
+			<Loader class="mx-auto my-5 my-9" v-show="!is_finished && loading" />
+			<lang-string
+					class="empty-payload my-5 pl-60 mx-auto"
+					v-show="is_finished && !items.length"
+					:title="(feed_type === 1) ? 'you_have_not_created_any_posts_yet' : 'you_have_not_yet_responded_to_any_publication'"
+			/>
+		</div>
 	</div>
 </template>
 
@@ -118,7 +120,13 @@
 </script>
 
 <style lang="scss">
-	.feed {
+	.user-feed {
+		background: #f8f8f8;
+		
+		& > * {
+			background: #ffffff;
+		}
+		
 		.annotation {
 			font-family: Roboto;
 			font-style: normal;

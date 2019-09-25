@@ -44,7 +44,7 @@
 				</div>
 			</div>
 			
-			<Bookmark class="bookmark ml-auto" :poll="poll" />
+			<Bookmark class="bookmark ml-auto" shifted :poll="poll" />
 		
 		</div>
 	

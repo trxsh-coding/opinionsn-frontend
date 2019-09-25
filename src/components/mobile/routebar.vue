@@ -8,17 +8,17 @@
 				</router-link>
 			</li>
 			
-			<li class="link relative pointer">
-				<icon-base
-						fill="none"
-						width="25"
-						height="25"
-						viewBox="3 0 25 25"
-						icon-name="pocket">
-					<icon-pocket/>
-				</icon-base>
-				<lang-string :title="'pocket'" />
-			</li>
+<!--			<li class="link relative pointer">-->
+<!--				<icon-base-->
+<!--						fill="none"-->
+<!--						width="25"-->
+<!--						height="25"-->
+<!--						viewBox="3 0 25 25"-->
+<!--						icon-name="pocket">-->
+<!--					<icon-pocket/>-->
+<!--				</icon-base>-->
+<!--				<lang-string :title="'pocket'" />-->
+<!--			</li>-->
 			
 			<li class="relative pointer">
 				<router-link class="link" :to="{name: 'bookmarkFeed'}">
