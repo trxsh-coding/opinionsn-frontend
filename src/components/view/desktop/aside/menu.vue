@@ -44,7 +44,7 @@
 				width="100%"
 				click-close
 				with-arrow>
-			<template>
+			<template v-if="lang">
 				<CountryFlagsList class="flag-icon" :country="lang.toUpperCase()"/>
 				<lang-string class="ml-11" title="choose_language"/>
 			</template>

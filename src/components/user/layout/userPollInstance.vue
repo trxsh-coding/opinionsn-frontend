@@ -1,5 +1,5 @@
 <template>
-    <div class="user-poll-instance">
+    <div class="user-poll-instance" v-if="poll">
         <post-header :author="author" :poll="poll" :eventType="item.eventType" class="mr-12" />
         
         <headline-body class="mt-7 mr-12" :poll="poll" :item="item" />

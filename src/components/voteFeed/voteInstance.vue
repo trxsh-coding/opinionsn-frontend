@@ -1,5 +1,5 @@
 <template>
-    <div id="opinion-feed-layout" :class="{'p-0 pl-51 pr-30': !mobile, 'pl-21 pr-20': mobile}">
+    <div id="opinion-feed-layout" v-if="vote" :class="{'p-0 pl-51 pr-30': !mobile, 'pl-21 pr-20': mobile}">
 	    
 	    <PostHeader v-bind="postHeaderProps" />
 	    
