@@ -966,7 +966,11 @@ li {
 	border-bottom: 1px solid #bcbec3;
 }
 
-.shift-svg {
-	position: relative;
-	top: -2px;
+.slice-top-svg {
+	overflow: hidden;
+	
+	svg {
+		position: relative;
+		top: -2px;
+	}
 }
