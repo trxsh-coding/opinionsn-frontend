@@ -1,6 +1,8 @@
 <template>
-    <IconBookmark v-if="bookmarked" class="pointer" @click.native="addToBookmark()" />
-    <IconBookmarkActive v-else class="pointer" @click.native="addToBookmark()" />
+    <div class="bookmark-icon-wrapper" :class="{shifted}">
+        <IconBookmark v-if="bookmarked" class="pointer" @click.native="addToBookmark()" />
+        <IconBookmarkActive v-else class="pointer" @click.native="addToBookmark()" />
+    </div>
 </template>
 
 <script>
@@ -14,7 +16,8 @@
             poll: {
                 type: Object,
                 required: true
-            }
+            },
+            shifted: Boolean
         },
 
         computed: {
@@ -38,5 +41,15 @@
 </script>
 
 <style lang="scss">
-
+    .bookmark-icon-wrapper {
+        display: flex;
+        overflow: hidden;
+        
+        &.shifted {
+            svg {
+                position: relative;
+                top: -1px;
+            }
+        }
+    }
 </style>
