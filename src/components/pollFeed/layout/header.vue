@@ -44,7 +44,7 @@
 				</div>
 			</div>
 			
-			<Bookmark class="bookmark ml-auto" :poll="poll" />
+			<Bookmark class="bookmark ml-auto" shifted :poll="poll" />
 		
 		</div>
 	
@@ -169,7 +169,7 @@
 			.headline {
 				.caption {
 					.description {
-						font-size: 12px;
+						font-size: 10px;
 						font-family: Roboto;
 						font-style: normal;
 						font-weight: normal;

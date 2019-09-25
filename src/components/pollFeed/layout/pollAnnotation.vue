@@ -145,14 +145,14 @@
 
         .type-block {
             background-color: #4B97B4;
-            border-radius: 0 15px 15px 0;
+            border-radius: 0 6px 6px 0;
             width: 54px;
             max-width: 54px;
         }
 
         .subject-block {
-            background-color: #BCBEC3;
-            border-radius: 15px;
+            background-color: #4B97B4;
+            border-radius: 6px;
             padding: 0 9px;
         }
         

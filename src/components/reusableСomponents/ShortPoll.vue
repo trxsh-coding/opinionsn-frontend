@@ -2,7 +2,7 @@
     <div class="short-poll-reusable" :class="{'column-layout': !rowLayout }" :style="pollWrapperStyle">
 		<div class="poll" :class="{'ml-9': poll_picture}">
 
-			<bookmark class="bookmark-btn pointer" :poll="poll"></bookmark>
+			<bookmark class="bookmark-btn pointer" shifted :poll="poll"></bookmark>
 
 			<div v-if="rowLayout && !!poll_picture" class="img-wrapper pointer" @click="pollLink(poll.id)">
 

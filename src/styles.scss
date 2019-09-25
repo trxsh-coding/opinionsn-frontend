@@ -260,6 +260,13 @@ li {
 	
 }
 
+.flex-align-end {
+	
+	display: flex;
+	align-items: end;
+	
+}
+
 .fx-1 {
 	flex: 1 0;
 }
@@ -959,4 +966,13 @@ li {
 .hr {
 	height: 1px;
 	border-bottom: 1px solid #bcbec3;
+}
+
+.slice-top-svg {
+	overflow: hidden;
+	
+	svg {
+		position: relative;
+		top: -2px;
+	}
 }

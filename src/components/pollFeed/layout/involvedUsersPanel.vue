@@ -1,5 +1,5 @@
 <template>
-	<div class="involved_users-panel">
+	<div class="involved_users-panel flex-column">
 		<slot name="description">
 			<span class="panel-caption">{{lstr('already_voted')}}:</span>
 		</slot>
@@ -67,7 +67,7 @@
 			font-family: Roboto;
 			font-style: normal;
 			font-weight: normal;
-			font-size: 13px;
+			font-size: 10px;
 			color: #1A1E22;
 		}
 		

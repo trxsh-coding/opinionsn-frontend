@@ -62,15 +62,6 @@
 								:scrollDifference="listScrollDifference"/>
 					</template>
 				</dropdown-list-reusable>
-				<icon-base
-						fill="none"
-						class="mr-22 pointer"
-						width="21"
-						height="21"
-						viewBox="0 0 21 21"
-						icon-name="pocket">
-					<icon-pocket/>
-				</icon-base>
 
 				<router-link class="pointer flex mr-5" :to="{name: 'user', params: { id: user.id }}">
 					<RePicture :url="publicPath + user.path_to_avatar" size="27" rounded />
@@ -288,7 +279,7 @@
 				.notification-list {
 					overflow-y: scroll;
 					scrollbar-width: thin;
-					
+					left: -130px;
 				}
 				
 				.icon-wrapper {

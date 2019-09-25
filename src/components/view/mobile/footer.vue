@@ -1,6 +1,6 @@
 <template>
 	<div class="mobile-footer">
-		<ul>
+		<ul class="flex-align-stretch h-48 pt-5 pb-4 px-24">
 			<li class="footer-icon">
 				<router-link class="btn" active-class="active" :to="{name: 'pollFeed'}">
 					<icon-base
@@ -10,20 +10,14 @@
 							icon-name="icon-main">
 						<icon-main/>
 					</icon-base>
-					<lang-string :title="'main'"/>
+					<lang-string title="main"/>
 				</router-link>
 			</li>
 			
 			<li class="footer-icon">
 				<router-link class="btn" active-class="active" :to="{name: 'voteFeed'}">
-					<icon-base
-							width="24"
-							height="25"
-							viewBox="0 0 24 25"
-							icon-name="icon-opinion">
-						<icon-opinion/>
-					</icon-base>
-					<lang-string :title="'opinion'"/>
+					<IconOpinion width="25" height="26" />
+					<lang-string title="opinion"/>
 				</router-link>
 			</li>
 			
@@ -41,7 +35,7 @@
 			</li>
 			
 			<li class="footer-icon notification-btn">
-				<router-link class="btn" active-class="active" :to="{name: 'notifications'}">
+				<router-link class="btn pt-2" active-class="active" :to="{name: 'notifications'}">
 					<icon-base
 							width="21"
 							height="21"
@@ -49,7 +43,7 @@
 							icon-name="icon-notifications">
 						<icon-notifications/>
 					</icon-base>
-					<lang-string :title="'notifications'"/>
+					<lang-string title="notifications"/>
 				</router-link>
 				
 				<re-badge class="counter" v-show="counter" :size="12"
@@ -76,19 +70,20 @@
 	import IconBase from '../../icons/IconBase'
 	import IconMain from '../../icons/footer/IconMain'
 	import IconMenu from '../../icons/footer/IconMenu'
-	import IconOpinion from '../../icons/footer/IconOpinion'
 	import IconNotifications from '../../icons/footer/IconNotifications'
 	import IconSearch from '../../icons/footer/IconSearch'
 	import langMixin from '../../mixins/langMixin'
 	import langString from '../../langString'
 	import {mapState} from 'vuex';
 	import ReBadge from "@/components/reusableСomponents/ReBadge";
+	import IconOpinion from "@/components/icons/footer/IconOpinion";
 	
 	export default {
 		name: "footer",
 		mixins: [langMixin],
 		components: {
-			ReBadge, IconBase, IconMain, IconMenu, IconNotifications, IconSearch, IconOpinion, langString
+			IconOpinion,
+			ReBadge, IconBase, IconMain, IconMenu, IconNotifications, IconSearch, langString
 		},
 		computed: {
 			
@@ -114,7 +109,7 @@
 </script>
 
 
-<style lang="scss" scoped>
+<style lang="scss">
 	.mobile-footer {
 		box-sizing: border-box;
 		border-top: 1px solid #BEC0C5;
@@ -123,33 +118,27 @@
 		position: fixed;
 		z-index: 9000;
 		bottom: 0;
-		padding: 5px 24px 4px 24px;
 		
 		.active {
 			opacity: 1 !important;
 		}
 		
-		svg {
-			
-			margin-bottom: 4px;
-			
-		}
-		
 		ul {
 			width: 100%;
-			display: inline-flex;
 			justify-content: space-between;
 			
 			li {
 				position: relative;
-				justify-content: space-between;
 				display: flex;
-				flex-direction: column;
-				align-items: center;
+				align-items: stretch;
 				
 				.btn {
 					all: inherit;
 					opacity: 0.3;
+					display: flex;
+					flex-direction: column;
+					align-items: center;
+					justify-content: space-between;
 				}
 				
 				span {
