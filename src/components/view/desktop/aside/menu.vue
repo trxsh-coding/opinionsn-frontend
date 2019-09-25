@@ -2,14 +2,7 @@
     <div class="navigation-aside-menu">
         
         <router-link class="create-poll-block br-6 pl-12 py-10 pointer flex-align-center" :to="{name: 'createPoll'}">
-            <icon-base
-                    fill="none"
-                    class="mr-12 pointer"
-                    width="18"
-                    height="18"
-                    viewBox="0 0 20 20"
-                    icon-name="add"><icon-add-poll/>
-            </icon-base>
+            <IconAddPoll height="18" width="18" class="mr-12"/>
             <lang-string
                     :title="'create_poll'"
             />
@@ -86,7 +79,6 @@
 
 <script>
     import IconBase from "../../../icons/IconBase";
-    import iconAddPoll from "../../../icons/navigation/iconAddPoll";
     import IconPollFeed from "../../../icons/navigation/IconPollFeed";
     import IconOpinion from "../../../icons/navigation/IconOpinion";
     import IconSpeaker from "../../../icons/IconSpeaker";
@@ -95,6 +87,7 @@
     import axios from "axios";
     import IconFlag from "@/components/icons/IconFlag";
     import IconBookmark from "@/components/icons/IconBookmark";
+    import IconAddPoll from "@/components/icons/IconAddPoll";
 
     
     export default {
@@ -118,10 +111,11 @@
             }
         },
         components: {
+            IconAddPoll,
             IconBookmark,
             IconFlag,
             DropdownListReusable,
-            iconAddPoll, IconBase, langString, IconPollFeed, IconOpinion, IconSpeaker}
+            IconBase, langString, IconPollFeed, IconOpinion, IconSpeaker}
     }
 </script>
 

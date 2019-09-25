@@ -6,14 +6,7 @@
 					tag="li"
 					class="btn btn-1 pointer"
 					:to="{ name: 'createPoll'}">
-				<icon-base
-					class="add-poll-icon"
-					fill="#4B97B4"
-					width="23"
-					height="23"
-					viewBox="0 0 23 23"
-					icon-name="add-poll"><icon-add-poll/>
-				</icon-base>
+				<IconAddPoll fill="#4B97B4" class="add-poll-icon"/>
 			</router-link>
 
 			<li class="btn btn-2 mt-15 relative">
@@ -94,7 +87,6 @@
 
 <script>
 	import IconBase from "../../icons/IconBase";
-	import IconAddPoll from "../../icons/IconAddPoll";
 	import IconPocket from "../../icons/IconPocket";
 	import ButtonReusable from "../../reusableСomponents/ButtonReusable";
 	import langString from "../../langString";
@@ -102,6 +94,7 @@
 	import IconUserCheck from "../../icons/IconUserCheck";
 	import PopoverReusable from "../../reusableСomponents/PopoverReusable";
 	import RePicture from "@/components/reusableСomponents/RePicture";
+	import IconAddPoll from "@/components/icons/IconAddPoll";
 
 	export default {
         name: "PageHeader",
@@ -114,11 +107,11 @@
 			}
 		},
 		components: {
+			IconAddPoll,
 			RePicture,
 			PopoverReusable,
 			ButtonReusable,
 			IconBase,
-			IconAddPoll,
 			IconPocket,
 			langString,
 			IconArrowLeft,
@@ -166,13 +159,6 @@
 
 		.btns-panel-1 {
 
-			.btn-1 {
-				.add-poll-icon {
-					path {
-						fill: #4B97B4;
-					}
-				}
-			}
 
 			.btn-2 {
 				.pocket-icon {

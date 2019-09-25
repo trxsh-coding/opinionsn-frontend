@@ -1,27 +1,17 @@
 <template>
 	<div id="mobile-header"
-	     class="flex-between flex-align-center"
+	     class="flex-between flex-align-center py-10 px-20"
 	     :class="{'hidden': hidden}"
 	     v-show="header_type !== 'hidden'">
-		<div
-				v-if="logged_in"
-				class="icon-wrapper h-24">
-			<router-link :to="{name: 'createPoll'}">
-				<icon-base
-						@click.native="pushToCreatePoll"
-						v-if="header_type === 'primary'"
-						class="add-poll"
-						fill="#152D3A"
-						width="24"
-						height="24"
-						viewBox="0 0 25 24"
-						icon-name="add-poll">
-					<icon-add-poll/>
-				</icon-base>
+		
+		<template v-if="logged_in">
+			
+			<router-link v-show="header_type === 'primary'" class="flex" :to="{name: 'createPoll'}">
+				<IconAddPoll class="add-poll" fill="#4B97B4" />
 			</router-link>
 			
 			<icon-base
-					v-if="header_type === 'secondary'"
+					v-show="header_type === 'secondary'"
 					@click.native="goBack"
 					class="arrow-icon pointer"
 					fill="#4B97B4"
@@ -32,7 +22,7 @@
 				<icon-arrow-left/>
 			</icon-base>
 			
-		</div>
+		</template>
 		
 		<router-link class="main-logo-icon-block h-25 pointer" :class="{'mx-auto': !logged_in}"
 		              v-if="header_type === 'primary'" :to="{name: 'pollFeed'}">
@@ -72,7 +62,6 @@
 
 <script>
 	import IconBase from '../../icons/IconBase'
-	import IconAddPoll from '../../icons/IconAddPoll'
 	import IconLogo from '../../icons/IconLogo'
 	import IconTextLogo from '../../icons/IconTextLogo'
 	import imageMixin from "../../mixins/imageMixin";
@@ -80,14 +69,15 @@
 	import langString from "../../langString";
 	import ButtonReusable from "../../reusableСomponents/ButtonReusable";
 	import RePicture from "@/components/reusableСomponents/RePicture";
+	import IconAddPoll from "@/components/icons/IconAddPoll";
 	
 	export default {
 		name: "header",
 		components: {
+			IconAddPoll,
 			RePicture,
 			ButtonReusable,
 			IconBase,
-			IconAddPoll,
 			IconLogo,
 			IconTextLogo,
 			IconArrowLeft,
@@ -173,7 +163,6 @@
 		background: #f8f8f8;
 		border-bottom: 1px solid #BEC0C5;
 		z-index: 999999;
-		padding: 10px 20px;
 		transition: 300ms;
 		
 		&.hidden {
