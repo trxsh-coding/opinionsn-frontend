@@ -1,12 +1,13 @@
 <template>
-    <div class="category-item flex-align-center pointer" :class="{current : isCurrent}" >
-        <div
-                v-if="!!item.path_to_image"
-                class="category-picture"
-                :style="item.local ?{ 'background-image': 'url(' + item.path_to_image +')' } : { 'background-image': 'url(' + publicPath +  item.path_to_image +')' } "></div>
-        <div class="category-name">
-            <lang-string :title="item.name" :class="{itemActive : hoverColor === 'B'}"/>
+    <div class="category-item text-deselect flex-column pointer" :class="{isCurrent}">
+        
+        <div class="picture-wrapper v-center br-6 w-90 h-36">
+            <RePicture type="background" :url="(item.local ? '' : assetsPath) + item.path_to_image"
+                       class="picture" width="21" height="30" clip="contain" />
         </div>
+        
+        <lang-string class="text-center capitalize mt-8" :title="item.name | trim"/>
+        
     </div>
 </template>
 
@@ -14,9 +15,10 @@
     import {mapState} from 'vuex'
     import langString from '../langString'
     import imageMixin from "../mixins/imageMixin";
+    import RePicture from "@/components/reusableСomponents/RePicture";
     export default {
         name: "catalogItem",
-        components:{langString},
+        components:{RePicture, langString},
         mixins:[imageMixin],
         props:{
             item: {
@@ -31,73 +33,48 @@
         },
         data() {
             return {
-                publicPath: process.env.VUE_APP_ASSETS,
-                hoverColor:'W'
+                assetsPath: process.env.VUE_APP_ASSETS
             }
         },
-        methods: {
-
-
+        filters: {
+            trim(value) {
+                return (value.length > 16) ? value.slice(0, 13) + '...' : value;
+            }
         },
         computed: {
-
-            routeName(){
-
-                return this.$route.name
-
-            },
-
             isCurrent(){
-
                 let {item, current, isCurrentString} = this;
-
-                if(isCurrentString){
-
-                    return current === item.name;
-
-                } else {
-
-                    return current === this.item.id;
-
-                }
+                return isCurrentString ? current === item.name : current === this.item.id;
             }
         }
     }
 </script>
 
 <style lang="scss">
-    .current {
-        background: #4B97B4 !important;
-    }
+    
     .category-item {
-        padding: 2px 9px;
-        width: 100%;
-        height: 100%;
-        margin-right: 10px;
-        background: #BBBDC2;
-        border-radius: 6px;
-        white-space: nowrap;
-    .itemActive {
-        color: #4B97B4;
-    }
+        
+        &.isCurrent {
+            .picture-wrapper {
+                background: #4B97B4;
+                
+                .picture {
+                    filter: brightness(30);
+                }
+            }
+        }
+    
+        .picture-wrapper {
+            background: #ffffff;
+        }
+        
         span {
-
             font-family: Roboto;
             font-style: normal;
             font-weight: normal;
-            font-size: 14px;
-            color: #FFFFFF;
-
-
-        }
-        .category-picture {
-            min-height:24px;
-            min-width: 22px;
-            background-size: contain;
-            background-position: center;
-            background-repeat: no-repeat;
-            margin-right: 6px;
-            filter: brightness(30);
+            font-size: 11px;
+            color: #1A1E22;
         }
     }
+
 </style>

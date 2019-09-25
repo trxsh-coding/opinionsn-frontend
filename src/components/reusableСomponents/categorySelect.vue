@@ -1,7 +1,7 @@
 <template>
 	<div class="category-block">
 		<ReSwiper :type="mobile ? 'scroll' : 'usual'"
-		          :params="{height: 38, width: '100%'}" :usual-swiper-options="{slidesPerView: 'auto', spaceBetween: 10, breakpoints: false}">
+		          :params="{height: 'fit-content', width: '100%'}" :usual-swiper-options="{slidesPerView: 'auto', spaceBetween: 10, breakpoints: false}">
 			<template #usual>
 				<swiper-slide
 						class="w-fit"
@@ -15,7 +15,8 @@
 			</template>
 			<template #scroll>
 				<catalog-item
-						v-for="category in combinedCategories"
+						v-for="(category, i) in combinedCategories"
+						:class="{'ml-10': i}"
 						:item="category"
 						:is-current-string="isCurrentString"
 						:current="current"
@@ -86,8 +87,8 @@
 
 <style lang="scss">
 	.category-block {
-		.swiper-container {
-			height: 38px;
-		}
+		/*.swiper-container {*/
+		/*	height: 38px;*/
+		/*}*/
 	}
 </style>
