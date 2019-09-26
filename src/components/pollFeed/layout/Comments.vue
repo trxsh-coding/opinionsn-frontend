@@ -62,7 +62,7 @@
 							<span class="flex-align-center">
 								<span class="username">{{e.author.username}}</span>
 								<TimeTrans class="timestamp ml-7" :short-time="true"
-								           :time="e.explain_create_time"></TimeTrans>
+								           :time="e.create_time"></TimeTrans>
 							</span>
 							
 							<span class="description mt-3">{{e.explain_description}}</span>
