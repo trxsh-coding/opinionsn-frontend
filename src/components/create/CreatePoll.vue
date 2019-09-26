@@ -42,7 +42,7 @@
 						:errors="form.errors.tags">
 					<re-input textarea :preset="2" input-class="mt-24"
 					          placeholder="tags" :params="{width: '100%'}"
-					          :value="form.tags" @input="updateField(arguments[0], 'tags')" />
+					          :value="form.tags" @input="updateField(arguments[0], 'tags')"/>
 				</popup-error-reusable>
 
 				<popup-error-reusable
@@ -50,7 +50,7 @@
 						:errors="form.errors.subject">
 					<re-input textarea :preset="2" class="mt-12" input-class="mt-24"
 					          placeholder="heading" :params="{width: '100%'}"
-					          :value="form.subject" @input="updateField(arguments[0], 'subject')" />
+					          :value="form.subject" @input="updateField(arguments[0], 'subject')"/>
 				</popup-error-reusable>
 
 				<popup-error-reusable
@@ -58,7 +58,7 @@
 						:errors="form.errors.description">
 					<re-input textarea :preset="2" class="mt-12" input-class="mt-24"
 					          placeholder="description" :params="{width: '100%'}"
-					          :value="form.description" @input="updateField(arguments[0], 'description')" />
+					          :value="form.description" @input="updateField(arguments[0], 'description')"/>
 				</popup-error-reusable>
 			</div>
 
@@ -70,15 +70,16 @@
 					:caption="is_youtube ? lstr('youtube_video') : lstr('picture')"
 					:params="{width: 16, height: 8, color: '#000000', padding: '4px 8px', border: '2px solid #000000'}"
 			/>
-<!--			<lang-string class="label flex mt-12 pl-60" :title=" is_youtube ? 'add_youtube_to_poll' :'add_pictures_to_poll'"/>-->
+			<!--			<lang-string class="label flex mt-12 pl-60" :title=" is_youtube ? 'add_youtube_to_poll' :'add_pictures_to_poll'"/>-->
 
-				<re-input input :preset="2" v-if="is_youtube" class="ml-60 mt-12 mb-25" input-class="mt-24"
-						  placeholder="link"
-						  :params="{width: '100%'}"
-						  :value="form.youtube_link"
-						  @input="updateField(arguments[0], 'youtube_link')"
-				/>
-				<re-youtube v-if="is_youtube && form.youtube_link" class="pl-60 mb-15" :link="form.youtube_link" :height="$root.mobile ? '200px' : '371px'" width="100%"/>
+			<re-input input :preset="2" v-if="is_youtube" class="ml-60 mt-12 mb-25" input-class="mt-24"
+			          placeholder="link"
+			          :params="{width: '100%'}"
+			          :value="form.youtube_link"
+			          @input="updateField(arguments[0], 'youtube_link')"
+			/>
+			<re-youtube v-if="is_youtube && form.youtube_link" class="pl-60 mb-15" :link="form.youtube_link"
+			            :height="mobile ? '200px' : '371px'" width="100%"/>
 
 			<div class="picture-block flex-align-center mt-15" v-if="!is_youtube">
 
@@ -135,7 +136,7 @@
 						<re-input textarea class="input-label px-14" input-class="my-auto"
 						          :params="{width: '100%'}"
 						          placeholder="answer_text" :value="option.description"
-						          @input="updateArrayField(arguments[0], null, 'options', 'description', index)" />
+						          @input="updateArrayField(arguments[0], null, 'options', 'description', index)"/>
 
 						<ReUpload
 								:label-class="{'br-6 br-error': (form.errors.options[index] && form.errors.options[index].checkUpload)}"
@@ -172,10 +173,10 @@
 				<re-checkbox class="time-limit-checkbox flex-reverse mt-12" caption-class="caption ml-10"
 				             :value="with_time_limit" @input="setTimeLimit"
 				             :size="20" v-if="form.type_of_poll == 1 || form.type_of_poll == 2"
-				             :caption="with_time_limit ? lstr('time_limit') : lstr('no_time_limit')" />
+				             :caption="with_time_limit ? lstr('time_limit') : lstr('no_time_limit')"/>
 
 				<re-input v-if="is_blockchain" :preset="2" class="mt-12" input-class="mt-24" :params="{width: '100%'}"
-				          placeholder="fund" :value="form.fund" @input="updateField(arguments[0], 'fund')" />
+				          placeholder="fund" :value="form.fund" @input="updateField(arguments[0], 'fund')"/>
 
 				<popup-error-reusable
 						class="mt-12"
@@ -184,7 +185,7 @@
 						:errors="form.errors.max_participants_cap">
 					<re-input v-if="is_blockchain" :preset="2" input-class="mt-24" :params="{width: '100%'}"
 					          placeholder="max_participants_cap" :value="form.max_participants_cap"
-					          @input="updateField(arguments[0], 'max_participants_cap')" />
+					          @input="updateField(arguments[0], 'max_participants_cap')"/>
 				</popup-error-reusable>
 
 				<input-reusable
@@ -251,10 +252,9 @@
 				category: null,
 				subject: null,
 				subject_description: null,
-				mobile: this.$root.mobile,
 				type: 'POLL',
-				subject_type:'PICTURE',
-				is_youtube:false,
+				subject_type: 'PICTURE',
+				is_youtube: false,
 			}
 		},
 
@@ -306,6 +306,10 @@
 				mainUser: ({mainUser}) => mainUser,
 				is_admin: ({mainUser}) => mainUser.authorities === 'ADMIN'
 			}),
+
+			mobile() {
+				return this.$root.mobile
+			},
 
 			values_with_rules() {
 				let {form} = this;

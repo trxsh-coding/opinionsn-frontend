@@ -574,7 +574,7 @@
 				
 				position: relative;
 				padding: 14.5px 9px 14.5px 12px;
-				border: 0.5px solid #BCBEC3;
+				border: 1px solid #BCBEC3;
 				border-radius: 6px;
 				
 				display: flex;
