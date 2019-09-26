@@ -2,7 +2,7 @@
 	<div class="user-feed flex-column">
 		
 		<template v-for="(item, index) in items">
-			<vote-instance class="mt-12 br-6" :item="item" :key="index" v-if="feed_type === 2"/>
+			<vote-instance class="mt-12 py-12 br-6" :item="item" :key="index" v-if="feed_type === 2"/>
 			<user-poll-feed class="mt-12 br-6" :item="item" v-if="feed_type === 1"/>
 		</template>
 		

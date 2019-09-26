@@ -48,7 +48,7 @@
         &.shifted {
             svg {
                 position: relative;
-                top: -1px;
+                top: -1.5px;
             }
         }
     }

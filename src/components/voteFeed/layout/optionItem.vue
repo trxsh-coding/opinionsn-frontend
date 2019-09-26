@@ -44,7 +44,7 @@
             wrapperStyle(){
                 let {height, width, borRad, size, selected} = this;
                 borRad = (borRad.slice(-1) === '%') ? borRad : borRad + 'px';
-                let selectedOption = selected ? {backgroundColor: '#4B97B4', color:'#ffffff' } : {backgroundColor: '#ffffff', color:'#1A1E22', border: '0.5px solid #BCBEC3' }
+                let selectedOption = selected ? {backgroundColor: '#4B97B4', color:'#ffffff' } : {backgroundColor: '#ffffff', color:'#1A1E22', border: '0.5px solid #BCBEC3' };
                 return {
                     // flexBasis: `${size || width}px`,
                     height: `${size || height}px`,

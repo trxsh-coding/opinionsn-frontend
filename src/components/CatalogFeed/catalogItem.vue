@@ -6,7 +6,7 @@
                        class="picture" width="21" height="30" clip="contain" />
         </div>
         
-        <span class="text-center capitalize mt-8">{{lstr(item.name) | trim}}</span>
+        <span class="text-center capitalize mt-6">{{lstr(item.name) | trim}}</span>
         
     </div>
 </template>
@@ -39,7 +39,6 @@
         },
         filters: {
             trim(value) {
-                console.log(value)
                 return (value.length > 16) ? value.slice(0, 13) + '...' : value;
             }
         },

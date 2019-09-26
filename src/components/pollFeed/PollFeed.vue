@@ -3,9 +3,9 @@
 	<div id="poll-wrapper">
 		
 		<category-select @on-select="setCategory" :current="filter_id" :slides-per-view="4.3"
-		                 :class="{'pl-60 pr-10': mobile, 'pb-13' : !mobile}"/>
+		                 :class="{'mt-7 px-10': mobile, 'pb-13' : !mobile}"/>
 		
-		<div class="feed relative flex-column pb-12"
+		<div class="feed mt-7 relative flex-column pb-12"
 		     @touchstart="handleTouchStart" @touchmove="handleTouchMove" @touchend="handleTouchEnd">
 			
 			<div class="reload-indicator-wrapper v-center" ref="reload_indicator"
@@ -245,6 +245,7 @@
 		overflow: hidden;
 		border-radius: 6px;
 		height: 100%;
+		background: #F8F8F8;
 		
 		.feed {
 			height: 100%;

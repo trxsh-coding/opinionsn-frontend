@@ -1,6 +1,6 @@
 <template>
 	<div id="poll-header">
-		<div class="subject flex-align-stretch pt-12" :class="subjectClass">
+		<div class="subject flex-align-stretch" :class="subjectClass">
 			
 			<div class="w-60 v-center">
 				<dropdown-list-reusable v-if="mainUser.authorities === 'ADMIN'" class="h-fit info-block"

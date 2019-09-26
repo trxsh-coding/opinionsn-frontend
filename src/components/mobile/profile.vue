@@ -4,13 +4,13 @@
    
 			<RePicture class="avatar" :url="publicPath + imageUtil(mainUser.path_to_avatar, 'S')" size="36" rounded/>
 			<div class="flex-column ml-9 pt-2">
-				<router-link class="username pointer" :to="{name: 'user', params: { id: mainUser.id }}">
+				<router-link class="username pointer my-auto" :to="{name: 'user', params: { id: mainUser.id }}">
 					{{mainUser.username}}
 				</router-link>
 				
-				<lang-string title="balance" class="balance-text mt-4">
-					<template #text> : {{mainUser.balance}} OPI</template>
-				</lang-string>
+<!--				<lang-string title="balance" class="balance-text mt-4">-->
+<!--					<template #text> : {{mainUser.balance}} OPI</template>-->
+<!--				</lang-string>-->
 			</div>
    
 		</div>

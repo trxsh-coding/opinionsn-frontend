@@ -23,17 +23,19 @@
 					</div>
 				</template>
 			</ReSwiper>
+
+			<hr class="m-0">
 			
 			<div
 					class="vote-instance-wrapper flex-column pb-12"
 					:class="{'desktop bg-white': !mobile}">
 				<div
-						class="flex-column"
-						v-for="(item, index) in items">
+						class="flex-column" :class="{'mt-13': i}"
+						v-for="(item, i) in items">
 					<vote-instance
 							:item="item"
-							class="py-12"/>
-					<hr class="m-0 mt-13" v-show="index !== items.length - 1">
+							class="pt-12 pb-10 bg-white"/>
+					<hr class="m-0" v-show="i !== items.length - 1">
 				</div>
 				<Loader class="m-auto" v-show="!loaded && loading"/>
 			</div>

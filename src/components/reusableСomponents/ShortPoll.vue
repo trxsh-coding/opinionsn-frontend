@@ -238,8 +238,12 @@
 
 			.bookmark-btn {
 				position: absolute;
-				top: -1px;
+				top: 0;
 				right: 6px;
+
+				svg {
+					stroke-width: 0.8;
+				}
 			}
 
 			.img-wrapper {

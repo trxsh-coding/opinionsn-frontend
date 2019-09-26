@@ -405,21 +405,16 @@
 			
 			optionWrapper() {
 				let {selected, expired, correct} = this;
-				let s = {};
-				
-				switch (this.poll.type_of_poll == 1 && expired) {
+				let {type_of_poll} = this.poll;
+
+				switch ((type_of_poll === 1 || type_of_poll === 0) && expired) {
 					case selected && correct:
-						s = {...s, opacity: '1'};
-						break;
+						return {opacity: '1'};
 					case selected:
-						s = {...s, opacity: '1'};
-						break;
+						return {opacity: '1'};
 					default:
-						s = {...s, opacity: '0.4'};
-						break;
+						return {opacity: '0.4'};
 				}
-				
-				return s;
 				
 			},
 			

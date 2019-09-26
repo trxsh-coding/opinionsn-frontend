@@ -1,7 +1,7 @@
 <template>
-	<div id="main-feed-layout" class="flex-column pt-12 pb-9" :class="{'pr-20': mobile, 'pr-12': !mobile}">
+	<div id="main-feed-layout" class="flex-column pb-9" :class="{'pr-20': mobile, 'pr-12': !mobile}">
 
-		<post-header :author="author" :poll="poll" :eventType="item.eventType"/>
+		<post-header class="pt-12" :author="author" :poll="poll" :eventType="item.eventType"/>
 
 		<poll-anotation class="mt-9" :poll="poll"/>
 

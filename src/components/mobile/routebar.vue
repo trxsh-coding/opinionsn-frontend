@@ -27,17 +27,17 @@
 				</router-link>
 			</li>
 			
-			<li class="link relative pointer">
-				<icon-base
-						fill="none"
-						width="14"
-						height="22"
-						viewBox="0 0 14 22"
-						icon-name="add">
-					<icon-judgement/>
-				</icon-base>
-				<lang-string :title="'judgement'" />
-			</li>
+<!--			<li class="link relative pointer">-->
+<!--				<icon-base-->
+<!--						fill="none"-->
+<!--						width="14"-->
+<!--						height="22"-->
+<!--						viewBox="0 0 14 22"-->
+<!--						icon-name="add">-->
+<!--					<icon-judgement/>-->
+<!--				</icon-base>-->
+<!--				<lang-string :title="'judgement'" />-->
+<!--			</li>-->
 			
 			<li class="relative pointer">
 				<router-link class="link" :to="{name: 'catalogList'}">

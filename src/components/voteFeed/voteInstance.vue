@@ -3,7 +3,7 @@
 	    
 	    <PostHeader v-bind="postHeaderProps" />
 	    
-	    <ReSwiper class="mt-9" :type="mobile ? 'scroll' : 'usual'" :params="{stubLength: 1}"
+	    <ReSwiper class="mt-9 pb-1" :type="mobile ? 'scroll' : 'usual'" :params="{stubLength: 1}"
 	              :usual-swiper-options="{slidesPerView: 3, spaceBetween: 9}">
 			<template #usual>
 				<swiper-slide v-for="{option, isSelected} in sortedOptions">
@@ -16,7 +16,7 @@
 		    </template>
 	    </ReSwiper>
 
-        <ShortPoll class="mt-12" :class="{'m-0 mt-12': !item.voted}" :poll="poll"  />
+        <ShortPoll class="mt-12" :class="{'m-0 mt-11': !item.voted}" :poll="poll"  />
 
         <bows-panel class="mt-9 px-20" v-show="!!Object.keys(poll.bows).length" :users="poll.bows"  />
 
