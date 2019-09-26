@@ -1,7 +1,8 @@
 <template>
 	<section class="comments-section">
 		<div v-if="!haveExplain" class="input-panel text-deselect px-15 py-10 mt-12 flex-align-center"
-		     :style="{width: `calc(100% + ${$root.mobile ? '20px' : '12px'})`}">
+		     :class="{pointer: !isVoted}" :style="{width: `calc(100% + ${$root.mobile ? '20px' : '12px'})`}"
+		     @click="handleUnvotedInputPanelClick">
 			
 			<router-link v-if="isAuthorized" class="flex w-30 mr-15 pointer" :to="getUserLink(mainUser.id)">
 				<RePicture :url="publicPath + mainUser.path_to_avatar" size="30" rounded/>
@@ -182,7 +183,8 @@
 				commentInputValue: '',
 				activeInputId: '',
 				explainsFilterType: 'ALL',
-				amountOfVisibleComments: 5
+				amountOfVisibleComments: 5,
+				timeoutId: null
 			}
 		},
 		
@@ -197,6 +199,28 @@
 		},
 		
 		methods: {
+			handleUnvotedInputPanelClick() {
+
+				if (!this.isVoted) {
+
+					let f = () => {
+						let self = this;
+						return function(trigger) {
+							if (!self.timeoutId) {
+								this[trigger] = true;
+								self.timeoutId = setTimeout(() => {
+									this[trigger] = false;
+									self.timeoutId = null;
+								}, 700);
+							}
+						}
+					};
+
+					this.$emit('InputPanelClicked', f())
+				}
+
+			},
+
 			getUserLink(id) {
 				return {name: 'user', params: {id}}
 			},
