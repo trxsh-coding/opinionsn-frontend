@@ -6,20 +6,21 @@
                        class="picture" width="21" height="30" clip="contain" />
         </div>
         
-        <lang-string class="text-center capitalize mt-8" :title="item.name | trim"/>
+        <span class="text-center capitalize mt-8">{{lstr(item.name) | trim}}</span>
         
     </div>
 </template>
 
 <script>
     import {mapState} from 'vuex'
-    import langString from '../langString'
     import imageMixin from "../mixins/imageMixin";
     import RePicture from "@/components/reusableСomponents/RePicture";
+    import langMixin from "@/components/mixins/langMixin";
+
     export default {
         name: "catalogItem",
-        components:{RePicture, langString},
-        mixins:[imageMixin],
+        components:{RePicture},
+        mixins:[imageMixin, langMixin],
         props:{
             item: {
                 type:Object
@@ -38,6 +39,7 @@
         },
         filters: {
             trim(value) {
+                console.log(value)
                 return (value.length > 16) ? value.slice(0, 13) + '...' : value;
             }
         },
