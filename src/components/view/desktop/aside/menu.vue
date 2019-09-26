@@ -39,6 +39,7 @@
 		</router-link>
 		
 		<dropdown-list-reusable
+				v-if="isAuthorized"
 				class="lang-switch br-6 flex-align-center mt-9"
 				list-class="drop-list"
 				width="100%"
@@ -92,6 +93,10 @@
             ...mapState('lang',{
                 lang : s => s.locale._lang
             }),
+
+			...mapState('globalStore', {
+				isAuthorized: ({mainUser}) => !!Object.keys(mainUser).length
+			}),
 			
 			routeName() {
 				return this.$route.name
