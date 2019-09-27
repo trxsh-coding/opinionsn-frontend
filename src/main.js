@@ -85,7 +85,7 @@ export const vueApp = new Vue({
 	data() {
 		return {
 			is_mobile_device: null,
-			mobile: window.innerWidth <= 500,
+			mobile: window.innerWidth <= 863,
 			scrolled_to_bottom: null,
 			scroll_top: 0,
 			timer_id: null,
@@ -117,10 +117,10 @@ export const vueApp = new Vue({
 			}
 		};
 
-		this.mobile = is_mobile_device.any() || window.innerWidth <= 500;
+		this.mobile = is_mobile_device.any() || window.innerWidth <= 863;
 
 		window.addEventListener('resize', () => {
-			this.mobile = is_mobile_device.any() || window.innerWidth <= 500;
+			this.mobile = is_mobile_device.any() || window.innerWidth <= 863;
 		});
 
 	},
