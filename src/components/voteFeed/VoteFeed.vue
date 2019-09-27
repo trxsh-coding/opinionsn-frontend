@@ -24,20 +24,13 @@
 				</template>
 			</ReSwiper>
 
-			<hr class="m-0">
-			
-			<div
-					class="vote-instance-wrapper flex-column pb-12"
-					:class="{'desktop bg-white': !mobile}">
-				<div
-						class="flex-column" :class="{'mt-13': i}"
-						v-for="(item, i) in items">
-					<vote-instance
-							:item="item"
-							class="pt-12 pb-10 bg-white"/>
-					<hr class="m-0" v-show="i !== items.length - 1">
-				</div>
+			<div class="vote-instance-wrapper flex-column pb-12" :class="{'desktop': !mobile}">
+
+				<vote-instance v-for="(item, i) in items" :item="item"
+				               class="pt-12 br-6 pb-10 bg-white" :class="{'mt-9': i}"/>
+
 				<Loader class="m-auto" v-show="!loaded && loading"/>
+
 			</div>
 		</template>
 		
