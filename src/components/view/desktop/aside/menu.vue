@@ -130,7 +130,7 @@
 
 <style lang="scss">
 	.navigation-aside-menu {
-		
+
 		span {
 			font-family: Roboto, sans-serif;
 			font-size: 13px;

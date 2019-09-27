@@ -2,6 +2,7 @@ import axios from 'axios';
 import {mapState} from 'vuex';
 import Vue from 'vue'
 export const globalStorages = [
+    {name: 'achievement'},
     {name: 'user'},
     {name: 'poll'},
     {name: 'vote'},
