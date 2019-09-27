@@ -22,7 +22,7 @@
 					<slot name="badge" />
 				</div>
 				
-				<ReSwiper v-if="bows_length > 2" :type="$root.is_mobile_device ? 'scroll' : 'usual'" :class="{'pr-10': !mobile && swiped}"
+				<ReSwiper v-if="bows_length > 2" :type="mobile ? 'scroll' : 'usual'" :class="{'pr-10': !mobile && swiped}"
 				          :params="{height: 'fit-content', width: swiped ? '100%' : 'fit-content', stubLength: swiped && 1, reverse: true}"
 				          :usual-swiper-options="{slidesPerView: 'auto'}">
 					<template #scroll>

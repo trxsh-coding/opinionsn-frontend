@@ -1,6 +1,6 @@
 <template>
 	<div class="category-block">
-		<ReSwiper :type="$root.is_mobile_device ? 'scroll' : 'usual'"
+		<ReSwiper :type="mobile ? 'scroll' : 'usual'"
 		          :params="{height: 'fit-content', width: '100%'}" :usual-swiper-options="{slidesPerView: 'auto', spaceBetween: 10, breakpoints: false}">
 			<template #usual>
 				<swiper-slide
