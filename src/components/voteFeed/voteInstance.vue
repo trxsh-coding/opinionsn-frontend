@@ -3,7 +3,7 @@
 	    
 	    <PostHeader v-bind="postHeaderProps" />
 	    
-	    <ReSwiper class="mt-9 pb-1" :type="mobile ? 'scroll' : 'usual'" :params="{stubLength: 1}"
+	    <ReSwiper class="mt-9 pb-1" :type="$root.is_mobile_device ? 'scroll' : 'usual'" :params="{stubLength: 1}"
 	              :usual-swiper-options="{slidesPerView: 3, spaceBetween: 9}">
 			<template #usual>
 				<swiper-slide v-for="{option, isSelected} in sortedOptions">

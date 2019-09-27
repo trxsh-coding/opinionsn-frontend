@@ -3,7 +3,7 @@
 	<section class="vote-feed flex-column" :class="{'pt-16': !mobile}">
 		
 		<template v-if="data_received">
-			<ReSwiper :type="mobile ? 'scroll' : 'usual'" class="mb-15" :swiper-class="mobile ? 'pl-30' : ''"
+			<ReSwiper :type="$root.is_mobile_device ? 'scroll' : 'usual'" class="mb-15" :swiper-class="mobile ? 'pl-30' : ''"
 			          :params="{stubLength: 2, width: '100%'}" :usual-swiper-options="{slidesPerView: 6, spaceBetween: 3.5}">
 				<template #usual>
 					<swiper-slide class="avatar-wrapper"

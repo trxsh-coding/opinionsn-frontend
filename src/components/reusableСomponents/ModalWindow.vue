@@ -24,7 +24,7 @@
 					<div class="main-picture" :style="{backgroundImage: `url('${picture}')`}" />
 				</swiper-slide>
 			</swiper>
-			<ReSwiper class="pictures-section flex" v-if="pictures.length >= 2" :type="mobile ? 'scroll' : 'usual'"
+			<ReSwiper class="pictures-section flex" v-if="pictures.length >= 2" :type="$root.is_mobile_device ? 'scroll' : 'usual'"
 			          :params="{height: 150, width: '100%'}" :usual-swiper-options="{slidesPerView: 'auto', spaceBetween: 15}">
 				<template #usual>
 					<swiper-slide
