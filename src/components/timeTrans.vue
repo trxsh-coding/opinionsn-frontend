@@ -1,177 +1,194 @@
 <template>
-    <div class="timestamp-block">
-        <span v-if="transformedTime">{{transformed_time}}</span>
-        <span v-if="shortTime">{{short_time}}</span>
-        <span v-if="predictionTime">{{currentTime}}</span>
+	<div class="timestamp-block">
 
-    </div>
+		<span v-if="transformedTime">{{transformed_time}}</span>
+		<span v-if="shortTime">{{short_time}}</span>
+		<span v-if="predictionTime">{{currentTime}}</span>
+
+	</div>
 </template>
 
 <script>
-    import {localString} from "../utils/localString";
-    import moment from 'moment'
-    import langMixin from './mixins/langMixin'
-    import {mapState} from 'vuex'
-    const pad = (num, len=2, char='0') => {
-        let init = `${num}`;
+	import {localString} from "../utils/localString";
+	import moment from 'moment'
+	import langMixin from './mixins/langMixin'
+	import {mapState} from 'vuex'
 
-        while (init.length < (len*char.length)){
-            init = `${char}${init}`
-        }
+	const pad = (num, len = 2, char = '0') => {
+		let init = `${num}`;
 
-        return init;
-    };
-    export default {
-        name: "timeTrans",
-        mixins:[langMixin],
-        props: {
+		while (init.length < (len * char.length)) {
+			init = `${char}${init}`
+		}
+
+		return init;
+	};
+	export default {
+		name: "timeTrans",
+		mixins: [langMixin],
+		props: {
 			time: {
 				required: true
 			},
-            shortTime: {
-			    type:Boolean
-            },
-            predictionTime: {
-			    type:Boolean
-            },
-            transformedTime: {
-                type:Boolean
-            },
+			shortTime: {
+				type: Boolean
+			},
+			predictionTime: {
+				type: Boolean
+			},
+			transformedTime: {
+				type: Boolean
+			},
 		},
-        data() {
-            return {
-                currentTime:null,
-                procid:null,
-            }
-        },
-        computed: {
-            ...mapState('lang',{
+		data() {
+			return {
+				currentTime: null,
+				procid: null,
+			}
+		},
 
-                _lang : state => {return state.locale._lang},
-                lang : state => state.locale
+		computed: {
+			...mapState('lang', {
+				_lang: s => s.locale._lang,
+				lang: s => s.locale
+			}),
 
-            }),
-            lstr(){
-                return (str)=>localString(this.lang, str);
-            },
-            relativeEndDate(){
-                moment.locale(this._lang);
-                return moment.utc(this.time);
-            },
-            short_time:function () {
+			lstr() {
+				return (str) => localString(this.lang, str);
+			},
 
-                let transformed_time = this.time;
-                let mTime = moment(transformed_time);
+			relativeEndDate() {
+				// moment.locale(this._lang);
+				return moment.utc(this.time);
+			},
 
-                let now = moment(new Date());
+			short_time: function () {
 
-                let isToday = now.format("YYYYMMDD") === mTime.format("YYYYMMDD");
+				let transformed_time = this.time;
+				let mTime = moment(transformed_time);
 
-                const daysDiff = now.diff(mTime, 'days');
-                const secondsDiff = now.diff(mTime, 'seconds');
+				let now = moment(new Date());
 
-                const relTime = mTime.fromNow('mm');
-                const relTimeParts = relTime.split(' ');
-                let text;
+				let isToday = now.format("YYYYMMDD") === mTime.format("YYYYMMDD");
 
+				const daysDiff = now.diff(mTime, 'days');
+				const secondsDiff = now.diff(mTime, 'seconds');
 
-                if (secondsDiff < 30) return this.lstr('now');
-
-                /**
-                 * Возвращает сокращенный вариант времени с учётом минут и месяцев
-                 * @param title
-                 * @param count
-                 * @returns {string|string}
-                 */
-                const getText = (title,count) => {
-                  const titles = {
-                      'minute': x=>`${x}min`,
-                      'минут' : x=>`${x}мин`,
-                      'now': x=>`now`,
-                      'сейчас': x=>`щас`
-                  };
-
-                  for (const [src, target] of Object.entries(titles)){
-
-                      if (title.toLowerCase().indexOf(src) !== -1){
-                          return target(count);
-                      }
-
-                  }
-
-                  return `${count}${title.substring(0,1)}`;
-
-                };
-
-                if (relTimeParts.length > 1){
-                    const [count, title] = relTime.split(' ');
+				const relTime = mTime.fromNow('mm');
+				const relTimeParts = relTime.split(' ');
+				let text;
 
 
-                    text = getText(title, isNaN(Number(count)) ? '1' : count);
-                }
+				if (secondsDiff < 30) return this.lstr('now');
 
-                else {
+				/**
+				 * Возвращает сокращенный вариант времени с учётом минут и месяцев
+				 * @param title
+				 * @param count
+				 * @returns {string|string}
+				 */
+				const getText = (title, count) => {
+					const titles = {
+						'minute': x => `${x}min`,
+						'минут': x => `${x}мин`,
+						'now': x => `now`,
+						'сейчас': x => `щас`
+					};
 
-                    text = getText(relTime, 1);
-                    //text = `${relTime.substr(0, 1).toUpperCase()}${relTime.substr(1, relTime.length)}`;
-                }
+					for (const [src, target] of Object.entries(titles)) {
+
+						if (title.toLowerCase().indexOf(src) !== -1) {
+							return target(count);
+						}
+
+					}
+
+					return `${count}${title.substring(0, 1)}`;
+
+				};
+
+				if (relTimeParts.length > 1) {
+					const [count, title] = relTime.split(' ');
 
 
+					text = getText(title, isNaN(Number(count)) ? '1' : count);
+				} else {
+
+					text = getText(relTime, 1);
+					//text = `${relTime.substr(0, 1).toUpperCase()}${relTime.substr(1, relTime.length)}`;
+				}
 
 
-                let parsedTime = daysDiff > 365 ? mTime.fromNow('d') : text;
+				let parsedTime = daysDiff > 365 ? mTime.fromNow('d') : text;
 
 				return parsedTime;
 
-            },
+			},
 
-            transformed_time:function () {
+			transformed_time() {
 
-                let transformed_time = this.time;
+				let {time} = this;
 
-                let now = moment(new Date());
+				let today = parseInt(moment(new Date()).format('DDDD'), 10),
+					current = parseInt(moment(time).format('DDDD'), 10),
+					difference = today - current;
 
-                let isToday = now.format("YYYYMMDD") === moment(transformed_time).format("YYYYMMDD");
+				return this.treatedTime(difference, time);
 
-                let parsedTime = isToday ? moment(transformed_time).format('HH:mm') : moment(transformed_time).fromNow('D');
+			}
 
-                return parsedTime;
+		},
+		methods: {
+			getTime() {
 
-            }
+				let end = this.relativeEndDate;
+				let now = moment(new Date())
+				let duration = moment.duration(end.diff(now));
 
-        },
-        methods: {
-            getTime(){
+				if (duration.asDays() > 1) {
+					let output = `${Math.floor(duration.asDays())} ${this.lstr('days')}`;
+					this.currentTime = output;
+				} else if (duration > 1 && duration.asHours() < 24) {
+					let output = `${pad(duration.hours())}:${pad(duration.minutes())}:${pad(duration.seconds())}`
+					this.currentTime = output;
 
-                let end = this.relativeEndDate;
-                let now = moment(new Date())
-                let duration = moment.duration(end.diff(now));
+				} else {
 
-                if (duration.asDays() > 1){
-                    let output = `${Math.floor(duration.asDays())} ${this.lstr('days')}`;
-                    this.currentTime = output;
-                } else if (duration > 1 && duration.asHours()<24  ){
-                    let output = `${pad(duration.hours())}:${pad(duration.minutes())}:${pad(duration.seconds())}`
-                    this.currentTime = output;
+					this.currentTime = this.lstr('end')
+				}
 
-                } else {
+				return this.currentTime;
+			},
 
-                    this.currentTime = this.lstr('end')
-                }
+			treatedTime(diff, date) {
+				moment.locale(this._lang);
+				switch (true) {
+					case diff === 0:
+						return moment(date).calendar().replace(/(, в)/, '');
+					case diff === 1:
+						return moment(date).calendar().replace(/(, в)/, '');
+					case diff > 1 && diff <= 30:
+						return moment(date).fromNow();
+					default:
+						if (!parseInt(moment(date).fromNow(), 10)) {
+							return '1 ' + moment(date).fromNow()
+						} else {
+							return moment(date).fromNow();
+						}
+				}
+			}
+		},
 
-                return this.currentTime;
-            }
-        },
-        mounted(){
-            this.getTime();
-            this.procid = setInterval(() => {this.getTime()}, 1 * 1000);
-        },
-        beforeDestroy(){
-            clearInterval(this.procid);
-        },
-    }
+		mounted() {
+			this.getTime();
+			this.procid = setInterval(() => {
+				this.getTime()
+			}, 1000);
+		},
+
+		beforeDestroy() {
+			clearInterval(this.procid);
+		},
+	}
 </script>
 
-<style scoped>
-
-</style>
