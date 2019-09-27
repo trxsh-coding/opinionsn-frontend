@@ -49,9 +49,9 @@
 		        v-if="mainUser.authorities === 'ADMIN' && is_prediction">✓
 		</button>
 		
-		<div
-				class="option-wrapper"
-				:class="{'pointer': !voted, 'with-button': mainUser.authorities === 'ADMIN' && is_prediction}">
+		<div class="option-wrapper pointer text-deselect"
+		     :class="{'with-button': mainUser.authorities === 'ADMIN' && is_prediction}">
+
 			<div v-if="picture && picture.slice(-4) !== 'null'" @click="$emit('onPictureClick')"
 			     class="picture" :style="pictureStyle"></div>
 			
