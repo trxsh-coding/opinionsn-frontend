@@ -144,6 +144,7 @@
 		box-sizing: border-box;
 		width: 100%;
 		border-radius: 6px;
+		background: #f8f8f8;
 		
 		.vote-instance-wrapper {
 			border-radius: 6px;
