@@ -407,7 +407,7 @@
 				let {selected, expired, correct} = this;
 				let {type_of_poll} = this.poll;
 
-				switch ((type_of_poll === 1 || type_of_poll === 0) && expired) {
+				switch ((type_of_poll === 2 || type_of_poll === 1) && expired) {
 					case selected && correct:
 						return {opacity: '1'};
 					case selected:
