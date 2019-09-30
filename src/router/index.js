@@ -28,6 +28,7 @@ const Settings = () => import("../components/pageSettings/index.vue");
 const Statistic = () => import("../components/Statistic/statisticInstance");
 const Rating = () => import("../components/Rating/ratingInstance");
 const ReferralsPage = () => import("../components/ReferralsPage");
+const achievementsPage = () => import("../components/achievementsPage/index");
 import {nprogress} from '../main.js';
 import {searchUser} from "@/store/modules/searchUser";
 
@@ -122,6 +123,11 @@ export const index = new Router({
 					path: 'ReferralsPage',
 					name: 'ReferralsPage',
 					component: ReferralsPage
+				},
+				{
+					path: 'achievementsPage',
+					name: 'achievementsPage',
+					component: achievementsPage
 				},
 				{
 					path: 'user/:id',

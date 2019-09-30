@@ -1,7 +1,7 @@
 <template>
-	<div v-if="achievements" class="achievements-page py-21">
+	<div v-if="payload && payload.length" class="achievements-page py-21">
 		<div class="feed flex-column">
-			<AchievementInstance v-for="a in achievements" :key="'achievement_id_' + a.id" v-bind="a" />
+			<AchievementInstance v-for="a in payload" :key="'achievement_id_' + a.id" v-bind="a" />
 		</div>
 	</div>
 </template>
@@ -11,13 +11,16 @@
 	import AchievementInstance from "@/components/achievementsPage/AchievementInstance";
 
 	export default {
-		name: "index",
+		name: "AchievementsPage",
 		components: {AchievementInstance},
 		computed: {
-			...mapState('globalStore', {
-				achievements: s => s.achievements
+			...mapState('achievementsPage', {
+				payload: s => s.items
 			})
 		},
+		mounted() {
+			this.$store.dispatch(`achievementsPage/list`);
+		}
 	}
 </script>
 
