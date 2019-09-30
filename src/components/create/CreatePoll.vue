@@ -114,7 +114,7 @@
 			<lang-string class="label pl-60" :title="'add_options'"/>
 
 			<popup-error-reusable
-					class="mb-10"
+					class="mt-9 mb-10"
 					width="calc(100% - 60px)"
 					span-class="ml-auto mt-3 flex-align-center"
 					v-for="(option, index) in form.options" :key="index"

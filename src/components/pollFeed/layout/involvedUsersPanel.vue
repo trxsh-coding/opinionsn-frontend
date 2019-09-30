@@ -46,8 +46,8 @@
 		},
 		
 		filters: {
-			trim: function (value) {
-				return (value.length > 9) ? value.slice(0, 6) + '...' : value;
+			trim(value) {
+				return (value.length >= 7) ? value.slice(0, 4) + '...' : value;
 			}
 		},
 		

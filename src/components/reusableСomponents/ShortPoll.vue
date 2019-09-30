@@ -21,7 +21,7 @@
 					<time-trans transformed-time :time="poll.date" />
 				</span>
 
-				<span class="poll-name pointer mb-3" @click="pollLink(poll.id)">{{poll.subject}}</span>
+				<span class="poll-name pointer mb-3 mr-26" @click="pollLink(poll.id)">{{poll.subject}}</span>
 
 				<span v-if="withDesc && rowLayout" class="poll-desc mb-3 pointer"  @click="pollLink(poll.id)">{{poll.description}}</span>
 
@@ -269,7 +269,6 @@
 					font-weight: 500;
 					font-size: 14px;
 					color: #1A1E22;
-					padding-right: 25px;
 				}
 
 				.poll-desc {
