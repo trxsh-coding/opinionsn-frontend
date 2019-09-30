@@ -46,7 +46,7 @@ export default {
 			
 			if (typeof value === 'object') value = value.str;
 			
-			let {length} = value;
+			let {length = null} = value;
 			
 			
 			switch (true) {
