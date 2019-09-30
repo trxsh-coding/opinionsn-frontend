@@ -217,7 +217,6 @@
 	import IconBase from "../icons/IconBase";
 	import IconAdd from "../icons/create/IconAdd";
 	import IconMinus from "../icons/create/IconMinus";
-	import IconUploadPhoto from "../icons/create/IconUploadPhoto";
 	import {mapState} from "vuex"
 	import langMixin from "../mixins/langMixin";
 	import CategorySelect from "../reusableСomponents/categorySelect";
@@ -576,7 +575,6 @@
 			DropdownListReusable,
 			ButtonReusable,
 			langString,
-			IconUploadPhoto,
 			DatePick,
 			IconAdd,
 			IconMinus,

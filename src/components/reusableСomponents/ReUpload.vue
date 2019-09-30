@@ -6,15 +6,7 @@
 					:class="{'w-fit h-fit': fit}"
 					v-if="iconPhoto">
 				<slot name="icon">
-					<icon-base
-							class="pointer absolute-center"
-							v-show="!withCloseBtn | is_input_empty"
-							width="24"
-							height="21"
-							viewBox="0 0 20 17"
-							icon-name="upload">
-						<icon-upload-photo/>
-					</icon-base>
+					<IconCamera class="pointer absolute-center" v-show="!withCloseBtn | is_input_empty"/>
 				</slot>
 			</div>
 
@@ -60,17 +52,17 @@
 <script>
 	import IconBase from '../icons/IconBase'
 	import IconUpload from '../icons/create/IconUpload'
-	import IconUploadPhoto from "../icons/create/IconUploadPhoto";
 	import IconCross from "../icons/IconCross";
 
 	import langString from '../langString'
+	import IconCamera from "@/components/icons/create/IconCamera";
 
 	export default {
 		name: "ReUpload",
 		components: {
+			IconCamera,
 			IconBase,
 			IconUpload,
-			IconUploadPhoto,
 			IconCross,
 			langString
 		},

@@ -27,7 +27,6 @@
     import ReUpload from "../../reusableСomponents/ReUpload";
     import {mapState} from "vuex";
     import IconBase from "../../icons/IconBase";
-    import IconUploadPhoto from "../../icons/create/IconUploadPhoto";
     import IconCross from "../../icons/IconCross";
     import RePicture from "@/components/reusableСomponents/RePicture";
 
@@ -37,7 +36,6 @@
             RePicture,
             ReUpload,
             IconBase,
-            IconUploadPhoto,
             IconCross
         },
 
