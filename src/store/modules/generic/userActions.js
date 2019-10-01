@@ -18,7 +18,7 @@ export const userActions = sc => class extends sc {
 
         let {customUrl = `${process.env.VUE_APP_MAIN_API}/rest/v1/user/subscribe/${id}`, data={id}, method='put', } = payload;
 
-        sc.apiRequest(customUrl, data,{commit, dispatch, onSuccess: null, successType: 'action'}, method);
+        return sc.apiRequest(customUrl, data,{commit, dispatch, onSuccess: null, successType: 'action'}, method);
 
     };
 
@@ -28,7 +28,7 @@ export const userActions = sc => class extends sc {
 
         let {customUrl = `${process.env.VUE_APP_MAIN_API}/rest/getFollowing`, data={}, method='get', } = payload;
 
-        sc.apiRequest(customUrl, data,{commit, dispatch, onSuccess: 'onListReceived', successType: 'mutation'}, method);
+        return sc.apiRequest(customUrl, data,{commit, dispatch, onSuccess: 'onListReceived', successType: 'mutation'}, method);
 
     };
 
@@ -38,7 +38,7 @@ export const userActions = sc => class extends sc {
 
         let {customUrl = `${process.env.VUE_APP_MAIN_API}/rest/getMyFollowers`, data={}, method='get', } = payload;
 
-        sc.apiRequest(customUrl, data,{commit, dispatch, onSuccess: 'onListReceived', successType: 'mutation'}, method);
+        return sc.apiRequest(customUrl, data,{commit, dispatch, onSuccess: 'onListReceived', successType: 'mutation'}, method);
 
     };
 
@@ -46,7 +46,7 @@ export const userActions = sc => class extends sc {
 
         let {customUrl = `${process.env.VUE_APP_MAIN_API}/rest/v1/user`, data={}, method='post', } = payload;
 
-        sc.apiRequest(customUrl, data,{commit, dispatch, onSuccess: null, successType: 'action'}, method);
+        return sc.apiRequest(customUrl, data,{commit, dispatch, onSuccess: null, successType: 'action'}, method);
 
     };
 
@@ -55,7 +55,7 @@ export const userActions = sc => class extends sc {
 
         let {customUrl = `${process.env.VUE_APP_MAIN_API}/rest/v1/user/avatar`, data={}, method='post', } = payload;
 
-        sc.apiRequest(customUrl, data,{commit, dispatch, onSuccess: 'globalStore/updateUserInfo', successType: 'mutation', root: true}, method);
+        return sc.apiRequest(customUrl, data,{commit, dispatch, onSuccess: 'globalStore/updateUserInfo', successType: 'mutation', root: true}, method);
 
     };
 
@@ -64,7 +64,7 @@ export const userActions = sc => class extends sc {
 
         let {customUrl = `${process.env.VUE_APP_MAIN_API}/rest/v1/user/background`, data={}, method='post', } = payload;
 
-        sc.apiRequest(customUrl, data,{commit, dispatch, onSuccess: 'globalStore/updateUserInfo', successType: 'mutation', root: true}, method);
+        return sc.apiRequest(customUrl, data,{commit, dispatch, onSuccess: 'globalStore/updateUserInfo', successType: 'mutation', root: true}, method);
 
     };
 
@@ -74,7 +74,7 @@ export const userActions = sc => class extends sc {
 
         let {customUrl = `${process.env.VUE_APP_MAIN_API}/rest/v1/user/subscribe/${id}`, data={id}, method='delete', } = payload;
 
-        sc.apiRequest(customUrl, data,{commit, dispatch, onSuccess: null, successType: 'mutation'}, method);
+        return sc.apiRequest(customUrl, data,{commit, dispatch, onSuccess: null, successType: 'mutation'}, method);
 
     };
 
@@ -107,7 +107,7 @@ export const userActions = sc => class extends sc {
     getMissingUsers({commit, dispatch}, payload={}){
         let body = payload;
         let {customUrl = `${process.env.VUE_APP_MAIN_API}/rest/v1/info/user/missing`, data=body, method=`post`} = payload;
-        sc.apiRequest(customUrl, data,{commit, dispatch, onSuccess: null, successType: `action`}, method);
+        return sc.apiRequest(customUrl, data,{commit, dispatch, onSuccess: null, successType: `action`}, method);
     }
 
 
