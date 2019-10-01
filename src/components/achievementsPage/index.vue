@@ -1,9 +1,9 @@
 <template>
-	<div v-if="isLoaded" class="achievements-page flex-column py-15 px-21">
+	<div v-if="isLoaded" class="achievements-page flex-column br-6 py-15 px-21">
 		<span class="title mx-auto">{{lstr('achievements_page')}}</span>
 		<div class="feed flex-column mt-12">
-			<AchievementInstance v-for="(a, i) in achievements" :class="{'mt-7': i}"
-			                     :key="'achievement_id_' + a.id" v-bind="a" />
+			<AchievementInstance v-for="(a, i) in achievements" class="br-6" :class="{'mt-7': i}"
+			                     :key="'achievement_name_' + a.name" v-bind="a" />
 		</div>
 	</div>
 </template>
