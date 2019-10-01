@@ -52,7 +52,7 @@ const initialState = () => {
 			max_participants_cap: null,
 			judges: [],
 			with_time_limit: false,
-			youtube_link:'',
+			youtube_link: '',
 			errors: {
 				options: {}
 			},
@@ -117,10 +117,10 @@ export const formManagment = {
 				state[key] = init_state[key]
 			});
 		},
-		[CLEAR_PICTURE](state, payload){
-			if(payload){
+		[CLEAR_PICTURE](state, payload) {
+			if (payload) {
 
-				state.pictures=[
+				state.pictures = [
 					{
 						picture: null,
 						imgUrl: ''
@@ -128,7 +128,7 @@ export const formManagment = {
 				];
 
 			} else {
-				state.form.youtube_link ='';
+				state.form.youtube_link = '';
 			}
 		},
 		[ADD_OPTION](state) {
@@ -145,9 +145,9 @@ export const formManagment = {
 			}
 		},
 		[DELETE_OPTION](state, index) {
-            delete state.create_poll_form.errors.options[index];
-            state.create_poll_form.options.splice(index, 1);
-        },
+			delete state.create_poll_form.errors.options[index];
+			state.create_poll_form.options.splice(index, 1);
+		},
 		[SET_CATEGORY_NAME](state, payload) {
 			state.create_poll_form.subject_header = payload
 		},
@@ -207,11 +207,41 @@ export const formManagment = {
 
 		},
 
-		[SUBMIT_USERPAGE_FORM]({state, commit, dispatch}, payload) {
+		async [SUBMIT_USERPAGE_FORM]({state, commit, dispatch}, payload = {}) {
 
-			return axios.post(`${process.env.VUE_APP_MAIN_API}/rest/v1/user`, {...payload})
-				.then(response => response)
-				.catch(({response}) => response);
+			let {_background_image, _path_to_avatar} = payload;
+			delete payload._background_image;
+			delete payload._path_to_avatar;
+
+			try {
+				await Promise.all([
+					new Promise(async resolve => {
+
+						function createFormData(file) {
+							let fd = new FormData();
+							fd.append('file', file);
+							return fd;
+						}
+
+						if (_background_image) {
+							await dispatch('userPage/uploadBackground', {data: createFormData(_background_image)}, {root: true});
+						}
+
+						if (_path_to_avatar) {
+							await dispatch('userPage/uploadAvatar', {data: createFormData(_path_to_avatar)}, {root: true});
+						}
+
+						resolve();
+					}),
+					await dispatch('userPage/updateUser', {data: payload}, {root: true})
+				]);
+
+				return true;
+
+			} catch (e) {
+				console.error(e);
+				return false;
+			}
 
 		},
 
@@ -253,7 +283,7 @@ export const formManagment = {
 
 			// Создаем копию формы без картинок в опциях
 			let create_poll_form = {...state.create_poll_form};
-			create_poll_form.options.forEach(option => void(delete option.picture));
+			create_poll_form.options.forEach(option => void (delete option.picture));
 
 			const form = new Blob([JSON.stringify(create_poll_form)], {type: "application/json"});
 
