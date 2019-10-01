@@ -1,8 +1,8 @@
 <template>
-	<div class="achievement flex-align-center p-12">
+	<div class="achievement flex-align-center p-12" :class="{'gained': _gained}">
 		<IconPollFeed v-if="_gained" fill="limegreen"/>
 		<div v-else-if="!_gained" class="not-gained-icon"></div>
-		<span class="name ml-7">{{name}}</span>
+		<span class="name ml-12">{{name}}</span>
 	</div>
 </template>
 
@@ -18,15 +18,7 @@
 			name: String,
 			_gained: Boolean,
 			_checked: Boolean
-		},
-		// TODO: собирать из globalStore а не из payload
-		// computed: {
-		// 	achievementList() {
-		// 		payloadIndexList = this.
-		//
-		// 		return this.data;
-		// 	}
-		// },
+		}
 	}
 </script>
 
@@ -35,18 +27,24 @@
 	.achievement {
 		border: 1px solid #BCBEC3;
 
+		&.gained {
+			.name {
+				color: #1A1E22;
+			}
+		}
+
 		.name {
 			font-family: Roboto;
 			font-style: normal;
 			font-weight: 500;
 			font-size: 15px;
-			color: #1A1E22;
+			color: #ADAFB3;
 		}
 
 		.not-gained-icon {
 			width: 18px;
 			height: 18px;
-			border: 1.5px solid #d6cf00;
+			border: 1.5px solid #BCBEC3;
 			border-radius: 50%;
 		}
 	}
