@@ -1,7 +1,7 @@
 <template>
-	<div class="achievement flex-align-center p-12" :class="{'gained': _gained}">
-		<IconPollFeed v-if="_gained" fill="limegreen"/>
-		<div v-else-if="!_gained" class="not-gained-icon"></div>
+	<div class="achievement flex-align-center p-12" :class="{'gained': _checked}">
+		<IconPollFeed v-if="_checked" fill="limegreen"/>
+		<div v-else-if="!_checked" class="not-gained-icon"></div>
 		<span class="name ml-12">{{name}}</span>
 	</div>
 </template>

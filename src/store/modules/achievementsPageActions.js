@@ -3,9 +3,12 @@ import Vue from 'vue';
 export const achievementsPageActions = (sc) => class extends sc {
 
 
-	async getAchievementList({rootState, state, commit, dispatch}, payload = {}) {
+	async getAchievementList({rootState, state, dispatch}, payload = {}) {
 		try {
-			let { status } = await dispatch('list');
+
+			if (!rootState.globalStore.mainUser.id) await dispatch('userPage/getMainUser', {}, {root: true});
+
+			let { status } = await dispatch('list', {urlParams: rootState.globalStore.mainUser.id});
 			if (status === 200) {
 				let { achievements } = rootState.globalStore;
 
@@ -20,9 +23,9 @@ export const achievementsPageActions = (sc) => class extends sc {
 
 				return result.sort((a, b) => {
 					switch (true) {
-						case a._gained === b._gained:
+						case a._checked === b._checked:
 							return 0;
-						case a._gained && !b._gained:
+						case a._checked && !b._checked:
 							return -1;
 						default:
 							return 1;
