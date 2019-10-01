@@ -13,14 +13,14 @@
 					<lang-string title="main"/>
 				</router-link>
 			</li>
-			
+
 			<li class="footer-icon">
 				<router-link class="btn" active-class="active" :to="{name: 'voteFeed'}">
-					<IconOpinion width="25" height="26" />
+					<IconOpinion width="25" height="26"/>
 					<lang-string title="opinion"/>
 				</router-link>
 			</li>
-			
+
 			<li class="footer-icon">
 				<router-link class="btn" active-class="active" :to="{name: 'search'}">
 					<icon-base
@@ -33,7 +33,7 @@
 					<lang-string :title="'search'"/>
 				</router-link>
 			</li>
-			
+
 			<li class="footer-icon notification-btn">
 				<router-link class="btn pt-2" active-class="active" :to="{name: 'notifications'}">
 					<icon-base
@@ -45,13 +45,14 @@
 					</icon-base>
 					<lang-string title="notifications"/>
 				</router-link>
-				
+
 				<re-badge class="counter" v-show="counter" :size="12"
 				          :params="{background: '#FF5454'}"/>
 			</li>
-			
+
 			<li class="footer-icon">
-				<div class="btn" :class="{active : routeName === 'menu'}" @click="(routeName === 'menu') ? $router.go(-1) : $router.push('menu')">
+				<div class="btn" :class="{active : routeName === 'menu'}"
+				     @click="(routeName === 'menu') ? $router.go(-1) : $router.push({name: 'menu'})">
 					<icon-base
 							width="24"
 							height="24"
@@ -77,7 +78,7 @@
 	import {mapState} from 'vuex';
 	import ReBadge from "@/components/reusableСomponents/ReBadge";
 	import IconOpinion from "@/components/icons/footer/IconOpinion";
-	
+
 	export default {
 		name: "footer",
 		mixins: [langMixin],
@@ -86,23 +87,23 @@
 			ReBadge, IconBase, IconMain, IconMenu, IconNotifications, IconSearch, langString
 		},
 		computed: {
-			
+
 			...mapState("notificationPage", {
 				counter: s => s.counter,
 			}),
-			
+
 			routeName() {
-				
+
 				return this.$route.name
-				
+
 			}
-			
+
 		},
 		methods: {
 			routerPush(linkName) {
-				
+
 				this.$router.push({name: `${linkName}`})
-				
+
 			}
 		},
 	}
@@ -118,20 +119,20 @@
 		position: fixed;
 		z-index: 9000;
 		bottom: 0;
-		
+
 		.active {
 			opacity: 1 !important;
 		}
-		
+
 		ul {
 			width: 100%;
 			justify-content: space-between;
-			
+
 			li {
 				position: relative;
 				display: flex;
 				align-items: stretch;
-				
+
 				.btn {
 					all: inherit;
 					opacity: 0.3;
@@ -140,19 +141,19 @@
 					align-items: center;
 					justify-content: space-between;
 				}
-				
+
 				span {
 					font-family: Helvetica Neue;
 					font-size: 10px;
 					line-height: 10px;
 					color: #1A1E22;
 				}
-				
-				
+
+
 			}
-			
+
 			.notification-btn {
-				
+
 				.counter {
 					position: absolute;
 					top: -2px;
@@ -160,7 +161,7 @@
 				}
 			}
 		}
-		
-		
+
+
 	}
 </style>
