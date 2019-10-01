@@ -67,7 +67,7 @@
 			font-family: Roboto;
 			font-style: normal;
 			font-weight: normal;
-			font-size: 10px;
+			font-size: 12px;
 			color: #1A1E22;
 		}
 		
