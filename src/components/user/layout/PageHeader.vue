@@ -9,22 +9,6 @@
 				<IconAddPoll fill="#4B97B4" class="add-poll-icon"/>
 			</router-link>
 
-			<li class="btn btn-2 mt-15 relative">
-				<div @click="balance_popover = !balance_popover" class="pointer">
-					<icon-base
-						class="pocket-icon"
-						fill="#4B97B4"
-						width="25"
-						height="25"
-						viewBox="0 0 25 25"
-						icon-name="pocket"><icon-pocket/>
-					</icon-base>
-				</div>
-
-				<popover-reusable v-show="balance_popover" class="balance-popover" attach-point="right" margin="0">
-					{{user.balance}}
-				</popover-reusable>
-			</li>
 		</ul>
 
 		<ul class="btns-panel btns-panel-2 pl-21 pt-10" v-if="(user.id != mainUser.id) && mobile">
@@ -37,12 +21,6 @@
 					viewBox="0 0 23 16"
 					icon-name="arrow"><icon-arrow-left/>
 				</icon-base>
-			</li>
-
-			<li class="btn btn-2 w-fit mt-15">
-				<router-link class="flex pointer" :to="{ name: 'user', params: { id: mainUser.id } }">
-					<RePicture :url="publicPath + mainUser.path_to_avatar" size="27" rounded/>
-				</router-link>
 			</li>
 
 		</ul>
