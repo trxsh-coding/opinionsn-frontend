@@ -88,7 +88,7 @@
 
 			.icon-placeholder, .reset-btn {
 				position: absolute;
-				transform: translate(-50%, -100%);
+				transform: translate(-50%, calc(-100% - 5px));
 				top: 50%;
 				left: 50%;
 				z-index: 999;

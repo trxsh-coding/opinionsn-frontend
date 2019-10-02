@@ -24,7 +24,7 @@
 					           @click.native="handleInputActions('REFRESH')"/>
 
 					<croppa class="m-auto" :class="{rounded}" v-model="croppaElement" v-bind="cCroppaProps"/>
-					<button class="mt-10 mx-auto fit py-5 px-10 v-center br-6" @click="handleInputActions('UPLOAD')">{{lstr('upload')}}</button>
+					<button class="mt-15 mx-auto fit h-70 py-5 px-10 v-center br-6" @click="handleInputActions('UPLOAD')">{{lstr('select')}}</button>
 				</div>
 
 			</div>
