@@ -148,7 +148,6 @@
 
 						case 'CANCEL':
 
-							this.croppaElement.remove();
 							this.file = this.url = null;
 							this.croppa = false;
 							this.uploadData();
