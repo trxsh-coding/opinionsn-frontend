@@ -1,8 +1,8 @@
 <template>
 	<div v-if="isLoaded" class="header">
-		<RePicture type="background" height="132" :url="backgroundImage | publicPath">
+		<RePicture ref="bgPictureRef" type="background" height="132" :url="backgroundImage | publicPath">
 			<ReUploadNew type="croppa"
-			             :croppa-props="{width: 492, height: 144}"
+			             :croppa-props="{width: bgImgWidth, height: 132}"
 			             @upload="setPreloadImage('background_image', $event)"/>
 
 			<RePicture type="background" class="avatar absolute" :url="avatar | publicPath" size="72" rounded>
@@ -34,11 +34,24 @@
 			IconCross
 		},
 
+		data() {
+			return {
+				bgImgWidth: 0
+			}
+		},
+
 		filters: {
 			publicPath(value) {
 				let isBlob = value.indexOf('blob:') !== -1;
 				return isBlob ? value : process.env.VUE_APP_ASSETS + value;
 			}
+		},
+
+		watch: {
+			isLoaded(newValue) {
+				if (newValue) this.$nextTick(() => this.bgImgWidth = this.$refs.bgPictureRef.$el.offsetWidth);
+			}
+
 		},
 
 		computed: {
@@ -54,6 +67,10 @@
 
 			isLoaded() {
 				return !!(this.backgroundImage && this.avatar);
+			},
+
+			mobile() {
+				return this.$root.mobile;
 			}
 
 		},
@@ -73,7 +90,7 @@
 						key,
 						value: this.mainUser[key]
 					});
-                    this.$store.commit('formManagment/UPDATE_FIELD', {form: 'edit_form', key: '_' + key, value: null});
+					this.$store.commit('formManagment/UPDATE_FIELD', {form: 'edit_form', key: '_' + key, value: null});
 				}
 
 			}
