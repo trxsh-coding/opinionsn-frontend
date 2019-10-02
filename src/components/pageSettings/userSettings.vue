@@ -1,6 +1,6 @@
 <template>
 	<div class="user-settings">
-		
+
 		<popup-error-reusable :errors="form.errors.first_name">
 			<label class="label label-1">
             <span class="caption">
@@ -12,7 +12,7 @@
 						type="text">
 			</label>
 		</popup-error-reusable>
-		
+
 		<popup-error-reusable :errors="form.errors.username">
 			<label class="label label-2 mt-12">
             <span class="caption">
@@ -24,7 +24,7 @@
 						type="text">
 			</label>
 		</popup-error-reusable>
-		
+
 		<popup-error-reusable :errors="form.errors.aboutMe">
 			<label class="label label-3 mt-12">
             <span class="caption">
@@ -36,7 +36,7 @@
 						type="text">
 			</label>
 		</popup-error-reusable>
-		
+
 		<popup-error-reusable :errors="form.errors.location">
 			<label class="label label-4 mt-12">
 	            <span class="caption">
@@ -48,7 +48,7 @@
 						type="text">
 			</label>
 		</popup-error-reusable>
-		
+
 		<popup-error-reusable :errors="form.errors.site">
 			<label class="label label-5 mt-12">
             <span class="caption">
@@ -60,13 +60,13 @@
 						type="text">
 			</label>
 		</popup-error-reusable>
-		
+
 		<popup-error-reusable :errors="form.errors.gender">
 			<label class="label label-6 mt-12">
             <span class="caption">
                <lang-string :title="'gender'"/>
             </span>
-				
+
 				<div class="radio-wrapper flex">
 					<label class="flex-center pointer">
 						<span>Мужчина</span>
@@ -76,7 +76,7 @@
 								v-model="form.gender"
 								type="radio">
 					</label>
-					
+
 					<label class="flex-center ml-30 pointer">
 						<span>Женщина</span>
 						<input
@@ -86,10 +86,10 @@
 								type="radio">
 					</label>
 				</div>
-			
+
 			</label>
 		</popup-error-reusable>
-		
+
 		<popup-error-reusable :errors="form.errors.email">
 			<label class="label label-7 mt-12">
                 <span class="caption">
@@ -98,7 +98,7 @@
 				<span class="description">{{form.email}}</span>
 			</label>
 		</popup-error-reusable>
-		
+
 		<popup-error-reusable :errors="form.errors.phone_number">
 			<label class="label label-8 mt-12">
             <span class="caption">

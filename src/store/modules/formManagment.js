@@ -71,7 +71,9 @@ const initialState = () => {
 				},
 			]
 		},
-		edit_form: {}
+		edit_form: {
+			errors: {}
+		}
 	};
 };
 
@@ -179,7 +181,8 @@ export const formManagment = {
 		},
 
 		[SET_INITIAL_FORM](state, {form, value}) {
-			state[form] = value;
+			const init_state = initialState();
+			state[form] = {...init_state[form], ...value};
 		}
 
 	},

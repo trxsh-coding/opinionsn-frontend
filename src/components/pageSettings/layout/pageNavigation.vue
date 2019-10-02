@@ -30,6 +30,7 @@
 
 			setInitForm() {
 				this.$store.commit('formManagment/SET_INITIAL_FORM', {form: 'edit_form', value: {...this.mainUser}});
+				this.$emit('update');
 			},
 
 			sendForm() {
