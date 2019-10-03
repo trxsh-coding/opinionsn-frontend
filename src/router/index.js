@@ -46,7 +46,7 @@ const scrollBehavior = (to, from, savedPosition) => {
 
 Vue.use(Router);
 
-export const index = new Router({
+export const router = new Router({
 	mode: 'history',
 	base: '/',
 	scrollBehavior,
@@ -240,14 +240,14 @@ export const index = new Router({
 })
 
 
-index.beforeResolve((to, from, next) => {
+router.beforeResolve((to, from, next) => {
 	if (to.path) {
 		nprogress.start()
 	}
 	next();
 });
 
-index.afterEach(() => {
+router.afterEach(() => {
 	nprogress.done();
 	let appPlaceholder = document.getElementById('app-placeholder');
 	if (appPlaceholder) {
@@ -268,7 +268,7 @@ const dynamicModules = new Map([
 	['voteFeed', () => import('../store/modules/voteFeed')],
 ]);
 
-index.beforeEach((to, from, next) => {
+router.beforeEach((to, from, next) => {
 	
 	switch (to.name) {
 		case 'singlePoll':
@@ -277,7 +277,7 @@ index.beforeEach((to, from, next) => {
 			break;
 		default:
 			// Очистка поисковой строки везде, кроме совпадающих роутов
-			index.app.$root.search_keyword = '';
+			router.app.$root.search_keyword = '';
 	}
 	
 	axios.get(`${process.env.VUE_APP_MAIN_API}/rest/v1/user/status`)
@@ -285,14 +285,14 @@ index.beforeEach((to, from, next) => {
 		.then(({status}) => {
 			if (status === 200) {
 				let dynamicModulesKeys = [...dynamicModules.keys()],
-					storeModulesKeys = Object.keys(index.app.$store.state);
+					storeModulesKeys = Object.keys(router.app.$store.state);
 				
 				if (dynamicModulesKeys.every(val => storeModulesKeys.includes(val))) {
 					next();
 				} else {
 					Promise.all(dynamicModulesKeys.map((key) =>
 						dynamicModules.get(key)().then(m => {
-							index.app.$store.registerModule(key, m[key]);
+							router.app.$store.registerModule(key, m[key]);
 						})
 					)).then(() => {
 						next();
@@ -313,7 +313,7 @@ index.beforeEach((to, from, next) => {
 					next();
 					break;
 				default:
-					index.app.$popup.insert('messages', {
+					router.app.$popup.insert('messages', {
 						message: 'Для выполнения действий необходимо авторизоваться!',
 						type: 'warning'
 					});
@@ -323,8 +323,9 @@ index.beforeEach((to, from, next) => {
 	
 });
 
-index.beforeEach((to, from, next) => {
-	// Сохранение query между роутами
+// Сохранение query между роутами
+router.beforeEach((to, from, next) => {
+
 	function transitQueryParams(key) {
 		if (from.query[key] && !to.query[key] && !to.query.logout) {
 			next({path: to.path, query: {[key]: from.query[key]}});
@@ -333,6 +334,27 @@ index.beforeEach((to, from, next) => {
 		}
 	}
 	transitQueryParams('refer');
+
 });
 
-export default index
+// Редирект
+router.beforeEach((to, from, next) => {
+	function getUserAuthorities() {
+		let {mainUser} = router.app.$store.state.globalStore;
+		return (Object.keys(mainUser).length) ? mainUser.authorities : null;
+	}
+
+	switch (to.name) {
+		case 'achievementsPage':
+		case 'admin':
+			if (getUserAuthorities() !== 'ADMIN') next({name: 'opinion'});
+			break;
+		default:
+			next();
+			return
+
+	}
+
+});
+
+export default router
