@@ -1,5 +1,5 @@
 <template>
-	<div class="poll-create-wrapper" :class="{'bg-white': !mobile, 'blockchain': is_blockchain}">
+	<div class="poll-create-wrapper pb-20" :class="{'bg-white': !mobile, 'blockchain': is_blockchain}">
 		<create-header @submit="onFormSubmit"/>
 
 		<div class="create-form">
@@ -188,16 +188,20 @@
 					          @input="updateField(arguments[0], 'max_participants_cap')"/>
 				</popup-error-reusable>
 
-				<input-reusable
-						v-if="form.type_of_poll == 1 || form.type_of_poll == 2"
+				<popup-error-reusable
 						class="mt-18"
-						:height="44"
-						:value="form.end_date"
-						withoutBlur="true"
-						date-picker
-						@date-pick="updateField(arguments[0], 'end_date')"
-						input-placeholder="closing_date"
-				/>
+						v-if="form.type_of_poll == 1 || form.type_of_poll == 2"
+						span-class="mt-3 flex-align-center"
+						:errors="form.errors.end_date">
+					<input-reusable
+							:height="44"
+							:value="form.end_date"
+							withoutBlur="true"
+							date-picker
+							@date-pick="updateField(arguments[0], 'end_date')"
+							input-placeholder="closing_date"
+					/>
+				</popup-error-reusable>
 
 			</div>
 		</div>
@@ -313,10 +317,16 @@
 			values_with_rules() {
 				let {form} = this;
 
-				let max_participants_cap = form.type_of_poll == 3 ? [{
+				let max_participants_cap = form.type_of_poll === 3 ? [{
 					value: parseInt(form.max_participants_cap),
 					key: 'max_participants_cap',
 					rules: [{method_name: 'checkAmount', args: [{lower_bound: 0}]}]
+				}] : [];
+
+				let end_date = form.type_of_poll === 2 || form.type_of_poll === 1 ? [{
+					value: form.end_date,
+					key: 'end_date',
+					rules: [{method_name: 'checkLength', args: [5]}]
 				}] : [];
 
 				return [
@@ -335,7 +345,8 @@
 						key: 'description',
 						rules: [{method_name: 'checkLength', args: [0, 650]}]
 					},
-					...max_participants_cap
+					...max_participants_cap,
+					...end_date
 				]
 			},
 
