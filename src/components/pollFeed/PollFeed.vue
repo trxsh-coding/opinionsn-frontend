@@ -19,7 +19,7 @@
 			
 			<Loader class="mx-auto my-10" v-show="!is_finished && loading"/>
 			
-			<lang-string class="finish-warning mx-auto my-10" v-show="is_finished" title="no_more_posts!"/>
+			<lang-string class="finish-warning mx-auto my-10" v-show="is_finished || !items.length" title="no_more_posts!"/>
 		
 		</div>
 	

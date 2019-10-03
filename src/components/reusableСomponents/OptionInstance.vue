@@ -1,5 +1,5 @@
 <template>
-	<div class="option-instance" ref="containerRef" :style="[transform_shift, optionWrapper]">
+	<div v-if="poll" class="option-instance" ref="containerRef" :style="[transform_shift, optionWrapper]">
 
 		<div class="bows-bar text-deselect px-6" ref="bowsRef" :class="{'invisible': !voted, 'pl-8': swiped}"
 		     :style="[optionStyle, bowsBarStyle, {backgroundColor: 'unset !important'}]"
@@ -13,7 +13,8 @@
 					<RePicture :url="publicPath + Object.values(option.bows)[0].pathToAvatar" size="21" rounded/>
 				</router-link>
 
-				<router-link v-show="!swiped" v-if="bows_length === 2" class="flex pointer bow bow-2 mx-2" :event="swiped ? '' : 'click'"
+				<router-link v-show="!swiped" v-if="bows_length === 2" class="flex pointer bow bow-2 mx-2"
+				             :event="swiped ? '' : 'click'"
 				             :to="getUserLink(Object.values(option.bows)[1].id)">
 					<RePicture :url="publicPath + Object.values(option.bows)[1].pathToAvatar" size="21"
 					           rounded/>
@@ -48,7 +49,9 @@
 		</div>
 
 		<button @click="setRightOption"
-		        v-if="mainUser.authorities === 'ADMIN' && is_prediction">✓
+		        v-if="mainUser.authorities === 'ADMIN'
+		        && is_prediction
+		        && !expired">✓
 		</button>
 
 		<div class="option-wrapper pointer text-deselect"
