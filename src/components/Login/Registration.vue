@@ -105,7 +105,7 @@
 
 				<div class="btns flex-align-center mt-10">
 
-					<a :href="`https://opinionsn.com/api/oauth2/vk${refer}`">
+					<a :href="`https://opinionsn.com/api/oauth2/vk${queryList}`">
 						<button-reusable
 								class="v-center soc-btn vk-btn py-12"
 								font-size="16"
@@ -124,7 +124,7 @@
 						</button-reusable>
 					</a>
 
-					<a :href="`https://opinionsn.com/api/oauth2/google${refer}`">
+					<a :href="`https://opinionsn.com/api/oauth2/google${queryList}`">
 						<button-reusable
 								class="v-center soc-btn google-btn py-8 ml-11"
 								font-size="16"
@@ -189,9 +189,22 @@
 				lang : state => state.locale
 			}),
 
-			refer() {
-				return (!!this.$route.query.refer) ? `?refer=${this.$route.query.refer}` : ''
-			}
+			queryList() {
+				let {refer, categoryId} = this.$route.query;
+
+				let query = {refer, categoryId};
+				Object.keys(query).forEach(key => { if (!query[key]) delete query[key] });
+
+				let string = '';
+				Object.keys(query).forEach((key, i) => {
+					let symbol = i ? '&' : '?';
+
+					string += symbol + key + '=' + query[key];
+				});
+
+				return string
+			},
+
 		},
 
 		methods: {
@@ -222,7 +235,7 @@
 					registerFormData.append("passConfirm", form.conf_pass);
 					// registerFormData.append("recaptcha", this.token);
 					
-					let {status} = await axios.post(`${process.env.VUE_APP_MAIN_API}/auth/register${this.refer}`, registerFormData);
+					let {status} = await axios.post(`${process.env.VUE_APP_MAIN_API}/auth/register${this.queryList}`, registerFormData);
 					
 					if (status === 200) {
 						if (this.$route.query.refer) delete this.$route.query.refer;
