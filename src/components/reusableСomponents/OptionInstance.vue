@@ -55,7 +55,7 @@
 		</button>
 
 		<div class="option-wrapper pointer text-deselect"
-		     :class="{'with-button': mainUser.authorities === 'ADMIN' && is_prediction}">
+		     :class="{'with-button': mainUser.authorities === 'ADMIN' && is_prediction && !expired}">
 
 			<div v-if="picture && picture.slice(-4) !== 'null'" @click="$emit('onPictureClick')"
 			     class="picture" :style="pictureStyle"></div>
