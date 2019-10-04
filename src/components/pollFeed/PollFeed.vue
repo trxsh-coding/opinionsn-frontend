@@ -185,10 +185,7 @@
 		},
 		
 		mounted() {
-			this.$store.dispatch(`catalogList/list`);
-			this.$store.dispatch(`pollFeed/list`);
 			this.setCategory({id: -1});
-			
 		},
 		
 		beforeRouteEnter (to, from, next) {

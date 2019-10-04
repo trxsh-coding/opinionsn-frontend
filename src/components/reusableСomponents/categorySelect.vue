@@ -1,7 +1,8 @@
 <template>
 	<div class="category-block">
 		<ReSwiper :type="mobile ? 'scroll' : 'usual'"
-		          :params="{height: 'fit-content', width: '100%'}" :usual-swiper-options="{slidesPerView: 'auto', spaceBetween: 10, breakpoints: false}">
+		          :params="{height: 'fit-content', width: '100%'}"
+		          :usual-swiper-options="{slidesPerView: 'auto', spaceBetween: 10, breakpoints: false}">
 			<template #usual>
 				<swiper-slide
 						class="w-fit"
@@ -23,7 +24,7 @@
 						@click.native="onCategorySelect(category.id, category.name)"/>
 			</template>
 		</ReSwiper>
-	
+
 	</div>
 </template>
 
@@ -32,7 +33,7 @@
 	import langMixin from '../mixins/langMixin'
 	import CatalogItem from "../CatalogFeed/catalogItem";
 	import ReSwiper from "./ReSwiper";
-	
+
 	export default {
 		name: "categorySelect",
 		components: {ReSwiper, CatalogItem},
@@ -57,26 +58,27 @@
 			}
 		},
 		computed: {
-			
+
 			...mapState('globalStore', {
-				
+
 				categories: ({categories}) => categories,
-				
+
 			}),
-			
+
 			mobile() {
 				return this.$root.mobile;
 			},
-			
+
 			combinedCategories: function () {
 				const ordered = Object.values({...this.localCategory, ...this.categories}).reverse();
 				return (this.$route.name === 'pollFeed') ? ordered : this.categories;
 			},
 		},
+
 		mounted() {
 			this.$store.dispatch(`catalogList/list`);
-			
 		},
+
 		methods: {
 			onCategorySelect(id, name) {
 				this.$emit('on-select', {id, name})
