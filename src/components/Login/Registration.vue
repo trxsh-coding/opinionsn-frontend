@@ -9,7 +9,8 @@
 						width="75"
 						height="64"
 						viewBox="0 0 23 24"
-						icon-name="logo"><icon-logo />
+						icon-name="logo">
+					<icon-logo/>
 				</icon-base>
 			</div>
 			<div class="navbar__item navbar__item-2 v-center">
@@ -19,7 +20,8 @@
 						width="66"
 						height="15"
 						viewBox="0 0 64 15"
-						icon-name="text-logo"><icon-text-logo />
+						icon-name="text-logo">
+					<icon-text-logo/>
 				</icon-base>
 			</div>
 		</div>
@@ -70,18 +72,18 @@
 			</popup-error-reusable>
 
 		</div>
-		
-<!--		<popup-error-reusable :errors="{passConfirm: lstr(errors.passConfirm) }" span-class="mt-3">-->
 
-<!--			<vue-recaptcha-->
-<!--					class="recaptcha mt-20"-->
-<!--					ref="recaptcha"-->
-<!--					:sitekey="sitekey"-->
-<!--					@verify="setCurrentTOken(arguments[0])"-->
-<!--					@expired="onCaptchaExpired"-->
-<!--					:loadRecaptchaScript="true"-->
-<!--			/>-->
-<!--		</popup-error-reusable>-->
+		<!--		<popup-error-reusable :errors="{passConfirm: lstr(errors.passConfirm) }" span-class="mt-3">-->
+
+		<!--			<vue-recaptcha-->
+		<!--					class="recaptcha mt-20"-->
+		<!--					ref="recaptcha"-->
+		<!--					:sitekey="sitekey"-->
+		<!--					@verify="setCurrentTOken(arguments[0])"-->
+		<!--					@expired="onCaptchaExpired"-->
+		<!--					:loadRecaptchaScript="true"-->
+		<!--			/>-->
+		<!--		</popup-error-reusable>-->
 
 		<div class="buttons-block mt-23">
 
@@ -98,10 +100,11 @@
 
 
 				<span class="title">
-					<lang-string :title="'already_registered?'" /><router-link class="title underline ml-5" to="/sign"><lang-string :title="'sign'" /></router-link>
+					<lang-string :title="'already_registered?'"/><router-link class="title underline ml-5" to="/sign"><lang-string
+						:title="'sign'"/></router-link>
 				</span>
 
-				<lang-string class="title mt-26" title="sign_in_with_social_networks" />
+				<lang-string class="title mt-26" title="sign_in_with_social_networks"/>
 
 				<div class="btns flex-align-center mt-10">
 
@@ -157,9 +160,9 @@
 	import IconLogo from "../icons/IconLogo.vue";
 	import IconTextLogo from "../icons/IconTextLogo.vue";
 	import langString from "../langString.vue";
-	import { localString } from "../../utils/localString";
+	import {localString} from "../../utils/localString";
 	import axios from "axios";
-	import { mapState } from "vuex";
+	import {mapState} from "vuex";
 	import InputReusable from "../reusableСomponents/InputReusable";
 	import ButtonReusable from "../reusableСomponents/ButtonReusable";
 	import IconVk from "../icons/IconVk";
@@ -172,7 +175,7 @@
 			return {
 				error: false,
 				sitekey: '6Ld7BbcUAAAAAMRiV7C5mb0Co0KUpKKau6f3jky6',
-				token:null,
+				token: null,
 				registrationForm: {
 					username: '',
 					email: '',
@@ -185,15 +188,17 @@
 		},
 
 		computed: {
-			...mapState('lang',{
-				lang : state => state.locale
+			...mapState('lang', {
+				lang: state => state.locale
 			}),
 
 			queryList() {
 				let {refer, categoryId, redirectToPoll} = this.$route.query;
 
 				let query = {refer, categoryId, redirectToPoll};
-				Object.keys(query).forEach(key => { if (!query[key]) delete query[key] });
+				Object.keys(query).forEach(key => {
+					if (!query[key]) delete query[key]
+				});
 
 				let string = '';
 				Object.keys(query).forEach((key, i) => {
@@ -209,12 +214,14 @@
 
 		methods: {
 
-			onCaptchaExpired () {
+			onCaptchaExpired() {
 				this.$refs.recaptcha.reset()
 			},
+
 			setCurrentTOken(recaptchaToken) {
 				this.token = recaptchaToken;
 			},
+
 			lstr(str) {
 				localString(this.lang, str);
 			},
@@ -222,11 +229,11 @@
 			updateField(val, key) {
 				this.registrationForm[key] = val;
 			},
-			validate(){
+			validate() {
 				this.$refs.recaptcha.execute();
 			},
 			async submit(form) {
-				
+
 				try {
 					let registerFormData = new FormData();
 					registerFormData.append("login", form.username);
@@ -234,43 +241,38 @@
 					registerFormData.append("pass", form.password);
 					registerFormData.append("passConfirm", form.conf_pass);
 					// registerFormData.append("recaptcha", this.token);
-					
+
 					let {status} = await axios.post(`${process.env.VUE_APP_MAIN_API}/auth/register${this.queryList}`, registerFormData);
-					
+
 					if (status === 200) {
 						if (this.$route.query.refer) delete this.$route.query.refer;
-						
+
 						try {
 							let loginFormData = new FormData();
 							loginFormData.append("field_email", form.email);
 							loginFormData.append("field_password", form.password);
 							let {status} = await axios.post(`${process.env.VUE_APP_MAIN_API}/auth/login`, loginFormData);
-							
+
 							if (status === 200) {
 								this.$store.commit("authentication/setAuthenticated", true);
-								
-								if (this.$route.query.redirectToPoll) {
-									this.$router.push({name: "singlePoll", params: {id: this.$route.query.redirectToPoll}});
-								} else {
-									this.$router.push({path: "/"});
-								}
+								this.$router.push({name: "pollFeed"});
 							}
 						} catch (e) {
 							console.error('Error sending sign form: ', e);
 						}
-						
+
 					}
 				} catch (e) {
 					console.error('Error sending registration form: ', e);
-					
+
 					this.error = true;
 					let er = this.errors;
-					for (let { field: f, errorCode: v } of error.response.data) {
+					for (let {field: f, errorCode: v} of error.response.data) {
 						er[f] = v;
 					}
 					this.$forceUpdate();
 				}
-				
+
 			}
 		},
 		mixins: [langMixin],

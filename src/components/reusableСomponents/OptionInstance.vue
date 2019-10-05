@@ -131,7 +131,11 @@
 				switch (true) {
 					case !this.logged_in:
 						if (this.$route.name === 'singlePoll') {
-							this.$router.push({name: 'sign', query: {redirectToPoll: this.$route.params.id}}, () => {
+							let categoryId = this.poll && this.poll.categories;
+							this.$router.push({
+								name: 'sign',
+								query: {redirectToPoll: this.$route.params.id, categoryId}
+							}, () => {
 								this.$popup.insert('messages', {
 									message: `Авторизуйтесь чтобы проголосовать в опросе: "${this.poll.subject}"`,
 									type: 'warning',
