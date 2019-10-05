@@ -328,7 +328,7 @@ router.beforeEach((to, from, next) => {
 
 	function transitQueryParams(key) {
 		if (from.query[key] && !to.query[key] && !to.query.logout) {
-			next({path: to.path, query: {[key]: from.query[key]}});
+			next({path: to.path, query: {...to.query, [key]: from.query[key]}});
 		} else {
 			next();
 		}
