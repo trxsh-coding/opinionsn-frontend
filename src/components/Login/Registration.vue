@@ -248,7 +248,12 @@
 							
 							if (status === 200) {
 								this.$store.commit("authentication/setAuthenticated", true);
-								this.$router.push({name: "pollFeed"});
+								
+								if (this.$route.query.redirectToPoll) {
+									this.$router.push({name: "singlePoll", params: {id: this.$route.query.redirectToPoll}});
+								} else {
+									this.$router.push({path: "/"});
+								}
 							}
 						} catch (e) {
 							console.error('Error sending sign form: ', e);
