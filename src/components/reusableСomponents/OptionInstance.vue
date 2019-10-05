@@ -133,11 +133,11 @@
 						if (this.$route.name === 'singlePoll') {
 							let categoryId = this.poll && this.poll.categories;
 							this.$router.push({
-								name: 'sign',
+								name: 'registration',
 								query: {redirectToPoll: this.$route.params.id, categoryId}
 							}, () => {
 								this.$popup.insert('messages', {
-									message: `Авторизуйтесь чтобы проголосовать в опросе: "${this.poll.subject}"`,
+									message: `Зарегестрируйтесь чтобы проголосовать в опросе: "${this.poll.subject}"`,
 									type: 'warning',
 									timeless: true
 								});
