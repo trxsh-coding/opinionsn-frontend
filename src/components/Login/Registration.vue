@@ -108,7 +108,7 @@
 
 				<div class="btns flex-align-center mt-10">
 
-					<a :href="`https://opinionsn.com/api/oauth2/vk${queryList}`">
+					<a :href="`https://opinionsn.com/api/oauth2/vk${refer}`">
 						<button-reusable
 								class="v-center soc-btn vk-btn py-12"
 								font-size="16"
@@ -127,7 +127,7 @@
 						</button-reusable>
 					</a>
 
-					<a :href="`https://opinionsn.com/api/oauth2/google${queryList}`">
+					<a :href="`https://opinionsn.com/api/oauth2/google${refer}`">
 						<button-reusable
 								class="v-center soc-btn google-btn py-8 ml-11"
 								font-size="16"
@@ -209,6 +209,10 @@
 
 				return string
 			},
+
+			refer() {
+				return (!!this.$route.query.refer) ? `?refer=${this.$route.query.refer}` : ''
+			}
 
 		},
 
