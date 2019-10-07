@@ -317,7 +317,7 @@ router.beforeEach((to, from, next) => {
 						message: 'Для выполнения действий необходимо авторизоваться!',
 						type: 'warning'
 					});
-					next(false);
+					next({name: 'sign'});
 			}
 		})
 	
