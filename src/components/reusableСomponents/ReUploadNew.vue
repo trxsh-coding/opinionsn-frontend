@@ -3,7 +3,7 @@
 	<div class="re-upload">
 		<label v-show="!file" class="select-btn pointer" @click="handleInputActions('SELECT')">
 			<IconCamera/>
-			<input v-if="type === 'native'" v-show="false"
+			<input v-if="type === 'native'" v-show="false" accept="image/*"
 			       ref="inputRef" type="file" @input="handleInputActions('UPLOAD', $event)">
 		</label>
 
@@ -23,8 +23,11 @@
 					<IconCross v-else class="reset-btn pointer" fill="#BCBEC3" width="30" height="30"
 					           @click.native="handleInputActions('REFRESH')"/>
 
-					<croppa class="m-auto" :class="{rounded}" v-model="croppaElement" v-bind="cCroppaProps"/>
-					<button class="mt-15 mx-auto fit h-70 py-5 px-10 v-center br-6" @click="handleInputActions('UPLOAD')">{{lstr('select')}}</button>
+					<croppa class="m-auto" :class="{rounded}" accept="image/*" v-model="croppaElement"
+					        v-bind="cCroppaProps"/>
+					<button class="mt-15 mx-auto fit h-70 py-5 px-10 v-center br-6"
+					        @click="handleInputActions('UPLOAD')">{{lstr('select')}}
+					</button>
 				</div>
 
 			</div>
