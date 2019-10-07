@@ -1,11 +1,11 @@
 <template>
 	<div v-if="isLoaded" class="header">
-		<RePicture ref="bgPictureRef" type="background" height="132" :url="backgroundImage | publicPath">
+		<RePicture ref="bgPictureRef" type="background" height="132" :url="backgroundImage | assetsPath">
 			<ReUploadNew type="croppa"
 			             :croppa-props="{width: bgImgWidth, height: 132}"
 			             @upload="setPreloadImage('background_image', $event)"/>
 
-			<RePicture type="background" class="avatar absolute" :url="avatar | publicPath" size="72" rounded>
+			<RePicture type="background" class="avatar absolute" :url="avatar | assetsPath" size="72" rounded>
 				<ReUploadNew type="croppa" rounded
 				             :croppa-props="{width: 144, height: 144}"
 				             @upload="setPreloadImage('path_to_avatar', $event)"/>
@@ -41,7 +41,7 @@
 		},
 
 		filters: {
-			publicPath(value) {
+			assetsPath(value) {
 				let isBlob = value.indexOf('blob:') !== -1;
 				return isBlob ? value : process.env.VUE_APP_ASSETS + value;
 			}
