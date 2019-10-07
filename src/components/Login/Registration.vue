@@ -173,9 +173,10 @@
 	import VueRecaptcha from 'vue-recaptcha'
 
 	export default {
+		name: 'Registration',
+		mixins: [langMixin],
 		data() {
 			return {
-				error: false,
 				sitekey: '6Ld7BbcUAAAAAMRiV7C5mb0Co0KUpKKau6f3jky6',
 				token: null,
 				registrationForm: {
@@ -228,10 +229,6 @@
 				this.token = recaptchaToken;
 			},
 
-			lstr(str) {
-				localString(this.lang, str);
-			},
-
 			updateField(val, key) {
 				this.registrationForm[key] = val;
 			},
@@ -271,17 +268,20 @@
 				} catch (e) {
 					console.error('Error sending registration form: ', e);
 
-					this.error = true;
-					let er = this.errors;
-					for (let {field: f, errorCode: v} of error.response.data) {
-						er[f] = v;
+					this.errors = {};
+					let { data } = e.response;
+
+					if (data) {
+						data.forEach(({field: f, msg: m}) => {
+							this.$set(this.errors, f, m);
+						})
 					}
+
 					this.$forceUpdate();
 				}
 
 			}
 		},
-		mixins: [langMixin],
 		components: {
 			VueRecaptcha,
 			PopupErrorReusable,
