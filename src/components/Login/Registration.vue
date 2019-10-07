@@ -49,7 +49,7 @@
 				                with-underline/>
 			</popup-error-reusable>
 
-			<popup-error-reusable :errors="{passConfirm: lstr(errors.passConfirm) }" span-class="mt-3">
+			<popup-error-reusable :errors="{passConfirm: lstr(errors.pass) }" span-class="mt-3">
 				<input-reusable class="mx-auto mt-16"
 				                input-type="password"
 				                :value="registrationForm.password"
