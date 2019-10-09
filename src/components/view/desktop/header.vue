@@ -96,8 +96,12 @@
 							<router-link class="menu-item py-10 px-20 pointer" v-if="mainUser.referCode" :to="{name: 'ReferralsPage'}">
 								<lang-string title="referrals_page" />
 							</router-link>
+
+							<router-link class="menu-item py-10 px-20 pointer" v-if="isAdmin" :to="{name: 'achievementsPage'}">
+								<lang-string title="achievements_page" />
+							</router-link>
 							
-							<router-link class="menu-item py-10 px-20 pointer" v-if="is_admin" :to="{name: 'admin'}">
+							<router-link class="menu-item py-10 px-20 pointer" v-if="isAdmin" :to="{name: 'admin'}">
 								<lang-string title="admin_panel" />
 							</router-link>
 							
@@ -145,7 +149,7 @@
 			
 			...mapState("globalStore", {
 				mainUser: s => s.mainUser,
-				is_admin: s => s.mainUser.authorities === 'ADMIN'
+				isAdmin: s => s.mainUser.authorities === 'ADMIN'
 			}),
 			
 			logged_in() {
