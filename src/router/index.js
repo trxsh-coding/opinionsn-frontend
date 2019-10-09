@@ -347,7 +347,13 @@ router.beforeEach((to, from, next) => {
 	switch (to.name) {
 		case 'achievementsPage':
 		case 'admin':
-			if (getUserAuthorities() !== 'ADMIN') next({name: 'opinion'});
+
+			if (getUserAuthorities() !== 'ADMIN') {
+				next({name: 'opinion'})
+			} else {
+				next();
+			}
+
 			break;
 		default:
 			next();
