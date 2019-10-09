@@ -8,7 +8,7 @@
 
 		<div class="circle v-center" :style="circleStyle">
 			<slot>
-				<span class="default-slot">{{percent}}%</span>
+				<span class="default-slot">{{percent | normalizePercent}}%</span>
 			</slot>
 		</div>
 
@@ -44,6 +44,16 @@
 				}
 			}
 		},
+	    filters: {
+		    /**
+		     * @description Cut percent to fixed range
+		     * @param {number|float} value percent
+		     * @returns {number|float}
+		     */
+		    normalizePercent(value) {
+			    return Number.isInteger(value) ? value : Number((value).toFixed(1));
+		    }
+	    },
 		computed: {
         	wrapperStyle() {
 				let { size } = this;
