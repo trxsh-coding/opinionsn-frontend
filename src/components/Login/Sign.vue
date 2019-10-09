@@ -28,7 +28,7 @@
 		<div class="form-block mt-58" @keyup.enter.exact="submit(signForm)">
 
 			<popup-error-reusable :errors="{field_email: lstr(errors.field_email)}" span-class="mt-3">
-				<re-input :preset="2" placeholder="username" class="mx-auto" input-class="pb-5"
+				<re-input :preset="2" placeholder="login" class="mx-auto" input-class="pb-5"
 				          :params="{flex: 1, fontSize: 16, label: { width: 271 }}"
 				          :value="signForm.email" @input="updateField(arguments[0], 'email')"/>
 			</popup-error-reusable>

@@ -32,7 +32,7 @@
 				<input-reusable class="mx-auto"
 				                :value="registrationForm.username"
 				                @change="updateField(arguments[0], 'username')"
-				                inputPlaceholder="username"
+				                inputPlaceholder="login"
 				                width="271"
 				                input
 				                with-underline/>
