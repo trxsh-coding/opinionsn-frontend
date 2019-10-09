@@ -194,7 +194,7 @@
 					if (type_of_poll === 2) {
 						userVote(poll_id, this.mainUser.id, this.option.description)
 							.then(() => runTimeout())
-							.catch(() => console.log("Error voting in EOSIO forecast"));
+							.catch(() => console.error("Error voting in EOSIO forecast"));
 					} else {
 						runTimeout();
 					}
@@ -225,7 +225,7 @@
 										}
 									})
 							})
-							.catch(() => console.log("Judgevote on EOSIO exception"));
+							.catch(() => console.error("Judgevote on EOSIO exception"));
 						break;
 					case 1:
 						this.$store.dispatch('pollFeed/setRightOption', {data: {selected_variable, poll_id}})
