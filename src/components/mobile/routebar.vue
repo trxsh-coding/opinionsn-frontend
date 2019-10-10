@@ -121,12 +121,7 @@
 	import IconAddPoll from "@/components/icons/IconAddPoll";
 	
 	export default {
-		data() {
-			return {
-				publicPath: process.env.VUE_APP_ASSETS,
-			}
-		},
-		
+
 		components: {
 			IconAddPoll,
 			IconBookmark,

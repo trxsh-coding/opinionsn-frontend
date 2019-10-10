@@ -30,7 +30,7 @@
 
 			<div class="headline flex">
 				<router-link class="flex pointer" :to="{name: 'user', params: { id: author.id }}">
-					<RePicture :url="publicPath + imageUtil(author.path_to_avatar, 'S')" size="36" rounded/>
+					<RePicture :url="author.path_to_avatar | assetsPath" size="36" rounded/>
 				</router-link>
 
 				<div class="caption flex-column ml-9">
@@ -65,6 +65,7 @@
 	import {mapActions, mapMutations, mapState} from "vuex";
 	import RePicture from "@/components/reusableСomponents/RePicture";
 	import Bookmark from "@/components/icons/bookmark";
+	import assetsPathMixin from "@/components/mixins/assetsPathMixin";
 
 	const pad = (num, len = 2, char = '0') => {
 		let init = `${num}`;
@@ -79,7 +80,7 @@
 	export default {
 		name: "postHeader",
 		props: ['author', 'poll', 'payloadTimeStamp', 'eventType', 'subjectClass'],
-		mixins: [imageMixin, langMixin],
+		mixins: [imageMixin, langMixin, assetsPathMixin],
 		components: {
 			Bookmark,
 			RePicture,
@@ -89,11 +90,6 @@
 			pollAnnotation,
 			timeTrans,
 			IconMore
-		},
-		data() {
-			return {
-				publicPath: process.env.VUE_APP_ASSETS,
-			}
 		},
 		computed: {
 

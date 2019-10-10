@@ -82,7 +82,6 @@
 	            is_empty: false,
 				keyword: "",
 				filteredUsers: null,
-	            publicPath: process.env.VUE_APP_ASSETS,
 
             }
         },

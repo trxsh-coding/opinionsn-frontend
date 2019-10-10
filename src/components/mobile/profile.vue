@@ -2,7 +2,7 @@
 	<div id="profile-section">
 		<div class="user flex">
    
-			<RePicture class="avatar" :url="publicPath + imageUtil(mainUser.path_to_avatar, 'S')" size="36" rounded/>
+			<RePicture class="avatar" :url="mainUser.path_to_avatar | assetsPath" size="36" rounded/>
 			<div class="flex-column ml-9 pt-2">
 				<router-link class="username pointer my-auto" :to="{name: 'user', params: { id: mainUser.id }}">
 					{{mainUser.username}}
@@ -24,16 +24,11 @@
 	import {mapState} from 'vuex';
 	import imageMixin from "../mixins/imageMixin";
 	import RePicture from "@/components/reusableСomponents/RePicture";
+	import assetsPathMixin from "@/components/mixins/assetsPathMixin";
 	
 	export default {
-		mixins: [imageMixin],
-		data() {
-			return {
-				publicPath: process.env.VUE_APP_ASSETS,
-				
-			}
-		},
-  
+		mixins: [imageMixin, assetsPathMixin],
+
 		computed: {
 			...mapState('globalStore', {
 				mainUser: ({mainUser}) => mainUser

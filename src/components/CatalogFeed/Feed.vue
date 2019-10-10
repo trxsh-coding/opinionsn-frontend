@@ -27,7 +27,6 @@
         data(){
             return {
                 id: this.$route.params.id,
-                publicPath: process.env.VUE_APP_ASSETS,
                 page: 1,
                 items: []
             }

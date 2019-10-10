@@ -87,7 +87,6 @@
 		},
 		data() {
 			return {
-				publicPath: process.env.VUE_APP_ASSETS,
 				options_visible: false,
 				explain_page: 1,
 				EXPLAINS_LIMIT: 5,

@@ -5,7 +5,7 @@
 			<div class="avatar-wrapper flex">
 				
 				<router-link class="mr-auto pointer" :to="{name: 'user', params: {id: user.id} }">
-					<RePicture :url="publicPath + imageUtil(user.path_to_avatar, 'S')" size="36" rounded />
+					<RePicture :url="user.path_to_avatar | assetsPath" size="36" rounded />
 				</router-link>
 
 			</div>
@@ -48,6 +48,7 @@
     import ButtonReusable from "./ButtonReusable";
     import imageMixin from "@/components/mixins/imageMixin";
     import RePicture from "@/components/reusableСomponents/RePicture";
+    import assetsPathMixin from "@/components/mixins/assetsPathMixin";
 
     export default {
         name: "ShortUser",
@@ -55,15 +56,10 @@
 	        RePicture,
             ButtonReusable
         },
-	    mixins: [imageMixin],
+	    mixins: [imageMixin, assetsPathMixin],
         props: {
             user: Object,
 	        isMainUser: Boolean
-        },
-        data() {
-            return {
-	            publicPath: process.env.VUE_APP_ASSETS,
-            }
         },
 	    methods: {
 		    subscribeActions(id, isLeader) {
