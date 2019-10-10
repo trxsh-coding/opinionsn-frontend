@@ -51,7 +51,7 @@ export const router = new Router({
 	base: '/',
 	scrollBehavior,
 	routes: [
-		
+
 		{
 			path: '/mailing',
 			component: () => import('../Mailing'),
@@ -203,7 +203,7 @@ export const router = new Router({
 							component: followers,
 							props: {isFollowing: false}
 						},
-					
+
 					]
 				},
 				{
@@ -211,7 +211,7 @@ export const router = new Router({
 					name: 'pollFeed',
 					component: PollFeed,
 					props: {feed: true}
-					
+
 				},
 				{
 					path: 'catalogList',
@@ -247,12 +247,16 @@ router.beforeResolve((to, from, next) => {
 	next();
 });
 
-router.afterEach(() => {
+router.afterEach((to, from) => {
 	nprogress.done();
 	let appPlaceholder = document.getElementById('app-placeholder');
 	if (appPlaceholder) {
 		document.body.style.overflow = null;
 		appPlaceholder.parentNode.removeChild(appPlaceholder);
+	}
+
+	if (document.title !== 'Opinion social network' && to.name !== 'singlePoll') {
+		document.title = 'Opinion social network';
 	}
 });
 
@@ -269,7 +273,7 @@ const dynamicModules = new Map([
 ]);
 
 router.beforeEach((to, from, next) => {
-	
+
 	switch (to.name) {
 		case 'singlePoll':
 		case 'user':
@@ -279,14 +283,14 @@ router.beforeEach((to, from, next) => {
 			// Очистка поисковой строки везде, кроме совпадающих роутов
 			router.app.$root.search_keyword = '';
 	}
-	
+
 	axios.get(`${process.env.VUE_APP_MAIN_API}/rest/v1/user/status`)
-		
+
 		.then(({status}) => {
 			if (status === 200) {
 				let dynamicModulesKeys = [...dynamicModules.keys()],
 					storeModulesKeys = Object.keys(router.app.$store.state);
-				
+
 				if (dynamicModulesKeys.every(val => storeModulesKeys.includes(val))) {
 					next();
 				} else {
@@ -320,7 +324,7 @@ router.beforeEach((to, from, next) => {
 					next({name: 'sign'});
 			}
 		})
-	
+
 });
 
 // Сохранение query между роутами
@@ -333,6 +337,7 @@ router.beforeEach((to, from, next) => {
 			next();
 		}
 	}
+
 	transitQueryParams('refer');
 
 });

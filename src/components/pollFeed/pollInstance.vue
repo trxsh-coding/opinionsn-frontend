@@ -97,9 +97,12 @@
 				showModal: false,
 				currentPicture: null,
 				currentDescription: null,
-	            commentsAnimation: false
+				commentsAnimation: false
 			}
 		},
+
+
+
 		computed: {
 
 			...mapState('globalStore', {
