@@ -255,9 +255,6 @@ router.afterEach((to, from) => {
 		appPlaceholder.parentNode.removeChild(appPlaceholder);
 	}
 
-	if (document.title !== 'Opinion social network' && to.name !== 'singlePoll') {
-		document.title = 'Opinion social network';
-	}
 });
 
 // Мапа из динамически-подгружаемых модулей
@@ -273,6 +270,10 @@ const dynamicModules = new Map([
 ]);
 
 router.beforeEach((to, from, next) => {
+
+	if (document.title !== 'Opinion social network') {
+		document.title = 'Opinion social network';
+	}
 
 	switch (to.name) {
 		case 'singlePoll':

@@ -65,12 +65,6 @@
 			bowsPanel,
 		},
 
-		watch: {
-			subject(newValue, oldValue) {
-				if (newValue !== oldValue) document.title = newValue;
-			}
-		},
-
 		computed: {
 			
 			routeName() {
@@ -79,11 +73,8 @@
 			
 			mobile() {
 				return this.$root.mobile;
-			},
-
-			subject() {
-				return this.poll.subject;
 			}
+
 		},
 		methods: {
 			openModal() {

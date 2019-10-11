@@ -1,64 +1,55 @@
 <template lang="html">
 
-
-    <div id="poll-wrapper">
-
-        <div v-for="item in items">
-            <pollInstance :item="item" />
-        </div>
-    </div>
-
-
-
+	<div v-if="item" id="poll-wrapper">
+		<pollInstance :item="item"/>
+	</div>
 
 </template>
 
 
-
 <script>
-    import { mapState } from 'vuex';
-    import pollInstance from "../pollFeed/pollInstance";
-    export default {
-        props:['feed'],
+    import {mapGetters, mapState} from 'vuex';
+	import pollInstance from "../pollFeed/pollInstance";
+
+	export default {
+		props: ['feed'],
         computed: {
+
             ...mapState('singlePoll', {
                 state: s => s,
-                items: s => s.items
+                item: s => s.items[0]
             }),
 
-            id:function () {
-
-                return this.$route.params.id
-
-            }
-
-        },
-        methods: {
-
-
-
+            ...mapGetters('globalStore', [
+                'getItemFromStore'
+            ]),
 
         },
 
+		async mounted() {
+			this.$store.commit('singlePoll/clearFeed');
+			await this.$store.dispatch('singlePoll/list', {
+				customUrl: `${process.env.VUE_APP_MAIN_API}/rest/v1/poll/${this.$route.params.id}`
+			});
 
-        mounted(){
-            this.$store.dispatch(`singlePoll/list`, {customUrl: `${process.env.VUE_APP_MAIN_API}/rest/v1/poll/${this.id}`});
-        },
+            /** Выставляем заголовок страницы с соответсвием с название поста */
+			document.title = this.getItemFromStore({store: 'polls', id: this.$route.params.id}).subject;
+		},
 
 
-        components: {
-            pollInstance
-        }
-    }
+		components: {
+			pollInstance
+		}
+	}
 </script>
 
 <style lang="scss">
-    #poll-wrapper {
-        .el-aside {
+	#poll-wrapper {
+		.el-aside {
 
-            margin-right: 12px ;
+			margin-right: 12px;
 
-        }
+		}
 
-    }
+	}
 </style>
