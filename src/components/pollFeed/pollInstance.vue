@@ -101,8 +101,6 @@
 			}
 		},
 
-
-
 		computed: {
 
 			...mapState('globalStore', {

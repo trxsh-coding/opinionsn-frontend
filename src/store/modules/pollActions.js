@@ -31,7 +31,6 @@ export const pollActions = sc => class extends sc {
 
 	}
 
-
 	setRightOption({commit, dispatch}, payload = {}) {
 
 		let {customUrl = `${process.env.VUE_APP_MAIN_API}/admin/poll/option/choice`, data = {}, method = `post`} = payload;
@@ -167,7 +166,6 @@ export const pollActions = sc => class extends sc {
 	};
 
 	/* MUTATIONS */
-
 
 	listItemsAction(vueStuff, args = {}) {
 		let {state} = vueStuff;
@@ -411,8 +409,6 @@ export const pollActions = sc => class extends sc {
 
 	clearFeed(state) {
 		state.items = []
-
-
 	}
 
 	/* HELPER METHOD*/
