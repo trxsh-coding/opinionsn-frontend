@@ -4,7 +4,7 @@
 		<label v-show="!file" class="select-btn pointer" @click="handleInputActions('SELECT')">
 			<IconCamera/>
 			<input v-if="type === 'native'" v-show="false" accept="image/*"
-			       ref="inputRef" type="file" @input="handleInputActions('UPLOAD', $event)">
+			       ref="inputRef" type="file" @change="handleInputActions('UPLOAD', $event)">
 		</label>
 
 		<div v-show="file" class="remove-btn pointer" @click="handleInputActions('CANCEL')">
