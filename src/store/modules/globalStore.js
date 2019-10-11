@@ -57,11 +57,23 @@ export const globalStoreMixin = (exclude = {}) =>({
 //console.log(globalStoreMixin);
 export const globalStore  =  {
 
-    namespaced: true,
-    state: {
-        ...defaultState,
-    },
-    mutations: {
+	namespaced: true,
+	state: {
+		...defaultState,
+	},
+	getters: {
+
+        /**
+         * @description Return store single item from global store module
+         * @param {object} state global store module
+         * @returns {function({store: string, id: number}): object}
+         */
+		getItemFromStore(state) {
+            return ({store, id}) => state[store][id]
+		},
+
+	},
+	mutations: {
 
         //TODO Do inplace update of elements of the store rather than stores themselves
 
