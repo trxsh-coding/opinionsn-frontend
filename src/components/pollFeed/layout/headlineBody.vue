@@ -15,20 +15,20 @@
 			<text-trim :text="poll.description" :amount-of-letter="mobile ? 200 : 250"/>
 		</div>
 		
-		<bows-panel class="mt-5" :users="poll.bows" v-show="!item.voted && Object.keys(poll.bows).length > 0"/>
+		<bows-panel class="mt-7" :users="poll.bows" v-show="!item.voted && Object.keys(poll.bows).length > 0"/>
 
-		<re-youtube class="mt-6" v-if="poll.content.length" :link="poll.content[0].url" :height="$root.mobile ? '200px' : '371px'" width="100%"/>
+		<re-youtube class="mt-9" v-if="poll.content.length" :link="poll.content[0].url" :height="mobile ? '200px' : '371px'" width="100%"/>
 
 		<RePicture v-if="poll.picture" @click.native="$popup.insert('pictures', poll.picture)"
-		           class="pointer mt-6" :url="publicPath + poll.picture" type="background"
+		           class="pointer mt-9" :url="poll.picture | assetsPath" type="background"
 		           width="100%" :height="mobile ? 190 : 303" bor-rad="6" />
 		
-		<ReSwiper v-if="!poll.picture" type="usual" class="mt-6"
+		<ReSwiper v-if="!poll.picture" type="usual" class="mt-9"
 		          :usual-swiper-options="{slidesPerView: 1, spaceBetween: 10, pagination: poll.urlPhotos.length > 1, breakpoints: false}">
 			<template #usual>
 				<swiper-slide v-for="(picture, index) in poll.urlPhotos">
 					<RePicture @click.native="pushToPopup(poll.urlPhotos, index)"
-					           class="pointer" :url="publicPath + picture" type="background"
+					           class="pointer" :url="picture | assetsPath" type="background"
 					           width="100%" :height="mobile ? 190 : 303" bor-rad="6" />
 				</swiper-slide>
 			</template>
@@ -45,16 +45,15 @@
 	import ReYoutube from "../../reusableСomponents/reYoutube";
 	import ReExplain from "../../reusableСomponents/ReExplain";
 	import RePicture from "@/components/reusableСomponents/RePicture";
+	import assetsPathMixin from "@/components/mixins/assetsPathMixin";
 	
 	export default {
 		name: "headlineBody",
 		props: ['poll', 'item'],
+		mixins: [assetsPathMixin],
 		data() {
 			return {
-				
-				publicPath: process.env.VUE_APP_ASSETS,
 				showModal: false
-				
 			}
 		},
 		components: {
@@ -65,6 +64,7 @@
 			TextTrim,
 			bowsPanel,
 		},
+
 		computed: {
 			
 			routeName() {
@@ -73,7 +73,8 @@
 			
 			mobile() {
 				return this.$root.mobile;
-			},
+			}
+
 		},
 		methods: {
 			openModal() {
@@ -101,7 +102,6 @@
 
 <style lang="scss">
 	#headline-body {
-		position: relative;
 		.tags__item {
 			
 			font-family: Roboto;

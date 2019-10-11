@@ -1,6 +1,6 @@
 <template>
     <div class="player-block" :style="{width: width, height: height}">
-        <youtube :video-id="videoId" fit-parent="true" resize="true" :width="width"/>
+        <youtube :video-id="videoId" fit-parent="true" resize="true" :height="height" :width="width"/>
     </div>
 </template>
 

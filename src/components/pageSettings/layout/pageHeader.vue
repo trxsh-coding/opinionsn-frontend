@@ -1,123 +1,134 @@
 <template>
-    <div class="header">
-        
-        <RePicture type="background" height="132" :url="background_image">
-            <ReUpload
-                    icon-photo
-                    fit
-                    height="100%"
-                    @upload="({file}) => { UPLOAD_IMAGE(file, 'background') }" >
-            </ReUpload>
-    
-            <RePicture type="background" class="avatar absolute" :url="avatar" size="72" rounded>
-                <ReUpload
-                        icon-photo
-                        fit
-                        height="100%"
-                        @upload="({file}) => { UPLOAD_IMAGE(file, 'avatar') }" >
-                </ReUpload>
-            </RePicture>
-            
-        </RePicture>
-        
-    </div>
+	<div v-if="isLoaded" class="header">
+		<RePicture ref="bgPictureRef" type="background" height="132" :url="backgroundImage | assetsPath">
+			<ReUploadNew type="croppa"
+			             :croppa-props="{width: bgImgWidth, height: 132}"
+			             @upload="setPreloadImage('background_image', $event)"/>
+
+			<RePicture type="background" class="avatar absolute" :url="avatar | assetsPath" size="72" rounded>
+				<ReUploadNew type="croppa" rounded
+				             :croppa-props="{width: 144, height: 144}"
+				             @upload="setPreloadImage('path_to_avatar', $event)"/>
+			</RePicture>
+
+		</RePicture>
+
+	</div>
 </template>
 
 <script>
-    import ReUpload from "../../reusableСomponents/ReUpload";
-    import {mapState} from "vuex";
-    import IconBase from "../../icons/IconBase";
-    import IconUploadPhoto from "../../icons/create/IconUploadPhoto";
-    import IconCross from "../../icons/IconCross";
-    import RePicture from "@/components/reusableСomponents/RePicture";
+	import ReUpload from "../../reusableСomponents/ReUpload";
+	import {mapState} from "vuex";
+	import IconBase from "../../icons/IconBase";
+	import IconCross from "../../icons/IconCross";
+	import RePicture from "@/components/reusableСomponents/RePicture";
+	import ReUploadNew from "@/components/reusableСomponents/ReUploadNew";
 
-    export default {
-        name: "pageHeader",
-        components: {
-            RePicture,
-            ReUpload,
-            IconBase,
-            IconUploadPhoto,
-            IconCross
-        },
+	export default {
+		name: "pageHeader",
+		components: {
+			ReUploadNew,
+			RePicture,
+			ReUpload,
+			IconBase,
+			IconCross
+		},
 
-        data() {
-            return {
-                publicPath: process.env.VUE_APP_ASSETS,
-            }
-        },
+		data() {
+			return {
+				bgImgWidth: 0
+			}
+		},
 
-        computed: {
+		filters: {
+			assetsPath(value) {
+				let isBlob = value.indexOf('blob:') !== -1;
+				return isBlob ? value : process.env.VUE_APP_ASSETS + value;
+			}
+		},
 
-            ...mapState('globalStore', {
-                mainUser: s => s.mainUser
-            }),
+		mounted() {
+			this.$nextTick(() => this.bgImgWidth = this.$refs.bgPictureRef.$el.offsetWidth);
+		},
 
-            ...mapState('formManagment', {
-                form: s => s.edit_form,
-            }),
-            
-            background_image() {
-                let { mainUser: usr, publicPath } = this;
-                return publicPath + usr.background_image;
-            },
-            
-            avatar() {
-                let { mainUser: usr, publicPath } = this;
-                return publicPath + usr.path_to_avatar;
-            }
-        },
+		watch: {
+			isLoaded(newValue) {
+				if (newValue) this.$nextTick(() => this.bgImgWidth = this.$refs.bgPictureRef.$el.offsetWidth);
+			}
 
-        methods: {
+		},
 
-            UPLOAD_IMAGE(file, type) {
-                if (file) {
-                    let fd = new FormData();
-                    fd.append('file', file);
-                    
-                    switch (type) {
-                        case 'avatar':
-                            this.$store.dispatch('userPage/uploadAvatar', {data: fd});
-                            break;
-                        case 'background':
-                            this.$store.dispatch('userPage/uploadBackground', {data: fd});
-                            break;
-                        default:
-                            break;
-                    }
-                }
-            }
+		computed: {
 
-        },
-    }
+			...mapState('globalStore', {
+				mainUser: s => s.mainUser
+			}),
+
+			...mapState('formManagment', {
+				backgroundImage: s => s.edit_form.background_image,
+				avatar: s => s.edit_form.path_to_avatar,
+			}),
+
+			isLoaded() {
+				return !!(this.backgroundImage && this.avatar);
+			},
+
+			mobile() {
+				return this.$root.mobile;
+			}
+
+		},
+
+		methods: {
+
+			setPreloadImage(key, value = {}) {
+
+				let {file, url} = value;
+
+				if (file && url) {
+					this.$store.commit('formManagment/UPDATE_FIELD', {form: 'edit_form', key, value: url});
+					this.$store.commit('formManagment/UPDATE_FIELD', {form: 'edit_form', key: '_' + key, value: file});
+				} else {
+					this.$store.commit('formManagment/UPDATE_FIELD', {
+						form: 'edit_form',
+						key,
+						value: this.mainUser[key]
+					});
+					this.$store.commit('formManagment/UPDATE_FIELD', {form: 'edit_form', key: '_' + key, value: null});
+				}
+
+			}
+
+		},
+	}
 </script>
 
 <style lang="scss">
 
-    .settings-page {
+	.settings-page {
 
-        .header {
-            height: 156px;
+		.header {
+			height: 156px;
 
-            svg {
-                * {
-                    fill: #fff;
-                }
-            }
+			svg {
+				* {
+					fill: #fff;
+				}
+			}
 
-            & > .background {
-                position: relative;
-                background-color: #ADAFB3;
+			& > .background {
+				position: relative;
+				background-color: #ADAFB3;
 
-                .avatar {
-                    bottom: -24px;
-                    left: -10px;
-                    position: absolute !important;
-                }
-            }
+				.avatar {
+					bottom: -24px;
+					left: -10px;
+					position: absolute !important;
+				}
+			}
 
-        }
-    }
+		}
+	}
 
 
 </style>

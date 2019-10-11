@@ -1,7 +1,7 @@
 <template>
-    <div class="settings-page" :class="{'bg-white': !mobile}">
+    <div class="settings-page" :class="{'bg-white': !mobile}" :key="componentKey">
 
-        <page-navigation class="px-20 py-12" />
+        <page-navigation @update="componentKey ++" class="px-20 py-12" />
         <page-header class="pl-60" />
         <page-main class="mt-14 pl-30 pr-20" />
 
@@ -23,6 +23,12 @@
             langString,
             pageMain
         },
+        data() {
+            return {
+                // increase key to full rerender
+                componentKey: 0
+            }
+        }
 
     }
 </script>

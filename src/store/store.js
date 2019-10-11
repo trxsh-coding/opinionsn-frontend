@@ -11,6 +11,7 @@ import {catalogList} from "./modules/catalogList";
 import {userPage} from "./modules/userPage";
 import {globalStore} from "./modules/globalStore";
 import {notificationPage} from "./modules/notifications";
+import {achievementsPage} from "./modules/achievementsPage";
 
 import createPersistedState from 'vuex-persistedstate'
 
@@ -29,6 +30,7 @@ export const store = new Vuex.Store({
 		catalogList,
 		userPage,
 		notificationPage,
+		achievementsPage,
 		serviceWorker,
 	},
 	state: {},

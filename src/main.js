@@ -1,6 +1,7 @@
 require('./styles.scss');
 import Vue from 'vue'
 import App from './App'
+import PortalVue from 'portal-vue'
 import router from './router/index'
 import store from './store/store'
 import './registerServiceWorker'
@@ -24,6 +25,7 @@ import PopupPlugin from "./plugins/PopupPlugin";
 import ElementScrollHandler from "./components/mixins/ElementScrollHandler";
 import VueYoutube from 'vue-youtube'
 
+Vue.use(PortalVue);
 Vue.use(VueYoutube);
 Vue.use(DatePick);
 Vue.use(browserDetect);
@@ -85,7 +87,7 @@ export const vueApp = new Vue({
 	data() {
 		return {
 			is_mobile_device: null,
-			mobile: window.innerWidth <= 500,
+			mobile: window.innerWidth <= 863,
 			scrolled_to_bottom: null,
 			scroll_top: 0,
 			timer_id: null,
@@ -117,10 +119,10 @@ export const vueApp = new Vue({
 			}
 		};
 
-		this.mobile = is_mobile_device.any() || window.innerWidth <= 500;
+		this.mobile = is_mobile_device.any() || window.innerWidth <= 863;
 
 		window.addEventListener('resize', () => {
-			this.mobile = is_mobile_device.any() || window.innerWidth <= 500;
+			this.mobile = is_mobile_device.any() || window.innerWidth <= 863;
 		});
 
 	},

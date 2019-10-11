@@ -9,7 +9,7 @@
 					<swiper-slide class="avatar-wrapper"
 					              v-for="{avatar, username, user_id} in followersData">
 						<div class="slide flex-column flex-align-center pointer" @click="filterFeed(user_id)">
-							<RePicture :url="avatar" size="66" rounded />
+							<RePicture :url="avatar | assetsPath" size="66" rounded />
 							<span class="caption text-center mt-10">{{username}}</span>
 						</div>
 					</swiper-slide>
@@ -18,24 +18,19 @@
 				<template #scroll>
 					<div v-for="{avatar, username, user_id} in followersData"
 					     class="slide mr-7 w-fit flex-column flex-align-center pointer" @click="filterFeed(user_id)">
-						<RePicture :url="avatar" size="66" rounded />
+						<RePicture :url="avatar | assetsPath" size="66" rounded />
 						<span class="caption text-center mt-10">{{username}}</span>
 					</div>
 				</template>
 			</ReSwiper>
-			
-			<div
-					class="vote-instance-wrapper flex-column pb-12"
-					:class="{'desktop bg-white': !mobile}">
-				<div
-						class="flex-column"
-						v-for="(item, index) in items">
-					<vote-instance
-							:item="item"
-							class="py-12"/>
-					<hr class="m-0 mt-13" v-show="index !== items.length - 1">
-				</div>
+
+			<div class="vote-instance-wrapper flex-column pb-12" :class="{'desktop': !mobile}">
+
+				<vote-instance v-for="(item, i) in items" :item="item"
+				               class="pt-12 br-6 pb-10 bg-white" :class="{'mt-9': i}"/>
+
 				<Loader class="m-auto" v-show="!loaded && loading"/>
+
 			</div>
 		</template>
 		
@@ -52,12 +47,12 @@
 	import Loader from "../reusableСomponents/Loader";
 	import ReSwiper from "@/components/reusableСomponents/ReSwiper";
 	import RePicture from "@/components/reusableСomponents/RePicture";
+	import assetsPathMixin from "@/components/mixins/assetsPathMixin";
 	
 	export default {
 		name: 'VoteFeed',
 		data() {
 			return {
-				publicPath: process.env.VUE_APP_ASSETS,
 				swiperOption: {
 					slidesPerView: 6,
 					spaceBetween: 3.5
@@ -65,6 +60,8 @@
 				data_received: false
 			};
 		},
+
+		mixins: [assetsPathMixin],
 		
 		watch: {
 			scrolled_to_bottom(old) {
@@ -102,7 +99,7 @@
 			
 			followersData() {
 				return this.followings.map(({id}, index) => ({
-					avatar: this.publicPath + this.users[id].path_to_avatar,
+					avatar: this.users[id].path_to_avatar,
 					username: this.users[id].username,
 					user_id: id
 				}));
@@ -149,6 +146,7 @@
 		box-sizing: border-box;
 		width: 100%;
 		border-radius: 6px;
+		background: #f8f8f8;
 		
 		.vote-instance-wrapper {
 			border-radius: 6px;

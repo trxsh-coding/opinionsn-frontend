@@ -6,32 +6,9 @@
 					tag="li"
 					class="btn btn-1 pointer"
 					:to="{ name: 'createPoll'}">
-				<icon-base
-					class="add-poll-icon"
-					fill="#4B97B4"
-					width="23"
-					height="23"
-					viewBox="0 0 23 23"
-					icon-name="add-poll"><icon-add-poll/>
-				</icon-base>
+				<IconAddPoll fill="#4B97B4" class="add-poll-icon"/>
 			</router-link>
 
-			<li class="btn btn-2 mt-15 relative">
-				<div @click="balance_popover = !balance_popover" class="pointer">
-					<icon-base
-						class="pocket-icon"
-						fill="#4B97B4"
-						width="25"
-						height="25"
-						viewBox="0 0 25 25"
-						icon-name="pocket"><icon-pocket/>
-					</icon-base>
-				</div>
-
-				<popover-reusable v-show="balance_popover" class="balance-popover" attach-point="right" margin="0">
-					{{user.balance}}
-				</popover-reusable>
-			</li>
 		</ul>
 
 		<ul class="btns-panel btns-panel-2 pl-21 pt-10" v-if="(user.id != mainUser.id) && mobile">
@@ -46,18 +23,12 @@
 				</icon-base>
 			</li>
 
-			<li class="btn btn-2 w-fit mt-15">
-				<router-link class="flex pointer" :to="{ name: 'user', params: { id: mainUser.id } }">
-					<RePicture :url="publicPath + mainUser.path_to_avatar" size="27" rounded/>
-				</router-link>
-			</li>
-
 		</ul>
 
 		<div class="user-card flex-column">
 			
-			<RePicture class="fx-1" type="background" :url="publicPath + user.background_image" size="auto">
-				<RePicture class="avatar" :url="publicPath + user.path_to_avatar" size="72" rounded />
+			<RePicture class="fx-1" type="background" :url="user.background_image | assetsPath" size="auto">
+				<RePicture class="avatar" :url="user.path_to_avatar | assetsPath" size="72" rounded />
 			</RePicture>
 
 			<button-reusable
@@ -94,7 +65,6 @@
 
 <script>
 	import IconBase from "../../icons/IconBase";
-	import IconAddPoll from "../../icons/IconAddPoll";
 	import IconPocket from "../../icons/IconPocket";
 	import ButtonReusable from "../../reusableСomponents/ButtonReusable";
 	import langString from "../../langString";
@@ -102,6 +72,8 @@
 	import IconUserCheck from "../../icons/IconUserCheck";
 	import PopoverReusable from "../../reusableСomponents/PopoverReusable";
 	import RePicture from "@/components/reusableСomponents/RePicture";
+	import IconAddPoll from "@/components/icons/IconAddPoll";
+	import assetsPathMixin from "@/components/mixins/assetsPathMixin";
 
 	export default {
         name: "PageHeader",
@@ -113,12 +85,13 @@
         		type: Object
 			}
 		},
+		mixins: [assetsPathMixin],
 		components: {
+			IconAddPoll,
 			RePicture,
 			PopoverReusable,
 			ButtonReusable,
 			IconBase,
-			IconAddPoll,
 			IconPocket,
 			langString,
 			IconArrowLeft,
@@ -126,7 +99,6 @@
 		},
 		data() {
 			return {
-				publicPath: process.env.VUE_APP_ASSETS,
 				balance_popover: false
 			}
 		},
@@ -166,13 +138,6 @@
 
 		.btns-panel-1 {
 
-			.btn-1 {
-				.add-poll-icon {
-					path {
-						fill: #4B97B4;
-					}
-				}
-			}
 
 			.btn-2 {
 				.pocket-icon {

@@ -2,30 +2,23 @@
 	<div class="links-section">
 		<ul>
 			<li class="relative pointer">
-				<router-link class="link" :to="{name: 'createPoll'}">
-					<icon-base
-							fill="none"
-							width="23"
-							height="23"
-							viewBox="3 0 23 23"
-							icon-name="add">
-						<icon-add-poll/>
-					</icon-base>
+				<router-link class="link pl-5" :to="{name: 'createPoll'}">
+					<IconAddPoll />
 					<lang-string :title="'add_poll'" />
 				</router-link>
 			</li>
 			
-			<li class="link relative pointer">
-				<icon-base
-						fill="none"
-						width="25"
-						height="25"
-						viewBox="3 0 25 25"
-						icon-name="pocket">
-					<icon-pocket/>
-				</icon-base>
-				<lang-string :title="'pocket'" />
-			</li>
+<!--			<li class="link relative pointer">-->
+<!--				<icon-base-->
+<!--						fill="none"-->
+<!--						width="25"-->
+<!--						height="25"-->
+<!--						viewBox="3 0 25 25"-->
+<!--						icon-name="pocket">-->
+<!--					<icon-pocket/>-->
+<!--				</icon-base>-->
+<!--				<lang-string :title="'pocket'" />-->
+<!--			</li>-->
 			
 			<li class="relative pointer">
 				<router-link class="link" :to="{name: 'bookmarkFeed'}">
@@ -34,17 +27,17 @@
 				</router-link>
 			</li>
 			
-			<li class="link relative pointer">
-				<icon-base
-						fill="none"
-						width="14"
-						height="22"
-						viewBox="0 0 14 22"
-						icon-name="add">
-					<icon-judgement/>
-				</icon-base>
-				<lang-string :title="'judgement'" />
-			</li>
+<!--			<li class="link relative pointer">-->
+<!--				<icon-base-->
+<!--						fill="none"-->
+<!--						width="14"-->
+<!--						height="22"-->
+<!--						viewBox="0 0 14 22"-->
+<!--						icon-name="add">-->
+<!--					<icon-judgement/>-->
+<!--				</icon-base>-->
+<!--				<lang-string :title="'judgement'" />-->
+<!--			</li>-->
 			
 			<li class="relative pointer">
 				<router-link class="link" :to="{name: 'catalogList'}">
@@ -116,7 +109,6 @@
 	import {mapState} from 'vuex'
 	import IconBase from '../icons/IconBase'
 	import IconPocket from '../icons/IconPocket'
-	import IconAddPoll from '../icons/IconAddPoll'
 	import IconCatalog from '../icons/menu/IconCatalog'
 	import IconExit from '../icons/menu/IconExit'
 	import IconFeedback from '../icons/menu/IconFeedback'
@@ -126,15 +118,12 @@
 	import CookieMixin from "@/components/mixins/CookieMixin";
 	import IconUser from "@/components/icons/IconUser";
 	import IconBookmark from "@/components/icons/IconBookmark";
+	import IconAddPoll from "@/components/icons/IconAddPoll";
 	
 	export default {
-		data() {
-			return {
-				publicPath: process.env.VUE_APP_ASSETS,
-			}
-		},
-		
+
 		components: {
+			IconAddPoll,
 			IconBookmark,
 			IconUser,
 			IconBase,
@@ -143,7 +132,6 @@
 			IconFeedback,
 			IconJudgement,
 			IconSettings,
-			IconAddPoll,
 			langString,
 			IconPocket
 		},

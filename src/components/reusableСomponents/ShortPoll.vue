@@ -2,7 +2,7 @@
     <div class="short-poll-reusable" :class="{'column-layout': !rowLayout }" :style="pollWrapperStyle">
 		<div class="poll" :class="{'ml-9': poll_picture}">
 
-			<bookmark class="bookmark-btn pointer" :poll="poll"></bookmark>
+			<bookmark class="bookmark-btn pointer" shifted :poll="poll"></bookmark>
 
 			<div v-if="rowLayout && !!poll_picture" class="img-wrapper pointer" @click="pollLink(poll.id)">
 
@@ -21,7 +21,7 @@
 					<time-trans transformed-time :time="poll.date" />
 				</span>
 
-				<span class="poll-name pointer mb-3" @click="pollLink(poll.id)">{{poll.subject}}</span>
+				<span class="poll-name pointer mb-3 mr-26" @click="pollLink(poll.id)">{{poll.subject}}</span>
 
 				<span v-if="withDesc && rowLayout" class="poll-desc mb-3 pointer"  @click="pollLink(poll.id)">{{poll.description}}</span>
 
@@ -238,8 +238,12 @@
 
 			.bookmark-btn {
 				position: absolute;
-				top: -1px;
+				top: 0;
 				right: 6px;
+
+				svg {
+					stroke-width: 0.8;
+				}
 			}
 
 			.img-wrapper {
@@ -265,7 +269,6 @@
 					font-weight: 500;
 					font-size: 14px;
 					color: #1A1E22;
-					padding-right: 25px;
 				}
 
 				.poll-desc {

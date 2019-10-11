@@ -14,6 +14,7 @@
     "cordova-plugin-camera": "^4.0.3",
     "eosjs": "^20.0.0",
     "firebase": "^6.2.2",
+    "portal-vue": "^2.1.6",
     "register-service-worker": "^1.6.2",
     "vue": "^2.6.6",
     "vue-apexcharts": "^1.4.0",

@@ -101,11 +101,11 @@
 				</div>
 			</div>
 			
-			<Loader class="mx-auto mt-auto" v-show="!loaded"/>
+			<Loader class="mx-auto mt-auto" v-show="loading"/>
 		
 		</div>
 		
-		<div class="nope" v-if="!Object.keys(messages).length && loaded">
+		<div class="nope" v-if="!Object.keys(messages).length && !loading">
 			<span>Уведомлений нет</span>
 		</div>
 	
@@ -151,6 +151,13 @@
 				}
 			}
 		},
+
+		data() {
+			return {
+				loading: false
+			}
+		},
+
 		computed: {
 			
 			...mapState("notificationStore", {
@@ -161,7 +168,6 @@
 				counter: state => state.counter,
 				page: state => state.page,
 				loaded: state => state.loaded,
-				loading: state => state.loading,
 				spinner: state => state.spinner
 			}),
 			
@@ -291,8 +297,10 @@
 		},
 		methods: {
 			
-			load() {
-				this.$store.dispatch('notificationPage/list', {customUrl: `${process.env.VUE_APP_NOTIFICATION_API}/notification/${this.page}`});
+			async load() {
+				this.loading = true;
+				await this.$store.dispatch('notificationPage/list', {customUrl: `${process.env.VUE_APP_NOTIFICATION_API}/notification/${this.page}`});
+				this.loading = false;
 			},
 			
 		},

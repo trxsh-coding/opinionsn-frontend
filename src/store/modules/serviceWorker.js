@@ -93,7 +93,7 @@ export default  {
                                         dispatch('SHOW_NOTIFICATION');
 
                                     })
-                                    .catch(err => { console.log(err.message) })
+                                    .catch(err => { console.error(err.message) })
                             } else {
                             }
                         })

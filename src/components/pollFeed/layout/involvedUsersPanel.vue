@@ -1,5 +1,5 @@
 <template>
-	<div class="involved_users-panel">
+	<div class="involved_users-panel flex-column">
 		<slot name="description">
 			<span class="panel-caption">{{lstr('already_voted')}}:</span>
 		</slot>
@@ -8,7 +8,7 @@
 			<template #scroll>
 				<div class="flex-column mr-12" v-for="({id, pathToAvatar, username}) in users">
 					<router-link class="mx-auto flex pointer" :to="'/user/' + id">
-						<RePicture :url="assetsPath + pathToAvatar" size="27" rounded />
+						<RePicture :url="pathToAvatar | assetsPath" size="27" rounded />
 					</router-link>
 					
 					<span class="bow-caption mt-1 text-center">{{username | trim}}</span>
@@ -24,13 +24,13 @@
 	import ReSwiper from "@/components/reusableСomponents/ReSwiper";
 	import langMixin from "@/components/mixins/langMixin";
 	import RePicture from "@/components/reusableСomponents/RePicture";
+	import assetsPathMixin from "@/components/mixins/assetsPathMixin";
 	
 	export default {
 		name: "involvedUsersPanel",
-		mixins: [imageMixin, langMixin],
+		mixins: [imageMixin, langMixin, assetsPathMixin],
 		data() {
 			return {
-				assetsPath: process.env.VUE_APP_ASSETS,
 				swiperOption: {
 					slidesPerView: 2.7,
 					spaceBetween: 10,
@@ -46,8 +46,8 @@
 		},
 		
 		filters: {
-			trim: function (value) {
-				return (value.length > 9) ? value.slice(0, 6) + '...' : value;
+			trim(value) {
+				return (value.length >= 7) ? value.slice(0, 4) + '...' : value;
 			}
 		},
 		
@@ -67,7 +67,7 @@
 			font-family: Roboto;
 			font-style: normal;
 			font-weight: normal;
-			font-size: 13px;
+			font-size: 12px;
 			color: #1A1E22;
 		}
 		

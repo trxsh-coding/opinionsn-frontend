@@ -11,15 +11,15 @@ export const StoreWithList = (sc, listUrl) => class extends sc {
 		});
 		
 		state.itemsById = map;
-		
+
 		
 	}
 	
 	listItemsAction({commit}, payload = {}) {
 		
-		let {customUrl, data = {}, method = 'get', onSuccess = 'onListReceived', params} = payload;
+		let {customUrl, urlParams = "", data = {}, method = 'get', onSuccess = 'onListReceived', params} = payload;
 		
-		return sc.apiRequest(customUrl || listUrl, data, {commit, onSuccess, method, params});
+		return sc.apiRequest(`${(customUrl || listUrl)}${urlParams}`, data, {commit, onSuccess, method, params});
 	}
 	
 	

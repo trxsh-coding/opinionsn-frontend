@@ -95,6 +95,7 @@
 	
 	.user-page {
 		position: relative;
+		background: #ffffff;
 		width: 100%;
 		border-radius: 6px;
 	}

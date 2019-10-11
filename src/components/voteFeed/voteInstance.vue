@@ -1,13 +1,13 @@
 <template>
-    <div id="opinion-feed-layout" :class="{'p-0 pl-51 pr-30': !mobile, 'pl-21 pr-20': mobile}">
+    <div id="opinion-feed-layout" v-if="vote" :class="{'p-0 pl-51 pr-30': !mobile, 'pl-21 pr-20': mobile}">
 	    
 	    <PostHeader v-bind="postHeaderProps" />
 	    
-	    <ReSwiper class="mt-9" :type="mobile ? 'scroll' : 'usual'" :params="{stubLength: 1}"
-	              :usual-swiper-options="{slidesPerView: 3, spaceBetween: 9}">
+	    <ReSwiper class="mt-9 pb-1" :type="mobile ? 'scroll' : 'usual'" :params="{stubLength: 1}"
+	              :usual-swiper-options="{slidesPerView: 3, spaceBetween: 3}">
 			<template #usual>
 				<swiper-slide v-for="{option, isSelected} in sortedOptions">
-					<option-item class="option mr-9"  :selected="isSelected" :option="option" :width="180"  :height="45"/>
+					<option-item class="option"  :selected="isSelected" :option="option" :width="180"  :height="45"/>
 				</swiper-slide>
 			</template>
 		    
@@ -16,7 +16,7 @@
 		    </template>
 	    </ReSwiper>
 
-        <ShortPoll class="mt-12" :class="{'m-0 mt-12': !item.voted}" :poll="poll"  />
+        <ShortPoll class="mt-12" :class="{'m-0 mt-11': !item.voted}" :poll="poll"  />
 
         <bows-panel class="mt-9 px-20" v-show="!!Object.keys(poll.bows).length" :users="poll.bows"  />
 

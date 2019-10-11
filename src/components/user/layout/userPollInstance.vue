@@ -1,25 +1,27 @@
 <template>
-    <div class="user-poll-instance">
+    <div class="user-poll-instance py-12" v-if="poll">
         <post-header :author="author" :poll="poll" :eventType="item.eventType" class="mr-12" />
         
         <headline-body class="mt-7 mr-12" :poll="poll" :item="item" />
-        
-        <OptionInstance
-                class="mt-12 mr-12"
-                v-for="(option, index) in combined_options"
-                v-bind="{payload: item, poll, option}"
-                @onPictureClick="!$root.timer_id && pushToPopup(index)"
-        >
-            <template #default>
-                {{option.description}}
-            </template>
-    
-            <template #badge>
-                <re-badge :counter="Object.keys(option.bows).length - 1" :size="21"></re-badge>
-            </template>
 
-        </OptionInstance>
-        
+        <div class="options-container mr-12" :class="{active: commentsAnimation}">
+            <OptionInstance
+                    class="mt-12"
+                    v-for="(option, index) in combined_options"
+                    v-bind="{payload: item, poll, option}"
+                    @onPictureClick="!$root.timer_id && pushToPopup(index)"
+            >
+                <template #default>
+                    {{option.description}}
+                </template>
+
+                <template #badge>
+                    <re-badge :counter="Object.keys(option.bows).length - 1" :size="21"></re-badge>
+                </template>
+
+            </OptionInstance>
+        </div>
+
         <div class="show-comment-block flex-align-center">
             <span class="options-load-btn pointer mt-12 mx-auto uppercase"
                   v-if="!showComments " @click="showComments = true">
@@ -28,7 +30,8 @@
             </span>
         </div>
         
-        <Comments v-if="showComments" v-bind="{isVoted, haveExplain, mainUser, explainsWithComments, pollId: item.id}" />
+        <Comments v-if="showComments" v-bind="{isVoted, haveExplain, mainUser, explainsWithComments, pollId: item.id}"
+                  @InputPanelClicked="f => f.bind(this)('commentsAnimation')"/>
     </div>
 </template>
 <script>
@@ -45,7 +48,8 @@
         props:['item'],
         data() {
             return {
-                showComments: false
+                showComments: false,
+                commentsAnimation: false
             }
         },
         computed: {
@@ -148,6 +152,21 @@
 <style lang="scss">
     .user-poll-instance {
         overflow-x: hidden;
+
+        .options-container {
+
+            .option {
+                transition: border 500ms;
+            }
+
+            &.active {
+                .option {
+                    border: 1px solid #000000;
+                }
+            }
+
+        }
+
         .options-load-btn {
             font-family: Roboto;
             font-style: normal;

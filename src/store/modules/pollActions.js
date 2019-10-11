@@ -2,308 +2,345 @@ import axios from 'axios';
 
 export const pollActions = sc => class extends sc {
 
-    /* ACTIONS */
-    createVote({commit, dispatch}, payload={}){
+	/* ACTIONS */
+	createVote({commit, dispatch}, payload = {}) {
 
 
-        commit(`globalStore/currentLoadingOption`,  {id: payload.data.selected_variable, value: true}, {root: true});
-        let typeOfVote;
+		commit(`globalStore/currentLoadingOption`, {id: payload.data.selected_variable, value: true}, {root: true});
+		let typeOfVote;
 
-        if (payload.data.type_of_poll >= 2) {
+		if (payload.data.type_of_poll >= 2) {
 
-            typeOfVote = `${process.env.VUE_APP_MAIN_API}/rest/v1/blockchain/vote/`
+			typeOfVote = `${process.env.VUE_APP_MAIN_API}/rest/v1/blockchain/vote/`
 
-        } else {
+		} else {
 
-            typeOfVote = `${process.env.VUE_APP_MAIN_API}/rest/v1/vote/`
+			typeOfVote = `${process.env.VUE_APP_MAIN_API}/rest/v1/vote/`
 
-        }
+		}
 
 
-        let {customUrl = `${typeOfVote}`, data={}, method=`put`} = payload;
+		let {customUrl = `${typeOfVote}`, data = {}, method = `put`} = payload;
 
-        sc.apiRequest(customUrl, data,{commit, dispatch, onSuccess: `onVoteCreated`, successType: `action`}, method);
+		return sc.apiRequest(customUrl, data, {
+			commit,
+			dispatch,
+			onSuccess: `onVoteCreated`,
+			successType: `action`
+		}, method);
 
-    }
+	}
 
+	setRightOption({commit, dispatch}, payload = {}) {
 
+		let {customUrl = `${process.env.VUE_APP_MAIN_API}/admin/poll/option/choice`, data = {}, method = `post`} = payload;
 
-    setRightOption({commit, dispatch}, payload={}){
+		return sc.apiRequest(customUrl, {}, {
+			commit,
+			params: data,
+			dispatch,
+			onSuccess: null,
+			successType: `action`
+		}, method);
 
-        let {customUrl = `${process.env.VUE_APP_MAIN_API}/rest/v1/admin/poll/option/choice`, data={}, method=`post`} = payload;
-        
-        return sc.apiRequest(customUrl, {},{commit, params: data, dispatch, onSuccess: null, successType: `action`}, method);
-        
-    };
+	};
 
 
+	setBlockchainRightOption({commit, dispatch}, payload = {}) {
 
-    setBlockchainRightOption({commit, dispatch}, payload={}){
+		let {customUrl = `${process.env.VUE_APP_MAIN_API}/rest/blockchain/judge/create`, data = {}, method = `post`} = payload;
 
-        let {customUrl = `${process.env.VUE_APP_MAIN_API}/rest/blockchain/judge/create`, data={}, method=`post`} = payload;
+		return sc.apiRequest(customUrl, data, {commit, dispatch, onSuccess: null, successType: `action`}, method);
 
-        sc.apiRequest(customUrl, data, {commit, dispatch, onSuccess: null, successType: `action`}, method);
+	};
 
-    };
 
+	saveExplain({commit, dispatch}, payload = {}) {
 
-    saveExplain({commit, dispatch}, payload={}){
+		let {customUrl = `${process.env.VUE_APP_MAIN_API}/rest/v1/explain/`, data = {}, method = `put`} = payload;
 
-        let {customUrl = `${process.env.VUE_APP_MAIN_API}/rest/v1/explain/`, data={}, method=`put`} = payload;
+		return sc.apiRequest(customUrl, data, {
+			commit,
+			dispatch,
+			onSuccess: `onExplainSaved`,
+			successType: `action`
+		}, method);
 
-        sc.apiRequest(customUrl, data,{commit,dispatch, onSuccess: `onExplainSaved`, successType: `action`}, method);
+	};
 
-    };
+	saveComment({commit, dispatch}, payload = {}) {
 
-    saveComment({commit, dispatch}, payload={}){
+		let {customUrl = `${process.env.VUE_APP_MAIN_API}/rest/v1/comment/`, data = {}, method = `put`,} = payload;
 
-        let {customUrl = `${process.env.VUE_APP_MAIN_API}/rest/v1/comment/`, data={}, method=`put`, } = payload;
+		return sc.apiRequest(customUrl, data, {
+			commit,
+			dispatch,
+			onSuccess: `onCommentSaved`,
+			successType: `action`
+		}, method);
 
-        sc.apiRequest(customUrl, data ,{commit, dispatch, onSuccess: `onCommentSaved`, successType: `action`}, method);
+	};
 
-    };
 
+	loadExplains({commit, dispatch}, payload = {}) {
 
-    loadExplains({commit, dispatch}, payload={}){
 
+		let page = payload.explain_page
 
-        let page = payload.explain_page
+		let poll_id = payload.poll_id
 
-        let poll_id = payload.poll_id
+		let {
+			customUrl = `${process.env.VUE_APP_MAIN_API}/rest/explain/${page}/?poll_id=${poll_id}`, data = {
+				poll_id,
+				page
+			}, method = `get`,
+		} = payload;
 
-        let {customUrl = `${process.env.VUE_APP_MAIN_API}/rest/explain/${page}/?poll_id=${poll_id}`, data={poll_id, page}, method=`get`, } = payload;
+		return sc.apiRequest(customUrl, data, {
+			commit,
+			dispatch,
+			onSuccess: `onShowMoreExplains`,
+			successType: `action`
+		}, method);
 
-        sc.apiRequest(customUrl, data,{commit, dispatch, onSuccess: `onShowMoreExplains`, successType: `action`}, method);
+	};
 
-    };
 
+	addToBookmark({commit, dispatch}, payload = {}) {
 
-    addToBookmark({commit, dispatch}, payload={}){
+		let id = payload.poll_id
 
-        let id = payload.poll_id
+		let type_of_poll = payload.type_of_poll
 
-        let type_of_poll = payload.type_of_poll
+		let {customUrl = `${process.env.VUE_APP_MAIN_API}/rest/v1/bookmarks/${id}?type_of_poll=${type_of_poll}`, data = {id}, method = `put`,} = payload;
 
-        let {customUrl = `${process.env.VUE_APP_MAIN_API}/rest/v1/bookmarks/${id}?type_of_poll=${type_of_poll}`, data={id}, method=`put`, } = payload;
+		return sc.apiRequest(customUrl, data, {commit, dispatch, onSuccess: null, successType: `mutation`}, method);
 
-        sc.apiRequest(customUrl, data,{commit, dispatch, onSuccess: null, successType: `mutation`}, method);
+	};
 
-    };
 
+	deleteBookmark({commit, dispatch}, payload = {}) {
 
-    deleteBookmark({commit, dispatch}, payload={}){
+		let id = payload
 
-        let id = payload
+		let {customUrl = `${process.env.VUE_APP_MAIN_API}/rest/v1/bookmarks/${id}`, data = {}, method = `delete`,} = payload;
 
-        let {customUrl = `${process.env.VUE_APP_MAIN_API}/rest/v1/bookmarks/${id}`, data={}, method=`delete`, } = payload;
+		return sc.apiRequest(customUrl, data, {commit, dispatch, onSuccess: null, successType: `mutation`}, method);
 
-        sc.apiRequest(customUrl, data,{commit, dispatch, onSuccess: null, successType: `mutation`}, method);
+	};
 
-    };
+	deletePoll({state, commit, dispatch}, payload = {}) {
 
-    deletePoll({commit, dispatch}, payload={}){
+		let {customUrl = `${process.env.VUE_APP_MAIN_API}/admin/poll/${payload}`, data = {}, method = `delete`,} = payload;
 
-        let id = payload;
+		return sc.apiRequest(customUrl, data, {commit, dispatch, onSuccess: null, successType: `mutation`}, method);
 
-        let {customUrl = `${process.env.VUE_APP_MAIN_API}/rest/v1/admin/poll/${id}`, data={}, method=`delete`, } = payload;
+	};
 
-        sc.apiRequest(customUrl, data,{commit, dispatch, onSuccess: null, successType: `mutation`}, method);
 
-    };
+	deleteComment({commit, dispatch}, payload = {}) {
 
+		let id = payload;
 
-    deleteComment({commit, dispatch}, payload={}){
+		let {customUrl = `${process.env.VUE_APP_MAIN_API}/rest/admin/comment/delete/${id}`, data = {}, method = `post`,} = payload;
 
-        let id = payload;
+		return sc.apiRequest(customUrl, data, {commit, dispatch, onSuccess: null, successType: `mutation`}, method);
 
-        let {customUrl = `${process.env.VUE_APP_MAIN_API}/rest/admin/comment/delete/${id}`, data={}, method=`post`, } = payload;
+	};
 
-        sc.apiRequest(customUrl, data,{commit, dispatch, onSuccess: null, successType: `mutation`}, method);
+	loadComments({commit, dispatch}, payload = {}) {
 
-    };
+		let comment_page = payload.comment_page;
 
-    loadComments({commit, dispatch}, payload={}){
+		let id = payload.explain_id;
 
-        let comment_page = payload.comment_page;
+		let {customUrl = `${process.env.VUE_APP_MAIN_API}/rest/comment/${comment_page}/?event_id=${id}`, data = {id}, method = `get`,} = payload;
 
-        let id = payload.explain_id;
+		return sc.apiRequest(customUrl, data, {
+			commit,
+			dispatch,
+			onSuccess: `onShowMoreComments`,
+			successType: `action`
+		}, method);
 
-        let {customUrl = `${process.env.VUE_APP_MAIN_API}/rest/comment/${comment_page}/?event_id=${id}`, data={id}, method=`get`, } = payload;
+	};
 
-        sc.apiRequest(customUrl, data,{commit, dispatch, onSuccess:`onShowMoreComments` , successType: `action`}, method);
+	/* MUTATIONS */
 
-    };
+	listItemsAction(vueStuff, args = {}) {
+		let {state} = vueStuff;
+		args.params = {...args.params || {}, categories_id: state.filter_id};
 
-    /* MUTATIONS */
+		super.listItemsAction(vueStuff, args);
+	};
 
+	deleteItemFromPayload(state, payload) {
+        state.items = state.items.filter(({id}) => id !== payload)
+	};
 
-    listItemsAction(vueStuff, args={}){
-        let {state} = vueStuff;
-        args.params = {...args.params || {}, categories_id: state.filter_id};
+	onVoteCreated({commit, dispatch}, args) {
+		let {responseData: data, requestData: payload} = args;
 
-        super.listItemsAction(vueStuff, args);
-    };
 
+		let {id} = data.payload;
 
-    onVoteCreated({commit, dispatch}, args){
-        let {responseData: data, requestData: payload} = args;
+		let item = data.votes[id];
 
+		let {poll_id} = item;
 
-        let {id} = data.payload;
+		commit('globalStore/addChildTo', {
+				mapName: 'polls',
+				parentId: poll_id,
+				groupName: 'votes_id',
+				item: id,
+			},
+			{root: true}
+		);
+		commit(`onVoteLoading`, false)
 
-        let item = data.votes[id];
+		commit(`globalStore/currentLoadingOption`, {id: payload.selected_variable, value: false}, {root: true});
 
-        let {poll_id} = item;
 
-        commit('globalStore/addChildTo', {
-                mapName: 'polls',
-                parentId: poll_id,
-                groupName: 'votes_id',
-                item: id,
-            },
-            {root: true}
+		sc.apiRequest(`${process.env.VUE_APP_MAIN_API}/rest/v1/poll/${poll_id}`, {}, {
+			commit,
+			onSuccess: `updatePayloadItem`
+		}, `get`);
 
-        );
-        commit(`onVoteLoading`, false)
 
-        commit(`globalStore/currentLoadingOption`, {id: payload.selected_variable, value: false}, {root: true});
+	}
 
 
-        sc.apiRequest(`${process.env.VUE_APP_MAIN_API}/rest/v1/poll/${poll_id}`, {},{commit, onSuccess: `updatePayloadItem`}, `get`);
+	onShowMoreExplains({commit, dispatch}, args) {
+		let {responseData: data, requestData: payload} = args;
 
 
-    }
+		let poll_id = payload.poll_id
 
+		if (data.payload.length) {
 
+			let array = [];
 
+			for (let payload of data.payload) {
 
+				let {id} = payload;
 
-    onShowMoreExplains({commit, dispatch}, args){
-        let {responseData: data, requestData: payload} = args;
+				array.push(id);
 
+			}
 
-        let poll_id = payload.poll_id
+			let {poll_id} = data.votes[array[0]];
 
-        if (data.payload.length) {
+			commit('globalStore/addChildTo', {
+					mapName: 'polls',
+					parentId: poll_id,
+					groupName: 'explains_id',
+					item: array,
+				},
+				{root: true}
+			);
 
-            let array = [];
+		} else {
 
-            for (let payload of data.payload) {
+			commit(`globalStore/changeStateItem`, {
+				mapName: `polls`,
+				parentId: poll_id,
+				item: `loaded`,
+				payload: true
+			}, {root: true})
 
-                let {id} = payload;
+		}
 
-                array.push(id);
 
-            }
+	}
 
-            let {poll_id} = data.votes[array[0]];
+	onShowMoreComments({commit, dispatch, state, context}, args) {
+		let {responseData: data, requestData: explain_id} = args;
 
-            commit('globalStore/addChildTo', {
-                    mapName: 'polls',
-                    parentId: poll_id,
-                    groupName: 'explains_id',
-                    item: array,
-                },
-                {root: true}
 
-            );
+		let id_explain = explain_id.id
 
-        } else {
+		if (data.payload.length) {
 
-            commit(`globalStore/changeStateItem`, {mapName : `polls`, parentId: poll_id, item: `loaded`, payload:true} , {root: true})
+			let array = [];
 
-        }
 
+			for (let payload of data.payload) {
 
+				let {id: comments_id} = payload;
 
-    }
+				array.push(comments_id);
 
-    onShowMoreComments({commit, dispatch,state, context}, args){
-        let {responseData: data, requestData: explain_id} = args;
+			}
 
+			let {explain_id} = data.comments[array[0]];
 
-        let id_explain = explain_id.id
 
-        if (data.payload.length) {
+			commit('globalStore/addChildTo', {
+					mapName: 'votes',
+					parentId: explain_id,
+					groupName: 'comments_id',
+					item: array,
+				},
+				{root: true}
+			);
 
-            let array = [];
 
+		} else {
 
-            for (let payload of data.payload) {
+			commit(`globalStore/changeStateItem`, {
+				mapName: `votes`,
+				parentId: id_explain,
+				item: `loaded`,
+				payload: true
+			}, {root: true})
 
-                let {id: comments_id} = payload;
+		}
 
-                array.push(comments_id);
 
-            }
+	}
 
-            let {explain_id} = data.comments[array[0]];
+	onVoteLoading(state, payload) {
 
+		state.blockchain_loading = payload
 
+	}
 
-            commit('globalStore/addChildTo', {
-                    mapName: 'votes',
-                    parentId: explain_id,
-                    groupName: 'comments_id',
-                    item: array,
-                },
-                {root: true}
+	setFilterId(state, id) {
 
-            );
+		state.items = [];
+		state.filter_id = id
 
+	}
 
-        } else {
+	clearFilter(state) {
 
-        commit(`globalStore/changeStateItem`, {mapName : `votes`, parentId: id_explain, item: `loaded`, payload:true} , {root: true})
+		state.items = [];
+		state.filter_id = null;
+	}
 
-        }
 
+	resetFeedPage(state, payload) {
+		state.page = payload
+	}
 
-    }
+	onExplainSaved({commit, dispatch}, args) {
+		let {responseData: data} = args;
 
-    onVoteLoading(state, payload) {
 
-        state.blockchain_loading = payload
+		let {id} = data.payload[0];
 
-    }
+		let item = data.votes[id];
 
-    setFilterId(state, id){
+		let {poll_id} = item;
 
-        state.items = [];
-        state.filter_id = id
-
-    }
-
-    clearFilter( state){
-
-        state.items= [];
-        state.filter_id = null;
-    }
-
-
-    resetFeedPage(state, payload) {
-        state.page = payload
-    }
-
-    onExplainSaved({commit, dispatch}, args){
-        let {responseData: data} = args;
-
-
-        let {id} = data.payload[0];
-
-        let item = data.votes[id];
-
-        let {poll_id} = item;
-
-        commit('globalStore/addChildTo', {
-                mapName: 'polls',
-                parentId: poll_id,
-                groupName: 'votes_id',
-                item: id,
-            },
-            {root: true}
-
-        );
+		commit('globalStore/addChildTo', {
+				mapName: 'polls',
+				parentId: poll_id,
+				groupName: 'votes_id',
+				item: id,
+			},
+			{root: true}
+		);
 
 		// Увеличиваем счетчик комментариев в polls[poll_id].total_amount_of_votes
 		commit('globalStore/addQuantityTo', {
@@ -313,32 +350,37 @@ export const pollActions = sc => class extends sc {
 			quantity: 1
 		}, {root: true});
 
-        commit(`globalStore/changeStateItem`, {mapName : `polls`, parentId: poll_id, item: `isVoted`, payload:true} , {root: true})
+		commit(`globalStore/changeStateItem`, {
+			mapName: `polls`,
+			parentId: poll_id,
+			item: `isVoted`,
+			payload: true
+		}, {root: true})
 
-        commit(`updatePayloadItem`, [{id: poll_id, haveExplain: true}])
-
-
-    }
-
-
-    onCommentSaved({commit}, args){
-        let {responseData: data, requestData: payload} = args;
+		commit(`updatePayloadItem`, [{id: poll_id, haveExplain: true}])
 
 
-        let poll_id = payload.poll_id
-        let {id} = data.payload[0];
-        let item = data.comments[id];
-        let {explain_id} = item;
+	}
 
-        commit('globalStore/addChildTo', {
-            mapName: 'votes',
-            parentId: explain_id,
-            groupName: 'comments_id',
-            item: id,
-        }, {root: true} );
 
-        // Увеличиваем счетчик комментариев в polls[poll_id].total_amount_of_comments
-        commit('globalStore/addQuantityTo', {
+	onCommentSaved({commit}, args) {
+		let {responseData: data, requestData: payload} = args;
+
+
+		let poll_id = payload.poll_id
+		let {id} = data.payload[0];
+		let item = data.comments[id];
+		let {explain_id} = item;
+
+		commit('globalStore/addChildTo', {
+			mapName: 'votes',
+			parentId: explain_id,
+			groupName: 'comments_id',
+			item: id,
+		}, {root: true});
+
+		// Увеличиваем счетчик комментариев в polls[poll_id].total_amount_of_comments
+		commit('globalStore/addQuantityTo', {
 			mapName: 'polls',
 			parentId: poll_id,
 			groupName: 'total_amount_of_comments',
@@ -348,78 +390,74 @@ export const pollActions = sc => class extends sc {
 		// sc.apiRequest(`${process.env.VUE_APP_MAIN_API}/rest/quiz/getOne/${poll_id}`, {},{commit, onSuccess: `updatePayloadItem`}, `get`);
 
 
-    }
+	}
 
-    // onShowMoreComments({commit, dispatch,state, context}, args){
-    //
-    //
-    //          let {responseData: data, requestData: explain_id} = args;
-    //
-    //
-    //         commit(`globalStore/changeStateItem`, {mapName : `votes`, parentId: id_explain, item: `loaded`, payload:true} , {root: true})
-    //
-    //
-    //
-    // }
-
-
-
-    /* MUTATIONS */
-
-    clearFeed(state){
-        state.items = []
+	// onShowMoreComments({commit, dispatch,state, context}, args){
+	//
+	//
+	//          let {responseData: data, requestData: explain_id} = args;
+	//
+	//
+	//         commit(`globalStore/changeStateItem`, {mapName : `votes`, parentId: id_explain, item: `loaded`, payload:true} , {root: true})
+	//
+	//
+	//
+	// }
 
 
-    }
+	/* MUTATIONS */
 
-    /* HELPER METHOD*/
+	clearFeed(state) {
+		state.items = []
+	}
+
+	/* HELPER METHOD*/
 
 
+	/* CONSTRUCTORS */
 
+	get state() {
+		return {
+			...super.state,
 
-    /* CONSTRUCTORS */
+			blockchain_loading: false
 
-    get state(){
-        return {
-            ...super.state,
+		}
+	}
 
-            blockchain_loading:false
+	get actions() {
+		return {
+			...super.actions,
+			createVote: this.createVote,
+			saveExplain: this.saveExplain,
+			saveComment: this.saveComment,
+			onCommentSaved: this.onCommentSaved,
+			onVoteCreated: this.onVoteCreated,
+			onShowMoreExplains: this.onShowMoreExplains,
+			loadExplains: this.loadExplains,
+			loadComments: this.loadComments,
+			onShowMoreComments: this.onShowMoreComments,
+			setRightOption: this.setRightOption,
+			addToBookmark: this.addToBookmark,
+			deleteBookmark: this.deleteBookmark,
+			deletePoll: this.deletePoll,
+			deleteComment: this.deleteComment,
+			onExplainSaved: this.onExplainSaved,
+			setBlockchainRightOption: this.setBlockchainRightOption
+		}
+	}
 
-        }
-    }
-
-    get actions(){
-        return {
-            ...super.actions,
-            createVote: this.createVote,
-            saveExplain: this.saveExplain,
-            saveComment: this.saveComment,
-            onCommentSaved: this.onCommentSaved,
-            onVoteCreated: this.onVoteCreated,
-            onShowMoreExplains: this.onShowMoreExplains,
-            loadExplains: this.loadExplains,
-            loadComments: this.loadComments,
-            onShowMoreComments: this.onShowMoreComments,
-            setRightOption: this.setRightOption,
-            addToBookmark: this.addToBookmark,
-            deleteBookmark: this.deleteBookmark,
-            deletePoll: this.deletePoll,
-            deleteComment: this.deleteComment,
-            onExplainSaved: this.onExplainSaved,
-            setBlockchainRightOption: this.setBlockchainRightOption
-        }
-    }
-
-    get mutations() {
-        return {
-            ...super.mutations,
-            onListReceived: this.onListReceived,
-            clearFeed: this.clearFeed,
-            setFilterId: this.setFilterId,
-            clearFilter : this.clearFilter,
-            resetFeedPage: this.resetFeedPage,
-            onVoteLoading: this.onVoteLoading
-        }
-    }
+	get mutations() {
+		return {
+			...super.mutations,
+			onListReceived: this.onListReceived,
+            deleteItemFromPayload: this.deleteItemFromPayload,
+			clearFeed: this.clearFeed,
+			setFilterId: this.setFilterId,
+			clearFilter: this.clearFilter,
+			resetFeedPage: this.resetFeedPage,
+			onVoteLoading: this.onVoteLoading
+		}
+	}
 
 };
