@@ -1,7 +1,7 @@
 <template>
 	<div class="desktop-header mb-17">
 		<div class="nav-container container flex-align-center" :class="{'is_mobile_device': mobile}">
-			<div class="search-block flex-align-center" >
+			<div class="search-block flex-align-center">
 				<router-link class="pointer" :to="{name: 'pollFeed'}">
 					<icon-base
 							class="mr-5"
@@ -22,7 +22,7 @@
 						<icon-text-logo/>
 					</icon-base>
 				</router-link>
-				
+
 				<input
 						v-if="logged_in"
 						class="ml-27"
@@ -51,10 +51,10 @@
 								icon-name="notifications">
 							<icon-notifications/>
 						</icon-base>
-						
+
 						<re-badge class="counter" v-show="counter" :size="12"
 						          :params="{background: '#FF5454'}"/>
-						
+
 					</div>
 					<template #items>
 						<notification-page
@@ -64,9 +64,9 @@
 				</dropdown-list-reusable>
 
 				<router-link class="pointer flex mr-5" :to="{name: 'user', params: { id: user.id }}">
-					<RePicture :url="publicPath + user.path_to_avatar" size="27" rounded />
+					<RePicture :url="user.path_to_avatar | assetsPath" size="27" rounded/>
 				</router-link>
-				
+
 				<dropdown-list-reusable
 						click-close
 						:icon="false"
@@ -84,29 +84,32 @@
 
 					<template #items>
 						<div class="nav-menu-items flex-column">
-							
-							<router-link class="menu-item py-10 px-20 pointer" :to="{name: 'followings', params: {id: user.id}}">
-								<lang-string title="followings" />
-							</router-link>
-							
-							<router-link class="menu-item py-10 px-20 pointer" :to="{name: 'catalogList'}">
-								<lang-string title="topics" />
-							</router-link>
-							
-							<router-link class="menu-item py-10 px-20 pointer" v-if="mainUser.referCode" :to="{name: 'ReferralsPage'}">
-								<lang-string title="referrals_page" />
+
+							<router-link class="menu-item py-10 px-20 pointer"
+							             :to="{name: 'followings', params: {id: user.id}}">
+								<lang-string title="followings"/>
 							</router-link>
 
-							<router-link class="menu-item py-10 px-20 pointer" v-if="isAdmin" :to="{name: 'achievementsPage'}">
-								<lang-string title="achievements_page" />
+							<router-link class="menu-item py-10 px-20 pointer" :to="{name: 'catalogList'}">
+								<lang-string title="topics"/>
 							</router-link>
-							
+
+							<router-link class="menu-item py-10 px-20 pointer" v-if="mainUser.referCode"
+							             :to="{name: 'ReferralsPage'}">
+								<lang-string title="referrals_page"/>
+							</router-link>
+
+							<router-link class="menu-item py-10 px-20 pointer" v-if="isAdmin"
+							             :to="{name: 'achievementsPage'}">
+								<lang-string title="achievements_page"/>
+							</router-link>
+
 							<router-link class="menu-item py-10 px-20 pointer" v-if="isAdmin" :to="{name: 'admin'}">
-								<lang-string title="admin_panel" />
+								<lang-string title="admin_panel"/>
 							</router-link>
-							
-							<lang-string class="menu-item py-10 px-20 pointer" @click.native="userLogout" title="exit" />
-							
+
+							<lang-string class="menu-item py-10 px-20 pointer" @click.native="userLogout" title="exit"/>
+
 						</div>
 					</template>
 				</dropdown-list-reusable>
@@ -129,46 +132,46 @@
 	import CookieMixin from "@/components/mixins/CookieMixin";
 	import ReBadge from "@/components/reusableСomponents/ReBadge";
 	import RePicture from "@/components/reusableСomponents/RePicture";
+	import assetsPathMixin from "@/components/mixins/assetsPathMixin";
 
 	export default {
 		name: "desktopHeader",
-		mixins: [CookieMixin],
+		mixins: [CookieMixin, assetsPathMixin],
 		props: ['user'],
 		data() {
 			return {
-				publicPath: process.env.VUE_APP_ASSETS,
 				listScrollDifference: null
 			}
 		},
-		
+
 		computed: {
-			
+
 			...mapState("notificationPage", {
 				counter: s => s.counter,
 			}),
-			
+
 			...mapState("globalStore", {
 				mainUser: s => s.mainUser,
 				isAdmin: s => s.mainUser.authorities === 'ADMIN'
 			}),
-			
+
 			logged_in() {
 				return !!Object.keys(this.user).length;
 			},
-			
+
 			mobile() {
 				return this.$root.mobile;
 			}
 		},
-		
+
 		methods: {
-			
+
 			clearCounter() {
 				this.$store.dispatch('notificationPage/readInitialNotifications');
 			},
-			
+
 			userLogout() {
-				
+
 				this.deleteCookie('Auth-Token');
 				this.$store.commit("authentication/setAuthenticated", false);
 				this.$store.commit("userPage/removeUser");
@@ -177,10 +180,10 @@
 				this.$store.commit("notificationStore/clearStores");
 				this.$store.commit("notificationPage/setDefaultPage");
 				this.$router.push({name: 'sign', query: {logout: 'true'}});
-				
+
 			},
 
-			setSearchKeyword(keyword){
+			setSearchKeyword(keyword) {
 
 				this.$root.search_keyword = keyword;
 
@@ -201,7 +204,7 @@
 
 			},
 		},
-		
+
 		components: {
 			RePicture,
 			ReBadge,
@@ -278,14 +281,14 @@
 		}
 
 		.profile-annotation-block {
-			
+
 			.notifications-dropdown {
 				.notification-list {
 					overflow-y: scroll;
 					scrollbar-width: thin;
 					left: -130px;
 				}
-				
+
 				.icon-wrapper {
 					.counter {
 						position: absolute;
@@ -294,13 +297,12 @@
 					}
 				}
 			}
-			
-			
+
+
 		}
 	}
-	@media only screen
-	and (min-width: 300px)
-	and (max-width: 765px){
+
+	@media only screen and (min-width: 300px) and (max-width: 765px) {
 		.desktop-header {
 			margin-bottom: 0px !important;
 		}

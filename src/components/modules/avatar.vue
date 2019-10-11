@@ -1,37 +1,21 @@
 <template>
     <div class="notification-avatar" slot="avatar" >
-        <div
-                class="avatar pointer avatar-25x25"
-                :style="{ 'background-image': 'url(' + publicPath + imageUtil(author.path_to_avatar, 'S') + ')' } "
-                @click="userLink">
-        </div>
+        <router-link class="flex pointer" :to="{ name: 'user', params: { id: this.author.id } }">
+            <RePicture :url="author.path_to_avatar | assetsPath" rounded size="25" />
+        </router-link>
     </div>
 </template>
 
 <script>
     import imageMixin from "../mixins/imageMixin";
+    import RePicture from "@/components/reusableСomponents/RePicture";
+    import assetsPathMixin from "@/components/mixins/assetsPathMixin";
 
     export default {
         name: "avatar",
+        components: {RePicture},
         props:['author'],
-        mixins:[imageMixin],
-        data(){
-
-            return {
-    
-                publicPath: process.env.VUE_APP_ASSETS,
-
-
-            }
-
-        },
-        methods: {
-
-            userLink() {
-                this.$router.push({ name: "user", params: { id: this.author.id } });
-            },
-
-        }
+        mixins:[imageMixin, assetsPathMixin],
     }
 </script>
 

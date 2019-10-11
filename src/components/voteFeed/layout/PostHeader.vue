@@ -2,7 +2,7 @@
 	<div class="post-header flex-align-stretch">
 		<router-link class="pointer flex" :class="{'ml-30': $root.mobile}"
 		             :to="{name: 'user', params: {id}}">
-			<RePicture :url="assetsPath + path_to_avatar" size="36" rounded />
+			<RePicture :url="path_to_avatar | assetsPath" size="36" rounded />
 		</router-link>
 		
 		<div class="caption flex-column ml-9">
@@ -19,23 +19,20 @@
 <script>
 	import RePicture from "@/components/reusableСomponents/RePicture";
 	import TimeTrans from "@/components/timeTrans";
+	import assetsPathMixin from "@/components/mixins/assetsPathMixin";
 	export default {
 		name: "PostHeader",
 		
 		components: {TimeTrans, RePicture},
-		
+
+		mixins: [assetsPathMixin],
+
 		props: {
 			id: Number,
 			path_to_avatar: String,
 			username: String,
 			eventType: String,
 			timestamp: String
-		},
-		
-		data() {
-			return {
-				assetsPath: process.env.VUE_APP_ASSETS
-			}
 		},
 		
 		computed: {

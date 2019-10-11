@@ -8,7 +8,7 @@
        </div>
         <div class="right-column flex-between pt-13 pb-12">
             <div class="user-block">
-                <picture-reusable :size="36" :img="publicPath + user.path_to_avatar" @click.native="userLink(user.id)" rounded>
+                <picture-reusable :size="36" :img="user.path_to_avatar | assetsPath" @click.native="userLink(user.id)" rounded>
                     <template #title>
                         <span class="pl-9">{{user.username}}</span>
                     </template>
@@ -39,6 +39,7 @@
 <script>
     import {mapState} from 'vuex'
     import PictureReusable from "../reusableСomponents/PictureReusable";
+    import assetsPathMixin from "@/components/mixins/assetsPathMixin";
     export default {
         name: "ratingBlock",
         components: {PictureReusable},
@@ -51,9 +52,9 @@
                 type:Number
             }
         },
+        mixins: [assetsPathMixin],
         data() {
             return {
-                publicPath: process.env.VUE_APP_ASSETS,
                 avatar:require('../assets/images/ava.jpeg')
             }
         },

@@ -31,7 +31,6 @@
 
 <script>
 	import pollInstance from "./pollInstance.vue";
-	import filterComponent from "./layout/filterComponent.vue";
 	import {mapState} from "vuex";
 	import Loader from "../reusableСomponents/Loader";
 	import CategorySelect from "../reusableСomponents/categorySelect";
@@ -203,7 +202,6 @@
 			CatalogItem,
 			CategorySelect,
 			Loader,
-			filterComponent,
 			pollInstance,
 			langString
 		}
