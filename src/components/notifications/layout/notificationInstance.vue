@@ -2,7 +2,7 @@
 	<div class="notification-block flex pt-9 pb-9 " v-if="author">
   
 		<router-link class="pointer flex" :to="{name: 'user', params: {id: author.id}}">
-			<RePicture :url="author.path_to_avatar | assetsPath" size="36" rounded/>
+			<RePicture :url="author.path_to_avatar | addAssetsPath" size="36" rounded/>
 		</router-link>
 		
 		<div class="caption flex-column fx-1 pl-18 pr-13">
@@ -37,13 +37,12 @@
 	import IconArrow from '../../icons/create/IconArrow';
 	import TextTrim from "../../reusableСomponents/textTrim";
 	import RePicture from "@/components/reusableСomponents/RePicture";
-	import assetsPathMixin from "@/components/mixins/assetsPathMixin";
-	
+
 	export default {
 		name: "notificationInstance",
 		components: {RePicture, TextTrim, IconBase, ButtonReusable, TimeTrans, langString, IconArrow},
 		props: ['notification'],
-		mixins: [imageMixin, assetsPathMixin],
+		mixins: [imageMixin],
 		computed: {
 			...mapState('notificationStore', {
 				

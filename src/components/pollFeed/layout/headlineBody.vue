@@ -20,7 +20,7 @@
 		<re-youtube class="mt-9" v-if="poll.content.length" :link="poll.content[0].url" :height="mobile ? '200px' : '371px'" width="100%"/>
 
 		<RePicture v-if="poll.picture" @click.native="$popup.insert('pictures', poll.picture)"
-		           class="pointer mt-9" :url="poll.picture | assetsPath" type="background"
+		           class="pointer mt-9" :url="poll.picture | addAssetsPath" type="background"
 		           width="100%" :height="mobile ? 190 : 303" bor-rad="6" />
 		
 		<ReSwiper v-if="!poll.picture" type="usual" class="mt-9"
@@ -28,7 +28,7 @@
 			<template #usual>
 				<swiper-slide v-for="(picture, index) in poll.urlPhotos">
 					<RePicture @click.native="pushToPopup(poll.urlPhotos, index)"
-					           class="pointer" :url="picture | assetsPath" type="background"
+					           class="pointer" :url="picture | addAssetsPath" type="background"
 					           width="100%" :height="mobile ? 190 : 303" bor-rad="6" />
 				</swiper-slide>
 			</template>
@@ -45,12 +45,10 @@
 	import ReYoutube from "../../reusableСomponents/reYoutube";
 	import ReExplain from "../../reusableСomponents/ReExplain";
 	import RePicture from "@/components/reusableСomponents/RePicture";
-	import assetsPathMixin from "@/components/mixins/assetsPathMixin";
-	
+
 	export default {
 		name: "headlineBody",
 		props: ['poll', 'item'],
-		mixins: [assetsPathMixin],
 		data() {
 			return {
 				showModal: false

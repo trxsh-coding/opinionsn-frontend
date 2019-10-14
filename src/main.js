@@ -78,6 +78,33 @@ export const nprogress = new NProgress('.nprogress-container');
 
 //////////////////////
 
+/**
+ * @description Фильтр для корректной обработки ссылок на ассеты
+ */
+Vue.filter('addAssetsPath',
+	/**
+	 * @param {string} value ссылка на ассет
+	 * @param {boolean} raw триггер отключающий обработку для возврата "как есть"
+	 * @returns {string} отфильтрованный путь
+	 */
+	function (value, raw) {
+
+		if (!value) return process.env.VUE_APP_ASSETS + '/assets/ava.png';
+
+		let isBlob = value.indexOf('blob:') !== -1;
+		let isExternalUrl = value.indexOf('https') !== -1;
+
+		switch (true) {
+			case isBlob:
+			case isExternalUrl:
+			case raw:
+				return value;
+			default:
+				return process.env.VUE_APP_ASSETS + value;
+		}
+
+	});
+
 export const vueApp = new Vue({
 	el: '#app',
 	router,

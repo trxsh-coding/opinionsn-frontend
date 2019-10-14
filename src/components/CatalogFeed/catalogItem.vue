@@ -2,7 +2,7 @@
     <div class="category-item text-deselect flex-column pointer" :class="{isCurrent}">
         
         <div class="picture-wrapper v-center br-6 w-90 h-36">
-            <RePicture type="background" :url="(item.local ? '' : assetsPath) + item.path_to_image"
+            <RePicture type="background" :url="item.path_to_image | addAssetsPath(item.local)"
                        class="picture" width="21" height="30" clip="contain" />
         </div>
         
@@ -12,7 +12,6 @@
 </template>
 
 <script>
-    import {mapState} from 'vuex'
     import imageMixin from "../mixins/imageMixin";
     import RePicture from "@/components/reusableСomponents/RePicture";
     import langMixin from "@/components/mixins/langMixin";
@@ -32,16 +31,13 @@
                 type: [Number, String],
             }
         },
-        data() {
-            return {
-                assetsPath: process.env.VUE_APP_ASSETS
-            }
-        },
+
         filters: {
             trim(value) {
                 return (value.length > 16) ? value.slice(0, 13) + '...' : value;
             }
         },
+
         computed: {
             isCurrent(){
                 let {item, current, isCurrentString} = this;

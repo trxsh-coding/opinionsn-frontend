@@ -9,7 +9,7 @@
 					<swiper-slide class="avatar-wrapper"
 					              v-for="{avatar, username, user_id} in followersData">
 						<div class="slide flex-column flex-align-center pointer" @click="filterFeed(user_id)">
-							<RePicture :url="avatar | assetsPath" size="66" rounded />
+							<RePicture :url="avatar | addAssetsPath" size="66" rounded />
 							<span class="caption text-center mt-10">{{username}}</span>
 						</div>
 					</swiper-slide>
@@ -18,7 +18,7 @@
 				<template #scroll>
 					<div v-for="{avatar, username, user_id} in followersData"
 					     class="slide mr-7 w-fit flex-column flex-align-center pointer" @click="filterFeed(user_id)">
-						<RePicture :url="avatar | assetsPath" size="66" rounded />
+						<RePicture :url="avatar | addAssetsPath" size="66" rounded />
 						<span class="caption text-center mt-10">{{username}}</span>
 					</div>
 				</template>
@@ -47,8 +47,7 @@
 	import Loader from "../reusableСomponents/Loader";
 	import ReSwiper from "@/components/reusableСomponents/ReSwiper";
 	import RePicture from "@/components/reusableСomponents/RePicture";
-	import assetsPathMixin from "@/components/mixins/assetsPathMixin";
-	
+
 	export default {
 		name: 'VoteFeed',
 		data() {
@@ -61,8 +60,6 @@
 			};
 		},
 
-		mixins: [assetsPathMixin],
-		
 		watch: {
 			scrolled_to_bottom(old) {
 				if (old) {

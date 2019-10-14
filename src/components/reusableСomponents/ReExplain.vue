@@ -2,7 +2,7 @@
     <div class="explain-reusable flex-align-center">
         <picture-reusable
                 class="user-avatar pointer ml-15 mr-15"
-                :img="publicPath + user.path_to_avatar"
+                :img="user.path_to_avatar | addAssetsPath"
                 :size="30"
                 bor-rad="50%"
         />
@@ -37,13 +37,11 @@
     import axios from "axios"
     export default {
         name: "ReExplain",
+
         components: {IconBase, ReInput, InputReusable, PictureReusable, IconSend},
+
         props: ['user', 'poll_id'],
-        data() {
-            return {
-                publicPath: process.env.VUE_APP_ASSETS,
-            }
-        },
+
         methods: {
             sendExplain(){
                 let {poll_id, description} = this;

@@ -8,7 +8,7 @@
 			<template #scroll>
 				<div class="flex-column mr-12" v-for="({id, pathToAvatar, username}) in users">
 					<router-link class="mx-auto flex pointer" :to="'/user/' + id">
-						<RePicture :url="pathToAvatar | assetsPath" size="27" rounded />
+						<RePicture :url="pathToAvatar | addAssetsPath" size="27" rounded />
 					</router-link>
 					
 					<span class="bow-caption mt-1 text-center">{{username | trim}}</span>
@@ -24,11 +24,10 @@
 	import ReSwiper from "@/components/reusableСomponents/ReSwiper";
 	import langMixin from "@/components/mixins/langMixin";
 	import RePicture from "@/components/reusableСomponents/RePicture";
-	import assetsPathMixin from "@/components/mixins/assetsPathMixin";
-	
+
 	export default {
 		name: "involvedUsersPanel",
-		mixins: [imageMixin, langMixin, assetsPathMixin],
+		mixins: [imageMixin, langMixin],
 		data() {
 			return {
 				swiperOption: {

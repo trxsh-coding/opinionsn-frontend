@@ -33,7 +33,7 @@
 				<template v-if="!is_loading">
 					<div class="user-instance flex mx-20 mt-12 pb-12" v-for="({id, path_to_avatar, username, date_registration}, index) in users_from_payload">
 						<router-link class="pointer flex" :to="{name: 'user', params: { id }}">
-							<RePicture :url="path_to_avatar | assetsPath" rounded size="36" />
+							<RePicture :url="path_to_avatar | addAssetsPath" rounded size="36" />
 						</router-link>
 						<div class="ml-18 caption fx-1 flex-column">
 							<span class="username">{{username}}</span>
@@ -62,13 +62,12 @@
 	import IconUser from "@/components/icons/IconUser";
 	import axios from "axios";
 	import TimeTrans from "@/components/timeTrans";
-	import assetsPathMixin from "@/components/mixins/assetsPathMixin";
 	import RePicture from "@/components/reusableСomponents/RePicture";
 	
 	export default {
 		name: "ReferralsPage",
 		components: {RePicture, TimeTrans, IconUser, Loader, IconBase, IconArrowLeft},
-		mixins: [langMixin, assetsPathMixin],
+		mixins: [langMixin],
 		data() {
 			return {
 				payload_status: null,

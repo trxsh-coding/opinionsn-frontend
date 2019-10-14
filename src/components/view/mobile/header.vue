@@ -54,7 +54,7 @@
 		
 		<router-link v-if="logged_in" class="pointer flex"
 		             :to="{ name: 'user', params: { id: user.id } }">
-			<RePicture :url="user.path_to_avatar | assetsPath" size="27" rounded />
+			<RePicture :url="user.path_to_avatar | addAssetsPath" size="27" rounded />
 		</router-link>
 	
 	</div>
@@ -70,8 +70,7 @@
 	import ButtonReusable from "../../reusableСomponents/ButtonReusable";
 	import RePicture from "@/components/reusableСomponents/RePicture";
 	import IconAddPoll from "@/components/icons/IconAddPoll";
-	import assetsPathMixin from "@/components/mixins/assetsPathMixin";
-	
+
 	export default {
 		name: "header",
 		components: {
@@ -84,7 +83,7 @@
 			IconArrowLeft,
 			langString
 		},
-		mixins: [imageMixin, assetsPathMixin],
+		mixins: [imageMixin],
 		props: {
 			user: {
 				type: Object

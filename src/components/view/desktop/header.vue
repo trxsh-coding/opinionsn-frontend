@@ -64,7 +64,7 @@
 				</dropdown-list-reusable>
 
 				<router-link class="pointer flex mr-5" :to="{name: 'user', params: { id: user.id }}">
-					<RePicture :url="user.path_to_avatar | assetsPath" size="27" rounded/>
+					<RePicture :url="user.path_to_avatar | addAssetsPath" size="27" rounded/>
 				</router-link>
 
 				<dropdown-list-reusable
@@ -132,11 +132,10 @@
 	import CookieMixin from "@/components/mixins/CookieMixin";
 	import ReBadge from "@/components/reusableСomponents/ReBadge";
 	import RePicture from "@/components/reusableСomponents/RePicture";
-	import assetsPathMixin from "@/components/mixins/assetsPathMixin";
 
 	export default {
 		name: "desktopHeader",
-		mixins: [CookieMixin, assetsPathMixin],
+		mixins: [CookieMixin],
 		props: ['user'],
 		data() {
 			return {

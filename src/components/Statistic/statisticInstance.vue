@@ -3,7 +3,7 @@
 		<div class="header-block flex-align-center pl-60">
 			
 			<router-link class="pointer flex" :to="{name: 'user', params: {id: user.id}}">
-				<RePicture :url="user.path_to_avatar | assetsPath" size="72" rounded />
+				<RePicture :url="user.path_to_avatar | addAssetsPath" size="72" rounded />
 			</router-link>
 			
 			<span class="bold-caption-14 ml-15">{{user.username}}</span>
@@ -66,12 +66,10 @@
 	import localString from "../../utils/localString";
 	import axios from 'axios';
 	import RePicture from "@/components/reusableСomponents/RePicture";
-	import assetsPathMixin from "@/components/mixins/assetsPathMixin";
-	
+
 	export default {
 		name: "statisticInstance",
 		components: {RePicture, DropdownListReusable, CategorySelect, langString, apexchart: VueApexCharts},
-		mixins: [assetsPathMixin],
 		data() {
 			return {
 				periods: [
