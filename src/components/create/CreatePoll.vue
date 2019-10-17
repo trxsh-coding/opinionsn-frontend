@@ -33,6 +33,7 @@
 				/>
 
 				<button-reusable
+						v-if="$root.is_eng"
 						:active-font-size="20"
 						:font-size="15"
 						bg-color="#ffffff"

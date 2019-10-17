@@ -97,6 +97,7 @@
 					color="#ffffff"/>
 
 			<button-reusable
+					v-if="$root.is_eng"
 					@click.native="submitAuto()"
 					class="v-center reg-btn py-13"
 					description="AUTO"
