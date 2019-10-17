@@ -1,6 +1,6 @@
 import { Api, JsonRpc, RpcError } from 'eosjs';
 import { JsSignatureProvider } from 'eosjs/dist/eosjs-jssig';
-import {user} from "../store/modules/user";
+import { user } from "../store/modules/user";
 
 const defaultPrivateKey = "5JRJmrSBxmVW6MyFsqDeQB5pXzDdjXk7KvbM8p51xrMfpNQR7sS";
 const signatureProvider = new JsSignatureProvider([defaultPrivateKey]);

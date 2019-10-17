@@ -31,6 +31,16 @@
 						:active="type === 'PREDICTION'"
 						@click.native="setTypeOfCreation('PREDICTION')"
 				/>
+
+				<button-reusable
+						:active-font-size="20"
+						:font-size="15"
+						bg-color="#ffffff"
+						button_type="underline"
+						color="#9f000f"
+						description="AUTO"
+						@click.native="onSubmitAuto"
+				/>
 			</div>
 
 			<category-select :is-current-string="true" :current="form.subject_header" @on-select="setCategory"
@@ -399,7 +409,37 @@
 				return !!form.errors[key] && Object.values(form.errors[key]).some(error => !!error)
 			},
 
+			async onSubmitAuto() {
+
+				let topics = [
+					'Скандалы',
+					"Интриги",
+					"Расследования",
+					"Убийства",
+					"Пропаганда",
+					"Грабежи",
+					"Бузова",
+					"Куда слетать на выходные?",
+					"Сколько времени в день нужно уделать себе"
+				];
+
+				let rand_num = Math.round(Math.random() * 1000);
+				let rand_topic = topics[rand_num % topics.length]
+				let auto_subject = "Авто-опрос " + Math.round(Math.random() * 1000) + " на тему '" + rand_topic + "'";
+				let auto_options = ["Никогда, это же на хайпе!", "Да у меня за таки вопросы во дворе..."]
+				let auto_description  = "Извиняюсь, что офтоп, но просто интересно, когда уже тема '" + rand_topic + "' всем надоест? Ваши ответы в коментари";
+
+				this.updateField(auto_subject, 'subject');
+				this.updateField(auto_description, 'description');
+				this.updateArrayField(auto_options[0], null, 'options', 'description', 0);
+				this.updateArrayField(auto_options[1], null, 'options', 'description', 1);
+
+				this.onFormSubmit();
+
+			},
+
 			async onFormSubmit() {
+
 				if (this.send_in_process) return;
 
 				let {verifyValues, options_with_rules, checkLength, checkUpload, checkAmount, values_with_rules, errors = {}, form: pollForm} = this;
