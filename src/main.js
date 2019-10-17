@@ -24,7 +24,9 @@ import 'vue-date-pick/dist/vueDatePick.css';
 import PopupPlugin from "./plugins/PopupPlugin";
 import ElementScrollHandler from "./components/mixins/ElementScrollHandler";
 import VueYoutube from 'vue-youtube'
+import VueMeta from 'vue-meta'
 
+Vue.use(VueMeta)
 Vue.use(PortalVue);
 Vue.use(VueYoutube);
 Vue.use(DatePick);
