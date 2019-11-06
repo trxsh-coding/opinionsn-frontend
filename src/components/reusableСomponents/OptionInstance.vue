@@ -51,11 +51,11 @@
 		<button @click="setRightOption"
 		        v-if="mainUser.authorities === 'ADMIN'
 		        && is_prediction
-		        && !expired">✓
+		        && !isClosed">✓
 		</button>
 
 		<div class="option-wrapper pointer text-deselect"
-		     :class="{'with-button': mainUser.authorities === 'ADMIN' && is_prediction && !expired}">
+		     :class="{'with-button': mainUser.authorities === 'ADMIN' && is_prediction && !isClosed}">
 
 			<div v-if="picture && picture.slice(-4) !== 'null'" @click="$emit('onPictureClick')"
 			     class="picture" :style="pictureStyle"></div>
@@ -393,6 +393,10 @@
 
 			correct() {
 				return this.poll.correct_option === this.option.id
+			},
+
+			isClosed() {
+				return this.poll.correct_option !== -1;
 			},
 
 			selected() {
