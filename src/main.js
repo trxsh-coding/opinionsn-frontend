@@ -47,7 +47,7 @@ Vue.use(PopupPlugin, {
 
 
 Sentry.init({
-	dsn: 'https://d06ac1809c18451ea9bcc3defd237837@sentry.io/1812671',
+	dsn: 'https://932fcd28c2b648e691e8fdd4bec7dd76@sentry.io/1812665',
 	integrations: [new Integrations.Vue({Vue, attachProps: true})],
 });
 //*****************

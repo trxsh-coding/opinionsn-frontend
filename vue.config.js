@@ -14,7 +14,7 @@ module.exports = {
 		// http://95.165.130.218
 		proxy: {
 			'/api': {
-				target: "http://localhost:7070",//"http://api2.opinionsn.com:7070",
+				target: "http://api2.opinionsn.com:7070",//"http://api2.opinionsn.com:7070",
 				pathRewrite: {'^/api': ''},
 				changeOrigin: true,
 				secure: false
