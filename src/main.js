@@ -25,6 +25,8 @@ import PopupPlugin from "./plugins/PopupPlugin";
 import ElementScrollHandler from "./components/mixins/ElementScrollHandler";
 import VueYoutube from 'vue-youtube'
 import VueMeta from 'vue-meta'
+import * as Sentry from '@sentry/browser';
+import * as Integrations from '@sentry/integrations';
 
 Vue.use(VueMeta)
 Vue.use(PortalVue);
@@ -41,6 +43,12 @@ Vue.use(VueI18n);
 Vue.use(moment);
 Vue.use(PopupPlugin, {
 	store: new PopupPlugin.Store()
+});
+
+
+Sentry.init({
+	dsn: 'https://d06ac1809c18451ea9bcc3defd237837@sentry.io/1812671',
+	integrations: [new Integrations.Vue({Vue, attachProps: true})],
 });
 //*****************
 
