@@ -67,51 +67,51 @@
 					bg-color="#4B97B4"
 					color="#ffffff"/>
 
-						<div class="oAuth-btns mt-47 flex-column-center">
-							<lang-string class="title" title="sign_in_with_social_networks" />
+<!--						<div class="oAuth-btns mt-47 flex-column-center">-->
+<!--							<lang-string class="title" title="sign_in_with_social_networks" />-->
 
-							<div class="btns flex-align-center mt-10">
+<!--							<div class="btns flex-align-center mt-10">-->
 
-								<a :href="`https://opinionsn.com/api/oauth2/vk${queryList}`">
-									<button-reusable
-											class="v-center soc-btn vk-btn py-12"
-											font-size="16"
-											bor-rad="6"
-											bg-color="#4C6C91"
-											color="#4B97B4">
-										<icon-base
-												class="logo"
-												width="32"
-												height="18"
-												viewBox="0 0 32 18"
-												fill="none"
-												icon-name="google-logo">
-											<icon-vk/>
-										</icon-base>
-									</button-reusable>
-								</a>
+<!--								<a :href="`https://opinionsn.com/api/oauth2/vk${queryList}`">-->
+<!--									<button-reusable-->
+<!--											class="v-center soc-btn vk-btn py-12"-->
+<!--											font-size="16"-->
+<!--											bor-rad="6"-->
+<!--											bg-color="#4C6C91"-->
+<!--											color="#4B97B4">-->
+<!--										<icon-base-->
+<!--												class="logo"-->
+<!--												width="32"-->
+<!--												height="18"-->
+<!--												viewBox="0 0 32 18"-->
+<!--												fill="none"-->
+<!--												icon-name="google-logo">-->
+<!--											<icon-vk/>-->
+<!--										</icon-base>-->
+<!--									</button-reusable>-->
+<!--								</a>-->
 
-								<a :href="`https://opinionsn.com/api/oauth2/google${queryList}`">
-									<button-reusable
-											class="v-center soc-btn google-btn py-8 ml-11"
-											font-size="16"
-											bor-rad="6"
-											bg-color="#ffffff"
-											color="#4B97B4">
-										<icon-base
-												class="logo"
-												width="26"
-												height="26"
-												viewBox="0 0 366 372"
-												fill="none"
-												icon-name="google-logo">
-											<icon-google/>
-										</icon-base>
-									</button-reusable>
-								</a>
+<!--								<a :href="`https://opinionsn.com/api/oauth2/google${queryList}`">-->
+<!--									<button-reusable-->
+<!--											class="v-center soc-btn google-btn py-8 ml-11"-->
+<!--											font-size="16"-->
+<!--											bor-rad="6"-->
+<!--											bg-color="#ffffff"-->
+<!--											color="#4B97B4">-->
+<!--										<icon-base-->
+<!--												class="logo"-->
+<!--												width="26"-->
+<!--												height="26"-->
+<!--												viewBox="0 0 366 372"-->
+<!--												fill="none"-->
+<!--												icon-name="google-logo">-->
+<!--											<icon-google/>-->
+<!--										</icon-base>-->
+<!--									</button-reusable>-->
+<!--								</a>-->
 
-							</div>
-						</div>
+<!--							</div>-->
+<!--						</div>-->
 
 		</div>
 	</div>
