@@ -99,7 +99,7 @@
 			<button-reusable
 					v-if="$root.is_eng"
 					@click.native="submitAuto()"
-					class="v-center reg-btn py-13"
+					class="v-center reg-btn py-13 mt-9"
 					description="AUTO"
 					font-size="16"
 					bor-rad="6"
