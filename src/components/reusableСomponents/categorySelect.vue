@@ -38,7 +38,24 @@
 		name: "categorySelect",
 		components: {ReSwiper, CatalogItem},
 		mixins: [langMixin],
-		props: ['current', 'isCurrentString', 'slidesPerView'],
+		props: {
+
+			current: {
+				type: Number,
+				required: true
+			},
+
+			isCurrentString: Boolean,
+
+			popularCategory: {
+				type: Boolean,
+				default() {
+					return true;
+				}
+			},
+
+			slidesPerView: Number
+		},
 		data() {
 			return {
 				localCategory: {
@@ -70,7 +87,11 @@
 			},
 
 			combinedCategories: function () {
-				const ordered = Object.values({...this.localCategory, ...this.categories}).reverse();
+
+				let categories = this.categories;
+				if (!this.popularCategory) delete categories[23]  // Remove POPULAR category by id
+
+				const ordered = Object.values({...this.localCategory, ...categories}).reverse();
 				return (this.$route.name === 'pollFeed') ? ordered : this.categories;
 			},
 		},
