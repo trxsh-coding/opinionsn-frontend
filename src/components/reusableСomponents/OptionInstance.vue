@@ -66,7 +66,7 @@
 					<slot></slot>
 				</span>
 
-				<span v-if="percentage" class="percentage-block">
+				<span v-if="Number.isInteger(percentage)" class="percentage-block">
 					{{percentage}}%
 				</span>
 
