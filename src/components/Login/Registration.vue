@@ -190,6 +190,7 @@
 	import ButtonReusable from "../reusableСomponents/ButtonReusable";
 	import IconVk from "../icons/IconVk";
 	import IconGoogle from "../icons/IconGoogle";
+	import IconFacebook from "../icons/IconFacebook";
 	import PopupErrorReusable from "../reusableСomponents/PopupErrorReusable";
 	import VueRecaptcha from 'vue-recaptcha'
 
@@ -348,7 +349,8 @@
 			IconTextLogo,
 			langString,
 			IconVk,
-			IconGoogle
+			IconGoogle,
+			IconFacebook
 		}
 	};
 </script>
