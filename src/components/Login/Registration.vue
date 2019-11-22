@@ -96,15 +96,15 @@
 					bg-color="#4B97B4"
 					color="#ffffff"/>
 
-			<button-reusable
-					v-if="$root.is_eng"
-					@click.native="submitAuto()"
-					class="v-center reg-btn py-13 mt-9"
-					description="AUTO"
-					font-size="16"
-					bor-rad="6"
-					bg-color="#8f000f"
-					color="#ffffff"/>
+<!--			<button-reusable-->
+<!--					v-if="$root.is_eng"-->
+<!--					@click.native="submitAuto()"-->
+<!--					class="v-center reg-btn py-13 mt-9"-->
+<!--					description="AUTO"-->
+<!--					font-size="16"-->
+<!--					bor-rad="6"-->
+<!--					bg-color="#8f000f"-->
+<!--					color="#ffffff"/>-->
 
 			<div class="oAuth-btns mt-25 flex-column-center">
 
