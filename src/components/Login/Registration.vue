@@ -280,12 +280,18 @@
 
 							/* NOTE: Временно включил старый редирект */
 
-							// if (status === 200) {
-							// 	registerFormData.forEach(x => console.log(x))
-							// 	this.$store.commit("authentication/setAuthenticated", true);
-							// 	this.$router.push({name: "pollFeed"});
-							// }
+							/**
+							 * Редирект на ленту
+							 */
+							if (status === 200) {
+								registerFormData.forEach(x => console.log(x))
+								this.$store.commit("authentication/setAuthenticated", true);
+								this.$router.push({name: "pollFeed"});
+							}
 
+							/**
+							 * Редирект на одиночный опрос
+							 */
 							// if (status === 200) {
 							// 	this.$store.commit(
 							// 		"authentication/setAuthenticated",
