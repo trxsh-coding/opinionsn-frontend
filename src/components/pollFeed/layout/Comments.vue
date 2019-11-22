@@ -235,7 +235,7 @@
 						});
 						this.clearInput(value)
 					} else if (type === 'COMMENT') {
-						this.$store.dispatch(`pollFeed/saveComment`, {data: {explain_id, description: this[value]}});
+						this.$store.dispatch(`pollFeed/saveComment`, {data: {explain_id, description: this[value], poll_id: this.pollId}});
 						this.clearInput(value, true);
 					}
 				}

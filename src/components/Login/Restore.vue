@@ -30,14 +30,14 @@
 			<popup-error-reusable :errors="{ }" span-class="mt-3">
 				<re-input :preset="2" placeholder="email" class="mx-auto" input-class="pb-5"
 				          :params="{flex: 1, fontSize: 16, label: { width: 271 }}"
-				          :value="resetForm.email" @input="updateField(arguments[0], 'email')"/>
+				          :value="resetForm.email" @input="handleInputChange"/>
 			</popup-error-reusable>
 
-			<popup-error-reusable :errors="{ }" class="mt-30" span-class="mt-3">
-				<re-input :preset="2" type="password" placeholder="confirm_email" class="mx-auto" input-class="pb-5"
-				          :params="{flex: 1, fontSize: 16, label: { width: 271 }}"
-				          :value="resetForm.email_confirm" @input="updateField(arguments[0], 'email_confirm')"/>
-			</popup-error-reusable>
+<!--			<popup-error-reusable :errors="{ }" class="mt-30" span-class="mt-3">-->
+<!--				<re-input :preset="2" type="email" placeholder="confirm_email" class="mx-auto" input-class="pb-5"-->
+<!--				          :params="{flex: 1, fontSize: 16, label: { width: 271 }}"-->
+<!--				          :value="resetForm.email_confirm" @input="handleInputChange"/>-->
+<!--			</popup-error-reusable>-->
 
 		</div>
 
@@ -87,6 +87,11 @@
 
 
 		methods: {
+
+			handleInputChange(value) {
+				this.updateField(value, 'email')
+				this.updateField(value, 'email_confirm')
+			},
 
 			updateField(val, key) {
 				this.resetForm[key] = val;

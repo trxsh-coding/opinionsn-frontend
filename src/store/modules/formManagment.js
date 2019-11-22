@@ -216,8 +216,10 @@ export const formManagment = {
 			delete payload._background_image;
 			delete payload._path_to_avatar;
 
+			let responseList = null;
+
 			try {
-				await Promise.all([
+				responseList = await Promise.all([
 					new Promise(async resolve => {
 
 						function createFormData(file) {
@@ -239,11 +241,17 @@ export const formManagment = {
 					await dispatch('userPage/updateUser', {data: payload}, {root: true})
 				]);
 
-				return true;
+				return responseList[1];
 
 			} catch (e) {
-				console.error(e);
-				return false;
+				console.trace(e);
+
+				if (e.response.data) {
+					return e.response.data
+				} else {
+					return null
+				}
+
 			}
 
 		},

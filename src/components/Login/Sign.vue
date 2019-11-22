@@ -91,6 +91,17 @@
 									</button-reusable>
 								</a>
 
+								<a :href="`https://opinionsn.com/api/oauth2/facebook${queryList}`">
+									<button-reusable
+											class="v-center soc-btn facebook-btn py-8 ml-11"
+											font-size="16"
+											bor-rad="6"
+											bg-color="#3b5998"
+											color="#4B97B4">
+										<IconFacebook />
+									</button-reusable>
+								</a>
+
 								<a :href="`https://opinionsn.com/api/oauth2/google${queryList}`">
 									<button-reusable
 											class="v-center soc-btn google-btn py-8 ml-11"
@@ -124,6 +135,7 @@
 	import IconLogo from "../icons/IconLogo.vue";
 	import IconGoogle from "../icons/IconGoogle.vue";
 	import IconVk from "../icons/IconVk.vue";
+	import IconFacebook from "../icons/IconFacebook";
 	import IconTextLogo from "../icons/IconTextLogo.vue";
 	import langString from "../langString.vue";
 	import {localString} from "../../utils/localString";
@@ -256,7 +268,8 @@
 			IconTextLogo,
 			IconGoogle,
 			IconVk,
-			langString
+			langString,
+			IconFacebook,
 		}
 	};
 </script>

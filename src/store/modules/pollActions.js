@@ -72,6 +72,7 @@ export const pollActions = sc => class extends sc {
 
 		let {customUrl = `${process.env.VUE_APP_MAIN_API}/rest/v1/comment/`, data = {}, method = `put`,} = payload;
 
+		// console.log(payload)
 		return sc.apiRequest(customUrl, data, {
 			commit,
 			dispatch,
@@ -346,7 +347,7 @@ export const pollActions = sc => class extends sc {
 		commit('globalStore/addQuantityTo', {
 			mapName: 'polls',
 			parentId: poll_id,
-			groupName: 'total_amount_of_votes',
+			groupName: 'total_amount_of_comments',
 			quantity: 1
 		}, {root: true});
 
@@ -384,8 +385,8 @@ export const pollActions = sc => class extends sc {
 			mapName: 'polls',
 			parentId: poll_id,
 			groupName: 'total_amount_of_comments',
-			quantity: 1,
-		}, {root: true})
+			quantity: 1
+		}, {root: true});
 
 		// sc.apiRequest(`${process.env.VUE_APP_MAIN_API}/rest/quiz/getOne/${poll_id}`, {},{commit, onSuccess: `updatePayloadItem`}, `get`);
 

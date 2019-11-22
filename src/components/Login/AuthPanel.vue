@@ -101,16 +101,25 @@
 					}
 
 					.btns {
-						width: 100%;
+						width: 271px;
+
+						& > * {
+							flex: 1;
+						}
+
+						.soc-btn {
+							border: 1px solid #4B97B4;
+							/*width: 130px;*/
+						}
 
 						.vk-btn {
 							border: none;
 						}
 
-						.soc-btn {
-							border: 1px solid #4B97B4;
-							width: 130px;
+						.facebook-btn {
+							border: none;
 						}
+
 					}
 				}
 

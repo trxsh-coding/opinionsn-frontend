@@ -1,6 +1,6 @@
 <template>
-	<div class="poll-create-wrapper pb-20" :class="{'bg-white': !mobile, 'blockchain': is_blockchain}">
-		<create-header @submit="onFormSubmit"/>
+	<div class="poll-create-wrapper pb-20" :class="{'bg-white': !mobile, 'blockchain': is_blockchain}" :key="componentKey">
+		<create-header @submit="onFormSubmit" @cancel="onCancelButtonPress"/>
 
 		<div class="create-form">
 			<div class="button-block mb-18 pl-60">
@@ -45,7 +45,7 @@
 			</div>
 
 			<category-select :is-current-string="true" :current="form.subject_header" @on-select="setCategory"
-			                 class="pl-60" :slides-per-view="3.6"/>
+			                 :popularCategory="false" class="pl-60" :slides-per-view="3.6"/>
 
 			<div class="description-block mt-20 pl-60">
 				<popup-error-reusable
@@ -255,6 +255,8 @@
 		],
 		data() {
 			return {
+				componentKey: 0, // increase key to full rerender
+				canceled: false, // Validation trigger
 				route_leaved: false,
 				send_in_process: false,
 				swiperOption: {
@@ -275,7 +277,7 @@
 		watch: {
 
 			values_with_rules(val) {
-				if (!this.route_leaved) {
+				if (!this.route_leaved && !this.canceled) {
 					let {
 						verifyValues,
 						checkLength,
@@ -283,11 +285,13 @@
 					} = this;
 
 					verifyValues('create_poll_form', val, {checkLength, checkAmount});
+				} else {
+					this.canceled = false;
 				}
 			},
 
 			options_with_rules(val) {
-				if (!this.route_leaved) {
+				if (!this.route_leaved && !this.canceled) {
 					let {
 						verifyValues,
 						checkLength,
@@ -296,6 +300,8 @@
 					} = this;
 
 					verifyValues('create_poll_form', val, {checkLength, checkUpload, checkAmount});
+				} else {
+					this.canceled = false;
 				}
 			},
 
@@ -600,6 +606,12 @@
 				this.timeLimit = payload
 			},
 
+			onCancelButtonPress() {
+				this.$store.commit('formManagment/CLEAR_FORM', 'create_poll_form');
+				this.$store.commit('formManagment/CLEAR_FORM', 'pictures');
+				this.componentKey ++;
+				this.canceled = true;
+			},
 
 		},
 

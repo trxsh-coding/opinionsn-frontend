@@ -7,6 +7,8 @@
     "build": "vue-cli-service build"
   },
   "dependencies": {
+    "@sentry/browser": "^5.7.1",
+    "@sentry/integrations": "^5.7.1",
     "apexcharts": "^3.8.3",
     "bowser": "^2.1.2",
     "cordova-android": "^8.0.0",

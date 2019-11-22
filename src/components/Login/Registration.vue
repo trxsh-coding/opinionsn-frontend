@@ -139,6 +139,17 @@
 						</button-reusable>
 					</a>
 
+					<a :href="`https://opinionsn.com/api/oauth2/facebook${queryList}`">
+						<button-reusable
+								class="v-center soc-btn facebook-btn py-8 ml-11"
+								font-size="16"
+								bor-rad="6"
+								bg-color="#3b5998"
+								color="#4B97B4">
+							<IconFacebook />
+						</button-reusable>
+					</a>
+
 					<a :href="`https://opinionsn.com/api/oauth2/google${queryList}`">
 						<button-reusable
 								class="v-center soc-btn google-btn py-8 ml-11"
@@ -179,6 +190,7 @@
 	import ButtonReusable from "../reusableСomponents/ButtonReusable";
 	import IconVk from "../icons/IconVk";
 	import IconGoogle from "../icons/IconGoogle";
+	import IconFacebook from "../icons/IconFacebook";
 	import PopupErrorReusable from "../reusableСomponents/PopupErrorReusable";
 	import VueRecaptcha from 'vue-recaptcha'
 
@@ -266,11 +278,28 @@
 							loginFormData.append("field_password", form.password);
 							let {status} = await axios.post(`${process.env.VUE_APP_MAIN_API}/auth/login`, loginFormData);
 
-							if (status === 200) {
-								registerFormData.forEach(x => console.log(x))
-								this.$store.commit("authentication/setAuthenticated", true);
-								this.$router.push({name: "pollFeed"});
-							}
+							/* NOTE: Временно включил старый редирект */
+
+							// if (status === 200) {
+							// 	registerFormData.forEach(x => console.log(x))
+							// 	this.$store.commit("authentication/setAuthenticated", true);
+							// 	this.$router.push({name: "pollFeed"});
+							// }
+
+							// if (status === 200) {
+							// 	this.$store.commit(
+							// 		"authentication/setAuthenticated",
+							// 		true
+							// 	);
+							// 	if (this.$route.query.redirectToPoll) {
+							// 		this.$router.push({
+							// 			name: "singlePoll",
+							// 			params: {id: this.$route.query.redirectToPoll}
+							// 		});
+							// 	} else {
+							// 		this.$router.push({path: "/"});
+							// 	}
+							// }
 						} catch (e) {
 							console.error('Error sending sign form: ', e);
 						}
@@ -320,7 +349,8 @@
 			IconTextLogo,
 			langString,
 			IconVk,
-			IconGoogle
+			IconGoogle,
+			IconFacebook
 		}
 	};
 </script>

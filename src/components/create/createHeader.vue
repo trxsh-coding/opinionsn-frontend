@@ -1,6 +1,6 @@
 <template>
     <div class="create-header flex-between">
-        <lang-string class="pointer" :title="'cancel'" @click="router.go(-1)"/>
+        <lang-string class="pointer" :title="'cancel'" @click.native="$emit('cancel')"/>
         <lang-string class="primary-color pointer" :title="'publish'" @click.native="onFormSubmit"/>
 
     </div>
