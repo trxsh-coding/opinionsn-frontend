@@ -27,8 +27,8 @@
 
 		<div class="user-card flex-column">
 			
-			<RePicture class="fx-1" type="background" :url="user.background_image | assetsPath" size="auto">
-				<RePicture class="avatar" :url="user.path_to_avatar | assetsPath" size="72" rounded />
+			<RePicture class="fx-1" type="background" :url="user.background_image | addAssetsPath" size="auto">
+				<RePicture class="avatar" :url="user.path_to_avatar | addAssetsPath" size="72" rounded />
 			</RePicture>
 
 			<button-reusable
@@ -73,10 +73,10 @@
 	import PopoverReusable from "../../reusableСomponents/PopoverReusable";
 	import RePicture from "@/components/reusableСomponents/RePicture";
 	import IconAddPoll from "@/components/icons/IconAddPoll";
-	import assetsPathMixin from "@/components/mixins/assetsPathMixin";
 
 	export default {
         name: "PageHeader",
+
 		props: {
         	user: {
         		type: Object
@@ -85,7 +85,7 @@
         		type: Object
 			}
 		},
-		mixins: [assetsPathMixin],
+
 		components: {
 			IconAddPoll,
 			RePicture,
@@ -97,6 +97,7 @@
 			IconArrowLeft,
 			IconUserCheck
 		},
+
 		data() {
 			return {
 				balance_popover: false

@@ -96,6 +96,16 @@
 					bg-color="#4B97B4"
 					color="#ffffff"/>
 
+			<button-reusable
+					v-if="$root.is_eng"
+					@click.native="submitAuto()"
+					class="v-center reg-btn py-13"
+					description="AUTO"
+					font-size="16"
+					bor-rad="6"
+					bg-color="#8f000f"
+					color="#ffffff"/>
+
 			<div class="oAuth-btns mt-25 flex-column-center">
 
 
@@ -267,10 +277,28 @@
 							loginFormData.append("field_password", form.password);
 							let {status} = await axios.post(`${process.env.VUE_APP_MAIN_API}/auth/login`, loginFormData);
 
-							if (status === 200) {
-								this.$store.commit("authentication/setAuthenticated", true);
-								this.$router.push({name: "pollFeed"});
-							}
+							/* NOTE: Временно включил старый редирект */
+
+							// if (status === 200) {
+							// 	registerFormData.forEach(x => console.log(x))
+							// 	this.$store.commit("authentication/setAuthenticated", true);
+							// 	this.$router.push({name: "pollFeed"});
+							// }
+
+							// if (status === 200) {
+							// 	this.$store.commit(
+							// 		"authentication/setAuthenticated",
+							// 		true
+							// 	);
+							// 	if (this.$route.query.redirectToPoll) {
+							// 		this.$router.push({
+							// 			name: "singlePoll",
+							// 			params: {id: this.$route.query.redirectToPoll}
+							// 		});
+							// 	} else {
+							// 		this.$router.push({path: "/"});
+							// 	}
+							// }
 						} catch (e) {
 							console.error('Error sending sign form: ', e);
 						}
@@ -290,6 +318,23 @@
 
 					this.$forceUpdate();
 				}
+
+			},
+
+			async submitAuto() {
+				let rand_num = Math.round(Math.random() * 1000);
+				let auto_email = "auto" + Math.round(Math.random() * 1000) + "@mail.ru";
+				let auto_username = "auto" + Math.round(Math.random() * 1000);
+				let auto_pass = "qwerty";
+
+				this.updateField(auto_email, 'email');
+				this.updateField(auto_username, 'username');
+				this.updateField(auto_pass, 'password');
+				this.updateField(auto_pass, 'conf_pass');
+
+				console.log(this.registrationForm);
+
+				this.submit(this.registrationForm);
 
 			}
 		},

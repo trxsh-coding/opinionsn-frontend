@@ -33,7 +33,7 @@
 				this.$emit('update');
 			},
 
-			sendForm() {
+			async sendForm() {
 
 				// let { errors = {} } = this.form;
 				//
@@ -54,31 +54,36 @@
 				// let has_errors = errors_summary.some(err => err !== null);
 				//
 
-				this.$store.dispatch('formManagment/SUBMIT_USERPAGE_FORM', this.form)
-					.then(success => {
-						if (success) {
-							this.$store.commit('formManagment/SET_INITIAL_FORM', {
+				try {
+					const res = await this.$store.dispatch('formManagment/SUBMIT_USERPAGE_FORM', this.form);
+
+					if (res.status === 200) {
+						this.$store.commit('formManagment/SET_INITIAL_FORM', {
+							form: 'edit_form',
+							value: {...this.mainUser, ...this.form, errors: {}}
+						});
+						this.$popup.insert('messages', [{message: 'Успешно!', type: 'success'}]);
+						this.$emit('update');
+					} else {
+						// Если есть ошибки с сервера - затолкаем их в стор.
+						res.data.forEach(({field, errorCode, msg}) => {
+							this.$store.commit('formManagment/UPDATE_ERROR_FIELD', {
 								form: 'edit_form',
-								value: {...this.mainUser, errors: {}}
+								key: field,
+								error_key: errorCode,
+								value: msg
 							});
-							this.$popup.insert('messages', [{message: 'Успешно!', type: 'success'}]);
-							this.$emit('update');
-						} else {
-							// Если есть ошибки с сервера - затолкаем их в стор.
-							res.data.forEach(({field, errorCode, msg}) => {
-								this.$store.commit('formManagment/UPDATE_ERROR_FIELD', {
-									form: 'edit_form',
-									key: field,
-									error_key: errorCode,
-									value: msg
-								});
-							});
-							this.$popup.insert('messages', [{
-								message: 'Невозможно отредактировать, ошибка в заполнении!',
-								type: 'error'
-							}]);
-						}
-					});
+						});
+						this.$popup.insert('messages', [{
+							message: 'Невозможно отредактировать, ошибка в заполнении!',
+							type: 'error'
+						}]);
+					}
+
+				} catch (e) {
+					console.trace(e)
+				}
+
 
 			}
 

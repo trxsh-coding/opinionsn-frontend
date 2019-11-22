@@ -14,11 +14,10 @@
 <script>
 	import imageMixin from "../mixins/imageMixin";
 	import {mapState} from 'vuex'
-	import assetsPathMixin from "@/components/mixins/assetsPathMixin";
 	
 	export default {
 		name: "ReBow",
-		mixins: [imageMixin, assetsPathMixin],
+		mixins: [imageMixin],
 		props: {
 			width: Number,
 			height: Number,
@@ -52,7 +51,7 @@
 			pictureStyle() {
 				let {width, height, img} = this;
 				let bg = img.pathToAvatar
-					? {backgroundImage: `url('${img.pathToAvatar | this.assetsPath}')`}
+					? {backgroundImage: `url('${img.pathToAvatar | this.addAssetsPath}')`}
 					: {background: '#e2e3e4'};
 				return {
 					width: `${width}px`,

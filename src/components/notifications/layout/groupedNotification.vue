@@ -5,7 +5,7 @@
 			
 			<div class="item flex">
 				<router-link class="flex avatar pointer" :to="{name: 'user', params: { id: author.id }}">
-					<RePicture :url="publicPath + author.path_to_avatar" size="36" rounded/>
+					<RePicture :url="author.path_to_avatar | addAssetsPath" size="36" rounded/>
 				</router-link>
 				
 				<div class="caption flex-column ml-18">
@@ -64,7 +64,6 @@
 		},
 		data() {
 			return {
-				publicPath: process.env.VUE_APP_ASSETS,
 				hide: false
 			}
 		},

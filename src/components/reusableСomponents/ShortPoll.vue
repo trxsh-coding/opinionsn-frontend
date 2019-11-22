@@ -6,12 +6,8 @@
 
 			<div v-if="rowLayout && !!poll_picture" class="img-wrapper pointer" @click="pollLink(poll.id)">
 
-				<picture-reusable
-					:img="publicPath + poll_picture"
-					:size=" mobile ? 66 : 90"
-					bor-rad="6"
-					without-text
-				/>
+				<RePicture class="poll-picture" :url="poll_picture | addAssetsPath"
+				           :size="mobile ? 66 : 90" bor-rad="6"/>
 
 			</div>
 
@@ -27,31 +23,21 @@
 
 				<div v-else-if="!rowLayout && !!poll_picture" class="main-img-wrapper pointer mb-3" @click="pollLink(poll.id)">
 
-					<picture-reusable
-						:img="publicPath + pollAuthor.path_to_avatar"
-						width="100%"
-						:height="90"
-						bor-rad="6"
-						without-text
-					/>
+					<RePicture :url="pollAuthor.path_to_avatar | addAssetsPath"
+					           width="100%" height="90" bor-rad="6" />
 
 				</div>
 
 				<div class="poll-info-bar flex-between mt-auto">
-					<span @click="userLink(poll.author_id)">
-						<picture-reusable
-							class="user-block pointer"
-							pic-class="mr-5"
-							:img="publicPath + pollAuthor.path_to_avatar"
-							:size="15"
-							rounded
-							text-layout="right"
-						>
-							<template #title>
-								{{pollAuthor.username}}
-							</template>
-						</picture-reusable>
-					</span>
+
+					<div class="author-bar flex-align-center">
+						<router-link class="avatar flex pointer" :to="{name: 'user', params: { id: poll.author_id }}">
+							<RePicture :url="pollAuthor.path_to_avatar | addAssetsPath"
+							           size="15" rounded />
+						</router-link>
+
+						<span class="caption ml-5">{{pollAuthor.username}}</span>
+					</div>
 
 					<counter-badges short badges-color="#DADADA" :poll="poll"></counter-badges>
 
@@ -72,10 +58,13 @@
 	import IconBase from "../icons/IconBase";
 	import IconBookmark from "../icons/IconBookmark";
 	import Bookmark from "../icons/bookmark";
+	import RePicture from "@/components/reusableСomponents/RePicture";
 
 	export default {
         name: "ShortPoll",
+
 		components: {
+			RePicture,
 			Bookmark,
         	CounterBadges,
 			TimeTrans,
@@ -83,6 +72,7 @@
 			IconBase,
 			IconBookmark
 		},
+
 		props: {
 			poll: {
 				type: Object,
@@ -123,11 +113,7 @@
 				}
 			}
 		},
-		data() {
-			return {
-				publicPath: process.env.VUE_APP_ASSETS,
-			}
-		},
+
 		methods: {
 
 			userLink(user_id){
@@ -249,7 +235,7 @@
 			.img-wrapper {
 				flex-basis: 66px;
 
-				.picture-reusable {
+				.poll-picture {
 					position: relative;
 					left: -9px;
 
@@ -279,17 +265,13 @@
 				}
 
 				.poll-info-bar {
-					.picture-reusable {
-						.text {
-							.title {
-								font-weight: normal;
-								font-size: 12px;
-								color: #BEC0C5;
-							}
-
-							.description {
-								display: none;
-							}
+					.author-bar {
+						.caption {
+							font-family: Roboto;
+							font-style: normal;
+							font-weight: normal;
+							font-size: 12px;
+							color: #BEC0C5;
 						}
 					}
 				}

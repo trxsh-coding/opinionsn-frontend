@@ -10,13 +10,13 @@
 
 				<router-link v-if="bows_length" v-show="!swiped" :event="swiped ? '' : 'click'"
 				             class="flex pointer bow bow-1 mx-2" :to="getUserLink(Object.values(option.bows)[0].id)">
-					<RePicture :url="publicPath + Object.values(option.bows)[0].pathToAvatar" size="21" rounded/>
+					<RePicture :url="Object.values(option.bows)[0].pathToAvatar | addAssetsPath" size="21" rounded/>
 				</router-link>
 
 				<router-link v-show="!swiped" v-if="bows_length === 2" class="flex pointer bow bow-2 mx-2"
 				             :event="swiped ? '' : 'click'"
 				             :to="getUserLink(Object.values(option.bows)[1].id)">
-					<RePicture :url="publicPath + Object.values(option.bows)[1].pathToAvatar" size="21"
+					<RePicture :url="Object.values(option.bows)[1].pathToAvatar | addAssetsPath" size="21"
 					           rounded/>
 				</router-link>
 
@@ -31,7 +31,7 @@
 					<template #scroll>
 						<router-link v-for="({id, pathToAvatar}, index) in option.bows" :key="'scroll_bow_id-' + index"
 						             v-show="swiped || index === 0" :to="getUserLink(id)" class="bow mx-2 flex pointer">
-							<RePicture type="background" :url="publicPath + pathToAvatar" size="21" rounded/>
+							<RePicture type="background" :url="pathToAvatar | addAssetsPath" size="21" rounded/>
 						</router-link>
 					</template>
 
@@ -39,7 +39,7 @@
 						<swiper-slide v-for="({id, pathToAvatar}, index) in option.bows" class="fit mx-2"
 						              v-show="swiped || index === 0" :key="'usual_bow_id-' + index">
 							<router-link :to="getUserLink(id)" class="bow flex pointer">
-								<RePicture :url="publicPath + pathToAvatar" size="21" rounded/>
+								<RePicture :url="pathToAvatar | addAssetsPath" size="21" rounded/>
 							</router-link>
 						</swiper-slide>
 					</template>
@@ -51,11 +51,11 @@
 		<button @click="setRightOption"
 		        v-if="mainUser.authorities === 'ADMIN'
 		        && is_prediction
-		        && !expired">✓
+		        && !isClosed">✓
 		</button>
 
 		<div class="option-wrapper pointer text-deselect"
-		     :class="{'with-button': mainUser.authorities === 'ADMIN' && is_prediction && !expired}">
+		     :class="{'with-button': mainUser.authorities === 'ADMIN' && is_prediction && !isClosed}">
 
 			<div v-if="picture && picture.slice(-4) !== 'null'" @click="$emit('onPictureClick')"
 			     class="picture" :style="pictureStyle"></div>
@@ -66,7 +66,7 @@
 					<slot></slot>
 				</span>
 
-				<span v-if="percentage" class="percentage-block">
+				<span v-if="Number.isInteger(percentage)" class="percentage-block">
 					{{percentage}}%
 				</span>
 
@@ -393,6 +393,10 @@
 
 			correct() {
 				return this.poll.correct_option === this.option.id
+			},
+
+			isClosed() {
+				return this.poll.correct_option !== -1;
 			},
 
 			selected() {

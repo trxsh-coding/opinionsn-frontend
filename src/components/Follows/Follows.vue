@@ -21,7 +21,7 @@
 
 			<div class="user-info flex-align-center">
 				
-				<RePicture class="avatar" :url="user.path_to_avatar | assetsPath" size="72" rounded />
+				<RePicture class="avatar" :url="user.path_to_avatar | addAssetsPath" size="72" rounded />
 				<span class="username ml-15">{{user.username}}</span>
 				
 			</div>
@@ -42,10 +42,8 @@
 	import IconBase from "../icons/IconBase";
 	import IconArrowLeft from "../icons/IconArrowLeft";
     import RePicture from "@/components/reusableСomponents/RePicture";
-    import assetsPathMixin from "@/components/mixins/assetsPathMixin";
 
 	export default {
-		mixins: [assetsPathMixin],
 		components: {
 			RePicture,
 			event,

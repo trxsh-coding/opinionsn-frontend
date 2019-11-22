@@ -1,6 +1,6 @@
 <template>
-	<div class="poll-create-wrapper pb-20" :class="{'bg-white': !mobile, 'blockchain': is_blockchain}">
-		<create-header @submit="onFormSubmit"/>
+	<div class="poll-create-wrapper pb-20" :class="{'bg-white': !mobile, 'blockchain': is_blockchain}" :key="componentKey">
+		<create-header @submit="onFormSubmit" @cancel="onCancelButtonPress"/>
 
 		<div class="create-form">
 			<div class="button-block mb-18 pl-60">
@@ -31,10 +31,21 @@
 						:active="type === 'PREDICTION'"
 						@click.native="setTypeOfCreation('PREDICTION')"
 				/>
+
+				<button-reusable
+						v-if="$root.is_eng"
+						:active-font-size="20"
+						:font-size="15"
+						bg-color="#ffffff"
+						button_type="underline"
+						color="#9f000f"
+						description="AUTO"
+						@click.native="onSubmitAuto"
+				/>
 			</div>
 
 			<category-select :is-current-string="true" :current="form.subject_header" @on-select="setCategory"
-			                 class="pl-60" :slides-per-view="3.6"/>
+			                 :popularCategory="false" class="pl-60" :slides-per-view="3.6"/>
 
 			<div class="description-block mt-20 pl-60">
 				<popup-error-reusable
@@ -244,6 +255,8 @@
 		],
 		data() {
 			return {
+				componentKey: 0, // increase key to full rerender
+				canceled: false, // Validation trigger
 				route_leaved: false,
 				send_in_process: false,
 				swiperOption: {
@@ -264,7 +277,7 @@
 		watch: {
 
 			values_with_rules(val) {
-				if (!this.route_leaved) {
+				if (!this.route_leaved && !this.canceled) {
 					let {
 						verifyValues,
 						checkLength,
@@ -272,11 +285,13 @@
 					} = this;
 
 					verifyValues('create_poll_form', val, {checkLength, checkAmount});
+				} else {
+					this.canceled = false;
 				}
 			},
 
 			options_with_rules(val) {
-				if (!this.route_leaved) {
+				if (!this.route_leaved && !this.canceled) {
 					let {
 						verifyValues,
 						checkLength,
@@ -285,6 +300,8 @@
 					} = this;
 
 					verifyValues('create_poll_form', val, {checkLength, checkUpload, checkAmount});
+				} else {
+					this.canceled = false;
 				}
 			},
 
@@ -399,7 +416,37 @@
 				return !!form.errors[key] && Object.values(form.errors[key]).some(error => !!error)
 			},
 
+			async onSubmitAuto() {
+
+				let topics = [
+					'Скандалы',
+					"Интриги",
+					"Расследования",
+					"Убийства",
+					"Пропаганда",
+					"Грабежи",
+					"Бузова",
+					"Куда слетать на выходные?",
+					"Сколько времени в день нужно уделать себе"
+				];
+
+				let rand_num = Math.round(Math.random() * 1000);
+				let rand_topic = topics[rand_num % topics.length]
+				let auto_subject = "Авто-опрос " + Math.round(Math.random() * 1000) + " на тему '" + rand_topic + "'";
+				let auto_options = ["Никогда, это же на хайпе!", "Да у меня за таки вопросы во дворе..."]
+				let auto_description  = "Извиняюсь, что офтоп, но просто интересно, когда уже тема '" + rand_topic + "' всем надоест? Ваши ответы в коментари";
+
+				this.updateField(auto_subject, 'subject');
+				this.updateField(auto_description, 'description');
+				this.updateArrayField(auto_options[0], null, 'options', 'description', 0);
+				this.updateArrayField(auto_options[1], null, 'options', 'description', 1);
+
+				this.onFormSubmit();
+
+			},
+
 			async onFormSubmit() {
+
 				if (this.send_in_process) return;
 
 				let {verifyValues, options_with_rules, checkLength, checkUpload, checkAmount, values_with_rules, errors = {}, form: pollForm} = this;
@@ -559,6 +606,12 @@
 				this.timeLimit = payload
 			},
 
+			onCancelButtonPress() {
+				this.$store.commit('formManagment/CLEAR_FORM', 'create_poll_form');
+				this.$store.commit('formManagment/CLEAR_FORM', 'pictures');
+				this.componentKey ++;
+				this.canceled = true;
+			},
 
 		},
 

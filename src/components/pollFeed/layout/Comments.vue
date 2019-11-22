@@ -5,7 +5,7 @@
 		     @click="handleUnvotedInputPanelClick">
 			
 			<router-link v-if="isAuthorized" class="flex w-30 mr-15 pointer" :to="getUserLink(mainUser.id)">
-				<RePicture :url="mainUser.path_to_avatar | assetsPath" size="30" rounded/>
+				<RePicture :url="mainUser.path_to_avatar | addAssetsPath" size="30" rounded/>
 			</router-link>
 			
 			<ReInput @keyup.esc.native.exact="clearInput('explainInputValue')"
@@ -54,7 +54,7 @@
 					<div class="explain flex">
 						<div class="avatar-wrapper w-60 flex-column pt-3">
 							<router-link class="flex mx-auto pointer" :to="getUserLink(e.author.id)">
-								<RePicture :url="e.author.avatar | assetsPath" size="30" rounded/>
+								<RePicture :url="e.author.avatar | addAssetsPath" size="30" rounded/>
 							</router-link>
 						</div>
 						
@@ -96,7 +96,7 @@
 						<div class="comment flex mt-15" v-for="c in e.comments" :key="c.id">
 							<div class="avatar-wrapper w-60 flex-column pt-3">
 								<router-link class="flex mx-auto pointer" :to="getUserLink(c.author.id)">
-									<RePicture :url="c.author.avatar | assetsPath" size="30" rounded/>
+									<RePicture :url="c.author.avatar | addAssetsPath" size="30" rounded/>
 								</router-link>
 							</div>
 							
@@ -159,8 +159,7 @@
 	import ElementScrollHandler from "@/components/mixins/ElementScrollHandler";
 	import Loader from "@/components/reusableСomponents/Loader";
 	import IconBottomArrow from "@/components/icons/IconBottomArrow";
-	import assetsPathMixin from "@/components/mixins/assetsPathMixin";
-	
+
 	export default {
 		name: "Comments",
 		
@@ -175,7 +174,7 @@
 			explainsWithComments: Array
 		},
 		
-		mixins: [langMixin, ElementScrollHandler, assetsPathMixin],
+		mixins: [langMixin, ElementScrollHandler],
 		
 		data() {
 			return {
@@ -236,7 +235,7 @@
 						});
 						this.clearInput(value)
 					} else if (type === 'COMMENT') {
-						this.$store.dispatch(`pollFeed/saveComment`, {data: {explain_id, description: this[value]}});
+						this.$store.dispatch(`pollFeed/saveComment`, {data: {explain_id, description: this[value], poll_id: this.pollId}});
 						this.clearInput(value, true);
 					}
 				}

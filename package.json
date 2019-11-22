@@ -7,6 +7,8 @@
     "build": "vue-cli-service build"
   },
   "dependencies": {
+    "@sentry/browser": "^5.7.1",
+    "@sentry/integrations": "^5.7.1",
     "apexcharts": "^3.8.3",
     "bowser": "^2.1.2",
     "cordova-android": "^8.0.0",
@@ -22,6 +24,7 @@
     "vue-browser-detect-plugin": "^0.1.2",
     "vue-date-pick": "^1.2.1",
     "vue-i18n": "^8.8.2",
+    "vue-meta": "^2.3.1",
     "vue-recaptcha": "^1.2.0",
     "vue-router": "^3.0.1",
     "vue-text-mask": "^6.1.2",

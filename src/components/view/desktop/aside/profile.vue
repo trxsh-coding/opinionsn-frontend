@@ -1,12 +1,12 @@
 <template>
 	<div class="profile-block" v-if="appearanceConditions">
 		<RePicture class="profile-background" type="background"
-		           :url="user.background_image | assetsPath" width="288" height="90"/>
+		           :url="user.background_image | addAssetsPath" width="288" height="90"/>
 		
 		<div class="profile-annotation flex-column">
 			
 			<router-link class="user-avatar pointer flex" :to="{name: 'user', params: { id: user.id }}">
-				<RePicture :url="user.path_to_avatar | assetsPath" alt="avatar" size="42" rounded/>
+				<RePicture :url="user.path_to_avatar | addAssetsPath" alt="avatar" size="42" rounded/>
 			</router-link>
 			
 			<span class="profile-username mt-16">
@@ -22,12 +22,9 @@
 <script>
 	import {mapState} from 'vuex'
 	import RePicture from "@/components/reusableСomponents/RePicture";
-	import assetsPathMixin from "@/components/mixins/assetsPathMixin";
-	
+
 	export default {
 		name: "profile",
-
-		mixins: [assetsPathMixin],
 
 		computed: {
 			
