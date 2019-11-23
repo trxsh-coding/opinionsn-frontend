@@ -150,6 +150,7 @@
 <!--						</button-reusable>-->
 <!--					</a>-->
 
+
 					<a :href="`https://opinionsn.com/api/oauth2/google${queryList}`">
 						<button-reusable
 								class="v-center soc-btn google-btn py-8 ml-11"
