@@ -96,15 +96,15 @@
 					bg-color="#4B97B4"
 					color="#ffffff"/>
 
-			<button-reusable
-					v-if="$root.is_eng"
-					@click.native="submitAuto()"
-					class="v-center reg-btn py-13"
-					description="AUTO"
-					font-size="16"
-					bor-rad="6"
-					bg-color="#8f000f"
-					color="#ffffff"/>
+<!--			<button-reusable-->
+<!--					v-if="$root.is_eng"-->
+<!--					@click.native="submitAuto()"-->
+<!--					class="v-center reg-btn py-13 mt-9"-->
+<!--					description="AUTO"-->
+<!--					font-size="16"-->
+<!--					bor-rad="6"-->
+<!--					bg-color="#8f000f"-->
+<!--					color="#ffffff"/>-->
 
 			<div class="oAuth-btns mt-25 flex-column-center">
 
@@ -280,12 +280,18 @@
 
 							/* NOTE: Временно включил старый редирект */
 
-							// if (status === 200) {
-							// 	registerFormData.forEach(x => console.log(x))
-							// 	this.$store.commit("authentication/setAuthenticated", true);
-							// 	this.$router.push({name: "pollFeed"});
-							// }
+							/**
+							 * Редирект на ленту
+							 */
+							if (status === 200) {
+								registerFormData.forEach(x => console.log(x))
+								this.$store.commit("authentication/setAuthenticated", true);
+								this.$router.push({name: "pollFeed"});
+							}
 
+							/**
+							 * Редирект на одиночный опрос
+							 */
 							// if (status === 200) {
 							// 	this.$store.commit(
 							// 		"authentication/setAuthenticated",

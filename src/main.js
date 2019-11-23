@@ -123,7 +123,7 @@ export const vueApp = new Vue({
 	moment,
 	data() {
 		return {
-			is_eng: window.location.hostname === "eng.opinionsn.com",
+			is_eng: window.location.hostname === "eng.opinionsn.com" || "localhost",
 			is_mobile_device: null,
 			mobile: window.innerWidth <= 863,
 			scrolled_to_bottom: null,
