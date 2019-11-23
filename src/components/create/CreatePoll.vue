@@ -32,16 +32,16 @@
 						@click.native="setTypeOfCreation('PREDICTION')"
 				/>
 
-				<button-reusable
-						v-if="$root.is_eng"
-						:active-font-size="20"
-						:font-size="15"
-						bg-color="#ffffff"
-						button_type="underline"
-						color="#9f000f"
-						description="AUTO"
-						@click.native="onSubmitAuto"
-				/>
+<!--				<button-reusable-->
+<!--						v-if="$root.is_eng"-->
+<!--						:active-font-size="20"-->
+<!--						:font-size="15"-->
+<!--						bg-color="#ffffff"-->
+<!--						button_type="underline"-->
+<!--						color="#9f000f"-->
+<!--						description="AUTO"-->
+<!--						@click.native="onSubmitAuto"-->
+<!--				/>-->
 			</div>
 
 			<category-select :is-current-string="true" :current="form.subject_header" @on-select="setCategory"
