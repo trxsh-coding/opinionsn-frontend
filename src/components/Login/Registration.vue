@@ -139,16 +139,16 @@
 						</button-reusable>
 					</a>
 
-					<a :href="`https://opinionsn.com/api/oauth2/facebook${queryList}`">
-						<button-reusable
-								class="v-center soc-btn facebook-btn py-8 ml-11"
-								font-size="16"
-								bor-rad="6"
-								bg-color="#3b5998"
-								color="#4B97B4">
-							<IconFacebook />
-						</button-reusable>
-					</a>
+<!--					<a :href="`https://opinionsn.com/api/oauth2/facebook${queryList}`">-->
+<!--						<button-reusable-->
+<!--								class="v-center soc-btn facebook-btn py-8 ml-11"-->
+<!--								font-size="16"-->
+<!--								bor-rad="6"-->
+<!--								bg-color="#3b5998"-->
+<!--								color="#4B97B4">-->
+<!--							<IconFacebook />-->
+<!--						</button-reusable>-->
+<!--					</a>-->
 
 					<a :href="`https://opinionsn.com/api/oauth2/google${queryList}`">
 						<button-reusable
