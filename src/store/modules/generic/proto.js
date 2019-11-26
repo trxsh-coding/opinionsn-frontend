@@ -4,7 +4,7 @@ import axios from 'axios';
 export class VuexStore {
 
     static apiRequest(url, requestData, requestPayload, method='get'){
-        console.time('concatenation');
+        // console.time('concatenation');
         let {commit, dispatch, successType='mutation', onSuccess='onSuccess', root=false, params} = requestPayload;
         let isGet = `${method}`.toLowerCase() === 'get';
 
@@ -22,7 +22,7 @@ export class VuexStore {
             let {status, data} = resp;
 
             if (status === 200){
-                    console.timeEnd("concatenation");
+                    // console.timeEnd("concatenation");
                     commit('globalStore/updateStores', data, {root: true});
 
                 if (onSuccess){

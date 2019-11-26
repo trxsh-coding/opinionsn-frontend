@@ -46,10 +46,10 @@ Vue.use(PopupPlugin, {
 });
 
 
-Sentry.init({
-	dsn: 'https://932fcd28c2b648e691e8fdd4bec7dd76@sentry.io/1812665',
-	integrations: [new Integrations.Vue({Vue, attachProps: true})],
-});
+// Sentry.init({
+// 	dsn: 'https://932fcd28c2b648e691e8fdd4bec7dd76@sentry.io/1812665',
+// 	integrations: [new Integrations.Vue({Vue, attachProps: true})],
+// });
 //*****************
 
 //*****************
