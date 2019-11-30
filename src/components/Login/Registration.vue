@@ -150,6 +150,16 @@
 <!--						</button-reusable>-->
 <!--					</a>-->
 
+<!--					<a @click="authWithFB">-->
+<!--						<button-reusable-->
+<!--								class="v-center soc-btn facebook-btn py-8 ml-11"-->
+<!--								font-size="16"-->
+<!--								bor-rad="6"-->
+<!--								bg-color="#333"-->
+<!--								color="#4B97B4">-->
+<!--							<IconFacebook />-->
+<!--						</button-reusable>-->
+<!--					</a>-->
 
 					<a :href="`https://opinionsn.com/api/oauth2/google${queryList}`">
 						<button-reusable
@@ -243,6 +253,16 @@
 		},
 
 		methods: {
+
+			authWithFB(){
+				if (window.FB){
+
+					window.FB.login(function({authResponse: response}) {
+						window.location = `/api/oauth2/fbv2?token=${encodeURI(response.accessToken)}&userID=${encodeURI(response.userID)}&${this.queryList}`;
+					}, {scope: 'public_profile,email'});
+
+				}
+			},
 
 			onCaptchaExpired() {
 				this.$refs.recaptcha.reset()
