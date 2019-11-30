@@ -261,7 +261,7 @@
 
 					window.FB.login(function({authResponse: response}) {
 						let queryList = window.sessionStorage.getItem('queryList');
-						window.location = `/api/oauth2/fbv2${queryList}&token=${encodeURI(response.accessToken)}&userID=${encodeURI(response.userID)}`;
+						window.location = `/api/oauth2/fbv2?${queryList.slice(0, 1)}&token=${encodeURI(response.accessToken)}&userID=${encodeURI(response.userID)}`;
 					}, {scope: 'public_profile,email'});
 
 				}
