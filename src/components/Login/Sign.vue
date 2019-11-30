@@ -102,6 +102,17 @@
 <!--									</button-reusable>-->
 <!--								</a>-->
 
+								<a @click="authWithFB">
+									<button-reusable
+											class="v-center soc-btn facebook-btn py-8 ml-11"
+											font-size="16"
+											bor-rad="6"
+											bg-color="#3b5998"
+											color="#4B97B4">
+										<IconFacebook />
+									</button-reusable>
+								</a>
+
 								<a :href="`https://opinionsn.com/api/oauth2/google${queryList}`">
 									<button-reusable
 											class="v-center soc-btn google-btn py-8 ml-11"
@@ -188,6 +199,19 @@
 		},
 
 		methods: {
+
+			authWithFB(){
+
+				window.sessionStorage.setItem('queryList', this.queryList);
+				if (window.FB){
+
+					window.FB.login(function({authResponse: response}) {
+						let queryList = window.sessionStorage.getItem('queryList');
+						window.location = `/api/oauth2/fbv2${queryList}&token=${encodeURI(response.accessToken)}&userID=${encodeURI(response.userID)}`;
+					}, {scope: 'public_profile,email'});
+
+				}
+			},
 
 			updateField(val, key) {
 				this.signForm[key] = val;
