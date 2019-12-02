@@ -257,7 +257,7 @@
 			authWithFB(){
 
 				window.sessionStorage.setItem('queryList', this.queryList);
-				if (window.FB){
+				if (window.FB) {
 
 					window.FB.login(function({authResponse: response}) {
 						let queryList = window.sessionStorage.getItem('queryList');

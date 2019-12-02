@@ -1,6 +1,5 @@
 <template>
 	<div class="user-page-info">
-
 		<div class="tag-section flex-column">
 
 		</div>
@@ -51,6 +50,7 @@
 
 <script>
 	import langString from "../../langString";
+	import axios from 'axios';;
 
 	export default {
         name: "PageInfo",
@@ -62,7 +62,7 @@
 				type: Object,
 				required: true
 			}
-		},
+		}
     }
 </script>
 
