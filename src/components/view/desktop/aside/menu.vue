@@ -66,7 +66,7 @@
 		</dropdown-list-reusable>
 
 		<div class="menu-caption flex mt-9">
-			<span class="ml-10 mr-auto">Opinion © 2018</span>
+			<span class="ml-10 mr-auto">Opinion © 2018 - 2020</span>
 		</div>
 
 	</div>
