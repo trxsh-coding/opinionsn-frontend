@@ -1,28 +1,47 @@
 <template lang="html">
-	
+
 	<div id="poll-wrapper">
-		
+
 		<category-select @on-select="setCategory" :current="filter_id" :slides-per-view="4.3"
 		                 :class="{'mt-7 px-10': mobile, 'pb-13' : !mobile}"/>
-		
+		<div class="header-tip" v-if="filter_id === 24">
+			<span>
+				Первый тестовый турнир прогнозистов Opinion «Оскар 2020».
+			</span>
+			<br/>
+			<br/>
+			<span>
+				Главное условие участия - дать ответы на все 29 прогнозов в категории «Оскар 2020» до воскресенья 9 февраля 2020 23:59 мск. &nbsp;
+			</span>
+			<br/>
+			<br/>
+			<span>
+				После завершения церемонии в течение 24 часов мы сформируем таблицу с итогами конкурса и определим лучшего прогнозиста «Оскар 2020».
+				Следите за новостями Opinion, делайте прогнозы и становитесь лучшим. Желаем удачи!
+					<br/>
+					<br/>
+				Платформа Opinion находится в стадии бета-теста. Заранее приносим извинения за возможные технические неполадки.
+			</span>
+		</div>
+
 		<div class="feed mt-7 relative flex-column pb-12"
 		     @touchstart="handleTouchStart" @touchmove="handleTouchMove" @touchend="handleTouchEnd">
-			
+
 			<div class="reload-indicator-wrapper v-center" ref="reload_indicator"
 			     :style="difference && {height: difference + 'px'}">
 				<Loader />
 			</div>
-			
+
 			<div v-for="item in items" class="poll-item mb-9">
 				<poll-instance :item="item"/>
 			</div>
-			
+
 			<Loader class="mx-auto my-10" v-show="!is_finished && loading"/>
-			
+
 			<lang-string class="finish-warning mx-auto my-10" v-show="is_finished || !items.length" title="no_more_posts!"/>
-		
+
 		</div>
-	
+
 	</div>
 
 
@@ -37,7 +56,7 @@
 	import CatalogItem from "@/components/CatalogFeed/catalogItem";
 	import ButtonReusable from "@/components/reusableСomponents/ButtonReusable";
 	import langString from "../langString";
-	
+
 	export default {
 		name: 'PollFeed',
 		data() {
@@ -84,7 +103,7 @@
 			};
 		},
 		props: ["feed"],
-		
+
 		watch: {
 			scrolled_to_bottom(old) {
 				if (old) {
@@ -92,9 +111,9 @@
 				}
 			}
 		},
-		
+
 		computed: {
-			
+
 			...mapState("pollFeed", {
 				state: s => s,
 				items: s => s.items,
@@ -103,15 +122,15 @@
 				filter_id: state => state.filter_id,
 				connectionUnstable: ({connectionUnstable}) => connectionUnstable
 			}),
-			
+
 			...mapState("globalStore", {
 				categories: ({categories}) => categories
 			}),
-			
+
 			mobile() {
 				return this.$root.mobile;
 			},
-			
+
 			combinedCategories: function () {
 				let {localCategory, categories} = this;
 				const unordered = {...localCategory, ...categories}
@@ -119,11 +138,11 @@
 				const ordered = array.reverse();
 				return ordered;
 			},
-			
+
 			scrolled_to_bottom() {
 				return this.$root.scrolled_to_bottom;
 			},
-			
+
 			slidesPerView: function () {
 				if (this.mobile) {
 					this.swiperOption.slidesPerView = 5;
@@ -133,7 +152,7 @@
 					this.swiperOption.spaceBetween = 90;
 				}
 			},
-			
+
 			// beforeRouteLeave(to, from, next) {
 			// 	let {page} = this;
 			//
@@ -145,21 +164,21 @@
 			// }
 		},
 		methods: {
-			
+
 			load() {
 				this.$store.dispatch(`pollFeed/loadNextPage`);
 			},
-			
+
 			setCategory({id}) {
 				this.$store.commit('pollFeed/setFilterId', id);
 				this.$store.dispatch('pollFeed/list');
 			},
-			
+
 			handleTouchStart({touches}) {
 				this.init_coord = touches[0].screenY;
 				if (this.$root.scroll_top === 0) this.is_loader_active = true;
 			},
-			
+
 			handleTouchMove({touches}) {
 				let difference = touches[0].screenY - this.init_coord;
 				if (this.$root.scroll_top === 0 && difference > 0 && this.is_loader_active) {
@@ -167,26 +186,26 @@
 					this.difference = difference;
 				}
 			},
-			
+
 			handleTouchEnd() {
 				if (this.$refs.reload_indicator.offsetHeight === 70) {
 					this.page = 1;
 					this.$store.commit("pollFeed/resetFeedPage", 0);
 					this.$store.dispatch(`pollFeed/list`);
 				}
-				
+
 				document.body.style.cssText = '';
 				this.is_loader_active = false;
 				this.init_coord = 0;
 				this.difference = 0;
 			}
-			
+
 		},
-		
+
 		mounted() {
-			this.setCategory({id: -1});
+			this.setCategory({id: 24});
 		},
-		
+
 		beforeRouteEnter (to, from, next) {
 			document.body.classList.add('is_active');
 			next();
@@ -196,7 +215,7 @@
 			document.body.classList.remove('is_active');
 			next();
 		},
-		
+
 		components: {
 			ButtonReusable,
 			CatalogItem,
@@ -209,79 +228,90 @@
 </script>
 
 <style lang="scss">
-	
+
 	body {
 		&.is_active {
 			overscroll-behavior: contain;
 		}
 	}
-	
+
 	.ps__thumb-x {
 		background: #4b97b4 !important;
 	}
-	
+
 	.category-section::-webkit-scrollbar {
 		display: none;
 	}
-	
+
 	.category-block span::selection {
 		background: transparent;
 	}
-	
+
 	.poll-item {
 
 	}
-	
+
 	.poll-item:nth-last-child(-n+2) {
 		border-bottom: none;
 	}
-	
+
 	#poll-wrapper {
 		overflow: hidden;
 		border-radius: 6px;
 		height: 100%;
 		background: #F8F8F8;
-		
+
 		.feed {
 			height: 100%;
-			
+
 			.reload-indicator-wrapper {
 				height: 0;
 				min-height: 0;
 				max-height: 70px;
 				overflow: hidden;
 			}
-			
+
 			.loading-spinner {
 				width: 100%;
 				height: 80px;
-				
+
 				* {
 					background-color: transparent;
 				}
 			}
-			
+
 			.category-block {
 				width: 93px !important;
 				margin-right: 12px !important;
 			}
 		}
 	}
-	
+
 	.loading {
 		span {
 			color: #f4f4f4f4;
 		}
 	}
-	
+
+	.header-tip {
+		border-radius: 6px;
+		background-color: #ffffff;
+		padding: 12px;
+		span {
+			font-size: 14px;
+		}
+		span:nth-child(2n), span:nth-child(1){
+			font-weight: bold;
+		}
+	}
 	@media only screen and (max-width: 420px) {
 		#poll-wrapper {
 			.category-section {
 				justify-content: center !important;
-				
+
 				& > *:nth-child(even) {
 					margin-right: 0 !important;
-					
+
 					@media (max-width: 350px) {
 						margin-right: 6px !important;
 					}

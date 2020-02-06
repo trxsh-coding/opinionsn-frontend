@@ -187,7 +187,7 @@
 
 			getPathWithPoll(routeName) {
 
-				let {name, params} = this.$route;
+				let {name, params, query} = this.$route;
 
 				if (name === 'singlePoll') {
 					let poll = this.$store.state.globalStore.polls[params.id];
@@ -199,7 +199,10 @@
 							categoryId
 						}
 					}
-				} else {
+				} else if(query.categoryId == 24) {
+					return {name: routeName, query:{categoryId:24}}
+				}
+				else {
 					return {name: routeName}
 				}
 
