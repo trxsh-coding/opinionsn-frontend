@@ -4,6 +4,7 @@
 
 		<category-select @on-select="setCategory" :current="filter_id" :slides-per-view="4.3"
 		                 :class="{'mt-7 px-10': mobile, 'pb-13' : !mobile}"/>
+
 		<div class="header-tip" v-if="filter_id === 24">
 			<span>
 				Первый тестовый турнир прогнозистов Opinion «Оскар 2020».
@@ -203,7 +204,7 @@
 		},
 
 		mounted() {
-			this.setCategory({id: 24});
+			this.setCategory({id: -1});
 		},
 
 		beforeRouteEnter (to, from, next) {
