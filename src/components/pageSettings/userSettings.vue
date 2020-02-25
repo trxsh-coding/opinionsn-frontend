@@ -61,7 +61,8 @@
 			</label>
 		</popup-error-reusable>
 
-		<popup-error-reusable :errors="form.errors.gender">
+<!--		Временно убрал возможность смены пола-->
+		<!--<popup-error-reusable :errors="form.errors.gender">
 			<label class="label label-6 mt-12">
             <span class="caption">
                <lang-string :title="'gender'"/>
@@ -88,7 +89,7 @@
 				</div>
 
 			</label>
-		</popup-error-reusable>
+		</popup-error-reusable>-->
 
 		<popup-error-reusable :errors="form.errors.email">
 			<label class="label label-7 mt-12">
