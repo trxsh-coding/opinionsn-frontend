@@ -134,7 +134,9 @@ export const vueApp = new Vue({
 			search_keyword: '',
 		}
 	},
+
 	mixins: [ElementScrollHandler],
+
 	created() {
 		let is_mobile_device = {
 			Android() {
