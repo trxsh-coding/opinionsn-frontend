@@ -3,43 +3,19 @@
         <profile v-if="mobile"/>
         
         <routebar/>
-        
-<!--        <dropdown-list-reusable-->
-<!--                class="lang-switch flex-align-center"-->
-<!--                list-class="drop-list"-->
-<!--                button-class="trigger py-11 pl-7"-->
-<!--                width="100%"-->
-<!--                click-close-->
-<!--                with-arrow>-->
-<!--            <template>-->
-<!--                <icon-base class="flag-icon" height="22" width="22" viewBox="0 0 24 24" style="enable-background:new 0 0 24 24;">-->
-<!--                    <icon-flag />-->
-<!--                </icon-base>-->
-<!--            -->
-<!--                <lang-string class="button-caption ml-15" title="choose_language" />-->
-<!--            </template>-->
-<!--        -->
-<!--            <template #items>-->
-<!--                <ul class="flex-column list">-->
-<!--                    <li @click="changeLanguage(1)" class="option br-6 py-5 pr-10 pl-32 pointer flex-align-center"><span>English</span></li>-->
-<!--                    <li @click="changeLanguage(2)" class="option br-6 mt-5 py-5 pr-10 pl-32 pointer flex-align-center"><span>Русский</span></li>-->
-<!--                </ul>-->
-<!--            </template>-->
-<!--        </dropdown-list-reusable>-->
-        
-<!--        <ul class="lang-switch flex">-->
-<!--            <li class="switcher switcher-1 pointer" @click="changeLanguage(1)">-->
-<!--                <span>RUS</span>-->
-<!--                <lang-string :class="{active: feed_type === 1}" :title="'publications'" />-->
-<!--            </li>-->
-<!--            <li class="switcher switcher-2 pointer ml-18" @click="changeLanguage(2)">-->
-<!--                <span>ENG</span>-->
-<!--                <lang-string :class="{active: feed_type === 2}" :title="'reply_s'" />-->
-<!--            </li>-->
-<!--        </ul>-->
-        
+
+        <div class="flex-align-center mt-13">
+            <a class="flex pointer"
+               target="_blank"
+               rel="noreferrer noopener"
+               href="https://apps.apple.com/ru/app/opinion-%D0%BC%D0%B3%D0%BD%D0%BE%D0%B2%D0%B5%D0%BD%D0%BD%D1%8B%D0%B5-%D0%BC%D0%BD%D0%B5%D0%BD%D0%B8%D1%8F/id1490090282"
+            >
+                <DownloadOnTheAppStoreBadge/>
+            </a>
+        </div>
+
 		<div class="caption mt-13">
-            <span class="copyright my-auto mr-auto">© 2019 OPINION</span>
+            <span class="copyright my-auto mr-auto">Opinion © 2018 - 2020</span>
             <span @click="changeLanguage(2)" class="switch" :class="{'active': lang === 'ru'}">RUS</span>
             <span @click="changeLanguage(1)" class="switch ml-18" :class="{'active': lang === 'en'}">ENG</span>
         </div>
@@ -55,9 +31,11 @@
     import IconFlag from "@/components/icons/IconFlag";
     import LangString from "@/components/langString";
     import {mapState} from "vuex";
+    import DownloadOnTheAppStoreBadge from "../icons/DownloadOnTheAppStoreBadge";
     
     export default {
 		components: {
+            DownloadOnTheAppStoreBadge,
             LangString,
             IconFlag,
             IconBase,

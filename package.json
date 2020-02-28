@@ -11,6 +11,7 @@
     "@sentry/integrations": "^5.7.1",
     "apexcharts": "^3.8.3",
     "bowser": "^2.1.2",
+    "cache-loader": "^4.1.0",
     "cordova-android": "^8.0.0",
     "cordova-browser": "^6.0.0",
     "cordova-plugin-camera": "^4.0.3",

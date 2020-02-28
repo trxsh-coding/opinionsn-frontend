@@ -142,7 +142,19 @@
 									timeless: true
 								});
 							});
-						} else {
+						} else if(this.$route.query.categoryId == 24){
+							this.$router.push({
+								name: 'registration',
+								query: {categoryId : 24}
+							}, () => {
+								this.$popup.insert('messages', {
+									message: 'Для выполнения действий необходимо авторизоваться!',
+									type: 'warning',
+									timeless: true
+								});
+							});
+						}
+						else {
 							this.$router.push({name: 'sign'}, () => {
 								this.$popup.insert('messages', {
 									message: 'Для выполнения действий необходимо авторизоваться!',
