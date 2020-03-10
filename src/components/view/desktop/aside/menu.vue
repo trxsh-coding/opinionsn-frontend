@@ -67,13 +67,23 @@
 
         <div class="menu-caption flex-column mt-9">
 
-            <a class="flex pointer"
-               target="_blank"
-               rel="noreferrer noopener"
-               href="https://apps.apple.com/ru/app/opinion-%D0%BC%D0%B3%D0%BD%D0%BE%D0%B2%D0%B5%D0%BD%D0%BD%D1%8B%D0%B5-%D0%BC%D0%BD%D0%B5%D0%BD%D0%B8%D1%8F/id1490090282"
-            >
-                <DownloadOnTheAppStoreBadge/>
-            </a>
+            <div class="flex-align-center flex-center">
+                <a class="flex pointer"
+                   target="_blank"
+                   rel="noreferrer noopener"
+                   href="https://apps.apple.com/ru/app/opinion-%D0%BC%D0%B3%D0%BD%D0%BE%D0%B2%D0%B5%D0%BD%D0%BD%D1%8B%D0%B5-%D0%BC%D0%BD%D0%B5%D0%BD%D0%B8%D1%8F/id1490090282"
+                >
+                    <DownloadOnTheAppStoreBadge/>
+                </a>
+
+                <a class="flex pointer ml-15"
+                   target="_blank"
+                   rel="noreferrer noopener"
+                   href="https://play.google.com/store/apps/details?id=com.opinion"
+                >
+                    <DownloadOnThePlayMarketBadge/>
+                </a>
+            </div>
 
             <span class="mt-9 ml-10 mr-auto">Opinion © 2018 - 2020</span>
         </div>
@@ -95,6 +105,7 @@
     import CountryFlagsList from "@/components/icons/CountryFlagsList";
     import {mapState} from "vuex";
     import DownloadOnTheAppStoreBadge from "../../../icons/DownloadOnTheAppStoreBadge";
+    import DownloadOnThePlayMarketBadge from "../../../icons/DownloadOnThePlayMarketBadge";
 
 
     export default {
@@ -126,6 +137,7 @@
             }
         },
         components: {
+            DownloadOnThePlayMarketBadge,
             DownloadOnTheAppStoreBadge,
             CountryFlagsList,
             IconOpinion,

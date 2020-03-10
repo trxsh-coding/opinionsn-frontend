@@ -38,40 +38,41 @@
             <footer v-if="!Object.keys(user).length">
                 <div class="auth-block" :class="{'is_mobile_device': mobile}">
 
-                    <div class="logo-block flex-column ml-10">
-                        <div class="flex-align-center">
-                            <div class="icon logo picture-25x25 mr-6"
-                                 :style="{ 'background-image': 'url(' + require('./assets/icons/icon-logo.png') + ')' } ">
-                            </div>
-                            <icon-base
-                                    fill="none"
-                                    class="text-logo"
-                                    width="66"
-                                    height="15"
-                                    viewBox="0 0 66 15"
-                                    icon-name="text-logo">
-                                <icon-text-logo/>
-                            </icon-base>
-                        </div>
-
-                        <a class="flex pointer mt-7"
+                    <div class="flex-align-center" v-if="!$root.mobile">
+                        <a class="flex pointer ml-10"
                            target="_blank"
                            rel="noreferrer noopener"
                            href="https://apps.apple.com/ru/app/opinion-%D0%BC%D0%B3%D0%BD%D0%BE%D0%B2%D0%B5%D0%BD%D0%BD%D1%8B%D0%B5-%D0%BC%D0%BD%D0%B5%D0%BD%D0%B8%D1%8F/id1490090282"
-                           v-if="$root.mobile"
                         >
-                            <DownloadOnTheAppStoreBadge :size-scale="0.8"/>
+                            <DownloadOnTheAppStoreBadge :size-scale="1"/>
+                        </a>
+
+                        <a class="flex pointer ml-20"
+                           target="_blank"
+                           rel="noreferrer noopener"
+                           href="https://play.google.com/store/apps/details?id=com.opinion"
+                        >
+                            <DownloadOnThePlayMarketBadge :size-scale="1"/>
                         </a>
                     </div>
 
-                    <a class="flex pointer"
-                       target="_blank"
-                       rel="noreferrer noopener"
-                       href="https://apps.apple.com/ru/app/opinion-%D0%BC%D0%B3%D0%BD%D0%BE%D0%B2%D0%B5%D0%BD%D0%BD%D1%8B%D0%B5-%D0%BC%D0%BD%D0%B5%D0%BD%D0%B8%D1%8F/id1490090282"
-                       v-if="!$root.mobile"
-                    >
-                        <DownloadOnTheAppStoreBadge :size-scale="0.8"/>
-                    </a>
+                    <div class="flex-column flex-align-center" v-if="$root.mobile">
+                        <a class="flex pointer"
+                           target="_blank"
+                           rel="noreferrer noopener"
+                           href="https://apps.apple.com/ru/app/opinion-%D0%BC%D0%B3%D0%BD%D0%BE%D0%B2%D0%B5%D0%BD%D0%BD%D1%8B%D0%B5-%D0%BC%D0%BD%D0%B5%D0%BD%D0%B8%D1%8F/id1490090282"
+                        >
+                            <DownloadOnTheAppStoreBadge :size-scale="0.9"/>
+                        </a>
+
+                        <a class="flex pointer mt-10"
+                           target="_blank"
+                           rel="noreferrer noopener"
+                           href="https://play.google.com/store/apps/details?id=com.opinion"
+                        >
+                            <DownloadOnThePlayMarketBadge :size-scale="0.8"/>
+                        </a>
+                    </div>
 
                     <div class="buttons-block mr-10">
                         <router-link :to="getPathWithPoll('sign')">
@@ -118,6 +119,7 @@
     import ButtonReusable from "./reusableСomponents/ButtonReusable";
     import axios from 'axios';
     import DownloadOnTheAppStoreBadge from "./icons/DownloadOnTheAppStoreBadge";
+    import DownloadOnThePlayMarketBadge from "./icons/DownloadOnThePlayMarketBadge";
 
     export default {
 
@@ -287,6 +289,7 @@
         },
 
         components: {
+            DownloadOnThePlayMarketBadge,
             DownloadOnTheAppStoreBadge,
             ButtonReusable,
             asideDesktop,
@@ -380,6 +383,10 @@
             left: 0;
             bottom: 0;
             z-index: 20;
+
+            @media only screen and (min-width: 300px) and (max-width: 765px) {
+                height: 102px;
+            }
         }
 
         .auth-block {
@@ -395,14 +402,15 @@
                 box-sizing: border-box;
                 width: 100%;
                 padding-left: 10px;
+                height: 102px;
                 padding-right: 34px !important;
             }
 
             &.is_mobile_device {
                 box-sizing: border-box;
                 width: 100%;
-                padding-left: 10px;
-                padding-right: 34px !important;
+                padding-left: 20px;
+                padding-right: 10px !important;
             }
 
             .buttons-block {
