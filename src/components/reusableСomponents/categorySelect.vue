@@ -66,7 +66,7 @@
 						local: true
 					},
 					"999": {
-						name: 'all',
+						name: 'recommended',
 						id: -1,
 						path_to_image: require('../../assets/all.svg'),
 						local: true
