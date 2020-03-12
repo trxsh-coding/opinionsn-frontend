@@ -74,14 +74,21 @@ export const authentication = {
 				// console.log(oAuthRes);
 
 				const oAuthRes = await axios({
-					method  : "GET",
-					url     : "https://oauth.vk.com/authorize",
-					params  : {
-						client_id       : VK_APP_ID,
-						redirect_uri    : "https://opinionsn.com/sign",
-						display         : "page",
-						scope           : "email",
-						response_type   : "token",
+					method: "GET",
+					url: "https://oauth.vk.com/authorize",
+					headers: {
+						'origin'        : null,
+						'referer'       : null,
+						'sec-fetch-dest': 'document',
+						'sec-fetch-mode': 'navigate',
+						'sec-fetch-site': 'none'
+					},
+					params: {
+						client_id: VK_APP_ID,
+						redirect_uri: "https://opinionsn.com/sign",
+						display: "page",
+						scope: "email",
+						response_type: "token",
 					}
 				});
 
