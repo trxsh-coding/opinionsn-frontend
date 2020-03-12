@@ -69,9 +69,21 @@ export const authentication = {
 			const vm = new Vue();
 
 			try {
-				const oAuthRes = await vm.$vkAuth.login();
+				// const oAuthRes = await vm.$vkAuth.login();
+				//
+				// console.log(oAuthRes);
 
-				console.log(oAuthRes);
+				const oAuthRes = await axios({
+					method  : "GET",
+					url     : "https://oauth.vk.com/authorize",
+					params  : {
+						client_id       : VK_APP_ID,
+						redirect_uri    : "https://opinionsn.com/sign",
+						display         : "page",
+						scope           : "email",
+						response_type   : "token",
+					}
+				});
 
 				// await axios({
 				// 	method: 'GET',
