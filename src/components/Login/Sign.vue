@@ -1,146 +1,146 @@
 <template lang="html">
-	<div class="sign-section">
-		<div class="navbar-brand">
-			<div class="navbar__item navbar__item-1">
-				<icon-base
-						fill="none"
-						class="icon"
-						width="75"
-						height="64"
-						viewBox="0 0 23 24"
-						icon-name="logo">
-					<icon-logo/>
-				</icon-base>
-			</div>
-			<div class="navbar__item navbar__item-2 v-center">
-				<icon-base
-						fill="none"
-						class="icon-text"
-						width="66"
-						height="15"
-						viewBox="0 0 64 15"
-						icon-name="text-logo">
-					<icon-text-logo/>
-				</icon-base>
-			</div>
-		</div>
+    <div class="sign-section">
+        <div class="navbar-brand">
+            <div class="navbar__item navbar__item-1">
+                <icon-base
+                        fill="none"
+                        class="icon"
+                        width="75"
+                        height="64"
+                        viewBox="0 0 23 24"
+                        icon-name="logo">
+                    <icon-logo/>
+                </icon-base>
+            </div>
+            <div class="navbar__item navbar__item-2 v-center">
+                <icon-base
+                        fill="none"
+                        class="icon-text"
+                        width="66"
+                        height="15"
+                        viewBox="0 0 64 15"
+                        icon-name="text-logo">
+                    <icon-text-logo/>
+                </icon-base>
+            </div>
+        </div>
 
-		<div class="form-block mt-58" @keyup.enter.exact="submit(signForm)">
+        <div class="form-block mt-58" @keyup.enter.exact="submit(signForm)">
 
-			<popup-error-reusable :errors="{field_email: lstr(errors.field_email)}" span-class="mt-3">
-				<re-input :preset="2" placeholder="login" class="mx-auto" input-class="pb-5"
-				          :params="{flex: 1, fontSize: 16, label: { width: 271 }}"
-				          :value="signForm.email" @input="updateField(arguments[0], 'email')"/>
-			</popup-error-reusable>
+            <popup-error-reusable :errors="{field_email: lstr(errors.field_email)}" span-class="mt-3">
+                <re-input :preset="2" placeholder="login" class="mx-auto" input-class="pb-5"
+                          :params="{flex: 1, fontSize: 16, label: { width: 271 }}"
+                          :value="signForm.email" @input="updateField(arguments[0], 'email')"/>
+            </popup-error-reusable>
 
 
-			<popup-error-reusable :errors="{field_password: lstr(errors.field_password)}" span-class="mt-3">
-				<re-input class="mt-30 mx-auto" input-class="pb-5"
-				          :params="{flex: 1, fontSize: 16, label: { width: 271 }}"
-				          :preset="2" placeholder="password" type="password"
-				          :value="signForm.password" @input="updateField(arguments[0], 'password')"/>
-			</popup-error-reusable>
+            <popup-error-reusable :errors="{field_password: lstr(errors.field_password)}" span-class="mt-3">
+                <re-input class="mt-30 mx-auto" input-class="pb-5"
+                          :params="{flex: 1, fontSize: 16, label: { width: 271 }}"
+                          :preset="2" placeholder="password" type="password"
+                          :value="signForm.password" @input="updateField(arguments[0], 'password')"/>
+            </popup-error-reusable>
 
-		</div>
+        </div>
 
-		<div class="buttons-block flex-column-center mt-20">
+        <div class="buttons-block flex-column-center mt-20">
 
-			<router-link class="ml-auto pointer restore-btn" to="/restore">
-				<lang-string :title="'forgot_your_password?'"/>
-			</router-link>
+            <router-link class="ml-auto pointer restore-btn" to="/restore">
+                <lang-string :title="'forgot_your_password?'"/>
+            </router-link>
 
-			<button-reusable
-					@click.native="submit(signForm)"
-					class="v-center auth-btn mt-20 py-13"
-					description="sign_in"
-					font-size="16"
-					bor-rad="6"
-					bg-color="#ffffff"
-					color="#4B97B4"/>
+            <button-reusable
+                    @click.native="submit(signForm)"
+                    class="v-center auth-btn mt-20 py-13"
+                    description="sign_in"
+                    font-size="16"
+                    bor-rad="6"
+                    bg-color="#ffffff"
+                    color="#4B97B4"/>
 
-			<button-reusable
-					@click.native="$router.push({name: 'registration'})"
-					class="v-center auth-btn mt-9 py-13"
-					description="registration"
-					font-size="16"
-					bor-rad="6"
-					bg-color="#4B97B4"
-					color="#ffffff"/>
+            <button-reusable
+                    @click.native="$router.push({name: 'registration'})"
+                    class="v-center auth-btn mt-9 py-13"
+                    description="registration"
+                    font-size="16"
+                    bor-rad="6"
+                    bg-color="#4B97B4"
+                    color="#ffffff"/>
 
-						<div class="oAuth-btns mt-47 flex-column-center">
-							<lang-string class="title" title="sign_in_with_social_networks" />
+            <div class="oAuth-btns mt-47 flex-column-center">
+                <lang-string class="title" title="sign_in_with_social_networks"/>
 
-							<div class="btns flex-align-center mt-10">
+                <div class="btns flex-align-center mt-10">
 
-								<a :href="`https://opinionsn.com/api/oauth2/vk${queryList}`">
-									<button-reusable
-											class="v-center soc-btn vk-btn py-12"
-											font-size="16"
-											bor-rad="6"
-											bg-color="#4C6C91"
-											color="#4B97B4">
-										<icon-base
-												class="logo"
-												width="32"
-												height="18"
-												viewBox="0 0 32 18"
-												fill="none"
-												icon-name="google-logo">
-											<icon-vk/>
-										</icon-base>
-									</button-reusable>
-								</a>
+                    <button-reusable
+							@click.native="oAuth2VkontakteSignIn"
+                            class="v-center soc-btn vk-btn py-12"
+                            font-size="16"
+                            bor-rad="6"
+                            bg-color="#4C6C91"
+                            color="#4B97B4">
+                        <icon-base
+                                class="logo"
+                                width="32"
+                                height="18"
+                                viewBox="0 0 32 18"
+                                fill="none"
+                                icon-name="google-logo">
+                            <icon-vk/>
+                        </icon-base>
+                    </button-reusable>
 
-<!--								<a :href="`https://opinionsn.com/api/oauth2/facebook${queryList}`">-->
-<!--									<button-reusable-->
-<!--											class="v-center soc-btn facebook-btn py-8 ml-11"-->
-<!--											font-size="16"-->
-<!--											bor-rad="6"-->
-<!--											bg-color="#3b5998"-->
-<!--											color="#4B97B4">-->
-<!--										<IconFacebook />-->
-<!--									</button-reusable>-->
-<!--								</a>-->
 
-<!--								<a @click="authWithFB">-->
-<!--									<button-reusable-->
-<!--											class="v-center soc-btn facebook-btn py-8 ml-11"-->
-<!--											font-size="16"-->
-<!--											bor-rad="6"-->
-<!--											bg-color="#3b5998"-->
-<!--											color="#4B97B4">-->
-<!--										<IconFacebook />-->
-<!--									</button-reusable>-->
-<!--								</a>-->
+                    <!--								<a :href="`https://opinionsn.com/api/oauth2/facebook${queryList}`">-->
+                    <!--									<button-reusable-->
+                    <!--											class="v-center soc-btn facebook-btn py-8 ml-11"-->
+                    <!--											font-size="16"-->
+                    <!--											bor-rad="6"-->
+                    <!--											bg-color="#3b5998"-->
+                    <!--											color="#4B97B4">-->
+                    <!--										<IconFacebook />-->
+                    <!--									</button-reusable>-->
+                    <!--								</a>-->
 
-								<a :href="`https://opinionsn.com/api/oauth2/google${queryList}`">
-									<button-reusable
-											class="v-center soc-btn google-btn py-8 ml-11"
-											font-size="16"
-											bor-rad="6"
-											bg-color="#ffffff"
-											color="#4B97B4">
-										<icon-base
-												class="logo"
-												width="26"
-												height="26"
-												viewBox="0 0 366 372"
-												fill="none"
-												icon-name="google-logo">
-											<icon-google/>
-										</icon-base>
-									</button-reusable>
-								</a>
+                    <!--								<a @click="authWithFB">-->
+                    <!--									<button-reusable-->
+                    <!--											class="v-center soc-btn facebook-btn py-8 ml-11"-->
+                    <!--											font-size="16"-->
+                    <!--											bor-rad="6"-->
+                    <!--											bg-color="#3b5998"-->
+                    <!--											color="#4B97B4">-->
+                    <!--										<IconFacebook />-->
+                    <!--									</button-reusable>-->
+                    <!--								</a>-->
 
-							</div>
-						</div>
+                    <ButtonReusable
+                            @click.native="oAuth2GoogleSignIn"
+                            class="v-center soc-btn google-btn py-8 ml-11"
+                            font-size="16"
+                            bor-rad="6"
+                            bg-color="#ffffff"
+                            color="#4B97B4">
+                        <icon-base
+                                class="logo"
+                                width="26"
+                                height="26"
+                                viewBox="0 0 366 372"
+                                fill="none"
+                                icon-name="google-logo">
+                            <icon-google/>
+                        </icon-base>
+                    </ButtonReusable>
 
-		</div>
-	</div>
+                </div>
+            </div>
+
+        </div>
+    </div>
 
 </template>
 
 <script>
+	import Vue from "vue";
 	import langMixin from "../mixins/langMixin";
 	import IconBase from "../icons/IconBase.vue";
 	import IconLogo from "../icons/IconLogo.vue";
@@ -154,7 +154,7 @@
 	import InputReusable from "@/components/reusableСomponents/InputReusable";
 	import ButtonReusable from "@/components/reusableСomponents/ButtonReusable";
 	import PopupErrorReusable from "../reusableСomponents/PopupErrorReusable";
-	import {mapState} from "vuex";
+	import {mapActions, mapState} from "vuex";
 	import ReInput from "@/components/reusableСomponents/ReInput";
 
 	export default {
@@ -200,14 +200,19 @@
 
 		methods: {
 
-			authWithFB(){
+			...mapActions("authentication", [
+				"oAuth2VkontakteSignIn",
+				"oAuth2GoogleSignIn"
+			]),
+
+			authWithFB() {
 
 				window.sessionStorage.setItem('queryList', this.queryList);
-				if (window.FB){
+				if (window.FB) {
 
-					window.FB.login(function({authResponse: response}) {
+					window.FB.login(function ({authResponse: response}) {
 						let queryList = window.sessionStorage.getItem('queryList');
-						window.location = `/api/oauth2/fbv2${queryList ? queryList + "&" : "?" }token=${encodeURI(response.accessToken)}&userID=${encodeURI(response.userID)}`;
+						window.location = `/api/oauth2/fbv2${queryList ? queryList + "&" : "?"}token=${encodeURI(response.accessToken)}&userID=${encodeURI(response.userID)}`;
 					}, {scope: 'public_profile,email'});
 
 				}

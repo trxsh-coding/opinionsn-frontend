@@ -1,3 +1,5 @@
+import {GOOGLE_CLIENT_ID, VK_APP_ID} from "../constants";
+
 require('./styles.scss');
 import Vue from 'vue'
 import App from './App'
@@ -25,8 +27,11 @@ import PopupPlugin from "./plugins/PopupPlugin";
 import ElementScrollHandler from "./components/mixins/ElementScrollHandler";
 import VueYoutube from 'vue-youtube'
 import VueMeta from 'vue-meta'
-import * as Sentry from '@sentry/browser';
-import * as Integrations from '@sentry/integrations';
+import GAuth from 'vue-google-oauth2'
+import VKAuth from '@dyadikov/vue-vk-oauth2'
+
+// import * as Sentry from '@sentry/browser';
+// import * as Integrations from '@sentry/integrations';
 
 Vue.use(VueMeta)
 Vue.use(PortalVue);
@@ -41,6 +46,12 @@ Vue.use(Croppa);
 Vue.use(NProgress);
 Vue.use(VueI18n);
 Vue.use(moment);
+Vue.use(VKAuth, {apiId: VK_APP_ID});
+Vue.use(GAuth, {
+  clientId: GOOGLE_CLIENT_ID,
+  scope: 'profile email',
+  prompt: 'select_account'
+});
 Vue.use(PopupPlugin, {
 	store: new PopupPlugin.Store()
 });
