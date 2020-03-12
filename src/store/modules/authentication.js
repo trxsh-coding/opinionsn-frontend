@@ -64,35 +64,24 @@ export const authentication = {
 
 		async oAuth2VkontakteSignIn({commit}) {
 
+			console.log("oAuth2VkontakteSignIn");
+
 			const vm = new Vue();
 
 			try {
+				const oAuthRes = await vm.$vkAuth.login();
 
-				console.log(
-					await axios({
-						method: "GET",
-						url: "https://oauth.vk.com/authorize",
-						params: {
-							client_id: VK_APP_ID,
-							redirect_uri: "http://localhost:8080",
-							display: "page",
-							scope: "email",
-							response_type: "token"
-						}
-					})
-				)
+				console.log(oAuthRes);
 
-				return
-
-				await axios({
-					method: 'GET',
-					url: `${process.env.VUE_APP_MAIN_API}/oauth2/vk/mobile`,
-					params: {
-						token: auth.access_token,
-						email: auth.email,
-						user_id: auth.user_id
-					}
-				});
+				// await axios({
+				// 	method: 'GET',
+				// 	url: `${process.env.VUE_APP_MAIN_API}/oauth2/vk/mobile`,
+				// 	params: {
+				// 		token: auth.access_token,
+				// 		email: auth.email,
+				// 		user_id: auth.user_id
+				// 	}
+				// });
 				commit("setAuthenticated", true);
 			} catch (e) {
 				vm.$popup.insert('messages', [

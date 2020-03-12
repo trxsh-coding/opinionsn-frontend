@@ -161,24 +161,23 @@
 <!--						</button-reusable>-->
 <!--					</a>-->
 
-					<a :href="`https://opinionsn.com/api/oauth2/google${queryList}`">
-						<button-reusable
-								class="v-center soc-btn google-btn py-8 ml-11"
-								font-size="16"
-								bor-rad="6"
-								bg-color="#ffffff"
-								color="#4B97B4">
-							<icon-base
-									class="logo"
-									width="26"
-									height="26"
-									viewBox="0 0 366 372"
-									fill="none"
-									icon-name="google-logo">
-								<icon-google/>
-							</icon-base>
-						</button-reusable>
-					</a>
+					<button-reusable
+							@click.native="oAuth2GoogleSignIn"
+							class="v-center soc-btn google-btn py-8 ml-11"
+							font-size="16"
+							bor-rad="6"
+							bg-color="#ffffff"
+							color="#4B97B4">
+						<icon-base
+								class="logo"
+								width="26"
+								height="26"
+								viewBox="0 0 366 372"
+								fill="none"
+								icon-name="google-logo">
+							<icon-google/>
+						</icon-base>
+					</button-reusable>
 
 				</div>
 
@@ -196,7 +195,7 @@
 	import langString from "../langString.vue";
 	import {localString} from "../../utils/localString";
 	import axios from "axios";
-	import {mapState} from "vuex";
+	import {mapActions, mapState} from "vuex";
 	import InputReusable from "../reusableСomponents/InputReusable";
 	import ButtonReusable from "../reusableСomponents/ButtonReusable";
 	import IconVk from "../icons/IconVk";
@@ -253,6 +252,11 @@
 		},
 
 		methods: {
+
+			...mapActions("authentication", [
+				"oAuth2VkontakteSignIn",
+				"oAuth2GoogleSignIn"
+			]),
 
 			authWithFB(){
 

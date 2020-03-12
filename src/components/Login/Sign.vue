@@ -72,24 +72,24 @@
 
                 <div class="btns flex-align-center mt-10">
 
-                    <button-reusable
-							@click.native="oAuth2VkontakteSignIn"
-                            class="v-center soc-btn vk-btn py-12"
-                            font-size="16"
-                            bor-rad="6"
-                            bg-color="#4C6C91"
-                            color="#4B97B4">
-                        <icon-base
-                                class="logo"
-                                width="32"
-                                height="18"
-                                viewBox="0 0 32 18"
-                                fill="none"
-                                icon-name="google-logo">
-                            <icon-vk/>
-                        </icon-base>
-                    </button-reusable>
-
+                    <a :href="`https://opinionsn.com/api/oauth2/vk${queryList}`">
+                        <button-reusable
+                                class="v-center soc-btn vk-btn py-12"
+                                font-size="16"
+                                bor-rad="6"
+                                bg-color="#4C6C91"
+                                color="#4B97B4">
+                            <icon-base
+                                    class="logo"
+                                    width="32"
+                                    height="18"
+                                    viewBox="0 0 32 18"
+                                    fill="none"
+                                    icon-name="google-logo">
+                                <icon-vk/>
+                            </icon-base>
+                        </button-reusable>
+                    </a>
 
                     <!--								<a :href="`https://opinionsn.com/api/oauth2/facebook${queryList}`">-->
                     <!--									<button-reusable-->
@@ -140,7 +140,6 @@
 </template>
 
 <script>
-	import Vue from "vue";
 	import langMixin from "../mixins/langMixin";
 	import IconBase from "../icons/IconBase.vue";
 	import IconLogo from "../icons/IconLogo.vue";
