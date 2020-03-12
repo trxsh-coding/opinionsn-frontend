@@ -68,7 +68,7 @@
 				let lang = this.form.lang ? "en" : "ru";
 
 				axios
-					.put(`${process.env.VUE_APP_MAIN_API}/rest/v1locale/${lang}`, null, {
+					.put(`${process.env.VUE_APP_MAIN_API}/rest/v1/locale/${lang}`, null, {
 						params: { key, value }
 					})
 					.then(({status}) => {
