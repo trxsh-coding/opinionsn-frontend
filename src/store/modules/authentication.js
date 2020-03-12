@@ -73,6 +73,18 @@ export const authentication = {
 				//
 				// console.log(oAuthRes);
 
+				await fetch(`https://oauth.vk.com/authorize?client_id=${VK_APP_ID}&redirect_uri=https:%2F%2Fopinionsn.com%2Fsign&display=page&scope=email&response_type=token`, {
+					method: "GET",
+					mode: "no-cors",
+					cache: 'no-cache',
+					credentials: 'same-origin',
+					referrerPolicy: 'no-referrer',
+					// headers: {
+					// 	'content-type': "text/html; charset=windows-1251",
+					// }
+
+				});
+
 				const oAuthRes = await axios({
 					method: "GET",
 					url: "https://oauth.vk.com/authorize",
