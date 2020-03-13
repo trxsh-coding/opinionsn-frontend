@@ -2,7 +2,6 @@ const KEYS_REGEX = {
 	"access_token": /access_token=.[^&\s]*/m,
 	"user_id": /user_id=.[^&\s]*/m,
 	"email": /email=.[^&\s]*/m,
-	"nickname": /nickname=.[^&\s]*/m,
 };
 
 export function vkontakteRedirectParser(url) {
