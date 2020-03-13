@@ -62,60 +62,21 @@ export const authentication = {
 
 		},
 
-		async oAuth2VkontakteSignIn({commit}) {
+		async oAuth2VkontakteSignIn() {
 
-			console.log("oAuth2VkontakteSignIn");
+			const vm = new Vue();
 
 			const VKONTAKTE_AUTH_URL = (
 				"https://oauth.vk.com/authorize" +
 				"?client_id" + "=" + VK_APP_ID +
 				"&redirect_uri" + "=" + "https:%2F%2Fopinionsn.com%2Fsign" +
-				"&display" + "=" + "page" +
+				"&display" + "=" + "popup" +
 				"&scope" + "=" + "email" +
 				"&response_type" + "=" + "token"
 			);
 
-			const vm = new Vue();
-
 			try {
-				// const oAuthRes = await vm.$vkAuth.login();
-				//
-				// console.log(oAuthRes);
-
-				await fetch(VKONTAKTE_AUTH_URL, {
-					method: "GET",
-					mode: "no-cors"
-				});
-
-				// const oAuthRes = await axios({
-				// 	method: "GET",
-				// 	url: "https://oauth.vk.com/authorize",
-				// 	headers: {
-				// 		'origin'        : null,
-				// 		'referer'       : null,
-				// 		'sec-fetch-dest': 'document',
-				// 		'sec-fetch-mode': 'navigate',
-				// 		'sec-fetch-site': 'none'
-				// 	},
-				// 	params: {
-				// 		client_id: VK_APP_ID,
-				// 		redirect_uri: "https://opinionsn.com/sign",
-				// 		display: "page",
-				// 		scope: "email",
-				// 		response_type: "token",
-				// 	}
-				// });
-
-				// await axios({
-				// 	method: 'GET',
-				// 	url: `${process.env.VUE_APP_MAIN_API}/oauth2/vk/mobile`,
-				// 	params: {
-				// 		token: auth.access_token,
-				// 		email: auth.email,
-				// 		user_id: auth.user_id
-				// 	}
-				// });
-				commit("setAuthenticated", true);
+				window.location.replace(VKONTAKTE_AUTH_URL);
 			} catch (e) {
 				vm.$popup.insert('messages', [
 					{message: 'При попытке авторизации произошла ошибка!', type: 'error'}
