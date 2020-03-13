@@ -2,6 +2,7 @@ import Vue from "vue";
 import axios from "axios";
 import router from "../../router/index"
 import {VK_APP_ID} from "../../../constants";
+import {vkontakteRedirectParser} from "../../utils/vkontakteRedirectParser";
 
 export const authentication = {
 	namespaced: true,
@@ -84,6 +85,34 @@ export const authentication = {
 				console.log(e);
 			}
 
+		},
+
+		async handleVkontakteAuthRedirect({commit}) {
+			const vm = new Vue();
+			const data = vkontakteRedirectParser(window.location.href);
+
+			if (data) {
+
+				try {
+					await axios({
+						method: 'GET',
+						url: `${process.env.VUE_APP_MAIN_API}/oauth2/vk/mobile`,
+						params: {
+							token: data.access_token,
+							email: data.email,
+							user_id: data.user_id
+						}
+					});
+					commit("setAuthenticated", true);
+					router.push({path: "/"});
+				} catch (e) {
+					vm.$popup.insert('messages', [
+						{message: 'При попытке авторизации произошла ошибка!', type: 'error'}
+					]);
+					console.log(e);
+				}
+
+			}
 		}
 	}
 };

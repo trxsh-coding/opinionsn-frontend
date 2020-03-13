@@ -279,7 +279,6 @@
 		},
 
 		mounted() {
-			console.log(this.$route.query)
 			// if (this.$route.query.redirectToPoll) {
 			// 	this.$popup.insert('messages', {message: 'Для выполнения действий необходимо авторизоваться!', type: 'warning'})
 			// }

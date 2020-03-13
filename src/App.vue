@@ -20,9 +20,9 @@
 			...mapState('globalStore', {
 				referCode: s => s.mainUser.referCode
 			}),
-			
+
 		},
-		
+
 		watch: {
 			referCode(newValue) {
 				if (typeof newValue === 'string') {
@@ -30,17 +30,18 @@
 				}
 			}
 		},
-		
+
 		methods: {
 			scrollEventFunc() {
 				this.setScrollDifference(document.documentElement, 0, null, true);
 			}
 		},
-		
+
 		mounted() {
 			document.addEventListener("scroll", this.scrollEventFunc);
+			this.$store.dispatch("authentication/handleVkontakteAuthRedirect");
 		},
-		
+
 		beforeDestroy() {
 			document.removeEventListener("scroll", this.scrollEventFunc);
 		}
