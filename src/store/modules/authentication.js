@@ -66,6 +66,15 @@ export const authentication = {
 
 			console.log("oAuth2VkontakteSignIn");
 
+			const VKONTAKTE_AUTH_URL = (
+				"https://oauth.vk.com/authorize" +
+				"?client_id" + "=" + VK_APP_ID +
+				"&redirect_uri" + "=" + "https:%2F%2Fopinionsn.com%2Fsign" +
+				"&display" + "=" + "page" +
+				"&scope" + "=" + "email" +
+				"&response_type" + "=" + "token"
+			);
+
 			const vm = new Vue();
 
 			try {
@@ -73,36 +82,29 @@ export const authentication = {
 				//
 				// console.log(oAuthRes);
 
-				await fetch(`https://oauth.vk.com/authorize?client_id=${VK_APP_ID}&redirect_uri=https:%2F%2Fopinionsn.com%2Fsign&display=page&scope=email&response_type=token`, {
+				await fetch(VKONTAKTE_AUTH_URL, {
 					method: "GET",
-					mode: "no-cors",
-					cache: 'no-cache',
-					credentials: 'same-origin',
-					referrerPolicy: 'no-referrer',
-					// headers: {
-					// 	'content-type': "text/html; charset=windows-1251",
-					// }
-
+					mode: "no-cors"
 				});
 
-				const oAuthRes = await axios({
-					method: "GET",
-					url: "https://oauth.vk.com/authorize",
-					headers: {
-						'origin'        : null,
-						'referer'       : null,
-						'sec-fetch-dest': 'document',
-						'sec-fetch-mode': 'navigate',
-						'sec-fetch-site': 'none'
-					},
-					params: {
-						client_id: VK_APP_ID,
-						redirect_uri: "https://opinionsn.com/sign",
-						display: "page",
-						scope: "email",
-						response_type: "token",
-					}
-				});
+				// const oAuthRes = await axios({
+				// 	method: "GET",
+				// 	url: "https://oauth.vk.com/authorize",
+				// 	headers: {
+				// 		'origin'        : null,
+				// 		'referer'       : null,
+				// 		'sec-fetch-dest': 'document',
+				// 		'sec-fetch-mode': 'navigate',
+				// 		'sec-fetch-site': 'none'
+				// 	},
+				// 	params: {
+				// 		client_id: VK_APP_ID,
+				// 		redirect_uri: "https://opinionsn.com/sign",
+				// 		display: "page",
+				// 		scope: "email",
+				// 		response_type: "token",
+				// 	}
+				// });
 
 				// await axios({
 				// 	method: 'GET',
