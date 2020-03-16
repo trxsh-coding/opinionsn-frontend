@@ -90,6 +90,7 @@ export const authentication = {
 		async handleVkontakteAuthRedirect({commit}) {
 			const vm = new Vue();
 			const data = vkontakteRedirectParser(window.location.href);
+            const {access_token, user_id} = data;
 
 			if (data) {
 
@@ -97,7 +98,7 @@ export const authentication = {
 					await axios({
 						method: 'GET',
 						url: `${process.env.VUE_APP_MAIN_API}/oauth2/vk/mobile`,
-						params: data
+						params: {token:access_token, user_id:user_id}
 					});
 					commit("setAuthenticated", true);
 					router.push({path: "/"});
