@@ -1,5 +1,5 @@
 const KEYS_REGEX = {
-	"token": /token=.[^&\s]*/m,
+	"access_token": /token=.[^&\s]*/m,
 	"user_id": /user_id=.[^&\s]*/m,
 	"email": /email=.[^&\s]*/m,
 };
