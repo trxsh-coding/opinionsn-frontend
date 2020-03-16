@@ -97,7 +97,7 @@ export const authentication = {
 				try {
 					await axios({
 						method: 'GET',
-						url: `${process.env.VUE_APP_MAIN_API}/oauth2/vk/mobile2`,
+						url: `${process.env.VUE_APP_MAIN_API}/oauth2/vk/mobile`,
 						params: {token:access_token, user_id:user_id}
 					});
 					commit("setAuthenticated", true);
