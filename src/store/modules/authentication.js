@@ -72,12 +72,12 @@ export const authentication = {
 				"?client_id" + "=" + VK_APP_ID +
 				"&redirect_uri" + "=" + "https:%2F%2Fopinionsn.com%2Fsign" +
 				"&display" + "=" + "popup" +
-				"&scope" + "=" + "email" +
+				"&scope" + '=offline' + "&email" +
 				"&response_type" + "=" + "token"
 			);
-
 			try {
 				window.location.replace(VKONTAKTE_AUTH_URL);
+
 			} catch (e) {
 				vm.$popup.insert('messages', [
 					{message: 'При попытке авторизации произошла ошибка!', type: 'error'}
