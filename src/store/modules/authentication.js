@@ -39,7 +39,7 @@ export const authentication = {
 
 
 	actions: {
-		async oAuth2GoogleSignIn({commit}) {
+		async oAuth2GoogleSignIn({commit}, queryList) {
 
 			const vm = new Vue();
 
@@ -47,10 +47,7 @@ export const authentication = {
 				const oAuthRes = await vm.$gAuth.signIn();
 				await axios({
 					method: 'GET',
-					url: `${process.env.VUE_APP_MAIN_API}/oauth2/google/mobile`,
-					params: {
-						token: oAuthRes.uc.access_token
-					}
+					url: `${process.env.VUE_APP_MAIN_API}/oauth2/google/mobile${queryList ? queryList + "&" : "?"}token=${oAuthRes.uc.access_token}`,
 				});
 				commit("setAuthenticated", true);
 				router.push({path: "/"});

@@ -113,7 +113,7 @@
                     <!--								</a>-->
 
                     <ButtonReusable
-                            @click.native="oAuth2GoogleSignIn"
+                            @click.native="_ => oAuth2GoogleSignIn(queryList)"
                             class="v-center soc-btn google-btn py-8 ml-11"
                             font-size="16"
                             bor-rad="6"
