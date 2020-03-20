@@ -63,7 +63,9 @@ export const authentication = {
 
 		},
 
-		async oAuth2VkontakteSignIn() {
+		async oAuth2VkontakteSignIn(_, queryList) {
+
+		  	window.sessionStorage.setItem('queryList', queryList);
 
 			const vm = new Vue();
 
@@ -75,7 +77,9 @@ export const authentication = {
 				"&scope" + '=offline' + "&email" +
 				"&response_type" + "=" + "token"
 			);
+
 			try {
+
 				window.location.replace(VKONTAKTE_AUTH_URL);
 
 			} catch (e) {
@@ -92,14 +96,16 @@ export const authentication = {
 			const data = vkontakteRedirectParser(window.location.href);
             const {access_token, user_id} = data;
 
+            const queryList = window.sessionStorage.getItem('queryList');
+
 			if (data) {
 
 				try {
 					await axios({
 						method: 'GET',
-						url: `${process.env.VUE_APP_MAIN_API}/oauth2/vk/mobile`,
-						params: {user_id:user_id, token:access_token}
+						url: `${process.env.VUE_APP_MAIN_API}/oauth2/vk/mobile${queryList ? queryList + "&" : "?"}user_id=${user_id}&token=${access_token}`,
 					});
+					window.sessionStorage.removeItem('queryList');
 					commit("setAuthenticated", true);
 					router.push({path: "/"});
 				} catch (e) {

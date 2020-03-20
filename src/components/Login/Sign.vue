@@ -73,7 +73,7 @@
                 <div class="btns flex-align-center mt-10">
 
                     <button-reusable
-                            @click.native="oAuth2VkontakteSignIn"
+                            @click.native="_ => oAuth2VkontakteSignIn(queryList)"
                             class="v-center soc-btn vk-btn py-12"
                             font-size="16"
                             bor-rad="6"
