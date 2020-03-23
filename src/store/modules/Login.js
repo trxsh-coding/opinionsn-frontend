@@ -68,7 +68,8 @@ export default  {
     password:'',
     rules: {
 
-    }
+    },
+    loading:false
   },
   getters: {
   },
