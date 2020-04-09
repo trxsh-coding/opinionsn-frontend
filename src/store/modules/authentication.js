@@ -62,21 +62,38 @@ export const authentication = {
 
 		async oAuth2VkontakteSignIn(_, queryList) {
 
-		  	window.sessionStorage.setItem('queryList', queryList);
+			window.sessionStorage.setItem('queryList', queryList);
 
 			const vm = new Vue();
 
-			const VKONTAKTE_AUTH_URL = (
-				"https://oauth.vk.com/authorize" +
-				"?client_id" + "=" + VK_APP_ID +
-				"&redirect_uri" + "=" + "https:%2F%2Fopinionsn.com%2Fsign" +
-				"&display" + "=" + "popup" +
-				"&scope" + '=offline' + "&email" +
-				"&response_type" + "=" + "token"
-			);
+			function urlWithQueryParams(url, queryParams) {
+
+				let result = url;
+
+				if (typeof queryParams === 'object') {
+					Object.keys(queryParams).forEach((item, index) => {
+						if (index === 0) {
+							result += `?${item}=${queryParams[item]}`
+						} else {
+							result += `&${item}=${queryParams[item]}`
+						}
+					})
+				}
+
+				return result;
+			}
+
+			const VKONTAKTE_AUTH_URL = urlWithQueryParams("https://oauth.vk.com/authorize", {
+				client_id: VK_APP_ID,
+				redirect_uri: "https:%2F%2Fopinionsn.com%2Fsign",
+				display: "popup",
+				scope: "email,offline",
+				response_type: "token"
+			});
 
 			try {
 
+				// console.log(VKONTAKTE_AUTH_URL);
 				window.location.replace(VKONTAKTE_AUTH_URL);
 
 			} catch (e) {
@@ -91,16 +108,16 @@ export const authentication = {
 		async handleVkontakteAuthRedirect({commit}) {
 			const vm = new Vue();
 			const data = vkontakteRedirectParser(window.location.href);
-            const {access_token, user_id} = data;
+			const {access_token, user_id, email} = data;
 
-            const queryList = window.sessionStorage.getItem('queryList');
+			const queryList = window.sessionStorage.getItem('queryList');
 
 			if (data) {
 
 				try {
 					await axios({
 						method: 'GET',
-						url: `${process.env.VUE_APP_MAIN_API}/oauth2/vk/mobile${queryList ? queryList + "&" : "?"}user_id=${user_id}&token=${access_token}`,
+						url: `${process.env.VUE_APP_MAIN_API}/oauth2/vk/mobile${queryList ? queryList + "&" : "?"}user_id=${user_id}&token=${access_token}&email=${email}`,
 					});
 					window.sessionStorage.removeItem('queryList');
 					commit("setAuthenticated", true);
