@@ -172,19 +172,19 @@
 
 			<div class="additional-fields mt-20 pl-60" v-if="is_admin">
 
-				<re-switcher
-						class="blockchain-switcher flex-reverse"
-						caption-class="caption ml-10"
-						:value="is_blockchain"
-						@input="setTypeOfPoll"
-						:caption="is_blockchain ? lstr('BLOCKCHAIN') : lstr('OFF_CHAIN')"
-						:params="{width: 16, height: 8, color: '#000000', padding: '4px 8px', border: '2px solid #000000'}"
-				/>
+<!--				<re-switcher-->
+<!--						class="blockchain-switcher flex-reverse"-->
+<!--						caption-class="caption ml-10"-->
+<!--						:value="is_blockchain"-->
+<!--						@input="setTypeOfPoll"-->
+<!--						:caption="is_blockchain ? lstr('BLOCKCHAIN') : lstr('OFF_CHAIN')"-->
+<!--						:params="{width: 16, height: 8, color: '#000000', padding: '4px 8px', border: '2px solid #000000'}"-->
+<!--				/>-->
 
-				<re-checkbox class="time-limit-checkbox flex-reverse mt-12" caption-class="caption ml-10"
-				             :value="with_time_limit" @input="setTimeLimit"
-				             :size="20" v-if="form.type_of_poll == 1 || form.type_of_poll == 2"
-				             :caption="with_time_limit ? lstr('time_limit') : lstr('no_time_limit')"/>
+<!--				<re-checkbox class="time-limit-checkbox flex-reverse mt-12" caption-class="caption ml-10"-->
+<!--				             :value="with_time_limit" @input="setTimeLimit"-->
+<!--				             :size="20" v-if="form.type_of_poll == 1 || form.type_of_poll == 2"-->
+<!--				             :caption="with_time_limit ? lstr('time_limit') : lstr('no_time_limit')"/>-->
 
 				<re-input v-if="is_blockchain" :preset="2" class="mt-12" input-class="mt-24" :params="{width: '100%'}"
 				          placeholder="fund" :value="form.fund" @input="updateField(arguments[0], 'fund')"/>

@@ -1,11 +1,11 @@
 <template lang="html">
 
     <div id="catalog-feed" class="flex-column" :class="{'pt-58': mobile}">
-        
+
         <div class="pr-20" :class="{'pl-51': !mobile, 'pl-21': mobile}" v-show="items.length">
             <event v-for="item in items" class="mb-6" :item="item"/>
         </div>
-        
+
         <Loader class="mx-auto my-10" v-show="loading" />
 
     </div>
@@ -34,10 +34,11 @@
         watch: {
             payload_items(newValue, oldValue) {
                 if (Object.keys(newValue).length) {
-                    this.items = [...this.items, ...newValue]
+                    this.items = [...this.items, ...newValue].filter((value) => value.timestamp)
+                    console.log(this.items)
                 }
             },
-    
+
             scrolled_to_bottom(newValue) {
                 if (newValue) {
                     this.page++;
@@ -51,11 +52,11 @@
                 payload_items: s => s.items,
                 loading: s => s.loading
             }),
-    
+
             mobile() {
                 return this.$root.mobile;
             },
-    
+
             scrolled_to_bottom() {
                 return this.$root.scrolled_to_bottom;
             },
@@ -75,7 +76,7 @@
                         }
                     })
         },
-    
+
         components: {
             Loader,
             event,
@@ -98,10 +99,10 @@
         color: #152D3A;
         font-variant-caps: all-small-caps;
     }
-    
+
     .icon-back {
         float: left;
-        
+
         g {
             fill:none;
         }

@@ -95,7 +95,7 @@
 
                 </div>
             </footer>
-
+            <authed-footer v-if="Object.keys(user).length"/>
             <IphoneAddToScreenComponent/>
 
             <mobile-footer v-if="mobile && !!Object.keys(user).length"/>
@@ -120,6 +120,7 @@
     import axios from 'axios';
     import DownloadOnTheAppStoreBadge from "./icons/DownloadOnTheAppStoreBadge";
     import DownloadOnThePlayMarketBadge from "./icons/DownloadOnThePlayMarketBadge";
+    import AuthedFooter from "./view/desktop/authedFooter";
 
     export default {
 
@@ -289,6 +290,7 @@
         },
 
         components: {
+            AuthedFooter,
             DownloadOnThePlayMarketBadge,
             DownloadOnTheAppStoreBadge,
             ButtonReusable,

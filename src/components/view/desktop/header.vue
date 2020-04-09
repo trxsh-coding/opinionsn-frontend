@@ -99,10 +99,10 @@
 								<lang-string title="referrals_page"/>
 							</router-link>
 
-							<router-link class="menu-item py-10 px-20 pointer" v-if="isAdmin"
-							             :to="{name: 'achievementsPage'}">
-								<lang-string title="achievements_page"/>
-							</router-link>
+<!--							<router-link class="menu-item py-10 px-20 pointer" v-if="isAdmin"-->
+<!--							             :to="{name: 'achievementsPage'}">-->
+<!--								<lang-string title="achievements_page"/>-->
+<!--							</router-link>-->
 
 							<router-link class="menu-item py-10 px-20 pointer" v-if="isAdmin" :to="{name: 'admin'}">
 								<lang-string title="admin_panel"/>

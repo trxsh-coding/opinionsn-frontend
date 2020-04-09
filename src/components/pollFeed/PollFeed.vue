@@ -195,6 +195,7 @@
 
 			combinedCategories: function () {
 				let {localCategory, categories} = this;
+
 				const unordered = {...localCategory, ...categories}
 				const array = Object.values(unordered)
 				const ordered = array.reverse();

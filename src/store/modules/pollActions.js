@@ -234,7 +234,7 @@ export const pollActions = sc => class extends sc {
 			commit('globalStore/addChildTo', {
 					mapName: 'polls',
 					parentId: poll_id,
-					groupName: 'explains_id',
+					groupName: 'votes_id',
 					item: array,
 				},
 				{root: true}

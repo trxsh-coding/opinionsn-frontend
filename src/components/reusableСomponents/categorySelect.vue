@@ -88,10 +88,12 @@
 
 			combinedCategories: function () {
 
-				let categories = this.categories;
-				if (!this.popularCategory) delete categories[23]  // Remove POPULAR category by id
+				let categories = Object.values(this.categories);
+				if (!this.popularCategory) delete categories[19]  // Remove POPULAR category by id
+				const localCategory = Object.values(this.localCategory)
+				const ordered = [...Object.values(localCategory).reverse(), categories[19],...categories];
+				console.log(ordered)
 
-				const ordered = Object.values({...this.localCategory, ...categories}).reverse();
 				return (this.$route.name === 'pollFeed') ? ordered : this.categories;
 			},
 		},
