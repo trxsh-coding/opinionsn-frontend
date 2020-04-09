@@ -1,5 +1,5 @@
 <template>
-	<div id="app">
+	<div id="app" :class="{ 'mb-80' : isCreateRoute}">
 		<popup-notifications id="popup-notifications" />
 		<ModalWindow />
 		<router-view />
@@ -20,7 +20,9 @@
 			...mapState('globalStore', {
 				referCode: s => s.mainUser.referCode
 			}),
-
+			isCreateRoute(){
+				return this.$route.name === 'createPoll'
+			}
 		},
 
 		watch: {

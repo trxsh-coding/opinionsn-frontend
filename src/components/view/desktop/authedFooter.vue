@@ -57,6 +57,10 @@
     export default {
         name: "authedFooter",
         computed: {
+            isCreateRoute(){
+                console.log(this.$route)
+              return this.$route.name === 'createPoll'
+            },
             mobile() {
                 return this.$root.mobile;
             },
@@ -78,7 +82,7 @@
             position: fixed;
             left: 0;
             bottom: 0px;
-            z-index: 20;
+            z-index: 1000;
 
             @media only screen and (min-width: 300px) and (max-width: 765px) {
                 height: 92px;
