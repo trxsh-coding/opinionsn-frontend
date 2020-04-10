@@ -45,9 +45,10 @@ export const authentication = {
 
 			try {
 				const oAuthRes = await vm.$gAuth.signIn();
+				console.log(oAuthRes)
 				await axios({
 					method: 'GET',
-					url: `${process.env.VUE_APP_MAIN_API}/oauth2/google/mobile${queryList ? queryList + "&" : "?"}token=${oAuthRes.uc.access_token}`,
+					url: `${process.env.VUE_APP_MAIN_API}/oauth2/google/mobile${queryList ? queryList + "&" : "?"}token=${oAuthRes.tc.access_token}`,
 				});
 				commit("setAuthenticated", true);
 				router.push({path: "/"});
