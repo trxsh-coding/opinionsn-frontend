@@ -18,50 +18,48 @@
 			</icon-base>
 		</div>
 
-		<div class="modal-background" @click="clearPictures">
-			<div class="modal-window">
-				<swiper :options="swiperOptions" class="modal-swiper" @slideChange="changeSwiperIndex" ref="modalSwiper">
-					<swiper-slide v-for="({picture}) in pictures">
-						<div class="main-picture" :style="{backgroundImage: `url('${picture}')`}" />
-					</swiper-slide>
-				</swiper>
-				<ReSwiper class="pictures-section flex" v-if="pictures.length >= 2" :type="mobile ? 'scroll' : 'usual'"
-						  :params="{height: 150, width: '100%'}" :usual-swiper-options="{slidesPerView: 'auto', spaceBetween: 15}">
-					<template #usual>
-						<swiper-slide
-								class="w-fit" v-for="({picture}, index) in pictures">
-							<picture-reusable
-									:key="index"
-									:src="picture"
-									:class="{borderedPicture : picture === pictures[current_index].picture}"
-									@click.native="setCurrentIndex(index)"
-									class="mr-12 p-0 pointer"
-									:img="picture"
-									:height="75"
-									:width="100"
-									without-text
-									text-layout="bottom">
-							</picture-reusable>
-						</swiper-slide>
-					</template>
-
-					<template #scroll>
+		<div class="modal-window">
+			<swiper :options="swiperOptions" class="modal-swiper" @slideChange="changeSwiperIndex" ref="modalSwiper">
+				<swiper-slide v-for="({picture}) in pictures">
+					<div class="main-picture" :style="{backgroundImage: `url('${picture}')`}" />
+				</swiper-slide>
+			</swiper>
+			<ReSwiper class="pictures-section flex" v-if="pictures.length >= 2" :type="mobile ? 'scroll' : 'usual'"
+			          :params="{height: 150, width: '100%'}" :usual-swiper-options="{slidesPerView: 'auto', spaceBetween: 15}">
+				<template #usual>
+					<swiper-slide
+							class="w-fit" v-for="({picture}, index) in pictures">
 						<picture-reusable
-								v-for="({picture}, index) in pictures"
 								:key="index"
 								:src="picture"
 								:class="{borderedPicture : picture === pictures[current_index].picture}"
+								@click.native="setCurrentIndex(index)"
 								class="mr-12 p-0 pointer"
 								:img="picture"
-								:height="auto"
-								:width="170"
-								@click.native="setCurrentIndex(index)"
-								without-textout="bottom">
+								:height="75"
+								:width="100"
+								without-text
+								text-layout="bottom">
 						</picture-reusable>
-					</template>
-				</ReSwiper>
+					</swiper-slide>
+				</template>
 
-			</div>
+				<template #scroll>
+					<picture-reusable
+							v-for="({picture}, index) in pictures"
+							:key="index"
+							:src="picture"
+							:class="{borderedPicture : picture === pictures[current_index].picture}"
+							class="mr-12 p-0 pointer"
+							:img="picture"
+							:height="auto"
+							:width="170"
+							@click.native="setCurrentIndex(index)"
+							without-textout="bottom">
+					</picture-reusable>
+				</template>
+			</ReSwiper>
+
 		</div>
 
 	</div>
@@ -152,11 +150,7 @@
 	.white {
 		color: white;
 	}
-	.modal-background {
-		height: 100%;
-		opacity: 0;
-		z-index: 1;
-	}
+
 	.modal-reusable {
 		position: fixed;
 		z-index: 9999999;
@@ -194,7 +188,6 @@
 		}
 
 		.modal-window {
-			z-index: 2;
 			display: flex;
 			flex-direction: column;
 			align-items: center;
