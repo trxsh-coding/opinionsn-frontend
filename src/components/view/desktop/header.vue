@@ -52,14 +52,13 @@
 							<icon-notifications/>
 						</icon-base>
 
-						<re-badge class="counter" v-show="counter" :size="12"
+						<re-badge class="counter" v-show="unread" :size="12"
 						          :params="{background: '#FF5454'}"/>
 
 					</div>
 					<template #items>
-						<notification-page
-								v-if="!mobile && $route.name !== 'notifications'"
-								:scrollDifference="listScrollDifference"/>
+						<notification-feed v-if="!mobile && $route.name !== 'notifications'"
+										   :scrollDifference="listScrollDifference"/>
 					</template>
 				</dropdown-list-reusable>
 
@@ -130,8 +129,9 @@
 	import langString from "../../langString";
 	import {mapState} from "vuex";
 	import CookieMixin from "@/components/mixins/CookieMixin";
-	import ReBadge from "@/components/reusableСomponents/ReBadge";
+	import ReBadge from "../../../components/reusableСomponents/ReBadge"
 	import RePicture from "@/components/reusableСomponents/RePicture";
+	import NotificationFeed from "../../notificationsV2/Feed";
 
 	export default {
 		name: "desktopHeader",
@@ -145,8 +145,8 @@
 
 		computed: {
 
-			...mapState("notificationPage", {
-				counter: s => s.counter,
+			...mapState("Notifications", {
+				unread: s => s.unread,
 			}),
 
 			...mapState("globalStore", {
@@ -166,7 +166,7 @@
 		methods: {
 
 			clearCounter() {
-				this.$store.dispatch('notificationPage/readInitialNotifications');
+				setTimeout(()=> this.$store.dispatch('Notifications/ReadNotifications'), 3000)
 			},
 
 			userLogout() {
@@ -176,7 +176,7 @@
 				this.$store.commit("userPage/removeUser");
 				this.$store.commit("pollFeed/clearFeed");
 				this.$store.commit("globalStore/clearStores");
-				this.$store.commit("notificationStore/clearStores");
+				this.$store.commit("notificationSt/clearStores");
 				this.$store.commit("notificationPage/setDefaultPage");
 				this.$router.push({name: 'sign', query: {logout: 'true'}});
 
@@ -205,6 +205,7 @@
 		},
 
 		components: {
+			NotificationFeed,
 			RePicture,
 			ReBadge,
 			NotificationPage,

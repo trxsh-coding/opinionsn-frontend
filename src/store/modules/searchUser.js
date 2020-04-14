@@ -3,7 +3,6 @@ import {StoreWithList} from "./generic/withList";
 import {followsActions} from "./followsActions";
 
 class searchListStore extends followsActions(StoreWithList (VuexStore, `${process.env.VUE_APP_MAIN_API}/rest/findAllByContaining/`)) {
-
 }
 
 

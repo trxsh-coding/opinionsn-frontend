@@ -16,6 +16,9 @@
         	counter: {
         		type: Number
 			},
+			value: {
+				type: Boolean
+			},
 			size: {
         		type: Number
 			},
@@ -33,7 +36,7 @@
 					return counter > 9 ? '+9' : counter;
 				}
 			},
-			
+
 			c_params() {
 				return {
 					fontFamily: 'Roboto',
@@ -48,7 +51,7 @@
 					...this.cSize
 				}
 			},
-			
+
 			cSize() {
 				return this.size ? {width: `${this.size}px`, height: `${this.size}px`} : {};
 			}

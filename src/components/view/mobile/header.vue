@@ -3,13 +3,13 @@
 	     class="flex-between flex-align-center py-10 px-20"
 	     :class="{'hidden': hidden}"
 	     v-show="header_type !== 'hidden'">
-		
+
 		<template v-if="logged_in">
-			
+
 			<router-link v-show="header_type === 'primary'" class="flex" :to="{name: 'createPoll'}">
 				<IconAddPoll class="add-poll" fill="#4B97B4" />
 			</router-link>
-			
+
 			<icon-base
 					v-show="header_type === 'secondary'"
 					@click.native="goBack"
@@ -21,9 +21,9 @@
 					icon-name="arrow">
 				<icon-arrow-left/>
 			</icon-base>
-			
+
 		</template>
-		
+
 		<router-link class="main-logo-icon-block h-25 pointer" :class="{'mx-auto': !logged_in}"
 		              v-if="header_type === 'primary'" :to="{name: 'pollFeed'}">
 			<icon-base
@@ -35,7 +35,7 @@
 					icon-name="logo">
 				<icon-logo/>
 			</icon-base>
-			
+
 			<icon-base
 					class="ml-6 mb-1"
 					fill="none"
@@ -46,17 +46,17 @@
 				<icon-text-logo/>
 			</icon-base>
 		</router-link>
-		
+
 		<lang-string
 				v-if="header_type === 'secondary'"
 				class="route-title"
 				:title="$route.name.toLowerCase()"/>
-		
+
 		<router-link v-if="logged_in" class="pointer flex"
 		             :to="{ name: 'user', params: { id: user.id } }">
 			<RePicture :url="user.path_to_avatar | addAssetsPath" size="27" rounded />
 		</router-link>
-	
+
 	</div>
 </template>
 
@@ -89,13 +89,13 @@
 				type: Object
 			},
 		},
-		
+
 		data() {
 			return {
 				hidden: false
 			}
 		},
-		
+
 		watch: {
 			scroll_top(val, oldVal) {
 				if (oldVal > 48) {
@@ -106,40 +106,42 @@
 				}
 			}
 		},
-		
+
 		computed: {
-			
+
 			scroll_top() {
 				return this.$root.scroll_top
 			},
-			
+
 			header_type() {
 				let {name: route_name} = this.$route;
-				
+
 				switch (route_name) {
 					case 'pollFeed':
 					case 'voteFeed':
 					case 'singlePoll':
 						return 'primary';
-					
+
 					case 'catalogList':
 					case 'catalogFeed':
 					case 'statistic':
 					case 'rating':
 					case 'bookmarkFeed':
 					case 'search':
+					case 'notifications':
+
 						return 'secondary';
-					
+
 					default:
 						return 'hidden';
 				}
 			},
-			
+
 			logged_in() {
 				return !!Object.keys(this.user).length;
 			}
 		},
-		
+
 		methods: {
 
 			goBack() {
@@ -150,7 +152,7 @@
 				}
 			}
 		}
-		
+
 	}
 </script>
 
@@ -163,11 +165,11 @@
 		border-bottom: 1px solid #BEC0C5;
 		z-index: 999999;
 		transition: 300ms;
-		
+
 		&.hidden {
 			transform: translateY(-100%);
 		}
-		
+
 		.route-title {
 			font-family: Roboto;
 			font-style: normal;

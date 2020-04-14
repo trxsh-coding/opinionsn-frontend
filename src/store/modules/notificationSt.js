@@ -21,7 +21,7 @@ notificationStorageNames.forEach(x=>{
     defaultState[x] = {};
 });
 
-export const notificationStore  =  {
+export const notificationSt  =  {
 
     namespaced: true,
     state: {

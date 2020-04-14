@@ -3,9 +3,6 @@
         <footer id="authed-footer">
 
             <div class="auth-block" :class="{'is_mobile_device': mobile}">
-                <span class="download-caption" v-if="!$root.mobile">
-                    Скачать бесплатное приложение:
-                </span>
                 <div class="flex-align-center " v-if="!$root.mobile">
                     <a class="flex pointer ml-10"
                        target="_blank"
@@ -25,10 +22,7 @@
                 </div>
 
                 <div>
-               <span class="download-caption" v-if="$root.mobile">
-                    Скачать бесплатное приложение:
-                </span>
-                    <div class=" flex-align-center mb-15 mt-5" v-if="$root.mobile">
+                    <div class=" flex-align-center mb-45 mt-5" v-if="$root.mobile">
                         <a class="flex pointer"
                            target="_blank"
                            rel="noreferrer noopener"
@@ -76,7 +70,7 @@
     .footer-with-icons {
         #authed-footer {
             width: 100%;
-            height: 92px;
+            height: 80px;
             background: rgba(21, 45, 58, 0.9);
             box-shadow: 0px 0px 12px rgba(0, 0, 0, 0.06);
             position: fixed;
@@ -85,7 +79,7 @@
             z-index: 1000;
 
             @media only screen and (min-width: 300px) and (max-width: 765px) {
-                height: 92px;
+                height: 62px;
                 bottom: 44px;
             }
         }

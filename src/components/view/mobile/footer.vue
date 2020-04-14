@@ -45,8 +45,7 @@
 					</icon-base>
 					<lang-string title="notifications"/>
 				</router-link>
-
-				<re-badge class="counter" v-show="counter" :size="12"
+				<re-badge class="counter" v-show="unread" :size="12"
 				          :params="{background: '#FF5454'}"/>
 			</li>
 
@@ -76,7 +75,7 @@
 	import langMixin from '../../mixins/langMixin'
 	import langString from '../../langString'
 	import {mapState} from 'vuex';
-	import ReBadge from "@/components/reusableСomponents/ReBadge";
+	import ReBadge from '../../reusableСomponents/ReBadge'
 	import IconOpinion from "@/components/icons/footer/IconOpinion";
 
 	export default {
@@ -88,8 +87,8 @@
 		},
 		computed: {
 
-			...mapState("notificationPage", {
-				counter: s => s.counter,
+			...mapState("Notifications", {
+				unread: ({unread}) => unread,
 			}),
 
 			routeName() {

@@ -1,13 +1,20 @@
 <template>
     <div class="player-block" :style="{width: width, height: height}">
-        <youtube :video-id="videoId" fit-parent="true" resize="true" :height="height" :width="width"/>
+        <RePicture :url="thumbnailUrl" :width="width" :height="height" v-if="thumbnail" class="br-6 mr-9"/>
+        <youtube :video-id="videoId" fit-parent="true" resize="true" :height="height" :width="width" v-else/>
     </div>
 </template>
 
 <script>
+    import RePicture from "./RePicture";
     export default {
         name: "reYoutube",
+        components: {RePicture},
         props:{
+            thumbnail: {
+              type:Boolean,
+              default: false
+            },
             link:{
                 type:String
             },
@@ -45,11 +52,16 @@
             },
             videoId(){
                return this.$youtube.getIdFromUrl(this.link)
+            },
+            thumbnailUrl(){
+                const id = this.getId();
+                return `https://img.youtube.com/vi/${id}/0.jpg`
             }
         },
         methods: {
             getId () {
                 this.video_id = this.$youtube.getIdFromUrl(this.link)
+                return this.video_id
             }
         }
     }

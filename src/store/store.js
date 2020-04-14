@@ -10,10 +10,8 @@ import {singlePoll} from "./modules/singlePoll";
 import {catalogList} from "./modules/catalogList";
 import {userPage} from "./modules/userPage";
 import {globalStore} from "./modules/globalStore";
-import {notificationPage} from "./modules/notifications";
 import {achievementsPage} from "./modules/achievementsPage";
-
-import createPersistedState from 'vuex-persistedstate'
+import {Notifications} from "./modules/NotificationStore";
 
 Vue.use(Vuex)
 Vue.use(axios)
@@ -29,9 +27,9 @@ export const store = new Vuex.Store({
 		singlePoll,
 		catalogList,
 		userPage,
-		notificationPage,
 		achievementsPage,
 		serviceWorker,
+		Notifications
 	},
 	state: {},
 	getters: {},

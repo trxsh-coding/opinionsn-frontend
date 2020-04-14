@@ -160,7 +160,7 @@
 
 		computed: {
 
-			...mapState("notificationStore", {
+			...mapState("notificationSt", {
 				messages: s => s.messages
 			}),
 
@@ -312,7 +312,7 @@
 
 				setTimeout( () => {
 					this.$store.dispatch('notificationPage/readInitialNotifications').then(() => {
-						this.$store.commit('notificationStore/updateArrayChild',
+						this.$store.commit('notificationSt/updateArrayChild',
 								{
 									mapName : 'messages',
 									childName : 'read',

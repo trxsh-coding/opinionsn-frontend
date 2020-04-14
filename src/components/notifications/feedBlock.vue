@@ -111,7 +111,7 @@
 			NewPrediction
 		},
 		computed: {
-			...mapState("notificationStore", {
+			...mapState("notificationSt", {
 				userMap: ({ users }) => users,
 				pollMap: ({ polls }) => polls
 			}),

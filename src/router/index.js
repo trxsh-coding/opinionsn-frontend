@@ -21,7 +21,6 @@ const CatalogFeed = () => import('../components/CatalogFeed/Feed');
 const feedBack = () => import('../components/feedback/feedbackForm');
 const user = () => import('../components/user/Page');
 const sidebar = () => import('../components/mobile/menu');
-const notificationPage = () => import('../components/notifications/notificationPage');
 const PollTable = () => import('../components/Admin/PollTable');
 const testPlayground = () => import("../components/testPlayground");
 const Settings = () => import("../components/pageSettings/index.vue");
@@ -29,6 +28,8 @@ const Statistic = () => import("../components/Statistic/statisticInstance");
 const Rating = () => import("../components/Rating/ratingInstance");
 const ReferralsPage = () => import("../components/ReferralsPage");
 const achievementsPage = () => import("../components/achievementsPage/index");
+const Notifications = () => import("../components/notificationsV2/Feed");
+
 import {nprogress} from '../main.js';
 import {searchUser} from "@/store/modules/searchUser";
 
@@ -119,6 +120,7 @@ export const router = new Router({
 					name: 'pollFeed'
 				},
 			children: [
+
 				{
 					path: 'ReferralsPage',
 					name: 'ReferralsPage',
@@ -148,6 +150,11 @@ export const router = new Router({
 					props: true
 				},
 				{
+					path: 'notifications',
+					name: 'notifications',
+					component: Notifications
+				},
+				{
 					path: 'createPoll',
 					name: 'createPoll',
 					component: createPoll,
@@ -166,11 +173,6 @@ export const router = new Router({
 					path: 'feedback',
 					name: 'feedback',
 					component: feedBack,
-				},
-				{
-					path: 'notifications',
-					name: 'notifications',
-					component: notificationPage,
 				},
 				{
 					path: 'search',
@@ -262,7 +264,6 @@ const dynamicModules = new Map([
 	['searchUser', () => import('../store/modules/searchUser')],
 	['bookmarkFeed', () => import('../store/modules/bookmarkFeed')],
 	['followsPage', () => import('../store/modules/Follows')],
-	['notificationStore', () => import('../store/modules/notificationStore')],
 	['adminPage', () => import('../store/modules/adminPage')],
 	['formManagment', () => import('../store/modules/formManagment')],
 	['userFeed', () => import('../store/modules/userFeed')],
@@ -315,6 +316,8 @@ router.beforeEach((to, from, next) => {
 				case 'pollFeed':
 				case 'singlePoll':
 				case 'feedback':
+				case 'notifications':
+
 					next();
 					break;
 				default:

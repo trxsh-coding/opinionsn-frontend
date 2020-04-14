@@ -7,7 +7,7 @@
 					<lang-string :title="'add_poll'" />
 				</router-link>
 			</li>
-			
+
 <!--			<li class="link relative pointer">-->
 <!--				<icon-base-->
 <!--						fill="none"-->
@@ -19,14 +19,14 @@
 <!--				</icon-base>-->
 <!--				<lang-string :title="'pocket'" />-->
 <!--			</li>-->
-			
+
 			<li class="relative pointer">
 				<router-link class="link" :to="{name: 'bookmarkFeed'}">
 					<IconBookmark width="18" height="24" />
 					<lang-string :title="'bookmarks'" />
 				</router-link>
 			</li>
-			
+
 <!--			<li class="link relative pointer">-->
 <!--				<icon-base-->
 <!--						fill="none"-->
@@ -38,7 +38,7 @@
 <!--				</icon-base>-->
 <!--				<lang-string :title="'judgement'" />-->
 <!--			</li>-->
-			
+
 			<li class="relative pointer">
 				<router-link class="link" :to="{name: 'catalogList'}">
 					<icon-base
@@ -52,14 +52,14 @@
 					<lang-string :title="'topics'" />
 				</router-link>
 			</li>
-			
+
 			<li v-if="mainUser.referCode" class="relative pointer">
 				<router-link class="link" :to="{name: 'ReferralsPage'}">
 					<icon-user width="22" height="22" fill="#1a1e22" :style="{position: 'relative', left: '-3px'}"/>
 					<lang-string :title="'referrals_page'" />
 				</router-link>
 			</li>
-			
+
 			<li class="relative pointer">
 				<router-link class="link" :to="{name: 'settings'}">
 					<icon-base
@@ -73,7 +73,7 @@
 					<lang-string :title="'settings'" />
 				</router-link>
 			</li>
-			
+
 			<li class="relative pointer">
 				<router-link class="link" :to="{name: 'feedback'}">
 					<icon-base
@@ -87,7 +87,7 @@
 					<lang-string :title="'feedback'" />
 				</router-link>
 			</li>
-			
+
 			<li class="link relative pointer" @click="userLogout">
 				<icon-base
 						fill="none"
@@ -119,7 +119,7 @@
 	import IconUser from "@/components/icons/IconUser";
 	import IconBookmark from "@/components/icons/IconBookmark";
 	import IconAddPoll from "@/components/icons/IconAddPoll";
-	
+
 	export default {
 
 		components: {
@@ -135,53 +135,53 @@
 			langString,
 			IconPocket
 		},
-		
+
 		mixins: [langMixin, CookieMixin],
-		
+
 		computed: {
-			
+
 			...mapState('globalStore', {
-				
+
 				mainUser: s => s.mainUser
-				
+
 			}),
-			
+
 		},
-		
+
 		methods: {
-			
+
 			routerPush(name, additionalOptions) {
 				this.$router.push({name, ...additionalOptions})
 			},
-			
+
 			userLogout() {
-				
+
 				this.deleteCookie('Auth-Token');
 				this.$store.commit("authentication/setAuthenticated", false);
 				this.$store.commit("userPage/removeUser");
 				this.$store.commit("pollFeed/clearFeed");
 				this.$store.commit("globalStore/clearStores");
-				this.$store.commit("notificationStore/clearStores");
+				this.$store.commit("notificationSt/clearStores");
 				this.$store.commit("notificationPage/setDefaultPage");
 				this.$router.push({name: 'sign'});
-				
+
 			},
-			
+
 		},
-		
-		
+
+
 		mounted() {
-		
-		
+
+
 		}
 	}
 </script>
 
 <style lang="scss">
 	.links-section {
-		
+
 		ul {
-			
+
 			.link {
 				height: 45px;
 				display: flex;
@@ -190,7 +190,7 @@
 				border-bottom-color: #BCBEC3;
 				border-bottom-width: 0.5px;
 				border-bottom-style: solid;
-				
+
 				span {
 					position: absolute;
 					left: 45px;
@@ -201,11 +201,11 @@
 					font-size: 14px;
 					line-height: 16px;
 					color: #1A1E22;
-					
+
 				}
 			}
-			
+
 		}
-		
+
 	}
 </style>

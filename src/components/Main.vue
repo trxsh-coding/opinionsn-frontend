@@ -272,6 +272,7 @@
         },
         mounted() {
             this.getNotifications();
+            this.$store.dispatch('Notifications/getUnreadNotificationsValue');
             this.$store.commit("serviceWorker/SET_NOTIFICATION_SUPPORT")
         },
 
