@@ -268,6 +268,7 @@ const dynamicModules = new Map([
 	['formManagment', () => import('../store/modules/formManagment')],
 	['userFeed', () => import('../store/modules/userFeed')],
 	['voteFeed', () => import('../store/modules/voteFeed')],
+	['Notifications', () => import('../store/modules/NotificationStore')],
 
 ]);
 
@@ -343,6 +344,7 @@ router.beforeEach((to, from, next) => {
 		}
 	}
 
+	transitQueryParams('refer');
 
 });
 
