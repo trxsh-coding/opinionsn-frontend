@@ -2,7 +2,7 @@ import {ListMixin} from "./prototype/listGeneric";
 import apiGeneric from "./prototype/apiGeneric";
 import {apiData} from "../../utils/api";
 
-export class NotificationStore extends ListMixin(apiGeneric, `/rest/v2/notification`) {
+class NotificationStore extends ListMixin(apiGeneric, `/rest/v2/notification`) {
     //MUTATIONS
     NotificationsIsChecked(state){
         const {list} = state;

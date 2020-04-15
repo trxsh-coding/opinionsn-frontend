@@ -11,7 +11,6 @@ import {catalogList} from "./modules/catalogList";
 import {userPage} from "./modules/userPage";
 import {globalStore} from "./modules/globalStore";
 import {achievementsPage} from "./modules/achievementsPage";
-import {Notifications} from "./modules/NotificationStore";
 
 Vue.use(Vuex)
 Vue.use(axios)
@@ -29,7 +28,6 @@ export const store = new Vuex.Store({
 		userPage,
 		achievementsPage,
 		serviceWorker,
-		Notifications
 	},
 	state: {},
 	getters: {},
