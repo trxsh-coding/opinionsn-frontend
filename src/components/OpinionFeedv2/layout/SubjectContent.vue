@@ -38,7 +38,8 @@
         name: "SubjectContent",
         components: {ReYoutube, IconsSection, Time, Comments, IconBase, Amount, RePicture},
         props:{
-            id:Number
+            id:Number,
+            voteIndex:Number
         },
         computed: {
             ...mapState("globalStore", {
@@ -62,7 +63,11 @@
         },
         methods: {
             RedirectToContent(){
-                this.$router.push({name: 'singlePoll', params: {id: this.id}})
+                this.$router.push({name: 'singlePoll', params: {id: this.id},
+                    query:{
+                        voteFeedRedirect:true,
+                        index:this.voteIndex
+                    }})
             }
         }
     }

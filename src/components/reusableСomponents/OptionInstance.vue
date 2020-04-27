@@ -192,6 +192,9 @@
 											type_of_poll
 										}
 									});
+									if(this.$route.query.voteFeedRedirect){
+										this.$store.commit('OpinionStore/updatePayloadItem', this.$route.query.index)
+									}
 									this.$root.timer_id = null;
 									this.$root.timer_duration = 0;
 								} catch (e) {

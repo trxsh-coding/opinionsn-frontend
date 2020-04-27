@@ -26,11 +26,15 @@ class OpinionsStore extends StoreWithPageList (VuexStore, `${process.env.VUE_APP
         state.filter_id = null;
     }
 
+    updatePayloadItem(state, id){
+        state.items[id].voted = true
+    }
     get mutations() {
         return {
             ...super.mutations,
             setFilterId: this.setFilterId,
-            clearFilter: this.clearFilter
+            clearFilter: this.clearFilter,
+            updatePayloadItem:this.updatePayloadItem
         }
     }
 

@@ -3,7 +3,7 @@
         <RePicture  v-if="picture" :url="picture | addAssetsPath" width="57" height="36" class="br-3 mr-9 pointer" @click.native="RedirectToContent"/>
         <ReYoutube v-else="contentLink" thumbnail width="57" height="36"  class="pointer" :link="contentLink" @click.native="RedirectToContent"/>
         <div class="subject-block flex-column">
-            <span class="content-text" @click="RedirectToContent">
+            <span class="content-text pointer" @click="RedirectToContent">
                 {{initiator.subject}}
             </span>
             <time-trans :time="date" transformedTime class="content-time"/>

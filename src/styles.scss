@@ -990,6 +990,10 @@ li {
 .overflow-scroll {
 	overflow: scroll;
 }
+.overflow-y-scroll {
+	overflow-x: hidden;
+	overflow-y: scroll;
+}
 .slice-top-svg {
 	overflow: hidden;
 

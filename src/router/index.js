@@ -242,7 +242,10 @@ export const router = new Router({
 					path: 'singlePoll/:id',
 					name: 'singlePoll',
 					component: Poll,
-					props: {feed: false}
+					props: (route) => ({
+						query: route.query.q,
+						feed:false
+					})
 				},
 			]
 		},

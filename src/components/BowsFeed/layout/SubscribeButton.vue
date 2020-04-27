@@ -38,8 +38,6 @@
                 try {
                     if (!this.isLeader) {
                          res = await this.$store.dispatch(`userPage/followUser`, this.id);
-                    } else {
-                         res = await this.$store.dispatch(`userPage/unFollowUser`, this.id);
                     }
                     if(res.status === 200){
                         this.isLeader = !this.isLeader

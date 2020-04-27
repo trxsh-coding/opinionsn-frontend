@@ -2,7 +2,7 @@
     <div class="annotation-block">
         <post-header :author="author" :event="item.eventType" :time-stamp="creationTime"/>
         <option-content :id="vote.selected_variable" :voted="item.voted" :option="option"/>
-        <subject-content class="mt-14" :id="vote.poll_id" />
+        <subject-content class="mt-14" :id="vote.poll_id" :vote-index="index"/>
         <bows-section :bows="Object.values(option.bows)"
                       :author-id="author.id"
                       :total-amount-votes="item.amountOfVoted"
@@ -25,6 +25,7 @@
         components: {BowsSection, IconsSection, SubjectContent, OptionContent, PostHeader},
         props: {
             item: Object,
+            index:Number
         },
         computed: {
             ...mapState("globalStore", {

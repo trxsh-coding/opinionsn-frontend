@@ -4,7 +4,7 @@
             <RePicture v-for="(bow, index) in filtredSubsBows"
                        v-if="index < 4"
                        size="28" rounded
-                       :url="bow.pathToAvatar | addAssetsPath"
+                       :url="bow.path_to_avatar | addAssetsPath"
                        :class="{'bow_item': index >= 1}"
                        class="mr-9 pointer"
             />

@@ -6,7 +6,7 @@
                 <swiper-slide class="avatar-wrapper"
                               v-for="{avatar, username, user_id} in followersData">
                     <div class="slide flex-column flex-align-center pointer" @click="filterFeed(user_id)">
-                        <RePicture :url="avatar | addAssetsPath" size="56" rounded :active="filter_id === user_id"/>
+                        <RePicture :url="avatar | addAssetsPath" size="56"  with-border rounded :active="filter_id === user_id"/>
                         <span class="caption font-13 text-center mt-5" :class="{'active_span' : filter_id === user_id}"> {{trunc(username)}}</span>
                     </div>
                 </swiper-slide>
@@ -14,8 +14,8 @@
             <template #scroll>
                 <div v-for="{avatar, username, user_id} in followersData"
                      class="slide mr-12 w-fit flex-column flex-align-center pointer" @click="filterFeed(user_id)">
-                    <RePicture :url="avatar | addAssetsPath" size="56" rounded :active="filter_id === user_id"/>
-                    <span class="caption font-11 text-center mt-5" :class="{'active_span' : filter_id === user_id}">{{trunc(username)}}</span>
+                        <RePicture class="mb-5" :url="avatar | addAssetsPath" with-border size="56" rounded :active="filter_id === user_id"/>
+                    <span class="caption font-11 text-center" :class="{'active_span' : filter_id === user_id}">{{trunc(username)}}</span>
                 </div>
             </template>
         </ReSwiper>
@@ -85,6 +85,10 @@
         border: 1px solid #E2E2E2;
         background-color: #FFFFFF;
         margin-bottom: 15px;
+        .border-outside {
+            height: 65px;
+            width: 65px;
+        }
         .active_span {
             color: #4b97b4;
         }

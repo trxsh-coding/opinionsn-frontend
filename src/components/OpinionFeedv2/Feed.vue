@@ -1,15 +1,15 @@
 <template>
-        <div class="opinion-feed" :class="{'pt-162':mobile}">
-            <div class="header-block" v-if="mobile">
-                <mobile-header header-type="primary" :user="mainUser">
+        <div>
+            <div class="opinion-feed relative"  :class="{'mobile-padding':mobile}">
+                <mobile-header header-type="primary" v-if="mobile">
                     <FollowersList  />
                 </mobile-header>
+                <FollowersList v-else />
 
-            </div>
-            <FollowersList  v-else/>
-            <Annotation v-for="(item, index) in items" :item="item"/>
-            <div class=" flex-align-center" v-if="loading && !is_finished">
-                <Loader class="mx-auto " />
+                <Annotation v-for="(item, index) in items" :index="index" :item="item" />
+                <div class=" flex-align-center" v-if="loading && !is_finished">
+                    <Loader class="mx-auto " />
+                </div>
             </div>
         </div>
 </template>
@@ -18,7 +18,7 @@
     import FollowersList from "./FollowersList";
     import Annotation from "./layout/annotation";
     import {mapState} from "vuex";
-    import mobileHeader from "./../view/mobile/header"
+    import mobileHeader from "./../headerV2/header"
     import Loader from "../reusableСomponents/Loader";
     export default {
         name: "OpinionFeed",
@@ -29,15 +29,6 @@
             }
         },
         watch: {
-            scroll_top(val, oldVal) {
-                console.log(val, oldVal)
-                if (oldVal > 48) {
-                    if (val > oldVal) this.hidden = true;
-                    if (val < oldVal) this.hidden = false;
-                } else {
-                    this.hidden = false;
-                }
-            },
             scrolled_to_bottom(old) {
                 if (old) {
                     this.load();
@@ -69,22 +60,17 @@
             },
         },
         mounted() {
-            if(!this.items.length){
                 this.$store.dispatch('OpinionStore/list')
-            }
         }
     }
 </script>
 
 <style lang="scss">
+    .mobile-padding {
+        padding-top: 195px !important;
+    }
     .opinion-feed {
         background: #F8F8F8;
-        .header-block {
-            z-index: 10000;
-            position: sticky;
-            top:52px;
-            left:0;
-        }
 
     }
 </style>

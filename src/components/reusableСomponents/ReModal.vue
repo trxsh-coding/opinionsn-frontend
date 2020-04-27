@@ -5,7 +5,7 @@
             <div class="modal-close-button pb-10">
                 <Close @click.native="closeModal"/>
             </div>
-            <div class="modal-container pt-10 relative"  :class="{'overflow-scroll' : overflow, 'height-100' : mobile}" @scroll="onScroll">
+            <div class="modal-container pt-10 relative"  :class="{'overflow-y-scroll' : overflow, 'height-100' : mobile}" @scroll="onScroll">
                 <div class="content-blur-overlay">
 
                 </div>

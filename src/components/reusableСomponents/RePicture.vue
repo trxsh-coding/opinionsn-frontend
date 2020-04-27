@@ -1,5 +1,5 @@
 <template>
-		<div :class="{'active_picture' : active}">
+		<div :class="{'active_picture' : active, 'with_border' : withBorder}">
 		<img class="re-picture img" v-if="type === 'img'" :src="url" :style="[cSize, cBorRad, cClip, styles]">
 		<div class="re-picture background" v-else-if="type === 'background'"
 			 :style="[cSize, cBorRad, cClip, styles, {backgroundImage: `url('${url}')`}]">
@@ -34,6 +34,10 @@
 				default() {
 					return 'auto'
 				}
+			},
+			withBorder: {
+				type:Boolean,
+				default: false
 			},
 			height: {
 				type: [Number, String],
@@ -94,7 +98,12 @@
 
 <style lang="scss">
 	.active_picture {
-		border: 4px solid #4b97b4;
+		border: 4px solid #4b97b4 !important;
+		border-radius: 50%;
+		display: flex;
+	}
+	.with_border {
+		border: 4px solid #FFFFFF;
 		border-radius: 50%;
 		display: flex;
 	}

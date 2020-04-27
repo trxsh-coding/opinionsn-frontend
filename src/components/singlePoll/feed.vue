@@ -23,15 +23,25 @@
             ...mapGetters('globalStore', [
                 'getItemFromStore'
             ]),
-
+			id(){
+            	return this.$route.params.id
+			}
         },
-
+		watch: {
+			id(){
+				this.initializePoll()
+			}
+		},
+		methods: {
+			initializePoll(){
+				this.$store.dispatch('singlePoll/list', {
+					customUrl: `${process.env.VUE_APP_MAIN_API}/rest/v1/poll/${this.$route.params.id}`
+				});
+			}
+		},
 		async mounted() {
 			this.$store.commit('singlePoll/clearFeed');
-			await this.$store.dispatch('singlePoll/list', {
-				customUrl: `${process.env.VUE_APP_MAIN_API}/rest/v1/poll/${this.$route.params.id}`
-			});
-
+			await this.initializePoll();
             /** Выставляем заголовок страницы с соответсвием с название поста */
 			document.title = this.getItemFromStore({store: 'polls', id: this.$route.params.id}).subject;
 		},
