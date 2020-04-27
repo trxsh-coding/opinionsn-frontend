@@ -8,6 +8,7 @@ export const globalStorages = [
 	{name: 'poll'},
 	{name: 'vote'},
 	{name: 'option'},
+	{name: 'bow'},
 	{name: 'comment'},
 	{name: 'following'},
 	{name: 'mainUser', multiple: 'mainUser'},

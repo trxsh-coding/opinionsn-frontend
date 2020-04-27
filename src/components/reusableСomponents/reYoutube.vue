@@ -1,6 +1,6 @@
 <template>
     <div class="player-block" :style="{width: width, height: height}">
-        <RePicture :url="thumbnailUrl" :width="width" :height="height" v-if="thumbnail" class="br-6 mr-9"/>
+        <RePicture :url="thumbnailUrl" :width="width" :height="height" v-if="thumbnail" bor-rad="4" class="br-6 mr-9"/>
         <youtube :video-id="videoId" fit-parent="true" resize="true" :height="height" :width="width" v-else/>
     </div>
 </template>

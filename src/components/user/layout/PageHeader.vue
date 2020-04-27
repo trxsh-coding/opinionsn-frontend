@@ -26,8 +26,8 @@
 		</ul>
 
 		<div class="user-card flex-column">
-			
-			<RePicture class="fx-1" type="background" :url="user.background_image | addAssetsPath" size="auto">
+
+			<RePicture class="fx-1" type="background" :url="user.background_image | addAssetsPath" height="134">
 				<RePicture class="avatar" :url="user.path_to_avatar | addAssetsPath" size="72" rounded />
 			</RePicture>
 
@@ -184,7 +184,7 @@
 					display: flex;
 					flex-direction: row-reverse;
 				}
-				
+
 				span {
 					font-family: Roboto;
 					font-style: normal;

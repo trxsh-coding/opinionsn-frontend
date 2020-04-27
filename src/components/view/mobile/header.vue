@@ -1,8 +1,9 @@
 <template>
+<div>
 	<div id="mobile-header"
-	     class="flex-between flex-align-center py-10 px-20"
-	     :class="{'hidden': hidden}"
-	     v-show="header_type !== 'hidden'">
+		 class="flex-between flex-align-center py-10 px-20"
+		 :class="{'hidden': hidden}"
+		 v-show="header_type !== 'hidden'">
 
 		<template v-if="logged_in">
 
@@ -25,7 +26,7 @@
 		</template>
 
 		<router-link class="main-logo-icon-block h-25 pointer" :class="{'mx-auto': !logged_in}"
-		              v-if="header_type === 'primary'" :to="{name: 'pollFeed'}">
+					 v-if="header_type === 'primary'" :to="{name: 'pollFeed'}">
 			<icon-base
 					fill="none"
 					class="icon"
@@ -53,11 +54,17 @@
 				:title="$route.name.toLowerCase()"/>
 
 		<router-link v-if="logged_in" class="pointer flex"
-		             :to="{ name: 'user', params: { id: user.id } }">
+					 :to="{ name: 'user', params: { id: user.id } }">
 			<RePicture :url="user.path_to_avatar | addAssetsPath" size="27" rounded />
 		</router-link>
 
 	</div>
+	<div :class="{'hidden': hidden}">
+		<slot>
+
+		</slot>
+	</div>
+</div>
 </template>
 
 <script>
@@ -88,6 +95,7 @@
 			user: {
 				type: Object
 			},
+			headerType: String
 		},
 
 		data() {
@@ -98,6 +106,8 @@
 
 		watch: {
 			scroll_top(val, oldVal) {
+				console.log(val, oldVal);
+
 				if (oldVal > 48) {
 					if (val > oldVal) this.hidden = true;
 					if (val < oldVal) this.hidden = false;
@@ -116,9 +126,10 @@
 			header_type() {
 				let {name: route_name} = this.$route;
 
+				if(this.headerType) return this.headerType;
+
 				switch (route_name) {
 					case 'pollFeed':
-					case 'voteFeed':
 					case 'singlePoll':
 						return 'primary';
 
@@ -157,6 +168,10 @@
 </script>
 
 <style lang="scss">
+	.hidden {
+		transform: translateY(-150%);
+		transition: 1000ms;
+	}
 	#mobile-header {
 		width: 100%;
 		position: fixed;

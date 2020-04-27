@@ -29,6 +29,7 @@ const Rating = () => import("../components/Rating/ratingInstance");
 const ReferralsPage = () => import("../components/ReferralsPage");
 const achievementsPage = () => import("../components/achievementsPage/index");
 const Notifications = () => import("../components/notificationsV2/Feed");
+const OpinionFeed = () => import("../components/OpinionFeedv2/Feed");
 
 import {nprogress} from '../main.js';
 import {searchUser} from "@/store/modules/searchUser";
@@ -212,6 +213,13 @@ export const router = new Router({
 					path: 'pollFeed',
 					name: 'pollFeed',
 					component: PollFeed,
+					props: {feed: true}
+
+				},
+				{
+					path: 'opinionFeed',
+					name: 'opinionFeed',
+					component: OpinionFeed,
 					props: {feed: true}
 
 				},

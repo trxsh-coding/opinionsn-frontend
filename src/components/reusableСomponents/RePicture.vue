@@ -1,8 +1,10 @@
 <template>
-	<img class="re-picture img" v-if="type === 'img'" :src="url" :style="[cSize, cBorRad, cClip, styles]">
-	<div class="re-picture background" v-else-if="type === 'background'"
-	     :style="[cSize, cBorRad, cClip, styles, {backgroundImage: `url('${url}')`}]">
-		<slot />
+		<div :class="{'active_picture' : active}">
+		<img class="re-picture img" v-if="type === 'img'" :src="url" :style="[cSize, cBorRad, cClip, styles]">
+		<div class="re-picture background" v-else-if="type === 'background'"
+			 :style="[cSize, cBorRad, cClip, styles, {backgroundImage: `url('${url}')`}]">
+			<slot />
+		</div>
 	</div>
 </template>
 
@@ -22,6 +24,9 @@
 			url: {
 				type: String,
 				required: true
+			},
+			active: {
+				type:Number
 			},
 			size: [Number, String],
 			width: {
@@ -88,12 +93,17 @@
 </script>
 
 <style lang="scss">
+	.active_picture {
+		border: 4px solid #4b97b4;
+		border-radius: 50%;
+		display: flex;
+	}
 	.re-picture {
 		&.img {
 			object-fit: cover;
 			object-position: center;
 		}
-		
+
 		&.background {
 			background-repeat: no-repeat;
 			background-size: cover;

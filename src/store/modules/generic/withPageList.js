@@ -31,13 +31,18 @@ export const StoreWithPageList = (sc, listUrl, additionalUrl) => {
 		//ACTIONS
 
 		listItemsAction({commit, state}, payload={}){
+            console.log(payload)
 
-		    
-            let  {page = 0} = payload;
+            let  {page = 0, withCustomUrl, customUrl} = payload;
+            if(withCustomUrl){
+                 customUrl = payload.customUrl
+            } else {
+                 customUrl = `${state.filteredFeed ? additionalUrl : listUrl}/${page}`
+            }
 
             commit('setPageNumber', page);
 
-            super.listItemsAction({commit}, {...payload,  customUrl: `${state.filteredFeed ? additionalUrl : listUrl}/${page}`, onSuccess: 'appendElements'})
+            super.listItemsAction({commit}, {...payload,  customUrl: customUrl, onSuccess: 'appendElements'})
 
 
         };

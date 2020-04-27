@@ -3,11 +3,11 @@
 		<div v-if="!haveExplain" class="input-panel text-deselect px-15 py-10 mt-12 flex-align-center"
 		     :class="{pointer: !isVoted}" :style="{width: `calc(100% + ${$root.mobile ? '20px' : '12px'})`}"
 		     @click="handleUnvotedInputPanelClick">
-			
+
 			<router-link v-if="isAuthorized" class="flex w-30 mr-15 pointer" :to="getUserLink(mainUser.id)">
 				<RePicture :url="mainUser.path_to_avatar | addAssetsPath" size="30" rounded/>
 			</router-link>
-			
+
 			<ReInput @keyup.esc.native.exact="clearInput('explainInputValue')"
 			         @keyup.enter.native.prevent.exact="saveInputValue('explainInputValue', 'EXPLAIN')"
 			         @keyup.enter.ctrl.native.exact="insertNewLine('explainInputValue')"
@@ -18,14 +18,14 @@
 					<IconSend/>
 				</button>
 			</ReInput>
-			
+
 			<span v-else class="mx-auto">
                 <IconTopArrow class="mr-7"/>
                 Ответь и узнай, что думают другие
             </span>
-		
+
 		</div>
-		
+
 		<div v-if="isVoted" class="comments-block py-17 pb-10">
 			<div class="header pl-60 flex-column">
 				<span class="title">{{lstr('opinions')}}</span>
@@ -47,7 +47,7 @@
 					</button>
 				</div>
 			</div>
-			
+
 			<div class="feed flex-column mt-6">
 				<div class="item flex-column mt-15" v-for="(e, index) in filteredExplainsWithComments"
 				     v-show="index <= amountOfVisibleComments" :key="e.id">
@@ -57,18 +57,18 @@
 								<RePicture :url="e.author.avatar | addAssetsPath" size="30" rounded/>
 							</router-link>
 						</div>
-						
+
 						<div class="text fx-1 flex-column">
 							<span class="flex-align-center">
 								<span class="username">{{e.author.username}}</span>
 								<TimeTrans class="timestamp ml-7" :short-time="true"
 								           :time="e.create_time"></TimeTrans>
 							</span>
-							
+
 							<span class="description mt-3">{{e.explain_description}}</span>
-							
-							<span class="option mt-5">{{e.option}}</span>
-							
+
+							<span class="option mt-5">{{e.opinionOption}}</span>
+
 							<div class="reply-panel flex fx-1 mt-7">
 								<ReInput @keyup.esc.native.exact="clearInput('commentInputValue', true)"
 								         @keyup.enter.native.prevent.exact="saveInputValue('commentInputValue', 'COMMENT', e.id)"
@@ -81,17 +81,17 @@
 										<IconSend/>
 									</button>
 								</ReInput>
-								
+
 								<button v-else @click="activeInputId = e.id"
 								        class="reply-btn flex-align-center">
 									<IconReplyArrow class="mr-4"/>
 									{{lstr('reply')}}
 								</button>
 							</div>
-						
+
 						</div>
 					</div>
-					
+
 					<div class="comment-list ml-45">
 						<div class="comment flex mt-15" v-for="c in e.comments" :key="c.id">
 							<div class="avatar-wrapper w-60 flex-column pt-3">
@@ -99,18 +99,18 @@
 									<RePicture :url="c.author.avatar | addAssetsPath" size="30" rounded/>
 								</router-link>
 							</div>
-							
+
 							<div class="text fx-1 flex-column">
 									<span class="flex-align-center">
 										<span class="username">{{c.author.username}}</span>
 										<TimeTrans class="timestamp ml-7" :short-time="true"
 										           :time="c.create_time"></TimeTrans>
 									</span>
-								
+
 								<span class="description mt-3">{{c.description}}</span>
-								
-								<span class="option mt-5">{{c.option}}</span>
-								
+
+								<span class="option mt-5">{{c.opinionOption}}</span>
+
 								<div class="reply-panel flex fx-1 mt-7">
 									<ReInput @keyup.esc.native.exact="clearInput('commentInputValue', true)"
 									         @keyup.enter.native.prevent.exact="saveInputValue('commentInputValue', 'COMMENT', e.id)"
@@ -123,25 +123,25 @@
 											<IconSend/>
 										</button>
 									</ReInput>
-									
+
 									<button v-else @click="activeInputId = c.id"
 									        class="reply-btn flex-align-center">
 										<IconReplyArrow class="mr-4"/>
 										{{lstr('reply')}}
 									</button>
 								</div>
-							
+
 							</div>
 						</div>
 					</div>
 				</div>
-				
+
 				<span class="comments-load-btn pointer mt-12 mx-auto uppercase"
 				      v-if="commentsLoadBtnCondition" @click="increaseAmountOfVisibleComments">
                     <IconBottomArrow class="mr-4"/>
                     Загрузить еще комментарии
                 </span>
-				
+
 				<Loader v-if="loaderCondition" class="mx-auto"/>
 			</div>
 		</div>
@@ -162,9 +162,9 @@
 
 	export default {
 		name: "Comments",
-		
+
 		components: {IconBottomArrow, Loader, TimeTrans, IconReplyArrow, IconSend, ReInput, IconTopArrow, RePicture},
-		
+
 		props: {
 			isAuthorized: Boolean,
 			isVoted: Boolean,
@@ -173,9 +173,9 @@
 			mainUser: Object,
 			explainsWithComments: Array
 		},
-		
+
 		mixins: [langMixin, ElementScrollHandler],
-		
+
 		data() {
 			return {
 				explainInputValue: '',
@@ -186,7 +186,7 @@
 				timeoutId: null
 			}
 		},
-		
+
 		watch: {
 			// Increase amountOfVisibleComments quantity when page scrolled to bottom
 			rootScrollTop() {
@@ -196,7 +196,7 @@
 				}
 			}
 		},
-		
+
 		methods: {
 			handleUnvotedInputPanelClick() {
 
@@ -223,7 +223,7 @@
 			getUserLink(id) {
 				return {name: 'user', params: {id}}
 			},
-			
+
 			saveInputValue(value, type, explain_id) {
 				if (this[value] && type) {
 					if (type === 'EXPLAIN') {
@@ -240,30 +240,30 @@
 					}
 				}
 			},
-			
+
 			increaseAmountOfVisibleComments() {
 				if (this.amountOfVisibleComments < this.explainsWithComments.length) {
 					this.amountOfVisibleComments += 5
 				}
 			},
-			
+
 			clearInput(value, clearActiveInputId) {
 				if (value) this[value] = '';
 				if (clearActiveInputId) this.activeInputId = '';
 			},
-			
+
 			insertNewLine(inputKey) {
 				this[inputKey] = `${this[inputKey]}\n`;
 			},
-			
+
 		},
-		
+
 		computed: {
 			// Filter explainsWithComments
 			filteredExplainsWithComments: {
 				get() {
 					let {explainsFilterType, explainsWithComments} = this;
-					
+
 					switch (explainsFilterType) {
 						case "ALL":
 							return explainsWithComments;
@@ -271,13 +271,13 @@
 						case "MINE":
 							let filtered = [];
 							let type = explainsFilterType === "FRIENDS" ? "isFriend" : "isMine";
-							
+
 							for (let item of explainsWithComments) {
 								if (item[type]) {
 									filtered.push(item);
 								}
 							}
-							
+
 							return filtered;
 					}
 				},
@@ -285,31 +285,31 @@
 					this.explainsFilterType = filterType;
 				}
 			},
-			
+
 			// Get root scroll top value to use it changes is trigger
 			rootScrollTop() {
 				return this.$root.scroll_top;
 			},
-			
+
 			isSinglePoll() {
 				return this.$route.name === 'singlePoll'
 			},
-			
+
 			loaderCondition() {
 				return this.isSinglePoll && this.amountOfVisibleComments < this.filteredExplainsWithComments.length
 			},
-			
+
 			commentsLoadBtnCondition() {
 				return !this.isSinglePoll
 					&& this.filteredExplainsWithComments.length > 5
 					&& this.amountOfVisibleComments < this.filteredExplainsWithComments.length
 			}
 		},
-		
+
 		mounted() {
 			this.setScrollDifference(document.documentElement, 126, null);
 		}
-		
+
 	}
 </script>
 
@@ -317,12 +317,12 @@
 	.comments-section {
 		position: relative;
 		width: 100%;
-		
+
 		button {
 			all: unset;
 			cursor: pointer;
 		}
-		
+
 		.comments-load-btn {
 			font-family: Roboto;
 			font-style: normal;
@@ -330,12 +330,12 @@
 			font-size: 11px;
 			color: #1A1E22;
 		}
-		
+
 		.input-panel {
 			min-height: 50px;
 			background: #eaebec;
 			border-radius: 0 6px 6px 0;
-			
+
 			span {
 				font-family: Roboto;
 				font-style: normal;
@@ -344,7 +344,7 @@
 				color: #6F747F;
 			}
 		}
-		
+
 		.input-label {
 			border: 1px solid #BCBEC3;
 			border-radius: 6px;
@@ -360,35 +360,35 @@
 				cursor: pointer;
 			}
 		}
-		
-		
+
+
 		.comments-block {
 			font-family: Roboto;
 			font-style: normal;
-			
+
 			.header {
 				.title {
 					font-weight: 500;
 					font-size: 16px;
 					color: #1A1E22;
 				}
-				
+
 				.switches {
 					button {
 						font-weight: normal;
 						font-size: 13px;
 						color: #1A1E22;
-						
+
 						.hr {
 							border: none;
 							display: block;
 							background: transparent;
 							border-radius: 6px;
 						}
-						
+
 						&.active {
 							color: #4B97B4;
-							
+
 							.hr {
 								background: #4B97B4;
 							}
@@ -396,41 +396,41 @@
 					}
 				}
 			}
-			
+
 			.feed {
-				
+
 				.item {
 					.username {
 						font-weight: bold;
 						font-size: 13px;
 						color: #1A1E22;
 					}
-					
+
 					.timestamp {
 						font-weight: normal;
 						font-size: 11px;
 						color: #1A1E22;
 					}
-					
+
 					.description {
 						font-weight: normal;
 						font-size: 13px;
 						color: #1A1E22;
 					}
-					
+
 					.option {
 						font-weight: normal;
 						font-size: 11px;
 						color: #4B97B4;
 					}
-					
+
 					.reply-btn {
 						font-size: 13px;
 						color: #6F747F;
 						text-transform: uppercase;
 					}
 				}
-				
+
 			}
 		}
 	}

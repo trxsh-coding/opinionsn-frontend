@@ -15,7 +15,7 @@
 			</li>
 
 			<li class="footer-icon">
-				<router-link class="btn" active-class="active" :to="{name: 'voteFeed'}">
+				<router-link class="btn" active-class="active" :to="{name: 'opinionFeed'}">
 					<IconOpinion width="25" height="26"/>
 					<lang-string title="opinion"/>
 				</router-link>
