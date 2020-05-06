@@ -1,4 +1,4 @@
-import {GOOGLE_CLIENT_ID, VK_APP_ID} from "../constants";
+import {GOOGLE_CLIENT_ID, VK_APP_ID, TOP_DEFAULT_CONFIG} from "../constants";
 
 require('./styles.scss');
 import Vue from 'vue'

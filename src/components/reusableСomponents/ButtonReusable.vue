@@ -2,7 +2,7 @@
 
 	<div
 			class="button-reusable"
-			:class="{'active': active}"
+			:class="{'active': active, 'uppercase': upperCase}"
 			:style="buttonStyle">
 		<div
 				class="btn flex-align-center"
@@ -65,7 +65,10 @@
 			activeFontSize: {
 				type: Number,
 			},
-
+			upperCase: {
+				type:Boolean,
+				default:true
+			},
 			fontSize: {
 				type: [Number, String],
 			},
@@ -148,6 +151,7 @@
 </script>
 
 <style lang="scss">
+
 	.button-reusable {
 		cursor: pointer;
 
@@ -172,7 +176,6 @@
 		}
 
 		span {
-			text-transform: uppercase;
 			font-family: Roboto, serif;
 			font-style: normal;
 			font-weight: normal;

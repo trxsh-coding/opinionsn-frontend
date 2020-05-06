@@ -206,9 +206,9 @@
 			}),
 
 			queryList() {
-				let {refer, categoryId, redirectToPoll, inviter_id} = this.$route.query;
+				let {refer, categoryId, redirectToPoll, inviterId} = this.$route.query;
 
-				let query = {refer, categoryId, redirectToPoll, inviter_id};
+				let query = {refer, categoryId, redirectToPoll, inviterId};
 				Object.keys(query).forEach(key => {
 					if (!query[key]) delete query[key]
 				});

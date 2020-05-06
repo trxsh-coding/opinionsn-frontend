@@ -4,6 +4,7 @@
         <option-content :id="vote.selected_variable" :voted="item.voted" :option="option"/>
         <subject-content class="mt-14" :id="vote.poll_id" :vote-index="index"/>
         <bows-section :bows="Object.values(option.bows)"
+                      :main-bow="item.mainUserBow"
                       :author-id="author.id"
                       :total-amount-votes="item.amountOfVoted"
                       :id="vote.poll_id"

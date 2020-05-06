@@ -1,8 +1,8 @@
 <template>
-    <div class="invitation-block flex-column-center">
+    <div class="invitation-block flex-column-center" :class="{'invite-border' : !mobile}">
         <span class="font-14">{{translateKeyword('invite_your_friends_to_opinion_and_get_their_opinions_on_the_most_relevant_topics')}}</span>
-        <button-reusable class="flex-center mt-14" bor-rad="4" @click.native="onModalOpen" >
-                <span>{{translateKeyword('invite_a_friend')}}</span>
+        <button-reusable class="flex-center mt-14" bor-rad="4" @click.native="onModalOpen" :upper-case="false">
+              <span class="pr-4">+</span> <span>{{translateKeyword('invite_a_friend')}}</span>
         </button-reusable>
 
         <ReModal v-if="showModal" :width="mobile ? '300px' : '500px'"
@@ -22,7 +22,7 @@
               </span>  <Copy class="ml-14" />
             </div>
             <input ref="shareLink" type="text"
-                   :value="`https://opinionsn.com/registration?inviter_id=${mainUser.id}`"
+                   :value="`https://opinionsn.com/registration?inviterId=${mainUser.id}`"
                    class="link flex">
         </div>
         </ReModal>
@@ -83,11 +83,16 @@
 </script>
 
 <style lang="scss">
+    .invite-border {
+        border: 1px solid #E2E2E2;
+        border-radius: 8px;
+    }
     .invitation-block {
         padding: 14px 16px 11px 16px;
         text-align: center;
         margin-bottom: 11px;
         background-color: #FFFFFF;
+
         input {
             display: block;
             width: 1px;

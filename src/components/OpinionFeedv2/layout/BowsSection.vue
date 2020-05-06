@@ -8,7 +8,7 @@
                        :class="{'bow_item': index >= 1}"
                        class="mr-9 pointer"
             />
-            <span class="bow-amount-caption  font-13 lowercase weight-300 pointer" :class="{'font-12' : mobile, 'font-13': !mobile}">+ {{translateKeyword('more')}} {{ totalAmountVotes - bows.length  + ' ' + opinionWordAmount}} </span>
+            <span class="bow-amount-caption  font-13 lowercase weight-300 pointer" v-if="totalAmountVotes - bows.length > 0" :class="{'font-12' : mobile, 'font-13': !mobile}">+ {{translateKeyword('more')}} {{ totalAmountVotes - bows.length  + ' ' + opinionWordAmount}} </span>
         </div>
         <ReModal v-if="showModal" :width="mobile ? '100%' : '500px'"
                  :br="mobile ? 0 : '10px'"
@@ -20,6 +20,7 @@
                 <Loader class="mx-auto height-100" />
             </div>
             <div class="bows-section " v-else-if="items.length || bows.length">
+                <bow-annotation section-name="mine" :data="[mainBow]" :poll-id="id"   :voted="voted" v-if="voted"/>
                 <bow-annotation section-name="subscribers" :data="bows" :poll-id="id"   :voted="voted"/>
                 <bows-feed :id="id" v-show="items.length" :voted="voted" />
             </div>
@@ -43,6 +44,7 @@
         props: {
             bows:Array,
             id:Number,
+            mainBow:Object,
             authorId:Number,
             totalAmountVotes:Number,
             voted:Boolean,

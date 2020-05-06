@@ -1,12 +1,10 @@
 <template>
     <div class="icons-block mt-8 flex-align-center">
         <div class="icon-block timestamp-block mr-12 flex-align-center" v-show="EndDate">
-            <icon-base width="18" height="18" view-box="0 0 18 18" icon-color="white">
-                <Time class="icons-color" />
-            </icon-base>
+            <Time class="icons-color" />
             <time-trans :time="EndDate" predictionTime class="flex-align-center"/>
         </div>
-        <div class="icon-block total-votes-block mr-12 flex-align-center">
+        <div class="icon-block total-votes-block mr-12 flex-align-center mb-2">
             <icon-base width="20" height="20" view-box="0 0 20 20" icon-color="white">
                 <Amount class="icons-color" />
             </icon-base>

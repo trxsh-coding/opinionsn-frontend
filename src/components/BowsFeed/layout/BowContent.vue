@@ -8,7 +8,7 @@
                         <span class="bold-caption-13 pointer" @click="RedirectToAuthor(userId)">{{username}}</span>
                     </div>
                     <div class="bow-timestamp flex-align-center">
-                        <subscribe-button :leader="leader" :id="userId" />
+                        <subscribe-button :leader="leader" :id="userId" v-if="mainUser.id !== userId"/>
                         <time-trans :time="time"  :leader="leader" transformedTime class="content-time"/>
                     </div>
                 </div>
@@ -45,9 +45,10 @@
         },
         computed: {
             ...mapState("globalStore", {
-                options: ({ options }) => options
-            }),
+                options: ({ options }) => options,
+                mainUser: state => state.mainUser
 
+            }),
             bowSubject(){
                 return this.voted ? this.options[this.optionId].description : ''
             }

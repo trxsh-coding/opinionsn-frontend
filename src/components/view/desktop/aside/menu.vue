@@ -17,7 +17,7 @@
             <div class="hr mx-13"></div>
 
             <router-link class="links py-12 px-12 pl-13 pointer"
-                         active-class="isActive" :to="{name: 'voteFeed'}">
+                         active-class="isActive" :to="{name: 'opinionFeed'}">
                 <IconOpinion/>
                 <lang-string class="ml-14" title="opinion"/>
             </router-link>
