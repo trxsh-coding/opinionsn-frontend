@@ -27,11 +27,33 @@ export const ListMixin = (superclass, url) => class extends superclass{
            }
        }
     }
+
+    async initializeData({state, commit}, payload = {}){
+
+        if(!state.loading ){
+            try {
+                commit('setLoading', true);
+                const response = await superclass.apiRequest({URL: `${url}`})
+                commit('setInitializedData', response.data);
+                }catch (e) {
+                console.trace(e)
+            } finally {
+                commit('setLoading', false);
+
+            }
+        }
+    }
+
     appendInitializedData(state, payload){
         state.list = [...state.list, ...Object.values(payload)];
     }
     setInitializedData(state, payload){
         state.list = Object.values(payload);
+    }
+    setInitializedItemsById(state, payload){
+        let map = {};
+        payload.forEach(item => map[item.id] = item);
+        state.itemsById = map;
     }
     setListLoaded(state, payload){
         state.loaded = payload
@@ -45,6 +67,7 @@ export const ListMixin = (superclass, url) => class extends superclass{
     get state(){
         return {
             list:[],
+            itemsById:{},
             page:0,
             loading:false,
             error:null,
@@ -60,15 +83,17 @@ export const ListMixin = (superclass, url) => class extends superclass{
             appendInitializedData:this.appendInitializedData,
             setLoading:this.setLoading,
             incrementPage:this.incrementPage,
-            setListLoaded: this.setListLoaded
-
+            setListLoaded: this.setListLoaded,
+            setInitializedItemsById: this.setInitializedItemsById
 
         }
     }
 
     get actions(){
         return {
-            init: this.initializeList
+            init: this.initializeList,
+            initData: this.initializeData
+
         }
     }
 

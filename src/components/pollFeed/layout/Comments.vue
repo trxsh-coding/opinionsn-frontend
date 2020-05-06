@@ -25,7 +25,6 @@
             </span>
 
 		</div>
-
 		<div v-if="isVoted" class="comments-block py-17 pb-10">
 			<div class="header pl-60 flex-column">
 				<span class="title">{{lstr('opinions')}}</span>
@@ -50,8 +49,8 @@
 
 			<div class="feed flex-column mt-6">
 				<div class="item flex-column mt-15" v-for="(e, index) in filteredExplainsWithComments"
-				     v-show="index <= amountOfVisibleComments" :key="e.id">
-					<div class="explain flex">
+				    :key="e.id">
+					<div class="explain flex" :ref="'explain_' + e.id">
 						<div class="avatar-wrapper w-60 flex-column pt-3">
 							<router-link class="flex mx-auto pointer" :to="getUserLink(e.author.id)">
 								<RePicture :url="e.author.avatar | addAssetsPath" size="30" rounded/>
@@ -135,7 +134,9 @@
 						</div>
 					</div>
 				</div>
+				<div class="something" ref="something">
 
+				</div>
 				<span class="comments-load-btn pointer mt-12 mx-auto uppercase"
 				      v-if="commentsLoadBtnCondition" @click="increaseAmountOfVisibleComments">
                     <IconBottomArrow class="mr-4"/>
@@ -190,14 +191,18 @@
 		watch: {
 			// Increase amountOfVisibleComments quantity when page scrolled to bottom
 			rootScrollTop() {
-				this.setScrollDifference(document.documentElement, 126, null);
-				if (this.scrolled_to_bottom) {
-					this.increaseAmountOfVisibleComments()
-				}
+				// this.setScrollDifference(document.documentElement, 126, null);
+				// if (this.scrolled_to_bottom) {
+				// 	this.increaseAmountOfVisibleComments()
+				// }
 			}
 		},
 
 		methods: {
+			scrollToComment(){
+				console.log(this.$refs['explain_159883'])
+
+			},
 			handleUnvotedInputPanelClick() {
 
 				if (!this.isVoted) {
@@ -223,7 +228,11 @@
 			getUserLink(id) {
 				return {name: 'user', params: {id}}
 			},
-
+			handleRedirectFromBows(){
+				const {voteId, withScroll} = this.$route.query;
+				this.activeInputId = voteId;
+				this.$refs[`explain_${voteId}`][0].scrollIntoView({behavior: "smooth", alignToTop:true})
+			},
 			saveInputValue(value, type, explain_id) {
 				if (this[value] && type) {
 					if (type === 'EXPLAIN') {
@@ -287,9 +296,9 @@
 			},
 
 			// Get root scroll top value to use it changes is trigger
-			rootScrollTop() {
-				return this.$root.scroll_top;
-			},
+			// rootScrollTop() {
+			// 	return this.$root.scroll_top;
+			// },
 
 			isSinglePoll() {
 				return this.$route.name === 'singlePoll'
@@ -307,7 +316,9 @@
 		},
 
 		mounted() {
-			this.setScrollDifference(document.documentElement, 126, null);
+			// this.setScrollDifference(document.documentElement, 126, null);
+
+			if(this.$route.query.withScroll) setTimeout(() => this.handleRedirectFromBows(), 1000);
 		}
 
 	}

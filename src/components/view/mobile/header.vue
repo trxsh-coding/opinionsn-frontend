@@ -106,7 +106,6 @@
 
 		watch: {
 			scroll_top(val, oldVal) {
-				console.log(val, oldVal);
 
 				if (oldVal > 48) {
 					if (val > oldVal) this.hidden = true;

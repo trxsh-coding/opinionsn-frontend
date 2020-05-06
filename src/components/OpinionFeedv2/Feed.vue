@@ -1,12 +1,13 @@
 <template>
-        <div>
-            <div class="opinion-feed relative"  :class="{'mobile-padding':mobile}">
+        <div >
+            <div class="opinion-feed relative" v-scroll="onScrollEvent"  :class="{'mobile-padding':mobile}"  >
                 <mobile-header header-type="primary" v-if="mobile">
                     <FollowersList  />
                 </mobile-header>
                 <FollowersList v-else />
-
-                <Annotation v-for="(item, index) in items" :index="index" :item="item" />
+                <invite-bar />
+                <div class="tip-overlay"></div>
+                <Annotation v-for="(item, index) in items" :index="index" :item="item" @onOverflowed="decrementFilterCounter" />
                 <div class=" flex-align-center" v-if="loading && !is_finished">
                     <Loader class="mx-auto " />
                 </div>
@@ -20,9 +21,10 @@
     import {mapState} from "vuex";
     import mobileHeader from "./../headerV2/header"
     import Loader from "../reusableСomponents/Loader";
+    import InviteBar from "./layout/inviteBar";
     export default {
         name: "OpinionFeed",
-        components: {Loader, Annotation, FollowersList, mobileHeader},
+        components: {InviteBar, Loader, Annotation, FollowersList, mobileHeader},
         data() {
             return {
                 hidden: false
@@ -55,19 +57,29 @@
             },
         },
         methods: {
+            onScrollEvent(e){
+            },
+            decrementFilterCounter(id, key){
+                this.$store.commit('Followings/decrementFilterCounter', {id, key})
+            },
             load() {
                 this.$store.dispatch('OpinionStore/loadNextPage');
             },
         },
         mounted() {
-                this.$store.dispatch('OpinionStore/list')
+                if(!this.items.length){
+                    this.$store.dispatch('OpinionStore/list')
+                }
+        },
+        beforeDestroy() {
+            this.$store.dispatch('Followings/ReadFilterNotifications')
         }
     }
 </script>
 
 <style lang="scss">
     .mobile-padding {
-        padding-top: 195px !important;
+        padding-top: 180px !important;
     }
     .opinion-feed {
         background: #F8F8F8;

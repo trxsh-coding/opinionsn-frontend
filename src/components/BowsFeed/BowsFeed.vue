@@ -1,6 +1,6 @@
 <template>
     <div class="bows-feed">
-        <bow-annotation section-name="others" :data="list" :voted="voted" />
+        <bow-annotation section-name="others" :data="list" :pollId="id"  :voted="voted" />
         <div class=" flex-align-center" v-if="loading && !is_finished">
             <Loader class="mx-auto " />
         </div>

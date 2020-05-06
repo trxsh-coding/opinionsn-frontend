@@ -1,6 +1,5 @@
 import {VuexStore} from "./generic/proto";
 import {StoreWithPageList} from "./generic/withPageList";
-import {pollActions} from "./pollActions";
 
 class OpinionsStore extends StoreWithPageList (VuexStore, `${process.env.VUE_APP_MAIN_API}/rest/v1/opinion/feed/page`) {
 
@@ -27,18 +26,26 @@ class OpinionsStore extends StoreWithPageList (VuexStore, `${process.env.VUE_APP
     }
 
     updatePayloadItem(state, id){
-        state.items[id].voted = true
+        state.items[id].voted = true;
+    }
+    setTipId(state, id){
+        state.tipId = id;
     }
     get mutations() {
         return {
             ...super.mutations,
             setFilterId: this.setFilterId,
             clearFilter: this.clearFilter,
-            updatePayloadItem:this.updatePayloadItem
+            updatePayloadItem:this.updatePayloadItem,
+            setTipId: this.setTipId
         }
     }
-
-
+    get state() {
+        return {
+            ...super.state,
+            tipId:null
+        }
+    }
 
 }
 

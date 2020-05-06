@@ -20,8 +20,8 @@
                 <Loader class="mx-auto height-100" />
             </div>
             <div class="bows-section " v-else-if="items.length || bows.length">
-                <bow-annotation section-name="subscribers" :data="bows"  :voted="voted"/>
-                <bows-feed :id="id" v-show="items.length" :voted="voted"/>
+                <bow-annotation section-name="subscribers" :data="bows" :poll-id="id"   :voted="voted"/>
+                <bows-feed :id="id" v-show="items.length" :voted="voted" />
             </div>
         </ReModal>
     </div>
@@ -45,7 +45,7 @@
             id:Number,
             authorId:Number,
             totalAmountVotes:Number,
-            voted:Boolean
+            voted:Boolean,
         },
         data(){
             return {

@@ -30,7 +30,7 @@
 						tag="div"
 						:to="{ name: 'followings', params: { id: user.id } }">
 					<span class="count">{{user.amount_of_followers}}</span>
-					<lang-string class="caption" :title="'subscribers'"></lang-string>
+					<lang-string class="caption" :title="'followers'"></lang-string>
 				</router-link>
 
 				<router-link
@@ -38,7 +38,7 @@
 						tag="div"
 						:to="{ name: 'followers', params: { id: user.id } }">
 					<span class="count">{{user.amount_of_leaders}}</span>
-					<lang-string class="caption" :title="'subscriptions'"></lang-string>
+					<lang-string class="caption" :title="'followings'"></lang-string>
 				</router-link>
 
 			</div>

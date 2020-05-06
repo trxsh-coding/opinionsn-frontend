@@ -4,18 +4,22 @@
                   :params="{stubLength: 2, width: '100%'}" :usual-swiper-options="{slidesPerView: 7, spaceBetween: 3.5}">
             <template #usual>
                 <swiper-slide class="avatar-wrapper"
-                              v-for="{avatar, username, user_id} in followersData">
-                    <div class="slide flex-column flex-align-center pointer" @click="filterFeed(user_id)">
-                        <RePicture :url="avatar | addAssetsPath" size="56"  with-border rounded :active="filter_id === user_id"/>
-                        <span class="caption font-13 text-center mt-5" :class="{'active_span' : filter_id === user_id}"> {{trunc(username)}}</span>
+                              v-for="{path_to_avatar, username, id, voteIdsToView} in followings">
+                    <div class="slide flex-column flex-align-center pointer" @click="filterFeed(id)">
+                        <RePicture :url="path_to_avatar | addAssetsPath" size="56"  with-border rounded :active="filter_id === id"/>
+                        <div class="amount_block">
+
+                        </div>
+                        <span class="caption font-13 text-center mt-5" :class="{'active_span' : filter_id === id}"> {{trunc(username)}}</span>
                     </div>
                 </swiper-slide>
             </template>
             <template #scroll>
-                <div v-for="{avatar, username, user_id} in followersData"
-                     class="slide mr-12 w-fit flex-column flex-align-center pointer" @click="filterFeed(user_id)">
-                        <RePicture class="mb-5" :url="avatar | addAssetsPath" with-border size="56" rounded :active="filter_id === user_id"/>
-                    <span class="caption font-11 text-center" :class="{'active_span' : filter_id === user_id}">{{trunc(username)}}</span>
+                <div v-for="{path_to_avatar, username, id, voteIdsToView} in followings"
+                     class="slide mr-12 w-fit flex-column flex-align-center pointer relative" @click="filterFeed(id)">
+                    <div class="amount_block" v-if="voteIdsToView.length"><span>{{counterMap[id].length}}</span></div>
+                        <RePicture class="mb-5" :url="path_to_avatar | addAssetsPath" with-border size="56" rounded :active="filter_id === id"/>
+                    <span class="caption font-11 text-center" :class="{'active_span' : filter_id === id}">{{trunc(username)}}</span>
                 </div>
             </template>
         </ReSwiper>
@@ -30,8 +34,9 @@
         components: {ReSwiper, RePicture},
         computed: {
 
-            ...mapState("followsPage", {
-                followings: s => s.items
+            ...mapState("Followings", {
+                followings: s => s.list,
+                counterMap: s => s.counterMap
             }),
             ...mapState("globalStore", {
                 users: s => s.users
@@ -40,16 +45,7 @@
                 filter_id: ({filter_id}) => filter_id,
 
             }),
-            followersData(){
-                return this.followings.map(({id}, index) => ({
-                    avatar: this.users[id].path_to_avatar,
-                    username: this.users[id].username,
-                    user_id: id
-                }));
-            },
             activeFilter(id){
-              console.log(id)
-              console.log(this.filter_id)
               return this.filter_id === id
             },
             mobile(){
@@ -71,8 +67,13 @@
                 }
             }
         },
-        mounted() {
-            this.$store.dispatch('followsPage/getMyFollowings')
+        async mounted() {
+            try {
+                await this.$store.dispatch('Followings/initData');
+                this.$store.commit('Followings/setCounterState')
+            }catch (e) {
+                console.trace(e)
+            }
         }
     }
 </script>
@@ -84,10 +85,25 @@
         border-radius: 8px;
         border: 1px solid #E2E2E2;
         background-color: #FFFFFF;
-        margin-bottom: 15px;
         .border-outside {
             height: 65px;
             width: 65px;
+        }
+        .amount_block {
+            width: 17px;
+            height: 17px;
+            background-color: #4b97b4;
+            text-align: center;
+            border-radius: 50%;
+            position: absolute;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            right: 3px;
+            & span {
+                font-size: 10px;
+                color: #FFFFFF;
+            }
         }
         .active_span {
             color: #4b97b4;

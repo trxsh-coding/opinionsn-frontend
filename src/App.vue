@@ -1,5 +1,5 @@
 <template>
-	<div id="app" :class="{ 'mb-80' : isCreateRoute}">
+	<div id="app" :class="{ 'mb-80' : isCreateRoute}" v-scroll="onScrollEvent">
 		<popup-notifications id="popup-notifications" />
 		<ModalWindow />
 		<router-view />
@@ -34,6 +34,9 @@
 		},
 
 		methods: {
+			onScrollEvent(){
+				console.log('dasds')
+			},
 			scrollEventFunc() {
 				this.setScrollDifference(document.documentElement, 0, null, true);
 			}

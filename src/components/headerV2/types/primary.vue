@@ -3,7 +3,7 @@
         <div class="header-block flex-align-center flex-between">
             <span class="route-span">{{routeName}}</span>
             <div class="header-icons flex-center">
-                <div class="icon flex-align-center flex-center mr-6">
+                <div class="icon flex-align-center flex-center mr-6" >
                     <icon-base width="13.85" height="13.85" view-box="0 0 13.85 13.85">
                         <Create />
                     </icon-base>

@@ -52,7 +52,6 @@
         name: "authedFooter",
         computed: {
             isCreateRoute(){
-                console.log(this.$route)
               return this.$route.name === 'createPoll'
             },
             mobile() {

@@ -30,10 +30,13 @@ import VueMeta from 'vue-meta'
 import GAuth from 'vue-google-oauth2'
 import VKAuth from '@dyadikov/vue-vk-oauth2'
 import VScrollLock from 'v-scroll-lock'
+import vuescroll from 'vue-scroll'
+import VueObserveVisibility from 'vue-observe-visibility'
 
 // import * as Sentry from '@sentry/browser';
 // import * as Integrations from '@sentry/integrations';
-
+Vue.use(vuescroll, { debounce: 600 });
+Vue.use(VueObserveVisibility)
 Vue.use(VScrollLock)
 Vue.use(VueMeta)
 Vue.use(PortalVue);

@@ -12,7 +12,8 @@
                         <time-trans :time="time"  :leader="leader" transformedTime class="content-time"/>
                     </div>
                 </div>
-                <span v-if="bowSubject" class="font-13 mt-8">{{bowSubject}}</span>
+                <span v-if="bowSubject" class="font-13 mt-5">{{bowSubject}}</span>
+                <span v-if="voted" class="comment-btn mt-5" @click="RedirectToPollWithQuery">{{translateKeyword('comment')}}</span>
             </div>
         </div>
 
@@ -26,10 +27,11 @@
     import {mapState} from "vuex";
     import SubscribeButton from "./SubscribeButton";
     import RedirectMixin from "../../mixins/RedirectMixin";
+    import translateKeywordMixin from "../../mixins/translateKeywordMixin";
     export default {
         name: "BowContent",
         components: {SubscribeButton, TimeTrans, RePicture},
-        mixins:[RedirectMixin],
+        mixins:[RedirectMixin, translateKeywordMixin],
         props: {
             url:String,
             username:String,
@@ -37,15 +39,28 @@
             userId:Number,
             optionId:Number,
             voted:Boolean,
-            leader:String
+            leader:String,
+            pollId:Number,
+            voteId:Number
         },
         computed: {
             ...mapState("globalStore", {
                 options: ({ options }) => options
             }),
+
             bowSubject(){
                 return this.voted ? this.options[this.optionId].description : ''
             }
+        },
+        methods: {
+            RedirectToPollWithQuery(){
+                this.$router.push({name: 'singlePoll', params: {id: this.pollId},
+                    query:{
+                        withScroll:true,
+                        voteId:this.voteId
+                    }
+                })
+            },
         }
     }
 </script>
@@ -67,6 +82,10 @@
         }
         .content-time {
             color:#8E8E93;
+            font-size: 11px;
+        }
+        .comment-btn {
+            color:#4B97B4;
             font-size: 11px;
         }
 

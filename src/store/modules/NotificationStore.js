@@ -33,7 +33,6 @@ class NotificationStore extends ListMixin(apiGeneric, `/rest/v2/notification`) {
 
         try {
             const {data} = await apiData({URL:`/rest/v2/notification/gotnew`, METHOD:'get'});
-            console.log(data);
             commit('setCounter', data)
         } catch (e) {
             console.trace(e)

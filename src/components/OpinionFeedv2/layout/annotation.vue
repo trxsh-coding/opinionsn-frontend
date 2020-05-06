@@ -1,6 +1,6 @@
 <template>
-    <div class="annotation-block">
-        <post-header :author="author" :event="item.eventType" :time-stamp="creationTime"/>
+    <div class="annotation-block"  v-observe-visibility="visibilityChanged">
+        <post-header :author="author" :event="item.eventType" :time-stamp="creationTime" :id="vote.id"/>
         <option-content :id="vote.selected_variable" :voted="item.voted" :option="option"/>
         <subject-content class="mt-14" :id="vote.poll_id" :vote-index="index"/>
         <bows-section :bows="Object.values(option.bows)"
@@ -9,6 +9,7 @@
                       :id="vote.poll_id"
                       :voted="item.voted"
         />
+        {{isOverflowing}}
     </div>
 </template>
 
@@ -27,6 +28,11 @@
             item: Object,
             index:Number
         },
+        data(){
+          return {
+              overflowed: null
+          }
+        },
         computed: {
             ...mapState("globalStore", {
                 users: ({users}) => users,
@@ -38,7 +44,9 @@
                 const {item, votes} = this;
                 return votes[item.id]
             },
-
+            isOverflowing() {
+                let element = this.$refs.name;
+            },
             creationTime(){
                 return this.vote.create_time;
             },
@@ -61,6 +69,12 @@
             },
 
 
+        },
+        methods: {
+            visibilityChanged (isVisible, entry) {
+                this.overflowed = isVisible;
+                if(isVisible) this.$emit('onOverflowed', this.vote.id, this.author.id)
+            }
         }
     }
 </script>

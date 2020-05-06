@@ -11,9 +11,10 @@
                      :time="item.date"
                      :voted="voted"
                      :userId="item.id"
+                     :pollId="pollId"
+                     :voteId="item.vote_id"
                      :optionId="item.selected_variable"
                      :leader="sectionName === 'subscribers'"
-
         />
     </div>
 </template>
@@ -27,6 +28,7 @@
         components: {BowContent},
         mixins: [translateKeywordMixin],
         props:{
+            pollId:Number,
             data:{
                 type:Array,
                 required:true,

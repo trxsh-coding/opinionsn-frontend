@@ -13,6 +13,7 @@ import {globalStore} from "./modules/globalStore";
 import {achievementsPage} from "./modules/achievementsPage";
 import {OpinionStore} from "./modules/OpinionStoreV2";
 import {BowStore} from "./modules/BowStore";
+import {Followings} from "./modules/FollowingsStore";
 
 
 Vue.use(Vuex)
@@ -32,7 +33,8 @@ export const store = new Vuex.Store({
 		achievementsPage,
 		serviceWorker,
 		OpinionStore,
-		BowStore
+		BowStore,
+		Followings
 	},
 	state: {},
 	getters: {},
