@@ -1,11 +1,11 @@
 <template>
-    <div class="modal-view flex-align-center " v-scroll-lock="true">
+    <div class="modal-view flex-align-center " >
         <div class="modal-overlay " @click="closeModal"></div>
         <div class="flex-column overflow-hidden"   :style="modalStyle">
             <div class="modal-close-button pb-10">
                 <Close @click.native="closeModal"/>
             </div>
-            <div class="modal-container pt-10 relative"  :class="{'overflow-y-scroll' : overflow, 'height-100' : mobile}" @scroll="onScroll">
+            <div class="modal-container pt-10 relative"  :class="{'overflow-y-scroll' : overflow, 'height-100' : mobile}" @scroll="(e) => onScroll(e)">
                 <div class="content-blur-overlay">
 
                 </div>
@@ -26,11 +26,13 @@
             width: Number || String,
             height: Number || String,
             br: Number || String,
-            overflow:Boolean
-
+            overflow:Boolean,
+            isOpened: Boolean
         },
         watch: {
+            isOpened(){
 
+            }
         },
         computed: {
             mobile() {
@@ -40,8 +42,7 @@
                 return this.$root.scrolled_to_bottom;
             },
             modalStyle(){
-                const {width, height, br} = this;
-
+                const {width, height, br, isOpened} = this;
                 return {
                     borderRadius:this.calculateType(br),
                     width: this.calculateType(width),
@@ -50,22 +51,42 @@
             }
         },
         methods: {
-            onScroll ({ target: { scrollTop, clientHeight, scrollHeight }}) {
+            onScroll (e) {
+                let {clientHeight, scrollTop, scrollHeight} = e.target;
                 if (scrollTop + clientHeight + 400 >= scrollHeight) {
+
                     this.$emit('onScrolledBottom')
+                }
+                if(scrollTop + clientHeight === scrollHeight){
+                    e.defaultPrevented = true
                 }
             },
             calculateType(value){
                 return typeof value !== 'string' ? value + 'px' : value
             },
             closeModal(){
-                this.$emit('onCloseModal')
+                this.$emit('onCloseModal');
+                this.isOpened = false;
             }
+        },
+        mounted() {
+            let elem = document.querySelector("#app");
+            if(this.isOpened){
+                elem.classList.add("overflow-hidden");
+            }
+        },
+        destroyed() {
+            let elem = document.querySelector("#app");
+            elem.classList.remove("overflow-hidden");
         }
+
     }
 </script>
 
 <style lang="scss">
+    .overflow-hidden {
+        overflow: hidden !important;
+    }
     .modal-view {
         justify-content: center;
         position: fixed;
@@ -74,7 +95,7 @@
         z-index: 999999;
         width: 100%;
         height: 100%;
-
+        overflow: hidden;
         .modal-overlay {
             z-index: 100;
             opacity: 0.4;

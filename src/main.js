@@ -32,9 +32,12 @@ import VKAuth from '@dyadikov/vue-vk-oauth2'
 import VScrollLock from 'v-scroll-lock'
 import vuescroll from 'vue-scroll'
 import VueObserveVisibility from 'vue-observe-visibility'
+import VBodyScrollLock from 'v-body-scroll-lock'
+
 
 // import * as Sentry from '@sentry/browser';
 // import * as Integrations from '@sentry/integrations';
+Vue.use(VBodyScrollLock)
 Vue.use(vuescroll, { debounce: 600 });
 Vue.use(VueObserveVisibility)
 Vue.use(VScrollLock)

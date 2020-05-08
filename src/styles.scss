@@ -11,9 +11,8 @@ $--font-path: '~element-ui/lib/theme-chalk/fonts';
 @media all and (display-mode: fullscreen) {
 	body {
 		* {
-			box-sizing: border-box
+			box-sizing: border-box;
 		}
-
 		margin: 0;
 	}
 }
@@ -49,7 +48,9 @@ a {
 	line-height: 1 !important;
 
 }
-
+.overflow-scroll {
+	overflow: auto;
+}
 html {
 	* {
 

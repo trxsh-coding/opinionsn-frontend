@@ -1,5 +1,5 @@
 <template lang="html">
-    <section>
+    <section id="app-section" >
         <desktop-header
                 v-if="!mobile"
                 :user="user"/>
@@ -313,7 +313,9 @@
         background: #F8F8F8;
         margin: 0;
     }
-
+    .app-section {
+        overflow: hidden;
+    }
     #undo-panel {
         position: fixed;
         z-index: 6000;

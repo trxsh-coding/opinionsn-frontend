@@ -143,7 +143,6 @@
                     Загрузить еще комментарии
                 </span>
 
-				<Loader v-if="loaderCondition" class="mx-auto"/>
 			</div>
 		</div>
 	</section>
@@ -230,6 +229,7 @@
 			},
 			handleRedirectFromBows(){
 				const {voteId, withScroll} = this.$route.query;
+				console.log(voteId)
 				this.activeInputId = voteId;
 				this.$refs[`explain_${voteId}`][0].scrollIntoView({behavior: "smooth", alignToTop:true})
 			},

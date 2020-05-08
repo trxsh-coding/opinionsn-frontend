@@ -89,7 +89,7 @@
 			combinedCategories: function () {
 
 				let categoriesArray = Object.values(this.categories);
-				if (!this.popularCategory) delete categories[19]  // Remove POPULAR category by id
+				if (!this.popularCategory) delete categoriesArray[19]  // Remove POPULAR category by id
 				const localCategory = Object.values(this.localCategory)
 				const ordered = [...Object.values(localCategory).reverse(), categoriesArray[19],...categoriesArray];
 

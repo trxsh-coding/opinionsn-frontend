@@ -3,19 +3,15 @@
         <div class="header-block flex-align-center flex-between">
             <span class="route-span">{{routeName}}</span>
             <div class="header-icons flex-center">
-                <div class="icon flex-align-center flex-center mr-6" >
-                    <router-link class="title pointer " to="/createPoll">
-                        <icon-base width="13.85" height="13.85" view-box="0 0 13.85 13.85">
-                            <Create />
-                        </icon-base>
-                    </router-link>
+                <div class="icon flex-align-center flex-center mr-6" @click="navigationPush('createPoll')">
+                    <icon-base width="13.85" height="13.85" view-box="0 0 13.85 13.85">
+                        <Create />
+                    </icon-base>
                 </div>
-                <div class="icon flex-align-center flex-center mr-6">
-                    <router-link class="title pointer " to="/search">
-                        <icon-base width="13.85" height="13.85" view-box="0 0 13.85 13.85">
-                                <Search/>
-                        </icon-base>
-                    </router-link>
+                <div class="icon flex-align-center flex-center mr-6" @click="navigationPush('search')">
+                    <icon-base width="13.85" height="13.85" view-box="0 0 13.85 13.85">
+                        <Search/>
+                    </icon-base>
                 </div>
                 <RePicture :url="mainUser.path_to_avatar | addAssetsPath"
                            rounded size="28"
@@ -54,6 +50,11 @@
                     default :
                         return this.translateKeyword(name)
                 }
+            }
+        },
+        methods: {
+            navigationPush(name){
+                this.$router.push({name:name})
             }
         }
     }

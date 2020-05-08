@@ -15,6 +15,7 @@
                  :height="mobile ? '100%' : '500px'"
                  overflow @onCloseModal="onClose"
                  @onScrolledBottom="onScrolled"
+                 :is-opened="showModal"
         >
             <div class="loading-block height-100 flex-align-center" v-if="!items.length && loading  ">
                 <Loader class="mx-auto height-100" />
