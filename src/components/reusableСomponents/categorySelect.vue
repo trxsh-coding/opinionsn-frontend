@@ -6,7 +6,7 @@
 			<template #usual>
 				<swiper-slide
 						class="w-fit"
-						v-for="category in combinedCategories">
+						v-for="category in data">
 					<catalog-item
 							:item="category"
 							:is-current-string="isCurrentString"
@@ -16,7 +16,7 @@
 			</template>
 			<template #scroll>
 				<catalog-item
-						v-for="(category, i) in combinedCategories"
+						v-for="(category, i) in data"
 						:class="{'ml-10': i}"
 						:item="category"
 						:is-current-string="isCurrentString"
@@ -82,6 +82,11 @@
 
 			}),
 
+			...mapState('CatalogStore', {
+
+				data: ({data}) => data,
+
+			}),
 			mobile() {
 				return this.$root.mobile;
 			},
@@ -97,8 +102,9 @@
 			},
 		},
 
-		mounted() {
-			this.$store.dispatch(`catalogList/list`);
+		async mounted() {
+			await this.$store.dispatch(`catalogList/list`);
+			await this.$store.dispatch(`CatalogStore/GET_LIST`);
 		},
 
 		methods: {

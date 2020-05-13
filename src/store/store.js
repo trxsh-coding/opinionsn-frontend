@@ -14,7 +14,7 @@ import {achievementsPage} from "./modules/achievementsPage";
 import {OpinionStore} from "./modules/OpinionStoreV2";
 import {BowStore} from "./modules/BowStore";
 import {Followings} from "./modules/FollowingsStore";
-
+import CatalogStore from "./modules/CatalogV2"
 
 Vue.use(Vuex)
 Vue.use(axios)
@@ -34,7 +34,8 @@ export const store = new Vuex.Store({
 		serviceWorker,
 		OpinionStore,
 		BowStore,
-		Followings
+		Followings,
+		CatalogStore
 	},
 	state: {},
 	getters: {},
