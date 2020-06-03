@@ -6,7 +6,7 @@
                    size="28" rounded
                    :url="bow.path_to_avatar | addAssetsPath"
                    :class="{'bow_item': index >= 1}"
-                   class="mr-9 pointer q-bows-picture"
+                   class="mr-9 pointer q-bows-picture flex"
         />
         <span class="bow-amount-caption  font-13 lowercase weight-300 pointer" v-if="total - bows.length > 0"
               @click="onOpen"
