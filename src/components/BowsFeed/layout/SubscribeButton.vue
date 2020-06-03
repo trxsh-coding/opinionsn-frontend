@@ -1,7 +1,7 @@
 <template>
-    <div class="subscribe-block flex mr-14">
-        <span class="inactive pointer" v-if="isLeader" @click="subscribeActions">{{translateKeyword('you_are_subscribed')}}</span>
-        <span class="active pointer" v-else @click="subscribeActions">{{translateKeyword('follow')}}</span>
+    <div class="subscribe-block flex mr-14" :style="wrapperStyle">
+        <span class=" pointer" :style="spanStyle" v-if="isLeader" @click="subscribeActions">{{translateKeyword('you_are_subscribed')}}</span>
+        <span class=" pointer"  :style="spanStyle" v-else @click="subscribeActions">{{translateKeyword('follow')}}</span>
 
     </div>
 </template>
@@ -22,6 +22,10 @@
            id: {
                type:Number,
                required:true
+           },
+           primaryStyle: {
+               type:Boolean,
+               default: true
            }
         },
         data() {
@@ -30,19 +34,53 @@
             }
         },
         computed: {
+            spanStyle(){
+             const primaryStyle = {
+                  color:!this.isLeader ? '#4B97B4' : '#8E8E93'
+              }
 
+              const secondaryStyle = {
+                  color:this.isLeader ? '#4B97B4' : '#FFFFFF'
+              }
+
+              return this.primaryStyle ? primaryStyle : secondaryStyle
+
+            },
+            wrapperStyle(){
+
+                const styles = {
+                    borderWidth:'0.5px',
+                    borderColor:'#4B97B4',
+                    borderStyle:'solid',
+                    backgroundColor: !this.isLeader ? '#4B97B4' : '#FFFFFF',
+                    padding: '5px 10px 7px 11px'
+
+            };
+
+
+                if (!this.primaryStyle ) {
+                    return styles
+                }
+                return  {}
+            }
 
         },
+
+
+
         methods: {
             async subscribeActions() {
                 let res;
                 try {
                     if (!this.isLeader) {
                          res = await this.$store.dispatch(`userPage/followUser`, this.id);
-                    }
-                    if(res.status === 200){
+                        this.isLeader = !this.isLeader
+
+                    } else {
+                        this.$store.dispatch(`userPage/unFollowUser`, this.id);
                         this.isLeader = !this.isLeader
                     }
+
                 }catch (e) {
                     console.trace(e)
                 }
@@ -56,6 +94,10 @@
 <style lang="scss">
     .subscribe-block {
         z-index: 100;
+        border-radius: 4px;
+        span {
+            font-size: 11px;
+        }
         .active {
             font-size: 11px;
             color:#4B97B4;

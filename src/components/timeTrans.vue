@@ -4,6 +4,7 @@
 		<span v-if="transformedTime">{{transformed_time}}</span>
 		<span v-if="shortTime">{{short_time}}</span>
 		<span v-if="predictionTime">{{currentTime}}</span>
+		<span v-if="fromNow">{{currentTime}}</span>
 
 	</div>
 </template>
@@ -13,6 +14,8 @@
 	import moment from 'moment'
 	import langMixin from './mixins/langMixin'
 	import {mapState} from 'vuex'
+	import translateKeywordMixin from "./mixins/translateKeywordMixin";
+	import {SHORT_TIME_TIMESTAMP_REGEX} from "../constants";
 
 	const pad = (num, len = 2, char = '0') => {
 		let init = `${num}`;
@@ -25,7 +28,7 @@
 	};
 	export default {
 		name: "timeTrans",
-		mixins: [langMixin],
+		mixins: [langMixin, translateKeywordMixin],
 		props: {
 			time: {
 				required: true
@@ -33,6 +36,7 @@
 			shortTime: {
 				type: Boolean
 			},
+			fromNow: Boolean,
 			predictionTime: {
 				type: Boolean
 			},
@@ -125,6 +129,131 @@
 
 			},
 
+
+			 getTimeFromNow(lang = this._lang, dateObject, type, onPredictionEnd) {
+				const parsedTime = moment(dateObject);
+				const daysDiff = moment(new Date()).diff(dateObject, 'days');
+				const weeksDiff = moment(new Date()).diff(dateObject, 'weeks');
+				const hoursDiff = moment(new Date()).diff(dateObject, 'hours');
+				const minsDiff = moment(new Date()).diff(dateObject, 'minutes');
+				const secDiff = moment(new Date()).diff(dateObject, 'seconds');
+				const duration = moment.duration(moment(dateObject).diff(new Date()));
+
+				const timeFromNow = parsedTime.fromNow();
+
+				const matchedRegex = timeFromNow.match(SHORT_TIME_TIMESTAMP_REGEX);
+
+				let result = '';
+
+				if (type === 'short') {
+					if (secDiff < 0 && secDiff > -90) {
+						lang === 'ru' ? (result = 'через 1мин') : (result = 'in 1min');
+					} else if (secDiff > 0 && secDiff < 90) {
+						lang === 'ru' ? (result = '1мин') : (result = '1min');
+					} else if (minsDiff < -40 && minsDiff >= -90) {
+						lang === 'ru' ? (result = 'через 1ч') : (result = 'in 1h');
+					} else if (minsDiff > 40 && minsDiff <= 90) {
+						lang === 'ru' ? (result = '1ч') : (result = '1h');
+					} else if (hoursDiff < -19 && hoursDiff >= -36) {
+						lang === 'ru' ? (result = 'через 1д.') : (result = 'in 1d.');
+					} else if (hoursDiff > 19 && hoursDiff <= 36) {
+						lang === 'ru' ? (result = '1д.') : (result = '1d.');
+					} else if (daysDiff > 7) {
+						if (weeksDiff === 1) {
+							if (lang === 'ru') {
+								result = `${weeksDiff}нед.`;
+							} else {
+								result = `${weeksDiff}wk.`;
+							}
+						} else {
+							if (lang === 'ru') {
+								result = `${weeksDiff}нед.`;
+							} else {
+								result = `${weeksDiff}wks.`;
+							}
+						}
+					} else if (matchedRegex) {
+						switch (matchedRegex[1]) {
+							case 'мин':
+							case 'min':
+								result =
+										timeFromNow.slice(0, matchedRegex.index).trim() + matchedRegex[1];
+								break;
+							case 'дн':
+							case 'day':
+								result =
+										timeFromNow.slice(0, matchedRegex.index).trim() +
+										`${matchedRegex[1].slice(0, 1)}.`;
+								break;
+							case 'ден':
+								result = timeFromNow.slice(0, matchedRegex.index).trim() + 'д.';
+								break;
+							default:
+								result =
+										timeFromNow.slice(0, matchedRegex.index).trim() +
+										matchedRegex[1].slice(0, 1);
+						}
+					} else {
+						result = timeFromNow;
+					}
+				} else {
+					if (type === 'prediction' && duration < 0) {
+						if (typeof onPredictionEnd === 'function') {
+							onPredictionEnd();
+						}
+						return ('closed');
+					}
+
+					if (secDiff < 0 && secDiff > -90) {
+						lang === 'ru' ? (result = 'через 1 мин') : (result = 'in 1 min');
+					} else if (secDiff > 0 && secDiff < 90) {
+						lang === 'ru' ? (result = '1 мин назад') : (result = '1 min ago');
+					} else if (minsDiff < -40 && minsDiff >= -90) {
+						lang === 'ru' ? (result = 'через 1ч') : (result = 'in 1h');
+					} else if (minsDiff > 40 && minsDiff <= 90) {
+						lang === 'ru' ? (result = '1 ч назад') : (result = '1 h ago');
+					} else if (hoursDiff > 19 && hoursDiff <= 36) {
+						lang === 'ru' ? (result = '1 д. назад') : (result = '1 d. ago');
+					} else if (hoursDiff < 0 && hoursDiff >= -24) {
+						const hours = Math.abs(hoursDiff);
+						const minutes = Math.abs(minsDiff) % 60;
+
+						if (lang === 'ru') {
+							result = `через ${hours}ч ${minutes}мин`;
+						} else {
+							result = `in ${hours}h ${minutes}min`;
+						}
+					} else if (daysDiff > 7) {
+						result = parsedTime.format('LL');
+					} else if (matchedRegex) {
+						switch (matchedRegex[1]) {
+							case 'мин':
+							case 'min':
+								result = timeFromNow.replace(matchedRegex[0], matchedRegex[1]);
+								break;
+							case 'дн':
+							case 'day':
+								result = timeFromNow.replace(
+										matchedRegex[0],
+										`${matchedRegex[1].slice(0, 1)}.`,
+								);
+								break;
+							case 'ден':
+								result = timeFromNow.replace(matchedRegex[0], 'д.');
+								break;
+							default:
+								result = timeFromNow.replace(
+										matchedRegex[0],
+										matchedRegex[1].slice(0, 1),
+								);
+						}
+					} else {
+						result = timeFromNow;
+					}
+				}
+
+				return result;
+			},
 			transformed_time() {
 
 				let {time} = this;

@@ -1,4 +1,3 @@
-
 export const ListMixin = (superclass, url) => class extends superclass{
 
     async initializeList({state, commit}, payload = {}){

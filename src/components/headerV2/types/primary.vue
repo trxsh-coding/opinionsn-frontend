@@ -1,8 +1,12 @@
 <template>
     <div class="header-section">
         <div class="header-block flex-align-center flex-between">
-            <span class="route-span">{{routeName}}</span>
-            <div class="header-icons flex-center">
+            <div class="flex-align-center" v-if="$route.name !== 'QuestionsFeed'">
+                <ArrowBack class="mr-20" v-if="$route.name === 'singlePoll'" @click.native="$router.go(-1)"/>
+                <span  class="route-span">{{routeName}}</span>
+            </div>
+            <img  v-else src="../../../../public/img/OG.jpg"  height="30" alt="">
+            <div class="header-icons flex-center" v-if="mainUser.id">
                 <div class="icon flex-align-center flex-center mr-6" @click="navigationPush('createPoll')">
                     <icon-base width="13.85" height="13.85" view-box="0 0 13.85 13.85">
                         <Create />
@@ -32,10 +36,11 @@
     import RePicture from "../../reusableСomponents/RePicture";
     import {mapState} from "vuex";
     import RedirectMixin from "../../mixins/RedirectMixin";
+    import ArrowBack from "../../iconsV2/ArrowBack";
 
     export default {
         name: "primary",
-        components: {RePicture, Search, IconBase, Create},
+        components: {ArrowBack, RePicture, Search, IconBase, Create},
         mixins:[translateKeywordMixin, RedirectMixin],
 
         computed: {
@@ -47,6 +52,8 @@
                 switch (name) {
                     case 'opinionFeed':
                         return this.translateKeyword('opinions');
+                    case 'singlePoll':
+                        return this.translateKeyword('questions');
                     default :
                         return this.translateKeyword(name)
                 }

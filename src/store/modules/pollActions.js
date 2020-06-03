@@ -57,13 +57,13 @@ export const pollActions = sc => class extends sc {
 
 	saveExplain({commit, dispatch}, payload = {}) {
 
-		let {customUrl = `${process.env.VUE_APP_MAIN_API}/rest/v1/explain/`, data = {}, method = `put`} = payload;
+		let {customUrl = `${process.env.VUE_APP_MAIN_API}/rest/v2/explain/`, data = {}, method = `put`} = payload;
 
 		return sc.apiRequest(customUrl, data, {
 			commit,
 			dispatch,
 			onSuccess: `onExplainSaved`,
-			successType: `action`
+				successType: `action`
 		}, method);
 
 	};
@@ -119,6 +119,15 @@ export const pollActions = sc => class extends sc {
 
 	};
 
+	getQuestionMixin({commit, dispatch}, payload = {}) {
+		console.log(payload)
+		const id = payload ;
+		let {customUrl = `${process.env.VUE_APP_MAIN_API}/rest/v2/poll/${id}/mixin/single`, data = {id}, method = `get`,} = payload;
+
+		return sc.apiRequest(customUrl, data, {commit, dispatch, onSuccess: null, successType: `mutation`}, method);
+
+	};
+
 
 	deleteBookmark({commit, dispatch}, payload = {}) {
 
@@ -144,6 +153,26 @@ export const pollActions = sc => class extends sc {
 		let id = payload;
 
 		let {customUrl = `${process.env.VUE_APP_MAIN_API}/rest/admin/comment/delete/${id}`, data = {}, method = `post`,} = payload;
+
+		return sc.apiRequest(customUrl, data, {commit, dispatch, onSuccess: null, successType: `mutation`}, method);
+
+	};
+
+	blockQuestion({commit, dispatch}, payload = {}) {
+
+		let id = payload;
+
+		let {customUrl = `${process.env.VUE_APP_MAIN_API}/rest/v2/poll/${id}/hide`, data = {}, method = `post`,} = payload;
+
+		return sc.apiRequest(customUrl, data, {commit, dispatch, onSuccess: null, successType: `mutation`}, method);
+
+	};
+
+	reportQuestion({commit, dispatch}, payload = {}) {
+
+		let id = payload;
+
+		let {customUrl = `${process.env.VUE_APP_MAIN_API}/rest/v2/poll/${id}/report`, data = {}, method = `post`,} = payload;
 
 		return sc.apiRequest(customUrl, data, {commit, dispatch, onSuccess: null, successType: `mutation`}, method);
 
@@ -329,9 +358,9 @@ export const pollActions = sc => class extends sc {
 
 
 		let {id} = data.payload[0];
-
+		console.log(data.payload[0])
 		let item = data.votes[id];
-
+		console.log(item)
 		let {poll_id} = item;
 
 		commit('globalStore/addChildTo', {
@@ -429,6 +458,7 @@ export const pollActions = sc => class extends sc {
 	get actions() {
 		return {
 			...super.actions,
+			blockQuestion: this.blockQuestion,
 			createVote: this.createVote,
 			saveExplain: this.saveExplain,
 			saveComment: this.saveComment,
@@ -444,7 +474,9 @@ export const pollActions = sc => class extends sc {
 			deletePoll: this.deletePoll,
 			deleteComment: this.deleteComment,
 			onExplainSaved: this.onExplainSaved,
-			setBlockchainRightOption: this.setBlockchainRightOption
+			setBlockchainRightOption: this.setBlockchainRightOption,
+			getQuestionMixin: this.getQuestionMixin,
+			reportQuestion: this.reportQuestion
 		}
 	}
 

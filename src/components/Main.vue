@@ -274,6 +274,7 @@
             this.getNotifications();
             this.$store.dispatch('Notifications/getUnreadNotificationsValue');
             this.$store.commit("serviceWorker/SET_NOTIFICATION_SUPPORT")
+            this.$store.dispatch(`CatalogStore/GET_LIST`);
         },
 
         beforeRouteUpdate(to, from, next) {

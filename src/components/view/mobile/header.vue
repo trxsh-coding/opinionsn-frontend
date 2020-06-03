@@ -129,9 +129,6 @@
 
 				switch (route_name) {
 					case 'pollFeed':
-					case 'singlePoll':
-						return 'primary';
-
 					case 'catalogList':
 					case 'catalogFeed':
 					case 'statistic':

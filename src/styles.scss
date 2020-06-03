@@ -17,6 +17,10 @@ $--font-path: '~element-ui/lib/theme-chalk/fonts';
 	}
 }
 
+input, textarea {
+	font-family: inherit;
+}
+
 html {
 	font-family: "Roboto", sans-serif;
 
@@ -114,7 +118,7 @@ li {
 	max-width: 552px;
 	width: 100%;
 	margin-left: auto;
-	margin-top: 78px;
+	margin-top: 75px;
 
 	&.is_mobile_device {
 		max-width: 100%;

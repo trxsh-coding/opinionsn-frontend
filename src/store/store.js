@@ -15,6 +15,7 @@ import {OpinionStore} from "./modules/OpinionStoreV2";
 import {BowStore} from "./modules/BowStore";
 import {Followings} from "./modules/FollowingsStore";
 import CatalogStore from "./modules/CatalogV2"
+import questionRecommendations from "./modules/questionRecommends"
 
 Vue.use(Vuex)
 Vue.use(axios)
@@ -35,7 +36,8 @@ export const store = new Vuex.Store({
 		OpinionStore,
 		BowStore,
 		Followings,
-		CatalogStore
+		CatalogStore,
+		questionRecommendations
 	},
 	state: {},
 	getters: {},

@@ -8,6 +8,7 @@ export default  {
     namespaced:true,
     state: {
         data: [],
+        listById:{},
         localCategory: {
             "998": {
                 id: -2,
@@ -32,7 +33,7 @@ export default  {
             const localCategory = Object.values(state.localCategory);
             const ordered = [...Object.values(localCategory).reverse(), popularCategory, ...categoriesArray];
             state.data = ordered;
-
+            state.listById = payload;
         },
 
 

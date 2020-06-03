@@ -9,7 +9,7 @@
 
         <div class="nav-menu mt-9 br-6">
             <router-link class="links py-12 px-12 pl-13 pointer"
-                         active-class="isActive" :to="{name: 'pollFeed'}">
+                         active-class="isActive" :to="{name: 'QuestionsFeed'}">
                 <IconPollFeed fill="#1A1E22"/>
                 <lang-string class="ml-15" title="main"/>
             </router-link>
@@ -130,10 +130,15 @@
 
             },
 
-            changeLanguage(param) {
-                axios.post(`${process.env.VUE_APP_MAIN_API}/rest/v1/user/locale/${param}`).then(() => {
-                    this.$store.dispatch('lang/getLocaleString')
-                });
+            async changeLanguage(param) {
+               try {
+                   await axios.post(`${process.env.VUE_APP_MAIN_API}/rest/v1/user/locale/${param}`).then(() => {
+                       this.$store.dispatch('lang/getLocaleString')
+                   });
+                   location.reload();
+               }catch (e) {
+                   console.trace(e)
+               }
             }
         },
         components: {

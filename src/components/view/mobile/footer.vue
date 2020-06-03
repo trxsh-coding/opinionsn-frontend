@@ -2,7 +2,7 @@
 	<div class="mobile-footer">
 		<ul class="flex-align-stretch h-48 pt-5 pb-4 px-24">
 			<li class="footer-icon">
-				<router-link class="btn" active-class="active" :to="{name: 'pollFeed'}">
+				<router-link class="btn" active-class="active" :to="{name: 'QuestionsFeed'}">
 					<icon-base
 							width="24"
 							height="25"

@@ -70,14 +70,14 @@
             }
         },
         mounted() {
-            let elem = document.querySelector("#app");
-            if(this.isOpened){
-                elem.classList.add("overflow-hidden");
-            }
+            // let elem = document.querySelector("#app");
+            // if(this.isOpened){
+            //     elem.classList.add("overflow-hidden");
+            // }
         },
         destroyed() {
-            let elem = document.querySelector("#app");
-            elem.classList.remove("overflow-hidden");
+            // let elem = document.querySelector("#app");
+            // elem.classList.remove("overflow-hidden");
         }
 
     }

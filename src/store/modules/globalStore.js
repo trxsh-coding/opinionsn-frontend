@@ -119,6 +119,7 @@ export const globalStore = {
 				if (!payload[name]) continue;
 				let map = payload[name];
 				if (Object.keys(map).length) {
+					console.log(map)
 					state[name] = {...state[name], ...map};
 				}
 

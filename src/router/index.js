@@ -10,7 +10,6 @@ const followers = () => import('../components/Follows/Event/Followers');
 const followings = () => import('../components/Follows/Event/Followings');
 const follows = () => import('../components/Follows/Follows');
 const VoteFeed = () => import('../components/voteFeed/VoteFeed');
-const PollFeed = () => import('../components/pollFeed/PollFeed');
 const Poll = () => import('../components/singlePoll/feed');
 const Admin = () => import('../components/Admin/Admin');
 const Catalog = () => import('../components/Admin/Catalog');
@@ -30,6 +29,9 @@ const ReferralsPage = () => import("../components/ReferralsPage");
 const achievementsPage = () => import("../components/achievementsPage/index");
 const Notifications = () => import("../components/notificationsV2/Feed");
 const OpinionFeed = () => import("../components/OpinionFeedv2/Feed");
+const PollFeed = () => import("../components/PollFeedv2/Feed");
+const QuestionsFeed = () => import("../components/PollFeedv2/Feed");
+const Question = () => import("../components/questionV2/Page");
 
 import {nprogress} from '../main.js';
 import {searchUser} from "@/store/modules/searchUser";
@@ -118,7 +120,7 @@ export const router = new Router({
 			component: Main,
 			redirect:
 				{
-					name: 'pollFeed'
+					name: 'QuestionsFeed'
 				},
 			children: [
 
@@ -169,6 +171,11 @@ export const router = new Router({
 					path: 'voteFeed',
 					name: 'voteFeed',
 					component: VoteFeed,
+				},
+				{
+					path: 'QuestionsFeed',
+					name: 'QuestionsFeed',
+					component: QuestionsFeed,
 				},
 				{
 					path: 'feedback',
@@ -241,7 +248,7 @@ export const router = new Router({
 				{
 					path: 'singlePoll/:id',
 					name: 'singlePoll',
-					component: Poll,
+					component: Question,
 					props: (route) => ({
 						query: route.query.q,
 						feed:false
@@ -326,7 +333,7 @@ router.beforeEach((to, from, next) => {
 				case 'login':
 				case 'restore':
 				case 'token':
-				case 'pollFeed':
+				case 'QuestionsFeed':
 				case 'singlePoll':
 				case 'feedback':
 				case 'notifications':
