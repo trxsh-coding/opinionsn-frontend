@@ -6,7 +6,7 @@
 			<template #usual>
 				<swiper-slide
 						class="w-fit"
-						v-for="category in data">
+						v-for="(category, index) in createCategories">
 					<catalog-item
 							:item="category"
 							:is-current-string="isCurrentString"
@@ -16,7 +16,7 @@
 			</template>
 			<template #scroll>
 				<catalog-item
-						v-for="(category, i) in data"
+						v-for="(category, i) in createCategories"
 						:class="{'ml-10': i}"
 						:item="category"
 						:is-current-string="isCurrentString"
@@ -89,6 +89,10 @@
 			}),
 			mobile() {
 				return this.$root.mobile;
+			},
+
+			createCategories(){
+				return this.data.filter((el, index) => index > 2)
 			},
 
 			combinedCategories: function () {

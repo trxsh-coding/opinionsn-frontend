@@ -20,12 +20,18 @@
                  @onScrolledBottom="onScrolled"
                  :is-opened="showModal"
         >
-            <bow-annotation section-name="subscribers"
-                            :data="Object.values(bows)"
-                            :poll-id="id"
+            <bow-annotation section-name="mine"
+                            :data="[mainBow]"
+                            :poll-id="pollId"
                             :voted="voted"
             />
-            <bows-feed :id="pollId" v-show="Object.values(bows).length" :voted="voted" />
+            <bow-annotation section-name="subscribers"
+                            v-show="Object.values(bows).length"
+                            :data="Object.values(bows)"
+                            :poll-id="pollId"
+                            :voted="voted"
+            />
+            <bows-feed :id="pollId"  :voted="voted" />
         </ReModal>
     </div>
 </template>
@@ -47,6 +53,7 @@
             voted:Boolean,
             pollId:Number,
             total:Number,
+            mainBow:Object,
             withCaption:{
                 type:Boolean,
                 default: false

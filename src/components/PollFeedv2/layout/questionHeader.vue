@@ -27,7 +27,7 @@
 
             <More @click.native="onOpenActionSheet" />
         </div>
-        <ReModal v-if="showModal" :width="mobile ? '70%' : '500px'"
+        <ReModal v-if="showModal && !showPrompt" :width="mobile ? '70%' : '500px'"
                  :br="mobile ? 0 : '10px'"
                  :height="mobile ? '37%' : '500px'"
                  overflow @onCloseModal="onCloseActionSheet"
@@ -35,16 +35,20 @@
         >
             <div class="actions flex-column">
                 <span class="pointer" @click="addToBookmark">{{bookmarkId === 0 ? translateKeyword('add_to_bookmarks') : translateKeyword('delete_from_bookmarks')}}</span>
-                <span @click="copyInviteLink($refs.shareLink)">{{translateKeyword('share')}}</span>
-                <span @click="blockQuestion">{{translateKeyword('hide')}}</span>
-                <span @click="reportQuestion">{{translateKeyword('report')}}</span>
-                <span @click="showModal = false">{{translateKeyword('cancel')}}</span>
+                <span  class="pointer" @click="copyInviteLink($refs.shareLink)">{{translateKeyword('share')}}</span>
+                <span class="pointer" @click="blockQuestion">{{translateKeyword('hide')}}</span>
+                <span class="pointer" @click="showPrompt = true " >{{translateKeyword('report')}}</span>
+                <span class="pointer" @click="deleteQuestion(pollId)" v-if="mainUser.authorities === 'ADMIN'">{{translateKeyword('delete')}}</span>
+                <span  class="pointer" @click="showModal = false">{{translateKeyword('cancel')}}</span>
                 <input ref="shareLink" type="text"
                        :value="`https://opinionsn.com/singlePoll/${pollId}`"
                        class="share-link flex">
             </div>
 
         </ReModal>
+        <RePrompt :title="translateKeyword('report')" :visible="showPrompt"  @onConfirm="onConfirmAction"  >
+            <span class="font-14"> Вы уверенны, что хотите пожаловаться на вопрос : </span> <span class="bold-caption-14">{{questionSubject}}</span>
+        </RePrompt>
     </div>
 </template>
 
@@ -59,13 +63,15 @@
     import Line from "../../iconsV2/Line";
     import Share from "../../iconsV2/Share";
     import {actionsStoreName} from "../../../constants";
+    import RePrompt from "../../reusableСomponents/RePrompt";
     export default {
         name: "questionHeader",
-        components: {Share, Line, SubscribeButton, ReModal, More, TimeTrans, RePicture},
+        components: {RePrompt, Share, Line, SubscribeButton, ReModal, More, TimeTrans, RePicture},
         mixins:[RedirectMixin, translateKeywordMixin],
         data(){
           return {
-              showModal:false
+              showModal:false,
+              showPrompt:false
           }
         },
         props: {
@@ -74,7 +80,8 @@
             mainUser:Object,
             pollId:Number,
             typeofquestion:Number,
-            bookmarkId:Number
+            bookmarkId:Number,
+            questionSubject:String
         },
         computed: {
             mobile() {
@@ -82,6 +89,35 @@
             },
         },
         methods: {
+           async deleteQuestion(id){
+               try {
+
+                   let {status} = await this.$store.dispatch(`${actionsStoreName(this.$route.name)}/deletePoll`, id);
+                   if (status === 200) {
+
+                       this.$popup.insert('messages', [{message: 'Успешное удаление!', type: 'success'}]);
+                       // this.$parent.deleted = true;
+                       this.$store.commit(`${actionsStoreName(this.$route.name)}/deleteItemFromPayload`, id);
+
+                       if (this.$route.name !== 'QuestionsFeed') this.$router.push({name: 'QuestionsFeed'});
+
+                   } else {
+
+                       this.$popup.insert('messages', [{message: 'При удалении произошла ошибка!', type: 'error'}]);
+
+                   }
+
+               } catch (e) {
+
+                   console.error(e);
+
+               }
+           },
+           onConfirmAction(payload){
+               this.showPrompt = false;
+               this.showModal = false;
+               if(payload) this.reportQuestion()
+           },
            async blockQuestion(){
                let id = this.pollId;
               try {

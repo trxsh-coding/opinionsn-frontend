@@ -1,6 +1,6 @@
 <template>
     <div class="comments-feed">
-        <div class="explain-author-block" v-for="(explain, index) in explains" v-show="explain.description || explain.comments.length">
+        <div class="explain-author-block" v-for="(explain, index) in explains" :ref="'explain_' + explain.id" v-show="explain.description || explain.comments.length || redirectVoteId === explain.id">
             <div class="author-annotation flex-align-start mr-9">
                 <RePicture :url="explain.author.avatar| addAssetsPath" size="36" rounded />
             </div>
@@ -82,9 +82,17 @@
             }),
             explainAuthor(){
 
+            },
+            redirectVoteId(){
+                return this.$route.query.voteId || '';
             }
         },
         methods: {
+            handleRedirectFromBows(){
+                const {voteId, withScroll} = this.$route.query;
+                this.activeInput = voteId;
+                this.$refs[`explain_${voteId}`][0].scrollIntoView({behavior: "smooth", alignToTop:true})
+            },
             clearInput(){
                 this.activeInput = null;
                 this.commentValue = '';
@@ -97,6 +105,10 @@
             this.activeInput = id;
             }
         },
+        mounted() {
+            if(this.$route.query.withScroll) setTimeout(() => this.handleRedirectFromBows(), 1000);
+
+        }
 
     }
 </script>

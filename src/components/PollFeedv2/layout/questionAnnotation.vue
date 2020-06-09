@@ -7,6 +7,7 @@
                 :pollId="poll.id"
                 :typeofquestion="poll.type_of_poll"
                 :bookmarkId="poll.bookmark_id"
+                :question-subject="poll.subject"
         />
         <div class="subject-section mt-16 flex-align-center flex-between">
             <question-subject
@@ -28,7 +29,14 @@
                 :poll-id="poll.id"
         />
 
-        <question-bows class="mt-14" :bows="Object.values(poll.bows)"  v-if="!item.voted" :total="item.amountOfVoted" :voted="item.voted" :poll-id="poll.id"/>
+        <question-bows class="mt-14"
+                       :bows="Object.values(poll.bows)"
+                       v-if="!item.voted"
+                       :total="item.amountOfVoted"
+                       :voted="item.voted"
+                       :poll-id="poll.id"
+
+        />
         <question-media :content="poll.content" :picture="poll.picture" :pictures="poll.urlPhotos"/>
         <question-options
                 :options="optionsArray"
@@ -43,7 +51,7 @@
         <slot name="recommends">
 
         </slot>
-        <question-bows class="mt-14" :bows="Object.values(poll.bows)"  v-if="item.voted" :voted="item.voted" :poll-id="poll.id" :total="item.amountOfVoted"/>
+        <question-bows class="mt-14" :bows="Object.values(poll.bows)" :main-bow="item.mainUserBow"  v-if="item.voted" :voted="item.voted" :poll-id="poll.id" :total="item.amountOfVoted"/>
         <question-comments class="mt-18"
                            :explains="explainsArray"
                            :voted="item.voted"
